@@ -126,7 +126,7 @@ other endpoint to prove itself to a relying party, a server or a service.  This
 allows the relying party to know some characteristics about the device
 and decide whether it trusts the device.
 
-Remote attestation is a fundamental service that can underly other
+Remote attestation is a fundamental service that can underlie other
 protocols and services that need to know about the trustworthiness of
 the device before proceeding. One good example is biometric
 authentication where the biometric matching is done on the device. The
@@ -149,7 +149,7 @@ limited to the following:
 
 The required data format should be general purpose and extensible so
 that it can work across many use cases.  This is why CBOR (see {{RFC7049}}) 
-is choosen as the format --- it already
+was chosen as the format --- it already
 supports a rich set of data types, and is both expressive and
 extensible.  It translates well to JSON for good interoperation with
 web technology. It is compact and can work on very small IoT
@@ -251,7 +251,7 @@ EAT.  This can happen in many different ways. Here are some examples.
 
 This standard supports all these operating models and does not prefer
 one over the other. It is important to support this variety of
-operating models to generaly facilitate deployment and to allow for
+operating models to generally facilitate deployment and to allow for
 some special scenarios. One special scenario has a validation service
 that is monetized, most likely by the manufacturer.  In another, a
 privacy proxy service processes the EAT before it is transmitted to
@@ -285,7 +285,7 @@ signature.
 ### Signing Scheme
 
 The term "signing scheme" is used to refer to the system that includes
-end-end process of establishing signing attesation key material in the entity,
+end-end process of establishing signing attestation key material in the entity,
 signing the EAT, and verifying it. This might involve key IDs and
 X.509 certificate chains or something similar but different. The term
 "signing algorithm" refers just to the algorithm ID in the COSE
@@ -346,7 +346,7 @@ CWT Claims Set.
 
 FloatOrNumber.
 : The "FloatOrNumber" term in this specification is the type
-of a claim that is either a CBOR postivie integer, negative integer
+of a claim that is either a CBOR positive integer, negative integer
 or floating point number. 
 
 Attestation Key Material (AKM).
@@ -354,7 +354,7 @@ Attestation Key Material (AKM).
 symmetrically with HMAC, then this is a simple symmetric key.
 If it is done with ECC, such as an IEEE DevID {{IDevID}}, then this
 is the private part of the EC key pair. If ECDAA 
-is used, (e.g., as used by Ehnaced Privacy ID, i.e. EPID) then it is the key material 
+is used, (e.g., as used by Enhanced Privacy ID, i.e. EPID) then it is the key material 
 needed for ECDAA.
 
 
@@ -396,7 +396,7 @@ UEID's are not designed for direct use by humans (e.g., printing on
 the case of a device), so no textual representation is defined.
 
 A UEID is a byte string. From the consumer's view (the rely party) it
-is opaque wtih no bytes having any special meaning.
+is opaque with no bytes having any special meaning.
 
 When the entity constructs the UEID, the first byte is a type and the
 following bytes the ID for that type.  Several types are allowed to
@@ -440,7 +440,7 @@ some examples:
 | Acme-Linux-Kernel | The EATs are generated in a Linux kernel configured and shipped by "Acme" |
 | Acme-TA | The EATs are generated in a Trusted Application (TA) authored by "Acme"
 
-The claim is represented by Claim Key X+15. It is type StringOrURI.
+The claim is represented by Claim Key X+1. It is type StringOrURI.
 
 TODO: consider a more structure approach where the name and the URI
 and other are in separate fields.
@@ -492,7 +492,7 @@ It is akin to the Secure Restricted level (see below) without the
 security orientation. Examples include a WiFi subsystem,
 an IoT camera, or sensor device.
 
-3 -- Secure Restriced
+3 -- Secure Restricted
 : Entities at this level must meet the critera defined by FIDO Allowed
 Restricted Operating Environments (TODO: reference). Examples include TEE's and 
 schemes using virtualization-based security. Like the FIDO security goal,
@@ -507,7 +507,7 @@ disassemble it. Example include TPMs and Secure Elements.
 
 This claim is not intended as a replacement for a proper end-device
 security certification schemes such as those based on FIPS (TODO: reference)
-or those based on Common Criterion (TODO: reference). The 
+or those based on Common Criteria (TODO: reference). The 
 claim made here is solely a self-claim made by the Entity Originator.
  
 
@@ -603,7 +603,7 @@ the location accuracy.  It is non-negative and expressed in meters.
 It is of data type FloatOrNumber and identified 
 by Claim Key X+14.
 
-### altacc (altitiude accuracy) claim
+### altacc (altitude accuracy) claim
 
 The "altacc" (altitude accuracy) claim contains a value that describes
 the altitude accuracy.  It is non-negative and expressed in meters.
@@ -657,7 +657,7 @@ identified by Claim Key X+20.
 
 Some devices are complex, having many subsystems or submodules.  A
 mobile phone is a good example. It may have several connectivity
-submodules for communications (e.g., WiFi and celluar). It may have
+submodules for communications (e.g., WiFi and cellular). It may have
 sub systems for low-power audio and video playback. It may have one or
 more security-oriented subsystems like a TEE or a Secure Element.
 
@@ -738,7 +738,7 @@ always prefix a submodule EAT.  The proposed EAT CBOR tag is 71.
 Certain EAT claims can be used to track the owner of an entity and
 therefore implementations should consider providing privacy-preserving
 options dependent on the intended usage of the EAT.  Examples would
-include suppresion of location claims for EAT's provided to
+include suppression of location claims for EAT's provided to
 unauthenticated consumers.
 
 ## UEID Privacy Considerations {#privacyconsiderations}
@@ -763,7 +763,7 @@ and brokerage services might already cover use of a UEID.
 * The UEID is used only in a particular context or particular use
 case. It is used only by one relying party.
 
-* The device authenticates the relying party and generates a derivate
+* The device authenticates the relying party and generates a derived
 UEID just for that particular relying party.  For example, the relying
 party could prove their identity cryptographically to the device, then
 the device generates a UEID just for that relying party by hashing a
@@ -776,7 +776,7 @@ one UEID and it is still globally universal across manufacturers.
 
 # Security Considerations {#securitycons}
 
-TODO: Perhpas this can be the same as CWT / COSE, but not sure yet
+TODO: Perhaps this can be the same as CWT / COSE, but not sure yet
 because it involves so much entity / device security that 
 those do not.
 
