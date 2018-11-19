@@ -689,6 +689,37 @@ that is high security.
 The contents of the "eat" claim must be a fully signed, optionally
 encrypted, EAT token. It is identified by Claim Key X+23.
 
+# CBOR Interoperability
+EAT is a one-way protocol. It only defines a single message that goes from the entity to the server. The entity implementation will often be in a contained environment with little RAM and the server will usually not be. The following requirements for interoperability take that into account. The entity can generally use whatever encoding it wants. The server is required to support just about every encoding.
+
+Canonical CBOR encoding is explicitly NOT required as it would place an unnecessary burden on the entity implementation.
+
+## Integer Encoding (major type 0 and 1)
+The entity may use any integer encoding allowed by CBOR. The server MUST accept all integer encodings allowed by CBOR.
+
+## String Encoding (major type 2 and 3)
+The entity can use any string encoding allowed by CBOR including indefinite lengths. It may also encode the lengths of strings in any way allowed by CBOR. The server must accept all string encodings.
+
+Major type 2, bstr, SHOULD be have tag 21, 22 or 23 to indicate conversion to base64 or such when converting to JSON.
+
+## Map and Array Encoding (major type 4 and 5)
+The entity can use any array or map encoding allowed by CBOR including indefinite lengths. Sorting of map keys is not required. Duplicate map keys are not allowed. The server must accept all array and map encodings. The server may reject maps with duplicate map keys. 
+
+## Date and Time
+The entity should send dates as tag 1 encoded as 64-bit or 32-bit integers. The entity may not send floating point dates. The server must support tag 1 epoch based dates encoded as 64-bit or 32-bit integers. 
+
+The entity may send tag 0 dates, however tag 1 is preferred. The server must support tag 0 UTC dates. 
+
+## URIs
+URIs should be encoded as text strings and marked with tag 32.
+
+## Floating Point
+Encoding data in floating point is to be used only if necessary. Location coordinates are always in floating point. The server must support decoding of all types of floating point.
+
+## Other types
+Use of Other types like bignums, regular expressions and so SHOULD NOT be used. The server MAY support them, but is not required to. Use of these tags is 
+
+
 # IANA Considerations
 
 ## Reuse of CBOR Web Token (CWT) Claims Registry
