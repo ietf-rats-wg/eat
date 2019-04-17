@@ -312,6 +312,26 @@ The claims included in this document are on the basis of whether they
 are useful and interoperable.  No claims have been excluded because
 they are not useful on high-security environments and entities.
 
+### Reuse of Extant Data Formats
+
+Where possible, claims should already standardized data items,
+identifier and data formats. This takes advantage of the expertise in
+creating those formats and improves interoperability.
+
+In some cases, a proprietary data format that is already in use may be
+adopted and made standard for a claim. It should fulfill the above
+criteria, particular the OS and technology neutrality.
+
+Often these claims will not be defined in the encodings, the syntaxes,
+used by EAT. In most cases it is best to wrap the data or adapt the
+encoding to the ones used by EAT so that EAT implementations do not
+end up with a plethora of encoders and decoders of different
+serialization formats.
+
+In some rare cases, it may be better to use the encoding as is. For
+example, signed X.509 certificates and CRLS should be carried as is
+and not re encoded.
+
 ### Proprietary Claims
 
 General compliance with EAT allows arbitrary proprietary claims 
