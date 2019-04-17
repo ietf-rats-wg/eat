@@ -2,7 +2,8 @@
 stand_alone: true
 ipr: trust200902
 cat: std
-docname: draft-ietf-mandyam-eat-00
+docname: draft-mandyam-rats-eat-00
+wg: RATS Working Group
 # consensus: 'yes'
 # submissiontype: IETF
 pi:
@@ -30,13 +31,8 @@ author:
   email: mandyam@qti.qualcomm.com
 - ins: L. Lundblade
   name: Laurence Lundblade
-  org: Qualcomm Technologies Inc.
-  street: 5775 Morehouse Drive
-  city: San Diego
-  region: California
-  country: USA
-  phone: +1 858 658 3584
-  email: llundbla@qti.qualcomm.com
+  org: Security Theory LLC
+  email: lgl@island-resort.com
 - ins: M. Ballesteros
   name: Miguel Ballesteros
   org: Qualcomm Technologies Inc.
@@ -405,9 +401,12 @@ and to give options to avoid paying fees for certain types of
 manufacturer registrations.
 
 | Type Byte | Type Name | Specification |
-| 0x01 | GUID | This is a 128 to 256 bit random number generated once and stored in the device. The GUID may be constructed from various identifiers on the device using a hash function or it may be just the raw random number. In any case, the random number must have entropy of at least 128 bits as this is what gives the global |
+| 0x01 | GUID | This is a 128 to 256 bit random number generated once and stored in the device. The GUID may be constructed from various identifiers on the device using a hash function or it may be just the raw random number. |
 | 0x02 | IEEE EUI | This makes use of the IEEE company identification registry. An EUI is made up of an OUI and OUI-36 or a CID, different registered company identifiers, and some unique per-device identifier. EUIs are often the same as or similar to MAC addresses. (Note that while devices with multiple network interfaces may have multiple MAC addresses, there is only one UEID for a device) TODO: normative references to IEEE.|
-| 0x03 | IMEI | TODO: figure how to specify IMEIs |
+| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8 digit Type Allocation Code and a six digit serial number allocated by the manufacturer, which SHALL be encoded as a binary integer over 48 bits. The IMEI value encoded SHALL NOT include Luhn checksum or SVN information.|
+| 0x04 | EUI-48 | This is a 48-bit identifier formed by concatenating the 24-bit OUI with a 24-bit identifier assigned by the organisation that purchased the OUI. |
+| 0x05 | EUI-60 | This is a 60-bit identifier formed by concatenating the 24-bit OUI with a 36-bit identifier assigned by the organisation that purchased the OUI. |
+| 0x06 | EUI-64 | This is a 64-bit identifier formed by concatenating the 24-bit OUI with a 40-bit identifier assigned by the organisation that purchased the OUI. |
 {: #ueid-types-table title="UEID Composition Types"}
 
 The consumer (the Relying Party) of a UEID should treat a UEID as a completely opaque
