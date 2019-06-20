@@ -59,6 +59,7 @@ normative:
   RFC8174:
   RFC8152:
   RFC8392:
+  RFC8610:
   TIME_T:
     target: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_15
     title: 'Vol. 1: Base Definitions, Issue 7'
@@ -101,11 +102,14 @@ informative:
 
 --- abstract
 
-An attestation format based on concise binary object representation
-(CBOR) is proposed that is suitable for inclusion in a CBOR Web Token
-(CWT), know as the Entity Attestation Token (EAT).  The associated
-data can be used by a relying party to assess the security state of a
-remote device or module.
+An Entity Attestation Token (EAT) provides a signed (attested) set of
+claims that describe state and characteristics of an entity, typically
+a device like an phone or an IoT device.  These claims are used by
+a relying party to determine how much it wishes to trust the entity.
+
+An EAT is either a CWT or JWT with some attestation-oriented 
+claims. To a large degree, all this document does is extend
+CWT and JWT.
 
 --- note_Contributing
 
@@ -178,28 +182,6 @@ attested data to be tagged at a security level from which it
 originates.  In general, any discrete execution environment that has
 an identifiable security level can be considered an entity.
 
-
-## Use of CBOR and COSE
-
-Fundamentally this attestation format is a verifiable data format. It is a 
-collection of data items that can be signed by an attestation key, hashed,
-and/or encrypted.  As per Section 7 of {{RFC8392}}, the
-verification method is in the CWT using the CBOR Object Signing and 
-Encryption (COSE) methodology (see {{RFC8152}}).
-
-In addition, the reported attestation data could be determined within the
-secure operating environment or written to it from an external and
-presumably less trusted entity on the device.  In either case, the 
-source of the reported data
-must be identifiable by the relying party.
-
-This attestation format is a single relatively simple signed message. 
-It is designed to be incorporated into many
-other protocols and many other transports.  It is also designed
-such that other SW and apps can add their own data to
-the message such that it is also attested.
-
-
 ## EAT Operating Models
 
 At least the following three participants exist in all EAT operating
@@ -256,12 +238,28 @@ signing. In this case the manufacturer should perform the verification,
 because any release of the key material would enable a participant other than the
 entity to create valid signed EATs.
 
+# CWT and JWT
+An EAT token is either a CWT {{RFC8392}} or a JWT {{RFC7519}}. This
+specification defines additional claims for entity attetation. 
+
+This specification uses CDDL {{RFC8610}}  as the primary formalism to define each claim.
+The implementor then interprets the CDDL to come to either the 
+CBOR or JSON representation. In the case of JSON, Appendix E of
+CDDL is followed. Additional rules are given in XXX of this document
+where Appendix E is insufficient.  (Note that this is not to define
+a general means to translate between CBOR and JSON, but only
+to define enough such that the claims defined in this document
+can be rendered unambigously in JSON).
+
+Each claim is defined as a CDDL group.  The group is a general
+aggregation feature of CDDL. In the data model the CDDL groups turn
+into CBOR map entries and JSON name/value pairs.
 
 ## What is Not Standardized
 
 ### Transmission Protocol
 
-EATs may be transmitted by any protocol. For example, they might be
+EATs may be transmitted by any protocol the same as CWTs and JWTs. For example, they might be
 added in extension fields of other protocols, bundled into an
 HTTP header, or just transmitted as files. This flexibility is
 intentional to allow broader adoption. This flexibility is possible because EAT's
@@ -271,7 +269,7 @@ security requirements.
 
 For certain devices, a direct connection may not exist between the 
 EAT-producing device and the Relying Party. In such cases, the EAT 
-should be protected against malicious access. The use of COSE allows
+should be protected against malicious access. The use of COSE and JOSE allows
 for signing and encryption of the EAT. Therefore even if the EAT is
 conveyed through intermediaries between the device and Relying Party,
 such intermediaries cannot easily modify the EAT payload or alter the
@@ -314,36 +312,17 @@ capitals, as shown here.
 This document reuses terminology from JWT {{RFC7519}}, COSE
 {{RFC8152}}, and CWT {{RFC8392}}.
 
-StringOrURI.
-: The "StringOrURI" term in this specification has the same meaning
-and processing rules as the JWT "StringOrURI" term defined in
-Section 2 of {{RFC7519}}, except that it is represented as a CBOR
-text string instead of a JSON text string.
-
-NumericDate.
-: The "NumericDate" term in this specification has the same meaning
-and processing rules as the JWT "NumericDate" term defined in
-Section 2 of {{RFC7519}}, except that it is represented as a CBOR
-numeric date (from Section 2.4.1 of {{RFC7049}}) instead of a JSON
-number.  The encoding is modified so that the leading tag 1
-(epoch-based date/time) MUST be omitted.
-
 Claim Name.
 : The human-readable name used to identify a claim.
 
 Claim Key.
-: The CBOR map key used to identify a claim.
+: The CBOR map key or JSON name used to identify a claim.
 
 Claim Value.
 : The CBOR map value representing the value of the claim.
 
 CWT Claims Set.
-: The CBOR map that contains the claims conveyed by the CWT.
-
-FloatOrNumber.
-: The "FloatOrNumber" term in this specification is the type
-of a claim that is either a CBOR positive integer, negative integer
-or floating point number. 
+: The CBOR map or JSON object that contains the claims conveyed by the CWT or JWT.
 
 Attestation Key Material (AKM).
 : The key material used to sign the EAT token. If it is done
@@ -354,9 +333,33 @@ is used, (e.g., as used by Enhanced Privacy ID, i.e. EPID) then it is the key ma
 needed for ECDAA.
 
 
-# The Claims
+# The Claims Information Model
 
-## Universal Entity ID (UEID) Claim
+## Claims reused from CWT and JWT
+Any claim defined for CWT or JWT may be used in an EAT. 
+
+Several claims defined by CWT and JWT are particularly important for EAT.
+The rest of this subsection lists them and describes how they relate
+to EAT.
+
+### Nonce Claim
+
+All EATs should have a nonce to prevent replay attacks. The nonce is
+generated by the relying party, sent to the entity by any protocol, and
+included in the token. Note that intrinicially by the nature of a nonce
+no security is needed for its transport. 
+
+CWT defines the "cti" claim. JWT defines the "jti" claim. These 
+carry the nonce in an EAT.
+
+TODO: what about the JWT claim "nonce"?
+
+### Timestamp claim
+
+The "iat" claim defined in CWT and JWT is used to indicate the 
+date-of-creation of the token.
+
+## Universal Entity ID Claim (ueid)
 
 UEID's identify individual manufactured entities / devices such as a
 mobile phone, a water meter, a Bluetooth speaker or a networked
@@ -364,8 +367,6 @@ security camera.  It may identify the entire device or a submodule or
 subsystem. It does
 not identify types, models or classes of devices.  It is akin to a
 serial number, though it does not have to be sequential. 
-
-It is identified by Claim Key X (X is TBD).
 
 UEID's must be universally and globally unique across manufacturers
 and countries. UEIDs must also be unique across protocols and systems,
@@ -425,8 +426,13 @@ OUI claim that is defined elsewhere. The reasons for this are:
   optimize their manufacturing by switching from type 0x01 to type
   0x02 or vice versa.  The main requirement on the manufacturer is
   that UEIDs be universally unique. 
-
-## Origination (origination) Claims
+  
+ ### CDDL
+  
+     ueid_claim = (
+     ueid: bstr )
+  
+## Origination Claim (origination)
 
 This claim describes the parts of the device or entity that
 are creating the EAT. Often it will be tied back to the
@@ -439,15 +445,18 @@ some examples:
 | Acme-Linux-Kernel | The EATs are generated in a Linux kernel configured and shipped by "Acme" |
 | Acme-TA | The EATs are generated in a Trusted Application (TA) authored by "Acme"
 
-The claim is represented by Claim Key X+1. It is type StringOrURI.
-
 TODO: consider a more structure approach where the name and the URI
 and other are in separate fields.
 
 TODO: This needs refinement. It is somewhat parallel to issuer claim
 in CWT in that it describes the authority that created the token.
 
-## OEM identification by IEEE OUI
+### CDDL
+
+    origination_claim = (
+    origination: string_or_uri )
+
+## OEM identification by IEEE OUI (oemid)
 
 This claim identifies a device OEM by the IEEE OUI. Reference TBD. It
 is a byte string representing the OUI in binary form in network byte
@@ -459,10 +468,15 @@ pick one and prefer that for all their devices.
 Note that the OUI is in common use as a part of MAC Address. This claim
 is only the first bits of the MAC address that identify the
 manufacturer. The IEEE
-maintains a registry for these in which many companies participate.  This claim is represented
-by Claim Key TBD.
+maintains a registry for these in which many companies participate.  
 
-## Security Level (seclevel) Claim
+### CDDL
+
+    oemid_claim = (
+    oemid: bstr )
+
+
+## The Security Level Claim (security_level)
 
 EATs have a claim that roughly characterizes the device / entities 
 ability to defend against attacks aimed at capturing the signing
@@ -474,9 +488,6 @@ definied by the Fast Identity Online (FIDO) Alliance (TODO: reference).
 These claims describe security environment and countermeasures
 available on the end-entity / client device where
 the attestation key reside and the claims originate. 
-
-This claim is identified by Claim Key X+2. The value is an
-integer between 1 and 4 as defined below.
 
 1 -- Unrestricted 
 : There is some expectation that implementor will
@@ -508,135 +519,103 @@ This claim is not intended as a replacement for a proper end-device
 security certification schemes such as those based on FIPS (TODO: reference)
 or those based on Common Criteria (TODO: reference). The 
 claim made here is solely a self-claim made by the Entity Originator.
- 
 
-## Nonce (nonce) Claim
+### CDDL
 
-The "nonce" (Nonce) claim represents a random value that can be used
-to avoid replay attacks.  This would be ideally generated by the CWT
-consumer.  This value is intended to be a CWT companion claim to the
-existing JWT claim ___IANAJWT___ (TODO: fix this reference).  The nonce claim is
-identified by Claim Key X+3.
+    security_level_type = (
+    unrestricted: 1,
+    restriced: 2,
+    secure_restriced: 3,
+    hardware: 4
+    )
+    
+    security_level_claim = (
+    security_level: security_level_type )
 
-## Secure Boot and Debug Enable State Claims
+## Secure Boot and Debug Enable State Claims (boot_state)
+
+This claim is an array of five booleans indicating the boot and debug
+state of the entity.
 
 ### Secure Boot Enabled (secbootenabled) Claim
 
-The "secbootenabled" (Secure Boot Enabled) claim represents a boolean
-value that indicates whether secure boot is enabled either for an
+This indicates whether secure boot is enabled either for an
 entire device or an individual submodule.  If it appears at the device
 level, then this means that secure boot is enabled for all submodules.
 Secure boot enablement allows a secure boot loader to authenticate
 software running either in a device or a submodule prior allowing
-execution. This claim is identified by Claim Key X+4.
+execution. 
 
 ### Debug Disabled (debugdisabled) Claim
 
-The "debugdisabled" (Debug Disabled) claim represents a boolean value
-that indicates whether debug capabilities are disabled for an entity
+This indicates whether debug capabilities are disabled for an entity
 (i.e. value of 'true').  Debug disablement is considered a
-prerequisite before an entity is considered operational.  This claim
-is identified by Claim Key X+5.
+prerequisite before an entity is considered operational.  
 
 ### Debug Disabled Since Boot (debugdisabledsincebboot) Claim
 
-The "debugdisabledsinceboot" (Debug Disabled Since Boot) claim
-represents a boolean value that indicates whether debug capabilities
+This claim indicates whether debug capabilities
 for the entity were not disabled in any way since boot (i.e. value of
-'true').  This claim is identified by Claim Key X+6.
+'true'). 
 
 ### Debug Permanent Disable (debugpermanentdisable) Claim
 
-The "debugpermanentdisable" (Debug Permanent Disable) claim represents
-a boolean value that indicates whether debug capabilities for the
+This claim indicates whether debug capabilities for the
 entity are permanently disabled (i.e. value of 'true').  This value
 can be set to 'true' also if only the manufacturer is allowed to
-enabled debug, but the end user is not.  This claim is identified by
-Claim Key X+7.
+enabled debug, but the end user is not.  
 
 ### Debug Full Permanent Disable (debugfullpermanentdisable) Claim
 
-The "debugfullpermanentdisable" (Debug Full Permanent Disable) claim
-represents a boolean value that indicates whether debug capabilities
+This claim indicates whether debug capabilities
 for the entity are permanently disabled (i.e. value of 'true').  This
 value can only be set to 'true' if no party can enable debug
 capabilities for the entity. Often this is implemented by blowing a
-fuse on a chip as fuses cannot be restored once blown.  This claim is
-identified by Claim Key X+8.
+fuse on a chip as fuses cannot be restored once blown.  
+
+### CDDL
+
+    boot_state_type = [
+        secure_boot_enabled=> bool,
+        debug_disabled=> bool,
+        debug_disabled_since_boot=> bool,
+        debug_permanent_disable=> bool,
+        debug_full_permanent_disable=> bool
+    ]
+    
+    boot_state_claim = (
+    boot_state: boot_state_type
+    )
 
 
-## Location (loc) Claim
+## The Location Claim (location)
 
 The "loc" (location) claim is a CBOR-formatted object that describes
 the location of the device entity from which the attestation originates.
-It is identified by Claim Key X+10.  It is comprised
-of an array of additional subclaims
+It is comprised
+of a map of additional subclaims
 that represent the actual location coordinates (latitude, longitude
 and altitude).  The location coordinate claims
 are consistent with the WGS84 coordinate system {{WGS84}}.  In
 addition, a subclaim providing the estimated accuracy of the location
 measurement is defined.
 
-### lat (latitude) claim
+### CDDL
 
-The "lat" (latitude) claim contains the value of the device location
-corresponding to its latitude coordinate.  It is of data type FloatOrNumber 
- and identified by Claim Key X+11.
+    location_type = {
+        latitude => number,
+        longitude => number,
+        altitude => number,
+        accuracy => number,
+        altitude_accuracy => number,
+        heading_claim => number,
+        speed_claim => number
+    }
+    
+    location_claim = (
+    location: location_type )
 
-### long (longitude) claim
-
-The "long" (longitude) claim contains the value of the device location
-corresponding to its longitude coordinate.  It is of data type FloatOrNumber 
-and identified by Claim Key X+12.
-
-### alt (altitude) claim
-
-The "alt" (altitude) claim contains the value of the device location
-corresponding to its altitude coordinate (if available).  It is
-of data type FloatOrNumber and identified by Claim Key X+13.
-
-### acc (accuracy) claim
-
-The "acc" (accuracy) claim contains a value that describes
-the location accuracy.  It is non-negative and expressed in meters. 
-It is of data type FloatOrNumber and identified 
-by Claim Key X+14.
-
-### altacc (altitude accuracy) claim
-
-The "altacc" (altitude accuracy) claim contains a value that describes
-the altitude accuracy.  It is non-negative and expressed in meters.
-It is of data type FloatOrNumber and identified 
-by Claim Key X+15.
-
-### heading claim
-
-The "heading" claim contains a value that describes direction of
-motion for the entity.  Its value is specified in degrees, between 0
-and 360.  It is of data type FloatOrNumber and
-identified by Claim Key X+16.
-
-### speed claim
-
-The "speed" claim contains a value that describes the velocity of the
-entity in the horizontal direction.  Its value is specified in
-meters/second and must be non-negative.  It is of data type FloatOrNumber 
-and identified by Claim Key X+17.
-
-
-## ts (timestamp) claim
-
-The "ts" (timestamp) claim contains a timestamp derived using the same
-time reference as is used to generate an "iat" claim (see Section
-3.1.6 of {{RFC8392}}).  It is of the same type as
-"iat" (integer or floating-point), and is identified by Claim Key
-X+18.  It is meant to designate the time at which a measurement was
-taken, when a location was obtained, or when a token was actually
-transmitted.  The timestamp would be included as a subclaim under the
-"submod" or "loc" claims (in addition to the existing respective
-subclaims), or at the device level.
-
-## age claim
+## The Age Claim (age)
 
 The "age" claim contains a value that represents the number of seconds
 that have elapsed since the token was created, measurement was made,
@@ -644,27 +623,53 @@ or location was obtained.  Typical attestable values are sent as soon
 as they are obtained.  However in the case that such a value is
 buffered and sent at a later time and a sufficiently accurate time
 reference is unavailable for creation of a timestamp, then the age
-claim is provided.  It is identified by Claim Key X+19.
+claim is provided. 
 
-## uptime claim
+    age_claim = (
+    age: uint)
+
+## The Uptime Claim (uptime)
 
 The "uptime" claim contains a value that represents the number of
-seconds that have elapsed since the entity or submod was last booted.  It is
-identified by Claim Key X+20.
+seconds that have elapsed since the entity or submod was last booted.  
 
-## The submods Claim
+### CDDL
+
+    uptime_claim = (
+    uptime: uint )
+
+## Nested EATs, the EAT Claim (nested_eat)
+
+It is allowed for one EAT to be embedded in another. This is for
+complex devices that have more than one subsystem capable of
+generating an EAT. Typically one will be the device-wide EAT that is
+low to medium security and another from a Secure Element or similar
+that is high security.
+
+The contents of the "eat" claim must be a fully signed, optionally
+encrypted, EAT token.
+
+### CDDL
+
+    nested_eat_claim = (
+    nested_eat: nested_eat_type)
+
+A nested_eat_type is defined in words rather than
+CDDL. It is either a full CWT or JWT including the
+COSE or JOSE signing. 
+
+## The Submods Claim (submods)
 
 Some devices are complex, having many subsystems or submodules.  A
 mobile phone is a good example. It may have several connectivity
 submodules for communications (e.g., WiFi and cellular). It may have
-sub systems for low-power audio and video playback. It may have one or
+subsystems for low-power audio and video playback. It may have one or
 more security-oriented subsystems like a TEE or a Secure Element.
 
 The claims for each these can be grouped together in a submodule.
 
 Specifically, the "submods" claim is an array. Each item in the array
 is a CBOR map containing all the claims for a particular submodule.
-It is identified by Claim Key X+22.
 
 The security level of the submod is assumed to be at the same level as
 the main entity unless there is a security level claim in that
@@ -677,46 +682,180 @@ a part of.
 Each submodule should have a submod_name claim that is descriptive
 name. This name should be the CBOR txt type.
 
-### Nested EATs, the eat Claim
+### CDDL
 
-It is allowed for one EAT to be embedded in another. This is for
-complex devices that have more than one subsystem capable of
-generating an EAT. Typically one will be the device-wide EAT that is
-low to medium security and another from a Secure Element or similar
-that is high security.
+In the following a generic_claim_type is any CBOR map entry or JSON name/value pair. 
 
-The contents of the "eat" claim must be a fully signed, optionally
-encrypted, EAT token. It is identified by Claim Key X+23.
+    submod_name_type = (
+    submod_name: tstr )
 
-# CBOR Interoperability
-EAT is a one-way protocol. It only defines a single message that goes from the entity to the server. The entity implementation will often be in a contained environment with little RAM and the server will usually not be. The following requirements for interoperability take that into account. The entity can generally use whatever encoding it wants. The server is required to support just about every encoding.
+    submods_type = [ * submod_claims ]
+    
+    submod_claims = {
+        submod_name_type,
+        * generic_claim_type
+    }
+    
+    submods_claim = (
+    submods: submod_type )
 
-Canonical CBOR encoding is explicitly NOT required as it would place an unnecessary burden on the entity implementation.
+# Data Model
+This makes use of the types defined in  CDDL Appedix D, Standard Prelude.
 
-## Integer Encoding (major type 0 and 1)
+## Common CDDL Types
+
+    string_or_uri = #6.32(tstr) / tstr; See JSON section below for JSON encoding of string_or_uri
+    
+## CDDL for CWT-defined Claims
+This section provides CDDL for the claims defined in CWT. It is non-normative.
+
+    cwt_claim = (
+        issuer_claim //
+        subject_claim //
+        audience_claim //
+        expiration_claim //
+        not_before_claim //
+        issued_at_calim //
+        cwt_id_claim
+    )
+    
+    issuer_claim = (
+    issuer: string_or_uri )
+
+    subject_claim = (
+    subject: string_or_uri )
+
+    audience_claim = (
+    audience: string_or_uri )
+
+    expiration_claim = (
+    expiration: time )
+
+    not_before_claim = (
+    not_before: time )
+
+    issued_at_calim = (
+    issued_at: time )
+
+    cwt_id_claim = (
+    cwt_id: bstr )
+    
+    issuer = 1
+    subject = 2
+    audience = 3
+    expiration = 4
+    not_before = 5
+    issued_at = 6
+    cwt_id = 7
+
+## JSON
+
+### JSON Labels
+
+    ueid = "ueid"
+    originiation = "origination"
+    oemid = "oemid"
+    security_level = "security_level" 
+    boot_state = "boot_state"
+    location = "location"
+    age = "age"
+    uptime = "uptime"
+    nested_eat = "nested_eat"
+    submods = "submods"
+    
+### JSON Interoperability
+
+JSON should be encoded per RFC 8610 Appendix E. In addition, the following CDDL types are encoded in JSON as follows:
+
+* bstr -- must be base64url encoded
+* time -- must be encoded as described in the NumericDate section of {{RFC7519}}.
+* string_or_uri -- must be encoded as StringOrURI described in {{RFC7519}}
+
+## CBOR
+
+### Labels
+
+    ueid = 8
+    originiation = 9
+    oemid = 10
+    security_level = 11
+    boot_state = 12
+    location = 13
+    age = 14
+    uptime = 15
+    nested_eat = 16
+    submods = 17
+    
+    latitude 1
+    longitude 2
+    altitude 3
+    accuracy 4
+    altitude_accuracy 5
+    heading_claim 6
+    speed_claim 7
+
+### CBOR Interoperability
+Variations in the CBOR serializations supported in CBOR encoding and decoding are allowed and suggests that CBOR-based protocols
+specify how this variation is handled. This section specifies what formats
+must be supported in order to achieve the most reliable interoperability. 
+
+The assumption is that the entity is likely to be a constrained device and relying party is likely to be a very capable server. The approach taken is that the entity generatng the token can use what ever encoding it wants, specifically encodings that are easier to implement such as indefinite lengths. The relying party receiving the token must
+support decoding all encodings. 
+
+These rules cover all types used in the claims in this document. They also are recommendations for additional claims.
+
+Canonical CBOR encoding, Preferred Serialization and Deterministically Encoded CBOR are explicitly NOT required as they would place an unnecessary burden on the entity implementation, particularly if the entity implementation is implemented in hardware. 
+
+* Integer Encoding (major type 0, 1)
 The entity may use any integer encoding allowed by CBOR. The server MUST accept all integer encodings allowed by CBOR.
 
-## String Encoding (major type 2 and 3)
+* String Encoding (major type 2 and 3)
 The entity can use any string encoding allowed by CBOR including indefinite lengths. It may also encode the lengths of strings in any way allowed by CBOR. The server must accept all string encodings.
 
-Major type 2, bstr, SHOULD be have tag 21, 22 or 23 to indicate conversion to base64 or such when converting to JSON.
+* Major type 2, bstr, SHOULD be have tag 21 to indicate conversion to base64url in case that conversion is performed.
 
-## Map and Array Encoding (major type 4 and 5)
+* Map and Array Encoding (major type 4 and 5)
 The entity can use any array or map encoding allowed by CBOR including indefinite lengths. Sorting of map keys is not required. Duplicate map keys are not allowed. The server must accept all array and map encodings. The server may reject maps with duplicate map keys. 
 
-## Date and Time
+* Date and Time
 The entity should send dates as tag 1 encoded as 64-bit or 32-bit integers. The entity may not send floating point dates. The server must support tag 1 epoch based dates encoded as 64-bit or 32-bit integers. 
 
 The entity may send tag 0 dates, however tag 1 is preferred. The server must support tag 0 UTC dates. 
 
-## URIs
+* URIs
 URIs should be encoded as text strings and marked with tag 32.
 
-## Floating Point
-Encoding data in floating point is to be used only if necessary. Location coordinates are always in floating point. The server must support decoding of all types of floating point.
+* Floating Point
+The entity may use any floating point encoding. The relying party must support decoding of all types of floating point.
 
-## Other types
+* Other types
 Use of Other types like bignums, regular expressions and so SHOULD NOT be used. The server MAY support them, but is not required to. Use of these tags is 
+
+## Collected CDDL
+
+A generic_claim is any CBOR map entry or JSON name/value pair.
+
+    eat_claims = {  ; the top-level payload that is signed using COSE or JOSE
+            * claim
+    }
+    
+    claim = (
+        ueid_claim //
+        origination_claim //
+        oemid_claim //
+        security_level_claim //
+        boot_state_claim //
+        location_claim //
+        age_claim //
+        uptime_claim //
+        nested_eat_claim //
+        cwt_claim //
+        generic_claim_type //
+        )
+
+TODO: copy the rest of the CDDL here (wait until the
+CDDL is more settled so as to avoid copying
+multiple times)
 
 
 # IANA Considerations
@@ -733,35 +872,12 @@ CWT Claims Registry.
 * Claim Name: UEID
 * Claim Description: The Universal Entity ID
 * JWT Claim Name: N/A
-* Claim Key: X
+* Claim Key: 8
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
 TODO: add the rest of the claims in here
-
-
-## EAT CBOR Tag Registration
-
-How an EAT consumer determines whether received CBOR-formatted data
-actually represents a valid EAT is application-dependent, much like a
-CWT.  For instance, a specific MIME type associated with the EAT such
-as "application/eat" could be sufficient for identification of the
-EAT.  Note however that EAT's can include other EAT's (e.g. a device
-EAT comprised of several submodule EAT's).  In this case, a CBOR tag
-dedicated to the EAT will be required at least for the submodule EAT's
-and the tag must be a valid CBOR tag.  In other words - the EAT CBOR
-tag can optionally prefix a device-level EAT, but a EAT CBOR tag must
-always prefix a submodule EAT.  The proposed EAT CBOR tag is 71.
-
-### Tag Registered by This Document
-
-* CBOR Tag: 71
-* Data Item: Entity Attestation Token (EAT)
-* Semantics: Entity Attestation Token (CWT), as defined in __this_doc__
-* Reference: __this_doc__
-* Point of Contact: Giridhar Mandyam, mandyam@qti.qualcomm.com
-
 
 # Privacy Considerations
 
@@ -814,6 +930,8 @@ those do not.
 --- back
 
 # Examples {#examples}
+
+TODO: revice this example after more of the design is settled. 
 
 ## Very Simple EAT
 
