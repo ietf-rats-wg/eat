@@ -2,7 +2,7 @@
 stand_alone: true
 ipr: trust200902
 cat: std
-docname: draft-mandyam-rats-eat-00
+docname: draft-mandyam-rats-eat-01
 wg: RATS Working Group
 # consensus: 'yes'
 # submissiontype: IETF
@@ -77,6 +77,18 @@ normative:
     author:
     - org: National Imagery and Mapping Agency
     date: 2000
+    
+  IANA.CWT.Claims:
+    title: CBOR Web Token (CWT) Claims
+    target: http://www.iana.org/assignments/cwt
+    author: 
+    - org: IANA
+
+  IANA.JWT.Claims:
+     title: JSON Web Token (JWT) Claims
+     author: 
+     - org: IANA
+     target: https://www.iana.org/assignments/jwt
 
 informative:
   Webauthn:
@@ -100,12 +112,18 @@ informative:
     date: December 2009
     target: http://standards.ieee.org/findstds/standard/802.1AR-2009.html
 
+  ECMAScript:
+    title: Ecma International, "ECMAScript Language Specification, 5.1 Edition", ECMA Standard 262
+    date:  June 2011
+    target: http://www.ecma-international.org/ecma-262/5.1/ECMA-262.pdf
+
+
 --- abstract
 
 An Entity Attestation Token (EAT) provides a signed (attested) set of
 claims that describe state and characteristics of an entity, typically
-a device like an phone or an IoT device.  These claims are used by
-a relying party to determine how much it wishes to trust the entity.
+a device like a phone or an IoT device.  These claims are used by a
+relying party to determine how much it wishes to trust the entity.
 
 An EAT is either a CWT or JWT with some attestation-oriented 
 claims. To a large degree, all this document does is extend
@@ -122,9 +140,9 @@ TBD
 
 Remote device attestation is fundamental service that allows a remote
 device such as a mobile phone, an Internet-of-Things (IoT) device, or
-other endpoint to prove itself to a relying party, a server or a service.  This
-allows the relying party to know some characteristics about the device
-and decide whether it trusts the device.
+other endpoint to prove itself to a relying party, a server or a
+service.  This allows the relying party to know some characteristics
+about the device and decide whether it trusts the device.
 
 Remote attestation is a fundamental service that can underlie other
 protocols and services that need to know about the trustworthiness of
@@ -142,23 +160,26 @@ limited to the following:
 
  * Proof of the make and model of the device hardware (HW)
  * Proof of the make and model of the device processor, particularly
-   for security oriented chips
+   for security-oriented chips
  * Measurement of the software (SW) running on the device
  * Configuration and state of the device
  * Environmental characteristics of the device such as its GPS location
 
-The required data format should be general purpose and extensible so
-that it can work across many use cases.  This is why CBOR (see {{RFC7049}}) 
-was chosen as the format --- it already
-supports a rich set of data types, and is both expressive and
-extensible.  It translates well to JSON for good interoperation with
-web technology. It is compact and can work on very small IoT
-device. The format proposed here is small enough that a limited
-version can be implemented in pure hardware gates with no software at
-all.  Moreover, the attestation data is defined in the form of claims
-that is the same as CBOR Web Token (CWT, see {{RFC8392}}). 
-This is the motivation for defining the Entity Attestation Token, i.e. EAT.
+## CDDL, CWT and JWT
 
+An EAT token is either a CWT as defined in {{RFC8392}} or a JWT as
+defined in {{RFC7519}}. This specification defines additional claims
+for entity attestation.
+
+This specification uses CDDL, {{RFC8610}}, as the primary formalism to
+define each claim.  The implementor then interprets the CDDL to come
+to either the CBOR {{RFC7049}} or JSON {{ECMAScript}}
+representation. In the case of JSON, Appendix E of {{RFC8610}} is
+followed. Additional rules are given in {{jsoninterop}} of this
+document where Appendix E is insufficient.  (Note that this is not to
+define a general means to translate between CBOR and JSON, but only to
+define enough such that the claims defined in this document can be
+rendered unambiguously in JSON).
 
 ## Entity Overview
 
@@ -170,17 +191,17 @@ submodule EAT's.  It is assumed that any entity that can create an EAT
 does so by means of a dedicated root-of-trust (RoT).
 
 Modern devices such as a mobile phone have many different execution
-environments operating with different security levels. For example it
+environments operating with different security levels. For example, it
 is common for a mobile phone to have an “apps” environment that runs
-an operating system (OS) that hosts a plethora of downloadable apps. It may also have a
-TEE (Trusted Execution Environment) that is distinct, isolated, and
-hosts security-oriented functionality like biometric
-authentication. Additionally it may have an eSE (embedded Secure
-Element) - a high security chip with defenses against HW attacks that
-can serve as a RoT.  This device attestation format allows the
-attested data to be tagged at a security level from which it
-originates.  In general, any discrete execution environment that has
-an identifiable security level can be considered an entity.
+an operating system (OS) that hosts a plethora of downloadable
+apps. It may also have a TEE (Trusted Execution Environment) that is
+distinct, isolated, and hosts security-oriented functionality like
+biometric authentication. Additionally, it may have an eSE (embedded
+Secure Element) - a high security chip with defenses against HW
+attacks that can serve as a RoT.  This device attestation format
+allows the attested data to be tagged at a security level from which
+it originates.  In general, any discrete execution environment that
+has an identifiable security level can be considered an entity.
 
 ## EAT Operating Models
 
@@ -199,23 +220,26 @@ The Relying Party.
 : The server, service or company that makes use of the information in
 the EAT about the entity.
 
-In all operating models, the manufacturer provisions some secret attestation
-key material (AKM) into the entity during manufacturing.  This might be during
-the manufacturer of a chip at a fabrication facility (fab) or during final assembly of a
-consumer product or any time in between. This attestation key material is used for
-signing EATs.
+In all operating models, the manufacturer provisions some secret
+attestation key material (AKM) into the entity during manufacturing.
+This might be during the manufacturer of a chip at a fabrication
+facility (fab) or during final assembly of a consumer product or any
+time in between. This attestation key material is used for signing
+EATs.
  
 In all operating models, hardware and/or software on the entity create
 an EAT of the format described in this document. The EAT is always
-signed by the attestation key material provisioned by the manufacturer.
+signed by the attestation key material provisioned by the
+manufacturer.
 
 In all operating models, the relying party must end up knowing that
-the signature on the EAT is valid and consistent with data from claims in the
-EAT.  This can happen in many different ways. Here are some examples.
+the signature on the EAT is valid and consistent with data from claims
+in the EAT.  This can happen in many different ways. Here are some
+examples.
 
 * The EAT is transmitted to the relying party. The relying party gets
-  corresponding key material (e.g. a root certificate) from the manufacturer. The
-  relying party performs the verification.
+  corresponding key material (e.g. a root certificate) from the
+  manufacturer. The relying party performs the verification.
 
 * The EAT is transmitted to the relying party. The relying party
   transmits the EAT to a verification service offered by the
@@ -234,65 +258,52 @@ some special scenarios. One special scenario has a validation service
 that is monetized, most likely by the manufacturer.  In another, a
 privacy proxy service processes the EAT before it is transmitted to
 the relying party. In yet another, symmetric key material is used for
-signing. In this case the manufacturer should perform the verification,
-because any release of the key material would enable a participant other than the
-entity to create valid signed EATs.
+signing. In this case the manufacturer should perform the
+verification, because any release of the key material would enable a
+participant other than the entity to create valid signed EATs.
 
-# CWT and JWT
-An EAT token is either a CWT {{RFC8392}} or a JWT {{RFC7519}}. This
-specification defines additional claims for entity attetation. 
-
-This specification uses CDDL {{RFC8610}}  as the primary formalism to define each claim.
-The implementor then interprets the CDDL to come to either the 
-CBOR or JSON representation. In the case of JSON, Appendix E of
-CDDL is followed. Additional rules are given in XXX of this document
-where Appendix E is insufficient.  (Note that this is not to define
-a general means to translate between CBOR and JSON, but only
-to define enough such that the claims defined in this document
-can be rendered unambigously in JSON).
-
-Each claim is defined as a CDDL group.  The group is a general
-aggregation feature of CDDL. In the data model the CDDL groups turn
-into CBOR map entries and JSON name/value pairs.
 
 ## What is Not Standardized
 
+The following is not standardized for EAT, just the same they are not
+standardized for CWT or JWT.
+
 ### Transmission Protocol
 
-EATs may be transmitted by any protocol the same as CWTs and JWTs. For example, they might be
-added in extension fields of other protocols, bundled into an
-HTTP header, or just transmitted as files. This flexibility is
-intentional to allow broader adoption. This flexibility is possible because EAT's
-are self-secured with signing (and possibly additionally with
-encryption and anti-replay). The transmission protocol is not required to fulfill any additional
-security requirements.
+EATs may be transmitted by any protocol the same as CWTs and JWTs. For
+example, they might be added in extension fields of other protocols,
+bundled into an HTTP header, or just transmitted as files. This
+flexibility is intentional to allow broader adoption. This flexibility
+is possible because EAT's are self-secured with signing (and possibly
+additionally with encryption and anti-replay). The transmission
+protocol is not required to fulfill any additional security
+requirements.
 
-For certain devices, a direct connection may not exist between the 
-EAT-producing device and the Relying Party. In such cases, the EAT 
-should be protected against malicious access. The use of COSE and JOSE allows
-for signing and encryption of the EAT. Therefore even if the EAT is
-conveyed through intermediaries between the device and Relying Party,
-such intermediaries cannot easily modify the EAT payload or alter the
-signature.
-
+For certain devices, a direct connection may not exist between the
+EAT-producing device and the Relying Party. In such cases, the EAT
+should be protected against malicious access. The use of COSE and JOSE
+allows for signing and encryption of the EAT. Therefore, even if the
+EAT is conveyed through intermediaries between the device and Relying
+Party, such intermediaries cannot easily modify the EAT payload or
+alter the signature.
 
 ### Signing Scheme
 
 The term "signing scheme" is used to refer to the system that includes
-end-end process of establishing signing attestation key material in the entity,
-signing the EAT, and verifying it. This might involve key IDs and
-X.509 certificate chains or something similar but different. The term
-"signing algorithm" refers just to the algorithm ID in the COSE
-signing structure. No particular signing algorithm or signing scheme
-is required by this standard.
+end-end process of establishing signing attestation key material in
+the entity, signing the EAT, and verifying it. This might involve key
+IDs and X.509 certificate chains or something similar but
+different. The term "signing algorithm" refers just to the algorithm
+ID in the COSE signing structure. No particular signing algorithm or
+signing scheme is required by this standard.
 
-There are three main implementation issues driving this. First,
-secure non-volatile storage space in the entity for the attestation key
+There are three main implementation issues driving this. First, secure
+non-volatile storage space in the entity for the attestation key
 material may be highly limited, perhaps to only a few hundred bits, on
 some small IoT chips. Second, the factory cost of provisioning key
 material in each chip or device may be high, with even millisecond
 delays adding to the cost of a chip. Third, privacy-preserving signing
-schemes like ECDAA (Elliptic Curve Direct Anonymous Attestation) are 
+schemes like ECDAA (Elliptic Curve Direct Anonymous Attestation) are
 complex and not suitable for all use cases.
 
 Eventually some form of standardization of the signing scheme may be
@@ -319,7 +330,7 @@ Claim Key.
 : The CBOR map key or JSON name used to identify a claim.
 
 Claim Value.
-: The CBOR map value representing the value of the claim.
+: The CBOR map or JSON object value representing the value of the claim.
 
 CWT Claims Set.
 : The CBOR map or JSON object that contains the claims conveyed by the CWT or JWT.
@@ -335,28 +346,39 @@ needed for ECDAA.
 
 # The Claims Information Model
 
-## Claims reused from CWT and JWT
-Any claim defined for CWT or JWT may be used in an EAT. 
+This section describes new claims defined for attestation. It also
+mentions several claims defined by CWT and JWT are particularly
+important for EAT.
 
-Several claims defined by CWT and JWT are particularly important for EAT.
-The rest of this subsection lists them and describes how they relate
-to EAT.
+Note also:
+* Any claim defined for CWT or JWT may be used in an EAT including 
+  those in the CWT {{IANA.CWT.Claims}} and JWT IANA {{IANA.JWT.Claims}}
+  claims registries.
+ * All claims are optional
+ * No claims are mandatory
+ * All claims that are not understood by implementations MUST be ignored
 
-### Nonce Claim
+CDDL along with text descriptions is used to define the information
+model.  Each claim is defined as a CDDL group (the group is a general
+aggregation and type definition feature of CDDL). In the data model,
+described in the {{datamodel}}, the CDDL groups turn into CBOR map
+entries and JSON name/value pairs.
+
+## Nonce Claim (cti and jti)
 
 All EATs should have a nonce to prevent replay attacks. The nonce is
-generated by the relying party, sent to the entity by any protocol, and
-included in the token. Note that intrinicially by the nature of a nonce
-no security is needed for its transport. 
+generated by the relying party, sent to the entity by any protocol,
+and included in the token. Note that intrinsically by the nature of a
+nonce no security is needed for its transport.
 
-CWT defines the "cti" claim. JWT defines the "jti" claim. These 
-carry the nonce in an EAT.
+CWT defines the "cti" claim. JWT defines the "jti" claim. These carry
+the nonce in an EAT.
 
 TODO: what about the JWT claim "nonce"?
 
-### Timestamp claim
+## Timestamp claim (iat)
 
-The "iat" claim defined in CWT and JWT is used to indicate the 
+The "iat" claim defined in CWT and JWT is used to indicate the
 date-of-creation of the token.
 
 ## Universal Entity ID Claim (ueid)
@@ -373,7 +395,7 @@ and countries. UEIDs must also be unique across protocols and systems,
 as tokens are intended to be embedded in many different protocols and
 systems. No two products anywhere, even in completely different
 industries made by two different manufacturers in two different
-countries. should have the same UEID (if they are not global and
+countries should have the same UEID (if they are not global and
 universal in this way then relying parties receiving them will have to
 track other characteristics of the device to keep devices distinct
 between manufacturers). 
@@ -402,9 +424,9 @@ and to give options to avoid paying fees for certain types of
 manufacturer registrations.
 
 | Type Byte | Type Name | Specification |
-| 0x01 | GUID | This is a 128 to 256 bit random number generated once and stored in the device. The GUID may be constructed from various identifiers on the device using a hash function or it may be just the raw random number. |
+| 0x01 | GUID | This is a 128- to 256-bit random number generated once and stored in the device. The GUID may be constructed from various identifiers on the device using a hash function, or it may be just the raw random number. |
 | 0x02 | IEEE EUI | This makes use of the IEEE company identification registry. An EUI is made up of an OUI and OUI-36 or a CID, different registered company identifiers, and some unique per-device identifier. EUIs are often the same as or similar to MAC addresses. (Note that while devices with multiple network interfaces may have multiple MAC addresses, there is only one UEID for a device) TODO: normative references to IEEE.|
-| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8 digit Type Allocation Code and a six digit serial number allocated by the manufacturer, which SHALL be encoded as a binary integer over 48 bits. The IMEI value encoded SHALL NOT include Luhn checksum or SVN information.|
+| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8 digit Type Allocation Code and a six-digit serial number allocated by the manufacturer, which SHALL be encoded as a binary integer over 48 bits. The IMEI value encoded SHALL NOT include Luhn checksum or SVN information.|
 | 0x04 | EUI-48 | This is a 48-bit identifier formed by concatenating the 24-bit OUI with a 24-bit identifier assigned by the organisation that purchased the OUI. |
 | 0x05 | EUI-60 | This is a 60-bit identifier formed by concatenating the 24-bit OUI with a 36-bit identifier assigned by the organisation that purchased the OUI. |
 | 0x06 | EUI-64 | This is a 64-bit identifier formed by concatenating the 24-bit OUI with a 40-bit identifier assigned by the organisation that purchased the OUI. |
@@ -412,17 +434,17 @@ manufacturer registrations.
 
 The consumer (the Relying Party) of a UEID should treat a UEID as a completely opaque
 string of bytes and not make any use of its internal structure. For
-example they should not use the OUI part of a type 0x02 UEID to
+example, they should not use the OUI part of a type 0x02 UEID to
 identify the manufacturer of the device. Instead they should use the
 OUI claim that is defined elsewhere. The reasons for this are:
 
 * UEIDs types may vary freely from one manufacturer to the next.
 
-* New types of UEIDs may be created. For example a type 0x04 UEID may
+* New types of UEIDs may be created. For example, a type 0x04 UEID may
   be created based on some other manufacturer registration scheme.
 
 * Device manufacturers are allowed to change from one type of UEID to
-  another anytime they want. For example they may find they can
+  another anytime they want. For example, they may find they can
   optimize their manufacturing by switching from type 0x01 to type
   0x02 or vice versa.  The main requirement on the manufacturer is
   that UEIDs be universally unique. 
@@ -434,10 +456,9 @@ OUI claim that is defined elsewhere. The reasons for this are:
   
 ## Origination Claim (origination)
 
-This claim describes the parts of the device or entity that
-are creating the EAT. Often it will be tied back to the
-device or chip manufacturer. The following table gives
-some examples:
+This claim describes the parts of the device or entity that are
+creating the EAT. Often it will be tied back to the device or chip
+manufacturer. The following table gives some examples:
 
 | Name | Description |
 | Acme-TEE | The EATs are generated in the TEE authored and configured by "Acme" |
@@ -460,15 +481,15 @@ in CWT in that it describes the authority that created the token.
 
 This claim identifies a device OEM by the IEEE OUI. Reference TBD. It
 is a byte string representing the OUI in binary form in network byte
-order (TODO: confirm details). 
+order (TODO: confirm details).
 
 Companies that have more than one IEEE OUI registered with IEEE should
 pick one and prefer that for all their devices. 
 
-Note that the OUI is in common use as a part of MAC Address. This claim
-is only the first bits of the MAC address that identify the
-manufacturer. The IEEE
-maintains a registry for these in which many companies participate.  
+Note that the OUI is in common use as a part of MAC Address. This
+claim is only the first bits of the MAC address that identify the
+manufacturer. The IEEE maintains a registry for these in which many
+companies participate.
 
 ### CDDL
 
@@ -483,11 +504,11 @@ ability to defend against attacks aimed at capturing the signing
 key, forging claims and at forging EATs. This is done by roughly 
 defining four security levels as described below. This is similar
 to the security levels defined in the Metadata Service
-definied by the Fast Identity Online (FIDO) Alliance (TODO: reference).
+defined by the Fast Identity Online (FIDO) Alliance (TODO: reference).
 
 These claims describe security environment and countermeasures
-available on the end-entity / client device where
-the attestation key reside and the claims originate. 
+available on the end-entity / client device where the attestation key
+reside and the claims originate.
 
 1 -- Unrestricted 
 : There is some expectation that implementor will
@@ -499,11 +520,11 @@ the EAT provides no meaningful security assurances.
 operating environments that host features such as app download
 systems, web browsers and complex productivity applications.
 It is akin to the Secure Restricted level (see below) without the
-security orientation. Examples include a WiFi subsystem,
+security orientation. Examples include a Wi-Fi subsystem,
 an IoT camera, or sensor device.
 
 3 -- Secure Restricted
-: Entities at this level must meet the critera defined by FIDO Allowed
+: Entities at this level must meet the criteria defined by FIDO Allowed
 Restricted Operating Environments (TODO: reference). Examples include TEE's and 
 schemes using virtualization-based security. Like the FIDO security goal,
 security at this level is aimed at defending well against large-scale
@@ -524,8 +545,8 @@ claim made here is solely a self-claim made by the Entity Originator.
 
     security_level_type = (
     unrestricted: 1,
-    restriced: 2,
-    secure_restriced: 3,
+    restricted: 2,
+    secure_restricted: 3,
     hardware: 4
     )
     
@@ -534,44 +555,43 @@ claim made here is solely a self-claim made by the Entity Originator.
 
 ## Secure Boot and Debug Enable State Claims (boot_state)
 
-This claim is an array of five booleans indicating the boot and debug
-state of the entity.
+This claim is an array of five Boolean values indicating the boot and
+debug state of the entity.
 
-### Secure Boot Enabled (secbootenabled) Claim
+### Secure Boot Enabled
 
-This indicates whether secure boot is enabled either for an
-entire device or an individual submodule.  If it appears at the device
-level, then this means that secure boot is enabled for all submodules.
+This indicates whether secure boot is enabled either for an entire
+device or an individual submodule.  If it appears at the device level,
+then this means that secure boot is enabled for all submodules.
 Secure boot enablement allows a secure boot loader to authenticate
 software running either in a device or a submodule prior allowing
-execution. 
+execution.
 
-### Debug Disabled (debugdisabled) Claim
+### Debug Disabled
 
 This indicates whether debug capabilities are disabled for an entity
 (i.e. value of 'true').  Debug disablement is considered a
-prerequisite before an entity is considered operational.  
+prerequisite before an entity is considered operational.
 
-### Debug Disabled Since Boot (debugdisabledsincebboot) Claim
+### Debug Disabled Since Boot
 
-This claim indicates whether debug capabilities
-for the entity were not disabled in any way since boot (i.e. value of
-'true'). 
+This claim indicates whether debug capabilities for the entity were
+not disabled in any way since boot (i.e. value of 'true').
 
-### Debug Permanent Disable (debugpermanentdisable) Claim
+### Debug Permanent Disable
 
-This claim indicates whether debug capabilities for the
-entity are permanently disabled (i.e. value of 'true').  This value
-can be set to 'true' also if only the manufacturer is allowed to
-enabled debug, but the end user is not.  
+This claim indicates whether debug capabilities for the entity are
+permanently disabled (i.e. value of 'true').  This value can be set to
+'true' also if only the manufacturer is allowed to enabled debug, but
+the end user is not.
 
-### Debug Full Permanent Disable (debugfullpermanentdisable) Claim
+### Debug Full Permanent Disable
 
-This claim indicates whether debug capabilities
-for the entity are permanently disabled (i.e. value of 'true').  This
-value can only be set to 'true' if no party can enable debug
-capabilities for the entity. Often this is implemented by blowing a
-fuse on a chip as fuses cannot be restored once blown.  
+This claim indicates whether debug capabilities for the entity are
+permanently disabled (i.e. value of 'true').  This value can only be
+set to 'true' if no party can enable debug capabilities for the
+entity. Often this is implemented by blowing a fuse on a chip as fuses
+cannot be restored once blown.
 
 ### CDDL
 
@@ -590,15 +610,13 @@ fuse on a chip as fuses cannot be restored once blown.
 
 ## The Location Claim (location)
 
-The "loc" (location) claim is a CBOR-formatted object that describes
-the location of the device entity from which the attestation originates.
-It is comprised
-of a map of additional subclaims
-that represent the actual location coordinates (latitude, longitude
-and altitude).  The location coordinate claims
-are consistent with the WGS84 coordinate system {{WGS84}}.  In
-addition, a subclaim providing the estimated accuracy of the location
-measurement is defined.
+The location claim is a CBOR-formatted object that describes the
+location of the device entity from which the attestation originates.
+It is comprised of a map of additional sub claims that represent the
+actual location coordinates (latitude, longitude and altitude).  The
+location coordinate claims are consistent with the WGS84 coordinate
+system {{WGS84}}.  In addition, a sub claim providing the estimated
+accuracy of the location measurement is defined.
 
 ### CDDL
 
@@ -620,10 +638,10 @@ measurement is defined.
 The "age" claim contains a value that represents the number of seconds
 that have elapsed since the token was created, measurement was made,
 or location was obtained.  Typical attestable values are sent as soon
-as they are obtained.  However in the case that such a value is
+as they are obtained.  However, in the case that such a value is
 buffered and sent at a later time and a sufficiently accurate time
 reference is unavailable for creation of a timestamp, then the age
-claim is provided. 
+claim is provided.
 
     age_claim = (
     age: uint)
@@ -631,7 +649,7 @@ claim is provided.
 ## The Uptime Claim (uptime)
 
 The "uptime" claim contains a value that represents the number of
-seconds that have elapsed since the entity or submod was last booted.  
+seconds that have elapsed since the entity or submod was last booted.
 
 ### CDDL
 
@@ -642,7 +660,7 @@ seconds that have elapsed since the entity or submod was last booted.
 
 It is allowed for one EAT to be embedded in another. This is for
 complex devices that have more than one subsystem capable of
-generating an EAT. Typically one will be the device-wide EAT that is
+generating an EAT. Typically, one will be the device-wide EAT that is
 low to medium security and another from a Secure Element or similar
 that is high security.
 
@@ -654,15 +672,14 @@ encrypted, EAT token.
     nested_eat_claim = (
     nested_eat: nested_eat_type)
 
-A nested_eat_type is defined in words rather than
-CDDL. It is either a full CWT or JWT including the
-COSE or JOSE signing. 
+A nested_eat_type is defined in words rather than CDDL. It is either a
+full CWT or JWT including the COSE or JOSE signing.
 
 ## The Submods Claim (submods)
 
 Some devices are complex, having many subsystems or submodules.  A
 mobile phone is a good example. It may have several connectivity
-submodules for communications (e.g., WiFi and cellular). It may have
+submodules for communications (e.g., Wi-Fi and cellular). It may have
 subsystems for low-power audio and video playback. It may have one or
 more security-oriented subsystems like a TEE or a Secure Element.
 
@@ -699,15 +716,18 @@ In the following a generic_claim_type is any CBOR map entry or JSON name/value p
     submods_claim = (
     submods: submod_type )
 
-# Data Model
-This makes use of the types defined in  CDDL Appedix D, Standard Prelude.
+# Data Model {#datamodel}
+This makes use of the types defined in  CDDL Appendix D, Standard Prelude.
 
 ## Common CDDL Types
 
     string_or_uri = #6.32(tstr) / tstr; See JSON section below for JSON encoding of string_or_uri
     
 ## CDDL for CWT-defined Claims
-This section provides CDDL for the claims defined in CWT. It is non-normative.
+
+This section provides CDDL for the claims defined in CWT. It is
+non-normative as {{RFC8392}} is the authoritative definition of these
+claims.
 
     cwt_claim = (
         issuer_claim //
@@ -753,7 +773,7 @@ This section provides CDDL for the claims defined in CWT. It is non-normative.
 ### JSON Labels
 
     ueid = "ueid"
-    originiation = "origination"
+    origination = "origination"
     oemid = "oemid"
     security_level = "security_level" 
     boot_state = "boot_state"
@@ -763,20 +783,21 @@ This section provides CDDL for the claims defined in CWT. It is non-normative.
     nested_eat = "nested_eat"
     submods = "submods"
     
-### JSON Interoperability
+### JSON Interoperability {#jsoninterop}
 
-JSON should be encoded per RFC 8610 Appendix E. In addition, the following CDDL types are encoded in JSON as follows:
+JSON should be encoded per RFC 8610 Appendix E. In addition, the
+following CDDL types are encoded in JSON as follows:
 
 * bstr -- must be base64url encoded
-* time -- must be encoded as described in the NumericDate section of {{RFC7519}}.
-* string_or_uri -- must be encoded as StringOrURI described in {{RFC7519}}
+* time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
+* string_or_uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
 
 ## CBOR
 
 ### Labels
 
     ueid = 8
-    originiation = 9
+    origination = 9
     oemid = 10
     security_level = 11
     boot_state = 12
@@ -795,41 +816,66 @@ JSON should be encoded per RFC 8610 Appendix E. In addition, the following CDDL 
     speed_claim 7
 
 ### CBOR Interoperability
-Variations in the CBOR serializations supported in CBOR encoding and decoding are allowed and suggests that CBOR-based protocols
-specify how this variation is handled. This section specifies what formats
-must be supported in order to achieve the most reliable interoperability. 
 
-The assumption is that the entity is likely to be a constrained device and relying party is likely to be a very capable server. The approach taken is that the entity generatng the token can use what ever encoding it wants, specifically encodings that are easier to implement such as indefinite lengths. The relying party receiving the token must
-support decoding all encodings. 
+Variations in the CBOR serializations supported in CBOR encoding and
+decoding are allowed and suggests that CBOR-based protocols specify
+how this variation is handled. This section specifies what formats
+must be supported in order to achieve the most reliable
+interoperability.
 
-These rules cover all types used in the claims in this document. They also are recommendations for additional claims.
+The assumption is that the entity is likely to be a constrained device
+and relying party is likely to be a very capable server. The approach
+taken is that the entity generating the token can use whatever
+encoding it wants, specifically encodings that are easier to implement
+such as indefinite lengths. The relying party receiving the token must
+support decoding all encodings.
 
-Canonical CBOR encoding, Preferred Serialization and Deterministically Encoded CBOR are explicitly NOT required as they would place an unnecessary burden on the entity implementation, particularly if the entity implementation is implemented in hardware. 
+These rules cover all types used in the claims in this document. They
+also are recommendations for additional claims.
+
+Canonical CBOR encoding, Preferred Serialization and Deterministically
+Encoded CBOR are explicitly NOT required as they would place an
+unnecessary burden on the entity implementation, particularly if the
+entity implementation is implemented in hardware.
 
 * Integer Encoding (major type 0, 1)
-The entity may use any integer encoding allowed by CBOR. The server MUST accept all integer encodings allowed by CBOR.
+The entity may use any integer encoding allowed by CBOR. The server
+MUST accept all integer encodings allowed by CBOR.
 
 * String Encoding (major type 2 and 3)
-The entity can use any string encoding allowed by CBOR including indefinite lengths. It may also encode the lengths of strings in any way allowed by CBOR. The server must accept all string encodings.
+The entity can use any string encoding allowed by CBOR including
+indefinite lengths. It may also encode the lengths of strings in any
+way allowed by CBOR. The server must accept all string encodings.
 
-* Major type 2, bstr, SHOULD be have tag 21 to indicate conversion to base64url in case that conversion is performed.
+* Major type 2, bstr, SHOULD be have tag 21 to indicate conversion to
+  base64url in case that conversion is performed.
 
 * Map and Array Encoding (major type 4 and 5)
-The entity can use any array or map encoding allowed by CBOR including indefinite lengths. Sorting of map keys is not required. Duplicate map keys are not allowed. The server must accept all array and map encodings. The server may reject maps with duplicate map keys. 
+The entity can use any array or map encoding allowed by CBOR including
+indefinite lengths. Sorting of map keys is not required. Duplicate map
+keys are not allowed. The server must accept all array and map
+encodings. The server may reject maps with duplicate map keys.
 
 * Date and Time
-The entity should send dates as tag 1 encoded as 64-bit or 32-bit integers. The entity may not send floating point dates. The server must support tag 1 epoch based dates encoded as 64-bit or 32-bit integers. 
+The entity should send dates as tag 1 encoded as 64-bit or 32-bit
+integers. The entity may not send floating-point dates. The server
+must support tag 1 epoch-based dates encoded as 64-bit or 32-bit
+integers.
 
-The entity may send tag 0 dates, however tag 1 is preferred. The server must support tag 0 UTC dates. 
+The entity may send tag 0 dates, however tag 1 is preferred. The
+server must support tag 0 UTC dates.
 
 * URIs
 URIs should be encoded as text strings and marked with tag 32.
 
 * Floating Point
-The entity may use any floating point encoding. The relying party must support decoding of all types of floating point.
+The entity may use any floating-point encoding. The relying party must
+support decoding of all types of floating-point.
 
 * Other types
-Use of Other types like bignums, regular expressions and so SHOULD NOT be used. The server MAY support them, but is not required to. Use of these tags is 
+Use of Other types like bignums, regular expressions and such, SHOULD
+NOT be used. The server MAY support them but is not required to so
+interoperability is not guaranteed.
 
 ## Collected CDDL
 
@@ -863,9 +909,9 @@ multiple times)
 ## Reuse of CBOR Web Token (CWT) Claims Registry
 
 Claims defined for EAT are compatible with those of CWT
-so the CWT Claims Registry is re used. New new IANA registry
+so the CWT Claims Registry is re used. No new IANA registry
 is created. All EAT claims should be registered in the
-CWT Claims Registry.
+CWT and JWT Claims Registries.
 
 ### Claims Registered by This Document
 
@@ -882,7 +928,7 @@ TODO: add the rest of the claims in here
 # Privacy Considerations
 
 Certain EAT claims can be used to track the owner of an entity and
-therefore implementations should consider providing privacy-preserving
+therefore, implementations should consider providing privacy-preserving
 options dependent on the intended usage of the EAT.  Examples would
 include suppression of location claims for EAT's provided to
 unauthenticated consumers.
@@ -931,7 +977,7 @@ those do not.
 
 # Examples {#examples}
 
-TODO: revice this example after more of the design is settled. 
+TODO: revise this example after more of the design is settled. 
 
 ## Very Simple EAT
 
@@ -957,7 +1003,7 @@ is shown.
    / secbootenabled /        13:true,
    / debugpermanentdisable / 15:true,
    / ts /                    21:1526542894,
-   / seclevel /              10:3, / secure restriced OS / 
+   / seclevel /              10:3, / secure restricted OS / 
    
    / submods / 30: 
       [
