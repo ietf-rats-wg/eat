@@ -2,7 +2,9 @@
 stand_alone: true
 ipr: trust200902
 cat: std
-docname: draft-mandyam-rats-eat-01
+
+docname: draft-ietf-rats-eat-01
+
 wg: RATS Working Group
 # consensus: 'yes'
 # submissiontype: IETF
