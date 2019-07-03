@@ -141,7 +141,7 @@ TBD
 
 # Introduction
 
-Remote device attestation is fundamental service that allows a remote
+Remote device attestation is a fundamental service that allows a remote
 device such as a mobile phone, an Internet-of-Things (IoT) device, or
 other endpoint to prove itself to a relying party, a server or a
 service.  This allows the relying party to know some characteristics
@@ -254,8 +254,8 @@ examples.
   relying party. It may even modify the claims in some way and re-sign
   the EAT (with a different signing key).
 
-This standard supports all these operating models and does not prefer
-one over the other. It is important to support this variety of
+All these operating models are supported and there is no preference
+of one over the other. It is important to support this variety of
 operating models to generally facilitate deployment and to allow for
 some special scenarios. One special scenario has a validation service
 that is monetized, most likely by the manufacturer.  In another, a
@@ -309,11 +309,8 @@ delays adding to the cost of a chip. Third, privacy-preserving signing
 schemes like ECDAA (Elliptic Curve Direct Anonymous Attestation) are
 complex and not suitable for all use cases.
 
-Eventually some form of standardization of the signing scheme may be
-required. This might come in the form of another standard that adds to
-this document, or when there is clear convergence on a small number of
-signing schemes this standard can be updated.
-
+Over time to faciliate interoperability, some signing schemes may be
+defined in EAT profiles or other documents either in the IETF or outside.
 
 # Terminology
 
@@ -402,6 +399,8 @@ countries should have the same UEID (if they are not global and
 universal in this way, then relying parties receiving them will have
 to track other characteristics of the device to keep devices distinct
 between manufacturers).
+
+There are privacy considerations for UEID's. See {{ueidprivacyconsiderations}}.
 
 The UEID should be permanent. It should never change for a given
 device / entity. In addition, it should not be reprogrammable.  UEID’s
@@ -921,7 +920,7 @@ CWT and JWT Claims Registries.
 
 TODO: add the rest of the claims in here
 
-# Privacy Considerations
+# Privacy Considerations {#privacyconsiderations}
 
 Certain EAT claims can be used to track the owner of an entity and
 therefore, implementations should consider providing privacy-preserving
@@ -929,7 +928,7 @@ options dependent on the intended usage of the EAT.  Examples would
 include suppression of location claims for EAT's provided to
 unauthenticated consumers.
 
-## UEID Privacy Considerations {#privacyconsiderations}
+## UEID Privacy Considerations {#ueidprivacyconsiderations}
 
 A UEID is usually not privacy-preserving. Any set of relying parties
 that receives tokens that happen to be from a single device will be
