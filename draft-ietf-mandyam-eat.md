@@ -821,8 +821,7 @@ following CDDL types are encoded in JSON as follows:
 Variations in the CBOR serializations supported in CBOR encoding and
 decoding are allowed and suggests that CBOR-based protocols specify
 how this variation is handled. This section specifies what formats
-must be supported in order to achieve the most reliable
-interoperability.
+MUST be supported in order to achieve interoperability.
 
 The assumption is that the entity is likely to be a constrained device
 and relying party is likely to be a very capable server. The approach
@@ -839,11 +838,11 @@ Encoded CBOR are explicitly NOT required as they would place an
 unnecessary burden on the entity implementation, particularly if the
 entity implementation is implemented in hardware.
 
-* Integer Encoding (major type 0, 1)
+* Integer Encoding (major type 0, 1) --
 The entity may use any integer encoding allowed by CBOR. The server
 MUST accept all integer encodings allowed by CBOR.
 
-* String Encoding (major type 2 and 3)
+* String Encoding (major type 2 and 3) --
 The entity can use any string encoding allowed by CBOR including
 indefinite lengths. It may also encode the lengths of strings in any
 way allowed by CBOR. The server must accept all string encodings.
@@ -851,29 +850,27 @@ way allowed by CBOR. The server must accept all string encodings.
 * Major type 2, bstr, SHOULD be have tag 21 to indicate conversion to
   base64url in case that conversion is performed.
 
-* Map and Array Encoding (major type 4 and 5)
+* Map and Array Encoding (major type 4 and 5) --
 The entity can use any array or map encoding allowed by CBOR including
 indefinite lengths. Sorting of map keys is not required. Duplicate map
 keys are not allowed. The server must accept all array and map
 encodings. The server may reject maps with duplicate map keys.
 
-* Date and Time
+* Date and Time --
 The entity should send dates as tag 1 encoded as 64-bit or 32-bit
 integers. The entity may not send floating-point dates. The server
 must support tag 1 epoch-based dates encoded as 64-bit or 32-bit
-integers.
+integers. The entity may send tag 0 dates, however tag 1 is preferred. 
+The server must support tag 0 UTC dates.
 
-The entity may send tag 0 dates, however tag 1 is preferred. The
-server must support tag 0 UTC dates.
-
-* URIs
+* URIs --
 URIs should be encoded as text strings and marked with tag 32.
 
-* Floating Point
+* Floating Point --
 The entity may use any floating-point encoding. The relying party must
 support decoding of all types of floating-point.
 
-* Other types
+* Other types --
 Use of Other types like bignums, regular expressions and such, SHOULD
 NOT be used. The server MAY support them but is not required to so
 interoperability is not guaranteed.
@@ -1024,6 +1021,21 @@ is shown.
       ]
 }
 ~~~~
+
+# Changes from Previous Drafts
+
+The following is a list of known changes from the previous drafts.  This list is
+non-authoritative.  It is meant to help reviewers see the significant
+differences.
+
+## From draft-mandyam-rats-eat-00
+
+This is a fairly large change in the orientation of the document, but
+not new claims have been added.
+
+* Separate information and data model using CDDL.
+* Say an EAT is a CWT or JWT
+* Use a map to structure the boot_state and location claims
 
 
 
