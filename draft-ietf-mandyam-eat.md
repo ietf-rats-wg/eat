@@ -806,6 +806,7 @@ following CDDL types are encoded in JSON as follows:
     uptime = 15
     nested_eat = 16
     submods = 17
+    submod_name = 18
     
     latitude 1
     longitude 2
@@ -935,7 +936,7 @@ unauthenticated consumers.
 
 ## UEID Privacy Considerations {#privacyconsiderations}
 
-A UEID is usually not privacy preserving. Any set of relying parties
+A UEID is usually not privacy-preserving. Any set of relying parties
 that receives tokens that happen to be from a single device will be
 able to know the tokens are all from the same device and be able to
 track the device. Thus, in many usage situations ueid violates
@@ -977,8 +978,6 @@ those do not.
 
 # Examples {#examples}
 
-TODO: revise this example after more of the design is settled. 
-
 ## Very Simple EAT
 
 This is shown in CBOR diagnostic form. Only the payload signed by COSE
@@ -986,11 +985,10 @@ is shown.
 
 ~~~~
 {
-   / nonce /                 11:h'948f8860d13a463e8e', 
+   / nonce (cti) /            7:h'948f8860d13a463e8e', 
    / UEID /                   8:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / secbootenabled /        13:true,
-   / debugpermanentdisable / 15:true,
-   / ts /                    21:1526542894,
+   / boot_state /            12:{true, true, true, true, false}
+   / time stamp (iat) /       6:1526542894,
 }
 ~~~~
 
@@ -998,29 +996,28 @@ is shown.
 
 ~~~~
 {
-   / nonce /                 11:h'948f8860d13a463e8e', 
+   / nonce /                  7:h'948f8860d13a463e8e', 
    / UEID /                   8:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / secbootenabled /        13:true,
-   / debugpermanentdisable / 15:true,
-   / ts /                    21:1526542894,
-   / seclevel /              10:3, / secure restricted OS / 
+   / boot_state /            12:{true, true, true, true, false}
+   / time stamp (iat) /       6:1526542894,
+   / seclevel /              11:3, / secure restricted OS / 
    
-   / submods / 30: 
+   / submods / 17: 
       [
          / 1st submod, an Android Application / {
-           / submod_name /   30:'Android App "Foo"',
-           / seclevel /      10:1, / unrestricted / 
+           / submod_name /   18:'Android App "Foo"',
+           / seclevel /      11:1, / unrestricted / 
            / app data /  -70000:'text string'
          },
          / 2nd submod, A nested EAT from a secure element / {
-           / submod_name / 30:'Secure Element EAT',
-           / eat /         31:71( 18(
+           / submod_name / 18:'Secure Element EAT',
+           / eat /         16:61( 18(
               / an embedded EAT / [ /...COSE_Sign1 bytes with payload.../ ]
                            ))
          }
          / 3rd submod, information about Linux Android / {
-            / submod_name/ 30:'Linux Android',
-            / seclevel /   10:1, / unrestricted /
+            / submod_name/ 18:'Linux Android',
+            / seclevel /   11:1, / unrestricted /
             / custom - release / -80000:'8.0.0',
             / custom - version / -80001:'4.9.51+'
          }
