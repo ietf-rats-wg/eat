@@ -58,6 +58,7 @@ normative:
   RFC2119:
   RFC7049:
   RFC7519:
+  RFC8126:
   RFC8174:
   RFC8152:
   RFC8392:
@@ -385,64 +386,59 @@ date-of-creation of the token.
 
 ## Universal Entity ID Claim (ueid)
 
-UEID's identify individual manufactured entities / devices such as a
+UEID’s identify individual manufactured entities / devices such as a
 mobile phone, a water meter, a Bluetooth speaker or a networked
-security camera.  It may identify the entire device or a submodule or 
-subsystem. It does
-not identify types, models or classes of devices.  It is akin to a
-serial number, though it does not have to be sequential. 
+security camera. It may identify the entire device or a submodule or
+subsystem. It does not identify types, models or classes of
+devices. It is akin to a serial number, though it does not have to be
+sequential.
 
-UEID's must be universally and globally unique across manufacturers
+UEID’s must be universally and globally unique across manufacturers
 and countries. UEIDs must also be unique across protocols and systems,
 as tokens are intended to be embedded in many different protocols and
 systems. No two products anywhere, even in completely different
 industries made by two different manufacturers in two different
 countries should have the same UEID (if they are not global and
-universal in this way then relying parties receiving them will have to
-track other characteristics of the device to keep devices distinct
-between manufacturers). 
+universal in this way, then relying parties receiving them will have
+to track other characteristics of the device to keep devices distinct
+between manufacturers).
 
 The UEID should be permanent. It should never change for a given
-device / entity. In addition, it should not be reprogrammable. 
-
-UEID's are binary byte-strings (resulting in a
-smaller size than text strings).  When handled in text-based
-protocols, they should be base-64 encoded.
-
-UEID's are variable length with a maximum size of 33 bytes (1 type
-byte and 256 bits). A receivers of a token with UEIDs may reject the
-token if a UEID is larger than 33 bytes. 
-
-UEID's are not designed for direct use by humans (e.g., printing on
-the case of a device), so no textual representation is defined.
-
-A UEID is a byte string. From the consumer's view (the rely party) it
-is opaque with no bytes having any special meaning.
+device / entity. In addition, it should not be reprogrammable.  UEID’s
+are variable length. The recommended maximum is 33 bytes (1 type byte
+and 256 bits). The recommended minimum is 17 bytes (1 type and 128
+bits) because fewer bytes endanger the universal uniqueness.
 
 When the entity constructs the UEID, the first byte is a type and the
-following bytes the ID for that type.  Several types are allowed to
+following bytes the ID for that type. Several types are allowed to
 accommodate different industries and different manufacturing processes
 and to give options to avoid paying fees for certain types of
 manufacturer registrations.
 
+Creation of new types requires a Standards Action {{RFC8126}}.
+
 | Type Byte | Type Name | Specification |
-| 0x01 | GUID | This is a 128- to 256-bit random number generated once and stored in the device. The GUID may be constructed from various identifiers on the device using a hash function, or it may be just the raw random number. |
+| 0x01 | RAND | This is a 128- to 256-bit random number generated once and stored in the device. This may be constructed by concatenating enough identifiers to be universally unique and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generate once at the beginning of the life of the device and stored. |
 | 0x02 | IEEE EUI | This makes use of the IEEE company identification registry. An EUI is made up of an OUI and OUI-36 or a CID, different registered company identifiers, and some unique per-device identifier. EUIs are often the same as or similar to MAC addresses. (Note that while devices with multiple network interfaces may have multiple MAC addresses, there is only one UEID for a device) TODO: normative references to IEEE.|
-| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8 digit Type Allocation Code and a six-digit serial number allocated by the manufacturer, which SHALL be encoded as a binary integer over 48 bits. The IMEI value encoded SHALL NOT include Luhn checksum or SVN information.|
+| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as a binary integer over 48 bits. The IMEI value encoded SHALL NOT include Luhn checksum or SVN information.|
 | 0x04 | EUI-48 | This is a 48-bit identifier formed by concatenating the 24-bit OUI with a 24-bit identifier assigned by the organisation that purchased the OUI. |
 | 0x05 | EUI-60 | This is a 60-bit identifier formed by concatenating the 24-bit OUI with a 36-bit identifier assigned by the organisation that purchased the OUI. |
 | 0x06 | EUI-64 | This is a 64-bit identifier formed by concatenating the 24-bit OUI with a 40-bit identifier assigned by the organisation that purchased the OUI. |
 {: #ueid-types-table title="UEID Composition Types"}
 
-The consumer (the Relying Party) of a UEID should treat a UEID as a completely opaque
-string of bytes and not make any use of its internal structure. For
-example, they should not use the OUI part of a type 0x02 UEID to
-identify the manufacturer of the device. Instead they should use the
-OUI claim that is defined elsewhere. The reasons for this are:
+UEID's are not designed for direct use by humans (e.g., printing on
+the case of a device), so no textual representation is defined.
+
+The consumer (the relying party) of a UEID MUST treat a UEID as a
+completely opaque string of bytes and not make any use of its internal
+structure. For example, they should not use the OUI part of a type
+0x02 UEID to identify the manufacturer of the device. Instead they
+should use the OUI claim that is defined elsewhere. The reasons for
+this are:
 
 * UEIDs types may vary freely from one manufacturer to the next.
 
-* New types of UEIDs may be created. For example, a type 0x04 UEID may
+* New types of UEIDs may be created. For example, a type 0x07 UEID may
   be created based on some other manufacturer registration scheme.
 
 * Device manufacturers are allowed to change from one type of UEID to
