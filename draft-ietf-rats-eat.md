@@ -354,9 +354,12 @@ Note also:
 * Any claim defined for CWT or JWT may be used in an EAT including 
   those in the CWT {{IANA.CWT.Claims}} and JWT IANA {{IANA.JWT.Claims}}
   claims registries.
- * All claims are optional
- * No claims are mandatory
- * All claims that are not understood by implementations MUST be ignored
+
+* All claims are optional
+
+* No claims are mandatory
+
+* All claims that are not understood by implementations MUST be ignored
 
 CDDL along with text descriptions is used to define the information
 model.  Each claim is defined as a CDDL group (the group is a general
