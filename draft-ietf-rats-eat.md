@@ -446,7 +446,7 @@ this are:
   0x02 or vice versa.  The main requirement on the manufacturer is
   that UEIDs be universally unique. 
   
- ### CDDL
+### CDDL
   
      ueid_claim = (
      ueid: bstr )
@@ -805,13 +805,13 @@ following CDDL types are encoded in JSON as follows:
     submods = 17
     submod_name = 18
     
-    latitude 1
-    longitude 2
-    altitude 3
-    accuracy 4
-    altitude_accuracy 5
-    heading_claim 6
-    speed_claim 7
+    latitude = 1
+    longitude = 2
+    altitude = 3
+    accuracy = 4
+    altitude_accuracy = 5
+    heading_claim = 6
+    speed_claim = 7
 
 ### CBOR Interoperability
 
