@@ -626,8 +626,8 @@ accuracy of the location measurement is defined.
         altitude => number,
         accuracy => number,
         altitude_accuracy => number,
-        heading_claim => number,
-        speed_claim => number
+        heading => number,
+        speed => number
     }
     
     location_claim = (
@@ -660,11 +660,11 @@ seconds that have elapsed since the entity or submod was last booted.
 
 It is allowed for one EAT to be embedded in another. This is for
 complex devices that have more than one subsystem capable of
-generating an EAT. Typically, one will be the device-wide EAT that is
+generating an EAT. For example, one might be the device-wide EAT that is
 low to medium security and another from a Secure Element or similar
 that is high security.
 
-The contents of the "eat" claim must be a fully signed, optionally
+The contents of the "nested_eat" claim must be a fully signed, optionally
 encrypted, EAT token.
 
 ### CDDL
@@ -783,6 +783,14 @@ claims.
     nested_eat = "nested_eat"
     submods = "submods"
     
+    latitude = "lat""
+    longitude = "long""
+    altitude = "alt"
+    accuracy = "accry"
+    altitude_accuracy = "alt_accry"
+    heading = "heading"
+    speed = "speed"
+    
 ### JSON Interoperability {#jsoninterop}
 
 JSON should be encoded per RFC 8610 Appendix E. In addition, the
@@ -813,8 +821,8 @@ following CDDL types are encoded in JSON as follows:
     altitude = 3
     accuracy = 4
     altitude_accuracy = 5
-    heading_claim = 6
-    speed_claim = 7
+    heading = 6
+    speed = 7
 
 ### CBOR Interoperability
 
