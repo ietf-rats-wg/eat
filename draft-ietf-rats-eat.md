@@ -347,7 +347,7 @@ needed for ECDAA.
 # The Claims Information Model
 
 This section describes new claims defined for attestation. It also
-mentions several claims defined by CWT and JWT are particularly
+mentions several claims defined by CWT and JWT that are particularly
 important for EAT.
 
 Note also:
