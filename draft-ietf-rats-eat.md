@@ -3,7 +3,7 @@ stand_alone: true
 ipr: trust200902
 cat: std
 
-docname: draft-ietf-rats-eat-01
+docname: draft-ietf-rats-eat-latest
 
 wg: RATS Working Group
 # consensus: 'yes'
