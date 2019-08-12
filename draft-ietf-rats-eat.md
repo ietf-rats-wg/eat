@@ -974,10 +974,56 @@ one UEID and it is still globally universal across manufacturers.
 
 # Security Considerations {#securitycons}
 
-TODO: Perhaps this can be the same as CWT / COSE, but not sure yet
-because it involves so much entity / device security that 
-those do not.
+The security considerations provided in Section 8 of {{RFC8392}} and Section 11
+of {{RFC7519}} apply to EAT in its CWT and JWT form, respectively.  In addition, 
+implementors should consider the following.
 
+## Key Provisioning
+
+Private key material can be used to sign and/or encrypt the EAT, or can be used to derive
+the keys used for signing and/or encryption.  In some instances, the manufacturer of the EAT
+may create the key material separately and provision the key material in the entity itself.
+The manfuacturer of any entity that is capable of producing an EAT should take care 
+to ensure that any private key material be suitably protected prior to provisioning the key
+material in the entity itself.  This can require creation of key material in a secure enclave,
+secure transmission of the key material from the enclave to the entity using an appropriate protocol,
+and persistence of the private key material in some form of secure storage to which (preferably) only the entity has
+access.  
+
+### Transmission of Key Material
+
+Regarding transmission of key material from the enclave to the entity, the key material may pass through one
+or more intermediaries.  Therefore some form of protection ("key wrapping") may be necessary.  The transmission
+itself may be performed electronically, but can also be done by human courier.  In the latter case, there should be minimal
+to no exposure of the key material to the human (e.g. encrypted portable memory).  Moreover, the human should transport the key
+material from directly from the secure enclave where it was created to a destination secure enclave where it can be provisioned.
+
+## Transport Security
+
+As stated in Section 8 of {{RFC8392}}, "The security of the CWT relies upon on the protections offered by COSE".  Similar considerations apply to EAT when sent as a CWT.  However, the EAT introduces the concept of a nonce (to be specifically carried via a 'cti' claim)
+to protect against replay.  Since an EAT may be created by an entity that may not support the same type of transport security
+as the consumer of the EAT, intermediaries may be required to bridge communications between the entity and consumer.  As a result, it
+is RECOMMENDED that both the consumer create a nonce, and the entity leverage the nonce along with COSE mechanisms for encryption and signing to create the EAT.
+
+Similar considerations apply to the use of EAT as a JWT.  Although the security of a JWT leverages the JSON Web Encryption (JWE) and JSON Web Signature (JWS) specifications, it is still recommended to make use of the EAT nonce.
+
+## Multiple EAT Consumers
+
+In many cases, more than one EAT consumer may be required to fully verify the entity attestation.  Examples
+include individual consumers for nested EATs, or consumers for individual claims with an EAT.  When multiple consumers
+are required for verification of an EAT, it is important to minimize information exposure to each consumer.  In addition, the
+communication between multiple consumers should be secure.
+
+For instance, consider the example of an encrypted and signed EAT with multiple claims.  A consumer may receive the EAT (denoted as
+the "receiving consumer", decrypt
+its payload, verify its signature, but then pass specific subsets of claims to other consumers for evaluation ("downstream
+consumers").  Since any COSE
+encryption will be removed by the receiving consumer, the communication of claim subsets to any downstream consumer should leverage
+a secure protocol (e.g.one that uses transport-layer security, i.e. TLS),  
+
+However, assume the EAT of the previous example is hierarchical and each claim subset for a downstream consumer is created in the form
+of a nested EAT.  Then transport security between the receiving and downstream consumers is not strictly required.  Nevertheless, 
+downstream consumers of a nested EAT should provide a nonce unique to the EAT they are consuming.
 
 --- back
 
