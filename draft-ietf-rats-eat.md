@@ -947,7 +947,7 @@ able to know the tokens are all from the same device and be able to
 track the device. Thus, in many usage situations ueid violates
 governmental privacy regulation. In other usage situations UEID will
 not be allowed for certain products like browsers that give privacy
-for the end user.  it will often be the case that tokens will not have
+for the end user. It will often be the case that tokens will not have
 a UEID for these reasons.
 
 There are several strategies that can be used to still be able to put
