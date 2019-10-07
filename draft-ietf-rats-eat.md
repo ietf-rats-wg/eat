@@ -94,6 +94,7 @@ normative:
      target: https://www.iana.org/assignments/jwt
 
 informative:
+  RFC4122:
   Webauthn:
     title: 'Web Authentication: A Web API for accessing scoped credentials'
     author:
@@ -417,7 +418,7 @@ manufacturer registrations.
 Creation of new types requires a Standards Action {{RFC8126}}.
 
 | Type Byte | Type Name | Specification |
-| 0x01 | RAND | This is a 128- to 256-bit random number generated once and stored in the device. This may be constructed by concatenating enough identifiers to be universally unique and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generate once at the beginning of the life of the device and stored. |
+| 0x01 | RAND | This is a 256-bit random number generated once and stored in the device. This may be constructed by concatenating enough identifiers to be universally unique and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generate once at the beginning of the life of the device and stored. |
 | 0x02 | IEEE EUI | This makes use of the IEEE company identification registry. An EUI is made up of an OUI and OUI-36 or a CID, different registered company identifiers, and some unique per-device identifier. EUIs are often the same as or similar to MAC addresses. (Note that while devices with multiple network interfaces may have multiple MAC addresses, there is only one UEID for a device) TODO: normative references to IEEE.|
 | 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as a binary integer over 48 bits. The IMEI value encoded SHALL NOT include Luhn checksum or SVN information.|
 | 0x04 | EUI-48 | This is a 48-bit identifier formed by concatenating the 24-bit OUI with a 24-bit identifier assigned by the organisation that purchased the OUI. |
@@ -446,7 +447,7 @@ this are:
   0x02 or vice versa.  The main requirement on the manufacturer is
   that UEIDs be universally unique. 
   
- ### CDDL
+### CDDL
   
      ueid_claim = (
      ueid: bstr )
@@ -1019,11 +1020,92 @@ is shown.
 }
 ~~~~
 
+# UEID Design Rationale
+
+## Collision Probabilitty
+
+This calculation is to determine the probability of a collision of
+UEIDs given n, the total possible entity population and k, the number
+of entities in a particular entity management database. The quantity k
+is the number of possible values of a UEID. The database is that of
+some large back-end (IoT) device management system. Databases that can
+handle more than a trillion records exist today.
+
+This is conceptually similar to the Birthday Problem where m is the
+number of possible birthdays, always 365, and k is the number of
+people. It is also conceptually similar to the Birthday Attack where
+collisions of the output of hash functions are considered.
+
+The proper formula for the collision calculation is
+
+       p = 1 - e^{-k^2/(2n)}
+    
+       P   Collision Probability
+       n   Total possible population
+       k   Actual population
+
+However for the very large values involve here, this formula requires floating
+point precesion higher than commonly available in calculators and SW so this
+simple approximation is used. See https://en.wikipedia.org/wiki/Birthday_attack.
+
+        p = k^2 / 2n 
+
+|People     | Devices / person | Databse size  | 128 bits    |   192 bits   | 256 bits   |
+|-----------+------------------+---------------+-------------+--------------+------------+
+| 10 billion| 100              | 10^12         | 2 * 10^-15  |   8 * 10^-35 | 5 * 10^-55 |
+| 10 billion| 100,000          | 10^15         | 2 * 10^-09  |   8 * 10^-29 | 5 * 10^-49 |
+|100 billion| 1,000,000        | 10^17         | 2 * 10^-05  |   8 * 10^-25 | 5 * 10^-45 |
+
+
+While table is scaled by the number of people, it should be considered
+that all devices will not be personally owned. For example, there may
+be thousands of individually addressable lights in every store a
+person shops in. Also, there may be more than on entity in a device if
+subsystems of the device are individually attested.
+
+Clearly 128 bits is not enough for the worst case in the table, row
+three, column one. A collision rate of one in 50,000 is
+unacceptable. The second worst case is at the margin with a collision
+rate of 1 in 500 million. For a trillion devices, 128 is enough.
+
+The first row seems likely to come about eventually. The second row is
+at the edge of what seems likely to ever happen. The third seems
+beyond what can be envisioned today.
+
+The choice is for 256-bits to be prepared even for what can’t be
+envisioned today. The table shows 192 bits is enough, but 256 bits,
+32-bytes, is selected because it the output of the common SHA-256 hash
+that is in common use.
+
+## No Reuse of UUID
+
+A UEID is not a UUID {{RFC4122}} by conscious choice for the following reasons.
+
+UUIDs are limited to 128 bits. Further, due to their internal
+structure not all 128 bits contribute to entropy, even for version 4
+UUIDs because some of the bits must be set to specific values. The
+above probabilistic analysis indicates 128 bits is not really enough.
+
+The internal structure of a UUID that uses time, clock and node adds
+no value in this use case where the UEID is just one simple large
+random value.
+
+UUIDs seem to have been designed for scenarios where the implementor
+does not have full control over the environment and uniqueness has to
+be constructed from identifiers at hand. UEID takes the view that
+hardware, software and/or manufacturing process directly implement
+UEID in a simple and direct way.
+
+
 # Changes from Previous Drafts
 
 The following is a list of known changes from the previous drafts.  This list is
 non-authoritative.  It is meant to help reviewers see the significant
 differences.
+
+## From draft-rats-eat-01
+
+* Added UEID design rationale appendix
 
 ## From draft-mandyam-rats-eat-00
 
