@@ -555,56 +555,86 @@ claim made here is solely a self-claim made by the Entity Originator.
 
 ## Secure Boot and Debug Enable State Claims (boot_state)
 
-This claim is an array of five Boolean values indicating the boot and
-debug state of the entity.
+This claim is an array of two, the status of secure boot enabling and
+the status of debug disabling.
+
+If this claim appears at the top level, the entity / device level,
+then it applies to the whole entity / device, to all the
+submodules. It must be the minimum of all the submodules. For example,
+if secure boot is enabled for all but one submodule, this claim must
+be false at the top level.
+
+When this claim appears in a submod, it is only an indication for that
+submodule.
 
 ### Secure Boot Enabled
 
-This indicates whether secure boot is enabled either for an entire
-device or an individual submodule.  If it appears at the device level,
-then this means that secure boot is enabled for all submodules.
-Secure boot enablement allows a secure boot loader to authenticate
-software running either in a device or a submodule prior allowing
-execution.
+The value of true indicates secure boot is enabled. Secure boot is
+considered enabled when base software, the firmware and operating
+system, are under control of the entity manufacturer. This may because
+the software is in ROM or because it is cryptographically
+authenticated or some combination of the two.
 
-### Debug Disabled
+### Debug Disable Level
 
-This indicates whether debug capabilities are disabled for an entity
-(i.e. value of 'true').  Debug disablement is considered a
-prerequisite before an entity is considered operational.
+This applies to system-wide or submodule-wide debug facilities like
+JTAG and diagnostic hardware built into chips. It applies to any
+software debug facilities related to root, operating system or
+privileged software that allow system-wide memory inspection, tracing
+or modification of non-system software like user mode applications.
 
-### Debug Disabled Since Boot
+This characterization assumes that debug facilities can be enabled and
+disabled in a dynamic way or be disabled in some permanent way such
+that no enabling is possible. An example of dynamic enabling is one
+where some authentication is required to enable debugging. An example
+of permanent disabling is blowing a hardware fuse in a chip.
 
-This claim indicates whether debug capabilities for the entity were
-not disabled in any way since boot (i.e. value of 'true').
+The higher levels of debug disabling requires that all debug disabling
+of the levels below it be in effect. Since the lowest level requires
+that all debug be currently disabled, all other levels require that
+too.
 
-### Debug Permanent Disable
+#### Not Disabled
 
-This claim indicates whether debug capabilities for the entity are
-permanently disabled (i.e. value of 'true').  This value can be set to
-'true' also if only the manufacturer is allowed to enabled debug, but
-the end user is not.
+If any debug facility, even manufacturer hardware diagnostics, is
+currently enabled, then this level must be indicated.
 
-### Debug Full Permanent Disable
+#### Disabled
 
-This claim indicates whether debug capabilities for the entity are
-permanently disabled (i.e. value of 'true').  This value can only be
-set to 'true' if no party can enable debug capabilities for the
-entity. Often this is implemented by blowing a fuse on a chip as fuses
-cannot be restored once blown.
+This level indicates all debug facilities are currently disabled. It
+may be possible to enabled them, but they are currently disabled.
+
+#### Disabled Since Boot
+
+This level indicates all debug facilities are currently disabled and
+have been so since the entity booted.
+
+#### Permanent Disable
+
+This level indicates all non-manufacturer facilities are permanently disabled such that no end user or developer cannot enable them. This also indicates that all debug facilities are currently disabled and have been so since boot.
+
+#### Full Permanent Disable
+
+This level indicates that all debug capabilities for the entity are
+permanently disabled.
 
 ### CDDL
 
+    debug_disable_level = (
+        not_disabled: 0, 
+        disabled: 1,
+        disabled_since_boot: 2,
+        permanent_disable: 3,
+        full_permanent_disable: 4
+    )
+
     boot_state_type = [
         secure_boot_enabled=> bool,
-        debug_disabled=> bool,
-        debug_disabled_since_boot=> bool,
-        debug_permanent_disable=> bool,
-        debug_full_permanent_disable=> bool
+        debug_state = &debug_disable_level,
     ]
-    
+
     boot_state_claim = (
-    boot_state: boot_state_type
+        boot_state: boot_state_type
     )
 
 
