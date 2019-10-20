@@ -111,6 +111,10 @@ informative:
     seriesinfo:
       ITU-T: Recommendation X.690
 
+  BirthdayAttack:
+    title: Birthday attack
+    target: https://en.wikipedia.org/wiki/Birthday_attack.
+
   IDevID:
     title: IEEE Standard, "IEEE 802.1AR Secure Device Identifier"
     date: December 2009
@@ -405,9 +409,8 @@ There are privacy considerations for UEID's. See {{ueidprivacyconsiderations}}.
 
 The UEID should be permanent. It should never change for a given
 device / entity. In addition, it should not be reprogrammable.  UEID’s
-are variable length. The recommended maximum is 33 bytes (1 type byte
-and 256 bits). The recommended minimum is 17 bytes (1 type and 128
-bits) because fewer bytes endanger the universal uniqueness.
+are variable length. All implementations MUST handle UEID's that are 33 bytes
+long (1 type byte and 256 bits).  The recommended maximum is also 33 bytes.
 
 When the entity constructs the UEID, the first byte is a type and the
 following bytes the ID for that type. Several types are allowed to
@@ -1025,11 +1028,36 @@ is shown.
 ## Collision Probabilitty
 
 This calculation is to determine the probability of a collision of
-UEIDs given n, the total possible entity population and k, the number
-of entities in a particular entity management database. The quantity k
-is the number of possible values of a UEID. The database is that of
-some large back-end (IoT) device management system. Databases that can
-handle more than a trillion records exist today.
+UEIDs given, the total possible entity population and the number of
+entities in a particular entity management database.
+
+Three different sized databases are considered. The number of devices
+per person roughly models non-personal devices such as traffic lights,
+devices in stores they shop in, facilities they work in and so on,
+even considering individual light bulbs. A device may have
+individually attested subsystems, for example parts of a car or a
+mobile phone. It is assumed that the largest database will have at
+most 10% of the world's population of devices. Note that databases
+that handle more than a trillion records exists today.
+
+The trillion record database size models an easy-to-imagine reality
+over the next decades. The quadrillion record database is a worst case
+that might not come to pass, but would seem to be possible and thus
+should be accommodated. The highly speculative 100 quadrillion case
+perhaps involve nanorobots for every person and livestock animal and
+domesticated bird. It is included to round out the analysis.
+
+Note that the items counted here certainly do not have IP address and
+are not individually connected to the network. They may be connected
+to internal buses, via serial links, blue tooth and so on.  This is
+not the same problem as sizing IP addresses.
+
+| People     | Devices / Person | Subsystems / Device | Database Portion | Database Size           |
+|------------+------------------+------------------- -+------------------+-------------------------+
+| 10 billion | 100              | 10                  | 1/10             | trillion (10^12)        | 
+| 10 billion | 100,000          | 10                  | 1/10             | quadrillion (10^15)     | 
+|100 billion | 1,000,000        | 10                  | 1/10             | 100 quadrillion (10^17) | 
+
 
 This is conceptually similar to the Birthday Problem where m is the
 number of possible birthdays, always 365, and k is the number of
@@ -1040,37 +1068,56 @@ The proper formula for the collision calculation is
 
        p = 1 - e^{-k^2/(2n)}
     
-       P   Collision Probability
+       p   Collision Probability
        n   Total possible population
        k   Actual population
 
-However for the very large values involve here, this formula requires floating
-point precesion higher than commonly available in calculators and SW so this
-simple approximation is used. See https://en.wikipedia.org/wiki/Birthday_attack.
+However, for the very large values involve here, this formula requires floating
+point precession higher than commonly available in calculators and SW so this
+simple approximation is used. See {{BirthdayAttack}}. 
 
         p = k^2 / 2n 
 
-|People     | Devices / person | Databse size  | 128 bits    |   192 bits   | 256 bits   |
-|-----------+------------------+---------------+-------------+--------------+------------+
-| 10 billion| 100              | 10^12         | 2 * 10^-15  |   8 * 10^-35 | 5 * 10^-55 |
-| 10 billion| 100,000          | 10^15         | 2 * 10^-09  |   8 * 10^-29 | 5 * 10^-49 |
-|100 billion| 1,000,000        | 10^17         | 2 * 10^-05  |   8 * 10^-25 | 5 * 10^-45 |
+For this calculation:
+      
+        p  Collision Probability
+        n  Total population based on number of bits in UEID
+        k  Population in a database
 
+| Database Size           | 128 bit UEID | 192 bit UEID | 256 bit UEID |
+|-------------------------+--------------+--------------+--------------+
+| trillion (10^12)        | 2 * 10^-15   | 8 * 10^-35   | 5 * 10^-55   |
+| quadrillion (10^15)     | 2 * 10^-09   | 8 * 10^-29   | 5 * 10^-49   |
+| 100 quadrillion (10^17) | 2 * 10^-05   | 8 * 10^-25   | 5 * 10^-45   |
 
-While table is scaled by the number of people, it should be considered
-that all devices will not be personally owned. For example, there may
-be thousands of individually addressable lights in every store a
-person shops in. Also, there may be more than on entity in a device if
-subsystems of the device are individually attested.
+Next, to calculate the probability of a collisions occurring in one year's 
+operation of a database, it is assumed that the database size is in
+a steady state and that 10% of the database changes per year. For example,
+a trillion record database would have 100 billion states per year. Each
+of those states has the above calculated probability of a collision.
 
-Clearly 128 bits is not enough for the worst case in the table, row
-three, column one. A collision rate of one in 50,000 is
-unacceptable. The second worst case is at the margin with a collision
-rate of 1 in 500 million. For a trillion devices, 128 is enough.
+The following tables gives the time interval until there is a probability of 
+a collision based on there being one tenth the number of states per year
+as the number of records in the database.
+   
+      t = 1 / ((k / 10) * p)
+  
+      t  Time until a collision
+      p  Collision probability for UEID size
+      k  Database size
 
-The first row seems likely to come about eventually. The second row is
-at the edge of what seems likely to ever happen. The third seems
-beyond what can be envisioned today.
+| Database Size           | 128 bit UEID   | 192 bit UEID | 256 bit UEID |
+|-------------------------+----------------+--------------+--------------+
+| trillion (10^12)        | 60,000 years   | 10^24 years  | 10^44 years  |
+| quadrillion (10^15)     | 8 seconds      | 10^14 years  | 10^34 years  |
+| 100 quadrillion (10^17) | 8 microseconds | 10^11 years  | 10^31 years  |
+
+Clearly 128 bits is not enough for the quadrillion-record database. Clearly
+192 bits is enough for every case.
+
+Note that even the rate of change of the database were much lower with one
+thousandth of it changing per year, that would not improve the rate for
+the one quadrillion record database to even one collision per day.  
 
 The choice is for 256-bits to be prepared even for what can’t be
 envisioned today. The table shows 192 bits is enough, but 256 bits,
@@ -1094,7 +1141,9 @@ UUIDs seem to have been designed for scenarios where the implementor
 does not have full control over the environment and uniqueness has to
 be constructed from identifiers at hand. UEID takes the view that
 hardware, software and/or manufacturing process directly implement
-UEID in a simple and direct way.
+UEID in a simple and direct way. It takes the view that cryptographic
+quality random number generators are readily available as they are
+implemented in commonly used CPU hardware.
 
 
 # Changes from Previous Drafts
