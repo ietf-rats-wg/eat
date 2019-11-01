@@ -656,26 +656,55 @@ seconds that have elapsed since the entity or submod was last booted.
     uptime_claim = (
     uptime: uint )
 
-## Nested EATs, the EAT Claim (nested_eat)
 
-It is allowed for one EAT to be embedded in another. This is for
-complex devices that have more than one subsystem capable of
-generating an EAT. For example, one might be the device-wide EAT that is
-low to medium security and another from a Secure Element or similar
-that is high security.
+## Submod Attachment Claim (submod_attachment)
 
-The contents of the "nested_eat" claim must be a fully signed, optionally
-encrypted, EAT token.
+This claim must only be used in submodules. It indicates the type of
+hardware used to attach the submodule to the containing module.
+
+It has the following values:
+
+1 -- Unspecified 
+: The means of attachment is unspecified, but presumed to be somewhat
+local. One example of this is components of a desktop personal
+computer that are connected by internal pluggable
+connectors. Similarly, parts of an automobile connected by pluggable
+connects is an example.
+
+2 -- Device Internal
+: The submodule exists as part of the same physical device as the
+containing module. While there might be pluggable connections, they
+are not easily connected or disconnected by the end user.
+
+3 -- PCB Internal
+: The submodule exists on the same circuit board as the containing
+module. An attacker would have to resort to soldering or probing the
+circuit board to disrupt the connection. An example of this is two
+chips both soldered to the same circuit board.
+
+4 -- Chip Internal
+: The submodule exists on the same chip as containing module.
+Submodules that make use of TEE or virtualization hardware fall into
+this category.
+
+Note that this, like security level, is a self-claim made by the
+entity originator. It is not a replacement for a certification program
+in which a third party independently verifies the security of the
+attachment.
 
 ### CDDL
 
-    nested_eat_claim = (
-    nested_eat: nested_eat_type)
+    attachment_type = (
+    unspecified: 1,
+    device_internal: 2,
+    pcb_internal: 3,
+    chip_internal: 4
+    )
+    
+    attachment_type_claim = (
+    attachment: attachment_type )
 
-A nested_eat_type is defined in words rather than CDDL. It is either a
-full CWT or JWT including the COSE or JOSE signing.
-
-## The Submods Claim (submods)
+## The Submods Part of a Token (submods)
 
 Some devices are complex, having many subsystems or submodules.  A
 mobile phone is a good example. It may have several connectivity
@@ -685,33 +714,81 @@ more security-oriented subsystems like a TEE or a Secure Element.
 
 The claims for each these can be grouped together in a submodule.
 
-Specifically, the "submods" claim is an array. Each item in the array
-is a CBOR map containing all the claims for a particular submodule.
+The submods part of a token a single map/object with many entries, one
+per submodule.  There is only one submods map in a token. It is
+identified by its specific label. It is a peer to other claims, but it
+is not called a claim because it is a container for a claim set rather
+than an individual claim. This submods part of a token allows what
+might be called recursion. It allows claim sets inside of claim sets
+inside of claims sets...
 
-The security level of the submod is assumed to be at the same level as
-the main entity unless there is a security level claim in that
-submodule indicating otherwise. The security level of a submodule can
-never be higher (more secure) than the security level of the EAT it is
-a part of.
+### Two Types of Submodules
 
-### The submod_name Claim
+Each entry in the submod map one of two types:
 
-Each submodule should have a submod_name claim that is descriptive
-name. This name should be the CBOR txt type.
+* A non-token submodule that is a map or object directly containing
+  claims for the submodule.
+* A nested EAT that is a fully-formed, independently signed EAT token
+
+#### Non-token Submodules
+
+Essentially this type of submodule, is just a sub-map or sub-object
+containing claims. It is recognized from the other type by being
+a data item of type map in CBOR or by being an object in JSON.
+
+The contents are claims about the submodule of types defined 
+in this document or anywhere else claims types are defined.
+
+#### Nested EATs
+
+This type of submodule is a fully formed EAT as described here. In
+this case the submodule has key material distinct from the containing
+EAT token that allows it to sign on its own.
+
+When an EAT is nested in another EAT as a submodule the nested EAT
+MUST use the CBOR CWT tag. This clearly distinguishes it from the
+non-token submodules.
+
+### No Inheritance
+
+The subordinate modules do not inherit anything from the containing
+token.  The subordinate modules must explicitly include all of their
+claims. This is the case even for claims like the nonce and age.
+
+This rule is in place for simplicity. It avoids complex inheritance
+rules that might vary from one type of claim to another. (TODO: fix
+the boot claim which does have inheritance as currently described).
+
+### Security Levels and Attachment
+
+The security level of the non-token subordinate modules should always
+be less than that of the containing modules in the case of non-token
+submodules. It makes no sense for a module of lesser security to be
+signing claims of a module of higher security. An example of this is a
+TEE signing claims made by the non-TEE parts (e.g. the high-level OS)
+of the device.
+
+The opposite may be true for the nested tokens. They usually have
+their own more secure key material. An example of this is an embedded
+secure element.
+
+The submods attachment claim describes how strong the connection is of
+a submodule to the containing module. For stronger attachment types
+the submod might choose to not include claims like the nonce for size,
+but this is not recommended.
+
+### Submodule Names
+
+The label or name for each submodule in the submods map is a text
+string naming the submodule. No submodules may have the same name.
 
 ### CDDL
 
 In the following a generic_claim_type is any CBOR map entry or JSON name/value pair. 
 
-    submod_name_type = (
-    submod_name: tstr )
+    submods_type = [ * submodule ]
 
-    submods_type = [ * submod_claims ]
-    
-    submod_claims = {
-        submod_name_type,
-        * generic_claim_type
-    }
+    submodule = eat_claims // eat_token
     
     submods_claim = (
     submods: submod_type )
@@ -812,9 +889,8 @@ following CDDL types are encoded in JSON as follows:
     location = 13
     age = 14
     uptime = 15
-    nested_eat = 16
+    attachment = 16
     submods = 17
-    submod_name = 18
     
     latitude = 1
     longitude = 2
