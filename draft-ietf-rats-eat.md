@@ -1072,7 +1072,7 @@ The proper formula for the collision calculation is
        n   Total possible population
        k   Actual population
 
-However, for the very large values involve here, this formula requires floating
+However, for the very large values involved here, this formula requires floating
 point precession higher than commonly available in calculators and SW so this
 simple approximation is used. See {{BirthdayAttack}}. 
 
