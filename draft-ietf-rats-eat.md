@@ -1121,7 +1121,7 @@ the one quadrillion record database to even one collision per day.
 
 The choice is for 256-bits to be prepared even for what can’t be
 envisioned today. The table shows 192 bits is enough, but 256 bits,
-32-bytes, is selected because it the output of the common SHA-256 hash
+32-bytes, is selected because it is the output of the common SHA-256 hash
 that is in common use.
 
 ## No Reuse of UUID
