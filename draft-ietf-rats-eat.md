@@ -1049,7 +1049,7 @@ domesticated bird. It is included to round out the analysis.
 
 Note that the items counted here certainly do not have IP address and
 are not individually connected to the network. They may be connected
-to internal buses, via serial links, blue tooth and so on.  This is
+to internal buses, via serial links, Bluetooth and so on.  This is
 not the same problem as sizing IP addresses.
 
 | People     | Devices / Person | Subsystems / Device | Database Portion | Database Size           |
