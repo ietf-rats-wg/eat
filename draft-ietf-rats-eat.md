@@ -1025,7 +1025,7 @@ is shown.
 
 # UEID Design Rationale
 
-## Collision Probabilitty
+## Collision Probability
 
 This calculation is to determine the probability of a collision of
 UEIDs given, the total possible entity population and the number of
