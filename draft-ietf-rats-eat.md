@@ -1073,7 +1073,7 @@ The proper formula for the collision calculation is
        k   Actual population
 
 However, for the very large values involved here, this formula requires floating
-point precession higher than commonly available in calculators and SW so this
+point precision higher than commonly available in calculators and SW so this
 simple approximation is used. See {{BirthdayAttack}}. 
 
         p = k^2 / 2n 
