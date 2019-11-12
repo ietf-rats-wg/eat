@@ -602,7 +602,7 @@ currently enabled, then this level must be indicated.
 #### Disabled
 
 This level indicates all debug facilities are currently disabled. It
-may be possible to enabled them, but they are currently disabled.
+may be possible to enable them in the future, and it may also be possible that they were enabled in the past after the device booted, but they are currently disabled.
 
 #### Disabled Since Boot
 
