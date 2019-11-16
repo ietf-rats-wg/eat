@@ -501,8 +501,8 @@ This claim uses that database to identify OEMs. The contents of the
 claim may be either an IEEE MA-L, MA-M, MA-S or an IEEE CID {{IEEE.RA}}. 
 An MA-L, formerly known as an OUI, is a 24-bit value used as the first
 half of a MAC address. MA-M similarly is a 28-bit value uses as the first
-part of a MAC address, and MA-S, formerly known as OUI-36, a 36-value. 
-Many companies already have purchased one of these. A CDI is also
+part of a MAC address, and MA-S, formerly known as OUI-36, a 36-bit value. 
+Many companies already have purchased one of these. A CID is also
 a 24-bit value from the same space as an MA-L, but not for use as a MAC address.
 IEEE has published Guidelines for Use of EUI, OUI, and CID {{OUI.Guide}} and
 provides a lookup services {{OUI.Lookup}}
