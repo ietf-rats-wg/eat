@@ -998,14 +998,14 @@ Regarding transmission of key material from the enclave to the entity, the key m
 or more intermediaries.  Therefore some form of protection ("key wrapping") may be necessary.  The transmission
 itself may be performed electronically, but can also be done by human courier.  In the latter case, there should be minimal
 to no exposure of the key material to the human (e.g. encrypted portable memory).  Moreover, the human should transport the key
-material from directly from the secure enclave where it was created to a destination secure enclave where it can be provisioned.
+material directly from the secure enclave where it was created to a destination secure enclave where it can be provisioned.
 
 ## Transport Security
 
-As stated in Section 8 of {{RFC8392}}, "The security of the CWT relies upon on the protections offered by COSE".  Similar considerations apply to EAT when sent as a CWT.  However, the EAT introduces the concept of a nonce (to be specifically carried via a 'cti' claim)
+As stated in Section 8 of {{RFC8392}}, "The security of the CWT relies upon on the protections offered by COSE".  Similar considerations apply to EAT when sent as a CWT.  However,  EAT introduces the concept of a nonce (to be specifically carried via a 'cti' claim)
 to protect against replay.  Since an EAT may be created by an entity that may not support the same type of transport security
 as the consumer of the EAT, intermediaries may be required to bridge communications between the entity and consumer.  As a result, it
-is RECOMMENDED that both the consumer create a nonce, and the entity leverage the nonce along with COSE mechanisms for encryption and signing to create the EAT.
+is RECOMMENDED that both the consumer create a nonce, and the entity leverage the nonce along with COSE mechanisms for encryption and/or signing to create the EAT.
 
 Similar considerations apply to the use of EAT as a JWT.  Although the security of a JWT leverages the JSON Web Encryption (JWE) and JSON Web Signature (JWS) specifications, it is still recommended to make use of the EAT nonce.
 
@@ -1017,7 +1017,7 @@ are required for verification of an EAT, it is important to minimize information
 communication between multiple consumers should be secure.
 
 For instance, consider the example of an encrypted and signed EAT with multiple claims.  A consumer may receive the EAT (denoted as
-the "receiving consumer", decrypt
+the "receiving consumer"), decrypt
 its payload, verify its signature, but then pass specific subsets of claims to other consumers for evaluation ("downstream
 consumers").  Since any COSE
 encryption will be removed by the receiving consumer, the communication of claim subsets to any downstream consumer should leverage
