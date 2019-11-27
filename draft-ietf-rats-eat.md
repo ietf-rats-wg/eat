@@ -379,10 +379,22 @@ the nonce in an EAT.
 
 TODO: what about the JWT claim "nonce"?
 
+### nonce CDDL
+
+~~~~CDDL
+nonce_claim = ( nonce => bytes ) ; do we want a .size limit here? 
+~~~~
+
 ## Timestamp claim (iat)
 
 The "iat" claim defined in CWT and JWT is used to indicate the
 date-of-creation of the token.
+
+### timestamp CDDL
+
+~~~~CDDL
+iat_claim = ( iat => bytes / text ) ; IEEE Std 1003.1-2017 / ISO 8601:2019
+~~~~
 
 ## Universal Entity ID Claim (ueid)
 
@@ -449,10 +461,12 @@ this are:
   0x02 or vice versa.  The main requirement on the manufacturer is
   that UEIDs be universally unique. 
   
-### CDDL
-  
-     ueid_claim = (
-     ueid: bstr )
+### ueid CDDL
+
+~~~~CDDL  
+ueid_claim /= ( ueid => bytes .size 16 )
+ueid_claim /= ( ueid => bytes .size 32 )
+~~~~
   
 ## Origination Claim (origination)
 
@@ -472,30 +486,36 @@ and other are in separate fields.
 TODO: This needs refinement. It is somewhat parallel to issuer claim
 in CWT in that it describes the authority that created the token.
 
-### CDDL
+### origination CDDL
 
-    origination_claim = (
-    origination: string_or_uri )
+~~~~CDDL
+origination_claim = ( origination => text / URI )
+~~~~
 
-## OEM identification by IEEE OUI (oemid)
+## OEM identification by IEEE MA-L (malid)
 
-This claim identifies a device OEM by the IEEE OUI. Reference TBD. It
-is a byte string representing the OUI in binary form in network byte
-order (TODO: confirm details).
+This claim identifies a device OEM by the IEEE MA-L (MAC Address
+Block Large, previously referred to as an Organizationally Unique
+Identifier - OUI).
+Reference TBD. It is a byte string representing the MA-L in binary
+form in network byte order (TODO: confirm details).
 
-Companies that have more than one IEEE OUI registered with IEEE should
+Companies that have more than one IEEE MA-L registered with IEEE should
 pick one and prefer that for all their devices. 
 
-Note that the OUI is in common use as a part of MAC Address. This
-claim is only the first bits of the MAC address that identify the
-manufacturer. The IEEE maintains a registry for these in which many
-companies participate.
+Note that the MA-L is in common use as a part of MAC Address (EUI-48).
+This claim is, for example, the first three bytes of the MAC address
+that identify the manufacturer. The IEEE maintains a registry for these
+in which many companies participate.
 
-### CDDL
+### malid CDDL
 
-    oemid_claim = (
-    oemid: bstr )
-
+~~~~CDDL
+mal_claim //= ( eui-48-mal => bytes .size 3 ) 
+mal_claim //= ( eui-64-mal => bytes .site 5 )
+;mam_claim and mas_claim should also be defined as first time customers
+;are not allowed to register 24 bit MA-L via IEEE anymore.
+~~~~
 
 ## The Security Level Claim (security_level)
 
@@ -541,17 +561,21 @@ security certification schemes such as those based on FIPS (TODO: reference)
 or those based on Common Criteria (TODO: reference). The 
 claim made here is solely a self-claim made by the Entity Originator.
 
-### CDDL
+### security_level CDDL
 
-    security_level_type = (
-    unrestricted: 1,
-    restricted: 2,
-    secure_restricted: 3,
-    hardware: 4
-    )
+~~~~CDDL
+security_level_type /= unrestricted
+security_level_type /= restricted
+security_level_type /= secure_restricted
+security_level_type /= hardware
+
+unrestricted = 1
+restricted = 2
+secure_restricted = 3
+hardware = 4
     
-    security_level_claim = (
-    security_level: security_level_type )
+security_level_claim = ( security_level => security_level_type )
+~~~~
 
 ## Secure Boot and Debug Enable State Claims (boot_state)
 
@@ -593,20 +617,19 @@ set to 'true' if no party can enable debug capabilities for the
 entity. Often this is implemented by blowing a fuse on a chip as fuses
 cannot be restored once blown.
 
-### CDDL
+### boot_state CDDL
 
-    boot_state_type = [
-        secure_boot_enabled=> bool,
-        debug_disabled=> bool,
-        debug_disabled_since_boot=> bool,
-        debug_permanent_disable=> bool,
-        debug_full_permanent_disable=> bool
-    ]
-    
-    boot_state_claim = (
-    boot_state: boot_state_type
-    )
+~~~~CDDL
+boot_state_type = [
+  secure_boot_enabled: bool,
+  debug_disabled: bool,
+  debug_disabled_since_boot: bool,
+  debug_permanent_disable bool,
+  debug_full_permanent_disable: bool,
+]
 
+boot_state_claim = ( boot_state => boot_state_type )
+~~~~
 
 ## The Location Claim (location)
 
@@ -618,20 +641,21 @@ location coordinate claims are consistent with the WGS84 coordinate
 system {{WGS84}}.  In addition, a sub claim providing the estimated
 accuracy of the location measurement is defined.
 
-### CDDL
+### location CDDL
 
-    location_type = {
-        latitude => number,
-        longitude => number,
-        altitude => number,
-        accuracy => number,
-        altitude_accuracy => number,
-        heading => number,
-        speed => number
-    }
+~~~~CDDL
+location_type = {
+  latitude => number,
+  longitude => number,
+  ? altitude => number,
+  ? accuracy => number,
+  ? altitude_accuracy => number,
+  ? heading => number,
+  ? speed => number
+}
     
-    location_claim = (
-    location: location_type )
+location_claim = ( location => location_type )
+~~~~
 
 ## The Age Claim (age)
 
@@ -643,18 +667,22 @@ buffered and sent at a later time and a sufficiently accurate time
 reference is unavailable for creation of a timestamp, then the age
 claim is provided.
 
-    age_claim = (
-    age: uint)
+### age CDDL
+
+~~~~CDDL
+age_claim = ( age => uint )
+~~~~
 
 ## The Uptime Claim (uptime)
 
 The "uptime" claim contains a value that represents the number of
 seconds that have elapsed since the entity or submod was last booted.
 
-### CDDL
+### uptime CDDL
 
-    uptime_claim = (
-    uptime: uint )
+~~~~CDDL
+uptime_claim = ( uptime => uint )
+~~~~
 
 ## Nested EATs, the EAT Claim (nested_eat)
 
@@ -667,10 +695,18 @@ that is high security.
 The contents of the "nested_eat" claim must be a fully signed, optionally
 encrypted, EAT token.
 
-### CDDL
+### nested_eat CDDL
 
-    nested_eat_claim = (
-    nested_eat: nested_eat_type)
+~~~~CDDL
+nested_eat_claim = ( nested_eat => nested_eat_type )
+; keeping "nested_eat_type" for now. This must be _way more_ precisely defined,
+; unfortunately, as CWT allows for:
+; COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
+;    COSE_Encrypt_Tagged / COSE_Encrypt0_Tagged /
+;    COSE_Mac_Tagged / COSE_Mac0_Tagged
+; And this will lead to a _lot_ of permutations, if not restricted well by
+; EATs CDDL definitions...
+~~~~
 
 A nested_eat_type is defined in words rather than CDDL. It is either a
 full CWT or JWT including the COSE or JOSE signing.
@@ -697,24 +733,23 @@ a part of.
 ### The submod_name Claim
 
 Each submodule should have a submod_name claim that is descriptive
-name. This name should be the CBOR txt type.
+name. This name should be the CBOR type text.
 
 ### CDDL
 
 In the following a generic_claim_type is any CBOR map entry or JSON name/value pair. 
 
-    submod_name_type = (
-    submod_name: tstr )
+~~~~CDDL
+submod_claim_map = {
+  submod_name_type,
+  * generic_claim_type
+}
 
-    submods_type = [ * submod_claims ]
+submod_name_type = ( submod_name => text )
+generic_claim_type = ( any_claim_key => any )
     
-    submod_claims = {
-        submod_name_type,
-        * generic_claim_type
-    }
-    
-    submods_claim = (
-    submods: submod_type )
+submods_claim = ( submods => [ + submod_claim_map ] )
+~~~~
 
 # Data Model {#datamodel}
 This makes use of the types defined in  CDDL Appendix D, Standard Prelude.
@@ -729,44 +764,25 @@ This section provides CDDL for the claims defined in CWT. It is
 non-normative as {{RFC8392}} is the authoritative definition of these
 claims.
 
-    cwt_claim = (
-        issuer_claim //
-        subject_claim //
-        audience_claim //
-        expiration_claim //
-        not_before_claim //
-        issued_at_calim //
-        cwt_id_claim
-    )
-    
-    issuer_claim = (
-    issuer: string_or_uri )
+~~~~CDDL
+rfc8392-claim //= ( issuer => text )
+rfc8392-claim //= ( subject => text )
+rfc8392-claim //= ( audience => text )
+rfc8392-claim //= ( expiration => time )
+rfc8392-claim //= ( not_before => time )
+rfc8392-claim //= ( issued_at => time )
+rfc8392-claim //= ( cwt_id => bytes )
+   
+issuer = 1
+subject = 2
+audience = 3
+expiration = 4
+not_before = 5
+issued_at = 6
+cwt_id = 7
 
-    subject_claim = (
-    subject: string_or_uri )
-
-    audience_claim = (
-    audience: string_or_uri )
-
-    expiration_claim = (
-    expiration: time )
-
-    not_before_claim = (
-    not_before: time )
-
-    issued_at_calim = (
-    issued_at: time )
-
-    cwt_id_claim = (
-    cwt_id: bstr )
-    
-    issuer = 1
-    subject = 2
-    audience = 3
-    expiration = 4
-    not_before = 5
-    issued_at = 6
-    cwt_id = 7
+cwt_claim = rfc8392-claim
+~~~~
 
 ## JSON
 
