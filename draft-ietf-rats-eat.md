@@ -83,16 +83,18 @@ normative:
     date: 2000
     
   IANA.CWT.Claims:
-    title: CBOR Web Token (CWT) Claims
     target: http://www.iana.org/assignments/cwt
+    title: CBOR Web Token (CWT) Claims
     author: 
     - org: IANA
+    date: false
 
   IANA.JWT.Claims:
+     target: https://www.iana.org/assignments/jwt
      title: JSON Web Token (JWT) Claims
      author: 
      - org: IANA
-     target: https://www.iana.org/assignments/jwt
+     date: false
 
 informative:
   I-D.ietf-suit-manifest: suit-manifest
