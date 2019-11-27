@@ -63,6 +63,7 @@ normative:
   RFC8152:
   RFC8392:
   RFC8610:
+  I-D.ietf-sacm-coswid: coswid
   TIME_T:
     target: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_15
     title: 'Vol. 1: Base Definitions, Issue 7'
@@ -94,6 +95,7 @@ normative:
      target: https://www.iana.org/assignments/jwt
 
 informative:
+  I-D.ietf-suit-manifest: suit-manifest
   Webauthn:
     title: 'Web Authentication: A Web API for accessing scoped credentials'
     author:
@@ -715,6 +717,142 @@ In the following a generic_claim_type is any CBOR map entry or JSON name/value p
     
     submods_claim = (
     submods: submod_type )
+
+## Software Identification Tag Claims
+
+Software Identification Tags are defined by ISO/IEC 19770-2:2015 - typically in XML - and the
+corresponding CBOR encoding for Concise Software Identification Tags is defined in {{-coswid}}.
+
+There are 3 categories of characteristics of SWID tags that are of relevance for inclusion in
+Entity Attestation Tokens resulting in 8 different Claim definitions:
+
+* Serialization: XML and CBOR
+* SWID Resource Collection type: evidence and payload ({{-coswid}}, section 2.3.)
+* Signature: signed and unsigned
+
+Evidence (Co)SWID tags are created as measurements by Attesters. Payload (Co)SWID tags are created
+by external entities, for example the software-creator, and can be provisioned to Attesters or Verifiers.
+
+### Unsigned CoSWID Evidence Claim
+
+While attestation evidence must always be signed in order to provide a minimal level of assurance, a CoSWID tag
+included in an Entity Attestation Token can become attestation evidence via the COSE envelope encapsulating
+the Entity Attestation Token.
+
+A security_level Claim SHOULD be used in conjunction with an unsigned_coswid_evidence Claim in order to
+provide an assertion about the believability of the unsigned_coswid_evidence Claim.
+
+#### unsigned_coswid_evidence CDDL
+
+In the following a concise-swid-tag is a CBOR data item defined in {{-coswid}}.
+
+unsigned_coswid_evidence_claim = ( unsigned_coswid_evidence => bytes .cbor concise-swid-tag )
+
+### Signed CoSWID Evidence Claim
+
+If a CoSWID evidence tag is signed by the Attester before being included in the Entity Attestation Token a corresponding iat Claim {{RFC8392}}
+SHOULD be included in the Entity Attestation Token, indicating when the signatures in the values of EAT Claims have been issued.
+
+#### signed_coswid_evidence CDDL
+
+In the following a signed-coswid is a CBOR data item defined in {{-coswid}}.
+
+signed_coswid_evidence_claim = ( signed_coswid_evidence => bytes .cbor signed-coswid )
+
+### Unsigned CoSWID Payload Claim
+
+While endorsements or appraisal policies should always be signed by issuing entities in order to provide a minimal level of assurance,
+a CoSWID included in an Entity Attestation Token can become a valid Endorsement or trustworthy appraisal policy content 
+via the COSE envelope encapsulating the Entity Attestation Token.
+
+A security_level Claim SHOULD be used in conjunction with an unsigned_coswid_payload Claim in order to
+provide an assertion about the believability of the unsigned_coswid_payload Claim.
+
+#### unsigned_coswid_payload CDDL
+
+In the following a concise-swid-tag is a CBOR data item defined in {{-coswid}}.
+
+unsigned_coswid_payload_claim = ( unsigned_coswid_payload => bytes .cbor concise-swid-tag )
+
+### Signed CoSWID Payload Claim
+
+If a CoSWID payload tag is signed by an issuing entity, such as an endorser, before being included in the Entity Attestation Token,
+a corresponding iat Claim {{RFC8392}} SHOULD be included in the Entity Attestation Token, indicating when the signatures in
+the values of EAT Claims have been issued.
+
+#### signed_coswid_payload CDDL
+
+In the following a signed-coswid is a CBOR data item defined in {{-coswid}}.
+
+signed_coswid_payload_claim = ( signed_coswid_payload => bytes .cbor signed-coswid )
+
+### Unsigned ISO SWID Evidence Claim
+
+While attestation evidence must always be signed in order to provide a minimal level of assurance, an ISO SWID tag
+included in an Entity Attestation Token can become attestation evidence via the COSE envelope encapsulating
+the Entity Attestation Token.
+
+A security_level Claim SHOULD be used in conjunction with an unsigned_swid_evidence Claim in order to
+provide an assertion about the believability of the unsigned_swid_evidence Claim.
+
+#### unsigned_swid_evidence CDDL
+
+In the following the text value includes an unsigned XML ISO SWID as defined by ISO/IEC 19770-2:2015.
+
+unsigned_swid_evidence_claim = ( unsigned_swid_evidence => text )
+
+### Signed ISO SWID Evidence Claim
+
+If an ISO SWID evidence tag is signed by the Attester before being included in the Entity Attestation Token, a corresponding iat Claim {{RFC8392}}
+SHOULD be included in the Entity Attestation Token, indicating when the signatures in the values of EAT Claims have been issued.
+
+#### signed_swid_evidence CDDL
+
+In the following the text value includes a signed XML ISO SWID as defined by ISO/IEC 19770-2:2015.
+
+signed_swid_evidence_claim = ( signed_swid_evidence => text )
+
+### Unsigned ISO SWID Payload Claim
+
+While endorsements or appraisal policies should always be signed by issuing entities in order to provide a minimal level of assurance,
+an ISO SWID included in an Entity Attestation Token can become a valid Endorsement or trustworthy appraisal policy content
+via the COSE envelope encapsulating the Entity Attestation Token.
+
+A security_level Claim SHOULD be used in conjunction with an unsigned_swid_payload Claim in order to
+provide an assertion about the believability of the unsigned_swid_payload Claim.
+
+#### unsigned_swid_payload CDDL
+
+In the following the text value includes a signed XML ISO SWID as defined by ISO/IEC 19770-2:2015.
+
+unsigned_swid_payload_claim = ( unsigned_swid_payload => text )
+
+### Signed ISO SWID Payload Claim
+
+If an ISO SWID payload tag is signed by an issuing entity, such as an endorser, before being included in the Entity Attestation Token,
+a corresponding iat Claim {{RFC8392}} SHOULD be included in the Entity Attestation Token, indicating when the signatures in
+the values of EAT Claims have been issued.
+
+#### signed_swid_payload CDDL
+
+In the following the text value includes a signed XML ISO SWID as defined by ISO/IEC 19770-2:2015.
+
+signed_swid_payload_claim = ( signed_swid_payload => bytes .cbor signed-coswid )
+
+## SUIT Manifest Claim
+
+In order to refer to a piece of firmware, an Entity Attestation Token can include the suit_manifest Claim. This Claim provides the full
+spectrum of functionality a SUIT Manifest provides, such as links to firmware location, firmware metadata, or even directive
+catalogs allowing to create evidence about a successfully (or unsuccessfully) conducted firmware update.
+
+Conversely, a suit_manifest Claim can provide attestation evidence representing the need for an outstanding firmware update in order
+to comply with the current appraisal policies of a Verifier.
+
+### suit_manifest Claim
+
+In the following a SUIT_Outer_Wrapper is a CBOR data item defined in {{-suit-manifest}}.
+
+suit_manifest_claim = ( suit_manifest => bytes .cbor SUIT_Outer_Wrapper )
 
 # Data Model {#datamodel}
 This makes use of the types defined in  CDDL Appendix D, Standard Prelude.
