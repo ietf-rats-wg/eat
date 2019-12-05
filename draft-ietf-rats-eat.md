@@ -494,34 +494,34 @@ in CWT in that it describes the authority that created the token.
     origination_claim = (
     origination: string_or_uri )
 
-## OEM identification by IEEE (oemid)
+## OEM Identification by IEEE (oemid)
 
 The IEEE operates a global registry for MAC addresses and company IDs.
 This claim uses that database to identify OEMs. The contents of the
-claim may be either an IEEE MA-L, MA-M, MA-S or an IEEE CID {{IEEE.RA}}. 
-An MA-L, formerly known as an OUI, is a 24-bit value used as the first
-half of a MAC address. MA-M similarly is a 28-bit value uses as the first
-part of a MAC address, and MA-S, formerly known as OUI-36, a 36-value. 
-Many companies already have purchased one of these. A CDI is also
-a 24-bit value from the same space as an MA-L, but not for use as a MAC address.
-IEEE has published Guidelines for Use of EUI, OUI, and CID {{OUI.Guide}} and
-provides a lookup services {{OUI.Lookup}}
+claim may be either an IEEE MA-L, MA-M, MA-S or an IEEE CID
+{{IEEE.RA}}.  An MA-L, formerly known as an OUI, is a 24-bit value
+used as the first half of a MAC address. MA-M similarly is a 28-bit
+value uses as the first part of a MAC address, and MA-S, formerly
+known as OUI-36, a 36-value.  Many companies already have purchased
+one of these. A CID is also a 24-bit value from the same space as an
+MA-L, but not for use as a MAC address.  IEEE has published Guidelines
+for Use of EUI, OUI, and CID {{OUI.Guide}} and provides a lookup
+services {{OUI.Lookup}}
 
-Companies that have more than one of these IDs or MAC address blocks should
-pick one and prefer that for all their devices.
+Companies that have more than one of these IDs or MAC address blocks
+should pick one and prefer that for all their devices.
 
-Commonly, these are expressed in Hexadecimal Representation {{IEEE.802-2001}} 
-also called the Canonical format. When this claim is encoded this is the
-byte order used. 
-
-These claims use the hex_bstr type. It encodes as a binary byte string in
-CDDL for compactness and a hexadecimal text in JSON for readability. The JSON
-representation is not base64 encoded as used for other binary data. 
+Commonly, these are expressed in Hexadecimal Representation
+{{IEEE.802-2001}} also called the Canonical format. When this claim is
+encoded order of bytes in the bstr are the same as the order in the
+Hexadecimal Representation. For example, an MA-L like "AC-DE-48" would
+be encoded in 3 bytes with values 0xAC, 0xDE, 0x48. For JSON encoded
+tokens, this is further base64url encoded.
 
 ### CDDL
 
     oemid_claim = (
-    oemid: hex_bstr )
+    oemid: bstr )
 
 
 ## The Security Level Claim (security_level)
@@ -826,7 +826,6 @@ following CDDL types are encoded in JSON as follows:
 * bstr -- must be base64url encoded
 * time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
 * string_or_uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
-* hex_bstr -- encoded as hexadecimal text separated by ":" or "-". For example "“AC-DE-48-23" or "“AC:DE:48:23"
 
 ## CBOR
 
@@ -851,11 +850,6 @@ following CDDL types are encoded in JSON as follows:
     altitude_accuracy = 5
     heading = 6
     speed = 7
-
-### CBOR Types
-
-* hex_bstr -- This is encoded as a standard CBOR byte string. 
-
 
 ### CBOR Interoperability
 
