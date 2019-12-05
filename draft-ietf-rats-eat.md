@@ -86,12 +86,14 @@ normative:
     target: http://www.iana.org/assignments/cwt
     author: 
     - org: IANA
+    date: false
 
   IANA.JWT.Claims:
      title: JSON Web Token (JWT) Claims
      author: 
      - org: IANA
      target: https://www.iana.org/assignments/jwt
+     date: false
  
 informative:
   Webauthn:
@@ -128,14 +130,17 @@ informative:
   OUI.Lookup:
     title: IEEE Registration Authority Assignments
     target: https://regauth.standards.ieee.org/standards-ra-web/pub/view.html#registries
+    date: false
 
   IEEE.RA:
     title: IEEE Registration Authority
     target: https://standards.ieee.org/products-services/regauth/index.html
+    date: false
 
   IEEE.802-2001:
     title: IEEE Standard For Local And Metropolitan Area Networks Overview And Architecture
     target: https://webstore.ansi.org/standards/ieee/ieee8022001r2007
+    date: 2007
 
 
 --- abstract
