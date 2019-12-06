@@ -629,12 +629,12 @@ permanently disabled.
     )
 
     boot_state_type = [
-        secure_boot_enabled=> bool,
-        debug_state = &debug_disable_level,
+        secure_boot_enabled: bool,
+        debug_state: &debug_disable_level,
     ]
 
     boot_state_claim = (
-        boot_state: boot_state_type
+        boot_state => boot_state_type
     )
 
 
