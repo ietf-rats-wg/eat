@@ -416,10 +416,16 @@ This documents the nonce claim for registration in the IANA CWT
 claims registry. This is equivalent to the JWT nonce claim that is
 already registered.
 
+The nonce must be at least 8 bytes (64 bits) as fewer are unlikely
+to be secure. A maximum of 64 bytes is set to limit the memory
+a constrained implementation uses. This size range is not set
+for the already-registered JWT nonce, but it should follow
+this size recommendation when used in an EAT.
+
 ### CDDL
 
     nonce_claim = (
-    nonce: bstr
+        nonce => bstr .size (8..64)
     )
 
 
