@@ -726,15 +726,15 @@ attachment.
 
 ### CDDL
 
-    attachment_type = (
-    unspecified: 1,
-    device_internal: 2,
-    pcb_internal: 3,
-    chip_internal: 4
+    submod_attachment_type = (
+        unspecified: 1,
+        device_internal: 2,
+        pcb_internal: 3,
+        chip_internal: 4
     )
     
-    attachment_type_claim = (
-    attachment: attachment_type )
+    submod_attachment_type_claim = (
+        submod_attachment => &submod_attachment_type )
 
 ## The Submods Part of a Token (submods)
 
@@ -823,7 +823,7 @@ In the following a generic_claim_type is any CBOR map entry or JSON name/value p
     submodule = eat_claims // eat_token
     
     submods_claim = (
-    submods: submod_type )
+        submods-> submod_type )
 
 # Data Model {#datamodel}
 This makes use of the types defined in  CDDL Appendix D, Standard Prelude.
@@ -921,7 +921,7 @@ following CDDL types are encoded in JSON as follows:
     location = 13
     age = 14
     uptime = 15
-    attachment = 16
+    submod_attachment = 16
     submods = 17
     
     latitude = 1
