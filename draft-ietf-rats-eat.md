@@ -82,16 +82,18 @@ normative:
     date: 2000
     
   IANA.CWT.Claims:
-    title: CBOR Web Token (CWT) Claims
     target: http://www.iana.org/assignments/cwt
+    title: CBOR Web Token (CWT) Claims
     author: 
     - org: IANA
+    date: false
 
   IANA.JWT.Claims:
+     target: https://www.iana.org/assignments/jwt
      title: JSON Web Token (JWT) Claims
      author: 
      - org: IANA
-     target: https://www.iana.org/assignments/jwt
+     date: false
 
 informative:
   Webauthn:
@@ -119,6 +121,26 @@ informative:
     title: Ecma International, "ECMAScript Language Specification, 5.1 Edition", ECMA Standard 262
     date:  June 2011
     target: http://www.ecma-international.org/ecma-262/5.1/ECMA-262.pdf
+
+  OUI.Guide:
+    title: Guidelines for Use of Extended Unique Identifier (EUI), Organizationally Unique Identifier (OUI), and Company ID (CID)
+    date: August 2017
+    target: https://standards.ieee.org/content/dam/ieee-standards/standards/web/documents/tutorials/eui.pdf
+
+  OUI.Lookup:
+    title: IEEE Registration Authority Assignments
+    target: https://regauth.standards.ieee.org/standards-ra-web/pub/view.html#registries
+    date: false
+
+  IEEE.RA:
+    title: IEEE Registration Authority
+    target: https://standards.ieee.org/products-services/regauth/index.html
+    date: false
+
+  IEEE.802-2001:
+    title: IEEE Standard For Local And Metropolitan Area Networks Overview And Architecture
+    target: https://webstore.ansi.org/standards/ieee/ieee8022001r2007
+    date: 2007
 
 
 --- abstract
@@ -477,19 +499,29 @@ in CWT in that it describes the authority that created the token.
     origination_claim = (
     origination: string_or_uri )
 
-## OEM identification by IEEE OUI (oemid)
+## OEM Identification by IEEE (oemid)
 
-This claim identifies a device OEM by the IEEE OUI. Reference TBD. It
-is a byte string representing the OUI in binary form in network byte
-order (TODO: confirm details).
+The IEEE operates a global registry for MAC addresses and company IDs.
+This claim uses that database to identify OEMs. The contents of the
+claim may be either an IEEE MA-L, MA-M, MA-S or an IEEE CID
+{{IEEE.RA}}.  An MA-L, formerly known as an OUI, is a 24-bit value
+used as the first half of a MAC address. MA-M similarly is a 28-bit
+value uses as the first part of a MAC address, and MA-S, formerly
+known as OUI-36, a 36-bit value.  Many companies already have purchased
+one of these. A CID is also a 24-bit value from the same space as an
+MA-L, but not for use as a MAC address.  IEEE has published Guidelines
+for Use of EUI, OUI, and CID {{OUI.Guide}} and provides a lookup
+services {{OUI.Lookup}}
 
-Companies that have more than one IEEE OUI registered with IEEE should
-pick one and prefer that for all their devices. 
+Companies that have more than one of these IDs or MAC address blocks
+should pick one and prefer that for all their devices.
 
-Note that the OUI is in common use as a part of MAC Address. This
-claim is only the first bits of the MAC address that identify the
-manufacturer. The IEEE maintains a registry for these in which many
-companies participate.
+Commonly, these are expressed in Hexadecimal Representation
+{{IEEE.802-2001}} also called the Canonical format. When this claim is
+encoded order of bytes in the bstr are the same as the order in the
+Hexadecimal Representation. For example, an MA-L like "AC-DE-48" would
+be encoded in 3 bytes with values 0xAC, 0xDE, 0x48. For JSON encoded
+tokens, this is further base64url encoded.
 
 ### CDDL
 
