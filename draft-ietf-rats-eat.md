@@ -1100,3 +1100,9 @@ not new claims have been added.
 * Separate information and data model using CDDL.
 * Say an EAT is a CWT or JWT
 * Use a map to structure the boot_state and location claims
+
+## From draft-ietf-rats-eat-01
+
+* Clarifications and corrections for OEMID claim
+* Minor spelling and other fixes
+* Add the nonce claim, clarify jti claim
