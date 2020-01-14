@@ -577,22 +577,45 @@ authenticated or some combination of the two.
 
 ### Debug Disable Level
 
-This applies to system-wide or submodule-wide debug facilities like
-JTAG and diagnostic hardware built into chips. It applies to any
-software debug facilities related to root, operating system or
-privileged software that allow system-wide memory inspection, tracing
-or modification of non-system software like user mode applications.
+This applies to system-wide or submodule-wide debug facilities of the
+target device / submodule like JTAG and diagnostic hardware built into
+chips. It applies to any software debug facilities related to root,
+operating system or privileged software that allow system-wide memory
+inspection, tracing or modification of non-system software like user
+mode applications.
 
 This characterization assumes that debug facilities can be enabled and
 disabled in a dynamic way or be disabled in some permanent way such
 that no enabling is possible. An example of dynamic enabling is one
 where some authentication is required to enable debugging. An example
-of permanent disabling is blowing a hardware fuse in a chip.
+of permanent disabling is blowing a hardware fuse in a chip. The specific
+type of the mechanism is not taken into account. For example, it does
+not matter if authentication is by a global password or by per-device
+public keys.
 
 The higher levels of debug disabling requires that all debug disabling
 of the levels below it be in effect. Since the lowest level requires
 that all debug be currently disabled, all other levels require that
 too.
+
+There is no inheritance of claims from a submodule to a superior
+module or vice versa. There is no assumption, requirement or gaurantee
+that the target of a superior module encompases the targets of
+submodules. Thus every submodule must explicitly describe its own
+debug state. The verifier or relying party receiving and EAT cannot
+assume that debug is turned off in a submodule because there is a claim
+indicating it is turned off in a superior module.
+
+An individual target device / submodule may have mulitiple debug
+facilities. The use of plural in the description of the states
+refers to that, not to any aggregation or inheritance.
+
+The architecture of some chips or devices may be such that a debug
+facility operates for the whole chip or device. If the EAT for such
+a chip includes submodules, then each submodule should independently
+report the status of the whole-chip or whole-device debug facility.
+This is the only way the relying party can know the debug status
+of the submodules since there is no inheritance.
 
 #### Not Disabled
 
@@ -602,21 +625,27 @@ currently enabled, then this level must be indicated.
 #### Disabled
 
 This level indicates all debug facilities are currently disabled. It
-may be possible to enable them in the future, and it may also be possible that they were enabled in the past after the device booted, but they are currently disabled.
+may be possible to enable them in the future, and it may also be
+possible that they were enabled in the past after the
+target device/sub-system booted/started, but they are currently disabled.
 
 #### Disabled Since Boot
 
 This level indicates all debug facilities are currently disabled and
-have been so since the entity booted.
+have been so since the target device/sub-system booted/started.
 
 #### Permanent Disable
 
-This level indicates all non-manufacturer facilities are permanently disabled such that no end user or developer cannot enable them. This also indicates that all debug facilities are currently disabled and have been so since boot.
+This level indicates all non-manufacturer facilities are permanently
+disabled such that no end user or developer cannot enable them. Only
+the manufacturer indicated in the OEMID claim can enable them. This
+also indicates that all debug facilities are currently disabled and
+have been so since boot/start.
 
 #### Full Permanent Disable
 
-This level indicates that all debug capabilities for the entity are
-permanently disabled.
+This level indicates that all debug capabilities for the target
+device/sub-module are permanently disabled.
 
 ### CDDL
 
