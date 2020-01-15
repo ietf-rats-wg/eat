@@ -593,20 +593,22 @@ type of the mechanism is not taken into account. For example, it does
 not matter if authentication is by a global password or by per-device
 public keys.
 
+The absence of the debug level claim is equivalent to Not Reported.
+
 The higher levels of debug disabling requires that all debug disabling
 of the levels below it be in effect. Since the lowest level requires
-that all debug be currently disabled, all other levels require that
-too.
+that all of the target's debug be currently disabled, all other levels
+require that too.
 
 There is no inheritance of claims from a submodule to a superior
-module or vice versa. There is no assumption, requirement or gaurantee
-that the target of a superior module encompases the targets of
-submodules. Thus every submodule must explicitly describe its own
-debug state. The verifier or relying party receiving and EAT cannot
+module or vice versa. There is no assumption, requirement or guarantee
+that the target of a superior module encompasses the targets of
+submodules. Thus, every submodule must explicitly describe its own
+debug state. The verifier or relying party receiving an EAT cannot
 assume that debug is turned off in a submodule because there is a claim
 indicating it is turned off in a superior module.
 
-An individual target device / submodule may have mulitiple debug
+An individual target device / submodule may have multiple debug
 facilities. The use of plural in the description of the states
 refers to that, not to any aggregation or inheritance.
 
@@ -616,6 +618,16 @@ a chip includes submodules, then each submodule should independently
 report the status of the whole-chip or whole-device debug facility.
 This is the only way the relying party can know the debug status
 of the submodules since there is no inheritance.
+
+#### Not Reported
+
+The debug level is not included in the EAT. This may be for any reason
+ranging inability to determine what it is, the implementation not
+supporting the claim or a preference to report the debug level in a
+proprietary claim.
+
+The most conservative assumption a relying party might make is to
+consider this equivalent to Not Disabled.
 
 #### Not Disabled
 
@@ -650,11 +662,12 @@ device/sub-module are permanently disabled.
 ### CDDL
 
     debug_disable_level = (
-        not_disabled: 0, 
-        disabled: 1,
-        disabled_since_boot: 2,
-        permanent_disable: 3,
-        full_permanent_disable: 4
+        not_reported: 0,
+        not_disabled: 1, 
+        disabled: 2,
+        disabled_since_boot: 3,
+        permanent_disable: 4,
+        full_permanent_disable: 5
     )
 
     boot_state_type = [
