@@ -439,7 +439,7 @@ The consumer (the relying party) of a UEID MUST treat a UEID as a
 completely opaque string of bytes and not make any use of its internal
 structure. For example, they should not use the OUI part of a type
 0x02 UEID to identify the manufacturer of the device. Instead they
-should use the OUI claim that is defined elsewhere. The reasons for
+should use the oemid claim that is defined elsewhere. The reasons for
 this are:
 
 * UEIDs types may vary freely from one manufacturer to the next.
