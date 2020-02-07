@@ -1,26 +1,24 @@
-# eat
-Entity Attestation Token IETF Draft Standard
+# The Entity Attestation Token (EAT)
 
-Entity Attestation Token (EAT) is proposed as a general purpose signed 
-attestation token to prove provenance and characteristics about an end 
-client device, node or entity to a server or service. The proposal uses 
-CBOR to represent claims to be small, compact and general purpose, 
-particularly for very small IoT devices. COSE is used so the 
-cryptography and signing is up to date. 
+This is the working area for the IETF [RATS Working Group](https://datatracker.ietf.org/wg/rats/documents/) Internet-Draft, "The Entity Attestation Token (EAT)".
 
-EAT is not tied to any particular use case. It is intended as a 
-general mechanism for any use case where a server or service requires 
-proof of device provenance, configuration and characteristics. These use 
-cases might include IoT device claiming and on boarding, online banking 
-and payments, biometric authentication, DRM/content protection and 
-authentication risk engine inputs. 
+* [Editor's Copy](https://ietf-rats-wg.github.io/eat/#go.draft-ietf-rats-eat.html)
+* [Working Group Draft](https://tools.ietf.org/html/draft-ietf-rats-eat)
+* [Compare Editor's Copy to Working Group Draft](https://ietf-rats-wg.github.io/eat/#go.draft-ietf-rats-eat.diff)
 
-EAT is intended to be flexible with regard to the devices signing key 
-material so as to accommodate many device manufacturing scenarios. For 
-example, the proposal can use IEEE Device ID, ECDAA or even symmetric 
-key material.
+## Building the Draft
 
-Info and subscription for IETF mailing list: https://www.ietf.org/mailman/listinfo/EAT
+Formatted text and HTML versions of the draft can be built using `make`.
 
-Archives of IETF mailing list: https://mailarchive.ietf.org/arch/browse/eat/
+```sh
+$ make
+```
 
+This requires that you have the necessary software installed.  See
+[the instructions](https://github.com/martinthomson/i-d-template/blob/master/doc/SETUP.md).
+
+
+## Contributing
+
+See the
+[guidelines for contributions](https://github.com/ietf-rats-wg/eat/blob/master/CONTRIBUTING.md).
