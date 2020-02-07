@@ -95,7 +95,15 @@ normative:
      - org: IANA
      date: false
 
+  ThreeGPP.IMEI:
+    target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=729
+    title: 3rd Generation Partnership Project; Technical Specification Group Core Network and Terminals; Numbering, addressing and identification
+    author:
+    - org: 3GPP
+    date: 2019 
+
 informative:
+  RFC4122:
   Webauthn:
     title: 'Web Authentication: A Web API for accessing scoped credentials'
     author:
@@ -111,6 +119,10 @@ informative:
     date: 1994
     seriesinfo:
       ITU-T: Recommendation X.690
+
+  BirthdayAttack:
+    title: Birthday attack
+    target: https://en.wikipedia.org/wiki/Birthday_attack.
 
   IDevID:
     title: IEEE Standard, "IEEE 802.1AR Secure Device Identifier"
@@ -452,9 +464,9 @@ There are privacy considerations for UEID's. See {{ueidprivacyconsiderations}}.
 
 The UEID should be permanent. It should never change for a given
 device / entity. In addition, it should not be reprogrammable.  UEID’s
-are variable length. The recommended maximum is 33 bytes (1 type byte
-and 256 bits). The recommended minimum is 17 bytes (1 type and 128
-bits) because fewer bytes endanger the universal uniqueness.
+are variable length. All implementations MUST be able to receive
+UEID's that are 33 bytes long (1 type byte and 256 bits).  The
+recommended maximum sent is also 33 bytes.
 
 When the entity constructs the UEID, the first byte is a type and the
 following bytes the ID for that type. Several types are allowed to
@@ -465,12 +477,9 @@ manufacturer registrations.
 Creation of new types requires a Standards Action {{RFC8126}}.
 
 | Type Byte | Type Name | Specification |
-| 0x01 | RAND | This is a 128- to 256-bit random number generated once and stored in the device. This may be constructed by concatenating enough identifiers to be universally unique and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generate once at the beginning of the life of the device and stored. |
-| 0x02 | IEEE EUI | This makes use of the IEEE company identification registry. An EUI is made up of an OUI and OUI-36 or a CID, different registered company identifiers, and some unique per-device identifier. EUIs are often the same as or similar to MAC addresses. (Note that while devices with multiple network interfaces may have multiple MAC addresses, there is only one UEID for a device) TODO: normative references to IEEE.|
-| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as a binary integer over 48 bits. The IMEI value encoded SHALL NOT include Luhn checksum or SVN information.|
-| 0x04 | EUI-48 | This is a 48-bit identifier formed by concatenating the 24-bit OUI with a 24-bit identifier assigned by the organisation that purchased the OUI. |
-| 0x05 | EUI-60 | This is a 60-bit identifier formed by concatenating the 24-bit OUI with a 36-bit identifier assigned by the organisation that purchased the OUI. |
-| 0x06 | EUI-64 | This is a 64-bit identifier formed by concatenating the 24-bit OUI with a 40-bit identifier assigned by the organisation that purchased the OUI. |
+| 0x01 | RAND | This is a 128, 192 or 256 bit random number generated once and stored in the device. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the device and stored. It may not be smaller than 128 bits. |
+| 0x02 | IEEE EUI | This makes use of the IEEE company identification registry. An EUI is either an EUI-48, EUI-60 or EUI-64 and made up of an OUI, OUI-36 or a CID, different registered company identifiers, and some unique per-device identifier. EUIs are often the same as or similar to MAC addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while devices with multiple network interfaces may have multiple MAC addresses, there is only one UEID for a device) {{IEEE.802-2001}}, {{OUI.Guide}} |
+| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as a binary integer over 48 bits. The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. {{ThreeGPP.IMEI}} |
 {: #ueid-types-table title="UEID Composition Types"}
 
 UEID's are not designed for direct use by humans (e.g., printing on
@@ -480,7 +489,7 @@ The consumer (the relying party) of a UEID MUST treat a UEID as a
 completely opaque string of bytes and not make any use of its internal
 structure. For example, they should not use the OUI part of a type
 0x02 UEID to identify the manufacturer of the device. Instead they
-should use the OUI claim that is defined elsewhere. The reasons for
+should use the oemid claim that is defined elsewhere. The reasons for
 this are:
 
 * UEIDs types may vary freely from one manufacturer to the next.
@@ -1086,11 +1095,147 @@ is shown.
 }
 ~~~~
 
+# UEID Design Rationale
+
+## Collision Probability
+
+This calculation is to determine the probability of a collision of
+UEIDs given the total possible entity population and the number of
+entities in a particular entity management database.
+
+Three different sized databases are considered. The number of devices
+per person roughly models non-personal devices such as traffic lights,
+devices in stores they shop in, facilities they work in and so on,
+even considering individual light bulbs. A device may have
+individually attested subsystems, for example parts of a car or a
+mobile phone. It is assumed that the largest database will have at
+most 10% of the world's population of devices. Note that databases
+that handle more than a trillion records exist today.
+
+The trillion-record database size models an easy-to-imagine reality
+over the next decades. The quadrillion-record database is roughly at
+the limit of what is imaginable and should probably be accommodated.
+The 100 quadrillion datadbase is highly speculative perhaps involving
+nanorobots for every person, livestock animal and domesticated
+bird. It is included to round out the analysis.
+
+Note that the items counted here certainly do not have IP address and
+are not individually connected to the network. They may be connected
+to internal buses, via serial links, Bluetooth and so on.  This is
+not the same problem as sizing IP addresses.
+
+| People     | Devices / Person | Subsystems / Device | Database Portion | Database Size           |
+|------------+------------------+------------------- -+------------------+-------------------------+
+| 10 billion | 100              | 10                  | 10%              | trillion (10^12)        | 
+| 10 billion | 100,000          | 10                  | 10%              | quadrillion (10^15)     | 
+|100 billion | 1,000,000        | 10                  | 10%              | 100 quadrillion (10^17) | 
+
+
+This is conceptually similar to the Birthday Problem where m is the
+number of possible birthdays, always 365, and k is the number of
+people. It is also conceptually similar to the Birthday Attack where
+collisions of the output of hash functions are considered.
+
+The proper formula for the collision calculation is
+
+       p = 1 - e^{-k^2/(2n)}
+    
+       p   Collision Probability
+       n   Total possible population
+       k   Actual population
+
+However, for the very large values involved here, this formula requires floating
+point precision higher than commonly available in calculators and SW so this
+simple approximation is used. See {{BirthdayAttack}}. 
+
+        p = k^2 / 2n 
+
+For this calculation:
+      
+        p  Collision Probability
+        n  Total population based on number of bits in UEID
+        k  Population in a database
+
+| Database Size           | 128-bit UEID | 192-bit UEID | 256-bit UEID |
+|-------------------------+--------------+--------------+--------------+
+| trillion (10^12)        | 2 * 10^-15   | 8 * 10^-35   | 5 * 10^-55   |
+| quadrillion (10^15)     | 2 * 10^-09   | 8 * 10^-29   | 5 * 10^-49   |
+| 100 quadrillion (10^17) | 2 * 10^-05   | 8 * 10^-25   | 5 * 10^-45   |
+
+Next, to calculate the probability of a collision occurring in one year's 
+operation of a database, it is assumed that the database size is in
+a steady state and that 10% of the database changes per year. For example,
+a trillion record database would have 100 billion states per year. Each
+of those states has the above calculated probability of a collision.
+
+This assumption is a worst-case since it assumes that each
+state of the database is completely independent from the previous state.
+In reality this is unlikely as state changes will be the addition or
+deletion of a few records.
+
+The following tables gives the time interval until there is a probability of 
+a collision based on there being one tenth the number of states per year
+as the number of records in the database.
+   
+      t = 1 / ((k / 10) * p)
+  
+      t  Time until a collision
+      p  Collision probability for UEID size
+      k  Database size
+
+| Database Size           | 128-bit UEID   | 192-bit UEID | 256-bit UEID |
+|-------------------------+----------------+--------------+--------------+
+| trillion (10^12)        | 60,000 years   | 10^24 years  | 10^44 years  |
+| quadrillion (10^15)     | 8 seconds      | 10^14 years  | 10^34 years  |
+| 100 quadrillion (10^17) | 8 microseconds | 10^11 years  | 10^31 years  |
+
+Clearly, 128 bits is enough for the near future thus the requirement that UEIDs
+be a minimum of 128 bits.
+
+There is no requirement for 256 bits today as quadrillion-record databases
+are not expected in the near future and because this time-to-collision
+calculation is a very worst case.  A future update of the standard may
+increase the requirement to 256 bits, so there is a requirement that
+implementations be able to receive 256-bit UEIDs.
+
+## No Use of UUID
+
+A UEID is not a UUID {{RFC4122}} by conscious choice for the following
+reasons.
+
+UUIDs are limited to 128 bits which may not be enough for some future
+use cases.
+
+Today, cryptographic-quality random numbers are available from common
+CPUs and hardware. This hardware was introduced between 2010 and 2015.
+Operating systems and cryptographic libraries give access to this 
+hardware. Consequently, there is little need for implementations
+to construct such random values from multiple sources on their own.
+
+Version 4 UUIDs do allow for use of such cryptographic-quality 
+random numbers, but do so by mapping into the overall UUID 
+structure of time and clock values. This structure is of no
+value here yet adds complexity. It also slightly reduces the
+number of actual bits with entropy.
+
+UUIDs seem to have been designed for scenarios where the implementor
+does not have full control over the environment and uniqueness has to
+be constructed from identifiers at hand. UEID takes the view that
+hardware, software and/or manufacturing process directly implement
+UEID in a simple and direct way. It takes the view that cryptographic
+quality random number generators are readily available as they are
+implemented in commonly used CPU hardware.
+
+
 # Changes from Previous Drafts
 
 The following is a list of known changes from the previous drafts.  This list is
 non-authoritative.  It is meant to help reviewers see the significant
 differences.
+
+## From draft-rats-eat-01
+
+* Added UEID design rationale appendix
 
 ## From draft-mandyam-rats-eat-00
 
