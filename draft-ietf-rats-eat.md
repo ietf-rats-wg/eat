@@ -123,6 +123,7 @@ informative:
   BirthdayAttack:
     title: Birthday attack
     target: https://en.wikipedia.org/wiki/Birthday_attack.
+    date: false
 
   IDevID:
     title: IEEE Standard, "IEEE 802.1AR Secure Device Identifier"
