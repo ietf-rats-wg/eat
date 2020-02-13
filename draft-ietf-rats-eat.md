@@ -1296,3 +1296,15 @@ not new claims have been added.
 * Clarifications and corrections for OEMID claim
 * Minor spelling and other fixes
 * Add the nonce claim, clarify jti claim
+
+## From draft-ietf-rats-eat-02
+
+* Roll all EUIs back into one UEID type
+
+* UEIDs can be one of three lengths, 128, 192 and 256.
+
+* Added appendix justifying UEID design and size.
+
+* Submods part now includes nested eat tokens so they can be named and
+  there can be more tha one of them
+
