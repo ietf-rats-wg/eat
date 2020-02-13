@@ -1307,4 +1307,7 @@ not new claims have been added.
 
 * Submods part now includes nested eat tokens so they can be named and
   there can be more tha one of them
+  
+* Lots of fixes to the CDDL
+
 
