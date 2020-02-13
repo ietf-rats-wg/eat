@@ -720,54 +720,6 @@ seconds that have elapsed since the entity or submod was last booted.
     uptime_claim = (
     uptime: uint )
 
-
-## Submod Attachment Claim (submod_attachment)
-
-This claim must only be used in submodules. It indicates the type of
-hardware used to attach the submodule to the containing module.
-
-It has the following values:
-
-1 -- Unspecified 
-: The means of attachment is unspecified, but presumed to be somewhat
-local. One example of this is components of a desktop personal
-computer that are connected by internal pluggable
-connectors. Similarly, parts of an automobile connected by pluggable
-connects is an example.
-
-2 -- Device Internal
-: The submodule exists as part of the same physical device as the
-containing module. While there might be pluggable connections, they
-are not easily connected or disconnected by the end user.
-
-3 -- PCB Internal
-: The submodule exists on the same circuit board as the containing
-module. An attacker would have to resort to soldering or probing the
-circuit board to disrupt the connection. An example of this is two
-chips both soldered to the same circuit board.
-
-4 -- Chip Internal
-: The submodule exists on the same chip as containing module.
-Submodules that make use of TEE or virtualization hardware fall into
-this category.
-
-Note that this, like security level, is a self-claim made by the
-entity originator. It is not a replacement for a certification program
-in which a third party independently verifies the security of the
-attachment.
-
-### CDDL
-
-    submod_attachment_type = (
-        unspecified: 1,
-        device_internal: 2,
-        pcb_internal: 3,
-        chip_internal: 4
-    )
-    
-    submod_attachment_type_claim = (
-        submod_attachment => &submod_attachment_type )
-
 ## The Submods Part of a Token (submods)
 
 Some devices are complex, having many subsystems or submodules.  A
@@ -823,7 +775,7 @@ This rule is in place for simplicity. It avoids complex inheritance
 rules that might vary from one type of claim to another. (TODO: fix
 the boot claim which does have inheritance as currently described).
 
-### Security Levels and Attachment
+### Security Levels
 
 The security level of the non-token subordinate modules should always
 be less than that of the containing modules in the case of non-token
@@ -835,11 +787,6 @@ of the device.
 The opposite may be true for the nested tokens. They usually have
 their own more secure key material. An example of this is an embedded
 secure element.
-
-The submods attachment claim describes how strong the connection is of
-a submodule to the containing module. For stronger attachment types
-the submod might choose to not include claims like the nonce for size,
-but this is not recommended.
 
 ### Submodule Names
 
@@ -953,7 +900,6 @@ following CDDL types are encoded in JSON as follows:
     location = 13
     age = 14
     uptime = 15
-    submod_attachment = 16
     submods = 17
     nonce = 19
     
