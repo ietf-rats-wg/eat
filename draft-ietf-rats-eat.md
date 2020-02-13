@@ -779,7 +779,7 @@ the boot claim which does have inheritance as currently described).
 ### Security Levels
 
 The security level of the non-token subordinate modules should always
-be less than that of the containing modules in the case of non-token
+be less than or equal to that of the containing modules in the case of non-token
 submodules. It makes no sense for a module of lesser security to be
 signing claims of a module of higher security. An example of this is a
 TEE signing claims made by the non-TEE parts (e.g. the high-level OS)
