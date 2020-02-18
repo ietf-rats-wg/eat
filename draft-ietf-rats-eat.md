@@ -396,7 +396,7 @@ Note also:
 
 * All claims that are not understood by implementations MUST be ignored
 
-CDDL along with text descriptions is used to defineeach claim indepdent of encoding.
+CDDL along with text descriptions is used to define each claim indepdent of encoding.
 Each claim is defined as a CDDL group (the group is a general
 aggregation and type definition feature of CDDL). In the encoding section
 {{encoding}}, the CDDL groups turn into CBOR map
@@ -510,7 +510,7 @@ this are:
   
  ~~~~CDDL
 ueid-claim = (
-     ueid: bstr .size (7..33)
+     ueid => bstr .size (7..33)
 )
 ~~~~
 
@@ -536,7 +536,7 @@ in CWT in that it describes the authority that created the token.
 
 ~~~~CDDL
 origination-claim = (
-    origination: string-or-uri
+    origination => string-or-uri
 )
 ~~~~
 
@@ -568,7 +568,7 @@ tokens, this is further base64url encoded.
 
 ~~~~CDDL
 oemid-claim = (
-    oemid: bstr
+    oemid => bstr
 )
 ~~~~
 
@@ -675,11 +675,11 @@ cannot be restored once blown.
 
 ~~~~CDDL
 boot-state-type = [
-    secure-boot-enabled: bool,
-    debug-disabled: bool,
-    debug-disabled-since-boot: bool,
-    debug-permanent-disable: bool,
-    debug-full-permanent-disable: bool
+    secure-boot-enabled => bool,
+    debug-disabled => bool,
+    debug-disabled-since-boot => bool,
+    debug-permanent-disable => bool,
+    debug-full-permanent-disable => bool
 ]
 
 boot-state-claim = (
@@ -711,7 +711,7 @@ location-type = {
 }
 
 location-claim = (
-    location=> location-type
+    location => location-type
 )
 ~~~~
 
@@ -887,7 +887,7 @@ uptime = "uptime"
 nested-eat = "nested-eat"
 submods = "submods"
 
-latitude = "lat""
+latitude = "lat"
 longitude = "long""
 altitude = "alt"
 accuracy = "accry"
