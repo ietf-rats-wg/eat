@@ -508,7 +508,7 @@ this are:
   
 ### ueid CDDL
   
- ~~~~CDDL
+~~~~CDDL
 ueid-claim = (
      ueid => bstr .size (7..33)
 )
