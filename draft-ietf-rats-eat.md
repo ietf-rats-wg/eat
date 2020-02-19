@@ -1098,7 +1098,7 @@ may create the key material separately and provision the key material in the ent
 The manfuacturer of any entity that is capable of producing an EAT should take care 
 to ensure that any private key material be suitably protected prior to provisioning the key
 material in the entity itself.  This can require creation of key material in an enclave (see
-{{RFC 4949}} for definition of "enclave"),
+{{RFC4949}} for definition of "enclave"),
 secure transmission of the key material from the enclave to the entity using an appropriate protocol,
 and persistence of the private key material in some form of secure storage to which (preferably) only the entity has
 access.  
