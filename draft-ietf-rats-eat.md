@@ -379,7 +379,7 @@ is used, (e.g., as used by Enhanced Privacy ID, i.e. EPID) then it is the key ma
 needed for ECDAA.
 
 
-# The Claims Information Model
+# The Claims
 
 This section describes new claims defined for attestation. It also
 mentions several claims defined by CWT and JWT that are particularly
@@ -396,10 +396,10 @@ Note also:
 
 * All claims that are not understood by implementations MUST be ignored
 
-CDDL along with text descriptions is used to define the information
-model.  Each claim is defined as a CDDL group (the group is a general
-aggregation and type definition feature of CDDL). In the data model,
-described in the {{datamodel}}, the CDDL groups turn into CBOR map
+CDDL along with text descriptions is used to define each claim indepdent of encoding.
+Each claim is defined as a CDDL group (the group is a general
+aggregation and type definition feature of CDDL). In the encoding section
+{{encoding}}, the CDDL groups turn into CBOR map
 entries and JSON name/value pairs.
 
 
@@ -435,11 +435,13 @@ a constrained implementation uses. This size range is not set
 for the already-registered JWT nonce, but it should follow
 this size recommendation when used in an EAT.
 
-### CDDL
+### nonce CDDL
 
-    nonce_claim = (
-        nonce => bstr .size (8..64)
-    )
+~~~~CDDL
+nonce-claim = (
+    nonce => bstr .size (8..64)
+)
+~~~~
 
 
 ## Universal Entity ID Claim (ueid)
@@ -504,11 +506,14 @@ this are:
   0x02 or vice versa.  The main requirement on the manufacturer is
   that UEIDs be universally unique. 
   
-### CDDL
+### ueid CDDL
   
-     ueid_claim = (
-     ueid: bstr )
-  
+~~~~CDDL
+ueid-claim = (
+     ueid => bstr .size (7..33)
+)
+~~~~
+
 ## Origination Claim (origination)
 
 This claim describes the parts of the device or entity that are
@@ -527,10 +532,13 @@ and other are in separate fields.
 TODO: This needs refinement. It is somewhat parallel to issuer claim
 in CWT in that it describes the authority that created the token.
 
-### CDDL
+### origination CDDL
 
-    origination_claim = (
-    origination: string_or_uri )
+~~~~CDDL
+origination-claim = (
+    origination => string-or-uri
+)
+~~~~
 
 ## OEM Identification by IEEE (oemid)
 
@@ -551,18 +559,20 @@ should pick one and prefer that for all their devices.
 
 Commonly, these are expressed in Hexadecimal Representation
 {{IEEE.802-2001}} also called the Canonical format. When this claim is
-encoded order of bytes in the bstr are the same as the order in the
+encoded the order of bytes in the bstr are the same as the order in the
 Hexadecimal Representation. For example, an MA-L like "AC-DE-48" would
 be encoded in 3 bytes with values 0xAC, 0xDE, 0x48. For JSON encoded
 tokens, this is further base64url encoded.
 
-### CDDL
+### oemid CDDL
 
-    oemid_claim = (
-    oemid: bstr )
+~~~~CDDL
+oemid-claim = (
+    oemid => bstr
+)
+~~~~
 
-
-## The Security Level Claim (security_level)
+## The Security Level Claim (security-level)
 
 EATs have a claim that roughly characterizes the device / entities 
 ability to defend against attacks aimed at capturing the signing
@@ -606,19 +616,22 @@ security certification schemes such as those based on FIPS (TODO: reference)
 or those based on Common Criteria (TODO: reference). The 
 claim made here is solely a self-claim made by the Entity Originator.
 
-### CDDL
+### security-level CDDL
 
-    security_level_type = (
+~~~~CDDL
+security-level-type = &(
     unrestricted: 1,
     restricted: 2,
-    secure_restricted: 3,
+    secure-restricted: 3,
     hardware: 4
-    )
-    
-    security_level_claim = (
-    security_level: security_level_type )
+)
 
-## Secure Boot and Debug Enable State Claims (boot_state)
+security-level-claim = (
+    security-level => security-level-type
+)
+~~~~
+
+## Secure Boot and Debug Enable State Claims (boot-state)
 
 This claim is an array of five Boolean values indicating the boot and
 debug state of the entity.
@@ -658,20 +671,21 @@ set to 'true' if no party can enable debug capabilities for the
 entity. Often this is implemented by blowing a fuse on a chip as fuses
 cannot be restored once blown.
 
-### CDDL
+### boot-state CDDL
 
-    boot_state_type = [
-        secure_boot_enabled=> bool,
-        debug_disabled=> bool,
-        debug_disabled_since_boot=> bool,
-        debug_permanent_disable=> bool,
-        debug_full_permanent_disable=> bool
-    ]
-    
-    boot_state_claim = (
-    boot_state: boot_state_type
-    )
+~~~~CDDL
+boot-state-type = [
+    secure-boot-enabled => bool,
+    debug-disabled => bool,
+    debug-disabled-since-boot => bool,
+    debug-permanent-disable => bool,
+    debug-full-permanent-disable => bool
+]
 
+boot-state-claim = (
+    boot-state => boot-state-type
+)
+~~~~
 
 ## The Location Claim (location)
 
@@ -683,20 +697,23 @@ location coordinate claims are consistent with the WGS84 coordinate
 system {{WGS84}}.  In addition, a sub claim providing the estimated
 accuracy of the location measurement is defined.
 
-### CDDL
+### location CDDL
 
-    location_type = {
-        latitude => number,
-        longitude => number,
-        altitude => number,
-        accuracy => number,
-        altitude_accuracy => number,
-        heading => number,
-        speed => number
-    }
-    
-    location_claim = (
-    location: location_type )
+~~~~CDDL
+location-type = {
+    latitude => number,
+    longitude => number,
+    ? altitude => number,
+    ? accuracy => number,
+    ? altitude-accuracy => number,
+    ? heading => number,
+    ? speed => number
+}
+
+location-claim = (
+    location => location-type
+)
+~~~~
 
 ## The Age Claim (age)
 
@@ -708,18 +725,26 @@ buffered and sent at a later time and a sufficiently accurate time
 reference is unavailable for creation of a timestamp, then the age
 claim is provided.
 
-    age_claim = (
-    age: uint)
+### age CDDL
+
+~~~~CDDL
+age-claim = (
+    age => uint
+)
+~~~~
 
 ## The Uptime Claim (uptime)
 
 The "uptime" claim contains a value that represents the number of
 seconds that have elapsed since the entity or submod was last booted.
 
-### CDDL
+### uptime CDDL
 
-    uptime_claim = (
-    uptime: uint )
+~~~~CDDL
+uptime-claim = (
+    uptime => uint
+)
+~~~~
 
 ## The Submods Part of a Token (submods)
 
@@ -794,23 +819,30 @@ secure element.
 The label or name for each submodule in the submods map is a text
 string naming the submodule. No submodules may have the same name.
 
-### CDDL
+### submods CDDL
 
-In the following a generic_claim_type is any CBOR map entry or JSON name/value pair. 
+~~~~CDDL
+submods-type = { + submodule }
 
-    submods_type = [ * submodule ]
+submodule = (
+    submod_name => eat-claims / eat-token
+)
 
-    submodule = eat_claims // eat_token
-    
-    submods_claim = (
-        submods-> submod_type )
+submod_name = tstr / int
 
-# Data Model {#datamodel}
-This makes use of the types defined in  CDDL Appendix D, Standard Prelude.
+submods-part = (
+    submods => submod-type
+)
+~~~~
+
+# Encoding {#encoding}
+This makes use of the types defined in CDDL Appendix D, Standard Prelude.
 
 ## Common CDDL Types
 
-    string_or_uri = #6.32(tstr) / tstr; See JSON section below for JSON encoding of string_or_uri
+~~~~CDDL
+string-or-uri = uri / tstr; See JSON section below for JSON encoding of string-or-uri
+~~~~
     
 ## CDDL for CWT-defined Claims
 
@@ -818,67 +850,51 @@ This section provides CDDL for the claims defined in CWT. It is
 non-normative as {{RFC8392}} is the authoritative definition of these
 claims.
 
-    cwt_claim = (
-        issuer_claim //
-        subject_claim //
-        audience_claim //
-        expiration_claim //
-        not_before_claim //
-        issued_at_calim //
-        cwt_id_claim
-    )
-    
-    issuer_claim = (
-    issuer: string_or_uri )
+~~~~CDDL
 
-    subject_claim = (
-    subject: string_or_uri )
+rfc8392-claim //= ( issuer => text )
+rfc8392-claim //= ( subject => text )
+rfc8392-claim //= ( audience => text )
+rfc8392-claim //= ( expiration => time )
+rfc8392-claim //= ( not-before => time )
+rfc8392-claim //= ( issued-at => time )
+rfc8392-claim //= ( cwt-id => bytes )
 
-    audience_claim = (
-    audience: string_or_uri )
+issuer = 1
+subject = 2
+audience = 3
+expiration = 4
+not-before = 5
+issued-at = 6
+cwt-id = 7
 
-    expiration_claim = (
-    expiration: time )
-
-    not_before_claim = (
-    not_before: time )
-
-    issued_at_calim = (
-    issued_at: time )
-
-    cwt_id_claim = (
-    cwt_id: bstr )
-    
-    issuer = 1
-    subject = 2
-    audience = 3
-    expiration = 4
-    not_before = 5
-    issued_at = 6
-    cwt_id = 7
+cwt-claim = rfc8392-claim
+~~~~
 
 ## JSON
 
 ### JSON Labels
 
-    ueid = "ueid"
-    origination = "origination"
-    oemid = "oemid"
-    security_level = "security_level" 
-    boot_state = "boot_state"
-    location = "location"
-    age = "age"
-    uptime = "uptime"
-    nested_eat = "nested_eat"
-    submods = "submods"
-    
-    latitude = "lat""
-    longitude = "long""
-    altitude = "alt"
-    accuracy = "accry"
-    altitude_accuracy = "alt_accry"
-    heading = "heading"
-    speed = "speed"
+~~~~JSON
+ueid = "ueid"
+origination = "origination"
+oemid = "oemid"
+security-level = "security-level"
+boot-state = "boot-state"
+location = "location"
+age = "age"
+uptime = "uptime"
+nested-eat = "nested-eat"
+submods = "submods"
+
+latitude = "lat"
+longitude = "long""
+altitude = "alt"
+accuracy = "accry"
+altitude-accuracy = "alt-accry"
+heading = "heading"
+speed = "speed"
+~~~~
     
 ### JSON Interoperability {#jsoninterop}
 
@@ -887,30 +903,32 @@ following CDDL types are encoded in JSON as follows:
 
 * bstr -- must be base64url encoded
 * time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
-* string_or_uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
+* string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
 
 ## CBOR
 
-### Labels
+### CBOR Labels
 
-    ueid = 8
-    origination = 9
-    oemid = 10
-    security_level = 11
-    boot_state = 12
-    location = 13
-    age = 14
-    uptime = 15
-    submods = 17
-    nonce = 19
-    
-    latitude = 1
-    longitude = 2
-    altitude = 3
-    accuracy = 4
-    altitude_accuracy = 5
-    heading = 6
-    speed = 7
+~~~~CDDL
+ueid = To_be_assigned
+origination = To_be_assigned
+oemid = To_be_assigned
+security-level = To_be_assigned
+boot-state = To_be_assigned
+location = To_be_assigned
+age = To_be_assigned
+uptime = To_be_assigned
+submods = To_be_assigned
+nonce = To_be_assigned
+
+latitude = 1
+longitude = 2
+altitude = 3
+accuracy = 4
+altitude-accuracy = 5
+heading = 6
+speed = 7
+~~~~
 
 ### CBOR Interoperability
 
@@ -973,25 +991,29 @@ interoperability is not guaranteed.
 
 ## Collected CDDL
 
-A generic_claim is any CBOR map entry or JSON name/value pair.
+A generic-claim is any CBOR map entry or JSON name/value pair.
 
-    eat_claims = {  ; the top-level payload that is signed using COSE or JOSE
-            * claim
-    }
-    
-    claim = (
-        ueid_claim //
-        origination_claim //
-        oemid_claim //
-        security_level_claim //
-        boot_state_claim //
-        location_claim //
-        age_claim //
-        uptime_claim //
-        nested_eat_claim //
-        cwt_claim //
-        generic_claim_type //
-        )
+~~~~CDDL
+eat-claims = { ; the top-level payload that is signed using COSE or JOSE
+    * claim
+}
+
+claim = (
+    ueid-claim //
+    origination-claim //
+    oemid-claim //
+    security-level-claim //
+    boot-state-claim //
+    location-claim //
+    age-claim //
+    uptime-claim //
+    submods-part //
+    cwt-claim //
+    generic-claim-type //
+)
+
+eat-token ; This is a set of eat-claims signed using COSE
+~~~~
 
 TODO: copy the rest of the CDDL here (wait until the
 CDDL is more settled so as to avoid copying
@@ -1080,7 +1102,7 @@ is shown.
 {
    / nonce (cti) /            7:h'948f8860d13a463e8e', 
    / UEID /                   8:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / boot_state /            12:{true, true, true, true, false}
+   / boot-state /            12:{true, true, true, true, false}
    / time stamp (iat) /       6:1526542894,
 }
 ~~~~
@@ -1091,25 +1113,25 @@ is shown.
 {
    / nonce /                  7:h'948f8860d13a463e8e', 
    / UEID /                   8:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / boot_state /            12:{true, true, true, true, false}
+   / boot-state /            12:{true, true, true, true, false}
    / time stamp (iat) /       6:1526542894,
    / seclevel /              11:3, / secure restricted OS / 
    
    / submods / 17: 
       [
          / 1st submod, an Android Application / {
-           / submod_name /   18:'Android App "Foo"',
+           / submod-name /   18:'Android App "Foo"',
            / seclevel /      11:1, / unrestricted / 
            / app data /  -70000:'text string'
          },
          / 2nd submod, A nested EAT from a secure element / {
-           / submod_name / 18:'Secure Element EAT',
+           / submod-name / 18:'Secure Element EAT',
            / eat /         16:61( 18(
-              / an embedded EAT / [ /...COSE_Sign1 bytes with payload.../ ]
+              / an embedded EAT / [ /...COSE-Sign1 bytes with payload.../ ]
                            ))
          }
          / 3rd submod, information about Linux Android / {
-            / submod_name/ 18:'Linux Android',
+            / submod-name/ 18:'Linux Android',
             / seclevel /   11:1, / unrestricted /
             / custom - release / -80000:'8.0.0',
             / custom - version / -80001:'4.9.51+'
@@ -1285,4 +1307,7 @@ not new claims have been added.
 
 * Submods part now includes nested eat tokens so they can be named and
   there can be more tha one of them
+  
+* Lots of fixes to the CDDL
+
 
