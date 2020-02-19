@@ -104,6 +104,7 @@ normative:
 
 informative:
   RFC4122:
+  RFC4949:
   Webauthn:
     title: 'Web Authentication: A Web API for accessing scoped credentials'
     author:
