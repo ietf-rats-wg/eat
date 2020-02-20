@@ -1384,4 +1384,6 @@ not new claims have been added.
   
 * Lots of fixes to the CDDL
 
+* Added security considerations
+
 
