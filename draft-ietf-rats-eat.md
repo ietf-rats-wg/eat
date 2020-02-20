@@ -437,11 +437,16 @@ a constrained implementation uses. This size range is not set
 for the already-registered JWT nonce, but it should follow
 this size recommendation when used in an EAT.
 
+Multiple nonces are allowed to accommodate multistage verification
+and consumption.
+
 ### nonce CDDL
 
 ~~~~CDDL
+nonce-type = [ + bstr .size (8..64) ]
+
 nonce-claim = (
-    nonce => bstr .size (8..64)
+    nonce => nonce-type
 )
 ~~~~
 
@@ -1092,51 +1097,75 @@ implementors should consider the following.
 
 ## Key Provisioning
 
-Private key material can be used to sign and/or encrypt the EAT, or can be used to derive
-the keys used for signing and/or encryption.  In some instances, the manufacturer of the entity
-may create the key material separately and provision the key material in the entity itself.
-The manfuacturer of any entity that is capable of producing an EAT should take care 
-to ensure that any private key material be suitably protected prior to provisioning the key
-material in the entity itself.  This can require creation of key material in an enclave (see
-{{RFC4949}} for definition of "enclave"),
-secure transmission of the key material from the enclave to the entity using an appropriate protocol,
-and persistence of the private key material in some form of secure storage to which (preferably) only the entity has
-access.  
+Private key material can be used to sign and/or encrypt the EAT, or
+can be used to derive the keys used for signing and/or encryption.  In
+some instances, the manufacturer of the entity may create the key
+material separately and provision the key material in the entity
+itself.  The manfuacturer of any entity that is capable of producing
+an EAT should take care to ensure that any private key material be
+suitably protected prior to provisioning the key material in the
+entity itself.  This can require creation of key material in an
+enclave (see {{RFC4949}} for definition of "enclave"), secure
+transmission of the key material from the enclave to the entity using
+an appropriate protocol, and persistence of the private key material
+in some form of secure storage to which (preferably) only the entity
+has access.
 
 ### Transmission of Key Material
 
-Regarding transmission of key material from the enclave to the entity, the key material may pass through one
-or more intermediaries.  Therefore some form of protection ("key wrapping") may be necessary.  The transmission
-itself may be performed electronically, but can also be done by human courier.  In the latter case, there should be minimal
-to no exposure of the key material to the human (e.g. encrypted portable memory).  Moreover, the human should transport the key
-material directly from the secure enclave where it was created to a destination secure enclave where it can be provisioned.
+Regarding transmission of key material from the enclave to the entity,
+the key material may pass through one or more intermediaries.
+Therefore some form of protection ("key wrapping") may be necessary.
+The transmission itself may be performed electronically, but can also
+be done by human courier.  In the latter case, there should be minimal
+to no exposure of the key material to the human (e.g. encrypted
+portable memory).  Moreover, the human should transport the key
+material directly from the secure enclave where it was created to a
+destination secure enclave where it can be provisioned.
 
 ## Transport Security
 
-As stated in Section 8 of {{RFC8392}}, "The security of the CWT relies upon on the protections offered by COSE".  Similar considerations apply to EAT when sent as a CWT.  However,  EAT introduces the concept of a nonce (to be specifically carried via a 'cti' claim)
-to protect against replay.  Since an EAT may be created by an entity that may not support the same type of transport security
-as the consumer of the EAT, intermediaries may be required to bridge communications between the entity and consumer.  As a result, it
-is RECOMMENDED that both the consumer create a nonce, and the entity leverage the nonce along with COSE mechanisms for encryption and/or signing to create the EAT.
+As stated in Section 8 of {{RFC8392}}, "The security of the CWT relies
+upon on the protections offered by COSE".  Similar considerations
+apply to EAT when sent as a CWT.  However, EAT introduces the concept
+of a nonce to protect against replay.  Since an EAT may be created by
+an entity that may not support the same type of transport security as
+the consumer of the EAT, intermediaries may be required to bridge
+communications between the entity and consumer.  As a result, it is
+RECOMMENDED that both the consumer create a nonce, and the entity
+leverage the nonce along with COSE mechanisms for encryption and/or
+signing to create the EAT.
 
-Similar considerations apply to the use of EAT as a JWT.  Although the security of a JWT leverages the JSON Web Encryption (JWE) and JSON Web Signature (JWS) specifications, it is still recommended to make use of the EAT nonce.
+Similar considerations apply to the use of EAT as a JWT.  Although the
+security of a JWT leverages the JSON Web Encryption (JWE) and JSON Web
+Signature (JWS) specifications, it is still recommended to make use of
+the EAT nonce.
 
 ## Multiple EAT Consumers
 
-In many cases, more than one EAT consumer may be required to fully verify the entity attestation.  Examples
-include individual consumers for nested EATs, or consumers for individual claims with an EAT.  When multiple consumers
-are required for verification of an EAT, it is important to minimize information exposure to each consumer.  In addition, the
-communication between multiple consumers should be secure.
+In many cases, more than one EAT consumer may be required to fully
+verify the entity attestation.  Examples include individual consumers
+for nested EATs, or consumers for individual claims with an EAT.  When
+multiple consumers are required for verification of an EAT, it is
+important to minimize information exposure to each consumer.  In
+addition, the communication between multiple consumers should be
+secure.
 
-For instance, consider the example of an encrypted and signed EAT with multiple claims.  A consumer may receive the EAT (denoted as
-the "receiving consumer"), decrypt
-its payload, verify its signature, but then pass specific subsets of claims to other consumers for evaluation ("downstream
-consumers").  Since any COSE
-encryption will be removed by the receiving consumer, the communication of claim subsets to any downstream consumer should leverage
-a secure protocol (e.g.one that uses transport-layer security, i.e. TLS),  
+For instance, consider the example of an encrypted and signed EAT with
+multiple claims.  A consumer may receive the EAT (denoted as the
+"receiving consumer"), decrypt its payload, verify its signature, but
+then pass specific subsets of claims to other consumers for evaluation
+("downstream consumers").  Since any COSE encryption will be removed
+by the receiving consumer, the communication of claim subsets to any
+downstream consumer should leverage a secure protocol (e.g.one that
+uses transport-layer security, i.e. TLS),
 
-However, assume the EAT of the previous example is hierarchical and each claim subset for a downstream consumer is created in the form
-of a nested EAT.  Then transport security between the receiving and downstream consumers is not strictly required.  Nevertheless, 
-downstream consumers of a nested EAT should provide a nonce unique to the EAT they are consuming.
+However, assume the EAT of the previous example is hierarchical and
+each claim subset for a downstream consumer is created in the form of
+a nested EAT.  Then transport security between the receiving and
+downstream consumers is not strictly required.  Nevertheless,
+downstream consumers of a nested EAT should provide a nonce unique to
+the EAT they are consuming.
 
 --- back
 
@@ -1149,8 +1178,8 @@ is shown.
 
 ~~~~
 {
-   / nonce (cti) /            7:h'948f8860d13a463e8e', 
-   / UEID /                   8:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
+   / nonce /                  9:h'948f8860d13a463e8e',
+   / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
    / boot-state /            12:{true, true, true, true, false}
    / time stamp (iat) /       6:1526542894,
 }
@@ -1160,32 +1189,28 @@ is shown.
 
 ~~~~
 {
-   / nonce /                  7:h'948f8860d13a463e8e', 
-   / UEID /                   8:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
+   / nonce /                  9:h'948f8860d13a463e8e',
+   / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
    / boot-state /            12:{true, true, true, true, false}
    / time stamp (iat) /       6:1526542894,
-   / seclevel /              11:3, / secure restricted OS / 
-   
-   / submods / 17: 
-      [
-         / 1st submod, an Android Application / {
-           / submod-name /   18:'Android App "Foo"',
-           / seclevel /      11:1, / unrestricted / 
-           / app data /  -70000:'text string'
+   / seclevel /              11:3, / secure restricted OS /
+
+   / submods / 17:
+      {
+         / first submod, an Android Application / "Android App Foo" :  {
+            / seclevel /      11:1, / unrestricted /
+            / app data /  -70000:'text string'
          },
-         / 2nd submod, A nested EAT from a secure element / {
-           / submod-name / 18:'Secure Element EAT',
-           / eat /         16:61( 18(
-              / an embedded EAT / [ /...COSE-Sign1 bytes with payload.../ ]
+         / 2nd submod, A nested EAT from a secure element / "Secure Element Eat" :
+            / eat /         61( 18(
+                                / an embedded EAT, bytes of which are not shown /
                            ))
+         / 3rd submod, information about Linux Android / "Linux Android": {
+            / seclevel /              11:1, / unrestricted /
+            / custom - release /  -80000:'8.0.0',
+            / custom - version /  -80001:'4.9.51+'
          }
-         / 3rd submod, information about Linux Android / {
-            / submod-name/ 18:'Linux Android',
-            / seclevel /   11:1, / unrestricted /
-            / custom - release / -80000:'8.0.0',
-            / custom - version / -80001:'4.9.51+'
-         }
-      ]
+      }
 }
 ~~~~
 
