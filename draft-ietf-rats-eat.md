@@ -361,6 +361,12 @@ Note also:
 
 * All claims that are not understood by implementations MUST be ignored
 
+There are no default values or meanings assigned to absent claims
+other than they are not reported. The reason for a claim's absence may
+the implementation not supporting the claim, inability to determine
+its value, or a preference to report in a different way such as
+proprietary claim.
+
 CDDL along with text descriptions is used to define the information
 model.  Each claim is defined as a CDDL group (the group is a general
 aggregation and type definition feature of CDDL). In the data model,
@@ -593,7 +599,10 @@ type of the mechanism is not taken into account. For example, it does
 not matter if authentication is by a global password or by per-device
 public keys.
 
-The absence of the debug level claim is equivalent to Not Reported.
+As with all claims, the absence of the debug level claim means
+it is not reported. A conservative interpretation might assume
+the Not Disabled state. It could however be that it is reported
+in a proprietary claim.
 
 The higher levels of debug disabling requires that all debug disabling
 of the levels below it be in effect. Since the lowest level requires
@@ -618,16 +627,6 @@ a chip includes submodules, then each submodule should independently
 report the status of the whole-chip or whole-device debug facility.
 This is the only way the relying party can know the debug status
 of the submodules since there is no inheritance.
-
-#### Not Reported
-
-The debug level is not included in the EAT. This may be for any reason
-ranging inability to determine what it is, the implementation not
-supporting the claim or a preference to report the debug level in a
-proprietary claim.
-
-The most conservative assumption a relying party might make is to
-consider this equivalent to Not Disabled.
 
 #### Not Disabled
 
@@ -662,12 +661,11 @@ device/sub-module are permanently disabled.
 ### CDDL
 
     debug_disable_level = (
-        not_reported: 0,
-        not_disabled: 1, 
-        disabled: 2,
-        disabled_since_boot: 3,
-        permanent_disable: 4,
-        full_permanent_disable: 5
+        not_disabled: 0, 
+        disabled: 1,
+        disabled_since_boot: 2,
+        permanent_disable: 3,
+        full_permanent_disable: 4
     )
 
     boot_state_type = [
