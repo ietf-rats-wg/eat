@@ -363,9 +363,9 @@ Note also:
 
 There are no default values or meanings assigned to absent claims
 other than they are not reported. The reason for a claim's absence may
-the implementation not supporting the claim, inability to determine
-its value, or a preference to report in a different way such as
-proprietary claim.
+be the implementation not supporting the claim, an inability to
+determine its value, or a preference to report in a different way such
+as a proprietary claim.
 
 CDDL along with text descriptions is used to define the information
 model.  Each claim is defined as a CDDL group (the group is a general
