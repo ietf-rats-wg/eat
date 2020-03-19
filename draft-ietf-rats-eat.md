@@ -896,10 +896,10 @@ string naming the submodule. No submodules may have the same name.
 submods-type = { + submodule }
 
 submodule = (
-    submod_name => eat-claims / eat-token
+    submod-name => eat-claims / eat-token
 )
 
-submod_name = tstr / int
+submod-name = tstr / int
 
 submods-part = (
     submods => submod-type
@@ -1262,20 +1262,20 @@ is shown.
    / secure-boot /           17:true,
    / debug-disbale /         12:3,  / permanent-disable  /
    / time stamp (iat) /       6:1526542894,
-   / seclevel /              11:3, / secure restricted OS /
+   / security-level /        11:3, / secure restricted OS /
 
    / submods / 17:
       {
          / first submod, an Android Application / "Android App Foo" :  {
-            / seclevel /      11:1, / unrestricted /
-            / app data /  -70000:'text string'
+            / security-level /      11:1, / unrestricted /
+            / app data /        -70000:'text string'
          },
          / 2nd submod, A nested EAT from a secure element / "Secure Element Eat" :
             / eat /         61( 18(
                                 / an embedded EAT, bytes of which are not shown /
                            ))
          / 3rd submod, information about Linux Android / "Linux Android": {
-            / seclevel /              11:1, / unrestricted /
+            / security-level /        11:1, / unrestricted /
             / custom - release /  -80000:'8.0.0',
             / custom - version /  -80001:'4.9.51+'
          }
