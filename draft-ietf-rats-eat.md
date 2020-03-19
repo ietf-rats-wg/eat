@@ -398,11 +398,17 @@ Note also:
 
 * All claims that are not understood by implementations MUST be ignored
 
-CDDL along with text descriptions is used to define each claim indepdent of encoding.
-Each claim is defined as a CDDL group (the group is a general
-aggregation and type definition feature of CDDL). In the encoding section
-{{encoding}}, the CDDL groups turn into CBOR map
-entries and JSON name/value pairs.
+There are no default values or meanings assigned to absent claims
+other than they are not reported. The reason for a claim's absence may
+be the implementation not supporting the claim, an inability to
+determine its value, or a preference to report in a different way such
+as a proprietary claim.
+
+CDDL along with text descriptions is used to define each claim
+indepdent of encoding.  Each claim is defined as a CDDL group (the
+group is a general aggregation and type definition feature of
+CDDL). In the encoding section {{encoding}}, the CDDL groups turn into
+CBOR map entries and JSON name/value pairs.
 
 
 ## Token ID Claim (cti and jti)
@@ -547,7 +553,7 @@ origination-claim = (
 )
 ~~~~
 
-## OEM Identification by IEEE (oemid)
+## OEM Identification by IEEE (oemid) {#oemid}
 
 The IEEE operates a global registry for MAC addresses and company IDs.
 This claim uses that database to identify OEMs. The contents of the
@@ -638,60 +644,119 @@ security-level-claim = (
 )
 ~~~~
 
-## Secure Boot and Debug Enable State Claims (boot-state)
 
-This claim is an array of five Boolean values indicating the boot and
-debug state of the entity.
+## Secure Boot Claim (secure-boot)
 
-### Secure Boot Enabled
+The value of true indicates secure boot is enabled. Secure boot is
+considered enabled when base software, the firmware and operating
+system, are under control of the entity manufacturer identified in the
+oemid claimd described in {{oemid}}. This may because the software is
+in ROM or because it is cryptographically authenticated or some
+combination of the two or other.
 
-This indicates whether secure boot is enabled either for an entire
-device or an individual submodule.  If it appears at the device level,
-then this means that secure boot is enabled for all submodules.
-Secure boot enablement allows a secure boot loader to authenticate
-software running either in a device or a submodule prior allowing
-execution.
+### secure-boot CDDL
 
-### Debug Disabled
+~~~~CDDL
 
-This indicates whether debug capabilities are disabled for an entity
-(i.e. value of 'true').  Debug disablement is considered a
-prerequisite before an entity is considered operational.
+    secure-boot-claim = (
+        secure-boot => bool
+    )
 
-### Debug Disabled Since Boot
+~~~~
 
-This claim indicates whether debug capabilities for the entity were
-not disabled in any way since boot (i.e. value of 'true').
 
-### Debug Permanent Disable
+## Debug Disable Claim (debug-disable)
 
-This claim indicates whether debug capabilities for the entity are
-permanently disabled (i.e. value of 'true').  This value can be set to
-'true' also if only the manufacturer is allowed to enabled debug, but
-the end user is not.
+This applies to system-wide or submodule-wide debug facilities of the
+target device / submodule like JTAG and diagnostic hardware built into
+chips. It applies to any software debug facilities related to root,
+operating system or privileged software that allow system-wide memory
+inspection, tracing or modification of non-system software like user
+mode applications.
 
-### Debug Full Permanent Disable
+This characterization assumes that debug facilities can be enabled and
+disabled in a dynamic way or be disabled in some permanent way such
+that no enabling is possible. An example of dynamic enabling is one
+where some authentication is required to enable debugging. An example
+of permanent disabling is blowing a hardware fuse in a chip. The specific
+type of the mechanism is not taken into account. For example, it does
+not matter if authentication is by a global password or by per-device
+public keys.
 
-This claim indicates whether debug capabilities for the entity are
-permanently disabled (i.e. value of 'true').  This value can only be
-set to 'true' if no party can enable debug capabilities for the
-entity. Often this is implemented by blowing a fuse on a chip as fuses
-cannot be restored once blown.
+As with all claims, the absence of the debug level claim means
+it is not reported. A conservative interpretation might assume
+the Not Disabled state. It could however be that it is reported
+in a proprietary claim.
+
+The higher levels of debug disabling requires that all debug disabling
+of the levels below it be in effect. Since the lowest level requires
+that all of the target's debug be currently disabled, all other levels
+require that too.
+
+There is no inheritance of claims from a submodule to a superior
+module or vice versa. There is no assumption, requirement or guarantee
+that the target of a superior module encompasses the targets of
+submodules. Thus, every submodule must explicitly describe its own
+debug state. The verifier or relying party receiving an EAT cannot
+assume that debug is turned off in a submodule because there is a claim
+indicating it is turned off in a superior module.
+
+An individual target device / submodule may have multiple debug
+facilities. The use of plural in the description of the states
+refers to that, not to any aggregation or inheritance.
+
+The architecture of some chips or devices may be such that a debug
+facility operates for the whole chip or device. If the EAT for such
+a chip includes submodules, then each submodule should independently
+report the status of the whole-chip or whole-device debug facility.
+This is the only way the relying party can know the debug status
+of the submodules since there is no inheritance.
+
+### Not Disabled
+
+If any debug facility, even manufacturer hardware diagnostics, is
+currently enabled, then this level must be indicated.
+
+### Disabled
+
+This level indicates all debug facilities are currently disabled. It
+may be possible to enable them in the future, and it may also be
+possible that they were enabled in the past after the
+target device/sub-system booted/started, but they are currently disabled.
+
+### Disabled Since Boot
+
+This level indicates all debug facilities are currently disabled and
+have been so since the target device/sub-system booted/started.
+
+### Permanent Disable
+
+This level indicates all non-manufacturer facilities are permanently
+disabled such that no end user or developer cannot enable them. Only
+the manufacturer indicated in the OEMID claim can enable them. This
+also indicates that all debug facilities are currently disabled and
+have been so since boot/start.
+
+### Full Permanent Disable
+
+This level indicates that all debug capabilities for the target
+device/sub-module are permanently disabled.
 
 ### boot-state CDDL
 
 ~~~~CDDL
-boot-state-type = [
-    secure-boot-enabled => bool,
-    debug-disabled => bool,
-    debug-disabled-since-boot => bool,
-    debug-permanent-disable => bool,
-    debug-full-permanent-disable => bool
-]
+    debug-disable-type = &(
+        not-disabled: 0, 
+        disabled: 1,
+        disabled-since-boot: 2,
+        permanent-disable: 3,
+        full-permanent-disable: 4
+    )
 
-boot-state-claim = (
-    boot-state => boot-state-type
-)
+    debug-disable-claim = (
+        debug-disable => debug-disable-type
+    )
+
 ~~~~
 
 ## The Location Claim (location)
@@ -805,8 +870,7 @@ token.  The subordinate modules must explicitly include all of their
 claims. This is the case even for claims like the nonce and age.
 
 This rule is in place for simplicity. It avoids complex inheritance
-rules that might vary from one type of claim to another. (TODO: fix
-the boot claim which does have inheritance as currently described).
+rules that might vary from one type of claim to another. 
 
 ### Security Levels
 
@@ -887,7 +951,8 @@ ueid = "ueid"
 origination = "origination"
 oemid = "oemid"
 security-level = "security-level"
-boot-state = "boot-state"
+secure-boot = "secure-boot"
+debug-disble = "debug-disable"
 location = "location"
 age = "age"
 uptime = "uptime"
@@ -921,7 +986,8 @@ ueid = To_be_assigned
 origination = To_be_assigned
 oemid = To_be_assigned
 security-level = To_be_assigned
-boot-state = To_be_assigned
+secure-boot = To_be_assigned
+debug-disable = To_be_assigned
 location = To_be_assigned
 age = To_be_assigned
 uptime = To_be_assigned
@@ -1010,7 +1076,8 @@ claim = (
     origination-claim //
     oemid-claim //
     security-level-claim //
-    boot-state-claim //
+    secure-boot-claim //
+    debug-disable-claim //
     location-claim //
     age-claim //
     uptime-claim //
@@ -1180,7 +1247,8 @@ is shown.
 {
    / nonce /                  9:h'948f8860d13a463e8e',
    / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / boot-state /            12:{true, true, true, true, false}
+   / secure-boot /           17:true,
+   / debug-disbale /         12:3,  / permanent-disable  /
    / time stamp (iat) /       6:1526542894,
 }
 ~~~~
@@ -1191,7 +1259,8 @@ is shown.
 {
    / nonce /                  9:h'948f8860d13a463e8e',
    / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / boot-state /            12:{true, true, true, true, false}
+   / secure-boot /           17:true,
+   / debug-disbale /         12:3,  / permanent-disable  /
    / time stamp (iat) /       6:1526542894,
    / seclevel /              11:3, / secure restricted OS /
 
@@ -1359,7 +1428,7 @@ differences.
 ## From draft-mandyam-rats-eat-00
 
 This is a fairly large change in the orientation of the document, but
-not new claims have been added.
+no new claims have been added.
 
 * Separate information and data model using CDDL.
 * Say an EAT is a CWT or JWT
@@ -1386,4 +1455,10 @@ not new claims have been added.
 
 * Added security considerations
 
+
+## From draft-ietf-rats-eat-03
+
+* Split boot_state into secure-boot and debug-disable claims
+
+* Debug disable is an enumerated type rather than Booleans
 
