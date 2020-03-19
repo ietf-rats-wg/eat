@@ -553,7 +553,7 @@ origination-claim = (
 )
 ~~~~
 
-## OEM Identification by IEEE (oemid)
+## OEM Identification by IEEE (oemid) {#oemid}
 
 The IEEE operates a global registry for MAC addresses and company IDs.
 This claim uses that database to identify OEMs. The contents of the
@@ -644,29 +644,28 @@ security-level-claim = (
 )
 ~~~~
 
-## Secure Boot and Debug Enable State Claims (boot-state)
 
-This claim is an array of two, the status of secure boot enabling and
-the status of debug disabling.
-
-If this claim appears at the top level, the entity / device level,
-then it applies to the whole entity / device, to all the
-submodules. It must be the minimum of all the submodules. For example,
-if secure boot is enabled for all but one submodule, this claim must
-be false at the top level.
-
-When this claim appears in a submod, it is only an indication for that
-submodule.
-
-### Secure Boot Enabled
+## Secure Boot Claim (secure-boot)
 
 The value of true indicates secure boot is enabled. Secure boot is
 considered enabled when base software, the firmware and operating
-system, are under control of the entity manufacturer. This may because
-the software is in ROM or because it is cryptographically
-authenticated or some combination of the two.
+system, are under control of the entity manufacturer identified in the
+oemid claimd described in {{oemid}}. This may because the software is
+in ROM or because it is cryptographically authenticated or some
+combination of the two or other.
 
-### Debug Disable Level
+### secure-boot CDDL
+
+~~~~CDDL
+
+    secure-boot-claim = (
+        secure-boot => bool
+    )
+
+~~~~
+
+
+## Debug Disable Claim (debug-disable)
 
 This applies to system-wide or submodule-wide debug facilities of the
 target device / submodule like JTAG and diagnostic hardware built into
@@ -713,24 +712,24 @@ report the status of the whole-chip or whole-device debug facility.
 This is the only way the relying party can know the debug status
 of the submodules since there is no inheritance.
 
-#### Not Disabled
+### Not Disabled
 
 If any debug facility, even manufacturer hardware diagnostics, is
 currently enabled, then this level must be indicated.
 
-#### Disabled
+### Disabled
 
 This level indicates all debug facilities are currently disabled. It
 may be possible to enable them in the future, and it may also be
 possible that they were enabled in the past after the
 target device/sub-system booted/started, but they are currently disabled.
 
-#### Disabled Since Boot
+### Disabled Since Boot
 
 This level indicates all debug facilities are currently disabled and
 have been so since the target device/sub-system booted/started.
 
-#### Permanent Disable
+### Permanent Disable
 
 This level indicates all non-manufacturer facilities are permanently
 disabled such that no end user or developer cannot enable them. Only
@@ -738,7 +737,7 @@ the manufacturer indicated in the OEMID claim can enable them. This
 also indicates that all debug facilities are currently disabled and
 have been so since boot/start.
 
-#### Full Permanent Disable
+### Full Permanent Disable
 
 This level indicates that all debug capabilities for the target
 device/sub-module are permanently disabled.
@@ -746,26 +745,18 @@ device/sub-module are permanently disabled.
 ### boot-state CDDL
 
 ~~~~CDDL
-    debug_disable_level = (
-        not_disabled: 0, 
+    debug-disable-type = &(
+        not-disabled: 0, 
         disabled: 1,
-        disabled_since_boot: 2,
-        permanent_disable: 3,
-        full_permanent_disable: 4
+        disabled-since-boot: 2,
+        permanent-disable: 3,
+        full-permanent-disable: 4
     )
 
-    boot_state_type = [
-        secure_boot_enabled: bool,
-        debug_state: &debug_disable_level,
-    ]
-
-    boot_state_claim = (
-        boot_state => boot_state_type
+    debug-disable-claim = (
+        debug-disable => debug-disable-type
     )
 
-boot-state-claim = (
-    boot-state => boot-state-type
-)
 ~~~~
 
 ## The Location Claim (location)
@@ -879,8 +870,7 @@ token.  The subordinate modules must explicitly include all of their
 claims. This is the case even for claims like the nonce and age.
 
 This rule is in place for simplicity. It avoids complex inheritance
-rules that might vary from one type of claim to another. (TODO: fix
-the boot claim which does have inheritance as currently described).
+rules that might vary from one type of claim to another. 
 
 ### Security Levels
 
@@ -961,7 +951,8 @@ ueid = "ueid"
 origination = "origination"
 oemid = "oemid"
 security-level = "security-level"
-boot-state = "boot-state"
+secure-boot = "secure-boot"
+debug-disble = "debug-disable"
 location = "location"
 age = "age"
 uptime = "uptime"
@@ -995,7 +986,8 @@ ueid = To_be_assigned
 origination = To_be_assigned
 oemid = To_be_assigned
 security-level = To_be_assigned
-boot-state = To_be_assigned
+secure-boot = To_be_assigned
+debug-disable = To_be_assigned
 location = To_be_assigned
 age = To_be_assigned
 uptime = To_be_assigned
@@ -1084,7 +1076,8 @@ claim = (
     origination-claim //
     oemid-claim //
     security-level-claim //
-    boot-state-claim //
+    secure-boot-claim //
+    debug-disable-claim //
     location-claim //
     age-claim //
     uptime-claim //
@@ -1254,7 +1247,8 @@ is shown.
 {
    / nonce /                  9:h'948f8860d13a463e8e',
    / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / boot-state /            12:{true, true, true, true, false}
+   / secure-boot /           17:true,
+   / debug-disbale /         12:3,  / permanent-disable  /
    / time stamp (iat) /       6:1526542894,
 }
 ~~~~
@@ -1265,7 +1259,8 @@ is shown.
 {
    / nonce /                  9:h'948f8860d13a463e8e',
    / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / boot-state /            12:{true, true, true, true, false}
+   / secure-boot /           17:true,
+   / debug-disbale /         12:3,  / permanent-disable  /
    / time stamp (iat) /       6:1526542894,
    / seclevel /              11:3, / secure restricted OS /
 
@@ -1433,7 +1428,7 @@ differences.
 ## From draft-mandyam-rats-eat-00
 
 This is a fairly large change in the orientation of the document, but
-not new claims have been added.
+no new claims have been added.
 
 * Separate information and data model using CDDL.
 * Say an EAT is a CWT or JWT
@@ -1460,4 +1455,10 @@ not new claims have been added.
 
 * Added security considerations
 
+
+## From draft-ietf-rats-eat-03
+
+* Split boot_state into secure-boot and debug-disable claims
+
+* Debug disable is an enumerated type rather than Booleans
 
