@@ -1034,7 +1034,7 @@ The entity can use any string encoding allowed by CBOR including
 indefinite lengths. It may also encode the lengths of strings in any
 way allowed by CBOR. The server must accept all string encodings.
 
-* Major type 2, bstr, SHOULD be have tag 21 to indicate conversion to
+* Major type 2, bstr, SHOULD have tag 21 to indicate conversion to
   base64url in case that conversion is performed.
 
 * Map and Array Encoding (major type 4 and 5) --
@@ -1058,7 +1058,7 @@ The entity may use any floating-point encoding. The relying party must
 support decoding of all types of floating-point.
 
 * Other types --
-Use of Other types like bignums, regular expressions and such, SHOULD
+Other types like bignums, regular expressions and such, SHOULD
 NOT be used. The server MAY support them but is not required to so
 interoperability is not guaranteed.
 
