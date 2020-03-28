@@ -818,6 +818,53 @@ uptime-claim = (
 )
 ~~~~
 
+## The Context Claim (context)
+
+EAT's may be used in the context of several different applications.  The context
+claim provides an indication to an EAT consumer about  the intended usage
+of the token.
+
+1 -- On-demand 
+: On-demand attestation describes an application where the EAT consumer
+requres the most up-to-date security assessment of the attesting entity. It
+is expected that this is the most commonly-used application of EAT.
+
+2-- Registration
+: Entities that are registering for a new service may be expected to 
+provide an attestation as part of the registration process.  This context
+setting indicates that the attestation is not intended for any use but registration.
+
+3 -- Provisioning
+: Entities may be provisioned with different values or settings by an EAT
+consumer.  Examples include key material or device management trees.  The consumer
+may require an EAT to assess device security state of the entity prior to provisioning.
+
+4 -- Certificate Issuance (Certificate Signing Request)
+: Certifying authorities (CA's) may require attestations prior to
+the issuance of certificates related to keypairs hosted at the entity.  An
+EAT may be used as part of the certificate signing request (CSR).
+
+5 -- Proof-of-Possession
+: An EAT consumer may require an attestation as part of an accompanying 
+proof-of-possession (PoP) appication.  This may be neceesary to verify the
+security state of the entity storing the private key used in a PoP application.
+
+### context CDDL
+
+~~~~CDDL
+context = &(
+    on-demand: 1,
+    registration: 2,
+    provisioning: 3,
+    csr: 4,
+    pop:  5
+)
+
+security-level-claim = (
+    security-level => security-level-type
+)
+~~~~
+
 ## The Submods Part of a Token (submods)
 
 Some devices are complex, having many subsystems or submodules.  A
