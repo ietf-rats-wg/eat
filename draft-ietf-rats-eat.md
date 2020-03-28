@@ -860,9 +860,6 @@ context = &(
     pop:  5
 )
 
-security-level-claim = (
-    security-level => security-level-type
-)
 ~~~~
 
 ## The Submods Part of a Token (submods)
