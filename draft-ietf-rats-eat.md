@@ -54,8 +54,6 @@ author:
   phone: +44 1252 363189
   email: jodonogh@qti.qualcomm.com
 
-updates: RFC8329
-
 normative:
   RFC2119:
   RFC7049:
