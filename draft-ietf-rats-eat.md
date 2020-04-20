@@ -425,6 +425,13 @@ party to guarantee freshness and defend against replay.
 The "iat" claim defined in CWT and JWT is used to indicate the
 date-of-creation of the token.
 
+CWT allows the use floating-point for this claim. EAT disallows
+the use of floating-point. No token may contain an iat claim in
+float-point format. Any recipient of a token with a floating-point
+format iat claim may consider it an error.  A 64-bit integer 
+representation of epoch time can represent a range of +/- 500 billion
+years, so the only point of a floating-point timestamp is to 
+have precession greater than one second. This is not needed for EAT.
 
 ## Nonce Claim (nonce)
 
