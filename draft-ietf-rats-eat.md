@@ -56,6 +56,7 @@ author:
 
 normative:
   RFC2119:
+  RFC6838:
   RFC7049:
   RFC7519:
   RFC8126:
@@ -1094,6 +1095,31 @@ CDDL is more settled so as to avoid copying
 multiple times)
 
 
+# Unprotected Claims Sets
+
+In some contexts, it is useful to have a claim set that
+is not signed or encrypted, particularly contexts that
+have some protection mechanism of their own. For example,
+a claim set may be conveyed via HTTPS.
+
+This defines the Unprotected CWT Claim Set (UCCS) and the Unprotected
+JWT Claim Set (UJCS). These carry exactly the same claims, have the
+same rules and use the same registry as CWT and JWT. What is 
+different is that they are not protected by COSE or JOSE.
+
+A UCCS or UJCS may be identified as such from context. They may also
+be identified by the MIME types application/uccs and
+application/ujcs. Finally, they may be identified by the CBOR tags
+to-be-assigned-uccs. There is no equivalent of a CBOR tag in JSON.
+
+Note that these tags are NOT to be used on the map that contains the
+claims in an actual CWT. A UCCS is distinct from a CWT. The correct
+way to convert a UCCS to a CWT is to remove the UCCS tag (if it has
+one), then sign or encrypt it with COSE and add the CWT tag if
+necessary. To convert a CWT to a UCCS, remove the COSE protection,
+then add the UCCS tag if necessary.
+
+
 # IANA Considerations
 
 ## Reuse of CBOR Web Token (CWT) Claims Registry
@@ -1114,6 +1140,23 @@ CWT and JWT Claims Registries.
 * Specification Document(s): __this document__
 
 TODO: add the rest of the claims in here
+
+## Media Type Registration
+
+IANA has registered the "application/uccs" and "application/ujcs"
+media types in the "Media Types registry in the manner described in
+{{RFC6838}}, which can be used to indicate the contents is a UCCS or
+UJCS.
+
+## CBOR Tag registration
+
+IANA has register the UCCS CBOR tag in the "CBOR Tags" registry.
+
+### Registry Contents
+* CBOR Tag: to-be-assigned
+* Data Item: Unprotected CWT Claim Set
+* Semantics: A CWT without the COSE protection
+* Reference: {{RFC8392}}
 
 # Privacy Considerations {#privacyconsiderations}
 
