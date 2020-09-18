@@ -367,7 +367,7 @@ Claim Key.
 : The CBOR map key or JSON name used to identify a claim.
 
 Claim Value.
-: The CBOR map or JSON object value representing the value of the claim.
+: The value portion of the claim. A claim value can be any CBOR data item or JSON value.
 
 CWT Claims Set.
 : The CBOR map or JSON object that contains the claims conveyed by the CWT or JWT.
