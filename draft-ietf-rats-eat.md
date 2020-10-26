@@ -95,6 +95,13 @@ normative:
      - org: IANA
      date: false
 
+  UCCS.Draft:
+     target: https://tools.ietf.org/html/draft-birkholz-rats-uccs-01
+     title: A CBOR Tag for Unprotected CWT Claims Sets
+     author:
+     - fullname: Henk Birkholz
+     date: 2020
+
   ThreeGPP.IMEI:
     target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=729
     title: 3rd Generation Partnership Project; Technical Specification Group Core Network and Terminals; Numbering, addressing and identification
@@ -207,7 +214,8 @@ limited to the following:
 
 ## CDDL, CWT and JWT
 
-An EAT token is either a CWT as defined in {{RFC8392}} or a JWT as
+An EAT token is either a CWT as defined in {{RFC8392}}, a UCCS
+as defined in {{UCCS-draft}}, or a JWT as
 defined in {{RFC7519}}. This specification defines additional claims
 for entity attestation.
 
@@ -828,7 +836,7 @@ more security-oriented subsystems like a TEE or a Secure Element.
 
 The claims for each these can be grouped together in a submodule.
 
-The submods part of a token a single map/object with many entries, one
+The submods part of a token are in a single map/object with many entries, one
 per submodule.  There is only one submods map in a token. It is
 identified by its specific label. It is a peer to other claims, but it
 is not called a claim because it is a container for a claim set rather
@@ -838,30 +846,56 @@ inside of claims sets...
 
 ### Two Types of Submodules
 
-Each entry in the submod map one of two types:
+Each entry in the submod map is one of two types:
 
-* A non-token submodule that is a map or object directly containing
-  claims for the submodule.
-* A nested EAT that is a fully-formed, independently signed EAT token
+* A non-token submodule that is a map or object directly containing claims for the submodule.
+* A nested EAT that is a fully formed, independently signed EAT token
 
 #### Non-token Submodules
 
-Essentially this type of submodule, is just a sub-map or sub-object
-containing claims. It is recognized from the other type by being
-a data item of type map in CBOR or by being an object in JSON.
+This is simply a map or object containing claims about the submodule.
 
-The contents are claims about the submodule of types defined 
-in this document or anywhere else claims types are defined.
+It may contain claims that are the same as its surrounding token or superior submodules. 
+For example, the top-level of the token may have a UEID, a submod may have a different UEID and a further subordinate submodule may also have a UEID.
+
+It is signed/encrypted along with the rest of the token and thus the claims are secured by the same Attester with the same signing key as the rest of the token. 
+
+If a token is in CBOR format (a CWT or a UCCS), all non-token submodules must be CBOR format.
+If a token in in JSON format (a JWT), all non-token submodules must be in JSON format.
+
+When decoding, this type of submodule is recognized from the other type by being a data item of type map for CBOR or type object for JSON. 
 
 #### Nested EATs
 
-This type of submodule is a fully formed EAT as described here. In
-this case the submodule has key material distinct from the containing
-EAT token that allows it to sign on its own.
+This type of submodule is a fully formed EAT as defined in this document except that it MUST NOT be a UCCS.
+It is a token that is independently secured by a different Attester.
+This nested EAT is bundled with the other claims in the surrounding EAT.
+When the surrounding EAT is a CWT or JWT, it is securely bound with the other claims.
 
-When an EAT is nested in another EAT as a submodule the nested EAT
-MUST use the CBOR CWT tag. This clearly distinguishes it from the
-non-token submodules.
+Nested EATs are always wrapped in a byte string for easier handling with standard CBOR decoders and token processing APIs that will typically take a byte buffer as input.
+This also allows distinguishing it from non-token submodules when decoding.
+
+It is allowed to have a CWT as a submodule in a JWT and vice versa if necessary, but this SHOULD be avoided unless necessary to keep decoders simpler.
+This is allowed because the nested EAT was likely secured by a different Attester with different security properties.
+
+Nested CWT Eats must always be wrapped in a tag 55799, the tag for self-described CBOR.
+This is necessary to deterministically distinguish CWT EATs from JWT EATs.
+Thus a nested EAT beginning with the four bytes 0xd9d9f7, the encoding of tag 55799, is the only nested token ever considered to be a CWT.
+Any other is always considered a JWT.
+
+Nested CWT EATs may be either a CWT CBOR tag or a CWT Protocol Message.
+COSE layers in nested CWT EATs MUST be a COSE_Tagged_Message, never a COSE_Untagged_Message.
+If a singled nested EAT has more than one level of COSE, for example one that is both encrypted and signed, a COSE_Tagged_message must be used at every level. 
+
+#### UCCS Tokens as Submodules
+
+To incorporate a UCCS token as a submodule, it MUST be as a non-token submodule. 
+This can be accomplished inserting the content of the UCCS Tag into the submod map.
+The content of a UCCS tag is exactly a map of claims as required for a non-token submodule.
+If the UCCS is not a UCCS tag, then it can just be inserted into the submod map directly.
+
+The definition of a nested EAT type of submodule is that it is one that is secured (signed) by an Attester.
+Since UCCS tokens are unsecured, they do not fulfill this definition and must be non-token submodules.
 
 ### No Inheritance
 
@@ -896,13 +930,15 @@ string naming the submodule. No submodules may have the same name.
 submods-type = { + submodule }
 
 submodule = (
-    submod-name => eat-claims / eat-token
+    submod-name => eat-claims / nested-token
 )
 
 submod-name = tstr / int
 
+nested-token = bstr
+
 submods-part = (
-    submods => submod-type
+    submods => submods-type
 )
 ~~~~
 
