@@ -102,6 +102,13 @@ normative:
     - org: 3GPP
     date: 2019 
 
+  EAN-13:
+    target: https://www.gs1.org/standards/barcodes/ean-upc
+    title: International Article Number - EAN/UPC barcodes
+    author:
+    - org: GS1
+    date: 2019
+
 informative:
   RFC4122:
   RFC4949:
@@ -585,6 +592,54 @@ oemid-claim = (
 )
 ~~~~
 
+
+## EAN-13 Chip Version Claim (ean-chip-version) {#ean-chip-version}
+
+This identifies the chip version (not the circuit board or final device assembly version).
+
+This claim identifies the version based on a 13 digit European Article Number [EAN-13]. 
+An EAN-13 is also known as an International Article Number or most commonly as a bar code.
+This claim is the ASCII text representation of actual digits often printed with a bar code.
+Use of this claim must comply with the EAN allocation and assignment rules.
+For example, this requires the manufacturer to obtain a manufacture code from GS1.
+
+~~~~CDDL
+ean-type = text .regexp "[0-9]{13}"
+
+ean-chip-version-claim = (
+    ? ean-chip-version => ean-type
+)
+~~~~
+
+
+## EAN-13 Board Version Claim
+
+This identifies the circuit board version (not the chip or final device assembly version).
+
+This format of this version claim is an EAN-13. 
+The usage of EAN-13 is the same as for {{ean-chip-version}} except that identifies the circuit board version.
+
+~~~~CDDL
+ean-board-version-claim = (
+    ? ean-board-version => ean-type
+)
+~~~~
+
+
+## EAN-13 Device Version Claim
+
+This identifies the final device assembly version (not the chip or circuit board version).
+
+This format of this version claim is an EAN-13. 
+The usage of EAN-13 is the same as for {{ean-chip-version}} except that identifies the final device assembly version.
+
+~~~~CDDL
+ean-device-version-claim = (
+    ? ean-device-version => ean-type
+)
+~~~~
+
+
 ## The Security Level Claim (security-level)
 
 EATs have a claim that roughly characterizes the device / entities 
@@ -950,6 +1005,9 @@ cwt-claim = rfc8392-claim
 ueid = "ueid"
 origination = "origination"
 oemid = "oemid"
+ean-chip-version = "ean-chip-version"
+ean-board-version = "ean-board-version"
+ean-device-version = "ean-device-version"
 security-level = "security-level"
 secure-boot = "secure-boot"
 debug-disble = "debug-disable"
@@ -985,6 +1043,9 @@ following CDDL types are encoded in JSON as follows:
 ueid = To_be_assigned
 origination = To_be_assigned
 oemid = To_be_assigned
+ean-chip-version = To_be_assigned
+ean-board-version = To_be_assigned
+ean-device-version = To_be_assigned
 security-level = To_be_assigned
 secure-boot = To_be_assigned
 debug-disable = To_be_assigned
@@ -1075,6 +1136,9 @@ claim = (
     ueid-claim //
     origination-claim //
     oemid-claim //
+    ean-chip-version //
+    ean-board-version //
+    ean-device-version //
     security-level-claim //
     secure-boot-claim //
     debug-disable-claim //
