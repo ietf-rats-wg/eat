@@ -1,0 +1,37 @@
+eat-claims = { ; the top-level payload that is signed using COSE or JOSE
+    * claim
+}
+
+claim = (
+    ueid-claim //
+    nonce-claim //
+    origination-claim //
+    oemid-claim //
+    security-level-claim //
+    secure-boot-claim //
+    debug-disable-claim //
+    location-claim //
+    age-claim //
+    uptime-claim //
+    submods-part //
+    cwt-claim //
+;    generic-claim-type //
+)
+
+eat-token = EAT_Tagged ; This is a set of eat-claims signed using COSE
+
+EAT_Tagged = #6.61(COSE_Sign1_Tagged) ; CWT tag
+
+COSE_Sign1_Tagged = #6.18(bstr) ; COSE_Sign1
+
+nonce = 10
+ueid = 11
+origination = 12
+oemid = 13
+security-level = 14
+secure-boot = 15
+debug-disable = 16
+location = 17
+age = 18
+uptime = 19
+submods = 20

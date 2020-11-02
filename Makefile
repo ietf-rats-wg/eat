@@ -9,3 +9,20 @@ else
 	git clone -q --depth 10 $(CLONE_ARGS) \
 	    -b master https://github.com/martinthomson/i-d-template $(LIBDIR)
 endif
+
+include cddl/tools.mk
+include cddl/vars.mk
+
+CDDL_FULL := $(addprefix cddl/,$(CDDL_FULL))
+
+draft-ietf-rats-eat.md: $(CDDL_FULL) examples
+
+CDDL_FRAGS := $(addprefix cddl/,$(CDDL_FRAGS))
+
+$(CDDL_FULL): $(CDDL_FRAGS)
+	@for f in $^ ; do \
+		( cat $$f ; echo ) ; \
+	done > $@
+
+.PHONY: examples
+examples: ; $(MAKE) -C cddl check-examples

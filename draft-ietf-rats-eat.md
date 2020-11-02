@@ -449,13 +449,8 @@ and consumption.
 ### nonce CDDL
 
 ~~~~CDDL
-nonce-type = [ + bstr .size (8..64) ]
-
-nonce-claim = (
-    nonce => nonce-type
-)
+{::include cddl/nonce.cddl}
 ~~~~
-
 
 ## Universal Entity ID Claim (ueid)
 
@@ -522,9 +517,7 @@ this are:
 ### ueid CDDL
   
 ~~~~CDDL
-ueid-claim = (
-     ueid => bstr .size (7..33)
-)
+{::include cddl/ueid.cddl}
 ~~~~
 
 ## Origination Claim (origination)
@@ -548,9 +541,7 @@ in CWT in that it describes the authority that created the token.
 ### origination CDDL
 
 ~~~~CDDL
-origination-claim = (
-    origination => string-or-uri
-)
+{::include cddl/origination.cddl}
 ~~~~
 
 ## OEM Identification by IEEE (oemid) {#oemid}
@@ -580,9 +571,7 @@ tokens, this is further base64url encoded.
 ### oemid CDDL
 
 ~~~~CDDL
-oemid-claim = (
-    oemid => bstr
-)
+{::include cddl/oemid.cddl}
 ~~~~
 
 ## The Security Level Claim (security-level)
@@ -632,18 +621,8 @@ claim made here is solely a self-claim made by the Entity Originator.
 ### security-level CDDL
 
 ~~~~CDDL
-security-level-type = &(
-    unrestricted: 1,
-    restricted: 2,
-    secure-restricted: 3,
-    hardware: 4
-)
-
-security-level-claim = (
-    security-level => security-level-type
-)
+{::include cddl/security-level.cddl}
 ~~~~
-
 
 ## Secure Boot Claim (secure-boot)
 
@@ -657,13 +636,8 @@ combination of the two or other.
 ### secure-boot CDDL
 
 ~~~~CDDL
-
-    secure-boot-claim = (
-        secure-boot => bool
-    )
-
+{::include cddl/secure-boot.cddl}
 ~~~~
-
 
 ## Debug Disable Claim (debug-disable)
 
@@ -742,21 +716,10 @@ have been so since boot/start.
 This level indicates that all debug capabilities for the target
 device/sub-module are permanently disabled.
 
-### boot-state CDDL
+### debug-disable CDDL
 
 ~~~~CDDL
-    debug-disable-type = &(
-        not-disabled: 0, 
-        disabled: 1,
-        disabled-since-boot: 2,
-        permanent-disable: 3,
-        full-permanent-disable: 4
-    )
-
-    debug-disable-claim = (
-        debug-disable => debug-disable-type
-    )
-
+{::include cddl/debug-disable.cddl}
 ~~~~
 
 ## The Location Claim (location)
@@ -772,19 +735,7 @@ accuracy of the location measurement is defined.
 ### location CDDL
 
 ~~~~CDDL
-location-type = {
-    latitude => number,
-    longitude => number,
-    ? altitude => number,
-    ? accuracy => number,
-    ? altitude-accuracy => number,
-    ? heading => number,
-    ? speed => number
-}
-
-location-claim = (
-    location => location-type
-)
+{::include cddl/location.cddl}
 ~~~~
 
 ## The Age Claim (age)
@@ -800,9 +751,7 @@ claim is provided.
 ### age CDDL
 
 ~~~~CDDL
-age-claim = (
-    age => uint
-)
+{::include cddl/age.cddl}
 ~~~~
 
 ## The Uptime Claim (uptime)
@@ -813,9 +762,7 @@ seconds that have elapsed since the entity or submod was last booted.
 ### uptime CDDL
 
 ~~~~CDDL
-uptime-claim = (
-    uptime => uint
-)
+{::include cddl/uptime.cddl}
 ~~~~
 
 ## The Submods Part of a Token (submods)
@@ -893,17 +840,7 @@ string naming the submodule. No submodules may have the same name.
 ### submods CDDL
 
 ~~~~CDDL
-submods-type = { + submodule }
-
-submodule = (
-    submod-name => eat-claims / eat-token
-)
-
-submod-name = tstr / int
-
-submods-part = (
-    submods => submod-type
-)
+{::include cddl/submods.cddl}
 ~~~~
 
 # Encoding {#encoding}
@@ -912,7 +849,7 @@ This makes use of the types defined in CDDL Appendix D, Standard Prelude.
 ## Common CDDL Types
 
 ~~~~CDDL
-string-or-uri = uri / tstr; See JSON section below for JSON encoding of string-or-uri
+{::include cddl/common-types.cddl}
 ~~~~
     
 ## CDDL for CWT-defined Claims
@@ -922,24 +859,7 @@ non-normative as {{RFC8392}} is the authoritative definition of these
 claims.
 
 ~~~~CDDL
-
-rfc8392-claim //= ( issuer => text )
-rfc8392-claim //= ( subject => text )
-rfc8392-claim //= ( audience => text )
-rfc8392-claim //= ( expiration => time )
-rfc8392-claim //= ( not-before => time )
-rfc8392-claim //= ( issued-at => time )
-rfc8392-claim //= ( cwt-id => bytes )
-
-issuer = 1
-subject = 2
-audience = 3
-expiration = 4
-not-before = 5
-issued-at = 6
-cwt-id = 7
-
-cwt-claim = rfc8392-claim
+{::include cddl/cwt.cddl}
 ~~~~
 
 ## JSON
@@ -947,25 +867,7 @@ cwt-claim = rfc8392-claim
 ### JSON Labels
 
 ~~~~JSON
-ueid = "ueid"
-origination = "origination"
-oemid = "oemid"
-security-level = "security-level"
-secure-boot = "secure-boot"
-debug-disble = "debug-disable"
-location = "location"
-age = "age"
-uptime = "uptime"
-nested-eat = "nested-eat"
-submods = "submods"
-
-latitude = "lat"
-longitude = "long""
-altitude = "alt"
-accuracy = "accry"
-altitude-accuracy = "alt-accry"
-heading = "heading"
-speed = "speed"
+{::include cddl/json.cddl}
 ~~~~
     
 ### JSON Interoperability {#jsoninterop}
@@ -978,30 +880,6 @@ following CDDL types are encoded in JSON as follows:
 * string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
 
 ## CBOR
-
-### CBOR Labels
-
-~~~~CDDL
-ueid = To_be_assigned
-origination = To_be_assigned
-oemid = To_be_assigned
-security-level = To_be_assigned
-secure-boot = To_be_assigned
-debug-disable = To_be_assigned
-location = To_be_assigned
-age = To_be_assigned
-uptime = To_be_assigned
-submods = To_be_assigned
-nonce = To_be_assigned
-
-latitude = 1
-longitude = 2
-altitude = 3
-accuracy = 4
-altitude-accuracy = 5
-heading = 6
-speed = 7
-~~~~
 
 ### CBOR Interoperability
 
@@ -1064,35 +942,9 @@ interoperability is not guaranteed.
 
 ## Collected CDDL
 
-A generic-claim is any CBOR map entry or JSON name/value pair.
-
 ~~~~CDDL
-eat-claims = { ; the top-level payload that is signed using COSE or JOSE
-    * claim
-}
-
-claim = (
-    ueid-claim //
-    origination-claim //
-    oemid-claim //
-    security-level-claim //
-    secure-boot-claim //
-    debug-disable-claim //
-    location-claim //
-    age-claim //
-    uptime-claim //
-    submods-part //
-    cwt-claim //
-    generic-claim-type //
-)
-
-eat-token ; This is a set of eat-claims signed using COSE
+{::include cddl/eat-token.cddl}
 ~~~~
-
-TODO: copy the rest of the CDDL here (wait until the
-CDDL is more settled so as to avoid copying
-multiple times)
-
 
 # IANA Considerations
 
@@ -1244,43 +1096,13 @@ This is shown in CBOR diagnostic form. Only the payload signed by COSE
 is shown.
 
 ~~~~
-{
-   / nonce /                  9:h'948f8860d13a463e8e',
-   / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / secure-boot /           17:true,
-   / debug-disbale /         12:3,  / permanent-disable  /
-   / time stamp (iat) /       6:1526542894,
-}
+{::include cddl/examples/simple.diag}
 ~~~~
 
 ## Example with Submodules, Nesting and Security Levels
 
 ~~~~
-{
-   / nonce /                  9:h'948f8860d13a463e8e',
-   / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / secure-boot /           17:true,
-   / debug-disbale /         12:3,  / permanent-disable  /
-   / time stamp (iat) /       6:1526542894,
-   / security-level /        11:3, / secure restricted OS /
-
-   / submods / 17:
-      {
-         / first submod, an Android Application / "Android App Foo" :  {
-            / security-level /      11:1, / unrestricted /
-            / app data /        -70000:'text string'
-         },
-         / 2nd submod, A nested EAT from a secure element / "Secure Element Eat" :
-            / eat /         61( 18(
-                                / an embedded EAT, bytes of which are not shown /
-                           ))
-         / 3rd submod, information about Linux Android / "Linux Android": {
-            / security-level /        11:1, / unrestricted /
-            / custom - release /  -80000:'8.0.0',
-            / custom - version /  -80001:'4.9.51+'
-         }
-      }
-}
+{::include cddl/examples/submods.diag}
 ~~~~
 
 # UEID Design Rationale
