@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 include tools.mk
 include vars.mk
 
