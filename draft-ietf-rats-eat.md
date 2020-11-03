@@ -215,7 +215,7 @@ limited to the following:
 ## CDDL, CWT and JWT
 
 An EAT token is either a CWT as defined in {{RFC8392}}, a UCCS
-as defined in {{UCCS-draft}}, or a JWT as
+as defined in {{UCCS.draft}}, or a JWT as
 defined in {{RFC7519}}. This specification defines additional claims
 for entity attestation.
 
