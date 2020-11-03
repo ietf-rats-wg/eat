@@ -495,7 +495,7 @@ Creation of new types requires a Standards Action {{RFC8126}}.
 | Type Byte | Type Name | Specification |
 | 0x01 | RAND | This is a 128, 192 or 256 bit random number generated once and stored in the device. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the device and stored. It may not be smaller than 128 bits. |
 | 0x02 | IEEE EUI | This makes use of the IEEE company identification registry. An EUI is either an EUI-48, EUI-60 or EUI-64 and made up of an OUI, OUI-36 or a CID, different registered company identifiers, and some unique per-device identifier. EUIs are often the same as or similar to MAC addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while devices with multiple network interfaces may have multiple MAC addresses, there is only one UEID for a device) {{IEEE.802-2001}}, {{OUI.Guide}} |
-| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as a binary integer over 48 bits. The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. {{ThreeGPP.IMEI}} |
+| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. {{ThreeGPP.IMEI}} |
 {: #ueid-types-table title="UEID Composition Types"}
 
 UEID's are not designed for direct use by humans (e.g., printing on
@@ -1461,4 +1461,9 @@ no new claims have been added.
 * Split boot_state into secure-boot and debug-disable claims
 
 * Debug disable is an enumerated type rather than Booleans
+
+
+## From draft-ietf-rats-eat-04
+
+* Change IMEI-based UEIDs to be encoded as a 14-byte string
 
