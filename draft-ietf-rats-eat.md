@@ -1462,3 +1462,8 @@ no new claims have been added.
 
 * Debug disable is an enumerated type rather than Booleans
 
+
+## From draft-ietf-rats-eat-04
+
+* Change IMEI-based UEIDs to be encoded as a 14-byte string
+
