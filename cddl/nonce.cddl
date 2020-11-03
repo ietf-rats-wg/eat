@@ -1,0 +1,5 @@
+nonce-type = bstr .size (8..64)
+
+nonce-claim = (
+    nonce => nonce-type / [ 2* nonce-type ]
+)

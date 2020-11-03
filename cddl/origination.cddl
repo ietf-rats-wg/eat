@@ -1,0 +1,3 @@
+origination-claim = (
+    origination => string-or-uri
+)

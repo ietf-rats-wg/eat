@@ -1,0 +1,3 @@
+oemid-claim = (
+    oemid => bstr
+)

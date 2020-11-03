@@ -1,0 +1,10 @@
+security-level-type = &(
+    unrestricted: 1,
+    restricted: 2,
+    secure-restricted: 3,
+    hardware: 4
+)
+
+security-level-claim = (
+    security-level => security-level-type
+)
