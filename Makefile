@@ -12,7 +12,7 @@ else
 	    -b master https://github.com/martinthomson/i-d-template $(LIBDIR)
 endif
 
-include cddl/tools.mk
+#include cddl/tools.mk
 include cddl/vars.mk
 
 CDDL_FULL := $(addprefix cddl/,$(CDDL_FULL))
