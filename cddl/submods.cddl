@@ -1,0 +1,13 @@
+submods-type = { + submodule }
+
+submodule = (
+    submod-name => eat-claims / nested-token
+)
+
+nested-token = bstr / tstr; a signed eat token, cbor for is bstr, json format if tstr
+
+submod-name = tstr / int
+
+submods-part = (
+    submods => submods-type
+)

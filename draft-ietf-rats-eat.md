@@ -215,7 +215,7 @@ limited to the following:
 ## CDDL, CWT and JWT
 
 An EAT token is either a CWT as defined in {{RFC8392}}, a UCCS
-as defined in {{UCCS.draft}}, or a JWT as
+as defined in {{UCCS.Draft}}, or a JWT as
 defined in {{RFC7519}}. This specification defines additional claims
 for entity attestation.
 
@@ -457,13 +457,8 @@ and consumption.
 ### nonce CDDL
 
 ~~~~CDDL
-nonce-type = [ + bstr .size (8..64) ]
-
-nonce-claim = (
-    nonce => nonce-type
-)
+{::include cddl/nonce.cddl}
 ~~~~
-
 
 ## Universal Entity ID Claim (ueid)
 
@@ -530,9 +525,7 @@ this are:
 ### ueid CDDL
   
 ~~~~CDDL
-ueid-claim = (
-     ueid => bstr .size (7..33)
-)
+{::include cddl/ueid.cddl}
 ~~~~
 
 ## Origination Claim (origination)
@@ -556,9 +549,7 @@ in CWT in that it describes the authority that created the token.
 ### origination CDDL
 
 ~~~~CDDL
-origination-claim = (
-    origination => string-or-uri
-)
+{::include cddl/origination.cddl}
 ~~~~
 
 ## OEM Identification by IEEE (oemid) {#oemid}
@@ -588,9 +579,7 @@ tokens, this is further base64url encoded.
 ### oemid CDDL
 
 ~~~~CDDL
-oemid-claim = (
-    oemid => bstr
-)
+{::include cddl/oemid.cddl}
 ~~~~
 
 ## The Security Level Claim (security-level)
@@ -640,18 +629,8 @@ claim made here is solely a self-claim made by the Entity Originator.
 ### security-level CDDL
 
 ~~~~CDDL
-security-level-type = &(
-    unrestricted: 1,
-    restricted: 2,
-    secure-restricted: 3,
-    hardware: 4
-)
-
-security-level-claim = (
-    security-level => security-level-type
-)
+{::include cddl/security-level.cddl}
 ~~~~
-
 
 ## Secure Boot Claim (secure-boot)
 
@@ -665,13 +644,8 @@ combination of the two or other.
 ### secure-boot CDDL
 
 ~~~~CDDL
-
-    secure-boot-claim = (
-        secure-boot => bool
-    )
-
+{::include cddl/secure-boot.cddl}
 ~~~~
-
 
 ## Debug Disable Claim (debug-disable)
 
@@ -750,21 +724,10 @@ have been so since boot/start.
 This level indicates that all debug capabilities for the target
 device/sub-module are permanently disabled.
 
-### boot-state CDDL
+### debug-disable CDDL
 
 ~~~~CDDL
-    debug-disable-type = &(
-        not-disabled: 0, 
-        disabled: 1,
-        disabled-since-boot: 2,
-        permanent-disable: 3,
-        full-permanent-disable: 4
-    )
-
-    debug-disable-claim = (
-        debug-disable => debug-disable-type
-    )
-
+{::include cddl/debug-disable.cddl}
 ~~~~
 
 ## The Location Claim (location)
@@ -780,19 +743,7 @@ accuracy of the location measurement is defined.
 ### location CDDL
 
 ~~~~CDDL
-location-type = {
-    latitude => number,
-    longitude => number,
-    ? altitude => number,
-    ? accuracy => number,
-    ? altitude-accuracy => number,
-    ? heading => number,
-    ? speed => number
-}
-
-location-claim = (
-    location => location-type
-)
+{::include cddl/location.cddl}
 ~~~~
 
 ## The Age Claim (age)
@@ -808,9 +759,7 @@ claim is provided.
 ### age CDDL
 
 ~~~~CDDL
-age-claim = (
-    age => uint
-)
+{::include cddl/age.cddl}
 ~~~~
 
 ## The Uptime Claim (uptime)
@@ -821,9 +770,7 @@ seconds that have elapsed since the entity or submod was last booted.
 ### uptime CDDL
 
 ~~~~CDDL
-uptime-claim = (
-    uptime => uint
-)
+{::include cddl/uptime.cddl}
 ~~~~
 
 ## The Submods Part of a Token (submods)
@@ -867,35 +814,49 @@ When decoding, this type of submodule is recognized from the other type by being
 
 #### Nested EATs
 
-This type of submodule is a fully formed EAT as defined in this document except that it MUST NOT be a UCCS.
-It is a token that is independently secured by a different Attester.
-This nested EAT is bundled with the other claims in the surrounding EAT.
-When the surrounding EAT is a CWT or JWT, it is securely bound with the other claims.
+This type of submodule is a fully formed secured EAT as defined in this document except that it MUST NOT be a UCCS or an unsecured JWT.
+A nested token that is one that is always secured using COSE or JOSE, usually by an independent Attester.
+When the surrounding EAT is a CWT or secured JWT, the nested token becomes securely bound with the other claims in the surrounding token.
 
-Nested EATs are always wrapped in a byte string for easier handling with standard CBOR decoders and token processing APIs that will typically take a byte buffer as input.
-This also allows distinguishing it from non-token submodules when decoding.
+It is allowed to have a CWT as a submodule in a JWT and vice versa, but this SHOULD be avoided unless necessary.
 
-It is allowed to have a CWT as a submodule in a JWT and vice versa if necessary, but this SHOULD be avoided unless necessary to keep decoders simpler.
-This is allowed because the nested EAT was likely secured by a different Attester with different security properties.
+##### Surrounding EAT is CBOR format
+They type of an EAT nested in a CWT is determined by whether the CBOR type is a text string or a byte string.
+If a text string, then it is a JWT.
+If a byte string, then it is a CWT.
 
-Nested CWT Eats must always be wrapped in a tag 55799, the tag for self-described CBOR.
-This is necessary to deterministically distinguish CWT EATs from JWT EATs.
-Thus a nested EAT beginning with the four bytes 0xd9d9f7, the encoding of tag 55799, is the only nested token ever considered to be a CWT.
-Any other is always considered a JWT.
+A CWT nested in a CBOR-format token is always wrapped by a byte string for easier handling with standard CBOR decoders and token processing APIs that will typically take a byte buffer as input.
 
-Nested CWT EATs may be either a CWT CBOR tag or a CWT Protocol Message.
+Nested CWTs may be either a CWT CBOR tag or a CWT Protocol Message.
 COSE layers in nested CWT EATs MUST be a COSE_Tagged_Message, never a COSE_Untagged_Message.
-If a singled nested EAT has more than one level of COSE, for example one that is both encrypted and signed, a COSE_Tagged_message must be used at every level. 
+If a nested EAT has more than one level of COSE, for example one that is both encrypted and signed, a COSE_Tagged_message must be used at every level. 
 
-#### UCCS Tokens as Submodules
+##### Surrounding EAT is JSON format
+When a CWT is nested in a JWT, it must be as a 55799 tag in order to distinguish it from a nested JWT. 
+
+When a nested EAT in a JWT is decoded, first remove the base64url encoding.
+Next, check to see if it starts with the bytes 0xd9d9f7.
+If so, then it is a CWT as a JWT will never start with these four bytes. 
+If not if it is a JWT.
+
+Other than the 55799 tag requirement, tag usage for CWT's nested in a JSON format token follow the same rules as for CWTs nested in CBOR-format tokens.
+It may be a CWT CBOR tag or a CWT Protocol Message and COSE_Tagged_Message MUST be used at all COSE layers.
+
+#### Unsecured JWTs and UCCS Tokens as Submodules
 
 To incorporate a UCCS token as a submodule, it MUST be as a non-token submodule. 
-This can be accomplished inserting the content of the UCCS Tag into the submod map.
+This can be accomplished inserting the content of the UCCS Tag into the submodule map.
 The content of a UCCS tag is exactly a map of claims as required for a non-token submodule.
-If the UCCS is not a UCCS tag, then it can just be inserted into the submod map directly.
+If the UCCS is not a UCCS tag, then it can just be inserted into the submodule map directly.
 
 The definition of a nested EAT type of submodule is that it is one that is secured (signed) by an Attester.
 Since UCCS tokens are unsecured, they do not fulfill this definition and must be non-token submodules.
+
+To incorporate an Unsecured JWT as a submodule, the null-security JOSE wrapping should be removed.
+The resulting claims set should be inserted as a non-token submodule.
+
+To incorporate a UCCS token in a surrounding JSON token, the UCCS token claims should be translated from CBOR to JSON.
+To incorporate an Unsecured JWT into a surrounding CBOR-format token, the null-security JOSE should be removed and the claims translated from JSON to CBOR.
 
 ### No Inheritance
 
@@ -927,19 +888,7 @@ string naming the submodule. No submodules may have the same name.
 ### submods CDDL
 
 ~~~~CDDL
-submods-type = { + submodule }
-
-submodule = (
-    submod-name => eat-claims / nested-token
-)
-
-submod-name = tstr / int
-
-nested-token = bstr
-
-submods-part = (
-    submods => submods-type
-)
+{::include cddl/submods.cddl}
 ~~~~
 
 # Encoding {#encoding}
@@ -948,7 +897,7 @@ This makes use of the types defined in CDDL Appendix D, Standard Prelude.
 ## Common CDDL Types
 
 ~~~~CDDL
-string-or-uri = uri / tstr; See JSON section below for JSON encoding of string-or-uri
+{::include cddl/common-types.cddl}
 ~~~~
     
 ## CDDL for CWT-defined Claims
@@ -958,24 +907,7 @@ non-normative as {{RFC8392}} is the authoritative definition of these
 claims.
 
 ~~~~CDDL
-
-rfc8392-claim //= ( issuer => text )
-rfc8392-claim //= ( subject => text )
-rfc8392-claim //= ( audience => text )
-rfc8392-claim //= ( expiration => time )
-rfc8392-claim //= ( not-before => time )
-rfc8392-claim //= ( issued-at => time )
-rfc8392-claim //= ( cwt-id => bytes )
-
-issuer = 1
-subject = 2
-audience = 3
-expiration = 4
-not-before = 5
-issued-at = 6
-cwt-id = 7
-
-cwt-claim = rfc8392-claim
+{::include cddl/cwt.cddl}
 ~~~~
 
 ## JSON
@@ -983,25 +915,7 @@ cwt-claim = rfc8392-claim
 ### JSON Labels
 
 ~~~~JSON
-ueid = "ueid"
-origination = "origination"
-oemid = "oemid"
-security-level = "security-level"
-secure-boot = "secure-boot"
-debug-disble = "debug-disable"
-location = "location"
-age = "age"
-uptime = "uptime"
-nested-eat = "nested-eat"
-submods = "submods"
-
-latitude = "lat"
-longitude = "long""
-altitude = "alt"
-accuracy = "accry"
-altitude-accuracy = "alt-accry"
-heading = "heading"
-speed = "speed"
+{::include cddl/json.cddl}
 ~~~~
     
 ### JSON Interoperability {#jsoninterop}
@@ -1014,30 +928,6 @@ following CDDL types are encoded in JSON as follows:
 * string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
 
 ## CBOR
-
-### CBOR Labels
-
-~~~~CDDL
-ueid = To_be_assigned
-origination = To_be_assigned
-oemid = To_be_assigned
-security-level = To_be_assigned
-secure-boot = To_be_assigned
-debug-disable = To_be_assigned
-location = To_be_assigned
-age = To_be_assigned
-uptime = To_be_assigned
-submods = To_be_assigned
-nonce = To_be_assigned
-
-latitude = 1
-longitude = 2
-altitude = 3
-accuracy = 4
-altitude-accuracy = 5
-heading = 6
-speed = 7
-~~~~
 
 ### CBOR Interoperability
 
@@ -1100,35 +990,9 @@ interoperability is not guaranteed.
 
 ## Collected CDDL
 
-A generic-claim is any CBOR map entry or JSON name/value pair.
-
 ~~~~CDDL
-eat-claims = { ; the top-level payload that is signed using COSE or JOSE
-    * claim
-}
-
-claim = (
-    ueid-claim //
-    origination-claim //
-    oemid-claim //
-    security-level-claim //
-    secure-boot-claim //
-    debug-disable-claim //
-    location-claim //
-    age-claim //
-    uptime-claim //
-    submods-part //
-    cwt-claim //
-    generic-claim-type //
-)
-
-eat-token ; This is a set of eat-claims signed using COSE
+{::include cddl/eat-token.cddl}
 ~~~~
-
-TODO: copy the rest of the CDDL here (wait until the
-CDDL is more settled so as to avoid copying
-multiple times)
-
 
 # IANA Considerations
 
@@ -1280,43 +1144,13 @@ This is shown in CBOR diagnostic form. Only the payload signed by COSE
 is shown.
 
 ~~~~
-{
-   / nonce /                  9:h'948f8860d13a463e8e',
-   / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / secure-boot /           17:true,
-   / debug-disbale /         12:3,  / permanent-disable  /
-   / time stamp (iat) /       6:1526542894,
-}
+{::include cddl/examples/simple.diag}
 ~~~~
 
 ## Example with Submodules, Nesting and Security Levels
 
 ~~~~
-{
-   / nonce /                  9:h'948f8860d13a463e8e',
-   / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / secure-boot /           17:true,
-   / debug-disbale /         12:3,  / permanent-disable  /
-   / time stamp (iat) /       6:1526542894,
-   / security-level /        11:3, / secure restricted OS /
-
-   / submods / 17:
-      {
-         / first submod, an Android Application / "Android App Foo" :  {
-            / security-level /      11:1, / unrestricted /
-            / app data /        -70000:'text string'
-         },
-         / 2nd submod, A nested EAT from a secure element / "Secure Element Eat" :
-            / eat /         61( 18(
-                                / an embedded EAT, bytes of which are not shown /
-                           ))
-         / 3rd submod, information about Linux Android / "Linux Android": {
-            / security-level /        11:1, / unrestricted /
-            / custom - release /  -80000:'8.0.0',
-            / custom - version /  -80001:'4.9.51+'
-         }
-      }
-}
+{::include cddl/examples/submods.diag}
 ~~~~
 
 # UEID Design Rationale
@@ -1502,4 +1336,12 @@ no new claims have been added.
 ## From draft-ietf-rats-eat-04
 
 * Change IMEI-based UEIDs to be encoded as a 14-byte string
+
+* CDDL cleaned some more
+
+* CDDL allows for JWTs and UCCSs
+
+* CWT format submodules are byte string wrapped
+
+* Allows for JWT nested in CWT and vice versa
 
