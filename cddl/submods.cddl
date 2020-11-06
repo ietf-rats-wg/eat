@@ -1,0 +1,11 @@
+submods-type = { + submodule }
+
+submodule = (
+    submod-name => eat-claims / eat-token
+)
+
+submod-name = tstr / int
+
+submods-part = (
+    submods => submods-type
+)
