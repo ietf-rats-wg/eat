@@ -423,7 +423,15 @@ party to guarantee freshness and defend against replay.
 ## Timestamp claim (iat)
 
 The "iat" claim defined in CWT and JWT is used to indicate the
-date-of-creation of the token.
+date-of-creation of the token, the time at which the claims are
+collected and the token is composed and signed.
+
+The data for some claims may be held or cached for some period of
+time before the token is created. This period may be long, even 
+days. Examples are measurements taken at boot or a geographic
+position fix taken the last time a satellite signal was received.
+There are individual timestamps associated with these claims to
+indicate their age is older than the "iat" timestamp.
 
 
 ## Nonce Claim (nonce)
@@ -732,26 +740,23 @@ location coordinate claims are consistent with the WGS84 coordinate
 system {{WGS84}}.  In addition, a sub claim providing the estimated
 accuracy of the location measurement is defined.
 
+The location may have been cached for a period of time before token
+creation. For example, it might have been minutes or hours or more
+since the last contact with a GPS satellite. Either the timestamp or
+age data item can be used to quantify the cached period.  The timestamp
+data item is preferred as it a non-relative time.
+
+The age data item can be used when the entity doesn't know what time
+it is either because it doesn't have a clock or it isn't set. The
+entity must still have a "ticker" that can measure a time
+interval. The age is the interval between acquisition of the location
+data and token creation.
+
 ### location CDDL
 
 ~~~~CDDL
+=======
 {::include cddl/location.cddl}
-~~~~
-
-## The Age Claim (age)
-
-The "age" claim contains a value that represents the number of seconds
-that have elapsed since the token was created, measurement was made,
-or location was obtained.  Typical attestable values are sent as soon
-as they are obtained.  However, in the case that such a value is
-buffered and sent at a later time and a sufficiently accurate time
-reference is unavailable for creation of a timestamp, then the age
-claim is provided.
-
-### age CDDL
-
-~~~~CDDL
-{::include cddl/age.cddl}
 ~~~~
 
 ## The Uptime Claim (uptime)
@@ -847,6 +852,9 @@ string naming the submodule. No submodules may have the same name.
 This makes use of the types defined in CDDL Appendix D, Standard Prelude.
 
 ## Common CDDL Types
+
+time-int is identical to the epoch-based time, but disallows
+floating-point representation.
 
 ~~~~CDDL
 {::include cddl/common-types.cddl}

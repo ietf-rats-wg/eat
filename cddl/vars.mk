@@ -1,5 +1,4 @@
 CDDL_FRAGS := eat.cddl
-CDDL_FRAGS += age.cddl
 CDDL_FRAGS += common-types.cddl
 CDDL_FRAGS += cwt.cddl
 CDDL_FRAGS += debug-disable.cddl

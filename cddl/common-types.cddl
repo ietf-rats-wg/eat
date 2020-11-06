@@ -1,1 +1,3 @@
 string-or-uri = tstr / uri
+
+time-int = #6.1(int)
