@@ -1,0 +1,25 @@
+location-type = {
+    latitude => number,
+    longitude => number,
+    ? altitude => number,
+    ? accuracy => number,
+    ? altitude-accuracy => number,
+    ? heading => number,
+    ? speed => number,
+    ? timestamp => time-int,
+    ? age => uint
+}
+
+latitude = 1
+longitude = 2
+altitude = 3
+accuracy = 4
+altitude-accuracy = 5
+heading = 6
+speed = 7
+timestamp = 8
+age = 9
+
+location-claim = (
+    location => location-type
+)

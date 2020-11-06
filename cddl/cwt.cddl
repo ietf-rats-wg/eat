@@ -1,0 +1,17 @@
+rfc8392-claim //= ( issuer => text )
+rfc8392-claim //= ( subject => text )
+rfc8392-claim //= ( audience => text )
+rfc8392-claim //= ( expiration => time )
+rfc8392-claim //= ( not-before => time )
+rfc8392-claim //= ( issued-at => time )
+rfc8392-claim //= ( cwt-id => bytes )
+
+issuer = 1
+subject = 2
+audience = 3
+expiration = 4
+not-before = 5
+issued-at = 6
+cwt-id = 7
+
+cwt-claim = rfc8392-claim

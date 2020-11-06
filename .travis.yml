@@ -14,6 +14,10 @@ env:
    - mmark_src=github.com/miekg/mmark/mmark
    - mmark=./mmark
 
+before_install:
+  - rvm default
+  - gem install cddl cbor-diag
+
 install:
  - pip install xml2rfc
  - if head -1 -q *.md | grep '^\-\-\-' >/dev/null 2>&1; then gem install --no-doc kramdown-rfc2629; fi
