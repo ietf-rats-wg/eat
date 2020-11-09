@@ -1,21 +1,17 @@
 eat-claims = { ; the top-level payload that is signed using COSE or JOSE
-    * claim
+    ? ueid-claim,
+    ? nonce-claim,
+    ? origination-claim,
+    ? oemid-claim,
+    ? security-level-claim,
+    ? secure-boot-claim,
+    ? debug-disable-claim,
+    ? location-claim,
+    ? uptime-claim,
+    ? submods-part,
+    ? cwt-claim,
+;    ? generic-claim-type,
 }
-
-claim = (
-    ueid-claim //
-    nonce-claim //
-    origination-claim //
-    oemid-claim //
-    security-level-claim //
-    secure-boot-claim //
-    debug-disable-claim //
-    location-claim //
-    uptime-claim //
-    submods-part //
-    cwt-claim //
-;    generic-claim-type //
-)
 
 eat-token = EAT_Tagged ; This is a set of eat-claims signed using COSE
 
