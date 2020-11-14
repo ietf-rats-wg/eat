@@ -1,4 +1,5 @@
 ueid /= "ueid"
+nonce /= "nonce"
 origination /= "origination"
 oemid /= "oemid"
 security-level /= "security-level"
