@@ -6,7 +6,7 @@ submodule = (
 
 nested-token = bstr / tstr; a signed eat token, cbor for is bstr, json format if tstr
 
-submod-name = tstr / int
+submod-name = tstr 
 
 submods-part = (
     submods => submods-type
