@@ -8,6 +8,7 @@ eat-claims = { ; the top-level payload that is signed using COSE or JOSE
     ? debug-disable-claim,
     ? location-claim,
     ? uptime-claim,
+    ? measurements-claim,
     ? submods-part,
     ? cwt-claim,
 ;    ? generic-claim-type,
@@ -28,4 +29,5 @@ secure-boot = 15
 debug-disable = 16
 location = 17
 uptime = 19
+measurements = 18
 submods = 20

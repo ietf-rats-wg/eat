@@ -156,6 +156,11 @@ informative:
     title: IEEE Standard For Local And Metropolitan Area Networks Overview And Architecture
     target: https://webstore.ansi.org/standards/ieee/ieee8022001r2007
     date: 2007
+    
+  Linux.IMA:
+    title: Integrity Management Architecture (IMA)
+    target: https://sourceforge.net/p/linux-ima/wiki/Home/
+    date: false
 
 
 --- abstract
@@ -846,6 +851,34 @@ string naming the submodule. No submodules may have the same name.
 
 ~~~~CDDL
 {::include cddl/submods.cddl}
+~~~~
+
+## The Measurements Claim (measurements)
+
+This claim is for reporting the results of a measurement to the Verifier and/or the Relying Party.
+It is oriented around measurements schemes like Linux IMA {{Linux.IMA}} rather than TPM-based measured boot.
+In these schemes one part of a device such as the TEE measures another part of the device such as the high-level OS.
+The measurements are not taken only at boot time. 
+They may be taken on a periodic schedule such as once a day.
+They may also be taken on request of the relying party or before some high-value operation like a financial transaction.
+
+Each measurement has a measurer and a target. 
+The measurer is the submodule in which the measurements claim appears.
+The measurement target is named in the measurements claim.
+While not required, the name of the measurement target should be the name of a submodule listed in the token.
+
+The measurement may be evaluated fully on the device.
+In that case the result is simple. 
+It just indicates pass, fail or unable to run.
+
+Alternatively, the measurement values may be reported to the Verifier and/or the Relying Party for their evaluation.
+
+It is allowed to report both the value and the result.
+
+### measurements CDDL
+
+~~~~CDDL
+{::include cddl/measurements.cddl}
 ~~~~
 
 # Encoding {#encoding}

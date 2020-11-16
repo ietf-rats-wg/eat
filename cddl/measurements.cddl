@@ -1,0 +1,32 @@
+measurements-type = [ + measurement ]
+
+measurement = {
+    measurement-name => tstr,
+    ? measurement-result => measurement-result-type,
+    measurement-target => tstr, 
+    ? measurement-values => [ + measurement-value ]
+}
+
+measurement-result-type = &(
+    pass: 0,
+    fail: 1,
+    unable-to-run: 2
+)
+
+measurement-value = [
+    measurement-value-name => tstr / bstr,
+    measurement-value-value => bstr 
+]
+
+measurements-claim = (
+    measurements => measurements-type
+)
+
+measurement-name   = 0
+measurement-result = 1
+measurement-target = 2
+measurement-values = 3
+
+; These keys are ignored because measurement-value is an array
+measurement-value-name  = 0
+measurement-value-value = 1
