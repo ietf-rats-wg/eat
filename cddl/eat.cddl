@@ -9,8 +9,7 @@ eat-claims = { ; the top-level payload that is signed using COSE or JOSE
     ? location-claim,
     ? uptime-claim,
     ? submods-part,
-    ? cwt-claim,
-;    ? generic-claim-type,
+    * $$eat-extension,
 }
 
 eat-token = EAT_Tagged ; This is a set of eat-claims signed using COSE

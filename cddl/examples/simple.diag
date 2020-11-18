@@ -1,4 +1,5 @@
 {
+    / issuer /           1: "joe",
     / nonce /           10: h'948f8860d13a463e8e',
     / UEID /            11: h'0198f50a4ff6c05861c8860d13a638ea4fe2fa',
     / secure-boot /     15: true,
