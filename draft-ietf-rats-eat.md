@@ -109,6 +109,11 @@ normative:
     - org: GS1
     date: 2019
 
+  CoSWID:
+    target: https://tools.ietf.org/html/draft-ietf-sacm-coswid-16
+    title: Concise Software Identification Tags
+    date: November 2020
+
 informative:
   RFC4122:
   RFC4949:
@@ -590,50 +595,24 @@ tokens, this is further base64url encoded.
 ~~~~
 
 
-## EAN-13 Chip Version Claim (ean-chip-version) {#ean-chip-version}
+## Hardware Version Claims
 
-This identifies the chip version (not the circuit board or final device assembly version).
+The hardware version can be claimed at three different levels, the chip, the circuit board and the final assembly.
+An EAT can include any combination these claims.
 
-This claim identifies the version based on a 13 digit European Article Number [EAN-13]. 
+The hardware version is a simple text string.
+The structure and sorting order of this text string can be specificed using the version-scheme item from CoSWID {{CoSWID}}, but this is not required.
+
+In addition to the simple text string the hardware version can be based on a 13 digit European Article Number {{EAN-13}}.
 An EAN-13 is also known as an International Article Number or most commonly as a bar code.
 This claim is the ASCII text representation of actual digits often printed with a bar code.
 Use of this claim must comply with the EAN allocation and assignment rules.
 For example, this requires the manufacturer to obtain a manufacture code from GS1.
 
-~~~~CDDL
-ean-type = text .regexp "[0-9]{13}"
-
-ean-chip-version-claim = (
-    ? ean-chip-version => ean-type
-)
-~~~~
-
-
-## EAN-13 Board Version Claim
-
-This identifies the circuit board version (not the chip or final device assembly version).
-
-This format of this version claim is an EAN-13. 
-The usage of EAN-13 is the same as for {{ean-chip-version}} except that identifies the circuit board version.
+Both the simple version string and EAN-13 versions may be included for some hardware.
 
 ~~~~CDDL
-ean-board-version-claim = (
-    ? ean-board-version => ean-type
-)
-~~~~
-
-
-## EAN-13 Device Version Claim
-
-This identifies the final device assembly version (not the chip or circuit board version).
-
-This format of this version claim is an EAN-13. 
-The usage of EAN-13 is the same as for {{ean-chip-version}} except that identifies the final device assembly version.
-
-~~~~CDDL
-ean-device-version-claim = (
-    ? ean-device-version => ean-type
-)
+{::include cddl/hardware-version.cddl}
 ~~~~
 
 

@@ -1,0 +1,52 @@
+chip-version-claim = (
+    chip-version => tstr
+)
+
+board-version-claim = (
+    board-version => tstr
+)
+
+device-version-claim = (
+    device-version => tstr
+)
+
+
+chip-version-scheme-claim = (
+    chip-version-scheme => $version-scheme
+)
+
+board-version-scheme-claim = (
+    board-version-scheme => $version-scheme
+)
+
+device-version-scheme-claim = (
+    device-version-scheme => $version-scheme
+)
+
+
+ean-type = text .regexp "[0-9]{13}"
+
+ean-chip-version-claim = (
+    ean-chip-version => ean-type
+)
+
+ean-board-version-claim = (
+    ean-board-version => ean-type
+)
+
+ean-device-version-claim = (
+    ean-device-version => ean-type
+)
+
+hardware-version-claims = (
+    ? chip-version-claim,
+    ? board-version-claim,
+    ? device-version-claim,
+    ? chip-version-scheme-claim,
+    ? board-version-scheme-claim,
+    ? device-version-scheme-claim,
+    ? ean-chip-version-claim,
+    ? ean-board-version-claim,
+    ? ean-device-version-claim,
+)
+
