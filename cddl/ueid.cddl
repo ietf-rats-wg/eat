@@ -1,0 +1,5 @@
+ueid-type = bstr .size (7..33)
+
+ueid-claim = (
+     ueid => ueid-type
+)

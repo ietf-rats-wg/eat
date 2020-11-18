@@ -1,0 +1,3 @@
+uptime-claim = (
+    uptime => uint
+)

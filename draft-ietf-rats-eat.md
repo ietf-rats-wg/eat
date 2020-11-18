@@ -430,7 +430,15 @@ party to guarantee freshness and defend against replay.
 ## Timestamp claim (iat)
 
 The "iat" claim defined in CWT and JWT is used to indicate the
-date-of-creation of the token.
+date-of-creation of the token, the time at which the claims are
+collected and the token is composed and signed.
+
+The data for some claims may be held or cached for some period of
+time before the token is created. This period may be long, even 
+days. Examples are measurements taken at boot or a geographic
+position fix taken the last time a satellite signal was received.
+There are individual timestamps associated with these claims to
+indicate their age is older than the "iat" timestamp.
 
 
 ## Nonce Claim (nonce)
@@ -456,13 +464,8 @@ and consumption.
 ### nonce CDDL
 
 ~~~~CDDL
-nonce-type = [ + bstr .size (8..64) ]
-
-nonce-claim = (
-    nonce => nonce-type
-)
+{::include cddl/nonce.cddl}
 ~~~~
-
 
 ## Universal Entity ID Claim (ueid)
 
@@ -502,7 +505,7 @@ Creation of new types requires a Standards Action {{RFC8126}}.
 | Type Byte | Type Name | Specification |
 | 0x01 | RAND | This is a 128, 192 or 256 bit random number generated once and stored in the device. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the device and stored. It may not be smaller than 128 bits. |
 | 0x02 | IEEE EUI | This makes use of the IEEE company identification registry. An EUI is either an EUI-48, EUI-60 or EUI-64 and made up of an OUI, OUI-36 or a CID, different registered company identifiers, and some unique per-device identifier. EUIs are often the same as or similar to MAC addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while devices with multiple network interfaces may have multiple MAC addresses, there is only one UEID for a device) {{IEEE.802-2001}}, {{OUI.Guide}} |
-| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as a binary integer over 48 bits. The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. {{ThreeGPP.IMEI}} |
+| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. {{ThreeGPP.IMEI}} |
 {: #ueid-types-table title="UEID Composition Types"}
 
 UEID's are not designed for direct use by humans (e.g., printing on
@@ -529,9 +532,7 @@ this are:
 ### ueid CDDL
   
 ~~~~CDDL
-ueid-claim = (
-     ueid => bstr .size (7..33)
-)
+{::include cddl/ueid.cddl}
 ~~~~
 
 ## Origination Claim (origination)
@@ -555,9 +556,7 @@ in CWT in that it describes the authority that created the token.
 ### origination CDDL
 
 ~~~~CDDL
-origination-claim = (
-    origination => string-or-uri
-)
+{::include cddl/origination.cddl}
 ~~~~
 
 ## OEM Identification by IEEE (oemid) {#oemid}
@@ -587,9 +586,7 @@ tokens, this is further base64url encoded.
 ### oemid CDDL
 
 ~~~~CDDL
-oemid-claim = (
-    oemid => bstr
-)
+{::include cddl/oemid.cddl}
 ~~~~
 
 
@@ -687,18 +684,8 @@ claim made here is solely a self-claim made by the Entity Originator.
 ### security-level CDDL
 
 ~~~~CDDL
-security-level-type = &(
-    unrestricted: 1,
-    restricted: 2,
-    secure-restricted: 3,
-    hardware: 4
-)
-
-security-level-claim = (
-    security-level => security-level-type
-)
+{::include cddl/security-level.cddl}
 ~~~~
-
 
 ## Secure Boot Claim (secure-boot)
 
@@ -712,13 +699,8 @@ combination of the two or other.
 ### secure-boot CDDL
 
 ~~~~CDDL
-
-    secure-boot-claim = (
-        secure-boot => bool
-    )
-
+{::include cddl/secure-boot.cddl}
 ~~~~
-
 
 ## Debug Disable Claim (debug-disable)
 
@@ -797,21 +779,10 @@ have been so since boot/start.
 This level indicates that all debug capabilities for the target
 device/sub-module are permanently disabled.
 
-### boot-state CDDL
+### debug-disable CDDL
 
 ~~~~CDDL
-    debug-disable-type = &(
-        not-disabled: 0, 
-        disabled: 1,
-        disabled-since-boot: 2,
-        permanent-disable: 3,
-        full-permanent-disable: 4
-    )
-
-    debug-disable-claim = (
-        debug-disable => debug-disable-type
-    )
-
+{::include cddl/debug-disable.cddl}
 ~~~~
 
 ## The Location Claim (location)
@@ -824,40 +795,23 @@ location coordinate claims are consistent with the WGS84 coordinate
 system {{WGS84}}.  In addition, a sub claim providing the estimated
 accuracy of the location measurement is defined.
 
+The location may have been cached for a period of time before token
+creation. For example, it might have been minutes or hours or more
+since the last contact with a GPS satellite. Either the timestamp or
+age data item can be used to quantify the cached period.  The timestamp
+data item is preferred as it a non-relative time.
+
+The age data item can be used when the entity doesn't know what time
+it is either because it doesn't have a clock or it isn't set. The
+entity must still have a "ticker" that can measure a time
+interval. The age is the interval between acquisition of the location
+data and token creation.
+
 ### location CDDL
 
 ~~~~CDDL
-location-type = {
-    latitude => number,
-    longitude => number,
-    ? altitude => number,
-    ? accuracy => number,
-    ? altitude-accuracy => number,
-    ? heading => number,
-    ? speed => number
-}
-
-location-claim = (
-    location => location-type
-)
-~~~~
-
-## The Age Claim (age)
-
-The "age" claim contains a value that represents the number of seconds
-that have elapsed since the token was created, measurement was made,
-or location was obtained.  Typical attestable values are sent as soon
-as they are obtained.  However, in the case that such a value is
-buffered and sent at a later time and a sufficiently accurate time
-reference is unavailable for creation of a timestamp, then the age
-claim is provided.
-
-### age CDDL
-
-~~~~CDDL
-age-claim = (
-    age => uint
-)
+=======
+{::include cddl/location.cddl}
 ~~~~
 
 ## The Uptime Claim (uptime)
@@ -868,9 +822,7 @@ seconds that have elapsed since the entity or submod was last booted.
 ### uptime CDDL
 
 ~~~~CDDL
-uptime-claim = (
-    uptime => uint
-)
+{::include cddl/uptime.cddl}
 ~~~~
 
 ## The Submods Part of a Token (submods)
@@ -948,17 +900,7 @@ string naming the submodule. No submodules may have the same name.
 ### submods CDDL
 
 ~~~~CDDL
-submods-type = { + submodule }
-
-submodule = (
-    submod-name => eat-claims / eat-token
-)
-
-submod-name = tstr / int
-
-submods-part = (
-    submods => submod-type
-)
+{::include cddl/submods.cddl}
 ~~~~
 
 # Encoding {#encoding}
@@ -966,8 +908,11 @@ This makes use of the types defined in CDDL Appendix D, Standard Prelude.
 
 ## Common CDDL Types
 
+time-int is identical to the epoch-based time, but disallows
+floating-point representation.
+
 ~~~~CDDL
-string-or-uri = uri / tstr; See JSON section below for JSON encoding of string-or-uri
+{::include cddl/common-types.cddl}
 ~~~~
     
 ## CDDL for CWT-defined Claims
@@ -977,24 +922,7 @@ non-normative as {{RFC8392}} is the authoritative definition of these
 claims.
 
 ~~~~CDDL
-
-rfc8392-claim //= ( issuer => text )
-rfc8392-claim //= ( subject => text )
-rfc8392-claim //= ( audience => text )
-rfc8392-claim //= ( expiration => time )
-rfc8392-claim //= ( not-before => time )
-rfc8392-claim //= ( issued-at => time )
-rfc8392-claim //= ( cwt-id => bytes )
-
-issuer = 1
-subject = 2
-audience = 3
-expiration = 4
-not-before = 5
-issued-at = 6
-cwt-id = 7
-
-cwt-claim = rfc8392-claim
+{::include cddl/cwt.cddl}
 ~~~~
 
 ## JSON
@@ -1002,28 +930,7 @@ cwt-claim = rfc8392-claim
 ### JSON Labels
 
 ~~~~JSON
-ueid = "ueid"
-origination = "origination"
-oemid = "oemid"
-ean-chip-version = "ean-chip-version"
-ean-board-version = "ean-board-version"
-ean-device-version = "ean-device-version"
-security-level = "security-level"
-secure-boot = "secure-boot"
-debug-disble = "debug-disable"
-location = "location"
-age = "age"
-uptime = "uptime"
-nested-eat = "nested-eat"
-submods = "submods"
-
-latitude = "lat"
-longitude = "long""
-altitude = "alt"
-accuracy = "accry"
-altitude-accuracy = "alt-accry"
-heading = "heading"
-speed = "speed"
+{::include cddl/json.cddl}
 ~~~~
     
 ### JSON Interoperability {#jsoninterop}
@@ -1036,33 +943,6 @@ following CDDL types are encoded in JSON as follows:
 * string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
 
 ## CBOR
-
-### CBOR Labels
-
-~~~~CDDL
-ueid = To_be_assigned
-origination = To_be_assigned
-oemid = To_be_assigned
-ean-chip-version = To_be_assigned
-ean-board-version = To_be_assigned
-ean-device-version = To_be_assigned
-security-level = To_be_assigned
-secure-boot = To_be_assigned
-debug-disable = To_be_assigned
-location = To_be_assigned
-age = To_be_assigned
-uptime = To_be_assigned
-submods = To_be_assigned
-nonce = To_be_assigned
-
-latitude = 1
-longitude = 2
-altitude = 3
-accuracy = 4
-altitude-accuracy = 5
-heading = 6
-speed = 7
-~~~~
 
 ### CBOR Interoperability
 
@@ -1125,38 +1005,9 @@ interoperability is not guaranteed.
 
 ## Collected CDDL
 
-A generic-claim is any CBOR map entry or JSON name/value pair.
-
 ~~~~CDDL
-eat-claims = { ; the top-level payload that is signed using COSE or JOSE
-    * claim
-}
-
-claim = (
-    ueid-claim //
-    origination-claim //
-    oemid-claim //
-    ean-chip-version //
-    ean-board-version //
-    ean-device-version //
-    security-level-claim //
-    secure-boot-claim //
-    debug-disable-claim //
-    location-claim //
-    age-claim //
-    uptime-claim //
-    submods-part //
-    cwt-claim //
-    generic-claim-type //
-)
-
-eat-token ; This is a set of eat-claims signed using COSE
+{::include cddl/eat-token.cddl}
 ~~~~
-
-TODO: copy the rest of the CDDL here (wait until the
-CDDL is more settled so as to avoid copying
-multiple times)
-
 
 # IANA Considerations
 
@@ -1167,7 +1018,69 @@ so the CWT Claims Registry is re used. No new IANA registry
 is created. All EAT claims should be registered in the
 CWT and JWT Claims Registries.
 
-### Claims Registered by This Document
+## Claim Characteristics
+
+The following is design guidance for creating new EAT claims, particularly those to be registered with IANA.
+
+Much of this guidance is generic and could also be considered when designing new CWT or JWT claims.
+
+### Interoperability and Relying Party Orientation
+
+It is a broad goal that EATs can be processed by relying parties in a general way regardless of the type, manufacturer or technology of the device from which they originate. 
+It is a goal that there be general-purpose verification implementations that can verify tokens for large numbers of use cases with special cases and configurations for different device types.
+This is a goal of interoperability of the semantics of claims themselves, not just of the signing, encoding and serialization formats.
+
+This is a lofty goal and difficult to achieve broadly requiring careful definition of claims in a technology neutral way.
+Sometimes it will be difficult to design a claim that can represent the semantics of data from very different device types.
+However, the goal remains even when difficult.
+
+### Operating System and Technology Neutral
+
+Claims should be defined such that they are not specific to an operating system.
+They should be applicable to multiple large high-level operating systems from different vendors.
+They should also be applicable to multiple small embedded operating systems from multiple vendors and everything in between.
+
+Claims should not be defined such that they are specific to a SW environment or programming language.
+
+Claims should not be defined such that they are specific to a chip or particular hardware. 
+For example, they should not just be the contents of some HW status register as it is unlikely that the same HW status register with the same bits exists on a chip of a different manufacturer.
+
+The boot and debug state claims in this document are an example of a claim that has been defined in this neutral way.
+
+### Security Level Neutral
+
+Many use cases will have EATs generated by some of the most secure hardware and software that exists. 
+Secure Elements and smart cards are examples of this. 
+However, EAT is intended for use in low-security use cases the same as high-security use case.
+For example, an app on a mobile device may generate EATs on its own.
+
+Claims should be defined and registered on the basis of whether they are useful and interoperable, not based on security level.
+In particular, there should be no exclusion of claims because they are just used only in low-security environments.
+
+### Reuse of Extant Data Formats
+
+Where possible, claims should use already standardized data items, identifiers and formats.
+This takes advantage of the expertise put into creating those formats and improves interoperability.
+
+Often extant claims will not be defined in an encoding or serialization format used by EAT.
+It is preferred to define a CBOR and JSON format for them so that EAT implementations do not require a plethora of encoders and decoders for serialization formats.
+
+In some cases, it may be better to use the encoding and serialization as is.
+For example, signed X.509 certificates and CRLs can be carried as-is in a byte string.
+This retains interoperability with the extensive infrastructure for creating and processing X.509 certificates and CRLs.
+
+
+### Proprietary Claims
+
+EAT allows the definition and use of proprietary claims.
+
+For example, a device manufacturer may generate a token with proprietary claims intended only for verification by a service offered by that device manufacturer. 
+This is a supported use case.
+
+In many cases proprietary claims will be the easiest and most obvious way to proceed, however for better interoperability, use of general standardized claims is preferred.
+
+
+## Claims Registered by This Document
 
 * Claim Name: UEID
 * Claim Description: The Universal Entity ID
@@ -1308,43 +1221,13 @@ This is shown in CBOR diagnostic form. Only the payload signed by COSE
 is shown.
 
 ~~~~
-{
-   / nonce /                  9:h'948f8860d13a463e8e',
-   / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / secure-boot /           17:true,
-   / debug-disbale /         12:3,  / permanent-disable  /
-   / time stamp (iat) /       6:1526542894,
-}
+{::include cddl/examples/simple.diag}
 ~~~~
 
 ## Example with Submodules, Nesting and Security Levels
 
 ~~~~
-{
-   / nonce /                  9:h'948f8860d13a463e8e',
-   / UEID /                  10:h'0198f50a4ff6c05861c8860d13a638ea4fe2f',
-   / secure-boot /           17:true,
-   / debug-disbale /         12:3,  / permanent-disable  /
-   / time stamp (iat) /       6:1526542894,
-   / security-level /        11:3, / secure restricted OS /
-
-   / submods / 17:
-      {
-         / first submod, an Android Application / "Android App Foo" :  {
-            / security-level /      11:1, / unrestricted /
-            / app data /        -70000:'text string'
-         },
-         / 2nd submod, A nested EAT from a secure element / "Secure Element Eat" :
-            / eat /         61( 18(
-                                / an embedded EAT, bytes of which are not shown /
-                           ))
-         / 3rd submod, information about Linux Android / "Linux Android": {
-            / security-level /        11:1, / unrestricted /
-            / custom - release /  -80000:'8.0.0',
-            / custom - version /  -80001:'4.9.51+'
-         }
-      }
-}
+{::include cddl/examples/submods.diag}
 ~~~~
 
 # UEID Design Rationale
@@ -1525,4 +1408,9 @@ no new claims have been added.
 * Split boot_state into secure-boot and debug-disable claims
 
 * Debug disable is an enumerated type rather than Booleans
+
+
+## From draft-ietf-rats-eat-04
+
+* Change IMEI-based UEIDs to be encoded as a 14-byte string
 
