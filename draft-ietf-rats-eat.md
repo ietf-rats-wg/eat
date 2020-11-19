@@ -595,21 +595,21 @@ tokens, this is further base64url encoded.
 ~~~~
 
 
-## Hardware Version Claims
+## Hardware Version Claims (hardware-version-claims)
 
-The hardware version can be claimed at three different levels, the chip, the circuit board and the final assembly.
+The hardware version can be claimed at three different levels, the chip, the circuit board and the final device assembly.
 An EAT can include any combination these claims.
 
-The hardware version is a simple text string.
-The structure and sorting order of this text string can be specificed using the version-scheme item from CoSWID {{CoSWID}}, but this is not required.
+The hardware version is a simple text string the format of which is set by each manufacturer.
+The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
 
-In addition to the simple text string the hardware version can be based on a 13 digit European Article Number {{EAN-13}}.
+The hardware version can also be given by a 13-digit European Article Number {{EAN-13}}.
 An EAN-13 is also known as an International Article Number or most commonly as a bar code.
 This claim is the ASCII text representation of actual digits often printed with a bar code.
 Use of this claim must comply with the EAN allocation and assignment rules.
 For example, this requires the manufacturer to obtain a manufacture code from GS1.
 
-Both the simple version string and EAN-13 versions may be included for some hardware.
+Both the simple version string and EAN-13 versions may be included for the same hardware.
 
 ~~~~CDDL
 {::include cddl/hardware-version.cddl}
