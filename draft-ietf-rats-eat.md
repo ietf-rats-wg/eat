@@ -681,7 +681,7 @@ combination of the two or other.
 {::include cddl/secure-boot.cddl}
 ~~~~
 
-## Debug Disable Claim (debug-disable)
+## Debug Status Claim (debug-status)
 
 This applies to system-wide or submodule-wide debug facilities of the
 target device / submodule like JTAG and diagnostic hardware built into
@@ -703,6 +703,10 @@ As with all claims, the absence of the debug level claim means
 it is not reported. A conservative interpretation might assume
 the Not Disabled state. It could however be that it is reported
 in a proprietary claim.
+
+This claim is not extensible so as to provide a common interoperable description of debug status to the relying party.
+If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
+It may consider including both this claim as a coarse indication of debug status and its own proprietary claim as a refined indication.
 
 The higher levels of debug disabling requires that all debug disabling
 of the levels below it be in effect. Since the lowest level requires
@@ -728,7 +732,7 @@ report the status of the whole-chip or whole-device debug facility.
 This is the only way the relying party can know the debug status
 of the submodules since there is no inheritance.
 
-### Not Disabled
+### Endabled
 
 If any debug facility, even manufacturer hardware diagnostics, is
 currently enabled, then this level must be indicated.
@@ -745,7 +749,7 @@ target device/sub-system booted/started, but they are currently disabled.
 This level indicates all debug facilities are currently disabled and
 have been so since the target device/sub-system booted/started.
 
-### Permanent Disable
+### Disabled Permanently
 
 This level indicates all non-manufacturer facilities are permanently
 disabled such that no end user or developer cannot enable them. Only
@@ -753,15 +757,15 @@ the manufacturer indicated in the OEMID claim can enable them. This
 also indicates that all debug facilities are currently disabled and
 have been so since boot/start.
 
-### Full Permanent Disable
+### Disabled Fully and Permanently
 
 This level indicates that all debug capabilities for the target
 device/sub-module are permanently disabled.
 
-### debug-disable CDDL
+### debug-status CDDL
 
 ~~~~CDDL
-{::include cddl/debug-disable.cddl}
+{::include cddl/debug-status.cddl}
 ~~~~
 
 ## The Location Claim (location)
@@ -1399,3 +1403,6 @@ no new claims have been added.
 * Add hardware version claims
 
 * Collected CDDL is now filled in. Other CDDL corrections.
+
+* Rename debug-disable to debug-status; clarify that it is not extensible
+

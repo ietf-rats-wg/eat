@@ -1,7 +1,7 @@
 CDDL_FRAGS := eat.cddl
 CDDL_FRAGS += common-types.cddl
 CDDL_FRAGS += cwt.cddl
-CDDL_FRAGS += debug-disable.cddl
+CDDL_FRAGS += debug-status.cddl
 CDDL_FRAGS += location.cddl
 CDDL_FRAGS += nonce.cddl
 CDDL_FRAGS += oemid.cddl
