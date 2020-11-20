@@ -2,21 +2,20 @@ chip-version-claim = (
     chip-version => tstr
 )
 
-board-version-claim = (
-    board-version => tstr
-)
-
-device-version-claim = (
-    device-version => tstr
-)
-
-
 chip-version-scheme-claim = (
     chip-version-scheme => $version-scheme
 )
 
+board-version-claim = (
+    board-version => tstr
+)
+
 board-version-scheme-claim = (
     board-version-scheme => $version-scheme
+)
+
+device-version-claim = (
+    device-version => tstr
 )
 
 device-version-scheme-claim = (

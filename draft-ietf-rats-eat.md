@@ -1393,3 +1393,5 @@ no new claims have been added.
 
 * Change IMEI-based UEIDs to be encoded as a 14-byte string
 
+* Add hardware version claims
+
