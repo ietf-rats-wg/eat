@@ -851,7 +851,7 @@ string naming the submodule. No submodules may have the same name.
 # Encoding {#encoding}
 This makes use of the types defined in CDDL Appendix D, Standard Prelude.
 
-Some of the CDDL included here is for claims that defined in CWT {{RFC8392}} or JWT {{RFC7519}} or are in the IANA CWT or JWT registries.
+Some of the CDDL included here is for claims that are defined in CWT {{RFC8392}} or JWT {{RFC7519}} or are in the IANA CWT or JWT registries.
 CDDL was not in use when these claims where defined.
 
 ## Common CDDL Types
@@ -1361,4 +1361,3 @@ no new claims have been added.
 ## From draft-ietf-rats-eat-04
 
 * Change IMEI-based UEIDs to be encoded as a 14-byte string
-
