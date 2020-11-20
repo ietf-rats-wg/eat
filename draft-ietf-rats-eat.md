@@ -680,8 +680,9 @@ It is assumed any potential attacker has captured the device and can
 disassemble it. Example include TPMs and Secure Elements.
 
 The entity should claim the highest security level it achieves and no higher.
-This set is NOT extensible so as to provide a clear common interoperable description of security level to the relying party.
-If a particular implementation considers this claim to be inadequate, they should 1) omit the claim out, 2) define their own proprietary claim or 3) both.
+This set is not extensible so as to provide a common interoperable description of security level to the relying party.
+If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
+It may consider including both this claim as a coarse indication of security and its own proprietary claim as a refined indication.
 
 This claim is not intended as a replacement for a proper end-device
 security certification schemes such as those based on FIPS 140 {{FIPS-140}} 
