@@ -109,6 +109,18 @@ normative:
     - org: The FIDO Alliance
     date: November 2019 
 
+  EAN-13:
+    target: https://www.gs1.org/standards/barcodes/ean-upc
+    title: International Article Number - EAN/UPC barcodes
+    author:
+    - org: GS1
+    date: 2019
+
+  CoSWID:
+    target: https://tools.ietf.org/html/draft-ietf-sacm-coswid-16
+    title: Concise Software Identification Tags
+    date: November 2020
+
 informative:
   RFC4122:
   RFC4949:
@@ -607,6 +619,28 @@ tokens, this is further base64url encoded.
 {::include cddl/oemid.cddl}
 ~~~~
 
+
+## Hardware Version Claims (hardware-version-claims)
+
+The hardware version can be claimed at three different levels, the chip, the circuit board and the final device assembly.
+An EAT can include any combination these claims.
+
+The hardware version is a simple text string the format of which is set by each manufacturer.
+The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
+
+The hardware version can also be given by a 13-digit European Article Number {{EAN-13}}.
+An EAN-13 is also known as an International Article Number or most commonly as a bar code.
+This claim is the ASCII text representation of actual digits often printed with a bar code.
+Use of this claim must comply with the EAN allocation and assignment rules.
+For example, this requires the manufacturer to obtain a manufacture code from GS1.
+
+Both the simple version string and EAN-13 versions may be included for the same hardware.
+
+~~~~CDDL
+{::include cddl/hardware-version.cddl}
+~~~~
+
+
 ## The Security Level Claim (security-level)
 
 This claim characterizes the device/entity 
@@ -879,7 +913,7 @@ string naming the submodule. No submodules may have the same name.
 # Encoding {#encoding}
 This makes use of the types defined in CDDL Appendix D, Standard Prelude.
 
-Some of the CDDL included here is for claims that defined in CWT {{RFC8392}} or JWT {{RFC7519}} or are in the IANA CWT or JWT registries.
+Some of the CDDL included here is for claims that are defined in CWT {{RFC8392}} or JWT {{RFC7519}} or are in the IANA CWT or JWT registries.
 CDDL was not in use when these claims where defined.
 
 ## Common CDDL Types
@@ -1390,3 +1424,6 @@ no new claims have been added.
 
 * Change IMEI-based UEIDs to be encoded as a 14-byte string
 
+* Add hardware version claims
+
+* Collected CDDL is now filled in. Other CDDL corrections.
