@@ -739,9 +739,9 @@ An EAT may include a cryptographic key such as a public key.
 The signing of the EAT binds the key to all the other claims in the token.
 
 The purpose for inclusion of the key may vary by use case.
-For example, the key may be included to request certificate signing (a CSR).
+For example, the key may be included as part of an IoT device on boarding protocol.
 When the FIDO protocol includes a pubic key in its attestation message, the key represents the binding of a user, device and relying party.
-This document mostly describes how claims containing keys should be defined for the various use cases.
+This document describes how claims containing keys should be defined for the various use cases.
 It does not define specific claims for specific use cases.
 
 Keys in CBOR format tokens SHOULD be the COSE_Key format {{RFC8152}} and keys in JSON format tokens SHOULD be the JSON Web Key format {{RFC7517}}.
@@ -750,13 +750,14 @@ Their use avoids the need to decode other serialization formats.
 These two formats can be extended to support further key types through their IANA registries.
 
 The general confirmation claim format {{RFC8747}}, {{RFC7800}} may also be used.
-This provides key encryption. 
-This also allows for inclusion by reference through a key ID.
-This may be employed in the definition of another claim that associates further semantics or with the defined Claim Key/Name (Claim Key 8 in CBOR and "cnf" JSON).
+It provides key encryption. 
+It also allows for inclusion by reference through a key ID.
+The confirmation claim format may employed in the definition of some new claim for a a particular use case. 
 
-When the confirmation claim (Claim Key 8 in CBOR and "cnf" JSON) is included in an EAT this document associates no use case semantics other than proof of posession.
+When the actual confirmation claim is included in an EAT, this document associates no use case semantics other than proof of posession.
+Different EAT use cases may choose to associate further semantics.
 The key in the confirmation claim MUST be protected the same as the key used to sign the EAT. 
-That is, the same or equivalent hardware defenses, access controls, key generation and such must be used.
+That is, the same, equivalent or better hardware defenses, access controls, key generation and such must be used.
 
 
 ## The Location Claim (location)
