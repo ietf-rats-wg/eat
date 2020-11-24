@@ -109,6 +109,25 @@ normative:
     - org: 3GPP
     date: 2019 
 
+  FIDO.AROE:
+    title: FIDO Authenticator Allowed Restricted Operating Environments List
+    target: https://fidoalliance.org/specs/fido-uaf-v1.0-fd-20191115/fido-allowed-AROE-v1.0-fd-20191115.html
+    author:
+    - org: The FIDO Alliance
+    date: November 2019 
+
+  EAN-13:
+    target: https://www.gs1.org/standards/barcodes/ean-upc
+    title: International Article Number - EAN/UPC barcodes
+    author:
+    - org: GS1
+    date: 2019
+
+  CoSWID:
+    target: https://tools.ietf.org/html/draft-ietf-sacm-coswid-16
+    title: Concise Software Identification Tags
+    date: November 2020
+
 informative:
   RFC4122:
   RFC4949:
@@ -164,6 +183,24 @@ informative:
     target: https://webstore.ansi.org/standards/ieee/ieee8022001r2007
     date: 2007
 
+  FIDO.Registry:
+    title: FIDO Registry of Predefined Values
+    target: https://fidoalliance.org/specs/common-specs/fido-registry-v2.1-ps-20191217.html
+    author:
+    - org: The FIDO Alliance
+    date: December 2019 
+ 
+  FIPS-140:
+    title: Security Requirements for Cryptographic Modules
+    target: https://csrc.nist.gov/publications/detail/fips/140/2/final
+    author:
+    - org: National Institue of Standards
+    date: May 2001
+  
+  Common.Criteria:
+    title: Common Criteria for Information Technology Security Evaluation
+    target: https://www.commoncriteriaportal.org/cc/
+    date: April 2017
 
 --- abstract
 
@@ -431,8 +468,23 @@ party to guarantee freshness and defend against replay.
 ## Timestamp claim (iat)
 
 The "iat" claim defined in CWT and JWT is used to indicate the
-date-of-creation of the token.
+date-of-creation of the token, the time at which the claims are
+collected and the token is composed and signed.
 
+The data for some claims may be held or cached for some period of
+time before the token is created. This period may be long, even 
+days. Examples are measurements taken at boot or a geographic
+position fix taken the last time a satellite signal was received.
+There are individual timestamps associated with these claims to
+indicate their age is older than the "iat" timestamp.
+
+CWT allows the use floating-point for this claim. EAT disallows
+the use of floating-point. No token may contain an iat claim in
+float-point format. Any recipient of a token with a floating-point
+format iat claim may consider it an error.  A 64-bit integer 
+representation of epoch time can represent a range of +/- 500 billion
+years, so the only point of a floating-point timestamp is to 
+have precession greater than one second. This is not needed for EAT.
 
 ## Nonce Claim (nonce)
 
@@ -582,14 +634,35 @@ tokens, this is further base64url encoded.
 {::include cddl/oemid.cddl}
 ~~~~
 
+
+## Hardware Version Claims (hardware-version-claims)
+
+The hardware version can be claimed at three different levels, the chip, the circuit board and the final device assembly.
+An EAT can include any combination these claims.
+
+The hardware version is a simple text string the format of which is set by each manufacturer.
+The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
+
+The hardware version can also be given by a 13-digit European Article Number {{EAN-13}}.
+An EAN-13 is also known as an International Article Number or most commonly as a bar code.
+This claim is the ASCII text representation of actual digits often printed with a bar code.
+Use of this claim must comply with the EAN allocation and assignment rules.
+For example, this requires the manufacturer to obtain a manufacture code from GS1.
+
+Both the simple version string and EAN-13 versions may be included for the same hardware.
+
+~~~~CDDL
+{::include cddl/hardware-version.cddl}
+~~~~
+
+
 ## The Security Level Claim (security-level)
 
-EATs have a claim that roughly characterizes the device / entities 
+This claim characterizes the device/entity 
 ability to defend against attacks aimed at capturing the signing
-key, forging claims and at forging EATs. This is done by roughly 
+key, forging claims and at forging EATs. This is done by  
 defining four security levels as described below. This is similar
-to the security levels defined in the Metadata Service
-defined by the Fast Identity Online (FIDO) Alliance (TODO: reference).
+to the key protection types defined by the Fast Identity Online (FIDO) Alliance {{FIDO.Registry}).
 
 These claims describe security environment and countermeasures
 available on the end-entity / client device where the attestation key
@@ -610,7 +683,7 @@ an IoT camera, or sensor device.
 
 3 -- Secure Restricted
 : Entities at this level must meet the criteria defined by FIDO Allowed
-Restricted Operating Environments (TODO: reference). Examples include TEE's and 
+Restricted Operating Environments {{FIDO.AROE}}. Examples include TEE's and 
 schemes using virtualization-based security. Like the FIDO security goal,
 security at this level is aimed at defending well against large-scale
 network / remote attacks against the device.
@@ -621,9 +694,14 @@ against physical or electrical attacks against the device itself.
 It is assumed any potential attacker has captured the device and can 
 disassemble it. Example include TPMs and Secure Elements.
 
+The entity should claim the highest security level it achieves and no higher.
+This set is not extensible so as to provide a common interoperable description of security level to the relying party.
+If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
+It may consider including both this claim as a coarse indication of security and its own proprietary claim as a refined indication.
+
 This claim is not intended as a replacement for a proper end-device
-security certification schemes such as those based on FIPS (TODO: reference)
-or those based on Common Criteria (TODO: reference). The 
+security certification schemes such as those based on FIPS 140 {{FIPS-140}} 
+or those based on Common Criteria {{Common.Criteria}}. The 
 claim made here is solely a self-claim made by the Entity Originator.
 
 ### security-level CDDL
@@ -740,26 +818,23 @@ location coordinate claims are consistent with the WGS84 coordinate
 system {{WGS84}}.  In addition, a sub claim providing the estimated
 accuracy of the location measurement is defined.
 
+The location may have been cached for a period of time before token
+creation. For example, it might have been minutes or hours or more
+since the last contact with a GPS satellite. Either the timestamp or
+age data item can be used to quantify the cached period.  The timestamp
+data item is preferred as it a non-relative time.
+
+The age data item can be used when the entity doesn't know what time
+it is either because it doesn't have a clock or it isn't set. The
+entity must still have a "ticker" that can measure a time
+interval. The age is the interval between acquisition of the location
+data and token creation.
+
 ### location CDDL
 
 ~~~~CDDL
+=======
 {::include cddl/location.cddl}
-~~~~
-
-## The Age Claim (age)
-
-The "age" claim contains a value that represents the number of seconds
-that have elapsed since the token was created, measurement was made,
-or location was obtained.  Typical attestable values are sent as soon
-as they are obtained.  However, in the case that such a value is
-buffered and sent at a later time and a sufficiently accurate time
-reference is unavailable for creation of a timestamp, then the age
-claim is provided.
-
-### age CDDL
-
-~~~~CDDL
-{::include cddl/age.cddl}
 ~~~~
 
 ## The Uptime Claim (uptime)
@@ -894,7 +969,13 @@ string naming the submodule. No submodules may have the same name.
 # Encoding {#encoding}
 This makes use of the types defined in CDDL Appendix D, Standard Prelude.
 
+Some of the CDDL included here is for claims that are defined in CWT {{RFC8392}} or JWT {{RFC7519}} or are in the IANA CWT or JWT registries.
+CDDL was not in use when these claims where defined.
+
 ## Common CDDL Types
+
+time-int is identical to the epoch-based time, but disallows
+floating-point representation.
 
 ~~~~CDDL
 {::include cddl/common-types.cddl}
@@ -1003,7 +1084,69 @@ so the CWT Claims Registry is re used. No new IANA registry
 is created. All EAT claims should be registered in the
 CWT and JWT Claims Registries.
 
-### Claims Registered by This Document
+## Claim Characteristics
+
+The following is design guidance for creating new EAT claims, particularly those to be registered with IANA.
+
+Much of this guidance is generic and could also be considered when designing new CWT or JWT claims.
+
+### Interoperability and Relying Party Orientation
+
+It is a broad goal that EATs can be processed by relying parties in a general way regardless of the type, manufacturer or technology of the device from which they originate. 
+It is a goal that there be general-purpose verification implementations that can verify tokens for large numbers of use cases with special cases and configurations for different device types.
+This is a goal of interoperability of the semantics of claims themselves, not just of the signing, encoding and serialization formats.
+
+This is a lofty goal and difficult to achieve broadly requiring careful definition of claims in a technology neutral way.
+Sometimes it will be difficult to design a claim that can represent the semantics of data from very different device types.
+However, the goal remains even when difficult.
+
+### Operating System and Technology Neutral
+
+Claims should be defined such that they are not specific to an operating system.
+They should be applicable to multiple large high-level operating systems from different vendors.
+They should also be applicable to multiple small embedded operating systems from multiple vendors and everything in between.
+
+Claims should not be defined such that they are specific to a SW environment or programming language.
+
+Claims should not be defined such that they are specific to a chip or particular hardware. 
+For example, they should not just be the contents of some HW status register as it is unlikely that the same HW status register with the same bits exists on a chip of a different manufacturer.
+
+The boot and debug state claims in this document are an example of a claim that has been defined in this neutral way.
+
+### Security Level Neutral
+
+Many use cases will have EATs generated by some of the most secure hardware and software that exists. 
+Secure Elements and smart cards are examples of this. 
+However, EAT is intended for use in low-security use cases the same as high-security use case.
+For example, an app on a mobile device may generate EATs on its own.
+
+Claims should be defined and registered on the basis of whether they are useful and interoperable, not based on security level.
+In particular, there should be no exclusion of claims because they are just used only in low-security environments.
+
+### Reuse of Extant Data Formats
+
+Where possible, claims should use already standardized data items, identifiers and formats.
+This takes advantage of the expertise put into creating those formats and improves interoperability.
+
+Often extant claims will not be defined in an encoding or serialization format used by EAT.
+It is preferred to define a CBOR and JSON format for them so that EAT implementations do not require a plethora of encoders and decoders for serialization formats.
+
+In some cases, it may be better to use the encoding and serialization as is.
+For example, signed X.509 certificates and CRLs can be carried as-is in a byte string.
+This retains interoperability with the extensive infrastructure for creating and processing X.509 certificates and CRLs.
+
+
+### Proprietary Claims
+
+EAT allows the definition and use of proprietary claims.
+
+For example, a device manufacturer may generate a token with proprietary claims intended only for verification by a service offered by that device manufacturer. 
+This is a supported use case.
+
+In many cases proprietary claims will be the easiest and most obvious way to proceed, however for better interoperability, use of general standardized claims is preferred.
+
+
+## Claims Registered by This Document
 
 * Claim Name: UEID
 * Claim Description: The Universal Entity ID
@@ -1337,6 +1480,7 @@ no new claims have been added.
 
 * Change IMEI-based UEIDs to be encoded as a 14-byte string
 
+<<<<<<< HEAD
 * CDDL cleaned some more
 
 * CDDL allows for JWTs and UCCSs
@@ -1348,4 +1492,10 @@ no new claims have been added.
 * Allows UCCS (unsigned CWTs) and JWT unsecured tokens
 
 * Clarify tag usage when nesting tokens
+
+* Add hardware version claims
+
+* Collected CDDL is now filled in. Other CDDL corrections.
+
+* Security level claim is not extensible
 

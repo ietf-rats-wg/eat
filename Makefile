@@ -17,7 +17,7 @@ include cddl/vars.mk
 
 CDDL_FULL := $(addprefix cddl/,$(CDDL_FULL))
 
-draft-ietf-rats-eat.md: $(CDDL_FULL) 
+draft-ietf-rats-eat.md: $(CDDL_FULL)
 
 CDDL_FRAGS := $(addprefix cddl/,$(CDDL_FRAGS))
 
