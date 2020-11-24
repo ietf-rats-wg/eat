@@ -1,13 +1,32 @@
-submods-type = { + submodule }
-
-submodule = (
-    submod-name => eat-claims / nested-token
-)
-
-nested-token = bstr / tstr; a signed eat token, cbor for is bstr, json format if tstr
-
-submod-name = tstr 
+; The part of a token that contains all the submodules.  It is a peer
+; with the claims in the token, but not a claim, only a map/object to
+; hold all the submodules.
 
 submods-part = (
     submods => submods-type
 )
+
+submods-type = { + submod-type }
+
+
+; The type of a submodule which can either be a nested claim set or a
+; nested separately signed token. Nested tokens are wrapped in a bstr
+; or a tstr.
+
+submod-type = (
+    submod-name => eat-claim-set / nested-token
+)
+
+
+; When this is a bstr, the contents are an eat-token in CWT or UCCS
+; format.  When this is a tstr, the contents are an eat-token in JWT
+; format.
+
+nested-token = bstr / tstr; 
+
+
+; Each submodule has a unique text string name.
+
+submod-name = tstr 
+
+
