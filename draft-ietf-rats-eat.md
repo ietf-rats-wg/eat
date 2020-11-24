@@ -773,7 +773,7 @@ seconds that have elapsed since the entity or submod was last booted.
 {::include cddl/uptime.cddl}
 ~~~~
 
-## The Submods Part of a Token (submods)
+## The Submodules Part of a Token (submods)
 
 Some devices are complex, having many subsystems or submodules.  A
 mobile phone is a good example. It may have several connectivity
@@ -1344,4 +1344,8 @@ no new claims have been added.
 * CWT format submodules are byte string wrapped
 
 * Allows for JWT nested in CWT and vice versa
+
+* Allows UCCS (unsigned CWTs) and JWT unsecured tokens
+
+* Clarify tag usage when nesting tokens
 
