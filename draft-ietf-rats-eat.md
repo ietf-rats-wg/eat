@@ -1428,3 +1428,6 @@ no new claims have been added.
 * Add hardware version claims
 
 * Collected CDDL is now filled in. Other CDDL corrections.
+
+* Security level claim is not extensible
+
