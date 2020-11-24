@@ -739,7 +739,7 @@ An EAT may include a cryptographic key such as a public key.
 The signing of the EAT binds the key to all the other claims in the token.
 
 The purpose for inclusion of the key may vary by use case.
-For example, the key may be included as part of an IoT device on boarding protocol.
+For example, the key may be included as part of an IoT device onboarding protocol.
 When the FIDO protocol includes a pubic key in its attestation message, the key represents the binding of a user, device and relying party.
 This document describes how claims containing keys should be defined for the various use cases.
 It does not define specific claims for specific use cases.
@@ -1388,4 +1388,6 @@ no new claims have been added.
 ## From draft-ietf-rats-eat-04
 
 * Change IMEI-based UEIDs to be encoded as a 14-byte string
+
+* Add section on key inclusion
 
