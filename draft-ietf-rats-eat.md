@@ -249,12 +249,21 @@ limited to the following:
  * Configuration and state of the device
  * Environmental characteristics of the device such as its GPS location
 
-## CDDL, CWT and JWT
+## CWT, JWT and UCCS
 
-An EAT token is either a CWT as defined in {{RFC8392}}, a UCCS
-as defined in {{UCCS.Draft}}, or a JWT as
-defined in {{RFC7519}}. This specification defines additional claims
-for entity attestation.
+For flexibility and ease of imlpementation in a wide variety of environments, EATs can be either CBOR {{RFC7049}} or JSON {{ECMAScript}} format.
+This specification simultaneously describes both formats.
+
+An EAT is either a CWT as defined in {{RFC8392}}, a UCCS as defined in {{UCCS.Draft}}, or a JWT as defined in {{RFC7519}}.
+This specification extends those specifications with additional claims for attestation.
+
+The identification of a protocol element as an EAT, whether CBOR or JSON format, follows the general conventions used by CWT, JWT and UCCS.
+Largely this depends on the protocol carrying the EAT.
+In some cases it may be by content type (e.g., MIME type).
+In other cases it may be through use of CBOR tags.
+There is no fixed mechanism across all use cases.
+
+## CDDL
 
 This specification uses CDDL, {{RFC8610}}, as the primary formalism to
 define each claim.  The implementor then interprets the CDDL to come
@@ -265,6 +274,9 @@ document where Appendix E is insufficient.  (Note that this is not to
 define a general means to translate between CBOR and JSON, but only to
 define enough such that the claims defined in this document can be
 rendered unambiguously in JSON).
+
+The CWT specification was authored before CDDL was available and did not use it.
+This specification includes a CDDL definition of most of what is described in {{RFC8392}}.
 
 ## Entity Overview
 
