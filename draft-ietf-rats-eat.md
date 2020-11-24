@@ -102,6 +102,13 @@ normative:
     - org: 3GPP
     date: 2019 
 
+  FIDO.AROE:
+    title: FIDO Authenticator Allowed Restricted Operating Environments List
+    target: https://fidoalliance.org/specs/fido-uaf-v1.0-fd-20191115/fido-allowed-AROE-v1.0-fd-20191115.html
+    author:
+    - org: The FIDO Alliance
+    date: November 2019 
+
   EAN-13:
     target: https://www.gs1.org/standards/barcodes/ean-upc
     title: International Article Number - EAN/UPC barcodes
@@ -169,6 +176,24 @@ informative:
     target: https://webstore.ansi.org/standards/ieee/ieee8022001r2007
     date: 2007
 
+  FIDO.Registry:
+    title: FIDO Registry of Predefined Values
+    target: https://fidoalliance.org/specs/common-specs/fido-registry-v2.1-ps-20191217.html
+    author:
+    - org: The FIDO Alliance
+    date: December 2019 
+ 
+  FIPS-140:
+    title: Security Requirements for Cryptographic Modules
+    target: https://csrc.nist.gov/publications/detail/fips/140/2/final
+    author:
+    - org: National Institue of Standards
+    date: May 2001
+  
+  Common.Criteria:
+    title: Common Criteria for Information Technology Security Evaluation
+    target: https://www.commoncriteriaportal.org/cc/
+    date: April 2017
 
 --- abstract
 
@@ -625,12 +650,11 @@ Both the simple version string and EAN-13 versions may be included for the same 
 
 ## The Security Level Claim (security-level)
 
-EATs have a claim that roughly characterizes the device / entities 
+This claim characterizes the device/entity 
 ability to defend against attacks aimed at capturing the signing
-key, forging claims and at forging EATs. This is done by roughly 
+key, forging claims and at forging EATs. This is done by  
 defining four security levels as described below. This is similar
-to the security levels defined in the Metadata Service
-defined by the Fast Identity Online (FIDO) Alliance (TODO: reference).
+to the key protection types defined by the Fast Identity Online (FIDO) Alliance {{FIDO.Registry}).
 
 These claims describe security environment and countermeasures
 available on the end-entity / client device where the attestation key
@@ -651,7 +675,7 @@ an IoT camera, or sensor device.
 
 3 -- Secure Restricted
 : Entities at this level must meet the criteria defined by FIDO Allowed
-Restricted Operating Environments (TODO: reference). Examples include TEE's and 
+Restricted Operating Environments {{FIDO.AROE}}. Examples include TEE's and 
 schemes using virtualization-based security. Like the FIDO security goal,
 security at this level is aimed at defending well against large-scale
 network / remote attacks against the device.
@@ -662,9 +686,14 @@ against physical or electrical attacks against the device itself.
 It is assumed any potential attacker has captured the device and can 
 disassemble it. Example include TPMs and Secure Elements.
 
+The entity should claim the highest security level it achieves and no higher.
+This set is not extensible so as to provide a common interoperable description of security level to the relying party.
+If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
+It may consider including both this claim as a coarse indication of security and its own proprietary claim as a refined indication.
+
 This claim is not intended as a replacement for a proper end-device
-security certification schemes such as those based on FIPS (TODO: reference)
-or those based on Common Criteria (TODO: reference). The 
+security certification schemes such as those based on FIPS 140 {{FIPS-140}} 
+or those based on Common Criteria {{Common.Criteria}}. The 
 claim made here is solely a self-claim made by the Entity Originator.
 
 ### security-level CDDL
@@ -1406,3 +1435,6 @@ no new claims have been added.
 * Add hardware version claims
 
 * Collected CDDL is now filled in. Other CDDL corrections.
+
+* Security level claim is not extensible
+
