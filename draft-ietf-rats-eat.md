@@ -245,6 +245,8 @@ limited to the following:
  * Configuration and state of the device
  * Environmental characteristics of the device such as its GPS location
 
+TODO: mention use for Attestation Evidence and Results.
+
 ## CDDL, CWT and JWT
 
 An EAT token is either a CWT as defined in {{RFC8392}} or a JWT as
@@ -284,6 +286,8 @@ it originates.  In general, any discrete execution environment that
 has an identifiable security level can be considered an entity.
 
 ## EAT Operating Models
+
+TODO: Rewrite (or eliminate) this section in light of the RATS architecture draft.
 
 At least the following three participants exist in all EAT operating
 models. Some operating models have additional participants.
@@ -450,6 +454,7 @@ group is a general aggregation and type definition feature of
 CDDL). In the encoding section {{encoding}}, the CDDL groups turn into
 CBOR map entries and JSON name/value pairs.
 
+TODO: add paragraph here about use for Attestation Evidence and for Results.
 
 ## Token ID Claim (cti and jti)
 
@@ -577,6 +582,8 @@ this are:
 
 ## Origination Claim (origination)
 
+TODO: this claim is likely to be dropped in favor of Endorsement locators.
+
 This claim describes the parts of the device or entity that are
 creating the EAT. Often it will be tied back to the device or chip
 manufacturer. The following table gives some examples:
@@ -650,6 +657,9 @@ Both the simple version string and EAN-13 versions may be included for the same 
 {::include cddl/hardware-version.cddl}
 ~~~~
 
+## Software Description and Version
+
+TODO: Add claims that reference CoSWID.
 
 ## The Security Level Claim (security-level)
 
@@ -874,6 +884,7 @@ seconds that have elapsed since the entity or submod was last booted.
 {::include cddl/uptime.cddl}
 ~~~~
 
+
 ## The Submods Part of a Token (submods)
 
 Some devices are complex, having many subsystems or submodules.  A
@@ -951,6 +962,11 @@ string naming the submodule. No submodules may have the same name.
 ~~~~CDDL
 {::include cddl/submods.cddl}
 ~~~~
+
+# Endorsements and Verification Keys
+
+TODO: fill this section in. It will discuss key IDs, endorsement ID and such that
+are needed as input needed to by the Verifier to verify the signature.
 
 # Encoding {#encoding}
 This makes use of the types defined in CDDL Appendix D, Standard Prelude.
