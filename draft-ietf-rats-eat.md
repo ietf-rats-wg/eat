@@ -1492,7 +1492,6 @@ no new claims have been added.
 
 * Change IMEI-based UEIDs to be encoded as a 14-byte string
 
-<<<<<<< HEAD
 * CDDL cleaned some more
 
 * CDDL allows for JWTs and UCCSs
