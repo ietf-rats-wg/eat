@@ -771,7 +771,7 @@ report the status of the whole-chip or whole-device debug facility.
 This is the only way the relying party can know the debug status
 of the submodules since there is no inheritance.
 
-### Endabled
+### Enabled
 
 If any debug facility, even manufacturer hardware diagnostics, is
 currently enabled, then this level must be indicated.
