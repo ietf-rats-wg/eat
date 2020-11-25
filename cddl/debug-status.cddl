@@ -1,0 +1,11 @@
+debug-status-type = &(
+    enabled: 0,
+    disabled: 1,
+    disabled-since-boot: 2,
+    disabled-permanently: 3,
+    disabled-fully-and-permanently: 4
+)
+
+debug-status-claim = (
+    debug-status => debug-status-type
+)
