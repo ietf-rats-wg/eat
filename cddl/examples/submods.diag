@@ -14,7 +14,7 @@
         / 2nd submod, A nested EAT from a secure element /
         "Secure Element Eat" :
             / an embedded EAT, bytes of which are not shown /
-            61(18(h'0123')),
+            h'420123',
 
         / 3rd submod, information about Linux Android /
         "Linux Android": {
