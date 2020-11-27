@@ -57,12 +57,15 @@ author:
 normative:
   RFC2119:
   RFC7049:
+  RFC7517:
   RFC7519:
+  RFC7800:
   RFC8126:
   RFC8174:
   RFC8152:
   RFC8392:
   RFC8610:
+  RFC8747:
   TIME_T:
     target: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_15
     title: 'Vol. 1: Base Definitions, Issue 7'
@@ -737,7 +740,7 @@ combination of the two or other.
 {::include cddl/secure-boot.cddl}
 ~~~~
 
-## Debug Disable Claim (debug-disable)
+## Debug Status Claim (debug-status)
 
 This applies to system-wide or submodule-wide debug facilities of the
 target device / submodule like JTAG and diagnostic hardware built into
@@ -759,6 +762,10 @@ As with all claims, the absence of the debug level claim means
 it is not reported. A conservative interpretation might assume
 the Not Disabled state. It could however be that it is reported
 in a proprietary claim.
+
+This claim is not extensible so as to provide a common interoperable description of debug status to the relying party.
+If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
+It may consider including both this claim as a coarse indication of debug status and its own proprietary claim as a refined indication.
 
 The higher levels of debug disabling requires that all debug disabling
 of the levels below it be in effect. Since the lowest level requires
@@ -784,7 +791,7 @@ report the status of the whole-chip or whole-device debug facility.
 This is the only way the relying party can know the debug status
 of the submodules since there is no inheritance.
 
-### Not Disabled
+### Enabled
 
 If any debug facility, even manufacturer hardware diagnostics, is
 currently enabled, then this level must be indicated.
@@ -801,7 +808,7 @@ target device/sub-system booted/started, but they are currently disabled.
 This level indicates all debug facilities are currently disabled and
 have been so since the target device/sub-system booted/started.
 
-### Permanent Disable
+### Disabled Permanently
 
 This level indicates all non-manufacturer facilities are permanently
 disabled such that no end user or developer cannot enable them. Only
@@ -809,16 +816,43 @@ the manufacturer indicated in the OEMID claim can enable them. This
 also indicates that all debug facilities are currently disabled and
 have been so since boot/start.
 
-### Full Permanent Disable
+### Disabled Fully and Permanently
 
 This level indicates that all debug capabilities for the target
 device/sub-module are permanently disabled.
 
-### debug-disable CDDL
+### debug-status CDDL
 
 ~~~~CDDL
-{::include cddl/debug-disable.cddl}
+{::include cddl/debug-status.cddl}
 ~~~~
+
+## Including Keys
+
+An EAT may include a cryptographic key such as a public key.
+The signing of the EAT binds the key to all the other claims in the token.
+
+The purpose for inclusion of the key may vary by use case.
+For example, the key may be included as part of an IoT device onboarding protocol.
+When the FIDO protocol includes a pubic key in its attestation message, the key represents the binding of a user, device and relying party.
+This document describes how claims containing keys should be defined for the various use cases.
+It does not define specific claims for specific use cases.
+
+Keys in CBOR format tokens SHOULD be the COSE_Key format {{RFC8152}} and keys in JSON format tokens SHOULD be the JSON Web Key format {{RFC7517}}.
+These two formats support many common key types.
+Their use avoids the need to decode other serialization formats.
+These two formats can be extended to support further key types through their IANA registries.
+
+The general confirmation claim format {{RFC8747}}, {{RFC7800}} may also be used.
+It provides key encryption. 
+It also allows for inclusion by reference through a key ID.
+The confirmation claim format may employed in the definition of some new claim for a a particular use case. 
+
+When the actual confirmation claim is included in an EAT, this document associates no use case semantics other than proof of posession.
+Different EAT use cases may choose to associate further semantics.
+The key in the confirmation claim MUST be protected the same as the key used to sign the EAT. 
+That is, the same, equivalent or better hardware defenses, access controls, key generation and such must be used.
+
 
 ## The Location Claim (location)
 
@@ -1492,7 +1526,7 @@ no new claims have been added.
 
 * Change IMEI-based UEIDs to be encoded as a 14-byte string
 
-* CDDL cleaned some more
+* CDDL cleaned up some more
 
 * CDDL allows for JWTs and UCCSs
 
@@ -1504,9 +1538,13 @@ no new claims have been added.
 
 * Clarify tag usage when nesting tokens
 
+* Add section on key inclusion
+
 * Add hardware version claims
 
 * Collected CDDL is now filled in. Other CDDL corrections.
+
+* Rename debug-disable to debug-status; clarify that it is not extensible
 
 * Security level claim is not extensible
 

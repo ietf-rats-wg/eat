@@ -10,7 +10,7 @@ eat-claim-set = {
     ? hardware-version-claims,
     ? security-level-claim,
     ? secure-boot-claim,
-    ? debug-disable-claim,
+    ? debug-status-claim,
     ? location-claim,
     ? uptime-claim,
     ? submods-part,
@@ -57,7 +57,7 @@ origination = 12
 oemid = 13
 security-level = 14
 secure-boot = 15
-debug-disable = 16
+debug-status = 16
 location = 17
 uptime = 19
 submods = 20
