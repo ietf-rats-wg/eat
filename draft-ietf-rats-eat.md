@@ -98,6 +98,13 @@ normative:
      - org: IANA
      date: false
 
+  UCCS.Draft:
+     target: https://tools.ietf.org/html/draft-birkholz-rats-uccs-01
+     title: A CBOR Tag for Unprotected CWT Claims Sets
+     author:
+     - fullname: Henk Birkholz
+     date: 2020
+
   ThreeGPP.IMEI:
     target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=729
     title: 3rd Generation Partnership Project; Technical Specification Group Core Network and Terminals; Numbering, addressing and identification
@@ -245,11 +252,21 @@ limited to the following:
  * Configuration and state of the device
  * Environmental characteristics of the device such as its GPS location
 
-## CDDL, CWT and JWT
+## CWT, JWT and UCCS
 
-An EAT token is either a CWT as defined in {{RFC8392}} or a JWT as
-defined in {{RFC7519}}. This specification defines additional claims
-for entity attestation.
+For flexibility and ease of imlpementation in a wide variety of environments, EATs can be either CBOR {{RFC7049}} or JSON {{ECMAScript}} format.
+This specification simultaneously describes both formats.
+
+An EAT is either a CWT as defined in {{RFC8392}}, a UCCS as defined in {{UCCS.Draft}}, or a JWT as defined in {{RFC7519}}.
+This specification extends those specifications with additional claims for attestation.
+
+The identification of a protocol element as an EAT, whether CBOR or JSON format, follows the general conventions used by CWT, JWT and UCCS.
+Largely this depends on the protocol carrying the EAT.
+In some cases it may be by content type (e.g., MIME type).
+In other cases it may be through use of CBOR tags.
+There is no fixed mechanism across all use cases.
+
+## CDDL
 
 This specification uses CDDL, {{RFC8610}}, as the primary formalism to
 define each claim.  The implementor then interprets the CDDL to come
@@ -260,6 +277,9 @@ document where Appendix E is insufficient.  (Note that this is not to
 define a general means to translate between CBOR and JSON, but only to
 define enough such that the claims defined in this document can be
 rendered unambiguously in JSON).
+
+The CWT specification was authored before CDDL was available and did not use it.
+This specification includes a CDDL definition of most of what is described in {{RFC8392}}.
 
 ## Entity Overview
 
@@ -874,7 +894,7 @@ seconds that have elapsed since the entity or submod was last booted.
 {::include cddl/uptime.cddl}
 ~~~~
 
-## The Submods Part of a Token (submods)
+## The Submodules Part of a Token (submods)
 
 Some devices are complex, having many subsystems or submodules.  A
 mobile phone is a good example. It may have several connectivity
@@ -884,7 +904,7 @@ more security-oriented subsystems like a TEE or a Secure Element.
 
 The claims for each these can be grouped together in a submodule.
 
-The submods part of a token a single map/object with many entries, one
+The submods part of a token are in a single map/object with many entries, one
 per submodule.  There is only one submods map in a token. It is
 identified by its specific label. It is a peer to other claims, but it
 is not called a claim because it is a container for a claim set rather
@@ -894,30 +914,70 @@ inside of claims sets...
 
 ### Two Types of Submodules
 
-Each entry in the submod map one of two types:
+Each entry in the submod map is one of two types:
 
-* A non-token submodule that is a map or object directly containing
-  claims for the submodule.
-* A nested EAT that is a fully-formed, independently signed EAT token
+* A non-token submodule that is a map or object directly containing claims for the submodule.
+* A nested EAT that is a fully formed, independently signed EAT token
 
 #### Non-token Submodules
 
-Essentially this type of submodule, is just a sub-map or sub-object
-containing claims. It is recognized from the other type by being
-a data item of type map in CBOR or by being an object in JSON.
+This is simply a map or object containing claims about the submodule.
 
-The contents are claims about the submodule of types defined 
-in this document or anywhere else claims types are defined.
+It may contain claims that are the same as its surrounding token or superior submodules. 
+For example, the top-level of the token may have a UEID, a submod may have a different UEID and a further subordinate submodule may also have a UEID.
+
+It is signed/encrypted along with the rest of the token and thus the claims are secured by the same Attester with the same signing key as the rest of the token. 
+
+If a token is in CBOR format (a CWT or a UCCS), all non-token submodules must be CBOR format.
+If a token in in JSON format (a JWT), all non-token submodules must be in JSON format.
+
+When decoding, this type of submodule is recognized from the other type by being a data item of type map for CBOR or type object for JSON. 
 
 #### Nested EATs
 
-This type of submodule is a fully formed EAT as described here. In
-this case the submodule has key material distinct from the containing
-EAT token that allows it to sign on its own.
+This type of submodule is a fully formed secured EAT as defined in this document except that it MUST NOT be a UCCS or an unsecured JWT.
+A nested token that is one that is always secured using COSE or JOSE, usually by an independent Attester.
+When the surrounding EAT is a CWT or secured JWT, the nested token becomes securely bound with the other claims in the surrounding token.
 
-When an EAT is nested in another EAT as a submodule the nested EAT
-MUST use the CBOR CWT tag. This clearly distinguishes it from the
-non-token submodules.
+It is allowed to have a CWT as a submodule in a JWT and vice versa, but this SHOULD be avoided unless necessary.
+
+##### Surrounding EAT is CBOR format
+They type of an EAT nested in a CWT is determined by whether the CBOR type is a text string or a byte string.
+If a text string, then it is a JWT.
+If a byte string, then it is a CWT.
+
+A CWT nested in a CBOR-format token is always wrapped by a byte string for easier handling with standard CBOR decoders and token processing APIs that will typically take a byte buffer as input.
+
+Nested CWTs may be either a CWT CBOR tag or a CWT Protocol Message.
+COSE layers in nested CWT EATs MUST be a COSE_Tagged_Message, never a COSE_Untagged_Message.
+If a nested EAT has more than one level of COSE, for example one that is both encrypted and signed, a COSE_Tagged_message must be used at every level. 
+
+##### Surrounding EAT is JSON format
+When a CWT is nested in a JWT, it must be as a 55799 tag in order to distinguish it from a nested JWT. 
+
+When a nested EAT in a JWT is decoded, first remove the base64url encoding.
+Next, check to see if it starts with the bytes 0xd9d9f7.
+If so, then it is a CWT as a JWT will never start with these four bytes. 
+If not if it is a JWT.
+
+Other than the 55799 tag requirement, tag usage for CWT's nested in a JSON format token follow the same rules as for CWTs nested in CBOR-format tokens.
+It may be a CWT CBOR tag or a CWT Protocol Message and COSE_Tagged_Message MUST be used at all COSE layers.
+
+#### Unsecured JWTs and UCCS Tokens as Submodules
+
+To incorporate a UCCS token as a submodule, it MUST be as a non-token submodule. 
+This can be accomplished inserting the content of the UCCS Tag into the submodule map.
+The content of a UCCS tag is exactly a map of claims as required for a non-token submodule.
+If the UCCS is not a UCCS tag, then it can just be inserted into the submodule map directly.
+
+The definition of a nested EAT type of submodule is that it is one that is secured (signed) by an Attester.
+Since UCCS tokens are unsecured, they do not fulfill this definition and must be non-token submodules.
+
+To incorporate an Unsecured JWT as a submodule, the null-security JOSE wrapping should be removed.
+The resulting claims set should be inserted as a non-token submodule.
+
+To incorporate a UCCS token in a surrounding JSON token, the UCCS token claims should be translated from CBOR to JSON.
+To incorporate an Unsecured JWT into a surrounding CBOR-format token, the null-security JOSE should be removed and the claims translated from JSON to CBOR.
 
 ### No Inheritance
 
@@ -1465,6 +1525,18 @@ no new claims have been added.
 ## From draft-ietf-rats-eat-04
 
 * Change IMEI-based UEIDs to be encoded as a 14-byte string
+
+* CDDL cleaned up some more
+
+* CDDL allows for JWTs and UCCSs
+
+* CWT format submodules are byte string wrapped
+
+* Allows for JWT nested in CWT and vice versa
+
+* Allows UCCS (unsigned CWTs) and JWT unsecured tokens
+
+* Clarify tag usage when nesting tokens
 
 * Add section on key inclusion
 
