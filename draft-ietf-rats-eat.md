@@ -602,7 +602,7 @@ this are:
 
 ## Origination Claim (origination)
 
-TODO: this claim is likely to be dropped in favor of Endorsement locators.
+TODO: this claim is likely to be dropped in favor of Endorsement identifier and locators.
 
 This claim describes the parts of the device or entity that are
 creating the EAT. Often it will be tied back to the device or chip
@@ -1025,7 +1025,8 @@ string naming the submodule. No submodules may have the same name.
 # Endorsements and Verification Keys
 
 TODO: fill this section in. It will discuss key IDs, endorsement ID and such that
-are needed as input needed to by the Verifier to verify the signature.
+are needed as input needed to by the Verifier to verify the signature. This will
+NOT discuss the contents of an Endorsement, just and ID/locator.
 
 # Encoding {#encoding}
 This makes use of the types defined in CDDL Appendix D, Standard Prelude.
