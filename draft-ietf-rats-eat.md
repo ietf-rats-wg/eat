@@ -822,7 +822,7 @@ uptime-claim = (
 
 EAT's may be used in the context of several different applications.  The intended-use
 claim provides an indication to an EAT consumer about  the intended usage
-of the token.
+of the token. This claim can be used as a way for an application using EAT to internally distinguish between different ways it uses EAT.
 
 1 -- Generic 
 : Generic attestation describes an application where the EAT consumer
