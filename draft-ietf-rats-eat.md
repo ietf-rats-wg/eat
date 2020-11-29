@@ -818,20 +818,20 @@ uptime-claim = (
 )
 ~~~~
 
-## The Context Claim (context)
+## The Intended Use Claim (intended-use)
 
-EAT's may be used in the context of several different applications.  The context
+EAT's may be used in the context of several different applications.  The intended-use
 claim provides an indication to an EAT consumer about  the intended usage
 of the token.
 
-1 -- On-demand 
-: On-demand attestation describes an application where the EAT consumer
+1 -- Generic 
+: Generic attestation describes an application where the EAT consumer
 requres the most up-to-date security assessment of the attesting entity. It
 is expected that this is the most commonly-used application of EAT.
 
 2-- Registration
 : Entities that are registering for a new service may be expected to 
-provide an attestation as part of the registration process.  This context
+provide an attestation as part of the registration process.  This intended-use
 setting indicates that the attestation is not intended for any use but registration.
 
 3 -- Provisioning
@@ -846,14 +846,16 @@ EAT may be used as part of the certificate signing request (CSR).
 
 5 -- Proof-of-Possession
 : An EAT consumer may require an attestation as part of an accompanying 
-proof-of-possession (PoP) appication.  This may be neceesary to verify the
+proof-of-possession (PoP) appication. More precisely, a PoP transaction is intended
+to provide to the recipient cryptographically-verifiable proof that the sender has posession
+of a key.  This kind of attestation may be neceesary to verify the
 security state of the entity storing the private key used in a PoP application.
 
-### context CDDL
+### intended-use CDDL
 
 ~~~~CDDL
-context = &(
-    on-demand: 1,
+intended-use = &(
+    generic: 1,
     registration: 2,
     provisioning: 3,
     csr: 4,
