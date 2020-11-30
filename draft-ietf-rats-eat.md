@@ -893,7 +893,7 @@ entity must still have a "ticker" that can measure a time
 interval. The age is the interval between acquisition of the location
 data and token creation.
 
-See {{#locationprivacyconsiderations} below.
+See {#locationprivacyconsiderations} below.
 
 ### location CDDL
 
