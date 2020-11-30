@@ -165,6 +165,12 @@ informative:
     date:  June 2011
     target: http://www.ecma-international.org/ecma-262/5.1/ECMA-262.pdf
 
+  W3C.GeoLoc:
+    title: Geolocation API Specification 2nd Edition
+    date: January 2018
+    target: https://www.w3.org/TR/geolocation-API/#coordinates_interface
+    author:
+    - org: Worldwide Web Consortium
 
   OUI.Guide:
     title: Guidelines for Use of Extended Unique Identifier (EUI), Organizationally Unique Identifier (OUI), and Company ID (CID)
@@ -866,13 +872,18 @@ That is, the same, equivalent or better hardware defenses, access controls, key 
 
 ## The Location Claim (location)
 
-The location claim is a CBOR-formatted object that describes the
-location of the device entity from which the attestation originates.
-It is comprised of a map of additional sub claims that represent the
-actual location coordinates (latitude, longitude and altitude).  The
-location coordinate claims are consistent with the WGS84 coordinate
-system {{WGS84}}.  In addition, a sub claim providing the estimated
-accuracy of the location measurement is defined.
+The location claim gives the location of the device entity from which the attestation originates.
+It is derived from the W3C Geolocation API {{W3C.GeoLoc}}.
+The latitude, longitude, altitude and accuracy must conform to {{WGS84}}.
+The altitude is in meters above the {{WGS84}} ellipsoid.
+The two accuracy values are positive numbers in meters.
+The heading is in degrees relative to true north.
+If the device is stationary, the heading is NaN (floating-point not-a-number).
+The speed is the horizontal component of the device velocity in meters per second.
+
+When encoding floating-point numbers half-precision should not be used.
+It usually does not provide enough precision for a geographic location.
+It is not a requirement that the receiver of an EAT implement half-precision, so the receiver may not be able to decode the location.
 
 The location may have been cached for a period of time before token
 creation. For example, it might have been minutes or hours or more
@@ -885,6 +896,8 @@ it is either because it doesn't have a clock or it isn't set. The
 entity must still have a "ticker" that can measure a time
 interval. The age is the interval between acquisition of the location
 data and token creation.
+
+See {#locationprivacyconsiderations} below.
 
 ### location CDDL
 
@@ -1307,6 +1320,13 @@ per device. Each UEID is used in a different context, use case or system
 on the device. However, from the view of the relying party, there is just
 one UEID and it is still globally universal across manufacturers.
 
+## Location Privacy Considerations {#locationprivacyconsiderations}
+
+Geographic location is most always considered personally identifiable information.
+Implementers should consider laws and regulations governing the transmission of location data from end user devices to servers and services.
+Implementers should consider using location management facilities offered by the operating system on the device generating the attestation.
+For example, many mobile phones prompt the user for permission when before sending location data.
+
 # Security Considerations {#securitycons}
 
 The security considerations provided in Section 8 of {{RFC8392}} and Section 11
@@ -1610,6 +1630,7 @@ no new claims have been added.
 
 * Security level claim is not extensible
 
-* Add intended use claim
+* Improve specification of location claim and added a location privacy section
 
+* Add intended use claim
 
