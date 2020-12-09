@@ -12,6 +12,7 @@ eat-claim-set = {
     ? secure-boot-claim,
     ? debug-status-claim,
     ? location-claim,
+    ? profile-claim,
     ? uptime-claim,
     ? submods-part,
     * $$eat-extension,
@@ -59,6 +60,7 @@ security-level = 14
 secure-boot = 15
 debug-status = 16
 location = 17
+profile = 18
 uptime = 19
 submods = 20
 
