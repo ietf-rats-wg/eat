@@ -82,21 +82,21 @@ normative:
     target: https://tools.ietf.org/html/draft-ietf-rats-architecture-08
     title: Remote Attestation Procedures Architecture
     author:
-     - fullname: Henk Birkholz
+    - fullname: Henk Birkholz
     date: 2020
 
   COSE.X509.Draft:
     target: https://tools.ietf.org/html/draft-ietf-cose-x509-08
-    title: CBOR Object Signing and Encryption (COSE): Header parameters for carrying and referencing X.509 certificates
+    title: "CBOR Object Signing and Encryption (COSE): Header parameters for carrying and referencing X.509 certificates"
     author:
-     - fullname: J. Schaad
+    - fullname: J. Schaad
     date: 2020
   
   CBOR.Cert.Draft:
     target: https://tools.ietf.org/html/draft-mattsson-cose-cbor-cert-compress-05
     title: CBOR Encoding of X.509 Certificates (CBOR Certificates)
     author:
-     - fullname: S. Raza
+    - fullname: S. Raza
     date: 2020
   
   WGS84:
@@ -1111,7 +1111,7 @@ There is not one standard method.
 
 The verification key itself may be a public key, a symmetric key or something complicated in the case of a scheme like Direct Anonymous Attestation (DAA).
 
-{{RATS.Architecture}} describes what is called an Endorsement.
+RATS Architecture {{RATS.Architecture}} describes what is called an Endorsement.
 This is an input to the Verifier.
 It may contain Reference Values to which EAT claims are compared as part of the verification process.
 It may contain implied claims, those that are passed on to the Relying Party in Attestation Results. 
@@ -1138,13 +1138,13 @@ The semantics of the key ID are open-ended. It could be a record locator in a da
 
 ### JWS and COSE X.509 Header Parameters
 
-{{COSE.X509.Draft}} and {{RFC7515}}} define several header parameters (x5t, x5u,…) for referencing or carrying X.509 certificates any of which may be used.
+COSE X.509 {{COSE.X509.Draft}} and JSON Web Siganture {{RFC7515}}} define several header parameters (x5t, x5u,…) for referencing or carrying X.509 certificates any of which may be used.
 
 The X.509 certificate may be an Endorsement and thus carrying additional input to the Verifier. It may be just an X.509 certificate, not an Endorsement. The same header parameters are used in both cases. It is up to the attestation system design and the Verifier to determine which.
 
 ### CBOR Certificates COSE Header Parameters
 
-Compressed X.509 and CBOR Native certificates are defined by {{CBOR.Cert.Draft}}. These are semantically compatible with X.509 and therefore can be used as an equivalent to X.509 as described above.
+Compressed X.509 and CBOR Native certificates are defined by CBOR Certificates {{CBOR.Cert.Draft}}. These are semantically compatible with X.509 and therefore can be used as an equivalent to X.509 as described above.
 
 These are identified by their own header parameters (c5t, c5u,…).
 
