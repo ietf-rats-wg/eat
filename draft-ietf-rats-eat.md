@@ -56,7 +56,7 @@ author:
 
 normative:
   RFC2119:
-  RFC7049:
+  RFC8949:
   RFC7517:
   RFC7519:
   RFC7800:
@@ -262,7 +262,7 @@ TODO: mention use for Attestation Evidence and Results.
 
 ## CWT, JWT and UCCS
 
-For flexibility and ease of imlpementation in a wide variety of environments, EATs can be either CBOR {{RFC7049}} or JSON {{ECMAScript}} format.
+For flexibility and ease of imlpementation in a wide variety of environments, EATs can be either CBOR {{RFC8949}} or JSON {{ECMAScript}} format.
 This specification simultaneously describes both formats.
 
 An EAT is either a CWT as defined in {{RFC8392}}, a UCCS as defined in {{UCCS.Draft}}, or a JWT as defined in {{RFC7519}}.
@@ -278,7 +278,7 @@ There is no fixed mechanism across all use cases.
 
 This specification uses CDDL, {{RFC8610}}, as the primary formalism to
 define each claim.  The implementor then interprets the CDDL to come
-to either the CBOR {{RFC7049}} or JSON {{ECMAScript}}
+to either the CBOR {{RFC8949}} or JSON {{ECMAScript}}
 representation. In the case of JSON, Appendix E of {{RFC8610}} is
 followed. Additional rules are given in {{jsoninterop}} of this
 document where Appendix E is insufficient.  (Note that this is not to
