@@ -897,7 +897,7 @@ entity must still have a "ticker" that can measure a time
 interval. The age is the interval between acquisition of the location
 data and token creation.
 
-See {#locationprivacyconsiderations} below.
+See {{locationprivacyconsiderations}} below.
 
 ### location CDDL
 
@@ -962,7 +962,7 @@ security state of the entity storing the private key used in a PoP application.
 ### intended-use CDDL
 
 ~~~~CDDL
-intended-use = &(
+intended-use-type = &(
     generic: 1,
     registration: 2,
     provisioning: 3,
@@ -970,6 +970,9 @@ intended-use = &(
     pop:  5
 )
 
+intended-use-claim = (
+    intended-use => intended-use-type
+ )
 ~~~~
 
 
