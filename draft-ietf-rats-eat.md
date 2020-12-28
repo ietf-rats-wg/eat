@@ -1729,3 +1729,5 @@ no new claims have been added.
 
 * Added boot-seed claim
 
+* Added profiles claim and section
+
