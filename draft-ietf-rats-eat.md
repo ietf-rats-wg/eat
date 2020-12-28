@@ -66,16 +66,6 @@ normative:
   RFC8392:
   RFC8610:
   RFC8747:
-  TIME_T:
-    target: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_15
-    title: 'Vol. 1: Base Definitions, Issue 7'
-    author:
-    - org: The Open Group Base Specifications
-    date: 2013
-    seriesinfo:
-      Section 4.15: "'Seconds Since the Epoch'"
-      IEEE Std: '1003.1'
-      '2013': Edition
 
   WGS84:
     target: http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf
@@ -134,21 +124,6 @@ normative:
 informative:
   RFC4122:
   RFC4949:
-  Webauthn:
-    title: 'Web Authentication: A Web API for accessing scoped credentials'
-    author:
-    - org: Worldwide Web Consortium
-    date: 2016
-
-  ASN.1:
-    title: 'Information Technology -- ASN.1 encoding rules: Specification of Basic
-      Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding
-      Rules (DER)'
-    author:
-    - org: International Telecommunication Union
-    date: 1994
-    seriesinfo:
-      ITU-T: Recommendation X.690
 
   BirthdayAttack:
     title: Birthday attack
@@ -691,9 +666,9 @@ TODO: Add claims that reference CoSWID.
 
 This claim characterizes the device/entity 
 ability to defend against attacks aimed at capturing the signing
-key, forging claims and at forging EATs. This is done by  
+key, forging claims and at forging EATs. This is done by
 defining four security levels as described below. This is similar
-to the key protection types defined by the Fast Identity Online (FIDO) Alliance {{FIDO.Registry}).
+to the key protection types defined by the Fast Identity Online (FIDO) Alliance {{FIDO.Registry}}.
 
 These claims describe security environment and countermeasures
 available on the end-entity / client device where the attestation key
@@ -897,7 +872,7 @@ entity must still have a "ticker" that can measure a time
 interval. The age is the interval between acquisition of the location
 data and token creation.
 
-See {{locationprivacyconsiderations}} below.
+See location-related privacy considerations in {{locationprivacyconsiderations}} below.
 
 ### location CDDL
 
