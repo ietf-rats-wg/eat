@@ -1167,10 +1167,10 @@ An EAT profile may just reference the following section rather than spell out se
 The EAT decoder must accept all forms of number serialization.
 The EAT encoder may use any form it wishes.
 
-* The EAT decoder must accept indefinite length arrays and maps as described in section 3.2.2 of {{RFC8494}}.
+* The EAT decoder must accept indefinite length arrays and maps as described in section 3.2.2 of {{RFC8949}}.
 The EAT encoder may use indefinite length arrays and maps if it wishes.
 
-* The EAT decoder must accept indefinite length strings as described in section 3.2.3 of {{RFC8494}}.
+* The EAT decoder must accept indefinite length strings as described in section 3.2.3 of {{RFC8949}}.
 The EAT encoder may use indefinite length strings if it wishes.
 
 * Sorting of maps by key is not required.
