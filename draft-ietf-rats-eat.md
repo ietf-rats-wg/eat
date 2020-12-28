@@ -1702,3 +1702,5 @@ no new claims have been added.
 
 * Added boot-seed claim
 
+* Fill in the key ID and endorsements identificaiton section
+
