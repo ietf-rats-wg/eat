@@ -9,6 +9,7 @@ location /= "location"
 age /= "age"
 uptime /= "uptime"
 profile /= "eat-profile"
+boot-seed /= "bootseed"
 submods /= "submods"
 timestamp /= "timestamp"
 
