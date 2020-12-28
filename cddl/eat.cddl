@@ -13,6 +13,7 @@ eat-claim-set = {
     ? debug-status-claim,
     ? location-claim,
     ? uptime-claim,
+    ? boot-seed-claim,
     ? submods-part,
     * $$eat-extension,
 }
@@ -61,6 +62,7 @@ debug-status = 16
 location = 17
 uptime = 19
 submods = 20
+boot-seed = 21
 
 chip-version = 21
 board-version = 22

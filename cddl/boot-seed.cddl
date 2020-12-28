@@ -1,0 +1,3 @@
+boot-seed-claim = (
+    boot-seed => bytes
+)

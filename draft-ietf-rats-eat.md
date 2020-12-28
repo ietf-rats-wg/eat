@@ -897,7 +897,7 @@ entity must still have a "ticker" that can measure a time
 interval. The age is the interval between acquisition of the location
 data and token creation.
 
-See {#locationprivacyconsiderations} below.
+See {{locationprivacyconsiderations}} below.
 
 ### location CDDL
 
@@ -914,6 +914,16 @@ seconds that have elapsed since the entity or submod was last booted.
 
 ~~~~CDDL
 {::include cddl/uptime.cddl}
+~~~~
+
+### The Boot Seed Claim (boot-seed)
+
+The Boot Seed claim is a random value created at system boot time that will allow differentiation of reports from different boot sessions.
+This value is usually public and not protected.
+It is not the same as a seed for a random number generator which must be kept secret.
+
+~~~~CDDL
+{::include cddl/boot-seed.cddl}
 ~~~~
 
 ## The Intended Use Claim (intended-use)
@@ -952,7 +962,7 @@ security state of the entity storing the private key used in a PoP application.
 ### intended-use CDDL
 
 ~~~~CDDL
-intended-use = &(
+intended-use-type = &(
     generic: 1,
     registration: 2,
     provisioning: 3,
@@ -960,6 +970,9 @@ intended-use = &(
     pop:  5
 )
 
+intended-use-claim = (
+    intended-use => intended-use-type
+ )
 ~~~~
 
 
@@ -1611,4 +1624,9 @@ no new claims have been added.
 * Improve specification of location claim and added a location privacy section
 
 * Add intended use claim
+
+
+# From draft-ietf-rats-06
+
+* Added boot-seed claim
 
