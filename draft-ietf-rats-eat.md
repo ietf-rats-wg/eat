@@ -1605,3 +1605,5 @@ no new claims have been added.
 
 * Added boot-seed claim
 
+* Rework CBOR interoperability section
+
