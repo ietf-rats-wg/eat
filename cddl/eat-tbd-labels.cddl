@@ -1,0 +1,13 @@
+; These are proposed assignments for Claim Keys for CBOR-based tokens.
+; These may change in the final publication as an RFC.
+
+uptime = <TBD19>
+chip-version = <TBD21>
+board-version = <TBD22>
+device-version = <TBD23>
+chip-version-scheme = <TBD24>
+board-version-scheme = <TBD25>
+device-version-scheme = <TBD26>
+ean-chip-version = <TBD27>
+ean-board-version = <TBD28>
+ean-device-version = <TBD29>

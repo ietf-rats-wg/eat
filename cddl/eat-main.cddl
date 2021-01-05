@@ -47,28 +47,3 @@ EAT_Untagged_Message = COSE_Tagged_Message / COSE_Untagged_Message / UCCS_Untagg
 
 UCCS_Untagged_Message = eat-claim-set
 
-
-; The following Claim Keys (labels) are pre-assigned by IANA.
-; They are not expected to change in the final publication as an RFC.
-
-nonce = 10
-ueid = 11
-origination = 12
-oemid = 13
-security-level = 14
-secure-boot = 15
-debug-status = 16
-location = 17
-submods = 20
-
-; The are temp
-uptime = TBD19
-chip-version = 21
-board-version = 22
-device-version = 23
-chip-version-scheme = 24
-board-version-scheme = 25
-device-version-scheme = 26
-ean-chip-version = 27
-ean-board-version = 28
-ean-device-version = 29

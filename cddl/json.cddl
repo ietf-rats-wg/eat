@@ -1,3 +1,5 @@
+; The following are Claim Keys (labels) assigned for JSON-encoded tokens.
+
 ueid /= "ueid"
 nonce /= "nonce"
 origination /= "origination"
