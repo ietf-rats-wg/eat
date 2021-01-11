@@ -950,6 +950,20 @@ intended-use-claim = (
  )
 ~~~~
 
+## The Profile Claim (profile) {#profile-claim}
+
+The profile claim is a text string that simply gives the name of the profile to which the token purports to adhere to.
+It may name an IETF document, some other document or no particular document.
+There is no requirement that the named document be publicly accessible.
+
+See {{profiles}} for a detailed description of a profile.
+
+Note that this named "eat-profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
+
+~~~~CDDL
+{::include cddl/profile.cddl}
+~~~~
+
 
 ## The Submodules Part of a Token (submods)
 
@@ -1069,11 +1083,123 @@ string naming the submodule. No submodules may have the same name.
 {::include cddl/submods.cddl}
 ~~~~
 
-# Endorsements and Verification Keys
+# Endorsements and Verification Keys {#keyid}
 
 TODO: fill this section in. It will discuss key IDs, endorsement ID and such that
 are needed as input needed to by the Verifier to verify the signature. This will
 NOT discuss the contents of an Endorsement, just and ID/locator.
+
+# Profiles {#profiles}
+
+This EAT specification does not gaurantee that implementations of it will interoperate.
+The variability in this specification is necessary to accommodate the widely varying use cases.
+An EAT profile narrows the specification for a specific use case.
+An ideal EAT profile will gauarantee interoperability.
+
+The profile can be named in the token using the profile claim described in {{profile-claim}}.
+
+
+## List of Profile Issues
+
+The following is a list of EAT, CWT, UCCS, JWS, COSE, JOSE and CBOR options that a profile should address. 
+
+
+### Use of JSON, CBOR or both
+
+The profile should indicate whether the token format should be CBOR, JSON, both or even some other encoding.
+If some other encoding, a specification for how the CDDL described here is serialized in that encoding is necessary.
+
+This should be addressed for the top-level token and for any nested tokens.
+For example, a profile might require all nested tokens to be of the same encoding of the top level token.
+
+
+### CBOR Map and Array Encoding
+
+The profile should indicate whether definite-length arrays/maps, indefinite-length arrays/maps or both are allowed.
+A good default is to allow only definite-length arrays/maps.
+
+An alternate is to allow both definite and indefinite-length arrays/maps.
+The decoder should accept either.
+Encoders that need to fit on very small hardware or be actually implement in hardware can use indefinite-length encoding.
+
+This applies to individual EAT claims, CWT and COSE parts of the implementation.
+
+
+### CBOR String Encoding
+
+The profile should indicate whether definite-length strings, indefinite-length strings or both are allowed.
+A good default is to allow only definite-length strings.
+As with map and array encoding, allowing indefinite-length strings can be beneficial for some smaller implementations.
+
+
+### COSE/JOSE Protection
+
+COSE and JOSE have several options for signed, MACed and encrypted messages.
+EAT/CWT has the option to have no protection using UCCS and JOSE has a NULL protection option.
+It is possible to implement no protection, sign only, MAC only, sign then encrypt and so on.
+All combinations allowed by COSE, JOSE, JWT, CWT and UCCS are allowed by EAT.
+
+The profile should list the protections that must be supported by all decoders implementing the profile.
+The encoders them must implement a subset of what is listed for the decoders, perhaps only one.
+
+Implementations may choose to sign or MAC before encryption so that the implementation layer doing the signing or MACing can be the smallest.
+It is often easier to make smaller implementations more secure, perhaps even implementing in solely in hardware.
+The key material for a signature or MAC is a private key, while for encryption it is likely to be a public key.
+The key for encryption requires less protection.
+
+
+### COSE/JOSE Algorithms
+
+The profile document should list the COSE algorithms that a Verifier must implement.
+The Attester will select one of them. 
+Since there is no negotiation, the Verifier should implement all algorithms listed in the profile.
+
+
+### Verification Key Identification
+
+Section {{keyid}} describes a number of methods for identifying a verification key.
+The profile document should specify one of these or one that is not described.
+The ones described in this document are only roughly described.
+The profile document should go into the full detail.
+
+
+### Endorsement Identification
+
+Similar to, or perhaps the same as Verification Key Identification, the profile may wish to specify how Endorsements are to be identified.
+However note that Endorsement Identification is optional, where as key identification is not.
+
+
+### Required Claims
+
+The profile can list claims whose absence results in Verification failure.
+
+
+### Prohibited Claims
+
+The profile can list claims whose presence results in Verification failure.
+
+
+### Additional Claims
+The profile may describe entirely new claims.
+These claims can be required or optional.
+
+
+### Refined Claim Definition
+
+The profile may lock down optional aspects of individual claims.
+For example, it may require altitude in the location claim, or it may require that HW Versions always be described using EAN-13.
+
+
+### CBOR Tags
+
+The profile should specify whether the token should be a CWT Tag or not.
+Similarly, the profile should specify whether the token should be a UCCS tag or not.
+
+When COSE protection is used, the profile should specify whether COSE tags are used or not.
+Note that RFC 8392 requires COSE tags be used in a CWT tag.
+
+Often a tag is unncessary because the surrounding or carrying protocol identifies the object as an EAT.
+
 
 # Encoding {#encoding}
 This makes use of the types defined in CDDL Appendix D, Standard Prelude.
@@ -1626,4 +1752,6 @@ no new claims have been added.
 # From draft-ietf-rats-06
 
 * Added boot-seed claim
+
+* Added profiles claim and section
 
