@@ -1269,11 +1269,81 @@ In many cases proprietary claims will be the easiest and most obvious way to pro
 
 ## Claims Registered by This Document
 
+* Claim Name: Nonce
+* Claim Description: Nonce
+* JWT Claim Name: nonce; already registered
+* Claim Key: Value requested is 10
+* Claim Value Type(s): byte string
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
 * Claim Name: UEID
 * Claim Description: The Universal Entity ID
-* JWT Claim Name: N/A
-* Claim Key: 8
+* JWT Claim Name: Value requested is "ueid"
+* Claim Key: Value requested is 11
 * Claim Value Type(s): byte string
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: OEMID
+* Claim Description: IEEE-based OEM ID
+* JWT Claim Name: Value requested is "oemid"
+* Claim Key: Value requested is 13
+* Claim Value Type(s): byte string
+* Change Controller: IESG
+* Specification Document(s): __this document__ 
+
+&nbsp;
+
+* Claim Name: Security Level
+* Claim Description: Characterization of the security of an Attester or submodule
+* JWT Claim Name: Value requested is "seclevel"
+* Claim Key: Value requested is 14
+* Claim Value Type(s): integer
+* Change Controller: IESG
+* Specification Document(s): __this document__    
+
+&nbsp;
+
+* Claim Name: Secure Boot
+* Claim Description: Indicate whether the boot was secure
+* JWT Claim Name: Value requested is "secboot"
+* Claim Key: Value requested is 15
+* Claim Value Type(s): Boolean
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: Debug Status
+* Claim Description: Indicate status of debug facilities
+* JWT Claim Name: Value requested is "dbgstat"
+* Claim Key: Value requested is 16
+* Claim Value Type(s): integer
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: Location
+* Claim Description: The geographic location
+* JWT Claim Name: Value requested is "location"
+* Claim Key: Value requested is 17
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: Submodules Section
+* Claim Description: The section containing submodules (not actually a claim)
+* JWT Claim Name: Value requested is "submods"
+* Claim Key: Value requested is 20
+* Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
