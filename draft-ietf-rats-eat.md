@@ -56,7 +56,7 @@ author:
 
 normative:
   RFC2119:
-  RFC7049:
+  RFC8949:
   RFC7517:
   RFC7519:
   RFC7800:
@@ -66,16 +66,6 @@ normative:
   RFC8392:
   RFC8610:
   RFC8747:
-  TIME_T:
-    target: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_15
-    title: 'Vol. 1: Base Definitions, Issue 7'
-    author:
-    - org: The Open Group Base Specifications
-    date: 2013
-    seriesinfo:
-      Section 4.15: "'Seconds Since the Epoch'"
-      IEEE Std: '1003.1'
-      '2013': Edition
 
   WGS84:
     target: http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf
@@ -134,21 +124,6 @@ normative:
 informative:
   RFC4122:
   RFC4949:
-  Webauthn:
-    title: 'Web Authentication: A Web API for accessing scoped credentials'
-    author:
-    - org: Worldwide Web Consortium
-    date: 2016
-
-  ASN.1:
-    title: 'Information Technology -- ASN.1 encoding rules: Specification of Basic
-      Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding
-      Rules (DER)'
-    author:
-    - org: International Telecommunication Union
-    date: 1994
-    seriesinfo:
-      ITU-T: Recommendation X.690
 
   BirthdayAttack:
     title: Birthday attack
@@ -262,7 +237,7 @@ TODO: mention use for Attestation Evidence and Results.
 
 ## CWT, JWT and UCCS
 
-For flexibility and ease of imlpementation in a wide variety of environments, EATs can be either CBOR {{RFC7049}} or JSON {{ECMAScript}} format.
+For flexibility and ease of imlpementation in a wide variety of environments, EATs can be either CBOR {{RFC8949}} or JSON {{ECMAScript}} format.
 This specification simultaneously describes both formats.
 
 An EAT is either a CWT as defined in {{RFC8392}}, a UCCS as defined in {{UCCS.Draft}}, or a JWT as defined in {{RFC7519}}.
@@ -278,7 +253,7 @@ There is no fixed mechanism across all use cases.
 
 This specification uses CDDL, {{RFC8610}}, as the primary formalism to
 define each claim.  The implementor then interprets the CDDL to come
-to either the CBOR {{RFC7049}} or JSON {{ECMAScript}}
+to either the CBOR {{RFC8949}} or JSON {{ECMAScript}}
 representation. In the case of JSON, Appendix E of {{RFC8610}} is
 followed. Additional rules are given in {{jsoninterop}} of this
 document where Appendix E is insufficient.  (Note that this is not to
@@ -691,9 +666,9 @@ TODO: Add claims that reference CoSWID.
 
 This claim characterizes the device/entity 
 ability to defend against attacks aimed at capturing the signing
-key, forging claims and at forging EATs. This is done by  
+key, forging claims and at forging EATs. This is done by
 defining four security levels as described below. This is similar
-to the key protection types defined by the Fast Identity Online (FIDO) Alliance {{FIDO.Registry}).
+to the key protection types defined by the Fast Identity Online (FIDO) Alliance {{FIDO.Registry}}.
 
 These claims describe security environment and countermeasures
 available on the end-entity / client device where the attestation key
@@ -897,7 +872,7 @@ entity must still have a "ticker" that can measure a time
 interval. The age is the interval between acquisition of the location
 data and token creation.
 
-See {#locationprivacyconsiderations} below.
+See location-related privacy considerations in {{locationprivacyconsiderations}} below.
 
 ### location CDDL
 
@@ -914,6 +889,16 @@ seconds that have elapsed since the entity or submod was last booted.
 
 ~~~~CDDL
 {::include cddl/uptime.cddl}
+~~~~
+
+### The Boot Seed Claim (boot-seed)
+
+The Boot Seed claim is a random value created at system boot time that will allow differentiation of reports from different boot sessions.
+This value is usually public and not protected.
+It is not the same as a seed for a random number generator which must be kept secret.
+
+~~~~CDDL
+{::include cddl/boot-seed.cddl}
 ~~~~
 
 ## The Intended Use Claim (intended-use)
@@ -952,7 +937,7 @@ security state of the entity storing the private key used in a PoP application.
 ### intended-use CDDL
 
 ~~~~CDDL
-intended-use = &(
+intended-use-type = &(
     generic: 1,
     registration: 2,
     provisioning: 3,
@@ -960,6 +945,23 @@ intended-use = &(
     pop:  5
 )
 
+intended-use-claim = (
+    intended-use => intended-use-type
+ )
+~~~~
+
+## The Profile Claim (profile) {#profile-claim}
+
+The profile claim is a text string that simply gives the name of the profile to which the token purports to adhere to.
+It may name an IETF document, some other document or no particular document.
+There is no requirement that the named document be publicly accessible.
+
+See {{profiles}} for a detailed description of a profile.
+
+Note that this named "eat-profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
+
+~~~~CDDL
+{::include cddl/profile.cddl}
 ~~~~
 
 
@@ -1081,11 +1083,123 @@ string naming the submodule. No submodules may have the same name.
 {::include cddl/submods.cddl}
 ~~~~
 
-# Endorsements and Verification Keys
+# Endorsements and Verification Keys {#keyid}
 
 TODO: fill this section in. It will discuss key IDs, endorsement ID and such that
 are needed as input needed to by the Verifier to verify the signature. This will
 NOT discuss the contents of an Endorsement, just and ID/locator.
+
+# Profiles {#profiles}
+
+This EAT specification does not gaurantee that implementations of it will interoperate.
+The variability in this specification is necessary to accommodate the widely varying use cases.
+An EAT profile narrows the specification for a specific use case.
+An ideal EAT profile will gauarantee interoperability.
+
+The profile can be named in the token using the profile claim described in {{profile-claim}}.
+
+
+## List of Profile Issues
+
+The following is a list of EAT, CWT, UCCS, JWS, COSE, JOSE and CBOR options that a profile should address. 
+
+
+### Use of JSON, CBOR or both
+
+The profile should indicate whether the token format should be CBOR, JSON, both or even some other encoding.
+If some other encoding, a specification for how the CDDL described here is serialized in that encoding is necessary.
+
+This should be addressed for the top-level token and for any nested tokens.
+For example, a profile might require all nested tokens to be of the same encoding of the top level token.
+
+
+### CBOR Map and Array Encoding
+
+The profile should indicate whether definite-length arrays/maps, indefinite-length arrays/maps or both are allowed.
+A good default is to allow only definite-length arrays/maps.
+
+An alternate is to allow both definite and indefinite-length arrays/maps.
+The decoder should accept either.
+Encoders that need to fit on very small hardware or be actually implement in hardware can use indefinite-length encoding.
+
+This applies to individual EAT claims, CWT and COSE parts of the implementation.
+
+
+### CBOR String Encoding
+
+The profile should indicate whether definite-length strings, indefinite-length strings or both are allowed.
+A good default is to allow only definite-length strings.
+As with map and array encoding, allowing indefinite-length strings can be beneficial for some smaller implementations.
+
+
+### COSE/JOSE Protection
+
+COSE and JOSE have several options for signed, MACed and encrypted messages.
+EAT/CWT has the option to have no protection using UCCS and JOSE has a NULL protection option.
+It is possible to implement no protection, sign only, MAC only, sign then encrypt and so on.
+All combinations allowed by COSE, JOSE, JWT, CWT and UCCS are allowed by EAT.
+
+The profile should list the protections that must be supported by all decoders implementing the profile.
+The encoders them must implement a subset of what is listed for the decoders, perhaps only one.
+
+Implementations may choose to sign or MAC before encryption so that the implementation layer doing the signing or MACing can be the smallest.
+It is often easier to make smaller implementations more secure, perhaps even implementing in solely in hardware.
+The key material for a signature or MAC is a private key, while for encryption it is likely to be a public key.
+The key for encryption requires less protection.
+
+
+### COSE/JOSE Algorithms
+
+The profile document should list the COSE algorithms that a Verifier must implement.
+The Attester will select one of them. 
+Since there is no negotiation, the Verifier should implement all algorithms listed in the profile.
+
+
+### Verification Key Identification
+
+Section {{keyid}} describes a number of methods for identifying a verification key.
+The profile document should specify one of these or one that is not described.
+The ones described in this document are only roughly described.
+The profile document should go into the full detail.
+
+
+### Endorsement Identification
+
+Similar to, or perhaps the same as Verification Key Identification, the profile may wish to specify how Endorsements are to be identified.
+However note that Endorsement Identification is optional, where as key identification is not.
+
+
+### Required Claims
+
+The profile can list claims whose absence results in Verification failure.
+
+
+### Prohibited Claims
+
+The profile can list claims whose presence results in Verification failure.
+
+
+### Additional Claims
+The profile may describe entirely new claims.
+These claims can be required or optional.
+
+
+### Refined Claim Definition
+
+The profile may lock down optional aspects of individual claims.
+For example, it may require altitude in the location claim, or it may require that HW Versions always be described using EAN-13.
+
+
+### CBOR Tags
+
+The profile should specify whether the token should be a CWT Tag or not.
+Similarly, the profile should specify whether the token should be a UCCS tag or not.
+
+When COSE protection is used, the profile should specify whether COSE tags are used or not.
+Note that RFC 8392 requires COSE tags be used in a CWT tag.
+
+Often a tag is unncessary because the surrounding or carrying protocol identifies the object as an EAT.
+
 
 # Encoding {#encoding}
 This makes use of the types defined in CDDL Appendix D, Standard Prelude.
@@ -1133,62 +1247,40 @@ following CDDL types are encoded in JSON as follows:
 
 ### CBOR Interoperability
 
-Variations in the CBOR serializations supported in CBOR encoding and
-decoding are allowed and suggests that CBOR-based protocols specify
-how this variation is handled. This section specifies what formats
-MUST be supported in order to achieve interoperability.
+CBOR allows data items to be serialized in more than one form.
+If the sender uses a form that the receiver can’t decode, there will not be interoperability.
 
-The assumption is that the entity is likely to be a constrained device
-and relying party is likely to be a very capable server. The approach
-taken is that the entity generating the token can use whatever
-encoding it wants, specifically encodings that are easier to implement
-such as indefinite lengths. The relying party receiving the token must
-support decoding all encodings.
+This specification gives no blanket requirements to narrow CBOR serialization for all uses of EAT.
+This allows individual uses to tailor serialization to the environment.
+It also may result in EAT implementations that don’t interoperate.
 
-These rules cover all types used in the claims in this document. They
-also are recommendations for additional claims.
+One way to guarantee interoperability is to clearly specify CBOR serialization in a profile document.
+See {{profiles}} for a list of serialization issues that should be addressed.
 
-Canonical CBOR encoding, Preferred Serialization and Deterministically
-Encoded CBOR are explicitly NOT required as they would place an
-unnecessary burden on the entity implementation, particularly if the
-entity implementation is implemented in hardware.
+EAT will be commonly used where the device generating the attestation is constrained and the receiver/verifier of the attestation is a capacious server.
+Following is a set of serialization requirements that work well for that use case and are guaranteed to interoperate.
+Use of this serialization is recommended where possible, but not required.
+An EAT profile may just reference the following section rather than spell out serialization details.
 
-* Integer Encoding (major type 0, 1) --
-The entity may use any integer encoding allowed by CBOR. The server
-MUST accept all integer encodings allowed by CBOR.
+#### EAT Constrained Device Serialization
 
-* String Encoding (major type 2 and 3) --
-The entity can use any string encoding allowed by CBOR including
-indefinite lengths. It may also encode the lengths of strings in any
-way allowed by CBOR. The server must accept all string encodings.
+* Preferred serialization described in section 4.1 of {{RFC8949}} is not required.
+The EAT decoder must accept all forms of number serialization.
+The EAT encoder may use any form it wishes.
 
-* Major type 2, bstr, SHOULD have tag 21 to indicate conversion to
-  base64url in case that conversion is performed.
+* The EAT decoder must accept indefinite length arrays and maps as described in section 3.2.2 of {{RFC8949}}.
+The EAT encoder may use indefinite length arrays and maps if it wishes.
 
-* Map and Array Encoding (major type 4 and 5) --
-The entity can use any array or map encoding allowed by CBOR including
-indefinite lengths. Sorting of map keys is not required. Duplicate map
-keys are not allowed. The server must accept all array and map
-encodings. The server may reject maps with duplicate map keys.
+* The EAT decoder must accept indefinite length strings as described in section 3.2.3 of {{RFC8949}}.
+The EAT encoder may use indefinite length strings if it wishes.
 
-* Date and Time --
-The entity should send dates as tag 1 encoded as 64-bit or 32-bit
-integers. The entity may not send floating-point dates. The server
-must support tag 1 epoch-based dates encoded as 64-bit or 32-bit
-integers. The entity may send tag 0 dates, however tag 1 is preferred. 
-The server must support tag 0 UTC dates.
+* Sorting of maps by key is not required.
+The EAT decoder must not rely on sorting.
 
-* URIs --
-URIs should be encoded as text strings and marked with tag 32.
+* Deterministic encoding described in Section 4.2 of {{RFC8949}} is not required.
 
-* Floating Point --
-The entity may use any floating-point encoding. The relying party must
-support decoding of all types of floating-point.
-
-* Other types --
-Other types like bignums, regular expressions and such, SHOULD
-NOT be used. The server MAY support them but is not required to so
-interoperability is not guaranteed.
+* Basic validity described in section 5.3.1 of {{RFC8949}} must be followed.
+The EAT encoder must not send duplicate map keys/labels or invalid UTF-8 strings.
 
 ## Collected CDDL
 
@@ -1703,4 +1795,13 @@ no new claims have been added.
 * Improve specification of location claim and added a location privacy section
 
 * Add intended use claim
+
+
+# From draft-ietf-rats-06
+
+* Added boot-seed claim
+
+* Rework CBOR interoperability section
+ 
+* Added profiles claim and section
 

@@ -12,7 +12,9 @@ eat-claim-set = {
     ? secure-boot-claim,
     ? debug-status-claim,
     ? location-claim,
+    ? profile-claim,
     ? uptime-claim,
+    ? boot-seed-claim,
     ? submods-part,
     * $$eat-extension,
 }
@@ -37,7 +39,9 @@ EAT_Tagged_Message = #6.61(COSE_Tagged_Message) / #6.601(eat-claim-set)
 ; tag COSE_Tagged_message and COSE_Untagged_Message are defined in RFC
 ; 8152.
 
-EAT_Untagged_Message = COSE_Tagged_Message / COSE_Untagged_Message / UCCS_Untagged_Message
+EAT_Untagged_Message = COSE_Tagged_Message /
+     COSE_Untagged_Message /
+     UCCS_Untagged_Message
 
 
 ; This is an "unwrapped" UCCS tag. Unwrapping a tag means to use the
@@ -59,7 +63,10 @@ security-level = 14
 secure-boot = 15
 debug-status = 16
 location = 17
+profile = 18
+uptime = 19
 submods = 20
+boot-seed = 21
 
 ; The are temp
 uptime = TBD19

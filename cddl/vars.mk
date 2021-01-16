@@ -19,6 +19,10 @@ CDDL_DOC_FRAGS := $(CDDL_FRAGS) eat-tbd-labels.cddl json.cddl
 
 CDDL_VALIDATE_FRAGS := $(CDDL_FRAGS) eat-tbd-labels-validate.cddl
 
+CDDL_FRAGS += profile.cddl
+CDDL_FRAGS += boot-seed.cddl
+CDDL_FRAGS += json.cddl
+
 CDDL_FULL := eat-token.cddl
 
 CDDL_VALIDATE := eat-for-validation.cddl
