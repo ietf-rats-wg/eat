@@ -13,6 +13,7 @@ CDDL_FRAGS += security-level.cddl
 CDDL_FRAGS += submods.cddl
 CDDL_FRAGS += ueid.cddl
 CDDL_FRAGS += uptime.cddl
+CDDL_FRAGS += profile.cddl
 CDDL_FRAGS += boot-seed.cddl
 CDDL_FRAGS += json.cddl
 
