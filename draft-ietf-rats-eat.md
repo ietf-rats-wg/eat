@@ -1255,7 +1255,7 @@ This allows individual uses to tailor serialization to the environment.
 It also may result in EAT implementations that don’t interoperate.
 
 One way to guarantee interoperability is to clearly specify CBOR serialization in a profile document.
-The profiles section (TODO: add link when profiles section is merged) lists the serialization issues that should be addressed.
+See {{profiles}} for a list of serialization issues that should be addressed.
 
 EAT will be commonly used where the device generating the attestation is constrained and the receiver/verifier of the attestation is a capacious server.
 Following is a set of serialization requirements that work well for that use case and are guaranteed to interoperate.
