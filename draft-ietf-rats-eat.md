@@ -1727,7 +1727,7 @@ no new claims have been added.
 * Add intended use claim
 
 
-# From draft-ietf-rats-06
+## From draft-ietf-rats-06
 
 * Added boot-seed claim
 
