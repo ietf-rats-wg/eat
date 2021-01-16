@@ -1247,62 +1247,40 @@ following CDDL types are encoded in JSON as follows:
 
 ### CBOR Interoperability
 
-Variations in the CBOR serializations supported in CBOR encoding and
-decoding are allowed and suggests that CBOR-based protocols specify
-how this variation is handled. This section specifies what formats
-MUST be supported in order to achieve interoperability.
+CBOR allows data items to be serialized in more than one form.
+If the sender uses a form that the receiver can’t decode, there will not be interoperability.
 
-The assumption is that the entity is likely to be a constrained device
-and relying party is likely to be a very capable server. The approach
-taken is that the entity generating the token can use whatever
-encoding it wants, specifically encodings that are easier to implement
-such as indefinite lengths. The relying party receiving the token must
-support decoding all encodings.
+This specification gives no blanket requirements to narrow CBOR serialization for all uses of EAT.
+This allows individual uses to tailor serialization to the environment.
+It also may result in EAT implementations that don’t interoperate.
 
-These rules cover all types used in the claims in this document. They
-also are recommendations for additional claims.
+One way to guarantee interoperability is to clearly specify CBOR serialization in a profile document.
+See {{profiles}} for a list of serialization issues that should be addressed.
 
-Canonical CBOR encoding, Preferred Serialization and Deterministically
-Encoded CBOR are explicitly NOT required as they would place an
-unnecessary burden on the entity implementation, particularly if the
-entity implementation is implemented in hardware.
+EAT will be commonly used where the device generating the attestation is constrained and the receiver/verifier of the attestation is a capacious server.
+Following is a set of serialization requirements that work well for that use case and are guaranteed to interoperate.
+Use of this serialization is recommended where possible, but not required.
+An EAT profile may just reference the following section rather than spell out serialization details.
 
-* Integer Encoding (major type 0, 1) --
-The entity may use any integer encoding allowed by CBOR. The server
-MUST accept all integer encodings allowed by CBOR.
+#### EAT Constrained Device Serialization
 
-* String Encoding (major type 2 and 3) --
-The entity can use any string encoding allowed by CBOR including
-indefinite lengths. It may also encode the lengths of strings in any
-way allowed by CBOR. The server must accept all string encodings.
+* Preferred serialization described in section 4.1 of {{RFC8949}} is not required.
+The EAT decoder must accept all forms of number serialization.
+The EAT encoder may use any form it wishes.
 
-* Major type 2, bstr, SHOULD have tag 21 to indicate conversion to
-  base64url in case that conversion is performed.
+* The EAT decoder must accept indefinite length arrays and maps as described in section 3.2.2 of {{RFC8949}}.
+The EAT encoder may use indefinite length arrays and maps if it wishes.
 
-* Map and Array Encoding (major type 4 and 5) --
-The entity can use any array or map encoding allowed by CBOR including
-indefinite lengths. Sorting of map keys is not required. Duplicate map
-keys are not allowed. The server must accept all array and map
-encodings. The server may reject maps with duplicate map keys.
+* The EAT decoder must accept indefinite length strings as described in section 3.2.3 of {{RFC8949}}.
+The EAT encoder may use indefinite length strings if it wishes.
 
-* Date and Time --
-The entity should send dates as tag 1 encoded as 64-bit or 32-bit
-integers. The entity may not send floating-point dates. The server
-must support tag 1 epoch-based dates encoded as 64-bit or 32-bit
-integers. The entity may send tag 0 dates, however tag 1 is preferred. 
-The server must support tag 0 UTC dates.
+* Sorting of maps by key is not required.
+The EAT decoder must not rely on sorting.
 
-* URIs --
-URIs should be encoded as text strings and marked with tag 32.
+* Deterministic encoding described in Section 4.2 of {{RFC8949}} is not required.
 
-* Floating Point --
-The entity may use any floating-point encoding. The relying party must
-support decoding of all types of floating-point.
-
-* Other types --
-Other types like bignums, regular expressions and such, SHOULD
-NOT be used. The server MAY support them but is not required to so
-interoperability is not guaranteed.
+* Basic validity described in section 5.3.1 of {{RFC8949}} must be followed.
+The EAT encoder must not send duplicate map keys/labels or invalid UTF-8 strings.
 
 ## Collected CDDL
 
@@ -1753,5 +1731,7 @@ no new claims have been added.
 
 * Added boot-seed claim
 
+* Rework CBOR interoperability section
+ 
 * Added profiles claim and section
 
