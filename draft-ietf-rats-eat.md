@@ -1805,3 +1805,4 @@ no new claims have been added.
  
 * Added profiles claim and section
 
+* Filled in IANA and other sections for possible preassignment of claim keys for well understood claims
