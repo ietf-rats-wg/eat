@@ -121,9 +121,21 @@ normative:
     title: Concise Software Identification Tags
     date: November 2020
 
+  OpenIDConnectCore:
+    target: https://openid.net/specs/openid-connect-core-1_0.html
+    title: OpenID Connect Core 1.0 incorporating errata set 1
+    date: November 8 2014
+    author: 
+    - fullname: N. Sakimura
+    - fullname: J. Bradley
+    - fullname: M. Jones
+    - fullname: B. de Medeiros
+    - fullname: C. Mortimore
+
 informative:
   RFC4122:
   RFC4949:
+  RFC7120:
 
   BirthdayAttack:
     title: Birthday attack
@@ -1361,20 +1373,40 @@ In many cases proprietary claims will be the easiest and most obvious way to pro
 
 ## Claims Registered by This Document
 
+This specification adds the following values to the "JSON Web Token
+Claims" registry established by {{RFC7519}} and the "CBOR Web Token Claims Registry"
+established by {{RFC8392}}. Each entry below is an addition to both registries (except
+for the nonce claim which is already registered for JWT, but not registered for CWT).
+
+The "Claim Description", "Change Controller" and "Specification Documents" are common and equivalent for the JWT and CWT registries.
+The "Claim Key" and "Claim Value Types(s)" are for the CWT registry only.
+The "Claim Name" is as defined for the CWT registry, not the JWT registry.
+The "JWT Claim Name" is equivalent to the "Claim Name" in the JWT registry.
+
+### Claims for Early Assignment
+RFC Editor: in the final publication this section should be combined with the following
+section as it will no longer be necessary to distinguish claims with early assignment.
+Also, the following paragraph should be removed.
+
+The claims in this section have been (requested for / given) early assignment according to {{RFC7120}}.
+They have been assigned values and registered before final publication of this document.
+While their semantics is not expected to change in final publication, it is possible that they will.
+The JWT Claim Names and CWT Claim Keys are not expected to change.
+
 * Claim Name: Nonce
 * Claim Description: Nonce
-* JWT Claim Name: nonce; already registered
-* Claim Key: Value requested is 10
+* JWT Claim Name: "nonce" (already registered for JWT)
+* Claim Key: 10
 * Claim Value Type(s): byte string
 * Change Controller: IESG
-* Specification Document(s): __this document__
+* Specification Document(s): {{OpenIDConnectCore}}, __this document__
 
 &nbsp;
 
 * Claim Name: UEID
 * Claim Description: The Universal Entity ID
-* JWT Claim Name: Value requested is "ueid"
-* Claim Key: Value requested is 11
+* JWT Claim Name: "ueid"
+* CWT Claim Key: 11
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1383,8 +1415,8 @@ In many cases proprietary claims will be the easiest and most obvious way to pro
 
 * Claim Name: OEMID
 * Claim Description: IEEE-based OEM ID
-* JWT Claim Name: Value requested is "oemid"
-* Claim Key: Value requested is 13
+* JWT Claim Name: "oemid"
+* Claim Key: 13
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__ 
@@ -1393,8 +1425,8 @@ In many cases proprietary claims will be the easiest and most obvious way to pro
 
 * Claim Name: Security Level
 * Claim Description: Characterization of the security of an Attester or submodule
-* JWT Claim Name: Value requested is "seclevel"
-* Claim Key: Value requested is 14
+* JWT Claim Name: "seclevel"
+* Claim Key: 14
 * Claim Value Type(s): integer
 * Change Controller: IESG
 * Specification Document(s): __this document__    
@@ -1403,8 +1435,8 @@ In many cases proprietary claims will be the easiest and most obvious way to pro
 
 * Claim Name: Secure Boot
 * Claim Description: Indicate whether the boot was secure
-* JWT Claim Name: Value requested is "secboot"
-* Claim Key: Value requested is 15
+* JWT Claim Name: "secboot"
+* Claim Key: 15
 * Claim Value Type(s): Boolean
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1413,8 +1445,8 @@ In many cases proprietary claims will be the easiest and most obvious way to pro
 
 * Claim Name: Debug Status
 * Claim Description: Indicate status of debug facilities
-* JWT Claim Name: Value requested is "dbgstat"
-* Claim Key: Value requested is 16
+* JWT Claim Name: "dbgstat"
+* Claim Key: 16
 * Claim Value Type(s): integer
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1423,8 +1455,8 @@ In many cases proprietary claims will be the easiest and most obvious way to pro
 
 * Claim Name: Location
 * Claim Description: The geographic location
-* JWT Claim Name: Value requested is "location"
-* Claim Key: Value requested is 17
+* JWT Claim Name: "location"
+* Claim Key: 17
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1433,11 +1465,13 @@ In many cases proprietary claims will be the easiest and most obvious way to pro
 
 * Claim Name: Submodules Section
 * Claim Description: The section containing submodules (not actually a claim)
-* JWT Claim Name: Value requested is "submods"
-* Claim Key: Value requested is 20
+* JWT Claim Name: "submods"
+* Claim Key: 20
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
+
+### To be Assigned Claims
 
 TODO: add the rest of the claims in here
 
