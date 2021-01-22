@@ -11,3 +11,4 @@ device-version-scheme = <TBD26>
 ean-chip-version = <TBD27>
 ean-board-version = <TBD28>
 ean-device-version = <TBD29>
+intended-use=<TBD40>

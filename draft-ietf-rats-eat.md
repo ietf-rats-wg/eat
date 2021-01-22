@@ -949,17 +949,7 @@ security state of the entity storing the private key used in a PoP application.
 ### intended-use CDDL
 
 ~~~~CDDL
-intended-use-type = &(
-    generic: 1,
-    registration: 2,
-    provisioning: 3,
-    csr: 4,
-    pop:  5
-)
-
-intended-use-claim = (
-    intended-use => intended-use-type
- )
+{::include cddl/intended-use.cddl}
 ~~~~
 
 ## The Profile Claim (profile) {#profile-claim}

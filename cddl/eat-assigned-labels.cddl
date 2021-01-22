@@ -4,7 +4,6 @@
 
 nonce = 10
 ueid = 11
-origination = 12
 oemid = 13
 security-level = 14
 secure-boot = 15
