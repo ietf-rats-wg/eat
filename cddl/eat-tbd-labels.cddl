@@ -1,14 +1,16 @@
-; These are proposed assignments for Claim Keys for CBOR-based tokens.
-; These may change in the final publication as an RFC.
+; These are not yet assigned in any way and may change.
+; These are intentionally above 24 so as to not use up
+; single-byte labels.
 
-uptime = <TBD19>
-chip-version = <TBD21>
-board-version = <TBD22>
-device-version = <TBD23>
-chip-version-scheme = <TBD24>
-board-version-scheme = <TBD25>
-device-version-scheme = <TBD26>
-ean-chip-version = <TBD27>
-ean-board-version = <TBD28>
-ean-device-version = <TBD29>
-intended-use=<TBD40>
+origination = <TBD30>
+uptime = <TBD31>
+chip-version = <TBD32>
+board-version = <TBD33>
+device-version = <TBD34>
+chip-version-scheme = <TBD35>
+board-version-scheme = <TBD36>
+device-version-scheme = <TBD37>
+ean-chip-version = <TBD38>
+ean-board-version = <TBD39>
+ean-device-version = <TBD40>
+intended-use = <TBD41>
