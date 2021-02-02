@@ -1726,6 +1726,11 @@ no new claims have been added.
 
 * Add intended use claim
 
+## From draft-ietf-rats-05
+
+* CDDL format issues resolved
+
+* Corrected reference to Location Privacy section
 
 ## From draft-ietf-rats-06
 
