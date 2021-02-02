@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-01-22T18:44:10.511251+00:00",
+  "timestamp": "2021-02-02T21:22:19.334463+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -4077,13 +4077,13 @@
       "labels": [],
       "body": "This clarifies which labels are preassigned by IANA and which are TBD.\r\n\r\nThis should not be merged until the IANA reassignment process is complete.\r\n\r\nThis also splits the cddl built into two versions, one for the document that has <TBDxx> labels and one for CDDL validation which has real label numbers.",
       "createdAt": "2021-01-05T21:33:00Z",
-      "updatedAt": "2021-01-22T18:43:44Z",
+      "updatedAt": "2021-01-23T19:51:19Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "05a2a0fefbfde35f836aee115d600201a5fd1df1",
       "headRepository": "ietf-rats-wg/eat",
       "headRefName": "PreAssign",
-      "headRefOid": "efa3dd9760b2d0e254c768ae45860de1617d6505",
+      "headRefOid": "063760c86ce73e49d48b04f629ff49dcf5ca58fc",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
