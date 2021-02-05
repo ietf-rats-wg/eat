@@ -1,0 +1,16 @@
+; These are not yet assigned in any way and may change.
+; These are intentionally above 24 so as to not use up
+; single-byte labels.
+
+origination = <TBD30>
+uptime = <TBD31>
+chip-version = <TBD32>
+board-version = <TBD33>
+device-version = <TBD34>
+chip-version-scheme = <TBD35>
+board-version-scheme = <TBD36>
+device-version-scheme = <TBD37>
+ean-chip-version = <TBD38>
+ean-board-version = <TBD39>
+ean-device-version = <TBD40>
+intended-use = <TBD41>
