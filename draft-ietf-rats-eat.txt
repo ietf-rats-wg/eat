@@ -203,6 +203,7 @@ Internet-Draft                     EAT                     February 2021
      C.6.  From draft-ietf-rats-eat-04 . . . . . . . . . . . . . . .  58
      C.7.  From draft-ietf-rats-05 . . . . . . . . . . . . . . . . .  59
      C.8.  From draft-ietf-rats-06 . . . . . . . . . . . . . . . . .  59
+     C.9.  From draft-ietf-rats-07 . . . . . . . . . . . . . . . . .  59
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  59
 
 1.  Introduction
@@ -217,7 +218,6 @@ Internet-Draft                     EAT                     February 2021
    Remote attestation is a fundamental service that can underlie other
    protocols and services that need to know about the trustworthiness of
    the device before proceeding.  One good example is biometric
-   authentication where the biometric matching is done on the device.
 
 
 
@@ -226,6 +226,7 @@ Mandyam, et al.           Expires 9 August 2021                 [Page 4]
 Internet-Draft                     EAT                     February 2021
 
 
+   authentication where the biometric matching is done on the device.
    The relying party needs to know that the device is one that is known
    to do biometric matching correctly.  Another example is content
    protection where the relying party wants to know the device will
@@ -266,7 +267,6 @@ Internet-Draft                     EAT                     February 2021
    some cases it may be by content type (e.g., MIME type).  In other
    cases it may be through use of CBOR tags.  There is no fixed
    mechanism across all use cases.
-
 
 
 
@@ -3288,16 +3288,16 @@ C.8.  From draft-ietf-rats-06
 
    *  Added profiles claim and section
 
+C.9.  From draft-ietf-rats-07
+
    *  Filled in IANA and other sections for possible preassignment of
       claim keys for well understood claims
 
 Authors' Addresses
 
-
-
-
-
-
+   Giridhar Mandyam
+   Qualcomm Technologies Inc.
+   5775 Morehouse Drive
 
 
 
@@ -3306,9 +3306,6 @@ Mandyam, et al.           Expires 9 August 2021                [Page 59]
 Internet-Draft                     EAT                     February 2021
 
 
-   Giridhar Mandyam
-   Qualcomm Technologies Inc.
-   5775 Morehouse Drive
    San Diego, California
    United States of America
 
@@ -3341,6 +3338,9 @@ Internet-Draft                     EAT                     February 2021
 
    Phone: +44 1252 363189
    Email: jodonogh@qti.qualcomm.com
+
+
+
 
 
 
