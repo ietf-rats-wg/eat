@@ -66,6 +66,7 @@ normative:
   RFC8392:
   RFC8610:
   RFC8747:
+  RFC3986:
 
   WGS84:
     target: http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf
@@ -131,6 +132,14 @@ normative:
     - fullname: M. Jones
     - fullname: B. de Medeiros
     - fullname: C. Mortimore
+
+  CBOR-OID:
+    target: https://tools.ietf.org/html/draft-ietf-cbor-tags-oid-05
+    title: Concise Binary Object Representation (CBOR) Tags for Object Identifiers
+    date: 2021
+    author: 
+    - fullname: C. Bormann
+
 
 informative:
   RFC4122:
@@ -954,14 +963,18 @@ security state of the entity storing the private key used in a PoP application.
 
 ## The Profile Claim (profile) {#profile-claim}
 
+See {{profiles}} for the detailed description of a profile.
+
 A profile is identified by either a URL or an OID.
 Typically, the URL will reference a document describing the profile.
-An OID is just a unique identifier for the profile.
-It may exist in anywhere in the OID tree.
 There is no requirement that the named document be publicly accessible.
+An OID is just a unique identifier for the profile.
+It may exist anywhere in the OID tree.
 The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
 
-See {{profiles}} for a detailed description of a profile.
+The OID is encoded in CBOR according to {{CBOR-OID}} and the URI according to {{RFC8949}}.
+Both are unwrapped and thus not tags.
+If the claims CBOR type is a text string it is a URI and if a byte string it is an OID.
 
 Note that this named "eat-profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
 
@@ -1247,6 +1260,8 @@ following CDDL types are encoded in JSON as follows:
 * bstr -- must be base64url encoded
 * time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
 * string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
+* uri -- must be a URI {{RFC3986}}.
+* oid -- is encoded as a string represetation of the OID digits.
 
 ## CBOR
 

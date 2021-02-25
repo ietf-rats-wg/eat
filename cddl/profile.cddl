@@ -1,3 +1,3 @@
 profile-claim = (
-    profile => tstr / oid
+    profile => ~uri / ~oid
 )
