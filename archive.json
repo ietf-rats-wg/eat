@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-02-25T01:51:39.230006+00:00",
+  "timestamp": "2021-02-25T16:52:56.525715+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -4124,6 +4124,65 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 93,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc5NzI5MDgw",
+      "title": "Change profile claim to be URL or OID",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/93",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-25T01:51:45Z",
+      "updatedAt": "2021-02-25T16:52:15Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "554e6fda210f07af4a5ed70b75fe5b7f2a4156a6",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "profile-oid",
+      "headRefOid": "bb0222692b22628acdb39bb46d322d78549279ad",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk4NTg0Nzcx",
+          "commit": {
+            "abbreviatedOid": "bda26f9"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "Thanks for taking a stab at this!",
+          "createdAt": "2021-02-25T13:53:01Z",
+          "updatedAt": "2021-02-25T13:55:48Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "CDDL nits: I think we need to import the definition of oid from https://datatracker.ietf.org/doc/draft-ietf-cbor-tags-oid/, i.e.: `oid = #6.111(bstr)`\r\n\r\nAlso, if we are requiring an URL, maybe better letting the type system help out: `uri = #6.32(tstr)`?",
+              "createdAt": "2021-02-25T13:53:01Z",
+              "updatedAt": "2021-02-25T16:52:15Z"
+            },
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\nIt may exist anywhere in the OID tree.\r\n```",
+              "createdAt": "2021-02-25T13:53:25Z",
+              "updatedAt": "2021-02-25T16:52:15Z"
+            },
+            {
+              "originalPosition": 10,
+              "body": "I think this should be moved up to L959",
+              "createdAt": "2021-02-25T13:54:44Z",
+              "updatedAt": "2021-02-25T16:52:15Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
