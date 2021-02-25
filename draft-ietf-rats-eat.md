@@ -954,9 +954,12 @@ security state of the entity storing the private key used in a PoP application.
 
 ## The Profile Claim (profile) {#profile-claim}
 
-The profile claim is a text string that simply gives the name of the profile to which the token purports to adhere to.
-It may name an IETF document, some other document or no particular document.
+A profile is identified by either a URL or an OID.
+Typically, the URL will reference a document describing the profile.
+An OID is just a unique identifier for the profile.
+It may exist in anywhere in the OID tree.
 There is no requirement that the named document be publicly accessible.
+The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
 
 See {{profiles}} for a detailed description of a profile.
 
