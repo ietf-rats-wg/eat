@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-02-05T01:52:41.603937+00:00",
+  "timestamp": "2021-02-25T01:51:39.230006+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -1703,6 +1703,38 @@
           "updatedAt": "2020-11-30T20:46:49Z"
         }
       ]
+    },
+    {
+      "number": 91,
+      "id": "MDU6SXNzdWU4MDc1NzEwNDI=",
+      "title": "Modify wording for location claim",
+      "url": "https://github.com/ietf-rats-wg/eat/issues/91",
+      "state": "OPEN",
+      "author": "gmandyam",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As per sec. 3.13 of ver. 8:\r\n\r\nFrom Santeri Paavolainen:\r\n\r\n\"If the device is stationary, the heading is NaN (floating-point not-a-number).\"\r\n\r\nBut heading -- for some devices -- may be accurately determined even when the device is stationary. For example, a directional radio mast (permanent or adjustable orientation) is (at least hopefully) very stationary, but it includes an accurate directional indication.\r\n\r\nI would suggest writing this as\r\n\r\n\"If the device's heading can not be accurately determined, the heading is NaN (floating-point not-a-number).\"\r\n\r\nI would also point out that many devices may have an initial accurate heading, but it may drift over time if they are stationary even if they can be accurately positioned. For example, a gyrocompass without an orientation reset will lose its accuracy over time (i.e. it will drift, but the drift may be not consistent so in reality its the error that increases). Is there a consideration to include orientation accuracy in a way similar to positional accuracy?\r\n",
+      "createdAt": "2021-02-12T21:53:53Z",
+      "updatedAt": "2021-02-12T21:53:53Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 92,
+      "id": "MDU6SXNzdWU4MTE3MTQzNTg=",
+      "title": "sec level and debug state values should be strings in JSON",
+      "url": "https://github.com/ietf-rats-wg/eat/issues/92",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "They should not be 1, 2, 3, but \"enabled\", \"restricted\" and such for the sake of human readability.",
+      "createdAt": "2021-02-19T05:45:35Z",
+      "updatedAt": "2021-02-19T05:45:35Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
