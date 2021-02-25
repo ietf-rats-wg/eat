@@ -957,7 +957,7 @@ security state of the entity storing the private key used in a PoP application.
 A profile is identified by either a URL or an OID.
 Typically, the URL will reference a document describing the profile.
 An OID is just a unique identifier for the profile.
-It may exist in anywhere in the OID tree.
+It may exist anywhere in the OID tree.
 There is no requirement that the named document be publicly accessible.
 The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
 
