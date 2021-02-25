@@ -967,6 +967,8 @@ See {{profiles}} for the detailed description of a profile.
 
 A profile is identified by either a URL or an OID.
 Typically, the URL will reference a document describing the profile.
+An OID is just a unique identifier for the profile.
+It may exist anywhere in the OID tree.
 There is no requirement that the named document be publicly accessible.
 An OID is just a unique identifier for the profile.
 It may exist anywhere in the OID tree.
