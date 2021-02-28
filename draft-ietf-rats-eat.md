@@ -1473,6 +1473,16 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 
 &nbsp;
 
+* Claim Name: Profile
+* Claim Description: Indicates the EAT profile followed
+* JWT Claim Name: "eat_profile"
+* Claim Key: 18
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
 * Claim Name: Submodules Section
 * Claim Description: The section containing submodules (not actually a claim)
 * JWT Claim Name: "submods"
