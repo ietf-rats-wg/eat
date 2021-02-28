@@ -2803,8 +2803,10 @@ Internet-Draft                     EAT                     February 2021
 
 
    [CBOR-OID] Bormann, C., "Concise Binary Object Representation (CBOR)
-              Tags for Object Identifiers", 2021,
-              <https://tools.ietf.org/html/draft-ietf-cbor-tags-oid-05>.
+              Tags for Object Identifiers", Work in Progress, Internet-
+              Draft, draft-ietf-cbor-tags-oid-05, 19 February 2021,
+              <https://www.ietf.org/archive/id/draft-ietf-cbor-tags-oid-
+              05.txt>.
 
    [CoSWID]   "Concise Software Identification Tags", November 2020,
               <https://tools.ietf.org/html/draft-ietf-sacm-coswid-16>.
@@ -2846,9 +2848,7 @@ Internet-Draft                     EAT                     February 2021
               DOI 10.17487/RFC7517, May 2015,
               <https://www.rfc-editor.org/info/rfc7517>.
 
-   [RFC7519]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
-              (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015,
-              <https://www.rfc-editor.org/info/rfc7519>.
+
 
 
 
@@ -2857,6 +2857,10 @@ Mandyam, et al.         Expires 1 September 2021               [Page 51]
 
 Internet-Draft                     EAT                     February 2021
 
+
+   [RFC7519]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
+              (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015,
+              <https://www.rfc-editor.org/info/rfc7519>.
 
    [RFC7800]  Jones, M., Bradley, J., and H. Tschofenig, "Proof-of-
               Possession Key Semantics for JSON Web Tokens (JWTs)",
@@ -2902,10 +2906,6 @@ Internet-Draft                     EAT                     February 2021
               addressing and identification", 2019,
               <https://portal.3gpp.org/desktopmodules/Specifications/
               SpecificationDetails.aspx?specificationId=729>.
-
-
-
-
 
 
 
