@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-02-25T16:52:56.525715+00:00",
+  "timestamp": "2021-02-28T04:23:46.064835+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -4137,13 +4137,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2021-02-25T01:51:45Z",
-      "updatedAt": "2021-02-25T16:52:15Z",
+      "updatedAt": "2021-02-28T04:23:16Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "554e6fda210f07af4a5ed70b75fe5b7f2a4156a6",
       "headRepository": "ietf-rats-wg/eat",
       "headRefName": "profile-oid",
-      "headRefOid": "bb0222692b22628acdb39bb46d322d78549279ad",
+      "headRefOid": "fab621adcbbad7d42d0651ab363cd0d3606e935e",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -4166,19 +4166,59 @@
               "originalPosition": 3,
               "body": "CDDL nits: I think we need to import the definition of oid from https://datatracker.ietf.org/doc/draft-ietf-cbor-tags-oid/, i.e.: `oid = #6.111(bstr)`\r\n\r\nAlso, if we are requiring an URL, maybe better letting the type system help out: `uri = #6.32(tstr)`?",
               "createdAt": "2021-02-25T13:53:01Z",
-              "updatedAt": "2021-02-25T16:52:15Z"
+              "updatedAt": "2021-02-28T04:23:16Z"
             },
             {
               "originalPosition": 9,
               "body": "```suggestion\r\nIt may exist anywhere in the OID tree.\r\n```",
               "createdAt": "2021-02-25T13:53:25Z",
-              "updatedAt": "2021-02-25T16:52:15Z"
+              "updatedAt": "2021-02-28T04:23:16Z"
             },
             {
               "originalPosition": 10,
               "body": "I think this should be moved up to L959",
               "createdAt": "2021-02-25T13:54:44Z",
-              "updatedAt": "2021-02-25T16:52:15Z"
+              "updatedAt": "2021-02-28T04:23:16Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk5OTI5OTA2",
+          "commit": {
+            "abbreviatedOid": "56efa9a"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-26T20:47:03Z",
+          "updatedAt": "2021-02-26T20:47:04Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "a curiosity: what is the rationale for unwrapping?",
+              "createdAt": "2021-02-26T20:47:04Z",
+              "updatedAt": "2021-02-28T04:23:16Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjAwMjEwODc4",
+          "commit": {
+            "abbreviatedOid": "56efa9a"
+          },
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-28T02:27:40Z",
+          "updatedAt": "2021-02-28T02:27:40Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "You can tell uri from old by the CBOR type (text vs byte string) so no need for the tag. \r\n\r\nGenerally, it seems the convention in CBOR is to unwrap if possible to not have redundancy (which creates an error condition) and to save bytes. If others think otherwise, fill me in. :-)",
+              "createdAt": "2021-02-28T02:27:40Z",
+              "updatedAt": "2021-02-28T04:23:16Z"
             }
           ]
         }
