@@ -133,12 +133,7 @@ normative:
     - fullname: B. de Medeiros
     - fullname: C. Mortimore
 
-  CBOR-OID:
-    target: https://tools.ietf.org/html/draft-ietf-cbor-tags-oid-05
-    title: Concise Binary Object Representation (CBOR) Tags for Object Identifiers
-    date: 2021
-    author: 
-    - fullname: C. Bormann
+  CBOR-OID: I-D.ietf-cbor-tags-oid
 
 
 informative:
