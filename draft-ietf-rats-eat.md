@@ -1258,7 +1258,7 @@ following CDDL types are encoded in JSON as follows:
 * time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
 * string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
 * uri -- must be a URI {{RFC3986}}.
-* oid -- is encoded as a string represetation of the OID digits.
+* oid -- encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").
 
 ## CBOR
 
