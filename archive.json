@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-02-28T17:49:10.442011+00:00",
+  "timestamp": "2021-03-01T03:03:27.027241+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -4137,13 +4137,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2021-02-25T01:51:45Z",
-      "updatedAt": "2021-02-28T17:48:41Z",
+      "updatedAt": "2021-03-01T03:03:26Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "554e6fda210f07af4a5ed70b75fe5b7f2a4156a6",
       "headRepository": "ietf-rats-wg/eat",
       "headRefName": "profile-oid",
-      "headRefOid": "3943ac78f6f3a51902422150b31cc0a11bd5b268",
+      "headRefOid": "1728e7b05676200c33655d20e90bf33552f37a89",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -4166,19 +4166,19 @@
               "originalPosition": 3,
               "body": "CDDL nits: I think we need to import the definition of oid from https://datatracker.ietf.org/doc/draft-ietf-cbor-tags-oid/, i.e.: `oid = #6.111(bstr)`\r\n\r\nAlso, if we are requiring an URL, maybe better letting the type system help out: `uri = #6.32(tstr)`?",
               "createdAt": "2021-02-25T13:53:01Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             },
             {
               "originalPosition": 9,
               "body": "```suggestion\r\nIt may exist anywhere in the OID tree.\r\n```",
               "createdAt": "2021-02-25T13:53:25Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             },
             {
               "originalPosition": 10,
               "body": "I think this should be moved up to L959",
               "createdAt": "2021-02-25T13:54:44Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             }
           ]
         },
@@ -4198,7 +4198,7 @@
               "originalPosition": 3,
               "body": "a curiosity: what is the rationale for unwrapping?",
               "createdAt": "2021-02-26T20:47:04Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             }
           ]
         },
@@ -4218,7 +4218,7 @@
               "originalPosition": 3,
               "body": "You can tell uri from old by the CBOR type (text vs byte string) so no need for the tag. \r\n\r\nGenerally, it seems the convention in CBOR is to unwrap if possible to not have redundancy (which creates an error condition) and to save bytes. If others think otherwise, fill me in. :-)",
               "createdAt": "2021-02-28T02:27:40Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             }
           ]
         },
@@ -4238,7 +4238,7 @@
               "originalPosition": 3,
               "body": "makes sense, thanks for the explanation",
               "createdAt": "2021-02-28T14:57:27Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             }
           ]
         },
@@ -4258,49 +4258,129 @@
               "originalPosition": 34,
               "body": "```suggestion\r\n```\r\nthese two lines are duplicates of L973-974",
               "createdAt": "2021-02-28T15:00:28Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             },
             {
               "originalPosition": 31,
               "body": "```suggestion\r\nA profile is identified by either an absolute URI {{!RFC3896}} or an absolute OID (ASN.1 Type \"OBJECT IDENTIFIER\").\r\n```",
               "createdAt": "2021-02-28T15:07:45Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             },
             {
               "originalPosition": 32,
               "body": "```suggestion\r\nTypically, the URI will reference a document describing the profile.\r\n```",
               "createdAt": "2021-02-28T15:08:43Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             },
             {
               "originalPosition": 37,
               "body": "I don't understand why is it important to state this?",
               "createdAt": "2021-02-28T15:10:48Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             },
             {
               "originalPosition": 42,
               "body": "```suggestion\r\nBoth are unwrapped and thus the outer tag is removed.\r\n```",
               "createdAt": "2021-02-28T15:12:36Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             },
             {
               "originalPosition": 52,
               "body": "```suggestion\r\n* oid -- is encoded using dotted decimal notation as per Section 5 of {{CBOR-OID}} \r\n```",
               "createdAt": "2021-02-28T15:13:17Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             },
             {
               "originalPosition": 17,
               "body": "```suggestion\r\n  CBOR-OID: I-D.ietf-cbor-tags-oid\r\n```",
               "createdAt": "2021-02-28T15:19:09Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
             },
             {
               "originalPosition": 17,
               "body": "so that updates to the ref are tracked automatically",
               "createdAt": "2021-02-28T15:19:39Z",
-              "updatedAt": "2021-02-28T17:48:41Z"
+              "updatedAt": "2021-03-01T03:02:53Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjAwMjg0MDQw",
+          "commit": {
+            "abbreviatedOid": "3943ac7"
+          },
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-28T17:51:11Z",
+          "updatedAt": "2021-02-28T17:51:11Z",
+          "comments": [
+            {
+              "originalPosition": 52,
+              "body": "This is JSON representation of OIDs so a reference to CBOR representation of OID seems wrong.\r\nI haven't found any standard to reference for text representation of OIDs in JSON so far. ",
+              "createdAt": "2021-02-28T17:51:11Z",
+              "updatedAt": "2021-03-01T03:02:53Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjAwMzA5MjM1",
+          "commit": {
+            "abbreviatedOid": "2ef23cd"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-28T21:48:23Z",
+          "updatedAt": "2021-02-28T21:48:23Z",
+          "comments": [
+            {
+              "originalPosition": 52,
+              "body": "Yeah that doesn't sound entirely right, but it's the only reference I had found.\r\n\r\nI've given my google-foo another spin and found that Section 3.2 of RFC5675 has an ABNF for the dotted-decimal notation.  Or otherwise let's just say \"using the well established dotted-decimal notation\" or similar",
+              "createdAt": "2021-02-28T21:48:23Z",
+              "updatedAt": "2021-03-01T03:02:53Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjAwMzU5OTU1",
+          "commit": {
+            "abbreviatedOid": "2ef23cd"
+          },
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-01T03:02:10Z",
+          "updatedAt": "2021-03-01T03:02:10Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "I'm leaving this as is because, there is no possibility of any tag here (no inner tag). Also, contrary to normal English use of the word tag, in CBOR the tag is the whole thing with the value, not just the tag number.",
+              "createdAt": "2021-03-01T03:02:10Z",
+              "updatedAt": "2021-03-01T03:02:53Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjAwMzYwMzI4",
+          "commit": {
+            "abbreviatedOid": "1728e7b"
+          },
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-01T03:03:26Z",
+          "updatedAt": "2021-03-01T03:03:26Z",
+          "comments": [
+            {
+              "originalPosition": 52,
+              "body": "OK. Pushed a change for this.",
+              "createdAt": "2021-03-01T03:03:26Z",
+              "updatedAt": "2021-03-01T03:03:26Z"
             }
           ]
         }
