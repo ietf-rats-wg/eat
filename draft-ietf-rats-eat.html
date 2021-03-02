@@ -23,21 +23,21 @@ CWT and JWT.
 <meta content="draft-ietf-rats-eat-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.5.0
-    Python 3.8.5
+    Python 3.8.7
     appdirs 1.4.4
     ConfigArgParse 1.2.3
     google-i18n-address 2.4.0
     html5lib 1.1
-    intervaltree 3.0.2
+    intervaltree 3.1.0
     Jinja2 2.11.2
     kitchen 1.2.6
-    lxml 4.5.0
-    pycountry 19.8.18
-    pyflakes 2.1.1
+    lxml 4.6.2
+    pycountry 20.7.3
+    pyflakes 2.2.0
     PyYAML 5.4.1
-    requests 2.22.0
-    setuptools 45.2.0
-    six 1.14.0
+    requests 2.25.1
+    setuptools 51.3.3
+    six 1.15.0
 -->
 <link href="draft-ietf-rats-eat.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -827,11 +827,11 @@ address div.right {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">EAT</td>
-<td class="right">February 2021</td>
+<td class="right">March 2021</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Mandyam, et al.</td>
-<td class="center">Expires 9 August 2021</td>
+<td class="center">Expires 3 September 2021</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -844,12 +844,12 @@ address div.right {
 <dd class="internet-draft">draft-ietf-rats-eat-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-02-05" class="published">5 February 2021</time>
+<time datetime="2021-03-02" class="published">2 March 2021</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2021-08-09">9 August 2021</time></dd>
+<dd class="expires"><time datetime="2021-09-03">3 September 2021</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -907,7 +907,7 @@ CWT and JWT.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 9 August 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 September 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -935,412 +935,415 @@ CWT and JWT.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
 <a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.1">
+<nav class="toc"><ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-toc.1-1.1.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.1.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.1.2.1">
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-cwt-jwt-and-uccs" class="xref">CWT, JWT and UCCS</a><a href="#section-toc.1-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.1.2.2">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.1.2.2">
                 <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-cddl" class="xref">CDDL</a><a href="#section-toc.1-1.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.1.2.3">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.1.2.3">
                 <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-entity-overview" class="xref">Entity Overview</a><a href="#section-toc.1-1.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.1.2.4">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.1.2.4">
                 <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="xref">1.4</a>.  <a href="#name-eat-operating-models" class="xref">EAT Operating Models</a><a href="#section-toc.1-1.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.1.2.5">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.1.2.5">
                 <p id="section-toc.1-1.1.2.5.1"><a href="#section-1.5" class="xref">1.5</a>.  <a href="#name-what-is-not-standardized" class="xref">What is Not Standardized</a><a href="#section-toc.1-1.1.2.5.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.1.2.5.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.1.2.5.2.1">
                     <p id="section-toc.1-1.1.2.5.2.1.1"><a href="#section-1.5.1" class="xref">1.5.1</a>.  <a href="#name-transmission-protocol" class="xref">Transmission Protocol</a><a href="#section-toc.1-1.1.2.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.1.2.5.2.2">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.1.2.5.2.2">
                     <p id="section-toc.1-1.1.2.5.2.2.1"><a href="#section-1.5.2" class="xref">1.5.2</a>.  <a href="#name-signing-scheme" class="xref">Signing Scheme</a><a href="#section-toc.1-1.1.2.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.2">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-terminology" class="xref">Terminology</a><a href="#section-toc.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.3">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-the-claims" class="xref">The Claims</a><a href="#section-toc.1-1.3.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.1">
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-token-id-claim-cti-and-jti" class="xref">Token ID Claim (cti and jti)</a><a href="#section-toc.1-1.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.2">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.2">
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-timestamp-claim-iat" class="xref">Timestamp claim (iat)</a><a href="#section-toc.1-1.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.3">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.3">
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-nonce-claim-nonce" class="xref">Nonce Claim (nonce)</a><a href="#section-toc.1-1.3.2.3.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.3.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.3.2.1">
                     <p id="section-toc.1-1.3.2.3.2.1.1"><a href="#section-3.3.1" class="xref">3.3.1</a>.  <a href="#name-nonce-cddl" class="xref">nonce CDDL</a><a href="#section-toc.1-1.3.2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.4">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.4">
                 <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-universal-entity-id-claim-u" class="xref">Universal Entity ID Claim (ueid)</a><a href="#section-toc.1-1.3.2.4.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.4.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.4.2.1">
                     <p id="section-toc.1-1.3.2.4.2.1.1"><a href="#section-3.4.1" class="xref">3.4.1</a>.  <a href="#name-ueid-cddl" class="xref">ueid CDDL</a><a href="#section-toc.1-1.3.2.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.5">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.5">
                 <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="xref">3.5</a>.  <a href="#name-origination-claim-originati" class="xref">Origination Claim (origination)</a><a href="#section-toc.1-1.3.2.5.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.5.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.5.2.1">
                     <p id="section-toc.1-1.3.2.5.2.1.1"><a href="#section-3.5.1" class="xref">3.5.1</a>.  <a href="#name-origination-cddl" class="xref">origination CDDL</a><a href="#section-toc.1-1.3.2.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.6">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.6">
                 <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="xref">3.6</a>.  <a href="#name-oem-identification-by-ieee-" class="xref">OEM Identification by IEEE (oemid)</a><a href="#section-toc.1-1.3.2.6.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.6.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.6.2.1">
                     <p id="section-toc.1-1.3.2.6.2.1.1"><a href="#section-3.6.1" class="xref">3.6.1</a>.  <a href="#name-oemid-cddl" class="xref">oemid CDDL</a><a href="#section-toc.1-1.3.2.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.7">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.7">
                 <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="xref">3.7</a>.  <a href="#name-hardware-version-claims-har" class="xref">Hardware Version Claims (hardware-version-claims)</a><a href="#section-toc.1-1.3.2.7.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.8">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.8">
                 <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="xref">3.8</a>.  <a href="#name-software-description-and-ve" class="xref">Software Description and Version</a><a href="#section-toc.1-1.3.2.8.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.9">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.9">
                 <p id="section-toc.1-1.3.2.9.1"><a href="#section-3.9" class="xref">3.9</a>.  <a href="#name-the-security-level-claim-se" class="xref">The Security Level Claim (security-level)</a><a href="#section-toc.1-1.3.2.9.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.9.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.9.2.1">
                     <p id="section-toc.1-1.3.2.9.2.1.1"><a href="#section-3.9.1" class="xref">3.9.1</a>.  <a href="#name-security-level-cddl" class="xref">security-level CDDL</a><a href="#section-toc.1-1.3.2.9.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.10">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.10">
                 <p id="section-toc.1-1.3.2.10.1"><a href="#section-3.10" class="xref">3.10</a>. <a href="#name-secure-boot-claim-secure-bo" class="xref">Secure Boot Claim (secure-boot)</a><a href="#section-toc.1-1.3.2.10.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.10.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.10.2.1">
                     <p id="section-toc.1-1.3.2.10.2.1.1"><a href="#section-3.10.1" class="xref">3.10.1</a>.  <a href="#name-secure-boot-cddl" class="xref">secure-boot CDDL</a><a href="#section-toc.1-1.3.2.10.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.11">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.11">
                 <p id="section-toc.1-1.3.2.11.1"><a href="#section-3.11" class="xref">3.11</a>. <a href="#name-debug-status-claim-debug-st" class="xref">Debug Status Claim (debug-status)</a><a href="#section-toc.1-1.3.2.11.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.11.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.11.2.1">
                     <p id="section-toc.1-1.3.2.11.2.1.1"><a href="#section-3.11.1" class="xref">3.11.1</a>.  <a href="#name-enabled" class="xref">Enabled</a><a href="#section-toc.1-1.3.2.11.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.11.2.2">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.11.2.2">
                     <p id="section-toc.1-1.3.2.11.2.2.1"><a href="#section-3.11.2" class="xref">3.11.2</a>.  <a href="#name-disabled" class="xref">Disabled</a><a href="#section-toc.1-1.3.2.11.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.11.2.3">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.11.2.3">
                     <p id="section-toc.1-1.3.2.11.2.3.1"><a href="#section-3.11.3" class="xref">3.11.3</a>.  <a href="#name-disabled-since-boot" class="xref">Disabled Since Boot</a><a href="#section-toc.1-1.3.2.11.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.11.2.4">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.11.2.4">
                     <p id="section-toc.1-1.3.2.11.2.4.1"><a href="#section-3.11.4" class="xref">3.11.4</a>.  <a href="#name-disabled-permanently" class="xref">Disabled Permanently</a><a href="#section-toc.1-1.3.2.11.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.11.2.5">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.11.2.5">
                     <p id="section-toc.1-1.3.2.11.2.5.1"><a href="#section-3.11.5" class="xref">3.11.5</a>.  <a href="#name-disabled-fully-and-permanen" class="xref">Disabled Fully and Permanently</a><a href="#section-toc.1-1.3.2.11.2.5.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.11.2.6">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.11.2.6">
                     <p id="section-toc.1-1.3.2.11.2.6.1"><a href="#section-3.11.6" class="xref">3.11.6</a>.  <a href="#name-debug-status-cddl" class="xref">debug-status CDDL</a><a href="#section-toc.1-1.3.2.11.2.6.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.12">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.12">
                 <p id="section-toc.1-1.3.2.12.1"><a href="#section-3.12" class="xref">3.12</a>. <a href="#name-including-keys" class="xref">Including Keys</a><a href="#section-toc.1-1.3.2.12.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.13">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.13">
                 <p id="section-toc.1-1.3.2.13.1"><a href="#section-3.13" class="xref">3.13</a>. <a href="#name-the-location-claim-location" class="xref">The Location Claim (location)</a><a href="#section-toc.1-1.3.2.13.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.13.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.13.2.1">
                     <p id="section-toc.1-1.3.2.13.2.1.1"><a href="#section-3.13.1" class="xref">3.13.1</a>.  <a href="#name-location-cddl" class="xref">location CDDL</a><a href="#section-toc.1-1.3.2.13.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.14">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.14">
                 <p id="section-toc.1-1.3.2.14.1"><a href="#section-3.14" class="xref">3.14</a>. <a href="#name-the-uptime-claim-uptime" class="xref">The Uptime Claim (uptime)</a><a href="#section-toc.1-1.3.2.14.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.14.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.14.2.1">
                     <p id="section-toc.1-1.3.2.14.2.1.1"><a href="#section-3.14.1" class="xref">3.14.1</a>.  <a href="#name-uptime-cddl" class="xref">uptime CDDL</a><a href="#section-toc.1-1.3.2.14.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.14.2.2">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.14.2.2">
                     <p id="section-toc.1-1.3.2.14.2.2.1"><a href="#section-3.14.2" class="xref">3.14.2</a>.  <a href="#name-the-boot-seed-claim-boot-se" class="xref">The Boot Seed Claim (boot-seed)</a><a href="#section-toc.1-1.3.2.14.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.15">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.15">
                 <p id="section-toc.1-1.3.2.15.1"><a href="#section-3.15" class="xref">3.15</a>. <a href="#name-the-intended-use-claim-inte" class="xref">The Intended Use Claim (intended-use)</a><a href="#section-toc.1-1.3.2.15.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.15.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.15.2.1">
                     <p id="section-toc.1-1.3.2.15.2.1.1"><a href="#section-3.15.1" class="xref">3.15.1</a>.  <a href="#name-intended-use-cddl" class="xref">intended-use CDDL</a><a href="#section-toc.1-1.3.2.15.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.16">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.16">
                 <p id="section-toc.1-1.3.2.16.1"><a href="#section-3.16" class="xref">3.16</a>. <a href="#name-the-profile-claim-profile" class="xref">The Profile Claim (profile)</a><a href="#section-toc.1-1.3.2.16.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.17">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.17">
                 <p id="section-toc.1-1.3.2.17.1"><a href="#section-3.17" class="xref">3.17</a>. <a href="#name-the-submodules-part-of-a-to" class="xref">The Submodules Part of a Token (submods)</a><a href="#section-toc.1-1.3.2.17.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.17.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.17.2.1">
                     <p id="section-toc.1-1.3.2.17.2.1.1"><a href="#section-3.17.1" class="xref">3.17.1</a>.  <a href="#name-two-types-of-submodules" class="xref">Two Types of Submodules</a><a href="#section-toc.1-1.3.2.17.2.1.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.17.2.1.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.17.2.1.2.1">
                         <p id="section-toc.1-1.3.2.17.2.1.2.1.1"><a href="#section-3.17.1.1" class="xref">3.17.1.1</a>.  <a href="#name-non-token-submodules" class="xref">Non-token Submodules</a><a href="#section-toc.1-1.3.2.17.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                      <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.17.2.1.2.2">
+                      <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.17.2.1.2.2">
                         <p id="section-toc.1-1.3.2.17.2.1.2.2.1"><a href="#section-3.17.1.2" class="xref">3.17.1.2</a>.  <a href="#name-nested-eats" class="xref">Nested EATs</a><a href="#section-toc.1-1.3.2.17.2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                      <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.17.2.1.2.3">
+                      <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.17.2.1.2.3">
                         <p id="section-toc.1-1.3.2.17.2.1.2.3.1"><a href="#section-3.17.1.3" class="xref">3.17.1.3</a>.  <a href="#name-unsecured-jwts-and-uccs-tok" class="xref">Unsecured JWTs and UCCS Tokens as Submodules</a><a href="#section-toc.1-1.3.2.17.2.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
                     </ul>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.17.2.2">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.17.2.2">
                     <p id="section-toc.1-1.3.2.17.2.2.1"><a href="#section-3.17.2" class="xref">3.17.2</a>.  <a href="#name-no-inheritance" class="xref">No Inheritance</a><a href="#section-toc.1-1.3.2.17.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.17.2.3">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.17.2.3">
                     <p id="section-toc.1-1.3.2.17.2.3.1"><a href="#section-3.17.3" class="xref">3.17.3</a>.  <a href="#name-security-levels" class="xref">Security Levels</a><a href="#section-toc.1-1.3.2.17.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.17.2.4">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.17.2.4">
                     <p id="section-toc.1-1.3.2.17.2.4.1"><a href="#section-3.17.4" class="xref">3.17.4</a>.  <a href="#name-submodule-names" class="xref">Submodule Names</a><a href="#section-toc.1-1.3.2.17.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.17.2.5">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.17.2.5">
                     <p id="section-toc.1-1.3.2.17.2.5.1"><a href="#section-3.17.5" class="xref">3.17.5</a>.  <a href="#name-submods-cddl" class="xref">submods CDDL</a><a href="#section-toc.1-1.3.2.17.2.5.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.4">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-endorsements-and-verificati" class="xref">Endorsements and Verification Keys</a><a href="#section-toc.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.5">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-profiles" class="xref">Profiles</a><a href="#section-toc.1-1.5.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-list-of-profile-issues" class="xref">List of Profile Issues</a><a href="#section-toc.1-1.5.2.1.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.1">
                     <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="xref">5.1.1</a>.  <a href="#name-use-of-json-cbor-or-both" class="xref">Use of JSON, CBOR or both</a><a href="#section-toc.1-1.5.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.2">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.2">
                     <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="xref">5.1.2</a>.  <a href="#name-cbor-map-and-array-encoding" class="xref">CBOR Map and Array Encoding</a><a href="#section-toc.1-1.5.2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.3">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.3">
                     <p id="section-toc.1-1.5.2.1.2.3.1"><a href="#section-5.1.3" class="xref">5.1.3</a>.  <a href="#name-cbor-string-encoding" class="xref">CBOR String Encoding</a><a href="#section-toc.1-1.5.2.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.4">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.4">
                     <p id="section-toc.1-1.5.2.1.2.4.1"><a href="#section-5.1.4" class="xref">5.1.4</a>.  <a href="#name-cose-jose-protection" class="xref">COSE/JOSE Protection</a><a href="#section-toc.1-1.5.2.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.5">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.5">
                     <p id="section-toc.1-1.5.2.1.2.5.1"><a href="#section-5.1.5" class="xref">5.1.5</a>.  <a href="#name-cose-jose-algorithms" class="xref">COSE/JOSE Algorithms</a><a href="#section-toc.1-1.5.2.1.2.5.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.6">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.6">
                     <p id="section-toc.1-1.5.2.1.2.6.1"><a href="#section-5.1.6" class="xref">5.1.6</a>.  <a href="#name-verification-key-identifica" class="xref">Verification Key Identification</a><a href="#section-toc.1-1.5.2.1.2.6.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.7">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.7">
                     <p id="section-toc.1-1.5.2.1.2.7.1"><a href="#section-5.1.7" class="xref">5.1.7</a>.  <a href="#name-endorsement-identification" class="xref">Endorsement Identification</a><a href="#section-toc.1-1.5.2.1.2.7.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.8">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.8">
                     <p id="section-toc.1-1.5.2.1.2.8.1"><a href="#section-5.1.8" class="xref">5.1.8</a>.  <a href="#name-required-claims" class="xref">Required Claims</a><a href="#section-toc.1-1.5.2.1.2.8.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.9">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.9">
                     <p id="section-toc.1-1.5.2.1.2.9.1"><a href="#section-5.1.9" class="xref">5.1.9</a>.  <a href="#name-prohibited-claims" class="xref">Prohibited Claims</a><a href="#section-toc.1-1.5.2.1.2.9.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.10">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.10">
                     <p id="section-toc.1-1.5.2.1.2.10.1"><a href="#section-5.1.10" class="xref">5.1.10</a>. <a href="#name-additional-claims" class="xref">Additional Claims</a><a href="#section-toc.1-1.5.2.1.2.10.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.11">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.11">
                     <p id="section-toc.1-1.5.2.1.2.11.1"><a href="#section-5.1.11" class="xref">5.1.11</a>. <a href="#name-refined-claim-definition" class="xref">Refined Claim Definition</a><a href="#section-toc.1-1.5.2.1.2.11.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.12">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1.2.12">
                     <p id="section-toc.1-1.5.2.1.2.12.1"><a href="#section-5.1.12" class="xref">5.1.12</a>. <a href="#name-cbor-tags" class="xref">CBOR Tags</a><a href="#section-toc.1-1.5.2.1.2.12.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.6">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-encoding" class="xref">Encoding</a><a href="#section-toc.1-1.6.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.6.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-common-cddl-types" class="xref">Common CDDL Types</a><a href="#section-toc.1-1.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.6.2.2">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="xref">6.2</a>.  <a href="#name-cddl-for-cwt-defined-claims" class="xref">CDDL for CWT-defined Claims</a><a href="#section-toc.1-1.6.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.6.2.3">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.6.2.3">
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="xref">6.3</a>.  <a href="#name-json" class="xref">JSON</a><a href="#section-toc.1-1.6.2.3.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.6.2.3.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.6.2.3.2.1">
                     <p id="section-toc.1-1.6.2.3.2.1.1"><a href="#section-6.3.1" class="xref">6.3.1</a>.  <a href="#name-json-labels" class="xref">JSON Labels</a><a href="#section-toc.1-1.6.2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.6.2.3.2.2">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.6.2.3.2.2">
                     <p id="section-toc.1-1.6.2.3.2.2.1"><a href="#section-6.3.2" class="xref">6.3.2</a>.  <a href="#name-json-interoperability" class="xref">JSON Interoperability</a><a href="#section-toc.1-1.6.2.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.6.2.4">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.6.2.4">
                 <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="xref">6.4</a>.  <a href="#name-cbor" class="xref">CBOR</a><a href="#section-toc.1-1.6.2.4.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.6.2.4.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.6.2.4.2.1">
                     <p id="section-toc.1-1.6.2.4.2.1.1"><a href="#section-6.4.1" class="xref">6.4.1</a>.  <a href="#name-cbor-interoperability" class="xref">CBOR Interoperability</a><a href="#section-toc.1-1.6.2.4.2.1.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.6.2.4.2.1.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.6.2.4.2.1.2.1">
                         <p id="section-toc.1-1.6.2.4.2.1.2.1.1"><a href="#section-6.4.1.1" class="xref">6.4.1.1</a>.  <a href="#name-eat-constrained-device-seri" class="xref">EAT Constrained Device Serialization</a><a href="#section-toc.1-1.6.2.4.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
                     </ul>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.6.2.5">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.6.2.5">
                 <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="xref">6.5</a>.  <a href="#name-collected-cddl" class="xref">Collected CDDL</a><a href="#section-toc.1-1.6.2.5.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.7">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a><a href="#section-toc.1-1.7.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.7.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.7.2.1">
                 <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="xref">7.1</a>.  <a href="#name-reuse-of-cbor-web-token-cwt" class="xref">Reuse of CBOR Web Token (CWT) Claims Registry</a><a href="#section-toc.1-1.7.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.2">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.7.2.2">
                 <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="xref">7.2</a>.  <a href="#name-claim-characteristics" class="xref">Claim Characteristics</a><a href="#section-toc.1-1.7.2.2.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.7.2.2.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.7.2.2.2.1">
                     <p id="section-toc.1-1.7.2.2.2.1.1"><a href="#section-7.2.1" class="xref">7.2.1</a>.  <a href="#name-interoperability-and-relyin" class="xref">Interoperability and Relying Party Orientation</a><a href="#section-toc.1-1.7.2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.2.2.2">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.7.2.2.2.2">
                     <p id="section-toc.1-1.7.2.2.2.2.1"><a href="#section-7.2.2" class="xref">7.2.2</a>.  <a href="#name-operating-system-and-techno" class="xref">Operating System and Technology Neutral</a><a href="#section-toc.1-1.7.2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.2.2.3">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.7.2.2.2.3">
                     <p id="section-toc.1-1.7.2.2.2.3.1"><a href="#section-7.2.3" class="xref">7.2.3</a>.  <a href="#name-security-level-neutral" class="xref">Security Level Neutral</a><a href="#section-toc.1-1.7.2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.2.2.4">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.7.2.2.2.4">
                     <p id="section-toc.1-1.7.2.2.2.4.1"><a href="#section-7.2.4" class="xref">7.2.4</a>.  <a href="#name-reuse-of-extant-data-format" class="xref">Reuse of Extant Data Formats</a><a href="#section-toc.1-1.7.2.2.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.2.2.5">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.7.2.2.2.5">
                     <p id="section-toc.1-1.7.2.2.2.5.1"><a href="#section-7.2.5" class="xref">7.2.5</a>.  <a href="#name-proprietary-claims" class="xref">Proprietary Claims</a><a href="#section-toc.1-1.7.2.2.2.5.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.3">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.7.2.3">
                 <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="xref">7.3</a>.  <a href="#name-claims-registered-by-this-d" class="xref">Claims Registered by This Document</a><a href="#section-toc.1-1.7.2.3.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.7.2.3.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.7.2.3.2.1">
                     <p id="section-toc.1-1.7.2.3.2.1.1"><a href="#section-7.3.1" class="xref">7.3.1</a>.  <a href="#name-claims-for-early-assignment" class="xref">Claims for Early Assignment</a><a href="#section-toc.1-1.7.2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.3.2.2">
+                  <li class="ulEmpty compact toc" id="section-toc.1-1.7.2.3.2.2">
                     <p id="section-toc.1-1.7.2.3.2.2.1"><a href="#section-7.3.2" class="xref">7.3.2</a>.  <a href="#name-to-be-assigned-claims" class="xref">To be Assigned Claims</a><a href="#section-toc.1-1.7.2.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.8">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-privacy-considerations" class="xref">Privacy Considerations</a><a href="#section-toc.1-1.8.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.8.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.8.2.1">
                 <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="xref">8.1</a>.  <a href="#name-ueid-privacy-considerations" class="xref">UEID Privacy Considerations</a><a href="#section-toc.1-1.8.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.8.2.2">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.8.2.2">
                 <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="xref">8.2</a>.  <a href="#name-location-privacy-considerat" class="xref">Location Privacy Considerations</a><a href="#section-toc.1-1.8.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.9">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a><a href="#section-toc.1-1.9.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.9.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.9.2.1">
                 <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="xref">9.1</a>.  <a href="#name-key-provisioning" class="xref">Key Provisioning</a><a href="#section-toc.1-1.9.2.1.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.9.2.1.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.9.2.1.2.1">
                     <p id="section-toc.1-1.9.2.1.2.1.1"><a href="#section-9.1.1" class="xref">9.1.1</a>.  <a href="#name-transmission-of-key-materia" class="xref">Transmission of Key Material</a><a href="#section-toc.1-1.9.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.2">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.9.2.2">
                 <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="xref">9.2</a>.  <a href="#name-transport-security" class="xref">Transport Security</a><a href="#section-toc.1-1.9.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.3">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.9.2.3">
                 <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="xref">9.3</a>.  <a href="#name-multiple-eat-consumers" class="xref">Multiple EAT Consumers</a><a href="#section-toc.1-1.9.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.10">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-references" class="xref">References</a><a href="#section-toc.1-1.10.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.10.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.10.2.1">
                 <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="xref">10.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a><a href="#section-toc.1-1.10.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.2">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.2">
                 <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="xref">10.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a><a href="#section-toc.1-1.10.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.11">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-appendix.a" class="xref">Appendix A</a>.  <a href="#name-examples" class="xref">Examples</a><a href="#section-toc.1-1.11.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.11.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.11.2.1">
                 <p id="section-toc.1-1.11.2.1.1"><a href="#section-a.1" class="xref">A.1</a>.  <a href="#name-very-simple-eat" class="xref">Very Simple EAT</a><a href="#section-toc.1-1.11.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.11.2.2">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.11.2.2">
                 <p id="section-toc.1-1.11.2.2.1"><a href="#section-a.2" class="xref">A.2</a>.  <a href="#name-example-with-submodules-nes" class="xref">Example with Submodules, Nesting and Security Levels</a><a href="#section-toc.1-1.11.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.12">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#section-appendix.b" class="xref">Appendix B</a>.  <a href="#name-ueid-design-rationale" class="xref">UEID Design Rationale</a><a href="#section-toc.1-1.12.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.12.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.12.2.1">
                 <p id="section-toc.1-1.12.2.1.1"><a href="#section-b.1" class="xref">B.1</a>.  <a href="#name-collision-probability" class="xref">Collision Probability</a><a href="#section-toc.1-1.12.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.12.2.2">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.12.2.2">
                 <p id="section-toc.1-1.12.2.2.1"><a href="#section-b.2" class="xref">B.2</a>.  <a href="#name-no-use-of-uuid" class="xref">No Use of UUID</a><a href="#section-toc.1-1.12.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.13">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.13">
             <p id="section-toc.1-1.13.1"><a href="#section-appendix.c" class="xref">Appendix C</a>.  <a href="#name-changes-from-previous-draft" class="xref">Changes from Previous Drafts</a><a href="#section-toc.1-1.13.1" class="pilcrow">¶</a></p>
-<ul class="toc compact ulEmpty">
-<li class="toc compact ulEmpty" id="section-toc.1-1.13.2.1">
+<ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.13.2.1">
                 <p id="section-toc.1-1.13.2.1.1"><a href="#section-c.1" class="xref">C.1</a>.  <a href="#name-from-draft-rats-eat-01" class="xref">From draft-rats-eat-01</a><a href="#section-toc.1-1.13.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.2">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.13.2.2">
                 <p id="section-toc.1-1.13.2.2.1"><a href="#section-c.2" class="xref">C.2</a>.  <a href="#name-from-draft-mandyam-rats-eat" class="xref">From draft-mandyam-rats-eat-00</a><a href="#section-toc.1-1.13.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.3">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.13.2.3">
                 <p id="section-toc.1-1.13.2.3.1"><a href="#section-c.3" class="xref">C.3</a>.  <a href="#name-from-draft-ietf-rats-eat-01" class="xref">From draft-ietf-rats-eat-01</a><a href="#section-toc.1-1.13.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.4">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.13.2.4">
                 <p id="section-toc.1-1.13.2.4.1"><a href="#section-c.4" class="xref">C.4</a>.  <a href="#name-from-draft-ietf-rats-eat-02" class="xref">From draft-ietf-rats-eat-02</a><a href="#section-toc.1-1.13.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.5">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.13.2.5">
                 <p id="section-toc.1-1.13.2.5.1"><a href="#section-c.5" class="xref">C.5</a>.  <a href="#name-from-draft-ietf-rats-eat-03" class="xref">From draft-ietf-rats-eat-03</a><a href="#section-toc.1-1.13.2.5.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.6">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.13.2.6">
                 <p id="section-toc.1-1.13.2.6.1"><a href="#section-c.6" class="xref">C.6</a>.  <a href="#name-from-draft-ietf-rats-eat-04" class="xref">From draft-ietf-rats-eat-04</a><a href="#section-toc.1-1.13.2.6.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.7">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.13.2.7">
                 <p id="section-toc.1-1.13.2.7.1"><a href="#section-c.7" class="xref">C.7</a>.  <a href="#name-from-draft-ietf-rats-05" class="xref">From draft-ietf-rats-05</a><a href="#section-toc.1-1.13.2.7.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.8">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.13.2.8">
                 <p id="section-toc.1-1.13.2.8.1"><a href="#section-c.8" class="xref">C.8</a>.  <a href="#name-from-draft-ietf-rats-06" class="xref">From draft-ietf-rats-06</a><a href="#section-toc.1-1.13.2.8.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.9">
+              <li class="ulEmpty compact toc" id="section-toc.1-1.13.2.9">
                 <p id="section-toc.1-1.13.2.9.1"><a href="#section-c.9" class="xref">C.9</a>.  <a href="#name-from-draft-ietf-rats-07" class="xref">From draft-ietf-rats-07</a><a href="#section-toc.1-1.13.2.9.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="ulEmpty compact toc" id="section-toc.1-1.13.2.10">
+                <p id="section-toc.1-1.13.2.10.1"><a href="#section-c.10" class="xref">C.10</a>. <a href="#name-from-draft-ietf-rats-08" class="xref">From draft-ietf-rats-08</a><a href="#section-toc.1-1.13.2.10.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc compact ulEmpty" id="section-toc.1-1.14">
+          <li class="ulEmpty compact toc" id="section-toc.1-1.14">
             <p id="section-toc.1-1.14.1"><a href="#section-appendix.d" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a><a href="#section-toc.1-1.14.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
@@ -2450,17 +2453,25 @@ intended-use-claim = (
         <h3 id="name-the-profile-claim-profile">
 <a href="#section-3.16" class="section-number selfRef">3.16. </a><a href="#name-the-profile-claim-profile" class="section-name selfRef">The Profile Claim (profile)</a>
         </h3>
-<p id="section-3.16-1">The profile claim is a text string that simply gives the name of the profile to which the token purports to adhere to.
-It may name an IETF document, some other document or no particular document.
-There is no requirement that the named document be publicly accessible.<a href="#section-3.16-1" class="pilcrow">¶</a></p>
-<p id="section-3.16-2">See <a href="#profiles" class="xref">Section 5</a> for a detailed description of a profile.<a href="#section-3.16-2" class="pilcrow">¶</a></p>
-<p id="section-3.16-3">Note that this named "eat-profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.<a href="#section-3.16-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-3.16-4">
+<p id="section-3.16-1">See <a href="#profiles" class="xref">Section 5</a> for the detailed description of a profile.<a href="#section-3.16-1" class="pilcrow">¶</a></p>
+<p id="section-3.16-2">A profile is identified by either a URL or an OID.
+Typically, the URI will reference a document describing the profile.
+An OID is just a unique identifier for the profile.
+It may exist anywhere in the OID tree.
+There is no requirement that the named document be publicly accessible.
+An OID is just a unique identifier for the profile.
+It may exist anywhere in the OID tree.
+The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.<a href="#section-3.16-2" class="pilcrow">¶</a></p>
+<p id="section-3.16-3">The OID is encoded in CBOR according to <span>[<a href="#CBOR-OID" class="xref">CBOR-OID</a>]</span> and the URI according to <span>[<a href="#RFC8949" class="xref">RFC8949</a>]</span>.
+Both are unwrapped and thus not tags.
+If the claims CBOR type is a text string it is a URI and if a byte string it is an OID.<a href="#section-3.16-3" class="pilcrow">¶</a></p>
+<p id="section-3.16-4">Note that this named "eat-profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.<a href="#section-3.16-4" class="pilcrow">¶</a></p>
+<div class="artwork art-text alignLeft art-CDDL" id="section-3.16-5">
 <pre>
 profile-claim = (
-    profile =&gt; tstr
+    profile =&gt; ~uri / ~oid
 )
-</pre><a href="#section-3.16-4" class="pilcrow">¶</a>
+</pre><a href="#section-3.16-5" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2917,6 +2928,10 @@ following CDDL types are encoded in JSON as follows:<a href="#section-6.3.2-1" c
 </li>
             <li class="normal" id="section-6.3.2-2.3">string-or-uri -- must be encoded as StringOrURI as described section 2 of <span>[<a href="#RFC7519" class="xref">RFC7519</a>]</span>.<a href="#section-6.3.2-2.3" class="pilcrow">¶</a>
 </li>
+            <li class="normal" id="section-6.3.2-2.4">uri -- must be a URI <span>[<a href="#RFC3986" class="xref">RFC3986</a>]</span>.<a href="#section-6.3.2-2.4" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.3.2-2.5">oid -- encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").<a href="#section-6.3.2-2.5" class="pilcrow">¶</a>
+</li>
           </ul>
 </section>
 </div>
@@ -3259,7 +3274,7 @@ submods = 20
 
 
 profile-claim = (
-    profile =&gt; tstr
+    profile =&gt; ~uri / ~oid
 )
 
 boot-seed-claim = (
@@ -3532,19 +3547,36 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.<a href="#sect
           </ul>
 <p id="section-7.3.1-16"></p>
 <ul class="normal">
-<li class="normal" id="section-7.3.1-17.1">Claim Name: Submodules Section<a href="#section-7.3.1-17.1" class="pilcrow">¶</a>
+<li class="normal" id="section-7.3.1-17.1">Claim Name: Profile<a href="#section-7.3.1-17.1" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-7.3.1-17.2">Claim Description: The section containing submodules (not actually a claim)<a href="#section-7.3.1-17.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-7.3.1-17.2">Claim Description: Indicates the EAT profile followed<a href="#section-7.3.1-17.2" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-7.3.1-17.3">JWT Claim Name: "submods"<a href="#section-7.3.1-17.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-7.3.1-17.3">JWT Claim Name: "eat_profile"<a href="#section-7.3.1-17.3" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-7.3.1-17.4">Claim Key: 20<a href="#section-7.3.1-17.4" class="pilcrow">¶</a>
+            <li class="normal" id="section-7.3.1-17.4">Claim Key: 18<a href="#section-7.3.1-17.4" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-7.3.1-17.5">Claim Value Type(s): map<a href="#section-7.3.1-17.5" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-7.3.1-17.6">Change Controller: IESG<a href="#section-7.3.1-17.6" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-7.3.1-17.7">Specification Document(s): <strong>this document</strong><a href="#section-7.3.1-17.7" class="pilcrow">¶</a>
+</li>
+          </ul>
+<p id="section-7.3.1-18"></p>
+<ul class="normal">
+<li class="normal" id="section-7.3.1-19.1">Claim Name: Submodules Section<a href="#section-7.3.1-19.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-7.3.1-19.2">Claim Description: The section containing submodules (not actually a claim)<a href="#section-7.3.1-19.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-7.3.1-19.3">JWT Claim Name: "submods"<a href="#section-7.3.1-19.3" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-7.3.1-19.4">Claim Key: 20<a href="#section-7.3.1-19.4" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-7.3.1-19.5">Claim Value Type(s): map<a href="#section-7.3.1-19.5" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-7.3.1-19.6">Change Controller: IESG<a href="#section-7.3.1-19.6" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-7.3.1-19.7">Specification Document(s): <strong>this document</strong><a href="#section-7.3.1-19.7" class="pilcrow">¶</a>
 </li>
           </ul>
 </section>
@@ -3725,6 +3757,10 @@ the EAT they are consuming.<a href="#section-9.3-3" class="pilcrow">¶</a></p>
 <a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="CBOR-OID">[CBOR-OID]</dt>
+        <dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR) Tags for Object Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cbor-tags-oid-05</span>, <time datetime="2021-02-19" class="refDate">19 February 2021</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-ietf-cbor-tags-oid-05.txt">https://www.ietf.org/archive/id/draft-ietf-cbor-tags-oid-05.txt</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="CoSWID">[CoSWID]</dt>
         <dd>
 <span class="refTitle">"Concise Software Identification Tags"</span>, <time datetime="2020-11" class="refDate">November 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-sacm-coswid-16">https://tools.ietf.org/html/draft-ietf-sacm-coswid-16</a>&gt;</span>. </dd>
@@ -3752,6 +3788,10 @@ the EAT they are consuming.<a href="#section-9.3-3" class="pilcrow">¶</a></p>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3986">[RFC3986]</dt>
+        <dd>
+<span class="refAuthor">Berners-Lee, T.</span><span class="refAuthor">, Fielding, R.</span><span class="refAuthor">, and L. Masinter</span>, <span class="refTitle">"Uniform Resource Identifier (URI): Generic Syntax"</span>, <span class="seriesInfo">STD 66</span>, <span class="seriesInfo">RFC 3986</span>, <span class="seriesInfo">DOI 10.17487/RFC3986</span>, <time datetime="2005-01" class="refDate">January 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3986">https://www.rfc-editor.org/info/rfc3986</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7517">[RFC7517]</dt>
         <dd>
@@ -4310,6 +4350,17 @@ there can be more tha one of them<a href="#section-c.4-1.4" class="pilcrow">¶</
         </h2>
 <ul class="normal">
 <li class="normal" id="section-c.9-1.1">Filled in IANA and other sections for possible preassignment of claim keys for well understood claims<a href="#section-c.9-1.1" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+</div>
+<div id="from-draft-ietf-rats-08">
+<section id="section-c.10">
+        <h2 id="name-from-draft-ietf-rats-08">
+<a href="#section-c.10" class="section-number selfRef">C.10. </a><a href="#name-from-draft-ietf-rats-08" class="section-name selfRef">From draft-ietf-rats-08</a>
+        </h2>
+<ul class="normal">
+<li class="normal" id="section-c.10-1.1">Change profile claim to be either a URL or an OID rather than a test string<a href="#section-c.10-1.1" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>

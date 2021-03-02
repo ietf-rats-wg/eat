@@ -5,11 +5,11 @@
 RATS Working Group                                            G. Mandyam
 Internet-Draft                                Qualcomm Technologies Inc.
 Intended status: Standards Track                            L. Lundblade
-Expires: 9 August 2021                               Security Theory LLC
+Expires: 3 September 2021                            Security Theory LLC
                                                           M. Ballesteros
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
-                                                         5 February 2021
+                                                            2 March 2021
 
 
                    The Entity Attestation Token (EAT)
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 August 2021.
+   This Internet-Draft will expire on 3 September 2021.
 
 
 
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Mandyam, et al.           Expires 9 August 2021                 [Page 1]
+Mandyam, et al.         Expires 3 September 2021                [Page 1]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Mandyam, et al.           Expires 9 August 2021                 [Page 2]
+Mandyam, et al.         Expires 3 September 2021                [Page 2]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
        3.11.6.  debug-status CDDL  . . . . . . . . . . . . . . . . .  21
@@ -127,84 +127,85 @@ Internet-Draft                     EAT                     February 2021
      3.17. The Submodules Part of a Token (submods)  . . . . . . . .  25
        3.17.1.  Two Types of Submodules  . . . . . . . . . . . . . .  26
          3.17.1.1.  Non-token Submodules . . . . . . . . . . . . . .  26
-         3.17.1.2.  Nested EATs  . . . . . . . . . . . . . . . . . .  26
-         3.17.1.3.  Unsecured JWTs and UCCS Tokens as Submodules . .  27
+         3.17.1.2.  Nested EATs  . . . . . . . . . . . . . . . . . .  27
+         3.17.1.3.  Unsecured JWTs and UCCS Tokens as Submodules . .  28
        3.17.2.  No Inheritance . . . . . . . . . . . . . . . . . . .  28
        3.17.3.  Security Levels  . . . . . . . . . . . . . . . . . .  28
-       3.17.4.  Submodule Names  . . . . . . . . . . . . . . . . . .  28
-       3.17.5.  submods CDDL . . . . . . . . . . . . . . . . . . . .  28
+       3.17.4.  Submodule Names  . . . . . . . . . . . . . . . . . .  29
+       3.17.5.  submods CDDL . . . . . . . . . . . . . . . . . . . .  29
    4.  Endorsements and Verification Keys  . . . . . . . . . . . . .  29
-   5.  Profiles  . . . . . . . . . . . . . . . . . . . . . . . . . .  29
+   5.  Profiles  . . . . . . . . . . . . . . . . . . . . . . . . . .  30
      5.1.  List of Profile Issues  . . . . . . . . . . . . . . . . .  30
        5.1.1.  Use of JSON, CBOR or both . . . . . . . . . . . . . .  30
        5.1.2.  CBOR Map and Array Encoding . . . . . . . . . . . . .  30
        5.1.3.  CBOR String Encoding  . . . . . . . . . . . . . . . .  30
-       5.1.4.  COSE/JOSE Protection  . . . . . . . . . . . . . . . .  30
+       5.1.4.  COSE/JOSE Protection  . . . . . . . . . . . . . . . .  31
        5.1.5.  COSE/JOSE Algorithms  . . . . . . . . . . . . . . . .  31
        5.1.6.  Verification Key Identification . . . . . . . . . . .  31
        5.1.7.  Endorsement Identification  . . . . . . . . . . . . .  31
        5.1.8.  Required Claims . . . . . . . . . . . . . . . . . . .  31
-       5.1.9.  Prohibited Claims . . . . . . . . . . . . . . . . . .  31
-       5.1.10. Additional Claims . . . . . . . . . . . . . . . . . .  31
+       5.1.9.  Prohibited Claims . . . . . . . . . . . . . . . . . .  32
+       5.1.10. Additional Claims . . . . . . . . . . . . . . . . . .  32
        5.1.11. Refined Claim Definition  . . . . . . . . . . . . . .  32
        5.1.12. CBOR Tags . . . . . . . . . . . . . . . . . . . . . .  32
    6.  Encoding  . . . . . . . . . . . . . . . . . . . . . . . . . .  32
      6.1.  Common CDDL Types . . . . . . . . . . . . . . . . . . . .  32
-     6.2.  CDDL for CWT-defined Claims . . . . . . . . . . . . . . .  32
+     6.2.  CDDL for CWT-defined Claims . . . . . . . . . . . . . . .  33
      6.3.  JSON  . . . . . . . . . . . . . . . . . . . . . . . . . .  33
        6.3.1.  JSON Labels . . . . . . . . . . . . . . . . . . . . .  33
        6.3.2.  JSON Interoperability . . . . . . . . . . . . . . . .  34
      6.4.  CBOR  . . . . . . . . . . . . . . . . . . . . . . . . . .  34
-       6.4.1.  CBOR Interoperability . . . . . . . . . . . . . . . .  34
-         6.4.1.1.  EAT Constrained Device Serialization  . . . . . .  34
-     6.5.  Collected CDDL  . . . . . . . . . . . . . . . . . . . . .  35
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  41
-     7.1.  Reuse of CBOR Web Token (CWT) Claims Registry . . . . . .  41
+       6.4.1.  CBOR Interoperability . . . . . . . . . . . . . . . .  35
+         6.4.1.1.  EAT Constrained Device Serialization  . . . . . .  35
+     6.5.  Collected CDDL  . . . . . . . . . . . . . . . . . . . . .  36
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  42
+     7.1.  Reuse of CBOR Web Token (CWT) Claims Registry . . . . . .  42
      7.2.  Claim Characteristics . . . . . . . . . . . . . . . . . .  42
        7.2.1.  Interoperability and Relying Party Orientation  . . .  42
 
 
 
-Mandyam, et al.           Expires 9 August 2021                 [Page 3]
+Mandyam, et al.         Expires 3 September 2021                [Page 3]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
-       7.2.2.  Operating System and Technology Neutral . . . . . . .  42
+       7.2.2.  Operating System and Technology Neutral . . . . . . .  43
        7.2.3.  Security Level Neutral  . . . . . . . . . . . . . . .  43
        7.2.4.  Reuse of Extant Data Formats  . . . . . . . . . . . .  43
-       7.2.5.  Proprietary Claims  . . . . . . . . . . . . . . . . .  43
+       7.2.5.  Proprietary Claims  . . . . . . . . . . . . . . . . .  44
      7.3.  Claims Registered by This Document  . . . . . . . . . . .  44
        7.3.1.  Claims for Early Assignment . . . . . . . . . . . . .  44
        7.3.2.  To be Assigned Claims . . . . . . . . . . . . . . . .  47
-   8.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  47
-     8.1.  UEID Privacy Considerations . . . . . . . . . . . . . . .  47
-     8.2.  Location Privacy Considerations . . . . . . . . . . . . .  48
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  48
-     9.1.  Key Provisioning  . . . . . . . . . . . . . . . . . . . .  48
-       9.1.1.  Transmission of Key Material  . . . . . . . . . . . .  48
-     9.2.  Transport Security  . . . . . . . . . . . . . . . . . . .  49
-     9.3.  Multiple EAT Consumers  . . . . . . . . . . . . . . . . .  49
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  49
+   8.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  48
+     8.1.  UEID Privacy Considerations . . . . . . . . . . . . . . .  48
+     8.2.  Location Privacy Considerations . . . . . . . . . . . . .  49
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  49
+     9.1.  Key Provisioning  . . . . . . . . . . . . . . . . . . . .  49
+       9.1.1.  Transmission of Key Material  . . . . . . . . . . . .  49
+     9.2.  Transport Security  . . . . . . . . . . . . . . . . . . .  50
+     9.3.  Multiple EAT Consumers  . . . . . . . . . . . . . . . . .  50
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  50
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  50
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  52
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  53
-     A.1.  Very Simple EAT . . . . . . . . . . . . . . . . . . . . .  53
-     A.2.  Example with Submodules, Nesting and Security Levels  . .  53
-   Appendix B.  UEID Design Rationale  . . . . . . . . . . . . . . .  54
-     B.1.  Collision Probability . . . . . . . . . . . . . . . . . .  54
-     B.2.  No Use of UUID  . . . . . . . . . . . . . . . . . . . . .  57
-   Appendix C.  Changes from Previous Drafts . . . . . . . . . . . .  57
-     C.1.  From draft-rats-eat-01  . . . . . . . . . . . . . . . . .  57
-     C.2.  From draft-mandyam-rats-eat-00  . . . . . . . . . . . . .  58
-     C.3.  From draft-ietf-rats-eat-01 . . . . . . . . . . . . . . .  58
-     C.4.  From draft-ietf-rats-eat-02 . . . . . . . . . . . . . . .  58
-     C.5.  From draft-ietf-rats-eat-03 . . . . . . . . . . . . . . .  58
-     C.6.  From draft-ietf-rats-eat-04 . . . . . . . . . . . . . . .  58
-     C.7.  From draft-ietf-rats-05 . . . . . . . . . . . . . . . . .  59
-     C.8.  From draft-ietf-rats-06 . . . . . . . . . . . . . . . . .  59
-     C.9.  From draft-ietf-rats-07 . . . . . . . . . . . . . . . . .  59
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  59
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  53
+   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  54
+     A.1.  Very Simple EAT . . . . . . . . . . . . . . . . . . . . .  54
+     A.2.  Example with Submodules, Nesting and Security Levels  . .  55
+   Appendix B.  UEID Design Rationale  . . . . . . . . . . . . . . .  55
+     B.1.  Collision Probability . . . . . . . . . . . . . . . . . .  55
+     B.2.  No Use of UUID  . . . . . . . . . . . . . . . . . . . . .  58
+   Appendix C.  Changes from Previous Drafts . . . . . . . . . . . .  59
+     C.1.  From draft-rats-eat-01  . . . . . . . . . . . . . . . . .  59
+     C.2.  From draft-mandyam-rats-eat-00  . . . . . . . . . . . . .  59
+     C.3.  From draft-ietf-rats-eat-01 . . . . . . . . . . . . . . .  59
+     C.4.  From draft-ietf-rats-eat-02 . . . . . . . . . . . . . . .  59
+     C.5.  From draft-ietf-rats-eat-03 . . . . . . . . . . . . . . .  60
+     C.6.  From draft-ietf-rats-eat-04 . . . . . . . . . . . . . . .  60
+     C.7.  From draft-ietf-rats-05 . . . . . . . . . . . . . . . . .  60
+     C.8.  From draft-ietf-rats-06 . . . . . . . . . . . . . . . . .  61
+     C.9.  From draft-ietf-rats-07 . . . . . . . . . . . . . . . . .  61
+     C.10. From draft-ietf-rats-08 . . . . . . . . . . . . . . . . .  61
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  61
 
 1.  Introduction
 
@@ -215,17 +216,19 @@ Internet-Draft                     EAT                     February 2021
    characteristics about the device and decide whether it trusts the
    device.
 
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021                [Page 4]
+
+Internet-Draft                     EAT                        March 2021
+
+
    Remote attestation is a fundamental service that can underlie other
    protocols and services that need to know about the trustworthiness of
    the device before proceeding.  One good example is biometric
-
-
-
-Mandyam, et al.           Expires 9 August 2021                 [Page 4]
-
-Internet-Draft                     EAT                     February 2021
-
-
    authentication where the biometric matching is done on the device.
    The relying party needs to know that the device is one that is known
    to do biometric matching correctly.  Another example is content
@@ -274,12 +277,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-
-
-
-Mandyam, et al.           Expires 9 August 2021                 [Page 5]
+Mandyam, et al.         Expires 3 September 2021                [Page 5]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
 1.2.  CDDL
@@ -333,9 +333,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                 [Page 6]
+Mandyam, et al.         Expires 3 September 2021                [Page 6]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
    The Manufacturer.  The company that made the entity.  This may be a
@@ -389,9 +389,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                 [Page 7]
+Mandyam, et al.         Expires 3 September 2021                [Page 7]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
    All these operating models are supported and there is no preference
@@ -445,9 +445,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                 [Page 8]
+Mandyam, et al.         Expires 3 September 2021                [Page 8]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
    There are three main implementation issues driving this.  First,
@@ -501,9 +501,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                 [Page 9]
+Mandyam, et al.         Expires 3 September 2021                [Page 9]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
    Note also: * Any claim defined for CWT or JWT may be used in an EAT
@@ -557,9 +557,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 10]
+Mandyam, et al.         Expires 3 September 2021               [Page 10]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
    CWT allows the use floating-point for this claim.  EAT disallows the
@@ -613,9 +613,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 11]
+Mandyam, et al.         Expires 3 September 2021               [Page 11]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
    protocols and systems.  No two products anywhere, even in completely
@@ -669,9 +669,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 12]
+Mandyam, et al.         Expires 3 September 2021               [Page 12]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
     +======+======+===================================================+
@@ -725,9 +725,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 13]
+Mandyam, et al.         Expires 3 September 2021               [Page 13]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
    The consumer (the relying party) of a UEID MUST treat a UEID as a
@@ -781,9 +781,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 14]
+Mandyam, et al.         Expires 3 September 2021               [Page 14]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
       +===================+=========================================+
@@ -837,9 +837,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 15]
+Mandyam, et al.         Expires 3 September 2021               [Page 15]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
    Commonly, these are expressed in Hexadecimal Representation
@@ -893,9 +893,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 16]
+Mandyam, et al.         Expires 3 September 2021               [Page 16]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
        board-version-scheme => $version-scheme
@@ -949,9 +949,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 17]
+Mandyam, et al.         Expires 3 September 2021               [Page 17]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
 3.9.  The Security Level Claim (security-level)
@@ -1005,9 +1005,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 18]
+Mandyam, et al.         Expires 3 September 2021               [Page 18]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
 3.9.1.  security-level CDDL
@@ -1061,9 +1061,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 19]
+Mandyam, et al.         Expires 3 September 2021               [Page 19]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
    As with all claims, the absence of the debug level claim means it is
@@ -1117,9 +1117,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 20]
+Mandyam, et al.         Expires 3 September 2021               [Page 20]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
 3.11.3.  Disabled Since Boot
@@ -1173,9 +1173,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 21]
+Mandyam, et al.         Expires 3 September 2021               [Page 21]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
    Keys in CBOR format tokens SHOULD be the COSE_Key format [RFC8152]
@@ -1229,9 +1229,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 22]
+Mandyam, et al.         Expires 3 September 2021               [Page 22]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
    The age data item can be used when the entity doesn't know what time
@@ -1285,9 +1285,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 23]
+Mandyam, et al.         Expires 3 September 2021               [Page 23]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
 3.14.2.  The Boot Seed Claim (boot-seed)
@@ -1341,9 +1341,9 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 24]
+Mandyam, et al.         Expires 3 September 2021               [Page 24]
 
-Internet-Draft                     EAT                     February 2021
+Internet-Draft                     EAT                        March 2021
 
 
 3.15.1.  intended-use CDDL
@@ -1362,18 +1362,27 @@ Internet-Draft                     EAT                     February 2021
 
 3.16.  The Profile Claim (profile)
 
-   The profile claim is a text string that simply gives the name of the
-   profile to which the token purports to adhere to.  It may name an
-   IETF document, some other document or no particular document.  There
-   is no requirement that the named document be publicly accessible.
+   See Section 5 for the detailed description of a profile.
 
-   See Section 5 for a detailed description of a profile.
+   A profile is identified by either a URL or an OID.  Typically, the
+   URI will reference a document describing the profile.  An OID is just
+   a unique identifier for the profile.  It may exist anywhere in the
+   OID tree.  There is no requirement that the named document be
+   publicly accessible.  An OID is just a unique identifier for the
+   profile.  It may exist anywhere in the OID tree.  The primary purpose
+   of the profile claim is to uniquely identify the profile even if it
+   is a private profile.
+
+   The OID is encoded in CBOR according to [CBOR-OID] and the URI
+   according to [RFC8949].  Both are unwrapped and thus not tags.  If
+   the claims CBOR type is a text string it is a URI and if a byte
+   string it is an OID.
 
    Note that this named "eat-profile" for JWT and is distinct from the
    already registered "profile" claim in the JWT claims registry.
 
    profile-claim = (
-       profile => tstr
+       profile => ~uri / ~oid
    )
 
 3.17.  The Submodules Part of a Token (submods)
@@ -1385,6 +1394,14 @@ Internet-Draft                     EAT                     February 2021
    one or more security-oriented subsystems like a TEE or a Secure
    Element.
 
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 25]
+
+Internet-Draft                     EAT                        March 2021
+
+
    The claims for each these can be grouped together in a submodule.
 
    The submods part of a token are in a single map/object with many
@@ -1394,13 +1411,6 @@ Internet-Draft                     EAT                     February 2021
    for a claim set rather than an individual claim.  This submods part
    of a token allows what might be called recursion.  It allows claim
    sets inside of claim sets inside of claims sets...
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 25]
-
-Internet-Draft                     EAT                     February 2021
-
 
 3.17.1.  Two Types of Submodules
 
@@ -1433,6 +1443,21 @@ Internet-Draft                     EAT                     February 2021
    type by being a data item of type map for CBOR or type object for
    JSON.
 
+
+
+
+
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 26]
+
+Internet-Draft                     EAT                        March 2021
+
+
 3.17.1.2.  Nested EATs
 
    This type of submodule is a fully formed secured EAT as defined in
@@ -1450,13 +1475,6 @@ Internet-Draft                     EAT                     February 2021
    They type of an EAT nested in a CWT is determined by whether the CBOR
    type is a text string or a byte string.  If a text string, then it is
    a JWT.  If a byte string, then it is a CWT.
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 26]
-
-Internet-Draft                     EAT                     February 2021
-
 
    A CWT nested in a CBOR-format token is always wrapped by a byte
    string for easier handling with standard CBOR decoders and token
@@ -1483,6 +1501,19 @@ Internet-Draft                     EAT                     February 2021
    format tokens.  It may be a CWT CBOR tag or a CWT Protocol Message
    and COSE_Tagged_Message MUST be used at all COSE layers.
 
+
+
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 27]
+
+Internet-Draft                     EAT                        March 2021
+
+
 3.17.1.3.  Unsecured JWTs and UCCS Tokens as Submodules
 
    To incorporate a UCCS token as a submodule, it MUST be as a non-token
@@ -1507,13 +1538,6 @@ Internet-Draft                     EAT                     February 2021
    security JOSE should be removed and the claims translated from JSON
    to CBOR.
 
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 27]
-
-Internet-Draft                     EAT                     February 2021
-
-
 3.17.2.  No Inheritance
 
    The subordinate modules do not inherit anything from the containing
@@ -1536,39 +1560,22 @@ Internet-Draft                     EAT                     February 2021
    their own more secure key material.  An example of this is an
    embedded secure element.
 
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 28]
+
+Internet-Draft                     EAT                        March 2021
+
+
 3.17.4.  Submodule Names
 
    The label or name for each submodule in the submods map is a text
    string naming the submodule.  No submodules may have the same name.
 
 3.17.5.  submods CDDL
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 28]
-
-Internet-Draft                     EAT                     February 2021
-
 
    ; The part of a token that contains all the submodules.  It is a peer
    ; with the claims in the token, but not a claim, only a map/object to
@@ -1608,6 +1615,17 @@ Internet-Draft                     EAT                     February 2021
    the signature.  This will NOT discuss the contents of an Endorsement,
    just and ID/locator.
 
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 29]
+
+Internet-Draft                     EAT                        March 2021
+
+
 5.  Profiles
 
    This EAT specification does not gaurantee that implementations of it
@@ -1618,13 +1636,6 @@ Internet-Draft                     EAT                     February 2021
 
    The profile can be named in the token using the profile claim
    described in Section 3.16.
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 29]
-
-Internet-Draft                     EAT                     February 2021
-
 
 5.1.  List of Profile Issues
 
@@ -1664,6 +1675,13 @@ Internet-Draft                     EAT                     February 2021
    allowing indefinite-length strings can be beneficial for some smaller
    implementations.
 
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 30]
+
+Internet-Draft                     EAT                        March 2021
+
+
 5.1.4.  COSE/JOSE Protection
 
    COSE and JOSE have several options for signed, MACed and encrypted
@@ -1672,15 +1690,6 @@ Internet-Draft                     EAT                     February 2021
    no protection, sign only, MAC only, sign then encrypt and so on.  All
    combinations allowed by COSE, JOSE, JWT, CWT and UCCS are allowed by
    EAT.
-
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 30]
-
-Internet-Draft                     EAT                     February 2021
-
 
    The profile should list the protections that must be supported by all
    decoders implementing the profile.  The encoders them must implement
@@ -1721,6 +1730,14 @@ Internet-Draft                     EAT                     February 2021
    The profile can list claims whose absence results in Verification
    failure.
 
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 31]
+
+Internet-Draft                     EAT                        March 2021
+
+
 5.1.9.  Prohibited Claims
 
    The profile can list claims whose presence results in Verification
@@ -1730,13 +1747,6 @@ Internet-Draft                     EAT                     February 2021
 
    The profile may describe entirely new claims.  These claims can be
    required or optional.
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 31]
-
-Internet-Draft                     EAT                     February 2021
-
 
 5.1.11.  Refined Claim Definition
 
@@ -1775,24 +1785,20 @@ Internet-Draft                     EAT                     February 2021
 
    time-int = #6.1(int)
 
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 32]
+
+Internet-Draft                     EAT                        March 2021
+
+
 6.2.  CDDL for CWT-defined Claims
 
    This section provides CDDL for the claims defined in CWT.  It is non-
    normative as [RFC8392] is the authoritative definition of these
    claims.
-
-
-
-
-
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 32]
-
-Internet-Draft                     EAT                     February 2021
-
 
    $$eat-extension //= (
        ? issuer => text,
@@ -1815,6 +1821,34 @@ Internet-Draft                     EAT                     February 2021
 6.3.  JSON
 
 6.3.1.  JSON Labels
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 33]
+
+Internet-Draft                     EAT                        March 2021
+
 
 ; The following are Claim Keys (labels) assigned for JSON-encoded tokens.
 
@@ -1841,15 +1875,6 @@ altitude-accuracy /= "alt-accry"
 heading /= "heading"
 speed /= "speed"
 
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 33]
-
-Internet-Draft                     EAT                     February 2021
-
-
 6.3.2.  JSON Interoperability
 
    JSON should be encoded per RFC 8610 Appendix E.  In addition, the
@@ -1863,7 +1888,23 @@ Internet-Draft                     EAT                     February 2021
    *  string-or-uri -- must be encoded as StringOrURI as described
       section 2 of [RFC7519].
 
+   *  uri -- must be a URI [RFC3986].
+
+   *  oid -- encoded as a string using the well established dotted-
+      decimal notation (e.g., the text "1.2.250.1").
+
 6.4.  CBOR
+
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 34]
+
+Internet-Draft                     EAT                        March 2021
+
 
 6.4.1.  CBOR Interoperability
 
@@ -1898,14 +1939,6 @@ Internet-Draft                     EAT                     February 2021
       described in section 3.2.2 of [RFC8949].  The EAT encoder may use
       indefinite length arrays and maps if it wishes.
 
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 34]
-
-Internet-Draft                     EAT                     February 2021
-
-
    *  The EAT decoder must accept indefinite length strings as described
       in section 3.2.3 of [RFC8949].  The EAT encoder may use indefinite
       length strings if it wishes.
@@ -1919,6 +1952,15 @@ Internet-Draft                     EAT                     February 2021
    *  Basic validity described in section 5.3.1 of [RFC8949] must be
       followed.  The EAT encoder must not send duplicate map keys/labels
       or invalid UTF-8 strings.
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 35]
+
+Internet-Draft                     EAT                        March 2021
+
 
 6.5.  Collected CDDL
 
@@ -1954,14 +1996,6 @@ eat-token = EAT_Tagged_Message / EAT_Untagged_Message / JWT_Message
 ; tag.  COSE_Tagged_message is defined in RFC 8152.  Tag 601 is
 ; proposed by the UCCS draft, but not yet assigned.
 
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 35]
-
-Internet-Draft                     EAT                     February 2021
-
-
 EAT_Tagged_Message = #6.61(COSE_Tagged_Message) / #6.601(eat-claim-set)
 
 
@@ -1976,6 +2010,13 @@ EAT_Untagged_Message = COSE_Tagged_Message / COSE_Untagged_Message / UCCS_Untagg
 ; definition of its content without the preceding type 6 tag
 ; integer. Since a UCCS is nothing but a tag for an unsecured CWT
 ; claim set, unwrapping reduces to a bare eat-claim-set.
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 36]
+
+Internet-Draft                     EAT                        March 2021
+
 
 UCCS_Untagged_Message = eat-claim-set
 
@@ -2011,13 +2052,6 @@ debug-status-type = &(
     disabled-fully-and-permanently: 4
 )
 
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 36]
-
-Internet-Draft                     EAT                     February 2021
-
-
 debug-status-claim = (
     debug-status => debug-status-type
 )
@@ -2032,6 +2066,14 @@ location-type = {
     ? speed => number,
     ? timestamp => ~time-int,
     ? age => uint
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 37]
+
+Internet-Draft                     EAT                        March 2021
+
+
 }
 
 latitude = 1
@@ -2066,14 +2108,6 @@ oemid-claim = (
   $version-scheme /= alphanumeric
   $version-scheme /= decimal
   $version-scheme /= semver
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 37]
-
-Internet-Draft                     EAT                     February 2021
-
-
   $version-scheme /= uint / text
   multipartnumeric = 1
   multipartnumeric-suffix = 2
@@ -2088,6 +2122,14 @@ chip-version-claim = (
 
 chip-version-scheme-claim = (
     chip-version-scheme => $version-scheme
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 38]
+
+Internet-Draft                     EAT                        March 2021
+
+
 )
 
 board-version-claim = (
@@ -2122,14 +2164,6 @@ ean-device-version-claim = (
 )
 
 hardware-version-claims = (
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 38]
-
-Internet-Draft                     EAT                     February 2021
-
-
     ? chip-version-claim,
     ? board-version-claim,
     ? device-version-claim,
@@ -2144,6 +2178,14 @@ Internet-Draft                     EAT                     February 2021
 
 origination-claim = (
     origination => string-or-uri
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 39]
+
+Internet-Draft                     EAT                        March 2021
+
+
 )
 
 secure-boot-claim = (
@@ -2178,14 +2220,6 @@ submods-type = { + submod-type }
 
 submod-type = (
     submod-name => eat-claim-set / nested-token
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 39]
-
-Internet-Draft                     EAT                     February 2021
-
-
 )
 
 
@@ -2200,6 +2234,12 @@ nested-token = bstr / tstr;
 
 submod-name = tstr
 
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 40]
+
+Internet-Draft                     EAT                        March 2021
 
 
 ueid-type = bstr .size (7..33)
@@ -2234,20 +2274,12 @@ oemid = 13
 security-level = 14
 secure-boot = 15
 debug-status = 16
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 40]
-
-Internet-Draft                     EAT                     February 2021
-
-
 location = 17
 submods = 20
 
 
 profile-claim = (
-    profile => tstr
+    profile => ~uri / ~oid
 )
 
 boot-seed-claim = (
@@ -2258,6 +2290,14 @@ boot-seed-claim = (
 
 ueid /= "ueid"
 nonce /= "nonce"
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 41]
+
+Internet-Draft                     EAT                        March 2021
+
+
 origination /= "origination"
 oemid /= "oemid"
 security-level /= "seclevel"
@@ -2287,17 +2327,6 @@ speed /= "speed"
    Claims Registry is re used.  No new IANA registry is created.  All
    EAT claims should be registered in the CWT and JWT Claims Registries.
 
-
-
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 41]
-
-Internet-Draft                     EAT                     February 2021
-
-
 7.2.  Claim Characteristics
 
    The following is design guidance for creating new EAT claims,
@@ -2316,6 +2345,14 @@ Internet-Draft                     EAT                     February 2021
    for different device types.  This is a goal of interoperability of
    the semantics of claims themselves, not just of the signing, encoding
    and serialization formats.
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 42]
+
+Internet-Draft                     EAT                        March 2021
+
 
    This is a lofty goal and difficult to achieve broadly requiring
    careful definition of claims in a technology neutral way.  Sometimes
@@ -2343,17 +2380,6 @@ Internet-Draft                     EAT                     February 2021
    The boot and debug state claims in this document are an example of a
    claim that has been defined in this neutral way.
 
-
-
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 42]
-
-Internet-Draft                     EAT                     February 2021
-
-
 7.2.3.  Security Level Neutral
 
    Many use cases will have EATs generated by some of the most secure
@@ -2372,6 +2398,17 @@ Internet-Draft                     EAT                     February 2021
    Where possible, claims should use already standardized data items,
    identifiers and formats.  This takes advantage of the expertise put
    into creating those formats and improves interoperability.
+
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 43]
+
+Internet-Draft                     EAT                        March 2021
+
 
    Often extant claims will not be defined in an encoding or
    serialization format used by EAT.  It is preferred to define a CBOR
@@ -2395,20 +2432,6 @@ Internet-Draft                     EAT                     February 2021
    In many cases proprietary claims will be the easiest and most obvious
    way to proceed, however for better interoperability, use of general
    standardized claims is preferred.
-
-
-
-
-
-
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 43]
-
-Internet-Draft                     EAT                     February 2021
-
 
 7.3.  Claims Registered by This Document
 
@@ -2435,6 +2458,14 @@ Internet-Draft                     EAT                     February 2021
    The claims in this section have been (requested for / given) early
    assignment according to [RFC7120].  They have been assigned values
    and registered before final publication of this document.  While
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 44]
+
+Internet-Draft                     EAT                        March 2021
+
+
    their semantics is not expected to change in final publication, it is
    possible that they will.  The JWT Claim Names and CWT Claim Keys are
    not expected to change.
@@ -2457,14 +2488,6 @@ Internet-Draft                     EAT                     February 2021
    *  Claim Name: UEID
 
    *  Claim Description: The Universal Entity ID
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 44]
-
-Internet-Draft                     EAT                     February 2021
-
 
    *  JWT Claim Name: "ueid"
 
@@ -2492,6 +2515,13 @@ Internet-Draft                     EAT                     February 2021
    *  Specification Document(s): *this document*
 
 
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 45]
+
+Internet-Draft                     EAT                        March 2021
+
+
    *  Claim Name: Security Level
 
    *  Claim Description: Characterization of the security of an Attester
@@ -2513,14 +2543,6 @@ Internet-Draft                     EAT                     February 2021
    *  Claim Description: Indicate whether the boot was secure
 
    *  JWT Claim Name: "secboot"
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 45]
-
-Internet-Draft                     EAT                     February 2021
-
 
    *  Claim Key: 15
 
@@ -2548,11 +2570,34 @@ Internet-Draft                     EAT                     February 2021
 
    *  Claim Name: Location
 
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 46]
+
+Internet-Draft                     EAT                        March 2021
+
+
    *  Claim Description: The geographic location
 
    *  JWT Claim Name: "location"
 
    *  Claim Key: 17
+
+   *  Claim Value Type(s): map
+
+   *  Change Controller: IESG
+
+   *  Specification Document(s): *this document*
+
+
+   *  Claim Name: Profile
+
+   *  Claim Description: Indicates the EAT profile followed
+
+   *  JWT Claim Name: "eat_profile"
+
+   *  Claim Key: 18
 
    *  Claim Value Type(s): map
 
@@ -2570,14 +2615,6 @@ Internet-Draft                     EAT                     February 2021
 
    *  Claim Key: 20
 
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 46]
-
-Internet-Draft                     EAT                     February 2021
-
-
    *  Claim Value Type(s): map
 
    *  Change Controller: IESG
@@ -2587,6 +2624,15 @@ Internet-Draft                     EAT                     February 2021
 7.3.2.  To be Assigned Claims
 
    TODO: add the rest of the claims in here
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 47]
+
+Internet-Draft                     EAT                        March 2021
+
 
 8.  Privacy Considerations
 
@@ -2626,19 +2672,23 @@ Internet-Draft                     EAT                     February 2021
       party by hashing a proofed relying party ID with the main device
       UEID.
 
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 47]
-
-Internet-Draft                     EAT                     February 2021
-
-
    Note that some of these privacy preservation strategies result in
    multiple UEIDs per device.  Each UEID is used in a different context,
    use case or system on the device.  However, from the view of the
    relying party, there is just one UEID and it is still globally
    universal across manufacturers.
+
+
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 48]
+
+Internet-Draft                     EAT                        March 2021
+
 
 8.2.  Location Privacy Considerations
 
@@ -2682,16 +2732,19 @@ Internet-Draft                     EAT                     February 2021
    be done by human courier.  In the latter case, there should be
    minimal to no exposure of the key material to the human (e.g.
    encrypted portable memory).  Moreover, the human should transport the
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 48]
-
-Internet-Draft                     EAT                     February 2021
-
-
    key material directly from the secure enclave where it was created to
    a destination secure enclave where it can be provisioned.
+
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 49]
+
+Internet-Draft                     EAT                        March 2021
+
 
 9.2.  Transport Security
 
@@ -2739,14 +2792,21 @@ Internet-Draft                     EAT                     February 2021
 
 10.  References
 
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 49]
-
-Internet-Draft                     EAT                     February 2021
-
-
 10.1.  Normative References
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 50]
+
+Internet-Draft                     EAT                        March 2021
+
+
+   [CBOR-OID] Bormann, C., "Concise Binary Object Representation (CBOR)
+              Tags for Object Identifiers", Work in Progress, Internet-
+              Draft, draft-ietf-cbor-tags-oid-05, 19 February 2021,
+              <https://www.ietf.org/archive/id/draft-ietf-cbor-tags-oid-
+              05.txt>.
 
    [CoSWID]   "Concise Software Identification Tags", November 2020,
               <https://tools.ietf.org/html/draft-ietf-sacm-coswid-16>.
@@ -2779,9 +2839,24 @@ Internet-Draft                     EAT                     February 2021
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
+   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/info/rfc3986>.
+
    [RFC7517]  Jones, M., "JSON Web Key (JWK)", RFC 7517,
               DOI 10.17487/RFC7517, May 2015,
               <https://www.rfc-editor.org/info/rfc7517>.
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 51]
+
+Internet-Draft                     EAT                        March 2021
+
 
    [RFC7519]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
               (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015,
@@ -2791,16 +2866,6 @@ Internet-Draft                     EAT                     February 2021
               Possession Key Semantics for JSON Web Tokens (JWTs)",
               RFC 7800, DOI 10.17487/RFC7800, April 2016,
               <https://www.rfc-editor.org/info/rfc7800>.
-
-
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 50]
-
-Internet-Draft                     EAT                     February 2021
-
 
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
@@ -2842,21 +2907,17 @@ Internet-Draft                     EAT                     February 2021
               <https://portal.3gpp.org/desktopmodules/Specifications/
               SpecificationDetails.aspx?specificationId=729>.
 
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 52]
+
+Internet-Draft                     EAT                        March 2021
+
+
    [UCCS.Draft]
               Birkholz, H., "A CBOR Tag for Unprotected CWT Claims
               Sets", 2020,
               <https://tools.ietf.org/html/draft-birkholz-rats-uccs-01>.
-
-
-
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 51]
-
-Internet-Draft                     EAT                     February 2021
-
 
    [WGS84]    National Imagery and Mapping Agency, "National Imagery and
               Mapping Agency Technical Report 8350.2, Third Edition",
@@ -2900,19 +2961,18 @@ Internet-Draft                     EAT                     February 2021
               <https://webstore.ansi.org/standards/ieee/
               ieee8022001r2007>.
 
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 53]
+
+Internet-Draft                     EAT                        March 2021
+
+
    [IEEE.RA]  "IEEE Registration Authority",
               <https://standards.ieee.org/products-services/regauth/
               index.html>.
-
-
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 52]
-
-Internet-Draft                     EAT                     February 2021
-
 
    [OUI.Guide]
               "Guidelines for Use of Extended Unique Identifier (EUI),
@@ -2951,6 +3011,21 @@ A.1.  Very Simple EAT
    This is shown in CBOR diagnostic form.  Only the payload signed by
    COSE is shown.
 
+
+
+
+
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 54]
+
+Internet-Draft                     EAT                        March 2021
+
+
    {
        / issuer /           1: "joe",
        / nonce /           10: h'948f8860d13a463e8e',
@@ -2961,14 +3036,6 @@ A.1.  Very Simple EAT
    }
 
 A.2.  Example with Submodules, Nesting and Security Levels
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 53]
-
-Internet-Draft                     EAT                     February 2021
-
 
   {
       / nonce /                 10: h'948f8860d13a463e8e',
@@ -3007,6 +3074,14 @@ B.1.  Collision Probability
    devices per person roughly models non-personal devices such as
    traffic lights, devices in stores they shop in, facilities they work
    in and so on, even considering individual light bulbs.  A device may
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 55]
+
+Internet-Draft                     EAT                        March 2021
+
+
    have individually attested subsystems, for example parts of a car or
    a mobile phone.  It is assumed that the largest database will have at
    most 10% of the world's population of devices.  Note that databases
@@ -3018,13 +3093,6 @@ B.1.  Collision Probability
    The 100 quadrillion datadbase is highly speculative perhaps involving
    nanorobots for every person, livestock animal and domesticated bird.
    It is included to round out the analysis.
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 54]
-
-Internet-Draft                     EAT                     February 2021
-
 
    Note that the items counted here certainly do not have IP address and
    are not individually connected to the network.  They may be connected
@@ -3060,6 +3128,16 @@ Internet-Draft                     EAT                     February 2021
       n   Total possible population
       k   Actual population
 
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 56]
+
+Internet-Draft                     EAT                        March 2021
+
+
    However, for the very large values involved here, this formula
    requires floating point precision higher than commonly available in
    calculators and SW so this simple approximation is used.  See
@@ -3072,15 +3150,6 @@ Internet-Draft                     EAT                     February 2021
        p  Collision Probability
        n  Total population based on number of bits in UEID
        k  Population in a database
-
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 55]
-
-Internet-Draft                     EAT                     February 2021
-
 
    +=====================+==============+==============+==============+
    | Database Size       | 128-bit UEID | 192-bit UEID | 256-bit UEID |
@@ -3117,6 +3186,14 @@ Internet-Draft                     EAT                     February 2021
      p  Collision probability for UEID size
      k  Database size
 
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 57]
+
+Internet-Draft                     EAT                        March 2021
+
+
    +=====================+==============+==============+==============+
    | Database Size       | 128-bit UEID | 192-bit UEID | 256-bit UEID |
    +=====================+==============+==============+==============+
@@ -3129,14 +3206,6 @@ Internet-Draft                     EAT                     February 2021
    +---------------------+--------------+--------------+--------------+
 
                                  Table 5
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 56]
-
-Internet-Draft                     EAT                     February 2021
-
 
    Clearly, 128 bits is enough for the near future thus the requirement
    that UEIDs be a minimum of 128 bits.
@@ -3168,6 +3237,19 @@ B.2.  No Use of UUID
    complexity.  It also slightly reduces the number of actual bits with
    entropy.
 
+
+
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 58]
+
+Internet-Draft                     EAT                        March 2021
+
+
    UUIDs seem to have been designed for scenarios where the implementor
    does not have full control over the environment and uniqueness has to
    be constructed from identifiers at hand.  UEID takes the view that
@@ -3185,14 +3267,6 @@ Appendix C.  Changes from Previous Drafts
 C.1.  From draft-rats-eat-01
 
    *  Added UEID design rationale appendix
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 57]
-
-Internet-Draft                     EAT                     February 2021
-
 
 C.2.  From draft-mandyam-rats-eat-00
 
@@ -3224,6 +3298,14 @@ C.4.  From draft-ietf-rats-eat-02
    *  Submods part now includes nested eat tokens so they can be named
       and there can be more tha one of them
 
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 59]
+
+Internet-Draft                     EAT                        March 2021
+
+
    *  Lots of fixes to the CDDL
 
    *  Added security considerations
@@ -3241,14 +3323,6 @@ C.6.  From draft-ietf-rats-eat-04
    *  CDDL cleaned up some more
 
    *  CDDL allows for JWTs and UCCSs
-
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 58]
-
-Internet-Draft                     EAT                     February 2021
-
 
    *  CWT format submodules are byte string wrapped
 
@@ -3280,6 +3354,14 @@ C.7.  From draft-ietf-rats-05
 
    *  Corrected reference to Location Privacy section
 
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 60]
+
+Internet-Draft                     EAT                        March 2021
+
+
 C.8.  From draft-ietf-rats-06
 
    *  Added boot-seed claim
@@ -3293,19 +3375,16 @@ C.9.  From draft-ietf-rats-07
    *  Filled in IANA and other sections for possible preassignment of
       claim keys for well understood claims
 
+C.10.  From draft-ietf-rats-08
+
+   *  Change profile claim to be either a URL or an OID rather than a
+      test string
+
 Authors' Addresses
 
    Giridhar Mandyam
    Qualcomm Technologies Inc.
    5775 Morehouse Drive
-
-
-
-Mandyam, et al.           Expires 9 August 2021                [Page 59]
-
-Internet-Draft                     EAT                     February 2021
-
-
    San Diego, California
    United States of America
 
@@ -3327,6 +3406,16 @@ Internet-Draft                     EAT                     February 2021
 
    Phone: +1 858 651 4299
    Email: mballest@qti.qualcomm.com
+
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 61]
+
+Internet-Draft                     EAT                        March 2021
 
 
    Jeremy O'Donoghue
@@ -3357,4 +3446,27 @@ Internet-Draft                     EAT                     February 2021
 
 
 
-Mandyam, et al.           Expires 9 August 2021                [Page 60]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Mandyam, et al.         Expires 3 September 2021               [Page 62]
