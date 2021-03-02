@@ -1378,7 +1378,7 @@ Internet-Draft                     EAT                        March 2021
    the claims CBOR type is a text string it is a URI and if a byte
    string it is an OID.
 
-   Note that this named "eat-profile" for JWT and is distinct from the
+   Note that this named "eat_profile" for JWT and is distinct from the
    already registered "profile" claim in the JWT claims registry.
 
    profile-claim = (
@@ -2275,6 +2275,7 @@ security-level = 14
 secure-boot = 15
 debug-status = 16
 location = 17
+profile = 18
 submods = 20
 
 
@@ -2289,7 +2290,6 @@ boot-seed-claim = (
 ; The following are Claim Keys (labels) assigned for JSON-encoded tokens.
 
 ueid /= "ueid"
-nonce /= "nonce"
 
 
 
@@ -2298,6 +2298,7 @@ Mandyam, et al.         Expires 3 September 2021               [Page 41]
 Internet-Draft                     EAT                        March 2021
 
 
+nonce /= "nonce"
 origination /= "origination"
 oemid /= "oemid"
 security-level /= "seclevel"
@@ -2345,7 +2346,6 @@ speed /= "speed"
    for different device types.  This is a goal of interoperability of
    the semantics of claims themselves, not just of the signing, encoding
    and serialization formats.
-
 
 
 
