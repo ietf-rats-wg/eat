@@ -9,5 +9,6 @@ security-level = 14
 secure-boot = 15
 debug-status = 16
 location = 17
+profile = 18
 submods = 20
 

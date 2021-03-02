@@ -973,7 +973,7 @@ The OID is encoded in CBOR according to {{CBOR-OID}} and the URI according to {{
 Both are unwrapped and thus not tags.
 If the claims CBOR type is a text string it is a URI and if a byte string it is an OID.
 
-Note that this named "eat-profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
+Note that this named "eat_profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
 
 ~~~~CDDL
 {::include cddl/profile.cddl}
