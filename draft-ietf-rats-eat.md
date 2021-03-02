@@ -66,6 +66,7 @@ normative:
   RFC8392:
   RFC8610:
   RFC8747:
+  RFC3986:
 
   WGS84:
     target: http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf
@@ -131,6 +132,9 @@ normative:
     - fullname: M. Jones
     - fullname: B. de Medeiros
     - fullname: C. Mortimore
+
+  CBOR-OID: I-D.ietf-cbor-tags-oid
+
 
 informative:
   RFC4122:
@@ -954,11 +958,20 @@ security state of the entity storing the private key used in a PoP application.
 
 ## The Profile Claim (profile) {#profile-claim}
 
-The profile claim is a text string that simply gives the name of the profile to which the token purports to adhere to.
-It may name an IETF document, some other document or no particular document.
-There is no requirement that the named document be publicly accessible.
+See {{profiles}} for the detailed description of a profile.
 
-See {{profiles}} for a detailed description of a profile.
+A profile is identified by either a URL or an OID.
+Typically, the URI will reference a document describing the profile.
+An OID is just a unique identifier for the profile.
+It may exist anywhere in the OID tree.
+There is no requirement that the named document be publicly accessible.
+An OID is just a unique identifier for the profile.
+It may exist anywhere in the OID tree.
+The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
+
+The OID is encoded in CBOR according to {{CBOR-OID}} and the URI according to {{RFC8949}}.
+Both are unwrapped and thus not tags.
+If the claims CBOR type is a text string it is a URI and if a byte string it is an OID.
 
 Note that this named "eat-profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
 
@@ -1244,6 +1257,8 @@ following CDDL types are encoded in JSON as follows:
 * bstr -- must be base64url encoded
 * time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
 * string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
+* uri -- must be a URI {{RFC3986}}.
+* oid -- encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").
 
 ## CBOR
 
@@ -1447,6 +1462,16 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 * Claim Description: The geographic location
 * JWT Claim Name: "location"
 * Claim Key: 17
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: Profile
+* Claim Description: Indicates the EAT profile followed
+* JWT Claim Name: "eat_profile"
+* Claim Key: 18
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1837,3 +1862,8 @@ no new claims have been added.
 ## From draft-ietf-rats-07
 
 * Filled in IANA and other sections for possible preassignment of claim keys for well understood claims
+
+## From draft-ietf-rats-08
+
+* Change profile claim to be either a URL or an OID rather than a test string
+
