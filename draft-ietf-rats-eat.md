@@ -1862,3 +1862,8 @@ no new claims have been added.
 ## From draft-ietf-rats-07
 
 * Filled in IANA and other sections for possible preassignment of claim keys for well understood claims
+
+## From draft-ietf-rats-08
+
+* Change profile claim to be either a URL or an OID rather than a test string
+
