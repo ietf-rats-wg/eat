@@ -965,8 +965,6 @@ Typically, the URI will reference a document describing the profile.
 An OID is just a unique identifier for the profile.
 It may exist anywhere in the OID tree.
 There is no requirement that the named document be publicly accessible.
-An OID is just a unique identifier for the profile.
-It may exist anywhere in the OID tree.
 The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
 
 The OID is encoded in CBOR according to {{CBOR-OID}} and the URI according to {{RFC8949}}.
