@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-03-05T01:00:48.475779+00:00",
+  "timestamp": "2021-03-05T18:39:35.933108+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -1757,16 +1757,24 @@
       "id": "MDU6SXNzdWU4MjIxOTE4OTU=",
       "title": "duplicate text in profile description",
       "url": "https://github.com/ietf-rats-wg/eat/issues/95",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "thomas-fossati",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "```suggestion\r\n```\r\nthese two lines are duplicates of L973-974\r\n\r\n_Originally posted by @thomas-fossati in https://github.com/ietf-rats-wg/eat/pull/93#discussion_r584310735_",
       "createdAt": "2021-03-04T14:36:38Z",
-      "updatedAt": "2021-03-04T14:36:38Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2021-03-05T01:01:02Z",
+      "closedAt": "2021-03-05T01:01:02Z",
+      "comments": [
+        {
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Addressed by editing the .md file.  Did not edit PR since it was already merged.",
+          "createdAt": "2021-03-05T01:01:02Z",
+          "updatedAt": "2021-03-05T01:01:02Z"
+        }
+      ]
     },
     {
       "number": 96,
