@@ -969,6 +969,7 @@ The primary purpose of the profile claim is to uniquely identify the profile eve
 
 The OID is encoded in CBOR according to {{CBOR-OID}} and the URI according to {{RFC8949}}.
 Both are unwrapped and thus not tags.
+The OID is always absolute and never relative.
 If the claims CBOR type is a text string it is a URI and if a byte string it is an OID.
 
 Note that this named "eat_profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
