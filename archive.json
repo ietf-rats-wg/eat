@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-03-02T18:05:31.996564+00:00",
+  "timestamp": "2021-03-05T01:00:48.475779+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -1733,6 +1733,115 @@
       "body": "They should not be 1, 2, 3, but \"enabled\", \"restricted\" and such for the sake of human readability.",
       "createdAt": "2021-02-19T05:45:35Z",
       "updatedAt": "2021-02-19T05:45:35Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 94,
+      "id": "MDU6SXNzdWU4MjAzMDIxODY=",
+      "title": "json string names for age and timestamp in location",
+      "url": "https://github.com/ietf-rats-wg/eat/issues/94",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "string names are not correct for JSON for parts of location",
+      "createdAt": "2021-03-02T19:07:47Z",
+      "updatedAt": "2021-03-02T19:07:47Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 95,
+      "id": "MDU6SXNzdWU4MjIxOTE4OTU=",
+      "title": "duplicate text in profile description",
+      "url": "https://github.com/ietf-rats-wg/eat/issues/95",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "```suggestion\r\n```\r\nthese two lines are duplicates of L973-974\r\n\r\n_Originally posted by @thomas-fossati in https://github.com/ietf-rats-wg/eat/pull/93#discussion_r584310735_",
+      "createdAt": "2021-03-04T14:36:38Z",
+      "updatedAt": "2021-03-04T14:36:38Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 96,
+      "id": "MDU6SXNzdWU4MjIxOTMzMTg=",
+      "title": "profile OIDs (and URIs) should be \"absolute\"",
+      "url": "https://github.com/ietf-rats-wg/eat/issues/96",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "```suggestion\r\nA profile is identified by either an absolute URI {{!RFC3896}} or\r\nan absolute OID (ASN.1 Type \"OBJECT IDENTIFIER\").\r\n```\r\n\r\n_Originally posted by @thomas-fossati in https://github.com/ietf-rats-wg/eat/pull/93#discussion_r584311652_",
+      "createdAt": "2021-03-04T14:38:09Z",
+      "updatedAt": "2021-03-04T18:56:15Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "There are two reasons for this:\r\n1. a philosophical one: we want the profile claim to not clash;\r\n2. a technical one: by unwrapping the CBOR tag (i.e., `~oid`) the decoder looses the ability to distinguish between \"absolute\" OIDs and relative OIDs.  So, we need to explicitly say which type is legal.  Given point 1. above it's the absolute form that should be preferred.",
+          "createdAt": "2021-03-04T14:42:38Z",
+          "updatedAt": "2021-03-04T14:42:38Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Given point 1. above it's the absolute form that should be preferred.\r\n\r\nNote that this is not ideal since it removes the ability to express PENs in a succinct manner.\r\n",
+          "createdAt": "2021-03-04T16:06:22Z",
+          "updatedAt": "2021-03-04T16:06:22Z"
+        },
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think I prefer the absolute for simplicity and because it doesn't save that much.\r\n\r\nConsider the PEN 50000.2 that might be used to indicate a profile. PEN assignments are up over 50,000 now. \r\n\r\nAs an absolute OID this is 1.3.6.1.4.1.50000.2 and encodes in 11 bytes.\r\n\r\nIf we allow use of the relative PEN, then by not unwrapping then we get 3 bytes for the tag and 6 bytes for the RDN for a total of 9. We're saving 2 bytes for PENs.  But this adds 3 bytes for absolute OIDs.\r\n\r\nIt is always possible to go between a PEN and an absolute OID because the PEN prefix is well known. Are there any use cases where we need relative OIDs where the prefix is not well known? Maybe there is some OID prefix for the whole token from some context outside the token? Probably not I think. That would also be taking EAT further down the ASN.1 path where I hope not to go.\r\n",
+          "createdAt": "2021-03-04T17:32:03Z",
+          "updatedAt": "2021-03-04T17:32:03Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> If we allow use of the relative PEN, then by not unwrapping then we get 3 bytes for the tag and 6 bytes for the RDN for a total of 9. We're saving 2 bytes for PENs. But this adds 3 bytes for absolute OIDs.\r\n\r\nI think it's two bytes for the tag not three, but that doesn't change the substance of your (very reasonable) conclusion.\r\n\r\n> Are there any use cases where we need relative OIDs where the prefix is not well known? Maybe there is some OID prefix for the whole token from some context outside the token? Probably not I think.\r\n\r\nI don't think so too.  Let's go with absolute then :-)\r\n\r\n",
+          "createdAt": "2021-03-04T18:56:15Z",
+          "updatedAt": "2021-03-04T18:56:15Z"
+        }
+      ]
+    },
+    {
+      "number": 97,
+      "id": "MDU6SXNzdWU4MjI2MzY2NDE=",
+      "title": "Sec. 1.3:  revise language on root-of-trust",
+      "url": "https://github.com/ietf-rats-wg/eat/issues/97",
+      "state": "OPEN",
+      "author": "gmandyam",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\"It is assumed that any entity that can create an   EAT does so by means of a dedicated root-of-trust (RoT).\"\r\n\r\nRecommend removing this sentence all-together.  There are examples of attestations that are created in user space (e.g. Android SafetyNet).",
+      "createdAt": "2021-03-05T00:49:37Z",
+      "updatedAt": "2021-03-05T00:49:37Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 98,
+      "id": "MDU6SXNzdWU4MjI2Mzk3ODM=",
+      "title": "Can UEID change during lifecycle of entity?",
+      "url": "https://github.com/ietf-rats-wg/eat/issues/98",
+      "state": "OPEN",
+      "author": "gmandyam",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Sec. 3.4:  \"The UEID should be permanent.\"\r\n\r\nFIDO IoT Device Onboard spec uses GUID for UEID (https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-RD-v1.0-20201202.html#guid, https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-RD-v1.0-20201202.html#DevAttnProt).  However, the UEID is only permanent with respect to the lifecycle state of the entity.\r\n\r\nCurrent text is a 'should' requirement, so in one possible reading of the EAT doc the FIDO spec is compliant.  However, a clarification may be in order.\r\n\r\nSuggested additional text:  \r\n\r\n\"In some attestation situations, exposure of the permanent UEID creates an undesirable correlation between subsequent attestations.  In such situations, a temporary UEID of type RAND can be used so long as the EAT recipient can derive the generator of the EAT without the permanent UEID, such as by external mapping to the temporary UEID, or by using a signature with cryptographic indistinguishability.  The same device / entity should use a permanent UEID when such correlation is not an issue.\"\r\n\r\n",
+      "createdAt": "2021-03-05T00:57:20Z",
+      "updatedAt": "2021-03-05T00:57:20Z",
       "closedAt": null,
       "comments": []
     }
@@ -4130,24 +4239,26 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NTc5NzI5MDgw",
       "title": "Change profile claim to be URL or OID",
       "url": "https://github.com/ietf-rats-wg/eat/pull/93",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "laurencelundblade",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2021-02-25T01:51:45Z",
-      "updatedAt": "2021-03-02T18:05:03Z",
+      "updatedAt": "2021-03-02T18:06:09Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "554e6fda210f07af4a5ed70b75fe5b7f2a4156a6",
       "headRepository": "ietf-rats-wg/eat",
       "headRefName": "profile-oid",
       "headRefOid": "2019f8ef0b0dc6f6e7c1c869d2cfd9b548c7b908",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2021-03-02T18:05:57Z",
+      "mergedAt": "2021-03-02T18:05:57Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "f8f8859e93749868e7d8b9863231f315a2a1f5ac"
+      },
       "comments": [],
       "reviews": [
         {
