@@ -135,7 +135,7 @@ normative:
 
   CBOR-OID: I-D.ietf-cbor-tags-oid
   
-  RATS-Architecture: I-D.draft-ietf-rats-architecture
+  RATS-Architecture: I-D.ietf-rats-architecture
 
 
 informative:
