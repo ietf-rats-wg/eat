@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-03-05T18:39:35.933108+00:00",
+  "timestamp": "2021-03-11T16:02:33.361936+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -1849,9 +1849,17 @@
       "labels": [],
       "body": "Sec. 3.4:  \"The UEID should be permanent.\"\r\n\r\nFIDO IoT Device Onboard spec uses GUID for UEID (https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-RD-v1.0-20201202.html#guid, https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-RD-v1.0-20201202.html#DevAttnProt).  However, the UEID is only permanent with respect to the lifecycle state of the entity.\r\n\r\nCurrent text is a 'should' requirement, so in one possible reading of the EAT doc the FIDO spec is compliant.  However, a clarification may be in order.\r\n\r\nSuggested additional text:  \r\n\r\n\"In some attestation situations, exposure of the permanent UEID creates an undesirable correlation between subsequent attestations.  In such situations, a temporary UEID of type RAND can be used so long as the EAT recipient can derive the generator of the EAT without the permanent UEID, such as by external mapping to the temporary UEID, or by using a signature with cryptographic indistinguishability.  The same device / entity should use a permanent UEID when such correlation is not an issue.\"\r\n\r\n",
       "createdAt": "2021-03-05T00:57:20Z",
-      "updatedAt": "2021-03-05T00:57:20Z",
+      "updatedAt": "2021-03-08T17:55:38Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "body": "What about a UEID and an SUEID, where the UEID is permanent and SUEID is semi-permanent? An EAT can have both, one, or the other. The RP use which ever one they want when there are both.\r\n\r\nSemi-permanent generally means that the UEID may change when a device changes owners, managers, is factory reset or such. To know exactly when it is reset consult the profile document.\r\n\r\nAnother privacy solution is to authenticate the RP and generate an RP-specific UEID. That is what Haven Token did.\r\n\r\nOthers may have other problems with the UEID permanence and maybe other solutions are possible for those other problems.\r\n",
+          "createdAt": "2021-03-08T17:55:38Z",
+          "updatedAt": "2021-03-08T17:55:38Z"
+        }
+      ]
     }
   ],
   "pulls": [
