@@ -1200,7 +1200,7 @@ However note that Endorsement Identification is optional, where as key identific
 
 Just about every use case will require some means of knowing the EAT is recent enough and not a replay of an old token.
 The profile should describe how freshness is achieved.
-The section on Freshness in {{RATS-Architecture}} describes several solutions to achieve this.
+The section on Freshness in {{RATS-Architecture}} describes some of the possible solutions to achieve this.
 
 
 ### Required Claims
