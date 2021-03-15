@@ -1118,7 +1118,7 @@ The profile can be named in the token using the profile claim described in {{pro
 
 A profile document doesn't have to be in any particular format. It may be simple text, something more formal or a combination.
 
-In some cases CDDL may be create that replaces CDDL in this or other document to express some profile requirements.
+In some cases CDDL may be created that replaces CDDL in this or other document to express some profile requirements.
 For example, to require the altitude data item in the location claim, CDDL can be written that replicates the location claim with the altitude no longer optional.
 
 ## List of Profile Issues
@@ -1885,4 +1885,3 @@ no new claims have been added.
 ## From draft-ietf-rats-08
 
 * Change profile claim to be either a URL or an OID rather than a test string
-
