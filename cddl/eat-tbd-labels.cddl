@@ -14,3 +14,4 @@ ean-chip-version = <TBD38>
 ean-board-version = <TBD39>
 ean-device-version = <TBD40>
 intended-use = <TBD41>
+sueid = <TBD42>

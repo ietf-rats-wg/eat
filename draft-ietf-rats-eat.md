@@ -552,10 +552,11 @@ between manufacturers).
 
 There are privacy considerations for UEID's. See {{ueidprivacyconsiderations}}.
 
-The UEID should be permanent. It should never change for a given
-device / entity. In addition, it should not be reprogrammable.  UEID’s
-are variable length. All implementations MUST be able to receive
-UEID's that are 33 bytes long (1 type byte and 256 bits).  The
+The UEID is permanent. It never change for a given
+device / entity. 
+
+UEIDs are variable length. All implementations MUST be able to receive
+UEIDs that are 33 bytes long (1 type byte and 256 bits).  The
 recommended maximum sent is also 33 bytes.
 
 When the entity constructs the UEID, the first byte is a type and the
@@ -598,6 +599,19 @@ this are:
 ~~~~CDDL
 {::include cddl/ueid.cddl}
 ~~~~
+
+
+## Semi-permanent UEID (SUEID)
+
+An SEUID is of the same format as a UEID, but it may change to a different value on device life-cycle events.
+Examples of these events are change of ownership, factory reset and on-boarding into an IoT device management system.
+A device may have both a UEID and SUEID, neither, one or the other.
+
+
+~~~~CDDL
+{::include cddl/sueid.cddl}
+~~~~
+
 
 ## Origination Claim (origination)
 
@@ -1786,6 +1800,54 @@ quality random number generators are readily available as they are
 implemented in commonly used CPU hardware.
 
 
+# EAT Relation to IDevID
+
+This section describes several distinct ways in which an IEEE IDevID [IDevID] relates to EAT, particularly to UEID and SUEID.
+
+
+## Signed Device IDs
+
+A unique device identifier is of little use in security-related applications unless it is signed.
+Without signing, it is trivial for attackers to forge a device identifier.
+
+In a way IDevID and EAT are competitors.
+They both provide signed unique device identifiers.
+
+EAT provides the unique identifier as a single small data item, the UEID and SUEID.
+For IDevID the unique identifier is through and X.500 distinguished name, perhaps constructed from the certificate chain, 
+some how derived from the key material.
+
+This document argues EAT is the more general solution.
+It allows an open-ended set of claims about the device to be signed and conveyed in addition to just the identifier.
+It separates the signing scheme from the identification scheme.
+EAT even allows use of external mechanisms to secure the device identifier and additional claims, for example use of TLS with UCCS.
+
+
+## Permanence
+
+In terms of permanence, an IDevID is similar to a UEID in that they do not change over the life of the device.
+They cease to exist only when the device is destroyed.
+
+An SUEID is similar to an LDevID.
+They change on device life-cycle events.
+
+[IDevID] describes much of this permanence as resistant to attacks that seek to change the ID.
+Since EAT is for use on a range of device from high-security device to low-security devices, permanence can't be described this way here.
+Also, EAT is a protocol document that doesn't specify an implementation.
+By contrast, IDevID is primarily an implementation document, not a protocol document.
+It would be out of place for EAT to specify resistance to attacks.
+What description there is of resistance to attacks is correctly in the security consideration section.
+
+Thus, EAT describes permanence primarily in terms of the operational design of implementations of UEID and SUEID.
+
+
+## IDevID as an attestation key 
+
+An IDevID consists of a private key and an X.509 certificate containing a public key that is unique per device and programmed at the factory.
+The private key thus may be suitable for use as an attestation key to sign EAT tokens.
+In this use the X.509 certificate may be used as part of an Endorsement scheme in which the Verifier comes to trust the IDevID.
+
+
 # Changes from Previous Drafts
 
 The following is a list of known changes from the previous drafts.  This list is
@@ -1885,3 +1947,9 @@ no new claims have been added.
 ## From draft-ietf-rats-08
 
 * Change profile claim to be either a URL or an OID rather than a test string
+
+## From draft-ietf-rats-09
+
+* Add SUEID
+
+* Add section on IDevID
