@@ -134,6 +134,8 @@ normative:
     - fullname: C. Mortimore
 
   CBOR-OID: I-D.ietf-cbor-tags-oid
+  
+  RATS-Architecture: I-D.ietf-rats-architecture
 
 
 informative:
@@ -1112,6 +1114,12 @@ An ideal EAT profile will gauarantee interoperability.
 
 The profile can be named in the token using the profile claim described in {{profile-claim}}.
 
+## Format of a Profile Document
+
+A profile document doesn't have to be in any particular format. It may be simple text, something more formal or a combination.
+
+In some cases CDDL may be created that replaces CDDL in this or other document to express some profile requirements.
+For example, to require the altitude data item in the location claim, CDDL can be written that replicates the location claim with the altitude no longer optional.
 
 ## List of Profile Issues
 
@@ -1144,6 +1152,12 @@ This applies to individual EAT claims, CWT and COSE parts of the implementation.
 The profile should indicate whether definite-length strings, indefinite-length strings or both are allowed.
 A good default is to allow only definite-length strings.
 As with map and array encoding, allowing indefinite-length strings can be beneficial for some smaller implementations.
+
+
+### CBOR Preferred Serialization
+
+The profile should indicate whether encoders must use preferred serialization.
+The profile should indicate whether decoders must accept non-preferred serialization.
 
 
 ### COSE/JOSE Protection
@@ -1181,6 +1195,12 @@ The profile document should go into the full detail.
 
 Similar to, or perhaps the same as Verification Key Identification, the profile may wish to specify how Endorsements are to be identified.
 However note that Endorsement Identification is optional, where as key identification is not.
+
+### Freshness
+
+Just about every use case will require some means of knowing the EAT is recent enough and not a replay of an old token.
+The profile should describe how freshness is achieved.
+The section on Freshness in {{RATS-Architecture}} describes some of the possible solutions to achieve this.
 
 
 ### Required Claims
@@ -1865,4 +1885,3 @@ no new claims have been added.
 ## From draft-ietf-rats-08
 
 * Change profile claim to be either a URL or an OID rather than a test string
-
