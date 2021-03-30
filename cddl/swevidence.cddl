@@ -1,0 +1,5 @@
+swevidence-type = [+ any]
+
+swevidence_claim = (
+     swevidence => swevidence-type
+)

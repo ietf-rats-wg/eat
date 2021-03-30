@@ -980,6 +980,54 @@ Note that this named "eat_profile" for JWT and is distinct from the already regi
 {::include cddl/profile.cddl}
 ~~~~
 
+## The Software Manifests Claim (manifests)
+
+This claim contains descriptions of SW installed on the device that originated with the manufacturer of the software.
+These manifests are installed on the device when the SW is installed or are created as part of the installation process.
+The defining characteristic is that they are created by the software manufacturer.
+The presence of these in an EAT is to relay them without modification to the Verifier and/or the Relying Party.
+
+In some cases these will be independently signed by the software manufacturer.
+These should be included with the manufacturer's signature (which will be signed over by the attestation signature).
+In other cases the attestation signature will be the only one.
+
+This claim allows multiple formats for the manifest.
+Each one MUST be a CBOR tag in order to indicate which format it is.
+If no CBOR tag is registered for a particular format, then one should be registered before use from the first-come-first-served tag range.
+(TODO: how to tag this in JSON?)
+
+This claim allows for multiple manifests in one token since multiple software packages are likely to be installed.
+The multiple manifests may be of multiple formats.
+In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.
+
+When the {{CoSWID}} format is used, it should be a payload CoSWIDs, not evidence CoSWIDs that are included in this claim.
+
+~~~~CDDL
+{::include cddl/manifests.cddl}
+~~~~
+
+## The Software Evidence Claim {swevidence}
+
+This claim contains descriptions, lists, evidence or measurements of the software that exists on the device.
+The defining characteristic of this claim is that its contents are created by processes on the device that inventory, measure or otherwise characterize the software on the device.
+The contents of this claim do not originate from the software manufacturer.
+
+In most cases the contents of this claim are signed as part of attestation signing, but independent signing in addition to the attestation signing is not ruled out when a particular evidence format supports it and key material for such signing has been established on the device.
+
+This claim allows multiple formats for the manifest.
+Each one MUST be a CBOR tag in order to indicate which format it is.
+If no CBOR tag is registered for a particular format, then one should be registered before use from the first-come-first-served tag range.
+(TODO: how to tag this in JSON?)
+
+This claim allows for multiple evidences in one token since multiple software packages are likely to be installed.
+The multiple evidences may be of multiple formats.
+In some cases EAT submodules may be used instead of the array structure in this claim for multiple evidences.
+
+When the {{CoSWID}} format is used, it should be evidence CoSWIDs, not payload CoSWIDS that are included in this claim.
+
+~~~~CDDL
+{::include cddl/swevidence.cddl}
+~~~~
 
 ## The Submodules Part of a Token (submods)
 
@@ -1233,6 +1281,12 @@ When COSE protection is used, the profile should specify whether COSE tags are u
 Note that RFC 8392 requires COSE tags be used in a CWT tag.
 
 Often a tag is unncessary because the surrounding or carrying protocol identifies the object as an EAT.
+
+
+### Manifests and Software Evidence Claims
+
+The profile should specify which formats are allowed for the manifests and software evidence claims.
+The profile may also go on to say which parts and options of these formats are used, allowed and prohibited.
 
 
 # Encoding {#encoding}
@@ -1885,3 +1939,7 @@ no new claims have been added.
 ## From draft-ietf-rats-08
 
 * Change profile claim to be either a URL or an OID rather than a test string
+
+## From draft-ietf-rats-09
+
+* Added manifests and software evidence claims
