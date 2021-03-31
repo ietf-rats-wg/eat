@@ -13,12 +13,12 @@ jobs:
           name: "Build Drafts"
           command: "make 'CLONE_ARGS=--reference ~/git-reference'"
 
-      # Update editor's copy on gh-pages
+      # Update editor's copy on gh-pages (including XML)
       - run:
           name: "Update GitHub Pages"
           command: |
             if [ "${CIRCLE_TAG#draft-}" == "${CIRCLE_TAG}" ]; then
-              make gh-pages
+              GHPAGES_EXTRA=draft-ietf-rats-eat.xml make gh-pages
             fi
 
       # For tagged builds, upload to the datatracker.
