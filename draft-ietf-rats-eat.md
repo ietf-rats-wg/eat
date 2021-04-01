@@ -148,7 +148,7 @@ informative:
     target: https://en.wikipedia.org/wiki/Birthday_attack.
     date: false
 
-  IDevID:
+  IEEE.802.1AR:
     title: IEEE Standard, "IEEE 802.1AR Secure Device Identifier"
     date: December 2009
     target: http://standards.ieee.org/findstds/standard/802.1AR-2009.html
@@ -438,7 +438,7 @@ CWT Claims Set.
 Attestation Key Material (AKM).
 : The key material used to sign the EAT token. If it is done
 symmetrically with HMAC, then this is a simple symmetric key.
-If it is done with ECC, such as an IEEE DevID {{IDevID}}, then this
+If it is done with ECC, such as an IEEE DevID {{IEEE.802.1AR}}, then this
 is the private part of the EC key pair. If ECDAA 
 is used, (e.g., as used by Enhanced Privacy ID, i.e. EPID) then it is the key material 
 needed for ECDAA.
@@ -1802,7 +1802,17 @@ implemented in commonly used CPU hardware.
 
 # EAT Relation to IDevID
 
-This section describes several distinct ways in which an IEEE IDevID [IDevID] relates to EAT, particularly to UEID and SUEID.
+This section describes several distinct ways in which an IEEE IDevID {{IEEE.802.1AR}} relates to EAT, particularly to UEID and SUEID.
+
+{{IEEE.802.1AR}} orients around the definition of an implementation called a DevID Module.
+It describes how IDevIDs and LDevIDs are stored, protected and accessed.
+The intent is that IDevIDs and LDevIDs can be used with multiple network protocols.
+It also defines a particular level of defense against attack that should be achieved.
+
+By contrast, EAT orients around the definition of a network protocol.
+It does not give details on how keys, data and such are stored protected and accessed.
+EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to use of a secure element.
+It does not define any particular level of defense against attack, instead providing a set of security considerations.
 
 
 ## Signed Device IDs
@@ -1814,14 +1824,14 @@ In a way IDevID and EAT are competitors.
 They both provide signed unique device identifiers.
 
 EAT provides the unique identifier as a single small data item, the UEID and SUEID.
-For IDevID the unique identifier is through and X.500 distinguished name, perhaps constructed from the certificate chain, 
-some how derived from the key material.
+For IDevID the unique identifier is through an X.500 distinguished name, perhaps constructed from the certificate chain, 
+somehow derived from the key material.
 
-This document argues EAT is the more general solution.
+EAT is perhaps a more general solution.
 It allows an open-ended set of claims about the device to be signed and conveyed in addition to just the identifier.
 It separates the signing scheme from the identification scheme.
-EAT even allows use of external mechanisms to secure the device identifier and additional claims, for example use of TLS with UCCS.
-
+This allows use of a variety of schemes to sign or otherwise to secure the claims about the device.
+This variety gives flexibility to address issues like privacy and be used for a large diversity of use cases.
 
 ## Permanence
 
@@ -1831,14 +1841,12 @@ They cease to exist only when the device is destroyed.
 An SUEID is similar to an LDevID.
 They change on device life-cycle events.
 
-[IDevID] describes much of this permanence as resistant to attacks that seek to change the ID.
-Since EAT is for use on a range of device from high-security device to low-security devices, permanence can't be described this way here.
-Also, EAT is a protocol document that doesn't specify an implementation.
-By contrast, IDevID is primarily an implementation document, not a protocol document.
-It would be out of place for EAT to specify resistance to attacks.
-What description there is of resistance to attacks is correctly in the security consideration section.
+{{IEEE.802.1AR}} describes much of this permanence as resistant to attacks that seek to change the ID.
+IDevID permanence can be described this way because {{IEEE.802.1AR}} is oriented around the definition of an implementation with a particular level of defense against attack.
 
-Thus, EAT describes permanence primarily in terms of the operational design of implementations of UEID and SUEID.
+EAT is not defined around a particular implementation and must work on a range of devices that have a range of defenses against attack.
+EAT thus can't be defined permanence in terms of defense against attack.
+EAT's definition of permanence is in terms of operations and device lifecycle.
 
 
 ## IDevID as an attestation key 
