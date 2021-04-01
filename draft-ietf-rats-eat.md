@@ -1960,4 +1960,4 @@ no new claims have been added.
 
 * Add SUEID
 
-* Add section on IDevID
+* Add appendix comparing IDevID to EAT
