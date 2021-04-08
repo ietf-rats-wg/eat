@@ -909,7 +909,7 @@ seconds that have elapsed since the entity or submod was last booted.
 {::include cddl/uptime.cddl}
 ~~~~
 
-### The Boot Seed Claim (boot-seed)
+## The Boot Seed Claim (boot-seed)
 
 The Boot Seed claim is a random value created at system boot time that will allow differentiation of reports from different boot sessions.
 This value is usually public and not protected.
