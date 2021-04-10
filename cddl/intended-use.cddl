@@ -3,7 +3,8 @@ intended-use-type = &(
     registration: 2,
     provisioning: 3,
     csr: 4,
-    pop:  5
+    pop:  5,
+    attest-env: 6
 )
 
 intended-use-claim = (

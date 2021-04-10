@@ -1,0 +1,9 @@
+COSE_Key = {  }   ; Temporary definition until I know how to reference CDDL from other RFCs
+
+verification-key-claim = (
+    verification-key => COSE_Key
+)
+
+is-trusted-claim = (
+    is-trusted => int 
+)

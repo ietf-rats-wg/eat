@@ -919,7 +919,7 @@ It is not the same as a seed for a random number generator which must be kept se
 {::include cddl/boot-seed.cddl}
 ~~~~
 
-## The Intended Use Claim (intended-use)
+## The Intended Use Claim (intended-use) {#intended-use}
 
 EAT's may be used in the context of several different applications.  The intended-use
 claim provides an indication to an EAT consumer about  the intended usage
@@ -951,6 +951,10 @@ proof-of-possession (PoP) appication. More precisely, a PoP transaction is inten
 to provide to the recipient cryptographically-verifiable proof that the sender has posession
 of a key.  This kind of attestation may be neceesary to verify the
 security state of the entity storing the private key used in a PoP application.
+
+6 -- Attesting Environment
+: This is used only in submodules. It indicates that the target of the 
+Attestation Evidence is itself an Attesting Environement. See {{layered}}.
 
 ### intended-use CDDL
 
@@ -1099,11 +1103,52 @@ string naming the submodule. No submodules may have the same name.
 {::include cddl/submods.cddl}
 ~~~~
 
+
 # Endorsements and Verification Keys {#keyid}
 
 TODO: fill this section in. It will discuss key IDs, endorsement ID and such that
 are needed as input needed to by the Verifier to verify the signature. This will
 NOT discuss the contents of an Endorsement, just and ID/locator.
+
+
+# Layered Attestation {#layered}
+
+It is possible for a device to have multiple Attesting Environments as described in {{RATS-Architecture}}.
+When these are layered, one is a root the endorsement and/or verification key originates with the device manufacturer or endorser.
+The trust for those that are layered above the root comes from Attestation Evidence about them that is provided by the root or a layer below.
+
+A layered Attesting Environment is always described as a submodule.
+To know that a particular submodule is providing evidence for an Attesting Environment, it must have an intended use claim with the value of "attest=env".
+See {{intended-use}}.
+
+The submodule should also contain a claim that hold the verification key, the key used to verify signed attestation evidence from the layered attester.
+A specific claim is defined to hold verification keys.
+There is no requirement on the algorithm or key type used by the layered attestation.
+There is a requirement that the included key is in the format of a COSE_key.
+
+There are two ways that the Verifier comes to trust a layered Attesting Environment.
+
+First, the root or lower layer Attesting Environment provides claims, perhaps many claims, characterizing the Attesting Environment.
+The Verifier recognized the claims are about an Attesting Environment by the intended use claim and uses the other claims to decide whether it trusts this layered Attesting Environment.
+The decision is made by the Verifier.
+
+Second, the root or lower layer Attesting environment provides the is-trusted claim with a value of true.
+This tells the Verifier that the Attesting Environment has been sufficiently evaluated on the device by the root or lower layer Attesting Environment.
+The decision is made by on the device.
+
+Once the Verifier knows the Attesting Environment is trusted, then it makes use of the verification key to verify Attestation Evidence from the layered Attesting Environment.
+
+Multiple layers of Attesting Environments are allowed and must be represented as nested submodules.
+The layered Attesting Environment must be a submodule of the root of the token or a lower layer Attesting Environment.
+It doesn't have to be an immediate submodule, though. 
+It can be a submodule of a submodule as long as none of the intermediate submodules are not layered Attesting Environments.
+
+
+~~~~CDDL
+{::include cddl/layered.cddl}
+~~~~
+
+
 
 # Profiles {#profiles}
 

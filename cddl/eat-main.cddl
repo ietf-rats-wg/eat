@@ -13,6 +13,8 @@ eat-claim-set = {
     ? debug-status-claim,
     ? location-claim,
     ? uptime-claim,
+    ? is-trusted-claim,
+    ? verification-key-claim,
     ? submods-part,
     * $$eat-extension,
 }

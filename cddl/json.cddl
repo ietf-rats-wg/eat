@@ -12,6 +12,7 @@ uptime /= "uptime"
 profile /= "eat-profile"
 intended-use /= "intuse"
 boot-seed /= "bootseed"
+is-trusted /= "istrusted"
 submods /= "submods"
 timestamp /= "timestamp"
 
