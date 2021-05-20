@@ -316,13 +316,13 @@ It is useful to characterize the relationship of claims in Evidence to those in 
 Many claims in Evidence simply will pass through the Verifier to the Relying Party without modification.
 They will be verified as authentic from the device by the Verifier just through normal verification of the Attester's signature.
 They will be protected from modification when they are conveyed to the Relying Party by whatever means is used to protect Attestation Results. 
-(The details of that protection is out of scope of this document.)
+(The details of that protection are out of scope of this document.)
 
 Some claims in Evidence will be verified by the Verifier by comparison to Reference Values.
 In this case the claims in Evidence will not likely be conveyed to the Relying Party.
 Instead, some claim indicating they were checked may be added to the Attestation Results or it may be tacitly known that the Verifier always does this check.
 
-In some cases the Verifier may provide privacy-preserving functionality by stripping or modifying claims that do not have sufficient privacy-preserving characteristics.
+In some cases the Verifier may provide privacy-preserving functionality by stripping or modifying claims that do not posses sufficient privacy-preserving characteristics.
 
 
 ## EAT Operating Models
