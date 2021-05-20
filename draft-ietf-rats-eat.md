@@ -287,8 +287,7 @@ An "entity" can be any device or device subassembly ("submodule") that
 can generate its own attestation in the form of an EAT.  The
 attestation should be cryptographically verifiable by the EAT
 consumer. An EAT at the device-level can be composed of several
-submodule EAT's.  It is assumed that any entity that can create an EAT
-does so by means of a dedicated root-of-trust (RoT).
+submodule EAT's.  
 
 Modern devices such as a mobile phone have many different execution
 environments operating with different security levels. For example, it
@@ -298,7 +297,7 @@ apps. It may also have a TEE (Trusted Execution Environment) that is
 distinct, isolated, and hosts security-oriented functionality like
 biometric authentication. Additionally, it may have an eSE (embedded
 Secure Element) - a high security chip with defenses against HW
-attacks that can serve as a RoT.  This device attestation format
+attacks that is used to produce attestations.  This device attestation format
 allows the attested data to be tagged at a security level from which
 it originates.  In general, any discrete execution environment that
 has an identifiable security level can be considered an entity.
