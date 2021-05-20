@@ -251,7 +251,6 @@ limited to the following:
  * Configuration and state of the device
  * Environmental characteristics of the device such as its GPS location
 
-TODO: mention use for Attestation Evidence and Results.
 
 ## CWT, JWT and UCCS
 
@@ -303,6 +302,28 @@ attacks that can serve as a RoT.  This device attestation format
 allows the attested data to be tagged at a security level from which
 it originates.  In general, any discrete execution environment that
 has an identifiable security level can be considered an entity.
+
+## Use as Evidence and Attestation Results
+
+Here, normative reference is made to {{RATS-Architecture}}, particularly the definition of Evidence, the Verifier, Attestation Results and the Relying Party.
+Per Figure 1 in {{RATS-Architecture}}, Evidence is a protocol message that goes from the Attester to the Verifier and Attestation Results a message that goes from the Verifier to the Relying Party.
+EAT is defined such that it can be used to represent either Evidence, Attestation Results or both.
+No claims defined here are considered exclusive to or are prohibited in either use.
+It is useful to create EAT profiles as described in {{profiles}} for either use.
+
+It is useful to characterize the relationship of claims in Evidence to those in Attestation Results.
+
+Many claims in Evidence simply will pass through the Verifier to the Relying Party without modification.
+They will be verified as authentic from the device by the Verifier just through normal verification of the Attester's signature.
+They will be protected from modification when they are conveyed to the Relying Party by whatever means is used to protect Attestation Results. 
+(The details of that protection are out of scope of this document.)
+
+Some claims in Evidence will be verified by the Verifier by comparison to Reference Values.
+In this case the claims in Evidence will not likely be conveyed to the Relying Party.
+Instead, some claim indicating they were checked may be added to the Attestation Results or it may be tacitly known that the Verifier always does this check.
+
+In some cases the Verifier may provide privacy-preserving functionality by stripping or modifying claims that do not posses sufficient privacy-preserving characteristics.
+
 
 ## EAT Operating Models
 
@@ -1885,3 +1906,8 @@ no new claims have been added.
 ## From draft-ietf-rats-08
 
 * Change profile claim to be either a URL or an OID rather than a test string
+
+## From draft-ietf-rats-09
+
+* Added section on use for Evidence and Attestation Results
+
