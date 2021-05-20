@@ -1003,25 +1003,28 @@ Note that this named "eat_profile" for JWT and is distinct from the already regi
 
 ## The Software Manifests Claim (manifests)
 
-This claim contains descriptions of SW installed on the device that originated with the manufacturer of the software.
-These manifests are installed on the device when the SW is installed or are created as part of the installation process.
+This claim contains descriptions of software that is present on the device.
+These manifests are installed on the device when the software is installed or are created as part of the installation process.
+Installation is anything that adds software to the device, possibly factory installation, the user installing elective applications and so on.
 The defining characteristic is that they are created by the software manufacturer.
-The presence of these in an EAT is to relay them without modification to the Verifier and/or the Relying Party.
+The purpose of these claims in an EAT is to relay them without modification to the Verifier and/or the Relying Party.
 
-In some cases these will be independently signed by the software manufacturer.
-These should be included with the manufacturer's signature (which will be signed over by the attestation signature).
+In some cases these will be signed by the software manufacturer independent of any signing for the purpose of EAT attestation.
+Manifest claims should include the manufacturer's signature (which will be signed over by the attestation signature).
 In other cases the attestation signature will be the only one.
 
 This claim allows multiple formats for the manifest.
 Each one MUST be a CBOR tag in order to indicate which format it is.
-If no CBOR tag is registered for a particular format, then one should be registered before use from the first-come-first-served tag range.
-(TODO: how to tag this in JSON?)
+This requirement extends to JSON-format manifests.
+JSON-format manifests MUST also be tags with the tag content a text string containing the JSON-format manifest.
+In many cases, for examples CoSWID, a tag will already be registered with IANA.
+If not, a tag MUST be registered, but it can be in the first-come-first-served space which has minimal requirements for registration.
 
-This claim allows for multiple manifests in one token since multiple software packages are likely to be installed.
+This claim allows for multiple manifests in one token since multiple software packages are likely to be present.
 The multiple manifests may be of multiple formats.
 In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.
 
-When the {{CoSWID}} format is used, it should be a payload CoSWIDs, not evidence CoSWIDs that are included in this claim.
+When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
 
 ~~~~CDDL
 {::include cddl/manifests.cddl}
@@ -1033,18 +1036,16 @@ This claim contains descriptions, lists, evidence or measurements of the softwar
 The defining characteristic of this claim is that its contents are created by processes on the device that inventory, measure or otherwise characterize the software on the device.
 The contents of this claim do not originate from the software manufacturer.
 
-In most cases the contents of this claim are signed as part of attestation signing, but independent signing in addition to the attestation signing is not ruled out when a particular evidence format supports it and key material for such signing has been established on the device.
+In most cases the contents of this claim are signed as part of attestation signing, but independent signing in addition to the attestation signing is not ruled out when a particular evidence format supports it.
 
-This claim allows multiple formats for the manifest.
-Each one MUST be a CBOR tag in order to indicate which format it is.
-If no CBOR tag is registered for a particular format, then one should be registered before use from the first-come-first-served tag range.
-(TODO: how to tag this in JSON?)
+Multiple formats, identification by tag and the format for JSON-format manifests are constructed the same for the swevidence claim as they are for the manifests claim.
+That is, multiple formats are allowed, they must be indicated by a tag, a tag must be registered if one doesn't already exist and JSON-format is handled by a text string that is a tag.
 
-This claim allows for multiple evidences in one token since multiple software packages are likely to be installed.
+This claim allows for multiple evidences in one token since multiple software packages are likely to be present.
 The multiple evidences may be of multiple formats.
 In some cases EAT submodules may be used instead of the array structure in this claim for multiple evidences.
 
-When the {{CoSWID}} format is used, it should be evidence CoSWIDs, not payload CoSWIDS that are included in this claim.
+When the {{CoSWID}} format is used, it MUST be evidence CoSWIDs, not payload CoSWIDS.
 
 ~~~~CDDL
 {::include cddl/swevidence.cddl}
