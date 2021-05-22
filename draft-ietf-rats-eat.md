@@ -607,6 +607,8 @@ An SEUID is of the same format as a UEID, but it may change to a different value
 Examples of these events are change of ownership, factory reset and on-boarding into an IoT device management system.
 A device may have both a UEID and SUEID, neither, one or the other.
 
+There are privacy considerations for SUEID's. See {{ueidprivacyconsiderations}}.
+
 
 ~~~~CDDL
 {::include cddl/sueid.cddl}
@@ -1531,38 +1533,43 @@ options dependent on the intended usage of the EAT.  Examples would
 include suppression of location claims for EAT's provided to
 unauthenticated consumers.
 
-## UEID Privacy Considerations {#ueidprivacyconsiderations}
+## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
 
 A UEID is usually not privacy-preserving. Any set of relying parties
 that receives tokens that happen to be from a single device will be
 able to know the tokens are all from the same device and be able to
-track the device. Thus, in many usage situations ueid violates
-governmental privacy regulation. In other usage situations UEID will
+track the device. Thus, in many usage situations UEID violates
+governmental privacy regulation. In other usage situations a UEID will
 not be allowed for certain products like browsers that give privacy
 for the end user. It will often be the case that tokens will not have
 a UEID for these reasons.
 
+An SUEID is also usually not privacy-preserving.  In some cases it may
+have fewer privacy issues than a UEID depending on when and how and
+when it is generated.
+
 There are several strategies that can be used to still be able to put
-UEID's in tokens:
+UEID's and SUEID's in tokens:
 
 * The device obtains explicit permission from the user of the device
-to use the UEID. This may be through a prompt. It may also be through
+to use the UEID/SUEID. This may be through a prompt. It may also be through
 a license agreement.  For example, agreements for some online banking
-and brokerage services might already cover use of a UEID.
+and brokerage services might already cover use of a UEID/SUEID.
 
-* The UEID is used only in a particular context or particular use
+* The UEID/SUEID is used only in a particular context or particular use
 case. It is used only by one relying party.
 
 * The device authenticates the relying party and generates a derived
-UEID just for that particular relying party.  For example, the relying
+UEID/SUEID just for that particular relying party.  For example, the relying
 party could prove their identity cryptographically to the device, then
 the device generates a UEID just for that relying party by hashing a
-proofed relying party ID with the main device UEID.
+proofed relying party ID with the main device UEID/SUEID.
 
-Note that some of these privacy preservation strategies result in multiple UEIDs
-per device. Each UEID is used in a different context, use case or system 
-on the device. However, from the view of the relying party, there is just
-one UEID and it is still globally universal across manufacturers.
+Note that some of these privacy preservation strategies result in
+multiple UEIDs and SUEIDs per device. Each UEID/SUEID is used in a
+different context, use case or system on the device. However, from the
+view of the relying party, there is just one UEID and it is still
+globally universal across manufacturers.
 
 ## Location Privacy Considerations {#locationprivacyconsiderations}
 
