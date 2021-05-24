@@ -601,17 +601,25 @@ this are:
 ~~~~
 
 
-## Semi-permanent UEID (SUEID)
+## Semi-permanent UEIDs (SUEIDs)
 
 An SEUID is of the same format as a UEID, but it may change to a different value on device life-cycle events.
 Examples of these events are change of ownership, factory reset and on-boarding into an IoT device management system.
-A device may have both a UEID and SUEID, neither, one or the other.
+A device may have both a UEID and SUEIDs, neither, one or the other.
+
+There may be multiple SUEIDs.
+Each one has a text string label the purpose of which is to distinguish it from others in the token.
+The label may name the purpose, application or type of the SUEID.
+Typically, there will be few SUEDs so there is no need for a formal labeling mechanism like a registry.
+The EAT profile may describe how SUEIDs should be labeled.
+If there is only one SUEID, the claim remains a map and there still must be a label.
+For example, the label for the SUEID used by FIDO Onboarding Protocol could simply be "FDO".
 
 There are privacy considerations for SUEID's. See {{ueidprivacyconsiderations}}.
 
 
 ~~~~CDDL
-{::include cddl/sueid.cddl}
+{::include cddl/sueids.cddl}
 ~~~~
 
 
@@ -1549,7 +1557,7 @@ have fewer privacy issues than a UEID depending on when and how and
 when it is generated.
 
 There are several strategies that can be used to still be able to put
-UEID's and SUEID's in tokens:
+UEIDs and SUEIDs in tokens:
 
 * The device obtains explicit permission from the user of the device
 to use the UEID/SUEID. This may be through a prompt. It may also be through
@@ -1965,6 +1973,6 @@ no new claims have been added.
 
 ## From draft-ietf-rats-09
 
-* Add SUEID
+* Add SUEIDs
 
 * Add appendix comparing IDevID to EAT

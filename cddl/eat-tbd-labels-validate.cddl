@@ -17,4 +17,5 @@ ean-chip-version = 38
 ean-board-version = 39
 ean-device-version = 40
 intended-use = 41
+sueids = 42
 

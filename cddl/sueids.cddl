@@ -1,0 +1,7 @@
+sueids-type = {
+    + tstr => ueid-type
+}
+
+sueids-claim = (
+     sueid => sueids-type
+)
