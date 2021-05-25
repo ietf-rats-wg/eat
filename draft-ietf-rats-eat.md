@@ -251,7 +251,6 @@ limited to the following:
  * Configuration and state of the device
  * Environmental characteristics of the device such as its GPS location
 
-TODO: mention use for Attestation Evidence and Results.
 
 ## CWT, JWT and UCCS
 
@@ -288,8 +287,7 @@ An "entity" can be any device or device subassembly ("submodule") that
 can generate its own attestation in the form of an EAT.  The
 attestation should be cryptographically verifiable by the EAT
 consumer. An EAT at the device-level can be composed of several
-submodule EAT's.  It is assumed that any entity that can create an EAT
-does so by means of a dedicated root-of-trust (RoT).
+submodule EAT's.  
 
 Modern devices such as a mobile phone have many different execution
 environments operating with different security levels. For example, it
@@ -299,10 +297,32 @@ apps. It may also have a TEE (Trusted Execution Environment) that is
 distinct, isolated, and hosts security-oriented functionality like
 biometric authentication. Additionally, it may have an eSE (embedded
 Secure Element) - a high security chip with defenses against HW
-attacks that can serve as a RoT.  This device attestation format
+attacks that is used to produce attestations.  This device attestation format
 allows the attested data to be tagged at a security level from which
 it originates.  In general, any discrete execution environment that
 has an identifiable security level can be considered an entity.
+
+## Use as Evidence and Attestation Results
+
+Here, normative reference is made to {{RATS-Architecture}}, particularly the definition of Evidence, the Verifier, Attestation Results and the Relying Party.
+Per Figure 1 in {{RATS-Architecture}}, Evidence is a protocol message that goes from the Attester to the Verifier and Attestation Results a message that goes from the Verifier to the Relying Party.
+EAT is defined such that it can be used to represent either Evidence, Attestation Results or both.
+No claims defined here are considered exclusive to or are prohibited in either use.
+It is useful to create EAT profiles as described in {{profiles}} for either use.
+
+It is useful to characterize the relationship of claims in Evidence to those in Attestation Results.
+
+Many claims in Evidence simply will pass through the Verifier to the Relying Party without modification.
+They will be verified as authentic from the device by the Verifier just through normal verification of the Attester's signature.
+They will be protected from modification when they are conveyed to the Relying Party by whatever means is used to protect Attestation Results. 
+(The details of that protection are out of scope of this document.)
+
+Some claims in Evidence will be verified by the Verifier by comparison to Reference Values.
+In this case the claims in Evidence will not likely be conveyed to the Relying Party.
+Instead, some claim indicating they were checked may be added to the Attestation Results or it may be tacitly known that the Verifier always does this check.
+
+In some cases the Verifier may provide privacy-preserving functionality by stripping or modifying claims that do not posses sufficient privacy-preserving characteristics.
+
 
 ## EAT Operating Models
 
@@ -933,7 +953,7 @@ seconds that have elapsed since the entity or submod was last booted.
 {::include cddl/uptime.cddl}
 ~~~~
 
-### The Boot Seed Claim (boot-seed)
+## The Boot Seed Claim (boot-seed)
 
 The Boot Seed claim is a random value created at system boot time that will allow differentiation of reports from different boot sessions.
 This value is usually public and not protected.
@@ -1973,6 +1993,11 @@ no new claims have been added.
 
 ## From draft-ietf-rats-09
 
+
 * Add SUEIDs
 
 * Add appendix comparing IDevID to EAT
+
+* Added section on use for Evidence and Attestation Results
+
+
