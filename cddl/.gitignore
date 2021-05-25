@@ -1,0 +1,15 @@
+eat-for-validation.cddl
+eat-token.cddl
+*~
+/*-[0-9][0-9].xml
+*.html
+*.pdf
+pulls.json
+*.redxml
+.refcache
+report.xml
+*.swp
+.tags
+.targets.mk
+*.txt
+*.upload

@@ -1,0 +1,14 @@
+; The following Claim Keys (labels) are pre-assigned by IANA.
+; They are for CBOR-based tokens (CWT and UCCS).
+; They are not expected to change in the final publication as an RFC.
+
+nonce = 10
+ueid = 11
+oemid = 13
+security-level = 14
+secure-boot = 15
+debug-status = 16
+location = 17
+profile = 18
+submods = 20
+

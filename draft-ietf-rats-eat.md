@@ -67,6 +67,7 @@ normative:
   RFC8392:
   RFC8610:
   RFC8747:
+  RFC3986:
       
   RATS.Architecture:
     target: https://tools.ietf.org/html/draft-ietf-rats-architecture-08
@@ -143,9 +144,26 @@ normative:
     title: Concise Software Identification Tags
     date: November 2020
 
+  OpenIDConnectCore:
+    target: https://openid.net/specs/openid-connect-core-1_0.html
+    title: OpenID Connect Core 1.0 incorporating errata set 1
+    date: November 8 2014
+    author: 
+    - fullname: N. Sakimura
+    - fullname: J. Bradley
+    - fullname: M. Jones
+    - fullname: B. de Medeiros
+    - fullname: C. Mortimore
+
+  CBOR-OID: I-D.ietf-cbor-tags-oid
+  
+  RATS-Architecture: I-D.ietf-rats-architecture
+
+
 informative:
   RFC4122:
   RFC4949:
+  RFC7120:
 
   BirthdayAttack:
     title: Birthday attack
@@ -255,7 +273,6 @@ limited to the following:
  * Configuration and state of the device
  * Environmental characteristics of the device such as its GPS location
 
-TODO: mention use for Attestation Evidence and Results.
 
 ## CWT, JWT and UCCS
 
@@ -292,8 +309,7 @@ An "entity" can be any device or device subassembly ("submodule") that
 can generate its own attestation in the form of an EAT.  The
 attestation should be cryptographically verifiable by the EAT
 consumer. An EAT at the device-level can be composed of several
-submodule EAT's.  It is assumed that any entity that can create an EAT
-does so by means of a dedicated root-of-trust (RoT).
+submodule EAT's.  
 
 Modern devices such as a mobile phone have many different execution
 environments operating with different security levels. For example, it
@@ -303,10 +319,32 @@ apps. It may also have a TEE (Trusted Execution Environment) that is
 distinct, isolated, and hosts security-oriented functionality like
 biometric authentication. Additionally, it may have an eSE (embedded
 Secure Element) - a high security chip with defenses against HW
-attacks that can serve as a RoT.  This device attestation format
+attacks that is used to produce attestations.  This device attestation format
 allows the attested data to be tagged at a security level from which
 it originates.  In general, any discrete execution environment that
 has an identifiable security level can be considered an entity.
+
+## Use as Evidence and Attestation Results
+
+Here, normative reference is made to {{RATS-Architecture}}, particularly the definition of Evidence, the Verifier, Attestation Results and the Relying Party.
+Per Figure 1 in {{RATS-Architecture}}, Evidence is a protocol message that goes from the Attester to the Verifier and Attestation Results a message that goes from the Verifier to the Relying Party.
+EAT is defined such that it can be used to represent either Evidence, Attestation Results or both.
+No claims defined here are considered exclusive to or are prohibited in either use.
+It is useful to create EAT profiles as described in {{profiles}} for either use.
+
+It is useful to characterize the relationship of claims in Evidence to those in Attestation Results.
+
+Many claims in Evidence simply will pass through the Verifier to the Relying Party without modification.
+They will be verified as authentic from the device by the Verifier just through normal verification of the Attester's signature.
+They will be protected from modification when they are conveyed to the Relying Party by whatever means is used to protect Attestation Results. 
+(The details of that protection are out of scope of this document.)
+
+Some claims in Evidence will be verified by the Verifier by comparison to Reference Values.
+In this case the claims in Evidence will not likely be conveyed to the Relying Party.
+Instead, some claim indicating they were checked may be added to the Attestation Results or it may be tacitly known that the Verifier always does this check.
+
+In some cases the Verifier may provide privacy-preserving functionality by stripping or modifying claims that do not posses sufficient privacy-preserving characteristics.
+
 
 ## EAT Operating Models
 
@@ -913,7 +951,7 @@ seconds that have elapsed since the entity or submod was last booted.
 {::include cddl/uptime.cddl}
 ~~~~
 
-### The Boot Seed Claim (boot-seed)
+## The Boot Seed Claim (boot-seed)
 
 The Boot Seed claim is a random value created at system boot time that will allow differentiation of reports from different boot sessions.
 This value is usually public and not protected.
@@ -959,17 +997,29 @@ security state of the entity storing the private key used in a PoP application.
 ### intended-use CDDL
 
 ~~~~CDDL
-intended-use-type = &(
-    generic: 1,
-    registration: 2,
-    provisioning: 3,
-    csr: 4,
-    pop:  5
-)
+{::include cddl/intended-use.cddl}
+~~~~
 
-intended-use-claim = (
-    intended-use => intended-use-type
- )
+## The Profile Claim (profile) {#profile-claim}
+
+See {{profiles}} for the detailed description of a profile.
+
+A profile is identified by either a URL or an OID.
+Typically, the URI will reference a document describing the profile.
+An OID is just a unique identifier for the profile.
+It may exist anywhere in the OID tree.
+There is no requirement that the named document be publicly accessible.
+The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
+
+The OID is encoded in CBOR according to {{CBOR-OID}} and the URI according to {{RFC8949}}.
+Both are unwrapped and thus not tags.
+The OID is always absolute and never relative.
+If the claims CBOR type is a text string it is a URI and if a byte string it is an OID.
+
+Note that this named "eat_profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
+
+~~~~CDDL
+{::include cddl/profile.cddl}
 ~~~~
 
 
@@ -1091,7 +1141,7 @@ string naming the submodule. No submodules may have the same name.
 {::include cddl/submods.cddl}
 ~~~~
 
-# Endorsements and Verification Keys
+# Endorsements and Verification Keys {#keyid}
 
 The Verifier must possess the correct key when it performs the cryptographic part of an EAT verification (e.g., verifying the COSE signature).
 This section describes several ways to identify the verification key.
@@ -1150,6 +1200,136 @@ In all cases there must be some way that the verification key is itself verified
 
 Often an X.509 certificate or an Endorsement that is carrying input to the Verifier that is more than just the verification key is identified. For example, an X.509 certificate might have key usage constraints and an Endorsement might have Reference Values. When this is the case, the key identifier must be either a protected header or in the payload such that it is covered by the signature. This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
 
+# Profiles {#profiles}
+
+This EAT specification does not gaurantee that implementations of it will interoperate.
+The variability in this specification is necessary to accommodate the widely varying use cases.
+An EAT profile narrows the specification for a specific use case.
+An ideal EAT profile will gauarantee interoperability.
+
+The profile can be named in the token using the profile claim described in {{profile-claim}}.
+
+## Format of a Profile Document
+
+A profile document doesn't have to be in any particular format. It may be simple text, something more formal or a combination.
+
+In some cases CDDL may be created that replaces CDDL in this or other document to express some profile requirements.
+For example, to require the altitude data item in the location claim, CDDL can be written that replicates the location claim with the altitude no longer optional.
+
+## List of Profile Issues
+
+The following is a list of EAT, CWT, UCCS, JWS, COSE, JOSE and CBOR options that a profile should address. 
+
+
+### Use of JSON, CBOR or both
+
+The profile should indicate whether the token format should be CBOR, JSON, both or even some other encoding.
+If some other encoding, a specification for how the CDDL described here is serialized in that encoding is necessary.
+
+This should be addressed for the top-level token and for any nested tokens.
+For example, a profile might require all nested tokens to be of the same encoding of the top level token.
+
+
+### CBOR Map and Array Encoding
+
+The profile should indicate whether definite-length arrays/maps, indefinite-length arrays/maps or both are allowed.
+A good default is to allow only definite-length arrays/maps.
+
+An alternate is to allow both definite and indefinite-length arrays/maps.
+The decoder should accept either.
+Encoders that need to fit on very small hardware or be actually implement in hardware can use indefinite-length encoding.
+
+This applies to individual EAT claims, CWT and COSE parts of the implementation.
+
+
+### CBOR String Encoding
+
+The profile should indicate whether definite-length strings, indefinite-length strings or both are allowed.
+A good default is to allow only definite-length strings.
+As with map and array encoding, allowing indefinite-length strings can be beneficial for some smaller implementations.
+
+
+### CBOR Preferred Serialization
+
+The profile should indicate whether encoders must use preferred serialization.
+The profile should indicate whether decoders must accept non-preferred serialization.
+
+
+### COSE/JOSE Protection
+
+COSE and JOSE have several options for signed, MACed and encrypted messages.
+EAT/CWT has the option to have no protection using UCCS and JOSE has a NULL protection option.
+It is possible to implement no protection, sign only, MAC only, sign then encrypt and so on.
+All combinations allowed by COSE, JOSE, JWT, CWT and UCCS are allowed by EAT.
+
+The profile should list the protections that must be supported by all decoders implementing the profile.
+The encoders them must implement a subset of what is listed for the decoders, perhaps only one.
+
+Implementations may choose to sign or MAC before encryption so that the implementation layer doing the signing or MACing can be the smallest.
+It is often easier to make smaller implementations more secure, perhaps even implementing in solely in hardware.
+The key material for a signature or MAC is a private key, while for encryption it is likely to be a public key.
+The key for encryption requires less protection.
+
+
+### COSE/JOSE Algorithms
+
+The profile document should list the COSE algorithms that a Verifier must implement.
+The Attester will select one of them. 
+Since there is no negotiation, the Verifier should implement all algorithms listed in the profile.
+
+
+### Verification Key Identification
+
+Section {{keyid}} describes a number of methods for identifying a verification key.
+The profile document should specify one of these or one that is not described.
+The ones described in this document are only roughly described.
+The profile document should go into the full detail.
+
+
+### Endorsement Identification
+
+Similar to, or perhaps the same as Verification Key Identification, the profile may wish to specify how Endorsements are to be identified.
+However note that Endorsement Identification is optional, where as key identification is not.
+
+### Freshness
+
+Just about every use case will require some means of knowing the EAT is recent enough and not a replay of an old token.
+The profile should describe how freshness is achieved.
+The section on Freshness in {{RATS-Architecture}} describes some of the possible solutions to achieve this.
+
+
+### Required Claims
+
+The profile can list claims whose absence results in Verification failure.
+
+
+### Prohibited Claims
+
+The profile can list claims whose presence results in Verification failure.
+
+
+### Additional Claims
+The profile may describe entirely new claims.
+These claims can be required or optional.
+
+
+### Refined Claim Definition
+
+The profile may lock down optional aspects of individual claims.
+For example, it may require altitude in the location claim, or it may require that HW Versions always be described using EAN-13.
+
+
+### CBOR Tags
+
+The profile should specify whether the token should be a CWT Tag or not.
+Similarly, the profile should specify whether the token should be a UCCS tag or not.
+
+When COSE protection is used, the profile should specify whether COSE tags are used or not.
+Note that RFC 8392 requires COSE tags be used in a CWT tag.
+
+Often a tag is unncessary because the surrounding or carrying protocol identifies the object as an EAT.
+
+
 # Encoding {#encoding}
 This makes use of the types defined in CDDL Appendix D, Standard Prelude.
 
@@ -1191,67 +1371,47 @@ following CDDL types are encoded in JSON as follows:
 * bstr -- must be base64url encoded
 * time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
 * string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
+* uri -- must be a URI {{RFC3986}}.
+* oid -- encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").
 
 ## CBOR
 
 ### CBOR Interoperability
 
-Variations in the CBOR serializations supported in CBOR encoding and
-decoding are allowed and suggests that CBOR-based protocols specify
-how this variation is handled. This section specifies what formats
-MUST be supported in order to achieve interoperability.
+CBOR allows data items to be serialized in more than one form.
+If the sender uses a form that the receiver can’t decode, there will not be interoperability.
 
-The assumption is that the entity is likely to be a constrained device
-and relying party is likely to be a very capable server. The approach
-taken is that the entity generating the token can use whatever
-encoding it wants, specifically encodings that are easier to implement
-such as indefinite lengths. The relying party receiving the token must
-support decoding all encodings.
+This specification gives no blanket requirements to narrow CBOR serialization for all uses of EAT.
+This allows individual uses to tailor serialization to the environment.
+It also may result in EAT implementations that don’t interoperate.
 
-These rules cover all types used in the claims in this document. They
-also are recommendations for additional claims.
+One way to guarantee interoperability is to clearly specify CBOR serialization in a profile document.
+See {{profiles}} for a list of serialization issues that should be addressed.
 
-Canonical CBOR encoding, Preferred Serialization and Deterministically
-Encoded CBOR are explicitly NOT required as they would place an
-unnecessary burden on the entity implementation, particularly if the
-entity implementation is implemented in hardware.
+EAT will be commonly used where the device generating the attestation is constrained and the receiver/verifier of the attestation is a capacious server.
+Following is a set of serialization requirements that work well for that use case and are guaranteed to interoperate.
+Use of this serialization is recommended where possible, but not required.
+An EAT profile may just reference the following section rather than spell out serialization details.
 
-* Integer Encoding (major type 0, 1) --
-The entity may use any integer encoding allowed by CBOR. The server
-MUST accept all integer encodings allowed by CBOR.
+#### EAT Constrained Device Serialization
 
-* String Encoding (major type 2 and 3) --
-The entity can use any string encoding allowed by CBOR including
-indefinite lengths. It may also encode the lengths of strings in any
-way allowed by CBOR. The server must accept all string encodings.
+* Preferred serialization described in section 4.1 of {{RFC8949}} is not required.
+The EAT decoder must accept all forms of number serialization.
+The EAT encoder may use any form it wishes.
 
-* Major type 2, bstr, SHOULD have tag 21 to indicate conversion to
-  base64url in case that conversion is performed.
+* The EAT decoder must accept indefinite length arrays and maps as described in section 3.2.2 of {{RFC8949}}.
+The EAT encoder may use indefinite length arrays and maps if it wishes.
 
-* Map and Array Encoding (major type 4 and 5) --
-The entity can use any array or map encoding allowed by CBOR including
-indefinite lengths. Sorting of map keys is not required. Duplicate map
-keys are not allowed. The server must accept all array and map
-encodings. The server may reject maps with duplicate map keys.
+* The EAT decoder must accept indefinite length strings as described in section 3.2.3 of {{RFC8949}}.
+The EAT encoder may use indefinite length strings if it wishes.
 
-* Date and Time --
-The entity should send dates as tag 1 encoded as 64-bit or 32-bit
-integers. The entity may not send floating-point dates. The server
-must support tag 1 epoch-based dates encoded as 64-bit or 32-bit
-integers. The entity may send tag 0 dates, however tag 1 is preferred. 
-The server must support tag 0 UTC dates.
+* Sorting of maps by key is not required.
+The EAT decoder must not rely on sorting.
 
-* URIs --
-URIs should be encoded as text strings and marked with tag 32.
+* Deterministic encoding described in Section 4.2 of {{RFC8949}} is not required.
 
-* Floating Point --
-The entity may use any floating-point encoding. The relying party must
-support decoding of all types of floating-point.
-
-* Other types --
-Other types like bignums, regular expressions and such, SHOULD
-NOT be used. The server MAY support them but is not required to so
-interoperability is not guaranteed.
+* Basic validity described in section 5.3.1 of {{RFC8949}} must be followed.
+The EAT encoder must not send duplicate map keys/labels or invalid UTF-8 strings.
 
 ## Collected CDDL
 
@@ -1332,13 +1492,115 @@ In many cases proprietary claims will be the easiest and most obvious way to pro
 
 ## Claims Registered by This Document
 
+This specification adds the following values to the "JSON Web Token
+Claims" registry established by {{RFC7519}} and the "CBOR Web Token Claims Registry"
+established by {{RFC8392}}. Each entry below is an addition to both registries (except
+for the nonce claim which is already registered for JWT, but not registered for CWT).
+
+The "Claim Description", "Change Controller" and "Specification Documents" are common and equivalent for the JWT and CWT registries.
+The "Claim Key" and "Claim Value Types(s)" are for the CWT registry only.
+The "Claim Name" is as defined for the CWT registry, not the JWT registry.
+The "JWT Claim Name" is equivalent to the "Claim Name" in the JWT registry.
+
+### Claims for Early Assignment
+RFC Editor: in the final publication this section should be combined with the following
+section as it will no longer be necessary to distinguish claims with early assignment.
+Also, the following paragraph should be removed.
+
+The claims in this section have been (requested for / given) early assignment according to {{RFC7120}}.
+They have been assigned values and registered before final publication of this document.
+While their semantics is not expected to change in final publication, it is possible that they will.
+The JWT Claim Names and CWT Claim Keys are not expected to change.
+
+* Claim Name: Nonce
+* Claim Description: Nonce
+* JWT Claim Name: "nonce" (already registered for JWT)
+* Claim Key: 10
+* Claim Value Type(s): byte string
+* Change Controller: IESG
+* Specification Document(s): {{OpenIDConnectCore}}, __this document__
+
+&nbsp;
+
 * Claim Name: UEID
 * Claim Description: The Universal Entity ID
-* JWT Claim Name: N/A
-* Claim Key: 8
+* JWT Claim Name: "ueid"
+* CWT Claim Key: 11
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: OEMID
+* Claim Description: IEEE-based OEM ID
+* JWT Claim Name: "oemid"
+* Claim Key: 13
+* Claim Value Type(s): byte string
+* Change Controller: IESG
+* Specification Document(s): __this document__ 
+
+&nbsp;
+
+* Claim Name: Security Level
+* Claim Description: Characterization of the security of an Attester or submodule
+* JWT Claim Name: "seclevel"
+* Claim Key: 14
+* Claim Value Type(s): integer
+* Change Controller: IESG
+* Specification Document(s): __this document__    
+
+&nbsp;
+
+* Claim Name: Secure Boot
+* Claim Description: Indicate whether the boot was secure
+* JWT Claim Name: "secboot"
+* Claim Key: 15
+* Claim Value Type(s): Boolean
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: Debug Status
+* Claim Description: Indicate status of debug facilities
+* JWT Claim Name: "dbgstat"
+* Claim Key: 16
+* Claim Value Type(s): integer
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: Location
+* Claim Description: The geographic location
+* JWT Claim Name: "location"
+* Claim Key: 17
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: Profile
+* Claim Description: Indicates the EAT profile followed
+* JWT Claim Name: "eat_profile"
+* Claim Key: 18
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: Submodules Section
+* Claim Description: The section containing submodules (not actually a claim)
+* JWT Claim Name: "submods"
+* Claim Key: 20
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+### To be Assigned Claims
 
 TODO: add the rest of the claims in here
 
@@ -1697,10 +1959,32 @@ no new claims have been added.
 
 * Add intended use claim
 
+## From draft-ietf-rats-05
 
-# From draft-ietf-rats-06
+* CDDL format issues resolved
+
+* Corrected reference to Location Privacy section
+
+## From draft-ietf-rats-06
 
 * Added boot-seed claim
 
+* Rework CBOR interoperability section
+ 
+* Added profiles claim and section
+
+## From draft-ietf-rats-07
+
+* Filled in IANA and other sections for possible preassignment of claim keys for well understood claims
+
+## From draft-ietf-rats-08
+
+* Change profile claim to be either a URL or an OID rather than a test string
+
+## From draft-ietf-rats-09
+
+* Added section on use for Evidence and Attestation Results
+
 * Fill in the key ID and endorsements identificaiton section
+
 

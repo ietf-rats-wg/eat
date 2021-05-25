@@ -1,0 +1,11 @@
+intended-use-type = &(
+    generic: 1,
+    registration: 2,
+    provisioning: 3,
+    csr: 4,
+    pop:  5
+)
+
+intended-use-claim = (
+    intended-use => intended-use-type
+)
