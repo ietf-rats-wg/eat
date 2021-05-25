@@ -39,8 +39,9 @@ COSWID_REPO_URL := $(join $(GITHUB), $(COSWID_REPO))
 
 concise-swid-tag.cddl: ; $(curl) -O $(COSWID_REPO_URL)/$@
 
+CLEANFILES += concise-swid-tag.cddl
+
 SUIT_REPO := suit-wg/manifest-spec/master
 SUIT_REPO_URL := $(join $(GITHUB), $(SUIT_REPO))
 
 draft-ietf-suit-manifest.cddl: ; $(curl) -O $(SUIT_REPO_URL)/$@
-
