@@ -45,3 +45,5 @@ SUIT_REPO := suit-wg/manifest-spec/master
 SUIT_REPO_URL := $(join $(GITHUB), $(SUIT_REPO))
 
 draft-ietf-suit-manifest.cddl: ; $(curl) -O $(SUIT_REPO_URL)/$@
+
+CLEANFILES += draft-ietf-suit-manifest.cddl
