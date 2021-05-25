@@ -1,5 +1,9 @@
-swevidence-type = [+ any]
-
 swevidence-claim = (
-     swevidence => swevidence-type
+    swevidence => swevidence-type
 )
+
+swevidence-type = [+ $swevidence-formats]
+
+; Must be a CoSWID evidence type
+$swevidence-formats /= bytes .cbor concise-swid-tag
+

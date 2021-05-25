@@ -5,7 +5,6 @@ CDDL_FRAGS += debug-status.cddl
 CDDL_FRAGS += location.cddl
 CDDL_FRAGS += nonce.cddl
 CDDL_FRAGS += oemid.cddl
-CDDL_FRAGS += version-scheme.cddl
 CDDL_FRAGS += hardware-version.cddl
 CDDL_FRAGS += origination.cddl
 CDDL_FRAGS += secure-boot.cddl
@@ -21,6 +20,8 @@ CDDL_FRAGS += eat-assigned-labels.cddl
 CDDL_DOC_FRAGS := $(CDDL_FRAGS) eat-tbd-labels.cddl json.cddl
 
 CDDL_VALIDATE_FRAGS := $(CDDL_FRAGS) eat-tbd-labels-validate.cddl
+CDDL_VALIDATE_FRAGS += concise-swid-tag.cddl
+CDDL_VALIDATE_FRAGS += draft-ietf-suit-manifest.cddl 
 
 CDDL_FRAGS += profile.cddl
 CDDL_FRAGS += boot-seed.cddl
