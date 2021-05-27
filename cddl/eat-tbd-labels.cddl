@@ -2,7 +2,6 @@
 ; These are intentionally above 24 so as to not use up
 ; single-byte labels.
 
-origination = <TBD30>
 uptime = <TBD31>
 chip-version = <TBD32>
 board-version = <TBD33>

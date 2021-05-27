@@ -5,7 +5,6 @@
 eat-claim-set = {
     ? ueid-claim,
     ? nonce-claim,
-    ? origination-claim,
     ? oemid-claim,
     ? hardware-version-claims,
     ? security-level-claim,

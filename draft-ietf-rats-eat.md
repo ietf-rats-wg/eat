@@ -641,31 +641,6 @@ this are:
 {::include cddl/ueid.cddl}
 ~~~~
 
-## Origination Claim (origination)
-
-TODO: this claim is likely to be dropped in favor of Endorsement identifier and locators.
-
-This claim describes the parts of the device or entity that are
-creating the EAT. Often it will be tied back to the device or chip
-manufacturer. The following table gives some examples:
-
-| Name | Description |
-| Acme-TEE | The EATs are generated in the TEE authored and configured by "Acme" |
-| Acme-TPM | The EATs are generated in a TPM manufactured by "Acme" |
-| Acme-Linux-Kernel | The EATs are generated in a Linux kernel configured and shipped by "Acme" |
-| Acme-TA | The EATs are generated in a Trusted Application (TA) authored by "Acme"
-
-TODO: consider a more structure approach where the name and the URI
-and other are in separate fields.
-
-TODO: This needs refinement. It is somewhat parallel to issuer claim
-in CWT in that it describes the authority that created the token.
-
-### origination CDDL
-
-~~~~CDDL
-{::include cddl/origination.cddl}
-~~~~
 
 ## OEM Identification by IEEE (oemid) {#oemid}
 
@@ -1150,14 +1125,17 @@ There is not one standard method.
 The verification key itself may be a public key, a symmetric key or something complicated in the case of a scheme like Direct Anonymous Attestation (DAA).
 
 RATS Architecture {{RATS.Architecture}} describes what is called an Endorsement.
-This is an input to the Verifier.
+This is an input to the Verifier that is usually the basis of the trust placed in an EAT.
+It may contain the public key for verification of the signature on the EAT.
 It may contain Reference Values to which EAT claims are compared as part of the verification process.
 It may contain implied claims, those that are passed on to the Relying Party in Attestation Results. 
 
 There is not yet any standard format(s) for an Endorsement.
-One format that can be used for an Endorsement is an X.509 certificate.
+One format that may be used for an Endorsement is an X.509 certificate.
 Endorsement data like Reference Values and implied claims can be carried in X.509 v3 extensions.
 In this use, the public key in the X.509 certificate becomes the verification key, so identification of the Endorsement is also identification of the verification key.
+
+The verification key identification may also be by some other means than an Endorsement.
 
 For the components (Attester, Verifier, Relying Party,…) of a particular end-end attestation system to reliably interoperate, its definition should specify how the verification key is identified.
 Usually, this will be in the profile document for a particular attestation system.
@@ -1166,21 +1144,23 @@ Usually, this will be in the profile document for a particular attestation syste
 
 Following is a list of possible methods of key identification. A specific attestation system may employ any one of these or one not listed here.
 
-The following assumes Endorsements are always X.509 certificates or equivalent and thus does not mention or define any identifier for Endorsements in other formats. If such an Endorsement format is created, new identifiers for then will also need to be created.
+The following assumes Endorsements are X.509 certificates or equivalent and thus does not mention or define any identifier for Endorsements in other formats. If such an Endorsement format is created, new identifiers for them will also need to be created.
 
 ### COSE/JWS Key ID
 
-The COSE standard header parameter for Key ID (kid) may be used. See {{RFC8152}} and {{RFC7515}}}
+The COSE standard header parameter for Key ID (kid) may be used. See {{RFC8152}} and {{RFC7515}}
 
-The semantics of the key ID are open-ended. It could be a record locator in a database, a hash of a public key, input to a KDF, an AKI for an X.509 certificate or other. The profile document should specify what the key ID’s semantics are.
+COSE leaves the semantics of the key ID open-ended.
+It could be a record locator in a database, a hash of a public key, an input to a KDF, an authority key identifier (AKI) for an X.509 certificate or other.
+The profile document should specify what the key ID’s semantics are.
 
 ### JWS and COSE X.509 Header Parameters
 
-COSE X.509 {{COSE.X509.Draft}} and JSON Web Siganture {{RFC7515}}} define several header parameters (x5t, x5u,…) for referencing or carrying X.509 certificates any of which may be used.
+COSE X.509 {{COSE.X509.Draft}} and JSON Web Siganture {{RFC7515}} define several header parameters (x5t, x5u,…) for referencing or carrying X.509 certificates any of which may be used.
 
 The X.509 certificate may be an Endorsement and thus carrying additional input to the Verifier. It may be just an X.509 certificate, not an Endorsement. The same header parameters are used in both cases. It is up to the attestation system design and the Verifier to determine which.
 
-### CBOR Certificates COSE Header Parameters
+### CBOR Certificate COSE Header Parameters
 
 Compressed X.509 and CBOR Native certificates are defined by CBOR Certificates {{CBOR.Cert.Draft}}. These are semantically compatible with X.509 and therefore can be used as an equivalent to X.509 as described above.
 
@@ -1188,7 +1168,7 @@ These are identified by their own header parameters (c5t, c5u,…).
 
 ### Claim-Based Key Identification
 
-For some Attestation Systems, a claim may be re-used as a key identifier. For example, the UEID uniquely identifies the device and therefore can work well as a key identifier or Endorsement identifier.
+For some attestation systems, a claim may be re-used as a key identifier. For example, the UEID uniquely identifies the device and therefore can work well as a key identifier or Endorsement identifier.
 
 This has the advantage that key identification requires no additional bytes in the EAT and makes the EAT smaller.
 
@@ -1196,9 +1176,15 @@ This has the disadvantage that the unverified EAT must be substantially decoded 
 
 ## Other Considerations
 
-In all cases there must be some way that the verification key is itself verified or determined to be trustworthy. The key identification itself is never enough. This will always be by some out-of-band mechanism that is not described here. For example, the Verifier may be configured with a root of trust or a master key by the Verifier system administrator.
+In all cases there must be some way that the verification key is itself verified or determined to be trustworthy.
+The key identification itself is never enough.
+This will always be by some out-of-band mechanism that is not described here.
+For example, the Verifier may be configured with a root certificate or a master key by the Verifier system administrator.
 
-Often an X.509 certificate or an Endorsement that is carrying input to the Verifier that is more than just the verification key is identified. For example, an X.509 certificate might have key usage constraints and an Endorsement might have Reference Values. When this is the case, the key identifier must be either a protected header or in the payload such that it is covered by the signature. This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
+Often an X.509 certificate or an Endorsement carries more than just the verification key.
+For example, an X.509 certificate might have key usage constraints and an Endorsement might have Reference Values.
+When this is the case, the key identifier must be either a protected header or in the payload such that it is cryptographically bound to the EAT.
+This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
 
 # Profiles {#profiles}
 
