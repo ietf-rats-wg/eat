@@ -10,15 +10,15 @@ location-type = {
     ? age => uint
 }
 
-latitude = 1
-longitude = 2
-altitude = 3
-accuracy = 4
-altitude-accuracy = 5
-heading = 6
-speed = 7
-timestamp = 8
-age = 9
+latitude = 1 / "latitude"
+longitude = 2 / "longitude"
+altitude = 3 / "altitude"
+accuracy = 4 / "accuracy"
+altitude-accuracy = 5 / "altitude-accuracy"
+heading = 6 / "heading"
+speed = 7 / "speed"
+timestamp = 8 / "timestamp"
+age = 9 / "age"
 
 location-claim = (
     location => location-type

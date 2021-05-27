@@ -515,6 +515,10 @@ group is a general aggregation and type definition feature of
 CDDL). In the encoding section {{encoding}}, the CDDL groups turn into
 CBOR map entries and JSON name/value pairs.
 
+Map labels are assigned both an integer and string value.
+CBOR encoded tokens MUST use only integer labels.
+JSON encoded tokens MUST use only string labels.
+
 TODO: add paragraph here about use for Attestation Evidence and for Results.
 
 ## Token ID Claim (cti and jti)
@@ -1327,6 +1331,9 @@ CDDL was not in use when these claims where defined.
 time-int is identical to the epoch-based time, but disallows
 floating-point representation.
 
+Note that unless expliclity indicated, URIs are not the URI tag defined in {{RFC8949}}.
+They are just text strings that contain a URI.
+
 ~~~~CDDL
 {::include cddl/common-types.cddl}
 ~~~~
@@ -1336,6 +1343,9 @@ floating-point representation.
 This section provides CDDL for the claims defined in CWT. It is
 non-normative as {{RFC8392}} is the authoritative definition of these
 claims.
+
+Note that the subject, issue and audience claims may be a text string containing a URI per {{RFC8392}} and {{RFC7519}}.
+These are never the URI tag defined in {{RFC8949}}.
 
 ~~~~CDDL
 {::include cddl/cwt.cddl}
@@ -1973,4 +1983,7 @@ no new claims have been added.
 
 * Fill in the key ID and endorsements identificaiton section
 
+* Remove origination claim as it is replaced by key IDs and endorsements
+
+* Add string labels non-claim labels for use with JSON (e.g. labels for members of location claim)
 
