@@ -287,8 +287,7 @@ An "entity" can be any device or device subassembly ("submodule") that
 can generate its own attestation in the form of an EAT.  The
 attestation should be cryptographically verifiable by the EAT
 consumer. An EAT at the device-level can be composed of several
-submodule EAT's.  It is assumed that any entity that can create an EAT
-does so by means of a dedicated root-of-trust (RoT).
+submodule EAT's.  
 
 Modern devices such as a mobile phone have many different execution
 environments operating with different security levels. For example, it
@@ -298,7 +297,7 @@ apps. It may also have a TEE (Trusted Execution Environment) that is
 distinct, isolated, and hosts security-oriented functionality like
 biometric authentication. Additionally, it may have an eSE (embedded
 Secure Element) - a high security chip with defenses against HW
-attacks that can serve as a RoT.  This device attestation format
+attacks that is used to produce attestations.  This device attestation format
 allows the attested data to be tagged at a security level from which
 it originates.  In general, any discrete execution environment that
 has an identifiable security level can be considered an entity.
@@ -493,6 +492,10 @@ indepdent of encoding.  Each claim is defined as a CDDL group (the
 group is a general aggregation and type definition feature of
 CDDL). In the encoding section {{encoding}}, the CDDL groups turn into
 CBOR map entries and JSON name/value pairs.
+
+Map labels are assigned both an integer and string value.
+CBOR encoded tokens MUST use only integer labels.
+JSON encoded tokens MUST use only string labels.
 
 TODO: add paragraph here about use for Attestation Evidence and for Results.
 
@@ -1337,6 +1340,9 @@ CDDL was not in use when these claims where defined.
 time-int is identical to the epoch-based time, but disallows
 floating-point representation.
 
+Note that unless expliclity indicated, URIs are not the URI tag defined in {{RFC8949}}.
+They are just text strings that contain a URI.
+
 ~~~~CDDL
 {::include cddl/common-types.cddl}
 ~~~~
@@ -1346,6 +1352,9 @@ floating-point representation.
 This section provides CDDL for the claims defined in CWT. It is
 non-normative as {{RFC8392}} is the authoritative definition of these
 claims.
+
+Note that the subject, issue and audience claims may be a text string containing a URI per {{RFC8392}} and {{RFC7519}}.
+These are never the URI tag defined in {{RFC8949}}.
 
 ~~~~CDDL
 {::include cddl/cwt.cddl}
@@ -1982,4 +1991,6 @@ no new claims have been added.
 * Added section on use for Evidence and Attestation Results
 
 * Added manifests and software evidence claims
+
+* Add string labels non-claim labels for use with JSON (e.g. labels for members of location claim)
 

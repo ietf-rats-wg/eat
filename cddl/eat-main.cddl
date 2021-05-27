@@ -12,6 +12,8 @@ eat-claim-set = {
     ? secure-boot-claim,
     ? debug-status-claim,
     ? location-claim,
+    ? intended-use-claim,
+    ? profile-claim,
     ? uptime-claim,
     ? manifests-claim,
     ? swevidence-claim,

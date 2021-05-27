@@ -1,10 +1,16 @@
-security-level-type = &(
+security-level-cbor-type = &(
     unrestricted: 1,
     restricted: 2,
     secure-restricted: 3,
     hardware: 4
 )
 
+security-level-json-type = 
+    "unrestricted" /
+    "restricted" /
+    "secure-restricted" /
+    "hardware"
+
 security-level-claim = (
-    security-level => security-level-type
+    security-level => security-level-cbor-type / security-level-json-type
 )
