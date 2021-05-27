@@ -1,4 +1,4 @@
-debug-status-type = &(
+debug-status-cbor-type = &(
     enabled: 0,
     disabled: 1,
     disabled-since-boot: 2,
@@ -6,6 +6,13 @@ debug-status-type = &(
     disabled-fully-and-permanently: 4
 )
 
+debug-status-json-type = 
+    "enabled" /
+    "disabled" /
+    "disabled-since-boot" /
+    "disabled-permanently" /
+    "disabled-fully-and-permanently"
+
 debug-status-claim = (
-    debug-status => debug-status-type
+    debug-status => debug-status-cbor-type / debug-status-json-type
 )

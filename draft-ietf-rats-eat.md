@@ -493,6 +493,10 @@ group is a general aggregation and type definition feature of
 CDDL). In the encoding section {{encoding}}, the CDDL groups turn into
 CBOR map entries and JSON name/value pairs.
 
+Map labels are assigned both an integer and string value.
+CBOR encoded tokens MUST use only integer labels.
+JSON encoded tokens MUST use only string labels.
+
 TODO: add paragraph here about use for Attestation Evidence and for Results.
 
 ## Token ID Claim (cti and jti)
@@ -1916,3 +1920,4 @@ no new claims have been added.
 
 * Added section on use for Evidence and Attestation Results
 
+* Add string labels non-claim labels for use with JSON (e.g. labels for members of location claim)
