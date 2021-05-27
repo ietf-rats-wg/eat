@@ -1914,3 +1914,4 @@ no new claims have been added.
 
 * Added section on use for Evidence and Attestation Results
 
+* Add string labels non-claim labels for use with JSON (e.g. labels for members of location claim)
