@@ -1266,6 +1266,9 @@ CDDL was not in use when these claims where defined.
 time-int is identical to the epoch-based time, but disallows
 floating-point representation.
 
+Note that unless expliclity indicated, URIs are not the URI tag defined in {{RFC8949}}.
+They are just text strings that contain a URI.
+
 ~~~~CDDL
 {::include cddl/common-types.cddl}
 ~~~~
@@ -1275,6 +1278,9 @@ floating-point representation.
 This section provides CDDL for the claims defined in CWT. It is
 non-normative as {{RFC8392}} is the authoritative definition of these
 claims.
+
+Note that the subject, issue and audience claims may be a text string containing a URI per {{RFC8392}} and {{RFC7519}}.
+These are never the URI tag defined in {{RFC8949}}.
 
 ~~~~CDDL
 {::include cddl/cwt.cddl}
