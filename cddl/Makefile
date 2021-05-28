@@ -32,3 +32,18 @@ $(CDDL_VALIDATE): $(CDDL_VALIDATE_FRAGS)
 
 .PHONY: clean
 clean: ; $(RM) $(CLEANFILES)
+
+GITHUB := https://raw.githubusercontent.com/
+COSWID_REPO := sacmwg/draft-ietf-sacm-coswid/master
+COSWID_REPO_URL := $(join $(GITHUB), $(COSWID_REPO))
+
+concise-swid-tag.cddl: ; $(curl) -O $(COSWID_REPO_URL)/$@
+
+CLEANFILES += concise-swid-tag.cddl
+
+SUIT_REPO := suit-wg/manifest-spec/master
+SUIT_REPO_URL := $(join $(GITHUB), $(SUIT_REPO))
+
+draft-ietf-suit-manifest.cddl: ; $(curl) -O $(SUIT_REPO_URL)/$@
+
+CLEANFILES += draft-ietf-suit-manifest.cddl
