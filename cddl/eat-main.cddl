@@ -15,6 +15,8 @@ eat-claim-set = {
     ? intended-use-claim,
     ? profile-claim,
     ? uptime-claim,
+    ? manifests-claim,
+    ? swevidence-claim,
     ? submods-part,
     * $$eat-extension,
 }

@@ -1004,6 +1004,70 @@ Note that this named "eat_profile" for JWT and is distinct from the already regi
 {::include cddl/profile.cddl}
 ~~~~
 
+## The Software Manifests Claim (manifests)
+
+This claim contains descriptions of software that is present on the device.
+These manifests are installed on the device when the software is installed or are created as part of the installation process.
+Installation is anything that adds software to the device, possibly factory installation, the user installing elective applications and so on.
+The defining characteristic is that they are created by the software manufacturer.
+The purpose of these claims in an EAT is to relay them without modification to the Verifier and/or the Relying Party.
+
+In some cases these will be signed by the software manufacturer independent of any signing for the purpose of EAT attestation.
+Manifest claims should include the manufacturer's signature (which will be signed over  by the attestation signature).
+In other cases the attestation signature will be the only one.
+
+This claim allows multiple formats for the manifest.
+For example the manifest may be a CBOR-format CoSWID, an XML-format SWID or other.
+Identification of the type of manifest is always by a CBOR tag.
+In many cases, for examples CoSWID, a tag will already be registered with IANA.
+If not, a tag MUST be registered.
+It can be in the first-come-first-served space which has minimal requirements for registration.
+
+The claim is an array of one or more manifests.
+To facilitate hand off of the manifest to a decoding library, each manifest is contained in a byte string.
+This occurs for CBOR-format manifests as well as non-CBOR format manifests.
+
+If a particular manifest type uses CBOR encoding, then the item in the array for it MUST be a byte string that contains a CBOR tag.
+The EAT decoder must decode the byte string and then the CBOR within it to find the tag number to identify the type of manifest.
+The contents of the byte string is then handed to the particular manifest processor for that type of manifest.
+CoSWID and SUIT manifest are examples of this.
+
+If a particular manifest type does not use CBOR encoding, then the item in the array for it must be a CBOR tag that contains a byte string.
+The EAT decoder uses the tag to identify the processor for that type of manifest.
+The contents of the tag, the byte string, are handed to the manifest processor.
+Note that a byte string is used to contain the manifest whether it is a text based format or not.
+An example of this is an XML format ISO/IEC 19770 SWID.
+
+It is not possible to describe the above requirements in CDDL so the type for an individual manifest is any in the CDDL below.
+The above text sets the encoding requirement.
+
+This claim allows for multiple manifests in one token since multiple software packages are likely to be present.
+The multiple manifests may be of multiple formats.
+In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.
+
+When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
+
+~~~~CDDL
+{::include cddl/manifests.cddl}
+~~~~
+
+## The Software Evidence Claim {swevidence}
+
+This claim contains descriptions, lists, evidence or measurements of the software that exists on the device.
+The defining characteristic of this claim is that its contents are created by processes on the device that inventory, measure or otherwise characterize the software on the device.
+The contents of this claim do not originate from the software manufacturer.
+
+In most cases the contents of this claim are signed as part of attestation signing, but independent signing in addition to the attestation signing is not ruled out when a particular evidence format supports it.
+
+This claim uses the same mechanism for identification of the type of the swevidence as is used for the type of the manifest in the manifests claim.
+It also uses the same byte string based mechanism for containing the claim and easing the hand off to a processing library.
+See the discussion above in the manifests claim.
+
+When the {{CoSWID}} format is used, it MUST be evidence CoSWIDs, not payload CoSWIDS.
+
+~~~~CDDL
+{::include cddl/swevidence.cddl}
+~~~~
 
 ## The Submodules Part of a Token (submods)
 
@@ -1257,6 +1321,12 @@ When COSE protection is used, the profile should specify whether COSE tags are u
 Note that RFC 8392 requires COSE tags be used in a CWT tag.
 
 Often a tag is unncessary because the surrounding or carrying protocol identifies the object as an EAT.
+
+
+### Manifests and Software Evidence Claims
+
+The profile should specify which formats are allowed for the manifests and software evidence claims.
+The profile may also go on to say which parts and options of these formats are used, allowed and prohibited.
 
 
 # Encoding {#encoding}
@@ -1920,4 +1990,7 @@ no new claims have been added.
 
 * Added section on use for Evidence and Attestation Results
 
+* Added manifests and software evidence claims
+
 * Add string labels non-claim labels for use with JSON (e.g. labels for members of location claim)
+

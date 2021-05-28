@@ -10,3 +10,8 @@ diag2cbor ?= $(shell command -v diag2cbor.rb)
 ifeq ($(strip $(diag2cbor)),)
   $(error diag2cbor tool not found. To install diag2cbor, run: 'gem install cbor-diag')
 endif
+
+curl ?= $(shell command -v curl)
+ifeq ($(strip $(curl)),)
+$(error curl not found)
+endif

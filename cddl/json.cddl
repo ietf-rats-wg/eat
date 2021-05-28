@@ -14,6 +14,8 @@ intended-use /= "intuse"
 boot-seed /= "bootseed"
 submods /= "submods"
 timestamp /= "timestamp"
+manifests /= "manifests"
+swevidence /= "swevidence"
 
 latitude /= "lat"
 longitude /= "long"
