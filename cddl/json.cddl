@@ -2,7 +2,6 @@
 
 ueid /= "ueid"
 nonce /= "nonce"
-origination /= "origination"
 oemid /= "oemid"
 security-level /= "seclevel"
 secure-boot /= "secboot"

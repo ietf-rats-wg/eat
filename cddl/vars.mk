@@ -6,7 +6,6 @@ CDDL_FRAGS += location.cddl
 CDDL_FRAGS += nonce.cddl
 CDDL_FRAGS += oemid.cddl
 CDDL_FRAGS += hardware-version.cddl
-CDDL_FRAGS += origination.cddl
 CDDL_FRAGS += secure-boot.cddl
 CDDL_FRAGS += security-level.cddl
 CDDL_FRAGS += submods.cddl
