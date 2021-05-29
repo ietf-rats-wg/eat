@@ -1193,17 +1193,17 @@ There is not one standard method.
 The verification key itself may be a public key, a symmetric key or something complicated in the case of a scheme like Direct Anonymous Attestation (DAA).
 
 RATS Architecture {{RATS.Architecture}} describes what is called an Endorsement.
-This is an input to the Verifier that is usually the basis of the trust placed in an EAT.
+This is an input to the Verifier that is usually the basis of the trust placed in an EAT and the Attester that generated it.
 It may contain the public key for verification of the signature on the EAT.
 It may contain Reference Values to which EAT claims are compared as part of the verification process.
-It may contain implied claims, those that are passed on to the Relying Party in Attestation Results. 
+It may contain implied claims, those that are passed on to the Relying Party in Attestation Results.
 
 There is not yet any standard format(s) for an Endorsement.
 One format that may be used for an Endorsement is an X.509 certificate.
 Endorsement data like Reference Values and implied claims can be carried in X.509 v3 extensions.
 In this use, the public key in the X.509 certificate becomes the verification key, so identification of the Endorsement is also identification of the verification key.
 
-The verification key identification may also be by some other means than an Endorsement.
+The verification key identification and establishment of trust in the EAT and the attester may also be by some other means than an Endorsement.
 
 For the components (Attester, Verifier, Relying Party,…) of a particular end-end attestation system to reliably interoperate, its definition should specify how the verification key is identified.
 Usually, this will be in the profile document for a particular attestation system.
