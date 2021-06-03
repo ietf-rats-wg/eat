@@ -23,20 +23,6 @@ device-version-scheme-claim = (
 )
 
 
-ean-type = text .regexp "[0-9]{13}"
-
-ean-chip-version-claim = (
-    ean-chip-version => ean-type
-)
-
-ean-board-version-claim = (
-    ean-board-version => ean-type
-)
-
-ean-device-version-claim = (
-    ean-device-version => ean-type
-)
-
 hardware-version-claims = (
     ? chip-version-claim,
     ? board-version-claim,
@@ -44,8 +30,5 @@ hardware-version-claims = (
     ? chip-version-scheme-claim,
     ? board-version-scheme-claim,
     ? device-version-scheme-claim,
-    ? ean-chip-version-claim,
-    ? ean-board-version-claim,
-    ? ean-device-version-claim,
 )
 
