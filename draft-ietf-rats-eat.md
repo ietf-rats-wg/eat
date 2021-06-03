@@ -170,7 +170,7 @@ informative:
     target: https://en.wikipedia.org/wiki/Birthday_attack.
     date: false
 
-  IDevID:
+  IEEE.802.1AR:
     title: IEEE Standard, "IEEE 802.1AR Secure Device Identifier"
     date: December 2009
     target: http://standards.ieee.org/findstds/standard/802.1AR-2009.html
@@ -480,7 +480,7 @@ CWT Claims Set.
 Attestation Key Material (AKM).
 : The key material used to sign the EAT token. If it is done
 symmetrically with HMAC, then this is a simple symmetric key.
-If it is done with ECC, such as an IEEE DevID {{IDevID}}, then this
+If it is done with ECC, such as an IEEE DevID {{IEEE.802.1AR}}, then this
 is the private part of the EC key pair. If ECDAA 
 is used, (e.g., as used by Enhanced Privacy ID, i.e. EPID) then it is the key material 
 needed for ECDAA.
@@ -598,10 +598,11 @@ between manufacturers).
 
 There are privacy considerations for UEID's. See {{ueidprivacyconsiderations}}.
 
-The UEID should be permanent. It should never change for a given
-device / entity. In addition, it should not be reprogrammable.  UEID’s
-are variable length. All implementations MUST be able to receive
-UEID's that are 33 bytes long (1 type byte and 256 bits).  The
+The UEID is permanent. It never change for a given
+device / entity. 
+
+UEIDs are variable length. All implementations MUST be able to receive
+UEIDs that are 33 bytes long (1 type byte and 256 bits).  The
 recommended maximum sent is also 33 bytes.
 
 When the entity constructs the UEID, the first byte is a type and the
@@ -643,6 +644,28 @@ this are:
   
 ~~~~CDDL
 {::include cddl/ueid.cddl}
+~~~~
+
+
+## Semi-permanent UEIDs (SUEIDs)
+
+An SEUID is of the same format as a UEID, but it may change to a different value on device life-cycle events.
+Examples of these events are change of ownership, factory reset and on-boarding into an IoT device management system.
+A device may have both a UEID and SUEIDs, neither, one or the other.
+
+There may be multiple SUEIDs.
+Each one has a text string label the purpose of which is to distinguish it from others in the token.
+The label may name the purpose, application or type of the SUEID.
+Typically, there will be few SUEDs so there is no need for a formal labeling mechanism like a registry.
+The EAT profile may describe how SUEIDs should be labeled.
+If there is only one SUEID, the claim remains a map and there still must be a label.
+For example, the label for the SUEID used by FIDO Onboarding Protocol could simply be "FDO".
+
+There are privacy considerations for SUEID's. See {{ueidprivacyconsiderations}}.
+
+
+~~~~CDDL
+{::include cddl/sueids.cddl}
 ~~~~
 
 
@@ -1688,38 +1711,43 @@ options dependent on the intended usage of the EAT.  Examples would
 include suppression of location claims for EAT's provided to
 unauthenticated consumers.
 
-## UEID Privacy Considerations {#ueidprivacyconsiderations}
+## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
 
 A UEID is usually not privacy-preserving. Any set of relying parties
 that receives tokens that happen to be from a single device will be
 able to know the tokens are all from the same device and be able to
-track the device. Thus, in many usage situations ueid violates
-governmental privacy regulation. In other usage situations UEID will
+track the device. Thus, in many usage situations UEID violates
+governmental privacy regulation. In other usage situations a UEID will
 not be allowed for certain products like browsers that give privacy
 for the end user. It will often be the case that tokens will not have
 a UEID for these reasons.
 
+An SUEID is also usually not privacy-preserving.  In some cases it may
+have fewer privacy issues than a UEID depending on when and how and
+when it is generated.
+
 There are several strategies that can be used to still be able to put
-UEID's in tokens:
+UEIDs and SUEIDs in tokens:
 
 * The device obtains explicit permission from the user of the device
-to use the UEID. This may be through a prompt. It may also be through
+to use the UEID/SUEID. This may be through a prompt. It may also be through
 a license agreement.  For example, agreements for some online banking
-and brokerage services might already cover use of a UEID.
+and brokerage services might already cover use of a UEID/SUEID.
 
-* The UEID is used only in a particular context or particular use
+* The UEID/SUEID is used only in a particular context or particular use
 case. It is used only by one relying party.
 
 * The device authenticates the relying party and generates a derived
-UEID just for that particular relying party.  For example, the relying
+UEID/SUEID just for that particular relying party.  For example, the relying
 party could prove their identity cryptographically to the device, then
 the device generates a UEID just for that relying party by hashing a
-proofed relying party ID with the main device UEID.
+proofed relying party ID with the main device UEID/SUEID.
 
-Note that some of these privacy preservation strategies result in multiple UEIDs
-per device. Each UEID is used in a different context, use case or system 
-on the device. However, from the view of the relying party, there is just
-one UEID and it is still globally universal across manufacturers.
+Note that some of these privacy preservation strategies result in
+multiple UEIDs and SUEIDs per device. Each UEID/SUEID is used in a
+different context, use case or system on the device. However, from the
+view of the relying party, there is just one UEID and it is still
+globally universal across manufacturers.
 
 ## Location Privacy Considerations {#locationprivacyconsiderations}
 
@@ -1957,6 +1985,85 @@ quality random number generators are readily available as they are
 implemented in commonly used CPU hardware.
 
 
+# EAT Relation to IEEE.802.1AR Secure Device Identity (DevID)
+
+This section describes several distinct ways in which an IEEE IDevID {{IEEE.802.1AR}} relates to EAT, particularly to UEID and SUEID.
+
+{{IEEE.802.1AR}} orients around the definition of an implementation called a "DevID Module."
+It describes how IDevIDs and LDevIDs are stored, protected and accessed using a DevID Module.
+A particular level of defense against attack that should be achieved to be a DevID is defined.
+The intent is that IDevIDs and LDevIDs are used with an open set of network protocols for authentication and such.
+In these protocols the DevID secret is used to sign a nonce or similar to proof the association of the DevID certificates with the device.
+
+By contrast, EAT defines network protocol for proving trustworthiness to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
+Nor does not give details on how keys, data and such are stored protected and accessed.
+EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
+It does not define any particular level of defense against attack, instead providing a set of security considerations.
+
+EAT and DevID can be viewed as complimentary when used together or as competing to provide a device identity service.
+
+## DevID Used With EAT
+
+As just described, EAT defines a network protocol and {{IEEE.802.1AR}} doesn't.
+Vice versa, EAT doesn't define a an device implementation and DevID does.
+
+Hence, EAT can be the network protocol that a DevID is used with.
+The DevID secret becomes the attestation key used to sign EATs.
+The DevID and its certificate chain become the Endorsement sent to the Verifier.
+
+In this case the EAT and the DevID are likely to both provide a device identifier (e.g. a serial number).
+In the EAT it is the UEID (or SUEID).
+In the DevID (used as an endorsement), it is a device serial number included in the subject field of the DevID certificate.
+It is probably a good idea in this use for them to be the same serial number or for the UEID to be a hash of the DevID serial number.
+
+## How EAT Provides an Equivalent Secure Device Identity
+
+The UEID, SUEID and other claims like OEM ID are equivalent to the secure device identity put into the subject field of a DevID certificate.
+These EAT claims can represent all the same fields and values that can be put in a DevID certificate subject.
+EAT explicitly and carefully defines a variety of useful claims.
+
+EAT secures the conveyance of these claims by having them signed on the device by the attestation key when the EAT is generated.
+EAT also signs the nonce that gives freshness at this time.
+Since these claims are signed for every EAT generated, they can include things that vary over time like GPS location.
+
+DevID secures the device identity fields by having them signed by the manufacturer of the device sign them into a certificate.
+That certificate is created once during the manufacturing of the device and never changes so the fields cannot change.
+
+So in one case the signing of the identity happens on the device and the other in a manufacturing facility,
+but in both cases the signing of the nonce that proves the binding to the actual device happens on the device.
+
+While EAT does not specify how the signing keys, signature process and storage of the identity values should be secured against attack,
+an EAT implementation may have equal defenses against attack.
+One reason EAT uses CBOR is because it is simple enough that a basic EAT implementation can be constructed entirely in hardware.
+This allows EAT to be implemented with the strongest defenses possible.
+
+## An X.509 Format EAT
+
+It is possible to define a way to encode EAT claims in an X.509 certificate.
+For example, the EAT claims might be mapped to X.509 v3 extensions.
+It is even possible to stuff a whole CBOR-encoded unsigned EAT token into a X.509 certificate.
+
+If that X.509 certificate is an IDevID or LDevID, this becomes another way to use EAT and DevID together.
+
+Note that the DevID must still be used with an authentication protocol that has a nonce or equivalent.
+The EAT here is not being used as the protocol to interact with the rely party.
+
+## Device Identifier Permanence
+
+In terms of permanence, an IDevID is similar to a UEID in that they do not change over the life of the device.
+They cease to exist only when the device is destroyed.
+
+An SUEID is similar to an LDevID.
+They change on device life-cycle events.
+
+{{IEEE.802.1AR}} describes much of this permanence as resistant to attacks that seek to change the ID.
+IDevID permanence can be described this way because {{IEEE.802.1AR}} is oriented around the definition of an implementation with a particular level of defense against attack.
+
+EAT is not defined around a particular implementation and must work on a range of devices that have a range of defenses against attack.
+EAT thus can't be defined permanence in terms of defense against attack.
+EAT's definition of permanence is in terms of operations and device lifecycle.
+
+
 # Changes from Previous Drafts
 
 The following is a list of known changes from the previous drafts.  This list is
@@ -2058,6 +2165,11 @@ no new claims have been added.
 * Change profile claim to be either a URL or an OID rather than a test string
 
 ## From draft-ietf-rats-09
+
+
+* Add SUEIDs
+
+* Add appendix comparing IDevID to EAT
 
 * Added section on use for Evidence and Attestation Results
 

@@ -13,6 +13,7 @@ chip-version-scheme = 35
 board-version-scheme = 36
 device-version-scheme = 37
 intended-use = 41
-manifests = 42
-swevidence = 43   
+sueids = 42
+manifests = 43
+swevidence = 44   
 
