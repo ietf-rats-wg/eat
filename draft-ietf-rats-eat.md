@@ -2181,3 +2181,5 @@ no new claims have been added.
 
 * Add string labels non-claim labels for use with JSON (e.g. labels for members of location claim)
 
+* EAN-13 HW versions are no longer a separate claim. Now they are folded in as a CoSWID version scheme.
+
