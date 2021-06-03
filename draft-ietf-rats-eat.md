@@ -1835,40 +1835,70 @@ quality random number generators are readily available as they are
 implemented in commonly used CPU hardware.
 
 
-# EAT Relation to IDevID
+# EAT Relation to IEEE.802.1AR Secure Device Identity (DevID)
 
 This section describes several distinct ways in which an IEEE IDevID {{IEEE.802.1AR}} relates to EAT, particularly to UEID and SUEID.
 
-{{IEEE.802.1AR}} orients around the definition of an implementation called a DevID Module.
-It describes how IDevIDs and LDevIDs are stored, protected and accessed.
-The intent is that IDevIDs and LDevIDs can be used with multiple network protocols.
-It also defines a particular level of defense against attack that should be achieved.
+{{IEEE.802.1AR}} orients around the definition of an implementation called a "DevID Module."
+It describes how IDevIDs and LDevIDs are stored, protected and accessed using a DevID Module.
+A particular level of defense against attack that should be achieved to be a DevID is defined.
+The intent is that IDevIDs and LDevIDs are used with an open set of network protocols for authentication and such.
+In these protocols the DevID secret is used to sign a nonce or similar to proof the association of the DevID certificates with the device.
 
-By contrast, EAT orients around the definition of a network protocol.
-It does not give details on how keys, data and such are stored protected and accessed.
-EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to use of a secure element.
+By contrast, EAT defines network protocol for proving trustworthiness to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
+Nor does not give details on how keys, data and such are stored protected and accessed.
+EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
 It does not define any particular level of defense against attack, instead providing a set of security considerations.
 
+EAT and DevID can be viewed as complimentary when used together or as competing to provide a device identity service.
 
-## Signed Device IDs
+## DevID Used With EAT
 
-A unique device identifier is of little use in security-related applications unless it is signed.
-Without signing, it is trivial for attackers to forge a device identifier.
+As just described, EAT defines a network protocol and {{IEEE.802.1AR}} doesn't.
+Vice versa, EAT doesn't define a an device implementation and DevID does.
 
-In a way IDevID and EAT are competitors.
-They both provide signed unique device identifiers.
+Hence, EAT can be the network protocol that a DevID is used with.
+The DevID secret becomes the attestation key used to sign EATs.
+The DevID and its certificate chain become the Endorsement sent to the Verifier.
 
-EAT provides the unique identifier as a single small data item, the UEID and SUEID.
-For IDevID the unique identifier is through an X.500 distinguished name, perhaps constructed from the certificate chain, 
-somehow derived from the key material.
+In this case the EAT and the DevID are likely to both provide a device identifier (e.g. a serial number).
+In the EAT it is the UEID (or SUEID).
+In the DevID (used as an endorsement), it is a device serial number included in the subject field of the DevID certificate.
+It is probably a good idea in this use for them to be the same serial number or for the UEID to be a hash of the DevID serial number.
 
-EAT is perhaps a more general solution.
-It allows an open-ended set of claims about the device to be signed and conveyed in addition to just the identifier.
-It separates the signing scheme from the identification scheme.
-This allows use of a variety of schemes to sign or otherwise to secure the claims about the device.
-This variety gives flexibility to address issues like privacy and be used for a large diversity of use cases.
+## How EAT Provides an Equivalent Secure Device Identity
 
-## Permanence
+The UEID, SUEID and other claims like OEM ID are equivalent to the secure device identity put into the subject field of a DevID certificate.
+These EAT claims can represent all the same fields and values that can be put in a DevID certificate subject.
+EAT explicitly and carefully defines a variety of useful claims.
+
+EAT secures the conveyance of these claims by having them signed on the device by the attestation key when the EAT is generated.
+EAT also signs the nonce that gives freshness at this time.
+Since these claims are signed for every EAT generated, they can include things that vary over time like GPS location.
+
+DevID secures the device identity fields by having them signed by the manufacturer of the device sign them into a certificate.
+That certificate is created once during the manufacturing of the device and never changes so the fields cannot change.
+
+So in one case the signing of the identity happens on the device and the other in a manufacturing facility,
+but in both cases the signing of the nonce that proves the binding to the actual device happens on the device.
+
+While EAT does not specify how the signing keys, signature process and storage of the identity values should be secured against attack,
+an EAT implementation may have equal defenses against attack.
+One reason EAT uses CBOR is because it is simple enough that a basic EAT implementation can be constructed entirely in hardware.
+This allows EAT to be implemented with the strongest defenses possible.
+
+## An X.509 Format EAT
+
+It is possible to define a way to encode EAT claims in an X.509 certificate.
+For example, the EAT claims might be mapped to X.509 v3 extensions.
+It is even possible to stuff a whole CBOR-encoded unsigned EAT token into a X.509 certificate.
+
+If that X.509 certificate is an IDevID or LDevID, this becomes another way to use EAT and DevID together.
+
+Note that the DevID must still be used with an authentication protocol that has a nonce or equivalent.
+The EAT here is not being used as the protocol to interact with the rely party.
+
+## Device Identifier Permanence
 
 In terms of permanence, an IDevID is similar to a UEID in that they do not change over the life of the device.
 They cease to exist only when the device is destroyed.
@@ -1882,13 +1912,6 @@ IDevID permanence can be described this way because {{IEEE.802.1AR}} is oriented
 EAT is not defined around a particular implementation and must work on a range of devices that have a range of defenses against attack.
 EAT thus can't be defined permanence in terms of defense against attack.
 EAT's definition of permanence is in terms of operations and device lifecycle.
-
-
-## IDevID as an attestation key 
-
-An IDevID consists of a private key and an X.509 certificate containing a public key that is unique per device and programmed at the factory.
-The private key thus may be suitable for use as an attestation key to sign EAT tokens.
-In this use the X.509 certificate may be used as part of an Endorsement scheme in which the Verifier comes to trust the IDevID.
 
 
 # Changes from Previous Drafts
