@@ -685,13 +685,9 @@ An EAT can include any combination these claims.
 The hardware version is a simple text string the format of which is set by each manufacturer.
 The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
 
-The hardware version can also be given by a 13-digit European Article Number {{EAN-13}}.
+The hardware version can also be given by a 13-digit {{EAN-13}}.
+A new CoSWID version scheme is registered with IANA by this document in {{registerversionscheme}}.
 An EAN-13 is also known as an International Article Number or most commonly as a bar code.
-This claim is the ASCII text representation of actual digits often printed with a bar code.
-Use of this claim must comply with the EAN allocation and assignment rules.
-For example, this requires the manufacturer to obtain a manufacture code from GS1.
-
-Both the simple version string and EAN-13 versions may be included for the same hardware.
 
 ~~~~CDDL
 {::include cddl/hardware-version.cddl}
@@ -1670,16 +1666,15 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 
 TODO: add the rest of the claims in here
 
-### SW Versions registere by this document
+### Version Schemes Registered by this Document {#registerversionscheme}
 
 IANA is requested to register a new value in the "Software Tag Version Scheme Values" established by {{CoSWID}}.
 
 The new value is a version scheme a 13-digit European Article Number {{EAN-13}}.
 An EAN-13 is also known as an International Article Number or most commonly as a bar code.
-This claim is the ASCII text representation of actual digits often printed with a bar code.
-Use of this claim must comply with the EAN allocation and assignment rules.
+This version scheme is the ASCII text representation of EAN-13 digits, the same ones often printed with a bar code.
+This version scheme must comply with the EAN allocation and assignment rules.
 For example, this requires the manufacturer to obtain a manufacture code from GS1.
-
 
 | Index | Version Scheme Name | Specification | 
 | 5     | ean-13              | This document |
