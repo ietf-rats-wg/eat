@@ -5,7 +5,6 @@
 ; This file is used for cddl validation. It is not included
 ; in the document. The file eat-tbd-labels.cddl is for the document.
 
-origination = 30
 uptime = 31
 chip-version = 32
 board-version = 33
@@ -18,4 +17,6 @@ ean-board-version = 39
 ean-device-version = 40
 intended-use = 41
 sueids = 42
+manifests = 43
+swevidence = 44   
 

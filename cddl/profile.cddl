@@ -1,3 +1,5 @@
+oid = #6.4000(bstr) ; TODO: fill this in with correct CDDL from OID RFC
+
 profile-claim = (
     profile => ~uri / ~oid
 )

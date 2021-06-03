@@ -56,6 +56,7 @@ author:
 
 normative:
   RFC2119:
+  RFC7515:
   RFC8949:
   RFC7517:
   RFC7519:
@@ -67,7 +68,28 @@ normative:
   RFC8610:
   RFC8747:
   RFC3986:
+      
+  RATS.Architecture:
+    target: https://tools.ietf.org/html/draft-ietf-rats-architecture-08
+    title: Remote Attestation Procedures Architecture
+    author:
+    - fullname: Henk Birkholz
+    date: 2020
 
+  COSE.X509.Draft:
+    target: https://tools.ietf.org/html/draft-ietf-cose-x509-08
+    title: "CBOR Object Signing and Encryption (COSE): Header parameters for carrying and referencing X.509 certificates"
+    author:
+    - fullname: J. Schaad
+    date: 2020
+  
+  CBOR.Cert.Draft:
+    target: https://tools.ietf.org/html/draft-mattsson-cose-cbor-cert-compress-05
+    title: CBOR Encoding of X.509 Certificates (CBOR Certificates)
+    author:
+    - fullname: S. Raza
+    date: 2020
+  
   WGS84:
     target: http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf
     title: National Imagery and Mapping Agency Technical Report 8350.2, Third Edition
@@ -493,6 +515,10 @@ group is a general aggregation and type definition feature of
 CDDL). In the encoding section {{encoding}}, the CDDL groups turn into
 CBOR map entries and JSON name/value pairs.
 
+Map labels are assigned both an integer and string value.
+CBOR encoded tokens MUST use only integer labels.
+JSON encoded tokens MUST use only string labels.
+
 TODO: add paragraph here about use for Attestation Evidence and for Results.
 
 ## Token ID Claim (cti and jti)
@@ -642,32 +668,6 @@ There are privacy considerations for SUEID's. See {{ueidprivacyconsiderations}}.
 {::include cddl/sueids.cddl}
 ~~~~
 
-
-## Origination Claim (origination)
-
-TODO: this claim is likely to be dropped in favor of Endorsement identifier and locators.
-
-This claim describes the parts of the device or entity that are
-creating the EAT. Often it will be tied back to the device or chip
-manufacturer. The following table gives some examples:
-
-| Name | Description |
-| Acme-TEE | The EATs are generated in the TEE authored and configured by "Acme" |
-| Acme-TPM | The EATs are generated in a TPM manufactured by "Acme" |
-| Acme-Linux-Kernel | The EATs are generated in a Linux kernel configured and shipped by "Acme" |
-| Acme-TA | The EATs are generated in a Trusted Application (TA) authored by "Acme"
-
-TODO: consider a more structure approach where the name and the URI
-and other are in separate fields.
-
-TODO: This needs refinement. It is somewhat parallel to issuer claim
-in CWT in that it describes the authority that created the token.
-
-### origination CDDL
-
-~~~~CDDL
-{::include cddl/origination.cddl}
-~~~~
 
 ## OEM Identification by IEEE (oemid) {#oemid}
 
@@ -1024,6 +1024,70 @@ Note that this named "eat_profile" for JWT and is distinct from the already regi
 {::include cddl/profile.cddl}
 ~~~~
 
+## The Software Manifests Claim (manifests)
+
+This claim contains descriptions of software that is present on the device.
+These manifests are installed on the device when the software is installed or are created as part of the installation process.
+Installation is anything that adds software to the device, possibly factory installation, the user installing elective applications and so on.
+The defining characteristic is that they are created by the software manufacturer.
+The purpose of these claims in an EAT is to relay them without modification to the Verifier and/or the Relying Party.
+
+In some cases these will be signed by the software manufacturer independent of any signing for the purpose of EAT attestation.
+Manifest claims should include the manufacturer's signature (which will be signed over  by the attestation signature).
+In other cases the attestation signature will be the only one.
+
+This claim allows multiple formats for the manifest.
+For example the manifest may be a CBOR-format CoSWID, an XML-format SWID or other.
+Identification of the type of manifest is always by a CBOR tag.
+In many cases, for examples CoSWID, a tag will already be registered with IANA.
+If not, a tag MUST be registered.
+It can be in the first-come-first-served space which has minimal requirements for registration.
+
+The claim is an array of one or more manifests.
+To facilitate hand off of the manifest to a decoding library, each manifest is contained in a byte string.
+This occurs for CBOR-format manifests as well as non-CBOR format manifests.
+
+If a particular manifest type uses CBOR encoding, then the item in the array for it MUST be a byte string that contains a CBOR tag.
+The EAT decoder must decode the byte string and then the CBOR within it to find the tag number to identify the type of manifest.
+The contents of the byte string is then handed to the particular manifest processor for that type of manifest.
+CoSWID and SUIT manifest are examples of this.
+
+If a particular manifest type does not use CBOR encoding, then the item in the array for it must be a CBOR tag that contains a byte string.
+The EAT decoder uses the tag to identify the processor for that type of manifest.
+The contents of the tag, the byte string, are handed to the manifest processor.
+Note that a byte string is used to contain the manifest whether it is a text based format or not.
+An example of this is an XML format ISO/IEC 19770 SWID.
+
+It is not possible to describe the above requirements in CDDL so the type for an individual manifest is any in the CDDL below.
+The above text sets the encoding requirement.
+
+This claim allows for multiple manifests in one token since multiple software packages are likely to be present.
+The multiple manifests may be of multiple formats.
+In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.
+
+When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
+
+~~~~CDDL
+{::include cddl/manifests.cddl}
+~~~~
+
+## The Software Evidence Claim {swevidence}
+
+This claim contains descriptions, lists, evidence or measurements of the software that exists on the device.
+The defining characteristic of this claim is that its contents are created by processes on the device that inventory, measure or otherwise characterize the software on the device.
+The contents of this claim do not originate from the software manufacturer.
+
+In most cases the contents of this claim are signed as part of attestation signing, but independent signing in addition to the attestation signing is not ruled out when a particular evidence format supports it.
+
+This claim uses the same mechanism for identification of the type of the swevidence as is used for the type of the manifest in the manifests claim.
+It also uses the same byte string based mechanism for containing the claim and easing the hand off to a processing library.
+See the discussion above in the manifests claim.
+
+When the {{CoSWID}} format is used, it MUST be evidence CoSWIDs, not payload CoSWIDS.
+
+~~~~CDDL
+{::include cddl/swevidence.cddl}
+~~~~
 
 ## The Submodules Part of a Token (submods)
 
@@ -1145,9 +1209,73 @@ string naming the submodule. No submodules may have the same name.
 
 # Endorsements and Verification Keys {#keyid}
 
-TODO: fill this section in. It will discuss key IDs, endorsement ID and such that
-are needed as input needed to by the Verifier to verify the signature. This will
-NOT discuss the contents of an Endorsement, just and ID/locator.
+The Verifier must possess the correct key when it performs the cryptographic part of an EAT verification (e.g., verifying the COSE signature).
+This section describes several ways to identify the verification key.
+There is not one standard method. 
+
+The verification key itself may be a public key, a symmetric key or something complicated in the case of a scheme like Direct Anonymous Attestation (DAA).
+
+RATS Architecture {{RATS.Architecture}} describes what is called an Endorsement.
+This is an input to the Verifier that is usually the basis of the trust placed in an EAT and the Attester that generated it.
+It may contain the public key for verification of the signature on the EAT.
+It may contain Reference Values to which EAT claims are compared as part of the verification process.
+It may contain implied claims, those that are passed on to the Relying Party in Attestation Results.
+
+There is not yet any standard format(s) for an Endorsement.
+One format that may be used for an Endorsement is an X.509 certificate.
+Endorsement data like Reference Values and implied claims can be carried in X.509 v3 extensions.
+In this use, the public key in the X.509 certificate becomes the verification key, so identification of the Endorsement is also identification of the verification key.
+
+The verification key identification and establishment of trust in the EAT and the attester may also be by some other means than an Endorsement.
+
+For the components (Attester, Verifier, Relying Party,…) of a particular end-end attestation system to reliably interoperate, its definition should specify how the verification key is identified.
+Usually, this will be in the profile document for a particular attestation system.
+
+## Identification Methods
+
+Following is a list of possible methods of key identification. A specific attestation system may employ any one of these or one not listed here.
+
+The following assumes Endorsements are X.509 certificates or equivalent and thus does not mention or define any identifier for Endorsements in other formats. If such an Endorsement format is created, new identifiers for them will also need to be created.
+
+### COSE/JWS Key ID
+
+The COSE standard header parameter for Key ID (kid) may be used. See {{RFC8152}} and {{RFC7515}}
+
+COSE leaves the semantics of the key ID open-ended.
+It could be a record locator in a database, a hash of a public key, an input to a KDF, an authority key identifier (AKI) for an X.509 certificate or other.
+The profile document should specify what the key ID’s semantics are.
+
+### JWS and COSE X.509 Header Parameters
+
+COSE X.509 {{COSE.X509.Draft}} and JSON Web Siganture {{RFC7515}} define several header parameters (x5t, x5u,…) for referencing or carrying X.509 certificates any of which may be used.
+
+The X.509 certificate may be an Endorsement and thus carrying additional input to the Verifier. It may be just an X.509 certificate, not an Endorsement. The same header parameters are used in both cases. It is up to the attestation system design and the Verifier to determine which.
+
+### CBOR Certificate COSE Header Parameters
+
+Compressed X.509 and CBOR Native certificates are defined by CBOR Certificates {{CBOR.Cert.Draft}}. These are semantically compatible with X.509 and therefore can be used as an equivalent to X.509 as described above.
+
+These are identified by their own header parameters (c5t, c5u,…).
+
+### Claim-Based Key Identification
+
+For some attestation systems, a claim may be re-used as a key identifier. For example, the UEID uniquely identifies the device and therefore can work well as a key identifier or Endorsement identifier.
+
+This has the advantage that key identification requires no additional bytes in the EAT and makes the EAT smaller.
+
+This has the disadvantage that the unverified EAT must be substantially decoded to obtain the identifier since the identifier is in the COSE/JOSE payload, not in the headers. 
+
+## Other Considerations
+
+In all cases there must be some way that the verification key is itself verified or determined to be trustworthy.
+The key identification itself is never enough.
+This will always be by some out-of-band mechanism that is not described here.
+For example, the Verifier may be configured with a root certificate or a master key by the Verifier system administrator.
+
+Often an X.509 certificate or an Endorsement carries more than just the verification key.
+For example, an X.509 certificate might have key usage constraints and an Endorsement might have Reference Values.
+When this is the case, the key identifier must be either a protected header or in the payload such that it is cryptographically bound to the EAT.
+This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
 
 # Profiles {#profiles}
 
@@ -1279,6 +1407,12 @@ Note that RFC 8392 requires COSE tags be used in a CWT tag.
 Often a tag is unncessary because the surrounding or carrying protocol identifies the object as an EAT.
 
 
+### Manifests and Software Evidence Claims
+
+The profile should specify which formats are allowed for the manifests and software evidence claims.
+The profile may also go on to say which parts and options of these formats are used, allowed and prohibited.
+
+
 # Encoding {#encoding}
 This makes use of the types defined in CDDL Appendix D, Standard Prelude.
 
@@ -1290,6 +1424,9 @@ CDDL was not in use when these claims where defined.
 time-int is identical to the epoch-based time, but disallows
 floating-point representation.
 
+Note that unless expliclity indicated, URIs are not the URI tag defined in {{RFC8949}}.
+They are just text strings that contain a URI.
+
 ~~~~CDDL
 {::include cddl/common-types.cddl}
 ~~~~
@@ -1299,6 +1436,9 @@ floating-point representation.
 This section provides CDDL for the claims defined in CWT. It is
 non-normative as {{RFC8392}} is the authoritative definition of these
 claims.
+
+Note that the subject, issue and audience claims may be a text string containing a URI per {{RFC8392}} and {{RFC7519}}.
+These are never the URI tag defined in {{RFC8949}}.
 
 ~~~~CDDL
 {::include cddl/cwt.cddl}
@@ -2023,4 +2163,11 @@ no new claims have been added.
 
 * Added section on use for Evidence and Attestation Results
 
+* Fill in the key ID and endorsements identificaiton section
+
+* Remove origination claim as it is replaced by key IDs and endorsements
+
+* Added manifests and software evidence claims
+
+* Add string labels non-claim labels for use with JSON (e.g. labels for members of location claim)
 

@@ -2,7 +2,6 @@
 ; These are intentionally above 24 so as to not use up
 ; single-byte labels.
 
-origination = <TBD30>
 uptime = <TBD31>
 chip-version = <TBD32>
 board-version = <TBD33>
@@ -15,3 +14,5 @@ ean-board-version = <TBD39>
 ean-device-version = <TBD40>
 intended-use = <TBD41>
 sueids = <TBD42>
+manifests = <TBD43>
+swevidence = <TBD44>
