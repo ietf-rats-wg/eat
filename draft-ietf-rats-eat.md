@@ -1670,6 +1670,21 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 
 TODO: add the rest of the claims in here
 
+### SW Versions registere by this document
+
+IANA is requested to register a new value in the "Software Tag Version Scheme Values" established by {{CoSWID}}.
+
+The new value is a version scheme a 13-digit European Article Number {{EAN-13}}.
+An EAN-13 is also known as an International Article Number or most commonly as a bar code.
+This claim is the ASCII text representation of actual digits often printed with a bar code.
+Use of this claim must comply with the EAN allocation and assignment rules.
+For example, this requires the manufacturer to obtain a manufacture code from GS1.
+
+
+| Index | Version Scheme Name | Specification | 
+| 5     | ean-13              | This document |
+
+
 # Privacy Considerations {#privacyconsiderations}
 
 Certain EAT claims can be used to track the owner of an entity and
