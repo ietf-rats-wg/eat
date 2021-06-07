@@ -3,5 +3,5 @@ sueids-type = {
 }
 
 sueids-claim = (
-     sueid => sueids-type
+     sueids => sueids-type
 )
