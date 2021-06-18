@@ -1,0 +1,45 @@
+verification-result-cbor-type = &(
+    verification-not-run: 1,
+    verification-indeterminite: 2,
+    verification-failed: 3,
+    fully-verified: 4,
+    partially-verified: 5,
+)
+
+verification-result-json-type = 
+    "verification-not-run" /
+    "verification-indeterminite" /
+    "verification-failed" /
+    "fully-verified" /
+    "partially-verified" 
+
+
+verification-objective-cbor-type = &(
+    all: 1,
+    firmware: 2,
+    kernel: 3,
+    privileged: 4,
+    system-libs: 5,
+    partial: 6,
+)
+
+verification-objective-json-type = 
+    "all" /
+    "firmware" /
+    "kernel" /
+    "privileged" /
+    "system-libs" /
+    "partial"
+
+
+swresult = [
+    verification-system: tstr,
+    objective: verification-objective-cbor-type / verification-objective-json-type, 
+    result: verification-result-cbor-type / verification-result-json-type, 
+    ? objective-name: tstr
+]
+
+
+swresults-claim = ( 
+   swresults => [ + swresult ]
+)
