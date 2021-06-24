@@ -716,9 +716,6 @@ An EAN-13 is also known as an International Article Number or most commonly as a
 {::include cddl/hardware-version.cddl}
 ~~~~
 
-## Software Description and Version
-
-TODO: Add claims that reference CoSWID.
 
 ## The Security Level Claim (security-level)
 
@@ -779,7 +776,7 @@ claim made here is solely a self-claim made by the Entity Originator.
 The value of true indicates secure boot is enabled. Secure boot is
 considered enabled when base software, the firmware and operating
 system, are under control of the entity manufacturer identified in the
-oemid claimd described in {{oemid}}. This may because the software is
+OEMID claim described in {{oemid}}. This may because the software is
 in ROM or because it is cryptographically authenticated or some
 combination of the two or other.
 
