@@ -2180,3 +2180,7 @@ no new claims have been added.
 
 * EAN-13 HW versions are no longer a separate claim. Now they are folded in as a CoSWID version scheme.
 
+## From draft-ietf-rats-10
+
+* Hardware version is made into an array of two rather than two claims
+
