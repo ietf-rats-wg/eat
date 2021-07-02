@@ -1,34 +1,23 @@
-chip-version-claim = (
-    chip-version => tstr
-)
+hw-version-type = [
+    version:  tstr,
+    scheme:  $version-scheme
+]
 
-chip-version-scheme-claim = (
-    chip-version-scheme => $version-scheme
+chip-version-claim = (
+    chip-version => hw-version-type
 )
 
 board-version-claim = (
-    board-version => tstr
-)
-
-board-version-scheme-claim = (
-    board-version-scheme => $version-scheme
+    board-version => hw-version-type
 )
 
 device-version-claim = (
-    device-version => tstr
+    device-version => hw-version-type
 )
-
-device-version-scheme-claim = (
-    device-version-scheme => $version-scheme
-)
-
 
 hardware-version-claims = (
     ? chip-version-claim,
     ? board-version-claim,
     ? device-version-claim,
-    ? chip-version-scheme-claim,
-    ? board-version-scheme-claim,
-    ? device-version-scheme-claim,
 )
 
