@@ -336,14 +336,17 @@ It is useful to characterize the relationship of claims in Evidence to those in 
 
 Many claims in Evidence simply will pass through the Verifier to the Relying Party without modification.
 They will be verified as authentic from the device by the Verifier just through normal verification of the Attester's signature.
-They will be protected from modification when they are conveyed to the Relying Party by whatever means is used to protect Attestation Results. 
+They will be protected against modification when they are conveyed to the Relying Party by whatever means is used to protect Attestation Results. 
 (The details of that protection are out of scope of this document.)
+The UEID, {{UEID}}, and Location, {{location}}, claims are examples of claims that are passed through.
 
 Some claims in Evidence will be verified by the Verifier by comparison to Reference Values.
 In this case the claims in Evidence will not likely be conveyed to the Relying Party.
 Instead, some claim indicating they were checked may be added to the Attestation Results or it may be tacitly known that the Verifier always does this check.
+For example, the Verifier receives the Software Evidence claim, {{swevidence}}, compares it to reference values and conveys the results to the Relying Party in a Software Measurement Results Claim, {{swresults}}.
 
 In some cases the Verifier may provide privacy-preserving functionality by stripping or modifying claims that do not posses sufficient privacy-preserving characteristics.
+For example, the data in the Location claim, {{location}}, may be modified to have a precision of a few kilometers rather than a few meters.
 
 
 ## EAT Operating Models
@@ -577,7 +580,7 @@ and consumption.
 {::include cddl/nonce.cddl}
 ~~~~
 
-## Universal Entity ID Claim (ueid)
+## Universal Entity ID Claim (ueid) {#UEID}
 
 UEID’s identify individual manufactured entities / devices such as a
 mobile phone, a water meter, a Bluetooth speaker or a networked
@@ -900,7 +903,7 @@ The key in the confirmation claim MUST be protected the same as the key used to 
 That is, the same, equivalent or better hardware defenses, access controls, key generation and such must be used.
 
 
-## The Location Claim (location)
+## The Location Claim (location) {#location}
 
 The location claim gives the location of the device entity from which the attestation originates.
 It is derived from the W3C Geolocation API {{W3C.GeoLoc}}.
@@ -1064,7 +1067,7 @@ When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence
 {::include cddl/manifests.cddl}
 ~~~~
 
-## The Software Evidence Claim {swevidence}
+## The Software Evidence Claim (swevidence) {#swevidence}
 
 This claim contains descriptions, lists, evidence or measurements of the software that exists on the device.
 The defining characteristic of this claim is that its contents are created by processes on the device that inventory, measure or otherwise characterize the software on the device.
@@ -1082,7 +1085,7 @@ When the {{CoSWID}} format is used, it MUST be evidence CoSWIDs, not payload CoS
 {::include cddl/swevidence.cddl}
 ~~~~
 
-## The SW Measurement Results Claim (swresults)
+## The SW Measurement Results Claim (swresults) {#swresults}
 
 This claims reports the outcome of the comparison of a measurement on some software to the expected reference values.
 It may report a successful comparison, failed comparison or other.
