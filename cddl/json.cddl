@@ -16,6 +16,7 @@ submods /= "submods"
 timestamp /= "timestamp"
 manifests /= "manifests"
 swevidence /= "swevidence"
+dloas /= "dloas"
 
 latitude /= "lat"
 longitude /= "long"

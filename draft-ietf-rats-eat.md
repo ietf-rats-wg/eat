@@ -159,6 +159,11 @@ normative:
   
   RATS-Architecture: I-D.ietf-rats-architecture
 
+  DLOA:
+    target: https://globalplatform.org/wp-content/uploads/2015/12/GPC_DigitalLetterOfApproval_v1.0.pdf
+    title: Digital Letter of Approval
+    date: November 2015
+
 
 informative:
   RFC4122:
@@ -994,6 +999,28 @@ security state of the entity storing the private key used in a PoP application.
 ~~~~CDDL
 {::include cddl/intended-use.cddl}
 ~~~~
+
+## The DLOA (Digital Letter or Approval) Claim (dloas)
+
+A DLOA (Digital Letter of Approval) {{DLOA}} is a document that describes a certification that a device or entity has recevied.
+Examples of certifications represented by a DLOA include those issues by Global Platform and those based on Common Criteria.
+The DLOA is not specific to any particular certification type or those issues by any particular organization.
+
+This claim is typically issued by a Verifier, not an Attester.
+When this claim is issued by a Verifier, it MUST be because the entity, device or submodule has received the certification in the DLOA.
+
+This claim can contain more than one DLOA.
+If multiple DLOAs are present, it MUST be cause the entity, device or submodule received all of the certifications.
+
+DLOAs are retrived from a registrar for either a platform or an application.
+The registrar is a URI from which to retrieve a DLOA.
+Platform DLOAs have a platform label and Application DLOAs have a platform and application label.
+To retreive a DLOA a URI is constructed from the registrar URI, platform label and possible an application label according to {{DLOA}}
+
+~~~~CDDL
+{::include cddl/dloas.cddl}
+~~~~
+
 
 ## The Profile Claim (profile) {#profile-claim}
 
