@@ -207,13 +207,6 @@ informative:
     target: https://webstore.ansi.org/standards/ieee/ieee8022001r2007
     date: 2007
 
-  FIDO.Registry:
-    title: FIDO Registry of Predefined Values
-    target: https://fidoalliance.org/specs/common-specs/fido-registry-v2.1-ps-20191217.html
-    author:
-    - org: The FIDO Alliance
-    date: December 2019 
- 
   FIPS-140:
     title: Security Requirements for Cryptographic Modules
     target: https://csrc.nist.gov/publications/detail/fips/140/2/final
@@ -722,8 +715,7 @@ An EAN-13 is also known as an International Article Number or most commonly as a
 This claim characterizes the device/entity 
 ability to defend against attacks aimed at capturing the signing
 key, forging claims and at forging EATs. This is done by
-defining four security levels as described below. This is similar
-to the key protection types defined by the Fast Identity Online (FIDO) Alliance {{FIDO.Registry}}.
+defining four security levels as described below. 
 
 These claims describe security environment and countermeasures
 available on the end-entity / client device where the attestation key
