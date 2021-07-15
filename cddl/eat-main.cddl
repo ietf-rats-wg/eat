@@ -17,6 +17,7 @@ eat-claim-set = {
     ? uptime-claim,
     ? manifests-claim,
     ? swevidence-claim,
+    ? swresults-claim,
     ? submods-part,
     * $$eat-extension,
 }
