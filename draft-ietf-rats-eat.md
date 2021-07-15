@@ -69,11 +69,11 @@ normative:
   RFC3986:
 
   WGS84:
-    target: http://earth-info.nga.mil/GandG/publications/tr8350.2/wgs84fin.pdf
-    title: National Imagery and Mapping Agency Technical Report 8350.2, Third Edition
+    target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
+    title: WORLD GEODETIC SYSTEM 1984, NGA.STND.0036_1.0.0_WGS84
     author:
-    - org: National Imagery and Mapping Agency
-    date: 2000
+    - org: National Geospatial-Intelligence Agency (NGA)
+    date: 2014-07-08
     
   IANA.CWT.Claims:
     target: http://www.iana.org/assignments/cwt
