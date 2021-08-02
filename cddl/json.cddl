@@ -17,6 +17,7 @@ timestamp /= "timestamp"
 manifests /= "manifests"
 swevidence /= "swevidence"
 dloas /= "dloas"
+swevidence /= "swresults"
 
 latitude /= "lat"
 longitude /= "long"

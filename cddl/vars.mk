@@ -17,6 +17,7 @@ CDDL_FRAGS += uptime.cddl
 CDDL_FRAGS += manifests.cddl
 CDDL_FRAGS += swevidence.cddl
 CDDL_FRAGS += dloas.cddl
+CDDL_FRAGS += swresults.cddl
 CDDL_FRAGS += eat-assigned-labels.cddl
 
 CDDL_DOC_FRAGS := $(CDDL_FRAGS) eat-tbd-labels.cddl json.cddl
