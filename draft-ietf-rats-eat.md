@@ -1002,7 +1002,7 @@ security state of the entity storing the private key used in a PoP application.
 
 ## The DLOA (Digital Letter or Approval) Claim (dloas)
 
-A DLOA (Digital Letter of Approval) {{DLOA}} is a document that describes a certification that a device or entity has recevied.
+A DLOA (Digital Letter of Approval) {{DLOA}} is an XML document that describes a certification that a device or entity has received.
 Examples of certifications represented by a DLOA include those issues by Global Platform and those based on Common Criteria.
 The DLOA is not specific to any particular certification type or those issues by any particular organization.
 
@@ -1012,10 +1012,17 @@ When this claim is issued by a Verifier, it MUST be because the entity, device o
 This claim can contain more than one DLOA.
 If multiple DLOAs are present, it MUST be cause the entity, device or submodule received all of the certifications.
 
-DLOAs are retrived from a registrar for either a platform or an application.
-The registrar is a URI from which to retrieve a DLOA.
-Platform DLOAs have a platform label and Application DLOAs have a platform and application label.
-To retreive a DLOA a URI is constructed from the registrar URI, platform label and possible an application label according to {{DLOA}}
+DLOA XML documents are always fetched from a registrar that stores them.
+This claim contains several data items that are used to construct a URL for fetching the DLOA from the particular registrar.
+
+The first data item is a URI for the registrar.
+The second data item is a platform label to indicate the particular platform that was certified.
+For platform certifications only these two are needed.
+
+A DLOA may also apply to an application.
+In that case it has the URI for the registrar, a platform label and additionally an application label.
+
+The method of combining of the registrar URI, platform label and possibly application label is specified in {{DLOA}}.
 
 ~~~~CDDL
 {::include cddl/dloas.cddl}
