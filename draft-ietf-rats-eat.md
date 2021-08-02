@@ -730,14 +730,15 @@ protect the attestation signing keys at this level. Otherwise,
 the EAT provides no meaningful security assurances. 
 
 2 - Restricted:
-: Entities at this level are not be general-purpose
+: Entities at this level are not general-purpose
 operating environments that host features such as app download
 systems, web browsers and complex productivity applications.
-It is akin to the Secure Restricted level (see below) without the
+It is akin to the secure-restricted level (see below) without the
 security orientation. Examples include a Wi-Fi subsystem,
 an IoT camera, or sensor device.
 Often these can be considered more secure than unrestricted just because they are much simpler and a smaller attack surface, but this won't always be the case.
-Some restricted devices may be implemented more poorly than unrestricted devices.
+Some unrestricted devices may be implemented in a way that provides poor protection of signing keys.
+
 
 3 - Secure-Restricted:
 : Entities at this level must meet the criteria defined in section 4 of FIDO Allowed
@@ -761,8 +762,6 @@ This claim is not intended as a replacement for a proper end-device
 security certification scheme such as those based on FIPS 140 {{FIPS-140}} 
 or those based on Common Criteria {{Common.Criteria}}. The 
 claim made here is solely a self-claim made by the Attester.
-
-### security-level CDDL
 
 ~~~~CDDL
 {::include cddl/security-level.cddl}
