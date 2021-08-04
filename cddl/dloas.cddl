@@ -1,0 +1,11 @@
+dloas-claim = (
+    dloas => [ + dloa-type ]
+)
+
+dloa-type = [
+    dloa_registrar: ~uri
+    dloa_platform_label: text 
+    ? dloa_application_label: text
+]
+
+
