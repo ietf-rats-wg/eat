@@ -489,38 +489,20 @@ needed for ECDAA.
 
 # The Claims
 
-This section describes new claims defined for attestation. It also
-mentions several claims defined by CWT and JWT that are particularly
-important for EAT.
+An EAT is a CWT or JWT and therefore inherits all the details and rules from those specifications.
 
-Note also:
-* Any claim defined for CWT or JWT may be used in an EAT including 
-  those in the CWT {{IANA.CWT.Claims}} and JWT IANA {{IANA.JWT.Claims}}
-  claims registries.
+This section describes new claims defined for attestation that are to be added to the CWT {{IANA.CWT.Claims}} and JWT {{IANA.JWT.Claims}} IANA registries.
 
-* All claims are optional
+This section also describes how several extant CWT and JWT claims apply in EAT.
 
-* No claims are mandatory
-
-* All claims that are not understood by implementations MUST be ignored
-
-There are no default values or meanings assigned to absent claims
-other than they are not reported. The reason for a claim's absence may
-be the implementation not supporting the claim, an inability to
-determine its value, or a preference to report in a different way such
-as a proprietary claim.
-
-CDDL along with text descriptions is used to define each claim
-indepdent of encoding.  Each claim is defined as a CDDL group (the
-group is a general aggregation and type definition feature of
-CDDL). In the encoding section {{encoding}}, the CDDL groups turn into
-CBOR map entries and JSON name/value pairs.
+CDDL, along with a text description, is used to define each claim
+independent of encoding.  Each claim is defined as a CDDL group.
+In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
 
 Map labels are assigned both an integer and string value.
 CBOR encoded tokens MUST use only integer labels.
 JSON encoded tokens MUST use only string labels.
 
-TODO: add paragraph here about use for Attestation Evidence and for Results.
 
 ## Token ID Claim (cti and jti)
 
