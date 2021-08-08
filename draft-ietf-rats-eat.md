@@ -493,14 +493,13 @@ needed for ECDAA.
 
 An EAT is a CWT or JWT and therefore inherits all the details and rules from those specifications.
 
-This section describes new claims defined for attestation that are to be added to the CWT and JWT IANA registries, {{IANA.CWT.Claims}} and {{IANA.JWT.Claims}}.
+This section describes new claims defined for attestation that are to be added to the CWT {{IANA.CWT.Claims}} and JWT {{IANA.JWT.Claims}} IANA registries.
 
 This section also describes how several extant CWT and JWT claims apply in EAT.
 
 CDDL, along with a text description, is used to define each claim
 independent of encoding.  Each claim is defined as a CDDL group.
-In the encoding section {{encoding}}, the CDDL groups turn into
-CBOR map entries and JSON name/value pairs.
+In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
 
 Map labels are assigned both an integer and string value.
 CBOR encoded tokens MUST use only integer labels.
