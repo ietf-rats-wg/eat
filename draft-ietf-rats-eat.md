@@ -272,7 +272,7 @@ limited to the following:
  * Environmental characteristics of the device such as its GPS location
 
 
-## CWT, JWT and UCCS
+## CWT, JWT, DEB and UCCS
 
 For flexibility and ease of imlpementation in a wide variety of environments, EATs can be either CBOR {{RFC8949}} or JSON {{ECMAScript}} format.
 This specification simultaneously describes both formats.
@@ -285,6 +285,10 @@ Largely this depends on the protocol carrying the EAT.
 In some cases it may be by content type (e.g., MIME type).
 In other cases it may be through use of CBOR tags.
 There is no fixed mechanism across all use cases.
+
+A DEB is a Detached EAT Bundle that is defined in {{DEB}}.
+It is a simple structure to hold a collection of detached EAT submodules and the EAT that signs them.
+It can be either CBOR or JSON format.
 
 ## CDDL
 
@@ -1185,12 +1189,13 @@ than an individual claim. This submods part of a token allows what
 might be called recursion. It allows claim sets inside of claim sets
 inside of claims sets...
 
-### Two Types of Submodules
+### Three Types of Submodules
 
 Each entry in the submod map is one of two types:
 
 * A non-token submodule that is a map or object directly containing claims for the submodule.
-* A nested EAT that is a fully formed, independently signed EAT token
+* A nested EAT that is a fully formed, independently signed EAT.
+* A detached submodule that is digest of a submodule that is not conveyed with the EAT.
 
 #### Non-token Submodules
 
@@ -1215,7 +1220,7 @@ When the surrounding EAT is a CWT or secured JWT, the nested token becomes secur
 It is allowed to have a CWT as a submodule in a JWT and vice versa, but this SHOULD be avoided unless necessary.
 
 ##### Surrounding EAT is CBOR format
-They type of an EAT nested in a CWT is determined by whether the CBOR type is a text string or a byte string.
+The type of an EAT nested in a CWT is determined by whether the CBOR type is a text string or a byte string.
 If a text string, then it is a JWT.
 If a byte string, then it is a CWT.
 
@@ -1252,6 +1257,33 @@ The resulting claims set should be inserted as a non-token submodule.
 To incorporate a UCCS token in a surrounding JSON token, the UCCS token claims should be translated from CBOR to JSON.
 To incorporate an Unsecured JWT into a surrounding CBOR-format token, the null-security JOSE should be removed and the claims translated from JSON to CBOR.
 
+#### Detached Submodules
+
+This type of submodule consists of a digest made using a cryptographic hash of a set of claims that is conveyed separately.
+
+The input to the digest is exactly the encoded form of a non-token submodule described above.
+It can be a deeply nested EAT that may even contain other detached submodules.
+
+One reason for this is to facilitate the implementation of a very small and secure attester, perhaps purely in hardware.
+This small, secure attester implements COSE signing and only a few claims, perhaps just UEID and hardware identification.
+It has inputs for digests of submodules, perhaps 32-byte hardware registers.
+Software running on the device constructs larger claim sets, perhaps very large, encodes them and digests them.
+The digests are written into the small secure attesters registers.
+The EAT produced by the small secure attester only contains the UEID, hardware identification and digests and is thus simple enough to be implemented in hardware.
+Probably, every data item in it is of fixed length.
+
+The larger claim sets will not be as secure as those originating in hardware block, but the key material and hardware-based claims will be.
+It is possible for the hardware to enforce access control on the digest registers so that some of the larger claims can be more secure.
+For example, one register may be writable only by the TEE so the detached claims from the TEE will have TEE-level security.
+
+The detached submodule is an array of two data items, a COSE algorithm identifier and a byte string containing the digest.
+
+The detached submodule is distinguished from the other types by it being an array.
+
+A DEB, described in {{DEB}}  may be used to convey detached EAT submodules and the EAT with their digests.
+Other protocols may also be used to convey detached EAT submodules.
+
+
 ### No Inheritance
 
 The subordinate modules do not inherit anything from the containing
@@ -1284,6 +1316,37 @@ string naming the submodule. No submodules may have the same name.
 ~~~~CDDL
 {::include cddl/submods.cddl}
 ~~~~
+
+
+# Detached EAT Bundles {#DEB}
+
+A detached EAT bundle is a way to to convey a fully formed and signed EAT plus detached modules that relate to that EAT.
+It is a top-level EAT format like a CWT, JWT and UCCS.
+Implementation supporting it can send it in any occasion that CWT, JWT or UCCS format EATs are sent.
+It may also be sent as a submodule.
+
+The tag 602 is defined to identify it when needed.
+The normal rules apply for use or non-use of a tag.
+When it is sent as a submodule, it is not sent as a tag.
+It is distinguished from the other types of submodules by being an array. TODO: will this really work?
+
+It consists of a array of two data items.
+
+The first item is normal EAT in CWT, JWT or UCCS format.
+That EAT has at least one detached submodule.
+
+The second itme is a map / object.
+Each entry is an encoded submodule.
+
+The digests of the detached submodules are associated with the encoded submodule by label/name.
+It is up to the constructor of the detached EAT bundle to ensure the names uniqely identify the the detached submodules.
+Since the names are used only in the detached EAT bundle, they can be very short, perhaps one byte.
+
+~~~~CDDL
+{::include cddl/deb.cddl}
+~~~~
+
+
 
 # Endorsements and Verification Keys {#keyid}
 
@@ -1431,6 +1494,7 @@ The key for encryption requires less protection.
 The profile document should list the COSE algorithms that a Verifier must implement.
 The Attester will select one of them. 
 Since there is no negotiation, the Verifier should implement all algorithms listed in the profile.
+If detached submodules are used, the COSE algorithms allowed for their digests should also be in the profile.
 
 
 ### Verification Key Identification

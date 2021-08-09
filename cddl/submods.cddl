@@ -14,7 +14,7 @@ submods-type = { + submod-type }
 ; or a tstr.
 
 submod-type = (
-    submod-name => eat-claim-set / nested-token
+    submod-name => eat-claim-set / nested-token / detached-submodule
 )
 
 
@@ -29,4 +29,11 @@ nested-token = bstr / tstr;
 
 submod-name = tstr 
 
+
+; The digest of a detached submodule
+
+detached-submodule = [
+    cose-hash-algorithm: int,
+    detached-digest: bstr
+]
 
