@@ -164,6 +164,10 @@ normative:
     title: Digital Letter of Approval
     date: November 2015
 
+  PEN:
+    target: https://pen.iana.org/pen/PenApplication.page
+    title: Private Enterprise Number (PEN) Request
+
 
 informative:
   RFC4122:
@@ -652,7 +656,28 @@ There are privacy considerations for SUEID's. See {{ueidprivacyconsiderations}}.
 ~~~~
 
 
-## OEM Identification by IEEE (oemid) {#oemid}
+## Hardware OEM Identification (oemid) {#oemid}
+
+This claim identifies the OEM of the hardware.
+Any of the three forms may be used at the convenience of the attester implementation.
+The receiver of this claim MUST be able to handle all three forms.
+
+### Random Number Based
+
+This format is always 16 bytes in size (128 bits).
+
+The OEM may create their own ID by using a cryptographic-quality random number generator.
+They would perform this only once in the life of the company to generate the single ID for said company.
+They would use that same ID in every device they make.
+This uniquely identifies the OEM on a statistical basis and is large enough should there be ten billion companies.
+
+The OEM may also use a hash like SHA-256 and truncate the output to 128 bits.
+The input to the hash should be somethings that have at least 96 bits of entropy, but preferably 128 bits of entropy.
+The input to the hash may be something whose uniqueness is managed by a central registry like a domain name.
+
+This is to be base64url encoded in JSON.
+
+### IEEE Based
 
 The IEEE operates a global registry for MAC addresses and company IDs.
 This claim uses that database to identify OEMs. The contents of the
@@ -664,7 +689,7 @@ known as OUI-36, a 36-bit value.  Many companies already have purchased
 one of these. A CID is also a 24-bit value from the same space as an
 MA-L, but not for use as a MAC address.  IEEE has published Guidelines
 for Use of EUI, OUI, and CID {{OUI.Guide}} and provides a lookup
-services {{OUI.Lookup}}
+services {{OUI.Lookup}}.
 
 Companies that have more than one of these IDs or MAC address blocks
 should pick one and prefer that for all their devices.
@@ -676,7 +701,19 @@ Hexadecimal Representation. For example, an MA-L like "AC-DE-48" would
 be encoded in 3 bytes with values 0xAC, 0xDE, 0x48. For JSON encoded
 tokens, this is further base64url encoded.
 
-### oemid CDDL
+This format is always 3 bytes in size in CBOR.
+
+
+### IANA Private Enterprise Number
+
+IANA maintains a simple integer-based company registry called the Private Enterprise Number (PEN) {{PEN}}.
+
+PENs are often used to create an OID.
+That is not the case here.
+They are used only as a simple integer.
+
+This is encoded as a major type 0 integer in CBOR and is typically 2 when encoded.
+It is encoded as a number in JSON.
 
 ~~~~CDDL
 {::include cddl/oemid.cddl}

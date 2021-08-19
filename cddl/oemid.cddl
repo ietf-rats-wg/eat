@@ -1,3 +1,10 @@
+oemid-pen = int
+
+oemid-ieee = bstr .size 3
+
+oemid-random = bstr .size 128
+
+
 oemid-claim = (
-    oemid => bstr
+    oemid => oemid-random / oemid-ieee / oemid-pen
 )
