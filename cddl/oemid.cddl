@@ -2,7 +2,7 @@ oemid-pen = int
 
 oemid-ieee = bstr .size 3
 
-oemid-random = bstr .size 128
+oemid-random = bstr .size 16
 
 
 oemid-claim = (
