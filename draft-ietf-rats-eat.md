@@ -169,6 +169,7 @@ informative:
   RFC4122:
   RFC4949:
   RFC7120:
+  RFC9039:
 
   BirthdayAttack:
     title: Birthday attack
@@ -621,7 +622,9 @@ this are:
   another anytime they want. For example, they may find they can
   optimize their manufacturing by switching from type 0x01 to type
   0x02 or vice versa.  The main requirement on the manufacturer is
-  that UEIDs be universally unique. 
+  that UEIDs be universally unique.
+
+A Device Indentifier URN is registered for UEIDs. See {{registerueidurn}}.
   
 ### ueid CDDL
   
@@ -646,6 +649,7 @@ For example, the label for the SUEID used by FIDO Onboarding Protocol could simp
 
 There are privacy considerations for SUEID's. See {{ueidprivacyconsiderations}}.
 
+A Device Indentifier URN is registered for SUEIDs. See {{registerueidurn}}.
 
 ~~~~CDDL
 {::include cddl/sueids.cddl}
@@ -1783,6 +1787,15 @@ For example, this requires the manufacturer to obtain a manufacture code from GS
 
 | Index | Version Scheme Name | Specification | 
 | 5     | ean-13              | This document |
+
+
+### UEID URN Registered by this Document {#registerueidurn}
+
+IANA is requested to register the following new subtypes in the "DEV URN Subtypes" registry under "Device Identification". See {{RFC9039}}.
+
+| Subtype | Description                                | Reference     | 
+| ueid    | Universal Entity Identifier                | This document |
+| sueid   | Semi-permanent Universal Entity Identifier | This document |
 
 
 # Privacy Considerations {#privacyconsiderations}
