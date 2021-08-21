@@ -554,8 +554,6 @@ this size recommendation when used in an EAT.
 Multiple nonces are allowed to accommodate multistage verification
 and consumption.
 
-### nonce CDDL
-
 ~~~~CDDL
 {::include cddl/nonce.cddl}
 ~~~~
@@ -623,8 +621,6 @@ this are:
   0x02 or vice versa.  The main requirement on the manufacturer is
   that UEIDs be universally unique. 
   
-### ueid CDDL
-  
 ~~~~CDDL
 {::include cddl/ueid.cddl}
 ~~~~
@@ -675,8 +671,6 @@ encoded the order of bytes in the bstr are the same as the order in the
 Hexadecimal Representation. For example, an MA-L like "AC-DE-48" would
 be encoded in 3 bytes with values 0xAC, 0xDE, 0x48. For JSON encoded
 tokens, this is further base64url encoded.
-
-### oemid CDDL
 
 ~~~~CDDL
 {::include cddl/oemid.cddl}
@@ -763,8 +757,6 @@ OEMID claim described in {{oemid}}. This may because the software is
 in ROM or because it is cryptographically authenticated or some
 combination of the two or other.
 
-### secure-boot CDDL
-
 ~~~~CDDL
 {::include cddl/secure-boot.cddl}
 ~~~~
@@ -850,8 +842,6 @@ have been so since boot/start.
 This level indicates that all debug capabilities for the target
 device/sub-module are permanently disabled.
 
-### debug-status CDDL
-
 ~~~~CDDL
 {::include cddl/debug-status.cddl}
 ~~~~
@@ -912,8 +902,6 @@ data and token creation.
 
 See location-related privacy considerations in {{locationprivacyconsiderations}} below.
 
-### location CDDL
-
 ~~~~CDDL
 {::include cddl/location.cddl}
 ~~~~
@@ -922,8 +910,6 @@ See location-related privacy considerations in {{locationprivacyconsiderations}}
 
 The "uptime" claim contains a value that represents the number of
 seconds that have elapsed since the entity or submod was last booted.
-
-### uptime CDDL
 
 ~~~~CDDL
 {::include cddl/uptime.cddl}
@@ -971,8 +957,6 @@ proof-of-possession (PoP) appication. More precisely, a PoP transaction is inten
 to provide to the recipient cryptographically-verifiable proof that the sender has posession
 of a key.  This kind of attestation may be neceesary to verify the
 security state of the entity storing the private key used in a PoP application.
-
-### intended-use CDDL
 
 ~~~~CDDL
 {::include cddl/intended-use.cddl}
@@ -1278,8 +1262,6 @@ secure element.
 
 The label or name for each submodule in the submods map is a text
 string naming the submodule. No submodules may have the same name.
-
-### submods CDDL
 
 ~~~~CDDL
 {::include cddl/submods.cddl}
@@ -2275,3 +2257,6 @@ no new claims have been added.
 * Add swresults claim
 
 * Add dloas claim -- Digitial Letter of Approvals, a list of certifications
+
+* CDDL for each claim no longer in a separate sub section
+
