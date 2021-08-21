@@ -2206,13 +2206,15 @@ no new claims have been added.
 
 * Add intended use claim
 
-## From draft-ietf-rats-05
+
+## From draft-ietf-rats-eat-05
 
 * CDDL format issues resolved
 
 * Corrected reference to Location Privacy section
 
-## From draft-ietf-rats-06
+
+## From draft-ietf-rats-eat-06
 
 * Added boot-seed claim
 
@@ -2220,16 +2222,17 @@ no new claims have been added.
  
 * Added profiles claim and section
 
-## From draft-ietf-rats-07
+## From draft-ietf-rats-eat-07
 
 * Filled in IANA and other sections for possible preassignment of claim keys for well understood claims
 
-## From draft-ietf-rats-08
+
+## From draft-ietf-rats-eat-08
 
 * Change profile claim to be either a URL or an OID rather than a test string
 
-## From draft-ietf-rats-09
 
+## From draft-ietf-rats-eat-09
 
 * Add SUEIDs
 
@@ -2248,7 +2251,7 @@ no new claims have been added.
 * EAN-13 HW versions are no longer a separate claim. Now they are folded in as a CoSWID version scheme.
 
 
-## From draft-ietf-rats-10
+## From draft-ietf-rats-eat-10
 
 * Hardware version is made into an array of two rather than two claims
 
