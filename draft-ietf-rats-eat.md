@@ -2253,3 +2253,4 @@ no new claims have been added.
 
 * CDDL for each claim no longer in a separate sub section
 
+* Moved a few references, including RATS Architecture, to informative.
