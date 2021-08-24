@@ -157,8 +157,6 @@ normative:
 
   CBOR-OID: I-D.ietf-cbor-tags-oid
   
-  RATS-Architecture: I-D.ietf-rats-architecture
-
   DLOA:
     target: https://globalplatform.org/wp-content/uploads/2015/12/GPC_DigitalLetterOfApproval_v1.0.pdf
     title: Digital Letter of Approval
@@ -251,19 +249,7 @@ other endpoint to prove itself to a relying party, a server or a
 service.  This allows the relying party to know some characteristics
 about the device and decide whether it trusts the device.
 
-Remote attestation is a fundamental service that can underlie other
-protocols and services that need to know about the trustworthiness of
-the device before proceeding. One good example is biometric
-authentication where the biometric matching is done on the device. The
-relying party needs to know that the device is one that is known to do
-biometric matching correctly.  Another example is content protection
-where the relying party wants to know the device will protect the
-data.  This generalizes on to corporate enterprises that might want to
-know that a device is trustworthy before allowing corporate data to be
-accessed by it.
-
-The notion of attestation here is large and may include, but is not
-limited to the following:
+The notion of attestation here is large and may include, but is not limited to the following:
 
  * Proof of the make and model of the device hardware (HW)
  * Proof of the make and model of the device processor, particularly
@@ -272,13 +258,13 @@ limited to the following:
  * Configuration and state of the device
  * Environmental characteristics of the device such as its GPS location
 
+This document uses the terminology and main operational model defined in [RATS.architecture].
+In particular it is a format that can be used for attestation evidence or attestaion evidence as defined in the RATS architecture.
+
 
 ## CWT, JWT and UCCS
 
-For flexibility and ease of imlpementation in a wide variety of environments, EATs can be either CBOR {{RFC8949}} or JSON {{ECMAScript}} format.
-This specification simultaneously describes both formats.
-
-An EAT is either a CWT as defined in {{RFC8392}}, a UCCS as defined in {{UCCS.Draft}}, or a JWT as defined in {{RFC7519}}.
+An EAT is either a CWT as defined in {{RFC8392}}, a UCCS as defined in {{UCCS.Draft}}, a JWT as defined in {{RFC7519}} or a Detatched EAT Bundle defined below (TODO: reference).
 This specification extends those specifications with additional claims for attestation.
 
 The identification of a protocol element as an EAT, whether CBOR or JSON format, follows the general conventions used by CWT, JWT and UCCS.
@@ -287,20 +273,19 @@ In some cases it may be by content type (e.g., MIME type).
 In other cases it may be through use of CBOR tags.
 There is no fixed mechanism across all use cases.
 
-## CDDL
+## CDDL, CBOR and JSON
 
-This specification uses CDDL, {{RFC8610}}, as the primary formalism to
-define each claim.  The implementor then interprets the CDDL to come
+Since an EAT can be either a CWT or a JWT, the individual EAT claims may be encoded either in CBOR or JSON.
+
+This specification formally uses CDDL, {{RFC8610}}, to
+define each claim.  The implementor interprets the CDDL to come
 to either the CBOR {{RFC8949}} or JSON {{ECMAScript}}
 representation. In the case of JSON, Appendix E of {{RFC8610}} is
-followed. Additional rules are given in {{jsoninterop}} of this
-document where Appendix E is insufficient.  (Note that this is not to
-define a general means to translate between CBOR and JSON, but only to
-define enough such that the claims defined in this document can be
-rendered unambiguously in JSON).
+followed. Additional rules are given in {{jsoninterop}} where Appendix E is insufficient.
 
-The CWT specification was authored before CDDL was available and did not use it.
+The CWT specification was authored before CDDL was available and did not use CDDL.
 This specification includes a CDDL definition of most of what is described in {{RFC8392}}.
+
 
 ## Entity Overview
 
@@ -325,8 +310,8 @@ has an identifiable security level can be considered an entity.
 
 ## Use as Evidence and Attestation Results
 
-Here, normative reference is made to {{RATS-Architecture}}, particularly the definition of Evidence, the Verifier, Attestation Results and the Relying Party.
-Per Figure 1 in {{RATS-Architecture}}, Evidence is a protocol message that goes from the Attester to the Verifier and Attestation Results a message that goes from the Verifier to the Relying Party.
+Here, normative reference is made to {{RATS.Architecture}}, particularly the definition of Evidence, the Verifier, Attestation Results and the Relying Party.
+Per Figure 1 in {{RATS.Architecture}}, Evidence is a protocol message that goes from the Attester to the Verifier and Attestation Results a message that goes from the Verifier to the Relying Party.
 EAT is defined such that it can be used to represent either Evidence, Attestation Results or both.
 No claims defined here are considered exclusive to or are prohibited in either use.
 It is useful to create EAT profiles as described in {{profiles}} for either use.
@@ -464,20 +449,40 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 BCP 14 {{RFC2119}} {{RFC8174}} when, and only when, they appear in all
 capitals, as shown here.
 
-This document reuses terminology from JWT {{RFC7519}}, COSE
-{{RFC8152}}, and CWT {{RFC8392}}.
+This document reuses terminology from JWT {{RFC7519}} and CWT {{RFC8392}}.
 
-Claim Name.
-: The human-readable name used to identify a claim.
+Claim -
+: A piece of information asserted about a subject. A claim is represented as pair with a value and either a name or key to identify it.
 
-Claim Key.
-: The CBOR map key or JSON name used to identify a claim.
+Claim Name -
+: A unique text string that identifies the claim. It is used as the claim name for JSON encoding.
 
-Claim Value.
+Claim Key -
+: The CBOR map key used to identify a claim.
+
+Claim Value -
 : The value portion of the claim. A claim value can be any CBOR data item or JSON value.
 
-CWT Claims Set.
+CWT/JWT Claims Set -
 : The CBOR map or JSON object that contains the claims conveyed by the CWT or JWT.
+
+This document reuses terminology from RATS Architecure {{RATS.Architecture}}
+
+Attester
+:
+
+Verifier
+:
+
+Relying Party
+:
+
+Attestation Evidence
+:
+
+Attestation Results
+:
+
 
 Attestation Key Material (AKM).
 : The key material used to sign the EAT token. If it is done
@@ -491,7 +496,8 @@ needed for ECDAA.
 # The Claims
 
 An EAT is a CWT or JWT and therefore inherits all the details and rules from those specifications.
-
+These details and rules are extended to also govern Detached Eat Bundles and UCCS tokens. TODO: reference to DEB.
+      
 This section describes new claims defined for attestation that are to be added to the CWT {{IANA.CWT.Claims}} and JWT {{IANA.JWT.Claims}} IANA registries.
 
 This section also describes how several extant CWT and JWT claims apply in EAT.
@@ -500,9 +506,9 @@ CDDL, along with a text description, is used to define each claim
 independent of encoding.  Each claim is defined as a CDDL group.
 In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
 
-Map labels are assigned both an integer and string value.
-CBOR encoded tokens MUST use only integer labels.
-JSON encoded tokens MUST use only string labels.
+Each claim described has a unique text string and integer that identifies it.
+CBOR encoded tokens MUST use only the integer for claim keys.
+JSON encoded tokens MUST use only the text string for claim names.
 
 
 ## Token ID Claim (cti and jti)
@@ -1168,9 +1174,9 @@ The claims for each these can be grouped together in a submodule.
 The submods part of a token are in a single map/object with many entries, one
 per submodule.  There is only one submods map in a token. It is
 identified by its specific label. It is a peer to other claims, but it
-is not called a claim because it is a container for a claim set rather
+is not called a claim because it is a container for a claims set rather
 than an individual claim. This submods part of a token allows what
-might be called recursion. It allows claim sets inside of claim sets
+might be called recursion. It allows claims sets inside of claims sets
 inside of claims sets...
 
 ### Two Types of Submodules
@@ -1273,7 +1279,7 @@ string naming the submodule. No submodules may have the same name.
 
 # Endorsements and Verification Keys {#keyid}
 
-The Verifier must possess the correct key when it performs the cryptographic part of an EAT verification (e.g., verifying the COSE signature).
+The Verifier must possess the correct key when it performs the cryptographic part of an EAT verification (e.g., verifying the COSE/JOSE signature).
 This section describes several ways to identify the verification key.
 There is not one standard method. 
 
@@ -1436,7 +1442,7 @@ However note that Endorsement Identification is optional, where as key identific
 
 Just about every use case will require some means of knowing the EAT is recent enough and not a replay of an old token.
 The profile should describe how freshness is achieved.
-The section on Freshness in {{RATS-Architecture}} describes some of the possible solutions to achieve this.
+The section on Freshness in {{RATS.Architecture}} describes some of the possible solutions to achieve this.
 
 
 ### Required Claims
@@ -1510,7 +1516,7 @@ These are never the URI tag defined in {{RFC8949}}.
 
 ## JSON
 
-### JSON Labels
+### JSON Claim Names
 
 ~~~~JSON
 {::include cddl/json.cddl}

@@ -1,4 +1,4 @@
-; The following are Claim Keys (labels) assigned for JSON-encoded tokens.
+; The following are claim names for JSON encoded tokens.
 
 ueid /= "ueid"
 sueids /= "sueids"
