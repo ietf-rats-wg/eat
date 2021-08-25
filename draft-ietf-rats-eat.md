@@ -234,10 +234,6 @@ An EAT is either a CWT or JWT with some attestation-oriented
 claims. To a large degree, all this document does is extend
 CWT and JWT.
 
---- note_Contributing
-
-TBD
-
 
 --- middle
 
@@ -265,7 +261,11 @@ In particular it is a format that can be used for attestation evidence or attest
 ## CWT, JWT and UCCS
 
 An EAT is either a CWT as defined in {{RFC8392}}, a UCCS as defined in {{UCCS.Draft}}, a JWT as defined in {{RFC7519}} or a Detatched EAT Bundle defined below (TODO: reference).
-This specification extends those specifications with additional claims for attestation.
+All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on carry over to EAT.
+
+This specification extends those specifications by defining additional claims for attestation.
+This specification also describes the notion of a "profile" that can narrow the definition of an EAT and fill in details for specific usage scenarios.
+This specification also adds some considerations for registration of future EAT-related claims.
 
 The identification of a protocol element as an EAT, whether CBOR or JSON format, follows the general conventions used by CWT, JWT and UCCS.
 Largely this depends on the protocol carrying the EAT.
@@ -286,29 +286,25 @@ followed. Additional rules are given in {{jsoninterop}} where Appendix E is insu
 The CWT specification was authored before CDDL was available and did not use CDDL.
 This specification includes a CDDL definition of most of what is described in {{RFC8392}}.
 
+## Operating Model and RATS Architecture
 
-## Entity Overview
+While it is not required that EAT be used with the RATS operational model, or even that it be used for attestation, this document is authored with an orientation around that model.
 
-An "entity" can be any device or device subassembly ("submodule") that
-can generate its own attestation in the form of an EAT.  The
-attestation should be cryptographically verifiable by the EAT
-consumer. An EAT at the device-level can be composed of several
-submodule EAT's.  
+To summarize, an attester on an entity/device generates attestation evidence.
+Attestation evidence is a claims set describing various characteristics of the device.
+Attestation evidence also is usually signed by a key that proves the entity/device and the evidence it produces is authentic.
+The claims set includes a nonce or some other means to provide freshness.
+The attestation evidence goes to a verifier where the signature is validated.
+Some of the claims may also be validated.
+The verifier then produces attestation results which are also are usually a claims set.
+The attestation results go to the relying party which is the ultimate consumer of the "remote attestaiton procedure", RATS.
 
-Modern devices such as a mobile phone have many different execution
-environments operating with different security levels. For example, it
-is common for a mobile phone to have an “apps” environment that runs
-an operating system (OS) that hosts a plethora of downloadable
-apps. It may also have a TEE (Trusted Execution Environment) that is
-distinct, isolated, and hosts security-oriented functionality like
-biometric authentication. Additionally, it may have an eSE (embedded
-Secure Element) - a high security chip with defenses against HW
-attacks that is used to produce attestations.  This device attestation format
-allows the attested data to be tagged at a security level from which
-it originates.  In general, any discrete execution environment that
-has an identifiable security level can be considered an entity.
+In particular, EAT is suitable to carry either attestation evidence or attestation results as defined in the RATS architecture.
 
-## Use as Evidence and Attestation Results
+### Use as Attestation Evidence
+
+
+### Use as Evidence and Attestation Results
 
 Here, normative reference is made to {{RATS.Architecture}}, particularly the definition of Evidence, the Verifier, Attestation Results and the Relying Party.
 Per Figure 1 in {{RATS.Architecture}}, Evidence is a protocol message that goes from the Attester to the Verifier and Attestation Results a message that goes from the Verifier to the Relying Party.
@@ -333,113 +329,27 @@ In some cases the Verifier may provide privacy-preserving functionality by strip
 For example, the data in the Location claim, {{location}}, may be modified to have a precision of a few kilometers rather than a few meters.
 
 
-## EAT Operating Models
+## Entity Overview
 
-TODO: Rewrite (or eliminate) this section in light of the RATS architecture draft.
+An "entity" can be any device or device subassembly ("submodule") that
+can generate its own attestation in the form of an EAT.  The
+attestation should be cryptographically verifiable by the EAT
+consumer. An EAT at the device-level can be composed of several
+submodule EAT's.  
 
-At least the following three participants exist in all EAT operating
-models. Some operating models have additional participants.
-         
-The Entity.
-: This is the phone, the IoT device, the sensor, the sub-assembly or
-such that the attestation provides information about.
+Modern devices such as a mobile phone have many different execution
+environments operating with different security levels. For example, it
+is common for a mobile phone to have an “apps” environment that runs
+an operating system (OS) that hosts a plethora of downloadable
+apps. It may also have a TEE (Trusted Execution Environment) that is
+distinct, isolated, and hosts security-oriented functionality like
+biometric authentication. Additionally, it may have an eSE (embedded
+Secure Element) - a high security chip with defenses against HW
+attacks that is used to produce attestations.  This device attestation format
+allows the attested data to be tagged at a security level from which
+it originates.  In general, any discrete execution environment that
+has an identifiable security level can be considered an entity.
 
-The Manufacturer.
-: The company that made the entity.  This may be a chip vendor, a
-circuit board module vendor or a vendor of finished consumer products.
-
-The Relying Party. 
-: The server, service or company that makes use of the information in
-the EAT about the entity.
-
-In all operating models, the manufacturer provisions some secret
-attestation key material (AKM) into the entity during manufacturing.
-This might be during the manufacturer of a chip at a fabrication
-facility (fab) or during final assembly of a consumer product or any
-time in between. This attestation key material is used for signing
-EATs.
- 
-In all operating models, hardware and/or software on the entity create
-an EAT of the format described in this document. The EAT is always
-signed by the attestation key material provisioned by the
-manufacturer.
-
-In all operating models, the relying party must end up knowing that
-the signature on the EAT is valid and consistent with data from claims
-in the EAT.  This can happen in many different ways. Here are some
-examples.
-
-* The EAT is transmitted to the relying party. The relying party gets
-  corresponding key material (e.g. a root certificate) from the
-  manufacturer. The relying party performs the verification.
-
-* The EAT is transmitted to the relying party. The relying party
-  transmits the EAT to a verification service offered by the
-  manufacturer. The server returns the validated claims.
-         
-* The EAT is transmitted directly to a verification service, perhaps
-  operated by the manufacturer or perhaps by another party. It
-  verifies the EAT and makes the validated claims available to the
-  relying party. It may even modify the claims in some way and re-sign
-  the EAT (with a different signing key).
-
-All these operating models are supported and there is no preference
-of one over the other. It is important to support this variety of
-operating models to generally facilitate deployment and to allow for
-some special scenarios. One special scenario has a validation service
-that is monetized, most likely by the manufacturer.  In another, a
-privacy proxy service processes the EAT before it is transmitted to
-the relying party. In yet another, symmetric key material is used for
-signing. In this case the manufacturer should perform the
-verification, because any release of the key material would enable a
-participant other than the entity to create valid signed EATs.
-
-
-## What is Not Standardized
-
-The following is not standardized for EAT, just the same they are not
-standardized for CWT or JWT.
-
-### Transmission Protocol
-
-EATs may be transmitted by any protocol the same as CWTs and JWTs. For
-example, they might be added in extension fields of other protocols,
-bundled into an HTTP header, or just transmitted as files. This
-flexibility is intentional to allow broader adoption. This flexibility
-is possible because EAT's are self-secured with signing (and possibly
-additionally with encryption and anti-replay). The transmission
-protocol is not required to fulfill any additional security
-requirements.
-
-For certain devices, a direct connection may not exist between the
-EAT-producing device and the Relying Party. In such cases, the EAT
-should be protected against malicious access. The use of COSE and JOSE
-allows for signing and encryption of the EAT. Therefore, even if the
-EAT is conveyed through intermediaries between the device and Relying
-Party, such intermediaries cannot easily modify the EAT payload or
-alter the signature.
-
-### Signing Scheme
-
-The term "signing scheme" is used to refer to the system that includes
-end-end process of establishing signing attestation key material in
-the entity, signing the EAT, and verifying it. This might involve key
-IDs and X.509 certificate chains or something similar but
-different. The term "signing algorithm" refers just to the algorithm
-ID in the COSE signing structure. No particular signing algorithm or
-signing scheme is required by this standard.
-
-There are three main implementation issues driving this. First, secure
-non-volatile storage space in the entity for the attestation key
-material may be highly limited, perhaps to only a few hundred bits, on
-some small IoT chips. Second, the factory cost of provisioning key
-material in each chip or device may be high, with even millisecond
-delays adding to the cost of a chip. Third, privacy-preserving signing
-schemes like ECDAA (Elliptic Curve Direct Anonymous Attestation) are
-complex and not suitable for all use cases.
-
-Over time to faciliate interoperability, some signing schemes may be
-defined in EAT profiles or other documents either in the IETF or outside.
 
 # Terminology
 
@@ -1352,7 +1262,7 @@ This is in line with the requirements in section 6 on Key Identification in JSON
 This EAT specification does not gaurantee that implementations of it will interoperate.
 The variability in this specification is necessary to accommodate the widely varying use cases.
 An EAT profile narrows the specification for a specific use case.
-An ideal EAT profile will gauarantee interoperability.
+An ideal EAT profile will guarantee interoperability.
 
 The profile can be named in the token using the profile claim described in {{profile-claim}}.
 
