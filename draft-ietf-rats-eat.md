@@ -261,7 +261,7 @@ In particular it is a format that can be used for attestation evidence or attest
 ## CWT, JWT and UCCS
 
 An EAT is either a CWT as defined in {{RFC8392}}, a UCCS as defined in {{UCCS.Draft}}, a JWT as defined in {{RFC7519}} or a Detatched EAT Bundle defined below (TODO: reference).
-All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on carry over to EAT.
+All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on from these carry over to EAT.
 
 This specification extends those specifications by defining additional claims for attestation.
 This specification also describes the notion of a "profile" that can narrow the definition of an EAT and fill in details for specific usage scenarios.
@@ -288,29 +288,35 @@ This specification includes a CDDL definition of most of what is described in {{
 
 ## Operating Model and RATS Architecture
 
-While it is not required that EAT be used with the RATS operational model, or even that it be used for attestation, this document is authored with an orientation around that model.
+While it is not required that EAT be used with the RATS operational model described in Figure 1 in {{RATS.Architecture}}, or even that it be used for attestation, this document is authored with an orientation around that model.
 
 To summarize, an attester on an entity/device generates attestation evidence.
 Attestation evidence is a claims set describing various characteristics of the device.
-Attestation evidence also is usually signed by a key that proves the entity/device and the evidence it produces is authentic.
+Attestation evidence also is usually signed by a key that proves the entity/device and the evidence it produces are authentic.
 The claims set includes a nonce or some other means to provide freshness.
 The attestation evidence goes to a verifier where the signature is validated.
 Some of the claims may also be validated.
-The verifier then produces attestation results which are also are usually a claims set.
+The verifier then produces attestation results which is also usually a claims set.
 The attestation results go to the relying party which is the ultimate consumer of the "remote attestaiton procedure", RATS.
+The relying party uses the attestation results as needed for the use case, perhaps allowing a device on the network, allowing a financial transaction or such.
+
+Note that sometimes the verifier and relying party are not separate.
 
 In particular, EAT is suitable to carry either attestation evidence or attestation results as defined in the RATS architecture.
 
 ### Use as Attestation Evidence
 
+Any claim defined in this document or in the IANA CWT or JWT registry may be used in attestation evidence, though not all will be useful as attestation evidence.
 
-### Use as Evidence and Attestation Results
+Attestation evidence nearly always has to be signed or otherwise have authenticity and integrity protection because the attester is remote relative to the verifier.
+Usually this is accomplished using COSE/JOSE signing where the signing key is an attestation key provisioned into the entity/device by its manufacturer.
+The details of how this is done are beyond this specification, but see {{keyid}}.
+If there is already a suitable secure channel between the attester and verifier, UCCS may be used.
 
-Here, normative reference is made to {{RATS.Architecture}}, particularly the definition of Evidence, the Verifier, Attestation Results and the Relying Party.
-Per Figure 1 in {{RATS.Architecture}}, Evidence is a protocol message that goes from the Attester to the Verifier and Attestation Results a message that goes from the Verifier to the Relying Party.
-EAT is defined such that it can be used to represent either Evidence, Attestation Results or both.
-No claims defined here are considered exclusive to or are prohibited in either use.
-It is useful to create EAT profiles as described in {{profiles}} for either use.
+
+### Use as Attestation Results
+
+Any claim defined in this document or in the IANA CWT or JWT registry may be used in attestation results, though not all will be useful as attestation results.
 
 It is useful to characterize the relationship of claims in Evidence to those in Attestation Results.
 
@@ -1265,6 +1271,8 @@ An EAT profile narrows the specification for a specific use case.
 An ideal EAT profile will guarantee interoperability.
 
 The profile can be named in the token using the profile claim described in {{profile-claim}}.
+
+A profile can apply to attestation evidence or to attestation results or both.
 
 ## Format of a Profile Document
 
