@@ -69,27 +69,6 @@ normative:
   RFC8747:
   RFC3986:
       
-  RATS.Architecture:
-    target: https://tools.ietf.org/html/draft-ietf-rats-architecture-08
-    title: Remote Attestation Procedures Architecture
-    author:
-    - fullname: Henk Birkholz
-    date: 2020
-
-  COSE.X509.Draft:
-    target: https://tools.ietf.org/html/draft-ietf-cose-x509-08
-    title: "CBOR Object Signing and Encryption (COSE): Header parameters for carrying and referencing X.509 certificates"
-    author:
-    - fullname: J. Schaad
-    date: 2020
-  
-  CBOR.Cert.Draft:
-    target: https://tools.ietf.org/html/draft-mattsson-cose-cbor-cert-compress-05
-    title: CBOR Encoding of X.509 Certificates (CBOR Certificates)
-    author:
-    - fullname: S. Raza
-    date: 2020
-  
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
     title: WORLD GEODETIC SYSTEM 1984, NGA.STND.0036_1.0.0_WGS84
@@ -111,12 +90,7 @@ normative:
      - org: IANA
      date: false
 
-  UCCS.Draft:
-     target: https://tools.ietf.org/html/draft-birkholz-rats-uccs-01
-     title: A CBOR Tag for Unprotected CWT Claims Sets
-     author:
-     - fullname: Henk Birkholz
-     date: 2020
+  UCCS.Draft: I-D.ietf-rats-uccs
 
   ThreeGPP.IMEI:
     target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=729
@@ -139,10 +113,7 @@ normative:
     - org: GS1
     date: 2019
 
-  CoSWID:
-    target: https://tools.ietf.org/html/draft-ietf-sacm-coswid-16
-    title: Concise Software Identification Tags
-    date: November 2020
+  CoSWID: I-D.ietf-sacm-coswid
 
   OpenIDConnectCore:
     target: https://openid.net/specs/openid-connect-core-1_0.html
@@ -155,7 +126,7 @@ normative:
     - fullname: B. de Medeiros
     - fullname: C. Mortimore
 
-  CBOR-OID: I-D.ietf-cbor-tags-oid
+  CBOR.OID: I-D.ietf-cbor-tags-oid
   
   DLOA:
     target: https://globalplatform.org/wp-content/uploads/2015/12/GPC_DigitalLetterOfApproval_v1.0.pdf
@@ -168,6 +139,8 @@ informative:
   RFC4949:
   RFC7120:
   RFC9039:
+
+  RATS.Architecture: I-D.ietf-rats-architecture
 
   BirthdayAttack:
     title: Birthday attack
@@ -222,6 +195,11 @@ informative:
     title: Common Criteria for Information Technology Security Evaluation
     target: https://www.commoncriteriaportal.org/cc/
     date: April 2017
+
+  COSE.X509.Draft: I-D.ietf-cose-x509
+
+  CBOR.Cert.Draft: I-D.ietf-cose-cbor-encoded-cert
+  
 
 --- abstract
 
@@ -303,6 +281,7 @@ The Relying Party uses the Attestation Results as needed for the use case, perha
 Note that sometimes the Verifier and Relying Party are not separate.
 
 In particular, EAT is suitable to carry either Attestation Evidence or Attestation Results.
+
 
 ### Use as Attestation Evidence
 
@@ -924,7 +903,7 @@ It may exist anywhere in the OID tree.
 There is no requirement that the named document be publicly accessible.
 The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
 
-The OID is encoded in CBOR according to {{CBOR-OID}} and the URI according to {{RFC8949}}.
+The OID is encoded in CBOR according to {{CBOR.OID}} and the URI according to {{RFC8949}}.
 Both are unwrapped and thus not tags.
 The OID is always absolute and never relative.
 If the claims CBOR type is a text string it is a URI and if a byte string it is an OID.
@@ -2199,3 +2178,5 @@ no new claims have been added.
 * Consistent use of terminology from RATS architecture
 
 * Remove operating model and procedures; refer to CWT, JWT and RATS architecture instead
+
+* Moved a few references, including RATS Architecture, to informative.
