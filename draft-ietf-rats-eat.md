@@ -228,7 +228,7 @@ informative:
 An Entity Attestation Token (EAT) provides a signed (attested) set of
 claims that describe state and characteristics of an entity, typically
 a device like a phone or an IoT device.  These claims are used by a
-relying party to determine how much it wishes to trust the entity.
+Relying Party to determine how much it wishes to trust the entity.
 
 An EAT is either a CWT or JWT with some attestation-oriented 
 claims. To a large degree, all this document does is extend
@@ -241,8 +241,8 @@ CWT and JWT.
 
 Remote device attestation is a fundamental service that allows a remote
 device such as a mobile phone, an Internet-of-Things (IoT) device, or
-other endpoint to prove itself to a relying party, a server or a
-service.  This allows the relying party to know some characteristics
+other endpoint to prove itself to a Relying Party, a server or a
+service.  This allows the Relying Party to know some characteristics
 about the device and decide whether it trusts the device.
 
 The notion of attestation here is large and may include, but is not limited to the following:
@@ -290,49 +290,51 @@ This specification includes a CDDL definition of most of what is described in {{
 
 While it is not required that EAT be used with the RATS operational model described in Figure 1 in {{RATS.Architecture}}, or even that it be used for attestation, this document is authored with an orientation around that model.
 
-To summarize, an attester on an entity/device generates attestation evidence.
-Attestation evidence is a claims set describing various characteristics of the device.
-Attestation evidence also is usually signed by a key that proves the entity/device and the evidence it produces are authentic.
-The claims set includes a nonce or some other means to provide freshness.
-The attestation evidence goes to a verifier where the signature is validated.
-Some of the claims may also be validated.
-The verifier then produces attestation results which is also usually a claims set.
-The attestation results go to the relying party which is the ultimate consumer of the "remote attestaiton procedure", RATS.
-The relying party uses the attestation results as needed for the use case, perhaps allowing a device on the network, allowing a financial transaction or such.
+To summarize, an Attester on an entity/device generates Attestation Evidence.
+Attestation Evidence is a Claims Set describing various characteristics of the entity/device.
+Attestation Evidence also is usually signed by a key that proves the entity/device and the evidence it produces are authentic.
+The Claims Set includes a nonce or some other means to provide freshness.
+The Attestation Evidence goes to a Verifier where the signature is validated.
+Some of the Claims may also be validated.
+The Verifier then produces Attestation Results which is also usually a Claims Set.
+The Attestation Results go to the Relying Party which is the ultimate consumer of the "Remote Attestaton Procedures", RATS.
+The Relying Party uses the Attestation Results as needed for the use case, perhaps allowing a device on the network, allowing a financial transaction or such.
 
-Note that sometimes the verifier and relying party are not separate.
+Note that sometimes the Verifier and Relying Party are not separate.
 
-In particular, EAT is suitable to carry either attestation evidence or attestation results as defined in the RATS architecture.
+In particular, EAT is suitable to carry either Attestation Evidence or Attestation Results.
 
 ### Use as Attestation Evidence
 
-Any claim defined in this document or in the IANA CWT or JWT registry may be used in attestation evidence, though not all will be useful as attestation evidence.
+Any claim defined in this document or in the IANA CWT or JWT registry may be used in Attestation Evidence.
 
-Attestation evidence nearly always has to be signed or otherwise have authenticity and integrity protection because the attester is remote relative to the verifier.
-Usually this is accomplished using COSE/JOSE signing where the signing key is an attestation key provisioned into the entity/device by its manufacturer.
-The details of how this is done are beyond this specification, but see {{keyid}}.
-If there is already a suitable secure channel between the attester and verifier, UCCS may be used.
+Attestation Evidence nearly always has to be signed or otherwise have authenticity and integrity protection because the Attester is remote relative to the Verifier.
+Usually, this is by using COSE/JOSE signing where the signing key is an attestation key provisioned into the entity/device by its manufacturer.
+The details of how this is achieved are beyond this specification, but see {{keyid}}.
+If there is already a suitable secure channel between the Attester and Verifier, UCCS may be used.
 
 
 ### Use as Attestation Results
 
-Any claim defined in this document or in the IANA CWT or JWT registry may be used in attestation results, though not all will be useful as attestation results.
+Any claim defined in this document or in the IANA CWT or JWT registry may be used in Attestation Results.
 
 It is useful to characterize the relationship of claims in Evidence to those in Attestation Results.
 
 Many claims in Evidence simply will pass through the Verifier to the Relying Party without modification.
 They will be verified as authentic from the device by the Verifier just through normal verification of the Attester's signature.
-They will be protected against modification when they are conveyed to the Relying Party by whatever means is used to protect Attestation Results. 
-(The details of that protection are out of scope of this document.)
-The UEID, {{UEID}}, and Location, {{location}}, claims are examples of claims that are passed through.
+The UEID, {{UEID}}, and Location, {{location}}, are examples of claims that may be passed through.
 
 Some claims in Evidence will be verified by the Verifier by comparison to Reference Values.
-In this case the claims in Evidence will not likely be conveyed to the Relying Party.
+These claims will not likely be conveyed to the Relying Party.
 Instead, some claim indicating they were checked may be added to the Attestation Results or it may be tacitly known that the Verifier always does this check.
-For example, the Verifier receives the Software Evidence claim, {{swevidence}}, compares it to reference values and conveys the results to the Relying Party in a Software Measurement Results Claim, {{swresults}}.
+For example, the Verifier receives the Software Evidence claim, {{swevidence}}, compares it to Reference Values and conveys the results to the Relying Party in a Software Measurement Results Claim, {{swresults}}.
 
 In some cases the Verifier may provide privacy-preserving functionality by stripping or modifying claims that do not posses sufficient privacy-preserving characteristics.
 For example, the data in the Location claim, {{location}}, may be modified to have a precision of a few kilometers rather than a few meters.
+
+When the Verifier is remote from the Relying Party, the Attestation Results must be protected for integrity, authenticity and possibly confidentiality.
+Often this will simply be https as per a normal web service, but COSE or JOSE may also be used.
+The details of this protection are beyond the scope of this document.
 
 
 ## Entity Overview
@@ -367,46 +369,40 @@ capitals, as shown here.
 
 This document reuses terminology from JWT {{RFC7519}} and CWT {{RFC8392}}.
 
-Claim -
+Claim:
 : A piece of information asserted about a subject. A claim is represented as pair with a value and either a name or key to identify it.
 
-Claim Name -
+Claim Name:
 : A unique text string that identifies the claim. It is used as the claim name for JSON encoding.
 
-Claim Key -
+Claim Key:
 : The CBOR map key used to identify a claim.
 
 Claim Value -
 : The value portion of the claim. A claim value can be any CBOR data item or JSON value.
 
-CWT/JWT Claims Set -
+CWT/JWT Claims Set:
 : The CBOR map or JSON object that contains the claims conveyed by the CWT or JWT.
 
 This document reuses terminology from RATS Architecure {{RATS.Architecture}}
 
-Attester
-:
+Attester:
+: A role performed by an entity (typically a device) whose Evidence must be appraised in order to infer the extent to which the Attester is considered trustworthy, such as when deciding whether it is authorized to perform some operation.
 
-Verifier
-:
+Verifier:
+: A role that appraises the validity of Attestation Evidence about an Attester and produces Attestation Results to be used by a Relying Party.
 
-Relying Party
-:
+Relying Party:
+: A role that depends on the validity of information about an Attester, for purposes of reliably applying application specific actions. Compare /relying party/ in [RFC4949].
 
-Attestation Evidence
-:
+Attestation Evidence:
+: A Claims Set generated by an Attester to be appraised by a Verifier.  Attestation Evidence may include configuration data, measurements, telemetry, or inferences.
 
-Attestation Results
-:
+Attestation Results:
+: The output generated by a Verifier, typically including information about an Attester, where the Verifier vouches for the validity of the results
 
-
-Attestation Key Material (AKM).
-: The key material used to sign the EAT token. If it is done
-symmetrically with HMAC, then this is a simple symmetric key.
-If it is done with ECC, such as an IEEE DevID {{IEEE.802.1AR}}, then this
-is the private part of the EC key pair. If ECDAA 
-is used, (e.g., as used by Enhanced Privacy ID, i.e. EPID) then it is the key material 
-needed for ECDAA.
+Reference Values:
+: A set of values against which values of Claims can be compared as part of applying an Appraisal Policy for Attestation Evidence.  Reference Values are sometimes referred to in other documents as known-good values, golden measurements, or nominal values, although those terms typically assume comparison for equality, whereas here Reference Values might be more general and be used in any sort of comparison.
 
 
 # The Claims
@@ -432,8 +428,8 @@ JSON encoded tokens MUST use only the text string for claim names.
 CWT defines the "cti" claim. JWT defines the "jti" claim. These are
 equivalent to each other in EAT and carry a unique token identifier as
 they do in JWT and CWT.  They may be used to defend against re use of
-the token but are distinct from the nonce that is used by the relying
-party to guarantee freshness and defend against replay.
+the token but are distinct from the nonce that is used by the Relying
+Party to guarantee freshness and defend against replay.
 
 
 ## Timestamp claim (iat)
@@ -460,7 +456,7 @@ have precession greater than one second. This is not needed for EAT.
 ## Nonce Claim (nonce)
 
 All EATs should have a nonce to prevent replay attacks. The nonce is
-generated by the relying party, the end consumer of the token. It is
+generated by the Relying Party, the end consumer of the token. It is
 conveyed to the entity over whatever transport is in use before the
 token is generated and then included in the token as the nonce claim.
 
@@ -496,7 +492,7 @@ as tokens are intended to be embedded in many different protocols and
 systems. No two products anywhere, even in completely different
 industries made by two different manufacturers in two different
 countries should have the same UEID (if they are not global and
-universal in this way, then relying parties receiving them will have
+universal in this way, then Relying Parties receiving them will have
 to track other characteristics of the device to keep devices distinct
 between manufacturers).
 
@@ -526,7 +522,7 @@ Creation of new types requires a Standards Action {{RFC8126}}.
 UEID's are not designed for direct use by humans (e.g., printing on
 the case of a device), so no textual representation is defined.
 
-The consumer (the relying party) of a UEID MUST treat a UEID as a
+The consumer (the Relying Party) of a UEID MUST treat a UEID as a
 completely opaque string of bytes and not make any use of its internal
 structure. For example, they should not use the OUI part of a type
 0x02 UEID to identify the manufacturer of the device. Instead they
@@ -661,7 +657,7 @@ It is assumed any potential attacker has captured the device and can
 disassemble it. Examples include TPMs and Secure Elements.
 
 The entity should claim the highest security level it achieves and no higher.
-This set is not extensible so as to provide a common interoperable description of security level to the relying party.
+This set is not extensible so as to provide a common interoperable description of security level to the Relying Party.
 If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
 It may consider including both this claim as a coarse indication of security and its own proprietary claim as a refined indication.
 
@@ -710,7 +706,7 @@ it is not reported. A conservative interpretation might assume
 the Not Disabled state. It could however be that it is reported
 in a proprietary claim.
 
-This claim is not extensible so as to provide a common interoperable description of debug status to the relying party.
+This claim is not extensible so as to provide a common interoperable description of debug status to the Relying Party.
 If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
 It may consider including both this claim as a coarse indication of debug status and its own proprietary claim as a refined indication.
 
@@ -723,7 +719,7 @@ There is no inheritance of claims from a submodule to a superior
 module or vice versa. There is no assumption, requirement or guarantee
 that the target of a superior module encompasses the targets of
 submodules. Thus, every submodule must explicitly describe its own
-debug state. The verifier or relying party receiving an EAT cannot
+debug state. The Verifier or Relying Party receiving an EAT cannot
 assume that debug is turned off in a submodule because there is a claim
 indicating it is turned off in a superior module.
 
@@ -735,7 +731,7 @@ The architecture of some chips or devices may be such that a debug
 facility operates for the whole chip or device. If the EAT for such
 a chip includes submodules, then each submodule should independently
 report the status of the whole-chip or whole-device debug facility.
-This is the only way the relying party can know the debug status
+This is the only way the Relying Party can know the debug status
 of the submodules since there is no inheritance.
 
 ### Enabled
@@ -779,7 +775,7 @@ The signing of the EAT binds the key to all the other claims in the token.
 
 The purpose for inclusion of the key may vary by use case.
 For example, the key may be included as part of an IoT device onboarding protocol.
-When the FIDO protocol includes a pubic key in its attestation message, the key represents the binding of a user, device and relying party.
+When the FIDO protocol includes a pubic key in its attestation message, the key represents the binding of a user, device and Relying Party.
 This document describes how claims containing keys should be defined for the various use cases.
 It does not define specific claims for specific use cases.
 
@@ -1006,14 +1002,14 @@ When the {{CoSWID}} format is used, it MUST be evidence CoSWIDs, not payload CoS
 
 ## The SW Measurement Results Claim (swresults) {#swresults}
 
-This claims reports the outcome of the comparison of a measurement on some software to the expected reference values.
+This claims reports the outcome of the comparison of a measurement on some software to the expected Reference Values.
 It may report a successful comparison, failed comparison or other.
 
-This claim may be generated by the verifier and sent to the relying party.
-For example, it could be the results of the verifier comparing the contents of the swevidence claim to reference values.
+This claim may be generated by the Verifier and sent to the Relying Party.
+For example, it could be the results of the Verifier comparing the contents of the swevidence claim to Reference Values.
 
 This claim can also be generated on the device if the device has the ability for one subsystem to measure another subsystem.
-For example, a TEE might have the ability to measure the software of the rich OS and may have the reference values for the rich OS.
+For example, a TEE might have the ability to measure the software of the rich OS and may have the Reference Values for the rich OS.
 
 Within an attestation target or submodule, multiple results can be reported.
 For example, it may be desirable to report the results for the kernel and each individual application separately.
@@ -1050,7 +1046,7 @@ If all of the indicated target is not covered, the measurement must indicate par
 
 
 ### Results
-This describes the result of the measurement and also the comparison to reference values.
+This describes the result of the measurement and also the comparison to Reference Values.
 
 1 -- verificaton-not-run
 : Indicates no attempt was made to run the verification
@@ -1059,13 +1055,13 @@ This describes the result of the measurement and also the comparison to referenc
 : The verification was attempted, but it did not produce a result; perhaps it ran out of memory, the battery died or such
 
 3 -- verification-failed
-: The verification ran to completion, the comparison was completed and did not compare correctly to the reference values
+: The verification ran to completion, the comparison was completed and did not compare correctly to the Reference Values
 
 4 -- fully-verified
-: The verification ran to completion and all measurements compared correctly to reference values
+: The verification ran to completion and all measurements compared correctly to Reference Values
 
 5 -- partially-verified
-: The verification ran to completion and some, but not all measurements compared correctly to reference values
+: The verification ran to completion and some, but not all measurements compared correctly to Reference Values
 
 ### Objective Name
 
@@ -1272,7 +1268,7 @@ An ideal EAT profile will guarantee interoperability.
 
 The profile can be named in the token using the profile claim described in {{profile-claim}}.
 
-A profile can apply to attestation evidence or to attestation results or both.
+A profile can apply to Attestation Evidence or to Attestation Results or both.
 
 ## Format of a Profile Document
 
@@ -1465,7 +1461,7 @@ It also may result in EAT implementations that don’t interoperate.
 One way to guarantee interoperability is to clearly specify CBOR serialization in a profile document.
 See {{profiles}} for a list of serialization issues that should be addressed.
 
-EAT will be commonly used where the device generating the attestation is constrained and the receiver/verifier of the attestation is a capacious server.
+EAT will be commonly used where the device generating the attestation is constrained and the receiver/Verifier of the attestation is a capacious server.
 Following is a set of serialization requirements that work well for that use case and are guaranteed to interoperate.
 Use of this serialization is recommended where possible, but not required.
 An EAT profile may just reference the following section rather than spell out serialization details.
@@ -1513,7 +1509,7 @@ Much of this guidance is generic and could also be considered when designing new
 
 ### Interoperability and Relying Party Orientation
 
-It is a broad goal that EATs can be processed by relying parties in a general way regardless of the type, manufacturer or technology of the device from which they originate. 
+It is a broad goal that EATs can be processed by Relying Parties in a general way regardless of the type, manufacturer or technology of the device from which they originate. 
 It is a goal that there be general-purpose verification implementations that can verify tokens for large numbers of use cases with special cases and configurations for different device types.
 This is a goal of interoperability of the semantics of claims themselves, not just of the signing, encoding and serialization formats.
 
@@ -1714,7 +1710,7 @@ unauthenticated consumers.
 
 ## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
 
-A UEID is usually not privacy-preserving. Any set of relying parties
+A UEID is usually not privacy-preserving. Any set of Relying Parties
 that receives tokens that happen to be from a single device will be
 able to know the tokens are all from the same device and be able to
 track the device. Thus, in many usage situations UEID violates
@@ -1736,18 +1732,18 @@ a license agreement.  For example, agreements for some online banking
 and brokerage services might already cover use of a UEID/SUEID.
 
 * The UEID/SUEID is used only in a particular context or particular use
-case. It is used only by one relying party.
+case. It is used only by one Relying Party.
 
-* The device authenticates the relying party and generates a derived
-UEID/SUEID just for that particular relying party.  For example, the relying
-party could prove their identity cryptographically to the device, then
-the device generates a UEID just for that relying party by hashing a
-proofed relying party ID with the main device UEID/SUEID.
+* The device authenticates the Relying Party and generates a derived
+UEID/SUEID just for that particular Relying Party.  For example, the Relying
+Party could prove their identity cryptographically to the device, then
+the device generates a UEID just for that Relying Party by hashing a
+proofed Relying Party ID with the main device UEID/SUEID.
 
 Note that some of these privacy preservation strategies result in
 multiple UEIDs and SUEIDs per device. Each UEID/SUEID is used in a
 different context, use case or system on the device. However, from the
-view of the relying party, there is just one UEID and it is still
+view of the Relying Party, there is just one UEID and it is still
 globally universal across manufacturers.
 
 ## Location Privacy Considerations {#locationprivacyconsiderations}
@@ -1996,7 +1992,7 @@ A particular level of defense against attack that should be achieved to be a Dev
 The intent is that IDevIDs and LDevIDs are used with an open set of network protocols for authentication and such.
 In these protocols the DevID secret is used to sign a nonce or similar to proof the association of the DevID certificates with the device.
 
-By contrast, EAT defines network protocol for proving trustworthiness to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
+By contrast, EAT defines network protocol for proving trustworthiness to a Relying Party, the very thing that is not defined in {{IEEE.802.1AR}}.
 Nor does not give details on how keys, data and such are stored protected and accessed.
 EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
 It does not define any particular level of defense against attack, instead providing a set of security considerations.
@@ -2200,3 +2196,6 @@ no new claims have been added.
 
 * CDDL for each claim no longer in a separate sub section
 
+* Consistent use of terminology from RATS architecture
+
+* Remove operating model and procedures; refer to CWT, JWT and RATS architecture instead
