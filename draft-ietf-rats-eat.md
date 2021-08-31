@@ -242,7 +242,7 @@ An EAT is either a CWT as defined in {{RFC8392}}, a UCCS as defined in {{UCCS.Dr
 All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on from these carry over to EAT.
 
 This specification extends those specifications by defining additional claims for attestation.
-This specification also describes the notion of a "profile" that can narrow the definition of an EAT and fill in details for specific usage scenarios.
+This specification also describes the notion of a "profile" that can narrow the definition of an EAT, ensure interoperability and fill in details for specific usage scenarios.
 This specification also adds some considerations for registration of future EAT-related claims.
 
 The identification of a protocol element as an EAT, whether CBOR or JSON format, follows the general conventions used by CWT, JWT and UCCS.
@@ -272,15 +272,15 @@ To summarize, an Attester on an entity/device generates Attestation Evidence.
 Attestation Evidence is a Claims Set describing various characteristics of the entity/device.
 Attestation Evidence also is usually signed by a key that proves the entity/device and the evidence it produces are authentic.
 The Claims Set includes a nonce or some other means to provide freshness.
+EAT is designed to carry Attestation Evidence.
 The Attestation Evidence goes to a Verifier where the signature is validated.
 Some of the Claims may also be validated against Reference Values.
 The Verifier then produces Attestation Results which is also usually a Claims Set.
+EAT is also designed to carry Attestation Results.
 The Attestation Results go to the Relying Party which is the ultimate consumer of the "Remote Attestaton Procedures", RATS.
 The Relying Party uses the Attestation Results as needed for the use case, perhaps allowing a device on the network, allowing a financial transaction or such.
 
-Note that sometimes the Verifier and Relying Party are not separate.
-
-In particular, EAT is suitable to carry either Attestation Evidence or Attestation Results.
+Note that sometimes the Verifier and Relying Party are not separate and thus there is no need for a protocol to carry Attestation Results.
 
 
 ### Use as Attestation Evidence
@@ -299,11 +299,11 @@ Any claim defined in this document or in the IANA CWT or JWT registry may be use
 
 It is useful to characterize the relationship of claims in Evidence to those in Attestation Results.
 
-Many claims in Evidence simply will pass through the Verifier to the Relying Party without modification.
+Many claims in Attestation Evidence simply will pass through the Verifier to the Relying Party without modification.
 They will be verified as authentic from the device by the Verifier just through normal verification of the Attester's signature.
 The UEID, {{UEID}}, and Location, {{location}}, are examples of claims that may be passed through.
 
-Some claims in Evidence will be verified by the Verifier by comparison to Reference Values.
+Some claims in Attestation Evidence will be verified by the Verifier by comparison to Reference Values.
 These claims will not likely be conveyed to the Relying Party.
 Instead, some claim indicating they were checked may be added to the Attestation Results or it may be tacitly known that the Verifier always does this check.
 For example, the Verifier receives the Software Evidence claim, {{swevidence}}, compares it to Reference Values and conveys the results to the Relying Party in a Software Measurement Results Claim, {{swresults}}.
@@ -312,7 +312,7 @@ In some cases the Verifier may provide privacy-preserving functionality by strip
 For example, the data in the Location claim, {{location}}, may be modified to have a precision of a few kilometers rather than a few meters.
 
 When the Verifier is remote from the Relying Party, the Attestation Results must be protected for integrity, authenticity and possibly confidentiality.
-Often this will simply be https as per a normal web service, but COSE or JOSE may also be used.
+Often this will simply be HTTPS as per a normal web service, but COSE or JOSE may also be used.
 The details of this protection are beyond the scope of this document.
 
 
@@ -395,8 +395,8 @@ independent of encoding.  Each claim is defined as a CDDL group.
 In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
 
 Each claim described has a unique text string and integer that identifies it.
-CBOR encoded tokens MUST use only the integer for claim keys.
-JSON encoded tokens MUST use only the text string for claim names.
+CBOR encoded tokens MUST use only the integer for Claim Keys.
+JSON encoded tokens MUST use only the text string for Claim Names.
 
 
 ## Token ID Claim (cti and jti)
@@ -2133,7 +2133,7 @@ no new claims have been added.
 
 ## From draft-ietf-rats-eat-07
 
-* Filled in IANA and other sections for possible preassignment of claim keys for well understood claims
+* Filled in IANA and other sections for possible preassignment of Claim Keys for well understood claims
 
 
 ## From draft-ietf-rats-eat-08
