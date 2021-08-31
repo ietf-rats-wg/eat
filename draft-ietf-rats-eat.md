@@ -233,7 +233,7 @@ The notion of attestation here is large and may include, but is not limited to t
  * Environmental characteristics of the device such as its GPS location
 
 This document uses the terminology and main operational model defined in [RATS.architecture].
-In particular it is a format that can be used for attestation evidence or attestaion evidence as defined in the RATS architecture.
+In particular it is a format that can be used for Attestation Evidence or Attestation Results as defined in the RATS architecture.
 
 
 ## CWT, JWT and UCCS
@@ -273,7 +273,7 @@ Attestation Evidence is a Claims Set describing various characteristics of the e
 Attestation Evidence also is usually signed by a key that proves the entity/device and the evidence it produces are authentic.
 The Claims Set includes a nonce or some other means to provide freshness.
 The Attestation Evidence goes to a Verifier where the signature is validated.
-Some of the Claims may also be validated.
+Some of the Claims may also be validated against Reference Values.
 The Verifier then produces Attestation Results which is also usually a Claims Set.
 The Attestation Results go to the Relying Party which is the ultimate consumer of the "Remote Attestaton Procedures", RATS.
 The Relying Party uses the Attestation Results as needed for the use case, perhaps allowing a device on the network, allowing a financial transaction or such.
