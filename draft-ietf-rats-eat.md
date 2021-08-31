@@ -357,7 +357,7 @@ Claim Name:
 Claim Key:
 : The CBOR map key used to identify a claim.
 
-Claim Value -
+Claim Value:
 : The value portion of the claim. A claim value can be any CBOR data item or JSON value.
 
 CWT/JWT Claims Set:
@@ -386,9 +386,6 @@ Reference Values:
 
 # The Claims
 
-An EAT is a CWT or JWT and therefore inherits all the details and rules from those specifications.
-These details and rules are extended to also govern Detached Eat Bundles and UCCS tokens. TODO: reference to DEB.
-      
 This section describes new claims defined for attestation that are to be added to the CWT {{IANA.CWT.Claims}} and JWT {{IANA.JWT.Claims}} IANA registries.
 
 This section also describes how several extant CWT and JWT claims apply in EAT.
