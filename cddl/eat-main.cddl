@@ -1,8 +1,8 @@
 ; This is the top-level definition of the claims in EAT tokens.  To
-; form an actual EAT Token, this claim set is enclosed in a COSE, JOSE
+; form an actual EAT Token, this claims set is enclosed in a COSE, JOSE
 ; or UCCS message.
 
-eat-claim-set = {
+eat-claims-set = {
     ? ueid-claim,
     ? sueids-claim,
     ? nonce-claim,
@@ -24,7 +24,7 @@ eat-claim-set = {
 
 
 ; This is the top-level definition of an EAT Token.  It is a CWT, JWT
-; or UCSS where the payload is an eat-claim-set. A JWT_Message is what
+; or UCSS where the payload is an eat-claims-set. A JWT_Message is what
 ; is defined by JWT in RFC 7519. (RFC 7519 doesn't use CDDL so a there
 ; is no actual CDDL definition of JWT_Message).
 
@@ -35,7 +35,7 @@ eat-token = EAT_Tagged_Message / EAT_Untagged_Message / JWT_Message
 ; tag.  COSE_Tagged_message is defined in RFC 8152.  Tags 601 and 602 are
 ; proposed by this and the UCCS draft, but not yet assigned.
 
-EAT_Tagged_Message = #6.61(COSE_Tagged_Message) / #6.601(eat-claim-set) / #6.602(Detached-EAT-Bundle)
+EAT_Tagged_Message = #6.61(COSE_Tagged_Message) / #6.601(eat-claims-set) / #6.602(Detached-EAT-Bundle)
 
 
 ; This is a CBOR-format EAT token that is a CWT or UCSS that is not a
@@ -48,7 +48,7 @@ EAT_Untagged_Message = COSE_Tagged_Message / COSE_Untagged_Message / UCCS_Untagg
 ; This is an "unwrapped" UCCS tag. Unwrapping a tag means to use the
 ; definition of its content without the preceding type 6 tag
 ; integer. Since a UCCS is nothing but a tag for an unsecured CWT
-; claim set, unwrapping reduces to a bare eat-claim-set.
+; claim set, unwrapping reduces to a bare eat-claims-set.
 
-UCCS_Untagged_Message = eat-claim-set
+UCCS_Untagged_Message = eat-claims-set
 

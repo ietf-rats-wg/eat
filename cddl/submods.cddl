@@ -14,7 +14,7 @@ submods-type = { + submod-type }
 ; or a tstr.
 
 submod-type = (
-    submod-name => eat-claim-set / nested-token / detached-submodule
+    submod-name => eat-claims-set / nested-token / detached-submodule
 )
 
 
