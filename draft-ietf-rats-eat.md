@@ -2172,8 +2172,12 @@ no new claims have been added.
 
 * CDDL for each claim no longer in a separate sub section
 
-* Consistent use of terminology from RATS architecture
+* Consistent use of terminology from RATS architecture document
+
+* Consistent use of terminology from CWT and JWT documents
 
 * Remove operating model and procedures; refer to CWT, JWT and RATS architecture instead
+
+* Some reorganization of Section 1
 
 * Moved a few references, including RATS Architecture, to informative.
