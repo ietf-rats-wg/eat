@@ -1,0 +1,6 @@
+Detached-EAT-Bundle = [
+    eat : eat-token,
+    detached-submodules: {
+        + tstr => eat-claim-set
+    }
+ ]
