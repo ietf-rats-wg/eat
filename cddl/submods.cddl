@@ -3,37 +3,38 @@
 ; hold all the submodules.
 
 submods-part = (
-    submods => submods-type
-)
-
-submods-type = { + submod-type }
-
-
-; The type of a submodule which can either be a nested claim set or a
-; nested separately signed token. Nested tokens are wrapped in a bstr
-; or a tstr.
-
-submod-type = (
-    submod-name => eat-claims-set / nested-token / detached-submodule
+    submods => { + text => Submodule }
 )
 
 
-; When this is a bstr, the contents are an eat-token in CWT or UCCS
-; format.  When this is a tstr, the contents are an eat-token in JWT
-; format.
+; A submodule can be:
+; - A simple Claims-Set (encoded in the same format as the token)
+; - A digest of a detached Claims-Set (encoded in the same format as the token)
+; - A nested token which may be either CBOR or JSON format. Further, the
+;   mechanism for identifying and containing the nested token depends onf
+;   the format of the surrounding token, particularly because JSON doesn't
+;   have any equivalent of a CBOR tag so a JSON-specific mechanism is
+;   invented. Also, there is the issue that binary data must be B64 encoded
+;   when carried in JSON. Nested-Token is defined in the format specific
+;   CDDL, not here.
+;
+;   Note that at nested token can either be a signed token like a CWT or JWT,
+;   an unsigned token like a UCCS or UJCS, or a DEB (detached EAT bundle).
+;   The specific encoding of these is format-specific so it doesn't appear here.
 
-nested-token = bstr / tstr; 
+Submodule = (
+    Claims-Set / Nested-Token / Detached-Submodule-Digest
+)
 
 
-; Each submodule has a unique text string name.
 
-submod-name = tstr 
+; This is for both JSON and CBOR.  JSON uses text label for algorithm
+; from XXX registry. CBOR uses integer label for algorithm from COSE
+; registry. In JSON the digest is base64 encoded.
 
-
-; The digest of a detached submodule
-
-detached-submodule = [
-    cose-hash-algorithm: int,
-    detached-digest: bstr
+Detached-Submodule-Digest = [
+   algorithm : int / text,
+   digest : bstr 
 ]
+
 

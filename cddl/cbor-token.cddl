@@ -1,0 +1,45 @@
+; The top-level definition of a CBOR-format token
+
+CBOR-Token = Tagged-CBOR-Token / Untagged-CBOR-Token
+
+; TODO, handle encryption for all of this using COSE
+
+    
+; All the possible forms of a CBOR-format token that are a CBOR tag.
+Tagged-CBOR-Token = UCCS-Tagged-Message / DEB-Tagged-Message
+; TODO: use this one -- need to fix CWT-Tagged-Message
+; Tagged-CBOR-Token = CWT-Tagged-Message / UCCS-Tagged-Message / DEB-Tagged-Message
+
+; TODO: deal with CDDL for CWT
+Untagged-CBOR-Token = UCCS-Untagged-Message / DEB-Untagged-Message
+
+
+CWT-Untagged-Message = bstr ; format as described in RFC 8392 TODO: expand this (though not sure how)
+
+
+UCCS-Message = UCCS-Tagged-Message / UCCS-Untagged-Message
+
+UCCS-Tagged-Message = #6.601(UCCS-Untagged-Message)
+
+UCCS-Untagged-Message = Claims-Set
+
+
+
+DEB-Tagged-Message = #6.602(DEB-Untagged-Message)
+
+DEB-Untagged-Message = Detached-EAT-Bundle
+
+
+; This is the format of a DEB in CBOR.  It contains one token that can
+; be either CBOR or JSON format. Nested-Token is defined differently
+; for CBOR than it is for JSON.  It contains one or more claims-sets
+; that must be CBOR encoded.  Each claims-set is bstr wrapped since it
+; is input to a MAC or signing algorithm.
+
+;DEB-Untagged-Message = [
+;    main-token : Nested-Token,
+;    detached-submodules: {
+;        + tstr => bstr .cbor Claims-Set
+;    }
+;]
+

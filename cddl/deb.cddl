@@ -1,6 +1,13 @@
+; text content is a base64ur encoded JSON-format Claims-Set
+json-wrapped-claims-set = tstr .regexp "[A-Za-z0-9_=-]+" 
+
+
+cbor-wrapped-claims-set = bstr .cbor Claims-Set
+
+
 Detached-EAT-Bundle = [
-    eat : eat-token,
-    detached-submodules: {
-        + tstr => eat-claim-set
+    main-token : Nested-Token,
+    detached-claims-sets: {
+        + tstr => cbor-wrapped-claims-set / json-wrapped-claims-set
     }
  ]

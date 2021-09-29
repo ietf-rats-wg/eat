@@ -12,7 +12,7 @@ CLEANFILES += $(CBOR_EXAMPLES)
 
 .PHONY: check-examples
 
-all: $(CDDL_FULL) check-examples
+all: $(COMMON_CDDL_FOR_DOCUMENT) $(CBOR_CDDL_FOR_DOCUMENT) $(JSON_CDDL_FOR_DOCUMENT) $(CDDL_FOR_CBOR_VALIDATION) check-examples
 
 check-examples: $(CDDL_VALIDATE) $(CBOR_EXAMPLES)
 	@for f in $(CBOR_EXAMPLES); do \
@@ -20,15 +20,29 @@ check-examples: $(CDDL_VALIDATE) $(CBOR_EXAMPLES)
 		$(cddl) $< validate $$f ; \
 	done
 
-$(CDDL_FULL): $(CDDL_DOC_FRAGS)
+$(COMMON_CDDL_FOR_DOCUMENT): $(COMMON_CDDL_FRAGS)
 	@for f in $^ ; do \
 		( cat $$f ; echo ) ; \
 	done > $@
 
-$(CDDL_VALIDATE): $(CDDL_VALIDATE_FRAGS)
+
+$(CBOR_CDDL_FOR_DOCUMENT): $(CBOR_CDDL_FRAGS)
 	@for f in $^ ; do \
 		( cat $$f ; echo ) ; \
 	done > $@
+
+
+$(JSON_CDDL_FOR_DOCUMENT): $(JSON_CDDL_FRAGS)
+	@for f in $^ ; do \
+		( cat $$f ; echo ) ; \
+	done > $@
+
+
+$(CDDL_FOR_CBOR_VALIDATION): $(VALIDATION_CBOR_CDDL)
+	@for f in $^ ; do \
+		( cat $$f ; echo ) ; \
+	done > $@
+
 
 .PHONY: clean
 clean: ; $(RM) $(CLEANFILES)

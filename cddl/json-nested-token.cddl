@@ -1,0 +1,20 @@
+; This describes a nested token that occurs inside a JSON-format token
+; when the type is "JWT", the contents are a text that is standard JWT as described in 7519 (TODO: CDDL for this?)
+; when the type is "CBOR", the contents are text that is Tagged-CBOR-Token that is base64 encoded
+; when the type is "UJCS", the contents are UJCS-Message
+; when the type is "DEB", the contents are a DEB-JSON-Message
+Nested-Token = [
+   type : "JWT" / "CBOR" / "UJCS" / "DEB",
+   nested-token : text / DEB-JSON-Message / UJCS-Message
+]
+
+
+
+
+X-Nested-Token = [
+   type : "JWT" / "UJCS" / "DEB",
+   nested-token : text / DEB-JSON-Message / UJCS-Message
+]
+
+
+

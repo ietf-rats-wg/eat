@@ -1,0 +1,10 @@
+; This is the CDDL definition of the labels for a JSON format web token, a JWT.
+; The CDDL for the claims is in web-token-claims.cddl
+
+iss-label = "iss"
+sub-label = "sub"
+aud-label = "aud"
+exp-label = "exp"
+nbf-label = "nbf"
+iat-label = "iat"
+cti-label = "cti"
