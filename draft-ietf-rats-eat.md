@@ -1836,7 +1836,7 @@ IANA is requested to register the following new subtypes in the "DEV URN Subtype
 
 ### Tag for Detached EAT Budnle
 
-TODO: register tag <TBD602> for a DEB.
+TODO: register tag TBD602 for a DEB.
 
 # Privacy Considerations {#privacyconsiderations}
 
