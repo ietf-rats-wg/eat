@@ -15,16 +15,34 @@ endif
 #include cddl/tools.mk
 include cddl/vars.mk
 
-CDDL_FULL := $(addprefix cddl/,$(CDDL_FULL))
+COMMON_CDDL_FOR_DOCUMENT := $(addprefix cddl/,$(COMMON_CDDL_FOR_DOCUMENT))
+CBOR_CDDL_FOR_DOCUMENT := $(addprefix cddl/,$(CBOR_CDDL_FOR_DOCUMENT))
+JSON_CDDL_FOR_DOCUMENT := $(addprefix cddl/,$(JSON_CDDL_FOR_DOCUMENT))
 
-draft-ietf-rats-eat.md: $(CDDL_FULL)
+draft-ietf-rats-eat.md: $(COMMON_CDDL_FOR_DOCUMENT) $(CBOR_CDDL_FOR_DOCUMENT) $(JSON_CDDL_FOR_DOCUMENT)
 
-CDDL_FRAGS := $(addprefix cddl/,$(CDDL_FRAGS))
 
-$(CDDL_FULL): $(CDDL_FRAGS)
+COMMON_CDDL_FRAGS := $(addprefix cddl/,$(COMMON_CDDL_FRAGS))
+CBOR_CDDL_FRAGS := $(addprefix cddl/,$(CBOR_CDDL_FRAGS))
+JSON_CDDL_FRAGS := $(addprefix cddl/,$(JSON_CDDL_FRAGS))
+
+$(COMMON_CDDL_FOR_DOCUMENT): $(COMMON_CDDL_FRAGS)
+	@for f in $^ ; do \
+	    ( cat $$f ; echo ) ; \
+	done > $@
+
+
+$(CBOR_CDDL_FOR_DOCUMENT): $(CBOR_CDDL_FRAGS)
 	@for f in $^ ; do \
 		( cat $$f ; echo ) ; \
 	done > $@
+
+
+$(JSON_CDDL_FOR_DOCUMENT): $(JSON_CDDL_FRAGS)
+	@for f in $^ ; do \
+	                ( cat $$f ; echo ) ; \
+	done > $@
+
 
 #.PHONY: examples
 #examples: ; $(MAKE) -C cddl check-examples
