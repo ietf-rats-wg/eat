@@ -1,0 +1,16 @@
+; This is a stub for COSE that is used to 
+; the CDDL can build and validate
+;
+
+   COSE-Untagged-Message =  COSE-Sign1 
+
+   COSE-Tagged-Message =  COSE-Sign1-Tagged 
+
+   COSE-Sign1-Tagged = #6.18(COSE-Sign1)
+
+;TODO: add unprotected headers
+   COSE-Sign1 = [
+       protected-header: bstr,
+       payload : bstr / nil,
+       signature : bstr
+   ]

@@ -57,12 +57,13 @@ VALIDATION_CBOR_CDDL += cbor-nested-token.cddl
 VALIDATION_CBOR_CDDL += cwt-labels.cddl
 VALIDATION_CBOR_CDDL += eat-assigned-labels.cddl
 VALIDATION_CBOR_CDDL += eat-tbd-labels-validate.cddl
+VALIDATION_CBOR_CDDL += cose-stub.cddl
 
 
 # Make targets that get put in the document
-COMMON_CDDL_FOR_DOCUMENT = common.cddl
-CBOR_CDDL_FOR_DOCUMENT = cbor.cddl
-JSON_CDDL_FOR_DOCUMENT = json.cddl
+COMMON_CDDL_FOR_DOCUMENT := common.cddl
+CBOR_CDDL_FOR_DOCUMENT := cbor.cddl
+JSON_CDDL_FOR_DOCUMENT := json.cddl
 
 # Make targets that are used for validation
 CDDL_FOR_CBOR_VALIDATION = cbor-for-validation.cddl
