@@ -238,7 +238,7 @@ In particular it is a format that can be used for Attestation Evidence or Attest
 
 ## CWT, JWT, UCCS, UJCS and DEB
 
-An EAT is one of the following:
+An EAT is a set of claims about an entity/device based on one of the following:
 
 * CBOR Web Token (CWT), {{RFC8392}}
 * Unprotected CWT Claims Sets (UCCS), {{UCCS.Draft}}
@@ -250,30 +250,29 @@ This specification extends those specifications by defining additional claims fo
 This specification also describes the notion of a "profile" that can narrow the definition of an EAT, ensure interoperability and fill in details for specific usage scenarios.
 This specification also adds some considerations for registration of future EAT-related claims.
 
-The identification of a protocol element as an EAT, whether CBOR or JSON format, follows the general conventions used by CWT, JWT and UCCS.
+The identification of a protocol element as an EAT, whether CBOR or JSON encoded, follows the general conventions used by CWT, JWT and UCCS.
 Largely this depends on the protocol carrying the EAT.
 In some cases it may be by content type (e.g., MIME type).
 In other cases it may be through use of CBOR tags.
 There is no fixed mechanism across all use cases.
 
-This specification adds two more top-level formats:
+This specification adds two more top-level messages:
 
 * Unprotected JWT Claims Set (UJCS), {{UJCS}}
 * Detached EAT Bundle (DEB), {{DEB}}
 
-A DEB is a Detached EAT Bundle that is defined in {{DEB}}.
-It is a simple structure to hold a collection of detached claims-sets and the EAT that separately provides integrity and authenticity protection for them.
-It can be either CBOR or JSON format.
+A DEB is simple structure to hold a collection of detached claims-sets and the EAT that separately provides integrity and authenticity protection for them.
+It can be either CBOR or JSON encoded.
 
 ## CDDL, CBOR and JSON
 
-An EAT can either be CBOR format of JSON format.
-The definition of each claim is such that it can be encoded either in CBOR or JSON.
+An EAT can encoded in either CBOR or JSON.
+The definition of each claim is such that it can be encoded either.
 Each token is either entirely CBOR or JSON, with only an exception for nested tokens.
 
 To implement composite attestation as described in the RATS architecture document, one token has to be nested inside another.
 It is also possible to construct composite Attestation Results (see below) which may be expressed as one token nested inside another.
-So as to not force each end-end attestation system to be all JSON or all CBOR, nesting of JSON-format tokens in CBOR-format tokens and vice versa is accommodated by this specification.
+So as to not force each end-end attestation system to be all JSON or all CBOR, nesting of JSON-encoded tokens in CBOR-encoded tokens and vice versa is accommodated by this specification.
 This is the only place that CBOR and JSON can be mixed.
 
 This specification formally uses CDDL, {{RFC8610}}, to
@@ -282,14 +281,14 @@ to either the CBOR {{RFC8949}} or JSON {{ECMAScript}}
 representation. In the case of JSON, Appendix E of {{RFC8610}} is
 followed. Additional rules are given in {{jsoninterop}} where Appendix E is insufficient.
 
-The CWT specification was authored before CDDL was available and did not use CDDL.
+The CWT and JWT specifications were authored before CDDL was available and did not use CDDL.
 This specification includes a CDDL definition of most of what is defined in {{RFC8392}}.
 Similarly, this specification includes CDDL for most of what is defined in {{RFC7519}}.
 
 The UCCS specification does not include CDDL.
 This specification provides CDDL for it.
 
-(The author is open to modifications to the UCCS specification to include CDDL for UCCS and for UJCS.)
+(TODO: The authors are open to modifications to this specification and the UCCS specification to include CDDL for UCCS and UJCS there instead of here.)
 
 
 ## Operating Model and RATS Architecture
