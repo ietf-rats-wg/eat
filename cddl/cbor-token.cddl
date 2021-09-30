@@ -30,16 +30,3 @@ DEB-Tagged-Message = #6.602(DEB-Untagged-Message)
 DEB-Untagged-Message = Detached-EAT-Bundle
 
 
-; This is the format of a DEB in CBOR.  It contains one token that can
-; be either CBOR or JSON format. Nested-Token is defined differently
-; for CBOR than it is for JSON.  It contains one or more claims-sets
-; that must be CBOR encoded.  Each claims-set is bstr wrapped since it
-; is input to a MAC or signing algorithm.
-
-;DEB-Untagged-Message = [
-;    main-token : Nested-Token,
-;    detached-submodules: {
-;        + tstr => bstr .cbor Claims-Set
-;    }
-;]
-
