@@ -1261,9 +1261,9 @@ Server to server communications will often have established security (e.g., TLS)
 
 # Detached EAT Bundles {#DEB}
 
-A detached EAT bundle is a structure to to convey a fully-formed and signed token plus detached claims set that relate to that token.
-It is a top-level EAT format like a CWT, JWT, UCCS and UJCS.
-Implementations supporting it can send it on any occasion that CWT, JWT, UCCS or UJCS format EATs are sent.
+A detached EAT bundle is a structure to convey a fully-formed and signed token plus detached claims set that relate to that token.
+It is a top-level EAT message like a CWT, JWT, UCCS and UJCS.
+It can be used any place that CWT, JWT, UCCS or UJCS messages are used.
 It may also be sent as a submodule.
 
 A DEB has two main parts.
@@ -1272,7 +1272,7 @@ The first part is a full top-level token.
 This top-level token must have at least one submodule that is a detached digest.
 This top-level token may be either CBOR or JSON-encoded.
 It may be a CWT, JWT, UCCS or UJCS, but not a DEB.
-The same mechanism for distinguishing the token type that is used for nested token submodules is used here.
+The same mechanism for distinguishing the type for nested token submodules is used here.
 
 The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the full token.
 When the DEB is CBOR-encoded, each Claims-Set is wrapped in a byte string.
@@ -1280,12 +1280,12 @@ When the DEB is JSON-encoded, each Claims-Set is base64url encoded.
 All the detached Claims-Sets MUST be encoded in the same format as the DEB.
 No mixing of encoding formats is allowed for the Claims-Sets in a DEB.
 
-For CBOR-encoded DEBS, the tag TBD602 is defined to identify it.
+For CBOR-encoded DEBs, tag TBD602 can be used to identify it.
 The normal rules apply for use or non-use of a tag.
 When it is sent as a submodule, it is always sent as a tag to distinguish it from the other types of nested tokens.
 
 The digests of the detached claims sets are associated with detached claims-sets by label/name.
-It is up to the constructor of the detached EAT bundle to ensure the names uniqely identify the the detached claims sets.
+It is up to the constructor of the detached EAT bundle to ensure the names uniquely identify the detached claims sets.
 Since the names are used only in the detached EAT bundle, they can be very short, perhaps one byte.
 
 ~~~~CDDL
@@ -1384,7 +1384,7 @@ For example, to require the altitude data item in the location claim, CDDL can b
 
 ## List of Profile Issues
 
-The following is a list of EAT, CWT, UCCS, JWS, COSE, JOSE and CBOR options that a profile should address. 
+The following is a list of EAT, CWT, UCCS, JWS, UJCS, COSE, JOSE and CBOR options that a profile should address. 
 
 
 ### Use of JSON, CBOR or both
@@ -1426,7 +1426,7 @@ The profile should indicate whether decoders must accept non-preferred serializa
 COSE and JOSE have several options for signed, MACed and encrypted messages.
 EAT/CWT has the option to have no protection using UCCS and JOSE has a NULL protection option.
 It is possible to implement no protection, sign only, MAC only, sign then encrypt and so on.
-All combinations allowed by COSE, JOSE, JWT, CWT and UCCS are allowed by EAT.
+All combinations allowed by COSE, JOSE, JWT, CWT, UCCS and UJCS are allowed by EAT.
 
 The profile should list the protections that must be supported by all decoders implementing the profile.
 The encoders them must implement a subset of what is listed for the decoders, perhaps only one.
@@ -1443,6 +1443,12 @@ The profile document should list the COSE algorithms that a Verifier must implem
 The Attester will select one of them. 
 Since there is no negotiation, the Verifier should implement all algorithms listed in the profile.
 If detached submodules are used, the COSE algorithms allowed for their digests should also be in the profile.
+
+
+### DEB Support
+
+A Detatched EAT Bundle {{DEB}} is a special case message that will not often be used.
+A profile may prohibit its use.
 
 
 ### Verification Key Identification
