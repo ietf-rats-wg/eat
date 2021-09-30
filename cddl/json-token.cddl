@@ -11,17 +11,4 @@ JWT-Message = text .regexp [A-Za-z0-9_=-]+\.[A-Za-z0-9_=-]+\.[A-Za-z0-9_=-]+
 ; with no integrity or authenticity protection.
 
 UJCS-Message = Claims-Set
-
-
-; This is the format of a DEB (Detached EAT Bundle) in JSON It
-; contains one token that can be either CBOR or JSON format. It
-; contains one or more Claims-Sets that must be JSON format. Each
-; Claims-Set is base64 URL encoded because it is input to a MAC or
-; signing algorithm.
-
-;DEB-JSON-Message = [
-;    main-token : Nested-Token,
-;    detached-submodules: {
-;        + tstr => tstr .regexp [A-Za-z0-9_=-] ; text content is a base64url
-;	                                      ; encoded JSON-format Claims-Set
-;]
+y
