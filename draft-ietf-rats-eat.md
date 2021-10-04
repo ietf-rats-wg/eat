@@ -1076,45 +1076,39 @@ For example, "Linux kernel" or "Facebook App"
 {::include cddl/swresults.cddl}
 ~~~~
 
-## The Submodules Part of a Token (submods)
+## Submodules (submods)
 
-Some devices are complex, having many subsystems or submodules.  A
+Some devices are complex, having many subsystems.  A
 mobile phone is a good example. It may have several connectivity
-submodules for communications (e.g., Wi-Fi and cellular). It may have
+subsystems for communications (e.g., Wi-Fi and cellular). It may have
 subsystems for low-power audio and video playback. It may have one or
 more security-oriented subsystems like a TEE or a Secure Element.
 
-Each subsystem can have a claims-set of its own.
-This is one type of submodule.
-That submodule can be either embedded in a surrounding token or be detached.
-When it is detached, then a digest of it goes in the surrounding token.
+The claims for a subsystem can be grouped together in a submodule or submod.
 
-Subsystems in some devices may independently produce fully-formed attestation tokens.
-These fully-formed and signed tokens are also submodules.
-They are called nested token submodules or just nested tokens.
-Thus a token for a whole device includes these nested tokens and cryptographically binds together all the attestations for the device.
-Rats architecture refers to this a composite device.
-
-The submods part of a token are in a single map/object with many entries, one
-per submodule.  There is only one submods map in a token. It is
+The submods are in a single map/object with many entries, one
+per submodule.  There is only one submods map/object in a token. It is
 identified by its specific label. It is a peer to other claims, but it
 is not called a claim because it is a container for a claims set rather
 than an individual claim. This submods part of a token allows what
 might be called recursion. It allows claims sets inside of claims sets
 inside of claims sets...
 
+
 ### Submodule Types
 
 The following sections define the three major types of submodules:
 
-* A submodule claims-set
+* A submodule Claims-Set
 * A nested token, which can be any valid EAT token, CBOR or JSON
-* The digest of a detached claims-set
+* The digest of a detached Claims-Set
+
+These are distinguished primarily by their data type which may be map/object, string or array.
 
 
-#### Submodule claims-set
+#### Submodule Claims-Set
 
-This is simply a subordinate claims-set containing claims about the submodule.
+This is simply a subordinate Claims-Set containing claims about the submodule.
 
 The submodule claims-set is produced by the same Attester as the surrounding token.
 It is secured using the same mechanism as the enclosing token (e.g., it is signed by the same attestation key).
@@ -1123,9 +1117,10 @@ It roughly corresponds to an Attester Target Environment as described in the RAT
 It may contain claims that are the same as its surrounding token or superior submodules. 
 For example, the top-level of the token may have a UEID, a submod may have a different UEID and a further subordinate submodule may also have a UEID.
 
-The encoding of a submodule claims-set is always the same as the encoding as the token it is part of.
+The encoding of a submodule Claims-Set is always the same as the encoding as the token it is part of.
 
-When decoding, this type of submodule is recognized from the other type by being a data item of type map for CBOR or type object for JSON. 
+This data type for this type of submodule is a map/object as that is the type of a Claims-Set.
+
 
 #### Nested Token
 
@@ -1133,7 +1128,7 @@ This type of submodule is a fully-formed complete token.
 It is typically produced by a separate Attester.
 It is typically used by a Composite Device.
 
-By being a submodule of the surrounding token, it is cryptographically bound to the surrounding token.
+In being a submodule of the surrounding token, it is cryptographically bound to the surrounding token.
 If it was conveyed in parallel with the surrounding token, there would be no such binding and attackers could substitue a good attestation from another device for the attestation of an errant subsystem.
 
 A nested token does NOT need to use the same encoding format as the enclosing token.
@@ -1141,10 +1136,11 @@ This is to allow Composite Devices to be built without regards to the encoding f
 
 Thus a CBOR-encoded token like a CWT or UCCS can have a JWT as a nested token submodule and a JSON-encoded token can have a CWT or UCCS as a nseted token submodule.
 
+The data type for this type of submodule is either a text or byte string.
+
 Mechanisms are defined for identifying the encoding and type of the nested token. These mechanisms are different for CBOR and JSON encoding.
 The type of a CBOR-encoded nested token is identified using the CBOR tagging mechanism and thus is in common with identification used when any CBOR-encoded token is part of a CBOR-based protocol.
 A new simple type mechanism is defined for indication of the type of a JSON-encoded token since there is no JSON equivalent of tagging.
-
 
 ##### Surrounding EAT is CBOR-Encoded
 If the submodule is a byte string, then the nested token is CBOR-encoded.
@@ -1184,6 +1180,8 @@ The first is a string that indicates the type of the second item as follows:
 
 #### Detached Submodule Digest
 
+This is type of submodule equivalent to a Claims-Set submodule, except the Claims-Set is convey separately outside of the token.
+
 This type of submodule consists of a digest made using a cryptographic hash of a Claims-Set.
 The Claims-Set is not included in the token.
 It is conveyed to the Verifier outside of the token.
@@ -1205,12 +1203,13 @@ The integriy protection for the larger Claims Sets will not be as secure as thos
 It is possible for the hardware to enforce hardware access control (memory protection)  on the digest registers so that some of the larger claims can be more secure.
 For example, one register may be writable only by the TEE so the detached claims from the TEE will have TEE-level security.
 
-The detached digest is an array of two data items, a COSE algorithm identifier and a byte string containing the digest.
+The data type for this type of submodule is an array
+It contains two data items, an algorithm identifier and a byte string containing the digest.
 
-The detached digest is distinguished from the other submodule types by it being an array.
-
-A DEB, described in {{DEB}}  may be used to convey detached claims sets and the token with their detached digests.
-Other protocols may also be used to convey detached claims sets and detached digests. TODO: text about not modifying detached claims sets.
+A DEB, described in {{DEB}}, may be used to convey detached claims sets and the token with their detached digests.
+EAT however, doesn't require use of a DEB.
+Any other protocols may be used to convey detached claims sets and the token with their detached digests.
+Note that since detached Claims-Sets are usually signed, protocols conveying them must make sure they are not modified in transit. 
 
 
 ### No Inheritance
@@ -1239,6 +1238,9 @@ secure element.
 
 The label or name for each submodule in the submods map is a text
 string naming the submodule. No submodules may have the same name.
+
+
+### CDDL for submods
 
 ~~~~CDDL
 {::include cddl/submods.cddl}
