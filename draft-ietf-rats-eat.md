@@ -1084,12 +1084,16 @@ submodules for communications (e.g., Wi-Fi and cellular). It may have
 subsystems for low-power audio and video playback. It may have one or
 more security-oriented subsystems like a TEE or a Secure Element.
 
-The claims for each these can be grouped together in a submodule.
+Each subsystem can have a claims-set of its own.
+This is one type of submodule.
+That submodule can be either embedded in a surrounding token or be detached.
+When it is detached, then a digest of it goes in the surrounding token.
 
-Some devices may also be made up of subsystems each of which support attestation.
-That is, each subsystems produces fully-formed signed tokens.
-In order to produce an attestation for the whole device, one that cryptographically binds together the attestations for the whole device, nested tokens are supported.
-A nested token is also a submodule, but one of a different type.
+Subsystems in some devices may independently produce fully-formed attestation tokens.
+These fully-formed and signed tokens are also submodules.
+They are called nested token submodules or just nested tokens.
+Thus a token for a whole device includes these nested tokens and cryptographically binds together all the attestations for the device.
+Rats architecture refers to this a composite device.
 
 The submods part of a token are in a single map/object with many entries, one
 per submodule.  There is only one submods map in a token. It is
@@ -1105,7 +1109,7 @@ The following sections define the three major types of submodules:
 
 * A submodule claims-set
 * A nested token, which can be any valid EAT token, CBOR or JSON
-* The digest of a detached token
+* The digest of a detached claims-set
 
 
 #### Submodule claims-set
@@ -1142,45 +1146,43 @@ The type of a CBOR-encoded nested token is identified using the CBOR tagging mec
 A new simple type mechanism is defined for indication of the type of a JSON-encoded token since there is no JSON equivalent of tagging.
 
 
-##### Surrounding EAT is CBOR format
-The type of an EAT nested in a CWT is determined by whether the CBOR type is a text string or a byte string.
-If a text string, then it is a JWT.
-If a byte string, then it is a CWT.
+##### Surrounding EAT is CBOR-Encoded
+If the submodule is a byte string, then the nested token is CBOR-encoded.
+The byte string always wraps a token that is a tag.
+The tag identifies whether the nested token is a CWT, a UCCS or a CBOR-encoded DEB.
 
-A CWT nested in a CBOR-format token is always wrapped by a byte string for easier handling with standard CBOR decoders and token processing APIs that will typically take a byte buffer as input.
+If the submodule is a text string, then the nested token is JSON-encoded.
+The text string contains JSON.
+That JSON is the exactly the JSON described in the next section with one exception.
+The token can't be CBOR-encoded.
 
-Nested CWTs may be either a CWT CBOR tag or a CWT Protocol Message.
-COSE layers in nested CWT EATs MUST be a COSE_Tagged_Message, never a COSE_Untagged_Message.
-If a nested EAT has more than one level of COSE, for example one that is both encrypted and signed, a COSE_Tagged_message must be used at every level. 
+~~~~CDDL
+{::include cddl/cbor-nested-token.cddl}
+~~~~
 
-##### Surrounding EAT is JSON format
-When a CWT is nested in a JWT, it must be as a 55799 tag in order to distinguish it from a nested JWT. 
 
-When a nested EAT in a JWT is decoded, first remove the base64url encoding.
-Next, check to see if it starts with the bytes 0xd9d9f7.
-If so, then it is a CWT as a JWT will never start with these four bytes. 
-If not if it is a JWT.
+##### Surrounding EAT is JSON-Encoded
+A nested token in a JSON-encoded token is an array of two items.
+The first is a string that indicates the type of the second item as follows:
 
-Other than the 55799 tag requirement, tag usage for CWT's nested in a JSON format token follow the same rules as for CWTs nested in CBOR-format tokens.
-It may be a CWT CBOR tag or a CWT Protocol Message and COSE_Tagged_Message MUST be used at all COSE layers.
+"JWT"
+: A JWT formatted according to {{RFC7519}}
 
-#### Unsecured JWTs and UCCS Tokens as Submodules
+"CBOR"
+: Some base64url-encoded CBOR that is a tag that is either a CWT, UCCS or CBOR-encoded DEB
 
-To incorporate a UCCS token as a submodule, it MUST be as a non-token submodule. 
-This can be accomplished inserting the content of the UCCS Tag into the submodule map.
-The content of a UCCS tag is exactly a map of claims as required for a non-token submodule.
-If the UCCS is not a UCCS tag, then it can just be inserted into the submodule map directly.
+"UJCS"
+: A UJCS-Message. (A UJCS-Message is identical to a JSON-encoded Claims-Set)
 
-The definition of a nested EAT type of submodule is that it is one that is secured (signed) by an Attester.
-Since UCCS tokens are unsecured, they do not fulfill this definition and must be non-token submodules.
+"DEB"
+: A JSON-encoded Detached EAT Bundle.
 
-To incorporate an Unsecured JWT as a submodule, the null-security JOSE wrapping should be removed.
-The resulting claims set should be inserted as a non-token submodule.
+~~~~CDDL
+{::include cddl/json-nested-token.cddl}
+~~~~
 
-To incorporate a UCCS token in a surrounding JSON token, the UCCS token claims should be translated from CBOR to JSON.
-To incorporate an Unsecured JWT into a surrounding CBOR-format token, the null-security JOSE should be removed and the claims translated from JSON to CBOR.
 
-#### Detached Submodules
+#### Detached Submodule Digest
 
 This type of submodule consists of a digest made using a cryptographic hash of a Claims-Set.
 The Claims-Set is not included in the token.
@@ -1188,9 +1190,8 @@ It is conveyed to the Verifier outside of the token.
 The submodule containing the digest is called a detached digest.
 The separately-conveyed Claims-Set is called a detached claims set.
 
-TODO: should it be bstr wrapped?
-The input to the digest is exactly the encoded form of a non-token submodule described above.
-It can be a deeply nested token that may even contain other detached digests.
+The input to the digest is exactly the byte-string wrapped encoded form of the Claims-Set for the submodule.
+That Claims-Set can include other submodules including nested tokens and detached digests.
 
 The primary use for this is to facilitate the implementation of a small and secure attester, perhaps purely in hardware.
 This small, secure attester implements COSE signing and only a few claims, perhaps just UEID and hardware identification.

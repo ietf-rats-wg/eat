@@ -2,19 +2,17 @@
 
 CBOR-Token = Tagged-CBOR-Token / Untagged-CBOR-Token
 
-; TODO, handle encryption for all of this using COSE
-
     
 ; All the possible forms of a CBOR-format token that are a CBOR tag.
-Tagged-CBOR-Token = UCCS-Tagged-Message / DEB-Tagged-Message
-; TODO: use this one -- need to fix CWT-Tagged-Message
-; Tagged-CBOR-Token = CWT-Tagged-Message / UCCS-Tagged-Message / DEB-Tagged-Message
 
-; TODO: deal with CDDL for CWT
-Untagged-CBOR-Token = UCCS-Untagged-Message / DEB-Untagged-Message
+Tagged-CBOR-Token = CWT-Tagged-Message / UCCS-Tagged-Message / DEB-Tagged-Message
+Untagged-CBOR-Token = CWT-Untagged-Message / UCCS-Untagged-Message / DEB-Untagged-Message
 
 
-CWT-Untagged-Message = bstr ; format as described in RFC 8392 TODO: expand this (though not sure how)
+; The payload of the COSE message is always a Claims-Set
+
+CWT-Tagged-Message = COSE-Tagged-Message
+CWT-Untagged-Message = COSE-Untagged-Message
 
 
 UCCS-Message = UCCS-Tagged-Message / UCCS-Untagged-Message
@@ -22,7 +20,6 @@ UCCS-Message = UCCS-Tagged-Message / UCCS-Untagged-Message
 UCCS-Tagged-Message = #6.601(UCCS-Untagged-Message)
 
 UCCS-Untagged-Message = Claims-Set
-
 
 
 DEB-Tagged-Message = #6.602(DEB-Untagged-Message)
