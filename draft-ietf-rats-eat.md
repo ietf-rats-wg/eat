@@ -1086,8 +1086,8 @@ more security-oriented subsystems like a TEE or a Secure Element.
 
 The claims for a subsystem can be grouped together in a submodule or submod.
 
-The submods are in a single map/object with many entries, one
-per submodule.  There is only one submods map/object in a token. It is
+The submods are in a single map/object, one entry per submodule.
+There is only one submods map/object in a token. It is
 identified by its specific label. It is a peer to other claims, but it
 is not called a claim because it is a container for a claims set rather
 than an individual claim. This submods part of a token allows what
@@ -1103,7 +1103,7 @@ The following sections define the three major types of submodules:
 * A nested token, which can be any valid EAT token, CBOR or JSON
 * The digest of a detached Claims-Set
 
-These are distinguished primarily by their data type which may be map/object, string or array.
+These are distinguished primarily by their data type which may be a map/object, string or array.
 
 
 #### Submodule Claims-Set
@@ -1124,17 +1124,17 @@ This data type for this type of submodule is a map/object as that is the type of
 
 #### Nested Token
 
-This type of submodule is a fully-formed complete token.
+This type of submodule is a fully formed complete token.
 It is typically produced by a separate Attester.
-It is typically used by a Composite Device.
+It is typically used by a Composite Device as described in RATS Architecture {{RATS.Architecture}}
 
 In being a submodule of the surrounding token, it is cryptographically bound to the surrounding token.
-If it was conveyed in parallel with the surrounding token, there would be no such binding and attackers could substitue a good attestation from another device for the attestation of an errant subsystem.
+If it was conveyed in parallel with the surrounding token, there would be no such binding and attackers could substitute a good attestation from another device for the attestation of an errant subsystem.
 
-A nested token does NOT need to use the same encoding format as the enclosing token.
-This is to allow Composite Devices to be built without regards to the encoding formats supported by their Attesters.
+A nested token does NOT need to use the same encoding as the enclosing token.
+This is to allow Composite Devices to be built without regards to the encoding supported by their Attesters.
 
-Thus a CBOR-encoded token like a CWT or UCCS can have a JWT as a nested token submodule and a JSON-encoded token can have a CWT or UCCS as a nseted token submodule.
+Thus a CBOR-encoded token like a CWT or UCCS can have a JWT as a nested token submodule and a JSON-encoded token can have a CWT or UCCS as a nested token submodule.
 
 The data type for this type of submodule is either a text or byte string.
 
@@ -1180,13 +1180,13 @@ The first is a string that indicates the type of the second item as follows:
 
 #### Detached Submodule Digest
 
-This is type of submodule equivalent to a Claims-Set submodule, except the Claims-Set is convey separately outside of the token.
+This is type of submodule equivalent to a Claims-Set submodule, except the Claims-Set is conveyed separately outside of the token.
 
 This type of submodule consists of a digest made using a cryptographic hash of a Claims-Set.
 The Claims-Set is not included in the token.
 It is conveyed to the Verifier outside of the token.
 The submodule containing the digest is called a detached digest.
-The separately-conveyed Claims-Set is called a detached claims set.
+The separately conveyed Claims-Set is called a detached claims set.
 
 The input to the digest is exactly the byte-string wrapped encoded form of the Claims-Set for the submodule.
 That Claims-Set can include other submodules including nested tokens and detached digests.
@@ -1199,15 +1199,15 @@ The digests are written into the small secure attesters registers.
 The EAT produced by the small secure attester only contains the UEID, hardware identification and digests and is thus simple enough to be implemented in hardware.
 Probably, every data item in it is of fixed length.
 
-The integriy protection for the larger Claims Sets will not be as secure as those originating in hardware block, but the key material and hardware-based claims will be.
+The integrity protection for the larger Claims Sets will not be as secure as those originating in hardware block, but the key material and hardware-based claims will be.
 It is possible for the hardware to enforce hardware access control (memory protection)  on the digest registers so that some of the larger claims can be more secure.
-For example, one register may be writable only by the TEE so the detached claims from the TEE will have TEE-level security.
+For example, one register may be writable only by the TEE, so the detached claims from the TEE will have TEE-level security.
 
 The data type for this type of submodule is an array
 It contains two data items, an algorithm identifier and a byte string containing the digest.
 
 A DEB, described in {{DEB}}, may be used to convey detached claims sets and the token with their detached digests.
-EAT however, doesn't require use of a DEB.
+EAT, however, doesn't require use of a DEB.
 Any other protocols may be used to convey detached claims sets and the token with their detached digests.
 Note that since detached Claims-Sets are usually signed, protocols conveying them must make sure they are not modified in transit. 
 
@@ -2351,3 +2351,21 @@ no new claims have been added.
 * Some reorganization of Section 1
 
 * Moved a few references, including RATS Architecture, to informative.
+
+
+## From draft-ietf-rats-eat-11
+
+* Add detached submodule digests and detached eat bundles (DEBs)
+
+* New simpler and more universal scheme for identifying the type of a nested token
+
+* Made clear that CBOR and JSON are only mixed when nesting a token in another token
+
+* Clearly separate CDDL for JSON and CBOR-specific data items
+
+* Define UJCS
+
+* Add CDDL for a general Claims-Set used by UCCS, UJCS, CWT, JWT and EAT
+
+* Top level CDDL for CWT correctly refers to COSE
+
