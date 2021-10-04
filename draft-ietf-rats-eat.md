@@ -133,6 +133,10 @@ normative:
     title: Digital Letter of Approval
     date: November 2015
 
+  IANA.cbor-tags:
+    title: IANA CBOR Tags Registry
+    target: https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml
+
 
 informative:
   RFC4122:
@@ -1842,9 +1846,17 @@ IANA is requested to register the following new subtypes in the "DEV URN Subtype
 | ueid    | Universal Entity Identifier                | This document |
 | sueid   | Semi-permanent Universal Entity Identifier | This document |
 
-### Tag for Detached EAT Budnle
 
-TODO: register tag TBD602 for a DEB.
+### Tag for Detached EAT Bundle
+
+In the registry {{IANA.cbor-tags}}, IANA is requested to allocate the
+following tag from the  FCFS space, with the present document as the
+specification reference.
+
+| Tag    | Data Items     | Semantics                   |
+| TBD602 | array          | Detached EAT Bundle {{DEB}} |
+
+
 
 # Privacy Considerations {#privacyconsiderations}
 
