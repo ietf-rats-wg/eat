@@ -1,12 +1,20 @@
-; The top-level definition of a CBOR-format token
+; The top-level definition of a CBOR-encoded token.
 
 CBOR-Token = Tagged-CBOR-Token / Untagged-CBOR-Token
 
     
-; All the possible forms of a CBOR-format token that are a CBOR tag.
+; All the possible forms of a CBOR-encoded token that are a CBOR tag.
 
-Tagged-CBOR-Token = CWT-Tagged-Message / UCCS-Tagged-Message / DEB-Tagged-Message
-Untagged-CBOR-Token = CWT-Untagged-Message / UCCS-Untagged-Message / DEB-Untagged-Message
+Tagged-CBOR-Token  = CWT-Tagged-Message
+Tagged-CBOR-Token /= UCCS-Tagged-Message
+Tagged-CBOR-Token /= DEB-Tagged-Message
+
+
+; All the possible forms of a CBOR-encoded token that are not a CBOR tag.
+
+Untagged-CBOR-Token  = CWT-Untagged-Message
+Untagged-CBOR-Token /= UCCS-Untagged-Message
+Untagged-CBOR-Token /= DEB-Untagged-Message
 
 
 ; The payload of the COSE message is always a Claims-Set
