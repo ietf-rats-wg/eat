@@ -1,0 +1,19 @@
+; This describes a nested token that occurs inside a JSON-encoded
+; token. It uses an array that is made up of a type indicator and the
+; actual token.  This is a substitute for the CBOR tag mechanism that
+; JSON does not have.
+
+Nested-Token = [
+   type : "JWT" / "CBOR" / "UJCS" / "DEB",
+   nested-token : JWT-Message /
+                  B64URL-Tagged-CBOR-Token /
+                  DEB-JSON-Message /
+                  UJCS-Message
+]
+
+
+; This text is a Tagged-CBOR-Token (see cbor-token.cddl) that is
+; base64url encoded.  For example, it is a CWT that is a COSE_Sign1
+; that is a CBOR tag that has been base64url encoded.
+
+B64URL-Tagged-CBOR-Token = tstr .regexp "[A-Za-z0-9_=-]+"
