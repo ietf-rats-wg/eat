@@ -19,8 +19,8 @@ Untagged-CBOR-Token /= DEB-Untagged-Message
 
 ; The payload of the COSE message is always a Claims-Set
 
-CWT-Tagged-Message = COSE-Tagged-Message
-CWT-Untagged-Message = COSE-Untagged-Message
+CWT-Tagged-Message = COSE_Tagged_Message
+CWT-Untagged-Message = COSE_Untagged_Message
 
 
 UCCS-Message = UCCS-Tagged-Message / UCCS-Untagged-Message
