@@ -270,7 +270,7 @@ It can be either CBOR or JSON encoded.
 
 ## CDDL, CBOR and JSON
 
-An EAT can encoded in either CBOR or JSON.
+An EAT can be encoded in either CBOR or JSON.
 The definition of each claim is such that it can be encoded either.
 Each token is either entirely CBOR or JSON, with only an exception for nested tokens.
 
@@ -2369,13 +2369,13 @@ no new claims have been added.
 
 * Add detached submodule digests and detached eat bundles (DEBs)
 
-* New simpler and more universal scheme for identifying the type of a nested token
+* New simpler and more universal scheme for identifying the encoding of a nested token
 
 * Made clear that CBOR and JSON are only mixed when nesting a token in another token
 
 * Clearly separate CDDL for JSON and CBOR-specific data items
 
-* Define UJCS
+* Define UJCS (unsigned JWTs)
 
 * Add CDDL for a general Claims-Set used by UCCS, UJCS, CWT, JWT and EAT
 
