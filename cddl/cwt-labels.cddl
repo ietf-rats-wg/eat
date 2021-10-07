@@ -1,5 +1,5 @@
-; This is the CDDL definition of the labels for a CBOR format web token, a CWT.
-; The CDDL for the claims is in web-token-claims.cddl
+; This is the CDDL definition of the labels for a CBOR format web
+; token, a CWT.  The CDDL for the claims is in web-token-claims.cddl
 
 iss-label = 1
 sub-label = 2

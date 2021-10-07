@@ -14,7 +14,7 @@ CLEANFILES += $(CBOR_EXAMPLES)
 
 all: $(COMMON_CDDL_FOR_DOCUMENT) $(CBOR_CDDL_FOR_DOCUMENT) $(JSON_CDDL_FOR_DOCUMENT) $(CDDL_FOR_CBOR_VALIDATION) check-examples
 
-check-examples: $(CDDL_VALIDATE) $(CBOR_EXAMPLES)
+check-examples: $(CDDL_FOR_CBOR_VALIDATION) $(CBOR_EXAMPLES)
 	@for f in $(CBOR_EXAMPLES); do \
 		echo ">> validating $$f" ; \
 		$(cddl) $< validate $$f ; \

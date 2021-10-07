@@ -5,7 +5,10 @@
 
 Nested-Token = [
    type : "JWT" / "CBOR" / "UJCS" / "DEB",
-   nested-token : JWT-Message / B64URL-Tagged-CBOR-Token / DEB-JSON-Message / UJCS-Message
+   nested-token : JWT-Message /
+                  B64URL-Tagged-CBOR-Token /
+		  DEB-JSON-Message /
+		  UJCS-Message
 ]
 
 

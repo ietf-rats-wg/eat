@@ -3,14 +3,14 @@
 CBOR-Token = Tagged-CBOR-Token / Untagged-CBOR-Token
 
     
-; All the possible forms of a CBOR-encoded token that are a CBOR tag.
+; All forms of a CBOR-encoded token that are a CBOR tag.
 
 Tagged-CBOR-Token  = CWT-Tagged-Message
 Tagged-CBOR-Token /= UCCS-Tagged-Message
 Tagged-CBOR-Token /= DEB-Tagged-Message
 
 
-; All the possible forms of a CBOR-encoded token that are not a CBOR tag.
+; All forms of a CBOR-encoded token that are not a CBOR tag.
 
 Untagged-CBOR-Token  = CWT-Untagged-Message
 Untagged-CBOR-Token /= UCCS-Untagged-Message

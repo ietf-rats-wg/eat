@@ -1,6 +1,6 @@
-; The part of a token that contains all the submodules.  It is a peer
-; with the claims in the token, but not a claim, only a map/object to
-; hold all the submodules.
+; This is the part of a token that contains all the submodules.  It is
+; a peer with the claims in the token, but not a claim, only a
+; map/object to hold all the submodules.
 
 submods-part = (
     submods => { + text => Submodule }
@@ -9,27 +9,29 @@ submods-part = (
 
 ; A submodule can be:
 ; - A simple Claims-Set (encoded in the same format as the token)
-; - A digest of a detached Claims-Set (encoded in the same format as the token)
-; - A nested token which may be either CBOR or JSON format. Further, the
-;   mechanism for identifying and containing the nested token depends onf
-;   the format of the surrounding token, particularly because JSON doesn't
-;   have any equivalent of a CBOR tag so a JSON-specific mechanism is
-;   invented. Also, there is the issue that binary data must be B64 encoded
-;   when carried in JSON. Nested-Token is defined in the format specific
-;   CDDL, not here.
-;
-;   Note that at nested token can either be a signed token like a CWT or JWT,
-;   an unsigned token like a UCCS or UJCS, or a DEB (detached EAT bundle).
-;   The specific encoding of these is format-specific so it doesn't appear here.
+; - A digest of a detached Claims-Set (encoded in the same format as
+;    the token)
+; - A nested token which may be either CBOR or JSON format. Further,
+;   the mechanism for identifying and containing the nested token
+;   depends onf the format of the surrounding token, particularly
+;   because JSON doesn't have any equivalent of a CBOR tag so a
+;   JSON-specific mechanism is invented. Also, there is the issue
+;   that binary data must be B64 encoded when carried in
+;   JSON. Nested-Token is defined in the format specific CDDL, not
+;   here.
+
+; Note that at nested token can either be a signed token like a CWT
+; or JWT, an unsigned token like a UCCS or UJCS, or a DEB (detached
+; EAT bundle).  The specific encoding of these is format-specific so
+; it doesn't appear here.
 
 Submodule = (
     Claims-Set / Nested-Token / Detached-Submodule-Digest
 )
 
 
-
 ; This is for both JSON and CBOR.  JSON uses text label for algorithm
-; from XXX registry. CBOR uses integer label for algorithm from COSE
+; from JOSE registry. CBOR uses integer label for algorithm from COSE
 ; registry. In JSON the digest is base64 encoded.
 
 Detached-Submodule-Digest = [

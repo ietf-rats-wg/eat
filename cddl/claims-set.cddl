@@ -1,12 +1,12 @@
-; This is the fundamental definition of a Claims-Set for both
-; CBOR and JSON. It is just a set of label-value pairs each of
-; which is a claim.
+; This is the fundamental definition of a Claims-Set for both CBOR
+; and JSON. It is a set of label-value pairs each of which is a
+; claim.
 ;
-; In CBOR the labels can be integers or strings with a strong preference for integers.
-; For JSON, the labels are always strings.
+; In CBOR the labels can be integers or strings with a strong
+; preference for integers.  For JSON, the labels are always strings.
 ;
-; The values can be anything, with some consideration for types
-; that can work in both CBOR and JSON
+; The values can be anything, with some consideration for types that
+; can work in both CBOR and JSON.
 
 Claims-Set = {
     * $$claims-set-claims,

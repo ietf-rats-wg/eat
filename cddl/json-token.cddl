@@ -7,8 +7,8 @@
 JWT-Message = text .regexp [A-Za-z0-9_=-]+\.[A-Za-z0-9_=-]+\.[A-Za-z0-9_=-]+
 
 
-; This defines the JSON equivalent of a UCCS message, an token with no
-; integrity or authenticity protection.
+; This defines the JSON equivalent of a UCCS message, a token with
+; no integrity or authenticity protection.
 
 UJCS-Message = Claims-Set
 

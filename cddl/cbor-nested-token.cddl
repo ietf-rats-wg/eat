@@ -7,12 +7,12 @@
 ; A primary reason this is encoding-specific is that JSON does not
 ; have an equivalent to CBOR tags.
 ;
-; If the data type here is text, then the nested token is JSON format,
-; one of a JWT, UJCS or JSON-encoded DEB. The means for distinguishing
-; which is in the definition of JSON-encoded Nested-Token.
-;
-; If the data type is bstr, then the nested token is CBOR format. It
-; is byte-string wrapped and identified by a CBOR tag.
+; If the data type here is text, then the nested token is JSON
+; format, one of a JWT, UJCS or JSON-encoded DEB. The means for
+; distinguishing which is in the definition of JSON-encoded
+; Nested-Token.  If the data type is bstr, then the nested token
+; is CBOR format. It is byte-string wrapped and identified by a
+;CBOR tag.
 
 Nested-Token =
     tstr / ; A JSON-encoded Nested-Token (see json-nested-token.cddl)
