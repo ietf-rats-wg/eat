@@ -2406,9 +2406,6 @@ no new claims have been added.
 
 * Moved a few references, including RATS Architecture, to informative.
 
-
-## From draft-ietf-rats-eat-11
-
 * Add detached submodule digests and detached eat bundles (DEBs)
 
 * New simpler and more universal scheme for identifying the encoding of a nested token
@@ -2422,10 +2419,4 @@ no new claims have been added.
 * Add CDDL for a general Claims-Set used by UCCS, UJCS, CWT, JWT and EAT
 
 * Top level CDDL for CWT correctly refers to COSE
-
-* OEM ID is specifically for HW, not for SW
-
-* HW OEM ID can now be a PEN
-
-* HW OEM ID can now be a 128-bit random number
 
