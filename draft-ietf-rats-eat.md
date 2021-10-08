@@ -640,7 +640,7 @@ PENs are often used to create an OID.
 That is not the case here.
 They are used only as a simple integer.
 
-This is encoded as a major type 0 integer in CBOR and is typically 2 when encoded.
+In CBOR this is encoded as a major type 0 integer in CBOR and is typically 3 bytes.
 It is encoded as a number in JSON.
 
 ~~~~CDDL
@@ -2422,4 +2422,10 @@ no new claims have been added.
 * Add CDDL for a general Claims-Set used by UCCS, UJCS, CWT, JWT and EAT
 
 * Top level CDDL for CWT correctly refers to COSE
+
+* OEM ID is specifically for HW, not for SW
+
+* HW OEM ID can now be a PEN
+
+* HW OEM ID can now be a 128-bit random number
 
