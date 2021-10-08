@@ -1,0 +1,21 @@
+; This specifies how one fully-formed token is nested inside a
+; CBOR-format token.  The fully-formed nested token is any valid
+; token, CBOR or JSON (JWT, CWT, UCCS, DEB...)  The mechanism for
+; identifying the type of the nested token is specific to the format
+; of the surrounding token, CBOR in this case.
+;
+; A primary reason this is encoding-specific is that JSON does not
+; have an equivalent to CBOR tags.
+;
+; If the data type here is text, then the nested token is JSON
+; format, one of a JWT, UJCS or JSON-encoded DEB. The means for
+; distinguishing which is in the definition of JSON-encoded
+; Nested-Token.  If the data type is bstr, then the nested token
+; is CBOR format. It is byte-string wrapped and identified by a
+;CBOR tag.
+
+Nested-Token =
+    tstr / ; A JSON-encoded Nested-Token (see json-nested-token.cddl)
+    bstr .cbor Tagged-CBOR-Token
+
+

@@ -1,0 +1,18 @@
+; Top-level definition of a DEB for CBOR and JSON
+
+Detached-EAT-Bundle = [
+    main-token : Nested-Token,
+    detached-claims-sets: {
+        + tstr => cbor-wrapped-claims-set / json-wrapped-claims-set
+    }
+]
+
+
+; text content is a base64url encoded JSON-format Claims-Set
+
+json-wrapped-claims-set = tstr .regexp "[A-Za-z0-9_=-]+" 
+
+
+cbor-wrapped-claims-set = bstr .cbor Claims-Set
+
+

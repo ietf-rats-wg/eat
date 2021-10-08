@@ -1,8 +1,11 @@
-eat-for-validation.cddl
-eat-token.cddl
+cbor.cddl
+common.cddl
+json.cddl
+cbor-for-validation.cddl
 *~
 /*-[0-9][0-9].xml
 *.html
+issues.json
 *.pdf
 pulls.json
 *.redxml
@@ -13,3 +16,6 @@ report.xml
 .targets.mk
 *.txt
 *.upload
+venv/
+lib
+draft-ietf-rats-eat.xml
