@@ -2044,6 +2044,21 @@ is shown.
 {::include cddl/examples/simple.diag}
 ~~~~
 
+## EAT Produced by Attestation Hardware Block
+
+~~~~
+{::include cddl/examples/valid_hw_block.diag}
+~~~~
+
+
+## Detached EAT Bundle
+
+~~~~
+{::include cddl/examples/valid_deb.diag}
+~~~~
+
+
+
 ## Example with Submodules, Nesting and Security Levels
 
 ~~~~

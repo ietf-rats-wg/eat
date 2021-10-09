@@ -1,0 +1,7 @@
+602([
+    h'd90259a0', / The byte string-wrapped HW token with detached digest /
+    {
+       "OS" : h'A0' / The byte string-wrapped Claims-Set /
+    }
+ ])
+ 
