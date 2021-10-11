@@ -2044,6 +2044,14 @@ is shown.
 {::include cddl/examples/simple.diag}
 ~~~~
 
+
+## Example with Submodules, Nesting and Security Levels
+
+~~~~
+{::include cddl/examples/submods.diag}
+~~~~
+
+
 ## EAT Produced by Attestation Hardware Block
 
 ~~~~
@@ -2053,17 +2061,26 @@ is shown.
 
 ## Detached EAT Bundle
 
+There are three parts in this example.
+The first is a DEB that bundles up the encoded CBOR of the two other parts.
+The second part is the EAT token in the DEB.
+The third part is the Claims-Set in the DEB.
+
 ~~~~
 {::include cddl/examples/valid_deb.diag}
 ~~~~
 
+~~~~
+{::include cddl/examples/valid_tee_not_tag.diag}
+~~~~
 
-
-## Example with Submodules, Nesting and Security Levels
 
 ~~~~
-{::include cddl/examples/submods.diag}
+{::include cddl/examples/valid_hw_block2.diag}
 ~~~~
+
+
+
 
 # UEID Design Rationale
 

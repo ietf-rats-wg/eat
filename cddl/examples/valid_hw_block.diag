@@ -1,8 +1,9 @@
-/ This is an example of a token produced by a HW block purpose-built /
-/ for attestation.   Only the nonce claim changes from one attestation /
-/ to the next as the rest  either come directly from the hardware or /
-/ from one-time-programmable memory (e.g. a fuse). 47 bytes /
-/ encoded in CBOR (8 byte nonce, 16 byte UEID) /
+/ This is an example of a token produced by a HW block            /
+/ purpose-built for attestation.  Only the nonce claim changes    /
+/ from one attestation to the next as the rest  either come       /
+/ directly from the hardware or from one-time-programmable memory /
+/ (e.g. a fuse). 47 bytes encoded in CBOR (8 byte nonce, 16 byte  /
+/ UEID). /
 
 601({
     / nonce /           10: h'948f8860d13a463e',
