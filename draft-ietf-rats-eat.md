@@ -2035,10 +2035,17 @@ the EAT they are consuming.
 
 # Examples {#examples}
 
+These examples are either UCCS, shown as CBOR diagnostic, or UJCS messages.
+Full CWT and JWT examples with signing and encryption are not given.
+
+All UCCS examples can be the payload of a CWT.
+To do so, they must be converted from the UCCS message to a Claims-Set, which is achieve by "removing" the tag.
+
+UJCS messages can be directly used as the payload of a JWT.
+
+
 ## Very Simple EAT
 
-This is shown in CBOR diagnostic form. Only the payload signed by COSE
-is shown.
 
 ~~~~
 {::include cddl/examples/simple.diag}
@@ -2074,11 +2081,20 @@ The third part is the Claims-Set in the DEB.
 {::include cddl/examples/valid_tee_not_tag.diag}
 ~~~~
 
+~~~~
+{::include cddl/examples/coswid/tee-coswid.diag}
+~~~~
 
 ~~~~
 {::include cddl/examples/valid_hw_block2.diag}
 ~~~~
 
+
+## Key / Key Store Attestation
+
+~~~~
+{::include cddl/examples/valid_key_store.diag}
+~~~~
 
 
 
@@ -2461,3 +2477,4 @@ no new claims have been added.
 
 * HW OEM ID can now be a 128-bit random number
 
+* Expand the examples section

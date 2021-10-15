@@ -1,0 +1,25 @@
+/ A payload CoSWID created by the SW vendor. All this really does is /
+/ name the TEE SW, its version and lists the one file that makes     /
+/ up the TEE.                                                        /
+
+{
+    / Unique CoSWID ID /    0: "ID of the SWID  ",
+    / tag-version /        12: 1,
+    / software-name /       1: "Acme TEE OS",
+    / software-version /   13: "3.1.4",
+    / entity /              2: [
+                                   {
+        / entity-name /                31: "Acme TEE OS",
+        / role        /                33: 1 / tag-creator /
+                                   },
+                                   {
+        / entity-name /                31: "Acme TEE OS",
+        / role        /                33: 2 / software-creator /
+                                   }
+			       ],
+    / payload /                6: {
+        / ...file /                17: {
+            / ...fs-name /             24: "acme_tee_3.exe"
+	                           }
+                               }
+}
