@@ -2043,19 +2043,19 @@ To do so, they must be converted from the UCCS message to a Claims-Set, which is
 
 UJCS messages can be directly used as the payload of a JWT.
 
-
-## Very Simple EAT
-
-
-~~~~
-{::include cddl/examples/simple.diag}
-~~~~
+WARNING: These examples use tag and label numbers not yet assigned by IANA.
 
 
-## Example with Submodules, Nesting and Security Levels
+## Simple TEE Attestation
+
+This is a simple attestation of a TEE that includes a manifest that is a payload CoSWID to describe the TEE's software.
 
 ~~~~
-{::include cddl/examples/submods.diag}
+{::include cddl/examples/valid_tee.diag}
+~~~~
+
+~~~~
+{::include cddl/examples/coswid/tee-coswid.diag}
 ~~~~
 
 
@@ -2068,21 +2068,17 @@ UJCS messages can be directly used as the payload of a JWT.
 
 ## Detached EAT Bundle
 
-There are three parts in this example.
-The first is a DEB that bundles up the encoded CBOR of the two other parts.
-The second part is the EAT token in the DEB.
-The third part is the Claims-Set in the DEB.
+In this example, the DEB is given first.
+
+Next, the diagnostic notation for the EAT that is in the DEB is given.
+This EAT has a detached digest for the detached Claims-Set also in the DEB
+
+The Claims-Set in the DEB is that of the Simple TEE Attestation given above.
+It includes a CoSWID to describe the TEE software.
+Note that it is a Claims-Set, not a UCCS tag.
 
 ~~~~
 {::include cddl/examples/valid_deb.diag}
-~~~~
-
-~~~~
-{::include cddl/examples/valid_tee_not_tag.diag}
-~~~~
-
-~~~~
-{::include cddl/examples/coswid/tee-coswid.diag}
 ~~~~
 
 ~~~~
@@ -2096,6 +2092,13 @@ The third part is the Claims-Set in the DEB.
 {::include cddl/examples/valid_key_store.diag}
 ~~~~
 
+
+
+## Example with Submodules, Nesting and Security Levels
+
+~~~~
+{::include cddl/examples/submods.diag}
+~~~~
 
 
 # UEID Design Rationale
