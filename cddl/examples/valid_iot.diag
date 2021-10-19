@@ -1,0 +1,44 @@
+/ This EAT UCCS is for an IoT device with a TEE. The attestation   /
+/ is produced by the TEE. There is a submodule for the IoT OS (the /
+/ main OS of the IoT device that is not as secure as the TEE). The /
+/ submodule contains claims for the IoT OS. The TEE also measures  /
+/ the IoT OS and puts the measurements in the submodule.           /
+
+601({
+    / nonce /           10: h'948f8860d13a463e',
+    / security-level /  14: 3, / secure-restricted /
+    / secure-boot /     15: true,
+    / debug-status /    16: 2, / disabled-since-boot /
+    / OEMID /           13: h'8945ad', / IEEE CID based /
+    / UEID /            11: h'0198f50a4ff6c05861c8860d13a638ea', 
+    / sumods /          20: {
+                            "OS" : {
+                                / security-level /  14: 2, / restricted /
+                                / secure-boot /     15: true,
+                                / debug-status /    16: 2, / disabled-since-boot /
+				/ swevidence /      44: [
+                                    / This is a byte-string wrapped    /
+			            / evidence CoSWID. It has hashes   /
+			            / of the main files of the IoT OS  /
+                                    h'da53574944a600663463613234350c
+                                      17016d41636d6520522d496f542d4f
+                                      530d65332e312e3402a2181f724163
+                                      6d6520426173652041747465737465
+                                      7218210103a11183a318187161636d
+                                      655f725f696f745f6f732e65786514
+                                      1a0044b349078201582005f6b327c1
+                                      73b4192bd2c3ec248a292215eab456
+                                      611bf7a783e25c1782479905a31818
+                                      6d7265736f75726365732e72736314
+                                      1a000c38b10782015820c142b9aba4
+                                      280c4bb8c75f716a43c99526694caa
+                                      be529571f5569bb7dc542f98a31818
+                                      6a636f6d6d6f6e2e6c6962141a0023
+                                      3d3b0782015820a6a9dcdfb3884da5
+                                      f884e4e1e8e8629958c2dbc7027414
+                                      43a913e34de9333be6'
+		           	]
+			    }
+		        }
+})
+

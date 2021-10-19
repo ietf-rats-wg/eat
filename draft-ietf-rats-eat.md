@@ -2093,6 +2093,30 @@ Note that it is a Claims-Set, not a UCCS tag.
 ~~~~
 
 
+## SW Measurements of an IoT Device
+
+This is a simple token that might be for and IoT device.
+It includes CoSWID format measurments of the SW.
+The CoSWID is in byte-string wrapped in the token and also shown in diagnostic form.
+
+~~~~
+{::include cddl/examples/valid_iot.diag}
+~~~~
+
+~~~~
+{::include cddl/examples/coswid/iot-sw.diag}
+~~~~
+
+
+## Attestation Results in JSON format
+
+This is a UJCS format token.
+It is identical to Claims-Set encoded in JSON that could be a JWT payload.
+
+~~~~
+{::include cddl/examples/valid_results.json}
+~~~~
+
 
 ## Example with Submodules, Nesting and Security Levels
 
