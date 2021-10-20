@@ -2130,18 +2130,12 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
 
 ## Attestation Results in JSON format
 
-This is a UJCS format token.
+This is a UJCS format token that might be the output of a Verifier that evaluated the IoT Attestation example immediately above.
+
 It is identical to Claims-Set encoded in JSON that could be a JWT payload.
 
 ~~~~
 {::include cddl/examples/valid_results.json}
-~~~~
-
-
-## Example with Submodules, Nesting and Security Levels
-
-~~~~
-{::include cddl/examples/submods.diag}
 ~~~~
 
 

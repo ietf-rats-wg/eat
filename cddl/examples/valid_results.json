@@ -1,14 +1,24 @@
 {
     "nonce": "8eR7uEH334KZ",
-    "seclevel" : "restriced",
+    "seclevel" : "secure-restriced",
     "secboot" : true,
     "dbgstat" : "disabled-since-boot",
-    "swresults": [
-	[
-	    "Trustus Verifications",
-	    "all",
-	    "fully-verified"
-	]
-   ]
+    "OEMID" : "xxxxxxx",
+    "UEID"  : "sdfkljsdlfkjsldfkj",
+    "submods" : {
+	"seclevel" : "restriced",
+	"secboot" : true,
+	"dbgstat" : "disabled-since-boot",
+	"swname" : "Acme R-IoT-OS",
+	"sw-version" : [
+	    "3.1.4"
+	],
+        "swresults": [
+	    [
+	        "Trustus Verifications",
+	        "all",
+	        "fully-verified"
+	    ]
+       ]
 }
     
