@@ -18,6 +18,8 @@ manifests /= "manifests"
 swevidence /= "swevidence"
 dloas /= "dloas"
 swevidence /= "swresults"
+sw-name-label /= "swname"
+sw-version-label /= "swversion"
 
 latitude /= "lat"
 longitude /= "long"

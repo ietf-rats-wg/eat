@@ -2055,20 +2055,94 @@ the EAT they are consuming.
 
 # Examples {#examples}
 
-## Very Simple EAT
+These examples are either UCCS, shown as CBOR diagnostic, or UJCS messages.
+Full CWT and JWT examples with signing and encryption are not given.
 
-This is shown in CBOR diagnostic form. Only the payload signed by COSE
-is shown.
+All UCCS examples can be the payload of a CWT.
+To do so, they must be converted from the UCCS message to a Claims-Set, which is achieve by "removing" the tag.
+
+UJCS messages can be directly used as the payload of a JWT.
+
+WARNING: These examples use tag and label numbers not yet assigned by IANA.
+
+
+## Simple TEE Attestation
+
+This is a simple attestation of a TEE that includes a manifest that is a payload CoSWID to describe the TEE's software.
 
 ~~~~
-{::include cddl/examples/simple.diag}
+{::include cddl/examples/valid_tee.diag}
 ~~~~
 
-## Example with Submodules, Nesting and Security Levels
+~~~~
+{::include cddl/examples/coswid/tee-coswid.diag}
+~~~~
+
+
+## EAT Produced by Attestation Hardware Block
 
 ~~~~
-{::include cddl/examples/submods.diag}
+{::include cddl/examples/valid_hw_block.diag}
 ~~~~
+
+
+## Detached EAT Bundle
+
+In this DEB main token is produced by a HW attestation block.
+The detached Claims-Set is produced by a TEE and is largely identical to the Simple TEE examples above.
+The TEE digests its Claims-Set and feeds that digest to the HW block.
+
+In a better example the attestation produced by the HW block would be a CWT and thus signed and secured by the HW block.
+Since the signature covers the digest from the TEE that Claims-Set is also secured.
+
+The DEB itself can be assembled by untrusted SW.
+
+~~~~
+{::include cddl/examples/valid_deb.diag}
+~~~~
+
+~~~~
+{::include cddl/examples/valid_hw_block2.diag}
+~~~~
+
+
+## Key / Key Store Attestation
+
+~~~~
+{::include cddl/examples/valid_key_store.diag}
+~~~~
+
+
+## SW Measurements of an IoT Device
+
+This is a simple token that might be for and IoT device.
+It includes CoSWID format measurments of the SW.
+The CoSWID is in byte-string wrapped in the token and also shown in diagnostic form.
+
+~~~~
+{::include cddl/examples/valid_iot.diag}
+~~~~
+
+~~~~
+{::include cddl/examples/coswid/iot-sw.diag}
+~~~~
+
+
+## Attestation Results in JSON format
+
+This is a UJCS format token that might be the output of a Verifier that evaluated the IoT Attestation example immediately above.
+
+This particular Verifier knows enough about the TEE Attester to be able to pass claims like security level directly through to the Relying Party.
+The Verifier also knows the Reference Values for the measured SW components and is able to check them.
+It informs the Relying Party that they were correct in the swresults claim.
+"Trustus Verifications" is the name of the services that verifies the SW component measurements.
+
+This UJCS is identical to JSON-encoded Claims-Set that could be a JWT payload.
+
+~~~~
+{::include cddl/examples/valid_results.json}
+~~~~
+
 
 # UEID Design Rationale
 
@@ -2439,5 +2513,13 @@ no new claims have been added.
 * Add CDDL for a general Claims-Set used by UCCS, UJCS, CWT, JWT and EAT
 
 * Top level CDDL for CWT correctly refers to COSE
+
+* OEM ID is specifically for HW, not for SW
+
+* HW OEM ID can now be a PEN
+
+* HW OEM ID can now be a 128-bit random number
+
+* Expand the examples section
 
 * Add software and version claims as easy / JSON alternative to CoSWID

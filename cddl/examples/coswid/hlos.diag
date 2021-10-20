@@ -1,0 +1,13 @@
+/ A minimal CoSWID giving name and version of an HLOS /
+
+1398229316({
+    / Unique CoSWID ID /   0: "s7e74kx8",
+    / tag-version /       12: 0,
+    / software-name /      1: "Droid OS",
+    / software-version /  13: "R2.D2",
+    / version-scheme /    14: 3, / alphanumeric /
+    / entity /             2: {
+        / entity-name /           31: "Industrial Automation",
+        / role        /           33: 2 / software-creator /
+                              }
+})

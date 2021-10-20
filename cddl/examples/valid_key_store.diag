@@ -1,0 +1,76 @@
+/ This is an attestation of a public key and the key store     /
+/ implementation that protects and manages it. The key store   /
+/ implementation is in a security-oriented execution           /
+/ environment separate from the high-level OS, for example a   /
+/ TEE. The key store is the Attester.                          /
+/                                                              /
+/ There is some attestation of the high-level OS, just version /
+/ and boot & debug status. It is a Claims-Set submodule because/
+/ it has lower security level than the key store. The key      /
+/ store's implementation has access to info about the HLOS, so /
+/ it is able to include it.                                    /
+/                                                              /
+/ A key and an indication of the user authentication given to  /
+/ allow access to the key is given. The labels for these are   /
+/ in the private space since this is just a hypothetical       /
+/ example, not part of a standard protocol.                    /
+/                                                              /
+/ This is similar to Android Key Attestation.                  /
+
+
+601({
+    / nonce /           10: h'948f8860d13a463e',
+    / security-level /  14: 3, / secure-restricted /
+    / debug-status /    16: 2, / disabled-since-boot /
+    / secure-boot /     15: true,
+    / manifests /       43: [
+                                h'da53574944a600683762623334383766
+                                  0c000169436172626f6e6974650d6331
+                                  2e320e0102a2181f75496e6475737472
+                                  69616c204175746f6d6174696f6e1821
+                                  02'
+                                 / Above is an encoded CoSWID     /
+				 / with the following data        /
+                                 /   SW Name: "Carbonite"         /
+                                 /   SW Vers: "1.2"               /
+                                 /   SW Creator:                  /
+                                 /      "Industrial Automation"   /
+                            ],
+    / expiration /       4: 1634324274, / 2021-10-15T18:57:54Z /
+    / creation time /    6: 1634317080, / 2021-10-15T16:58:00Z /
+                   -80000 : "fingerprint",
+                   -80001 : { / The key -- A COSE_Key  / 
+                / kty /       1: 2, / EC2, eliptic curve with x & y /
+                / kid /       2: h'36675c206f96236c3f51f54637b94ced',
+                / curve /    -1: 2, / curve is P-256 /
+                / x-coord /  -2: h'65eda5a12577c2bae829437fe338701a
+                                   10aaa375e1bb5b5de108de439c08551d',
+                / y-coord /  -3: h'1e52ed75701163f7f9e40ddf9f341b3d
+                                   c9ba860af7e0ca7ca7e9eecd0084d19c'
+             },
+
+    / submods /        20 : { 
+                           "HLOS" : { / submod for high-level OS /
+         / nonce /             10: h'948f8860d13a463e',
+           / security-level /  14: 1, / unrestricted /
+           / secure-boot /     15: true,
+           / manifests /       43: [
+                                    h'da53574944a600687337
+                                      6537346b78380c000168
+                                      44726f6964204f530d65
+                                      52322e44320e0302a218
+                                      1F75496E647573747269
+                                      616c204175746f6d6174
+                                      696f6e182102'
+                                     / Above is an encoded CoSWID /
+                                     / with the following data:   /
+				     /   SW Name: "Droid OS"      /
+                                     /   SW Vers: "R2.D2"         /
+                                     /   SW Creator:              /
+                                     /     "Industrial Automation"/
+                               ]
+                           }
+                       }
+})
+           
+   

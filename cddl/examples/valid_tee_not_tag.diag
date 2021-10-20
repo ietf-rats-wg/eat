@@ -1,0 +1,21 @@
+/ This is a Claims-Set that describes a simple TEE /
+
+{
+    / nonce /           10: h'948f8860d13a463e',
+    / security-level /  14: 3, / secure-restricted /
+    / secure-boot /     15: true,
+    / debug-status /    16: 2, / disabled-since-boot /
+    / manfests /        43: [
+                               / This is byte-string wrapped payload CoSWID. It   /
+			       / gives the TEE software name, the version and the /
+			       / name of the file it is in./
+                               h' da53574944a60064336132340c01016b
+                                  41636d6520544545204f530d65332e31
+                                  2e340282a2181f6b41636d6520544545
+                                  204f53182101a2181f6b41636d652054
+                                  4545204f5318210206a111a118186e61
+                                  636d655f7465655f332e657865'
+			]
+}
+    
+
