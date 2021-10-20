@@ -1,6 +1,7 @@
-/ An evidence CoSWID created for the "Acme R-IoT-OS" created by the  /
-/ "Acme Base Attester" (both fictious names).  It provides           /
-/ measurements of the SW (other than the attester SW) on the device. /
+/ An evidence CoSWID created for the "Acme R-IoT-OS" created by /
+/ the "Acme Base Attester" (both fictious names).  It provides  /
+/ measurements of the SW (other than the attester SW) on the    /
+/ device. /
 
 1398229316({
     / Unique CoSWID ID /    0: "4ca245",

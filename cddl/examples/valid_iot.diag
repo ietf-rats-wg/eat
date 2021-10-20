@@ -13,13 +13,14 @@
     / UEID /            11: h'0198f50a4ff6c05861c8860d13a638ea', 
     / sumods /          20: {
                             "OS" : {
-                                / security-level /  14: 2, / restricted /
-                                / secure-boot /     15: true,
-                                / debug-status /    16: 2, / disabled-since-boot /
-				/ swevidence /      44: [
-                                    / This is a byte-string wrapped    /
-			            / evidence CoSWID. It has hashes   /
-			            / of the main files of the IoT OS  /
+        / security-level /      14: 2, / restricted /
+        / secure-boot /         15: true,
+        / debug-status /        16: 2, / disabled-since-boot /
+        / swevidence /          44: [
+                                    / This is a byte-string wrapped /
+			            / evidence CoSWID. It has       /
+				    / hashes of the main files of   /
+				    / the IoT OS.  /
                                     h'da53574944a600663463613234350c
                                       17016d41636d6520522d496f542d4f
                                       530d65332e312e3402a2181f724163

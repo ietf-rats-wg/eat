@@ -7,34 +7,21 @@
     / detached digest which is the hash of the "TEE" claims set /
     / in the next section.                                      /
     /                                                           /
-    / TODO: replace this one that is actually signed using      /
-    / COSE. (There is nothing wrong with not being signed, but  /
-    / it is a better example signed rather than UCCS            /
-    h'd90259a80a48948f8860
-      d13a463e0b500198f50a
-      4ff6c05861c8860d13a6
-      38ea0d19faf20e040ff5
-      100318208263332e3101
-      14a163544545822f4e78
-      e64638736d83a764a7a8
-      a79812',
+    / This token here is in UCCS format (unsigned). In a more   /
+    / realistic example, it would a signed CWT.                 /
+    h'd90259a80a48948f8860d13a463e0b500198f50a4ff6c05861c8860d13
+      a638ea0d19faf20e040ff5100318208263332e310114a163544545822f
+      4e78e64638736d83a764a7a8a79812',
       
     {
        / A CBOR-encoded byte-string wrapped EAT claims-set. It /
        / contains claims suitable for a TEE                    /
-       "TEE" : h'a50a48948f8860d13a46
-                 3e0e030ff51002182b81
-                 5864a600704944206f66
-                 20746865205357494420
-                 200c01016b41636d6520
-                 544545204f530d65332e
-                 312e340282a2181f6b41
-                 636d6520544545204f53
-                 182102a2181f6b41636d
-                 6520544545204f531821
-                 0206a111a118186e6163
-                 6d655f7465655f332e65
-                 7865'
+       "TEE" : h'a50a48948f8860d13a463e0e030ff51002182b815864a6
+                 00704944206f6620746865205357494420200c01016b41
+		 636d6520544545204f530d65332e312e340282a2181f6b
+		 41636d6520544545204f53182102a2181f6b41636d6520
+		 544545204f5318210206a111a118186e61636d655f7465
+		 655f332e657865'
     }
  ])
  

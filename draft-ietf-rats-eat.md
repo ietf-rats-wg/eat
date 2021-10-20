@@ -2088,14 +2088,14 @@ This is a simple attestation of a TEE that includes a manifest that is a payload
 
 ## Detached EAT Bundle
 
-In this example, the DEB is given first.
+In this DEB main token is produced by a HW attestation block.
+The detached Claims-Set is produced by a TEE and is largely identical to the Simple TEE examples above.
+The TEE digests its Claims-Set and feeds that digest to the HW block.
 
-Next, the diagnostic notation for the EAT that is in the DEB is given.
-This EAT has a detached digest for the detached Claims-Set also in the DEB
+In a better example the attestation produced by the HW block would be a CWT and thus signed and secured by the HW block.
+Since the signature covers the digest from the TEE that Claims-Set is also secured.
 
-The Claims-Set in the DEB is that of the Simple TEE Attestation given above.
-It includes a CoSWID to describe the TEE software.
-Note that it is a Claims-Set, not a UCCS tag.
+The DEB itself can be assembled by untrusted SW.
 
 ~~~~
 {::include cddl/examples/valid_deb.diag}
