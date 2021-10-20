@@ -2132,7 +2132,12 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
 
 This is a UJCS format token that might be the output of a Verifier that evaluated the IoT Attestation example immediately above.
 
-It is identical to Claims-Set encoded in JSON that could be a JWT payload.
+This particular Verifier knows enough about the TEE Attester to be able to pass claims like security level directly through to the Relying Party.
+The Verifier also knows the Reference Values for the measured SW components and is able to check them.
+It informs the Relying Party that they were correct in the swresults claim.
+"Trustus Verifications" is the name of the services that verifies the SW component measurements.
+
+This UJCS is identical to JSON-encoded Claims-Set that could be a JWT payload.
 
 ~~~~
 {::include cddl/examples/valid_results.json}
