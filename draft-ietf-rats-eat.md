@@ -22,6 +22,10 @@ area: Internet
 kw: signing attestation cbor
 # date: 2013-10
 author:
+- ins: L. Lundblade
+  name: Laurence Lundblade
+  org: Security Theory LLC
+  email: lgl@securitytheory.com
 - ins: G. Mandyam
   name: Giridhar Mandyam
   org: Qualcomm Technologies Inc.
@@ -31,19 +35,6 @@ author:
   country: USA
   phone: "+1 858 651 7200"
   email: mandyam@qti.qualcomm.com
-- ins: L. Lundblade
-  name: Laurence Lundblade
-  org: Security Theory LLC
-  email: lgl@island-resort.com
-- ins: M. Ballesteros
-  name: Miguel Ballesteros
-  org: Qualcomm Technologies Inc.
-  street: 5775 Morehouse Drive
-  city: San Diego
-  region: California
-  country: USA
-  phone: +1 858 651 4299
-  email: mballest@qti.qualcomm.com
 - ins: J. O'Donoghue
   name: Jeremy O'Donoghue
   org: Qualcomm Technologies Inc.
