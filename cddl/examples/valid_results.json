@@ -1,0 +1,14 @@
+{
+    "nonce": "8eR7uEH334KZ",
+    "seclevel" : "restriced",
+    "secboot" : true,
+    "dbgstat" : "disabled-since-boot",
+    "swresults": [
+	[
+	    "Trustus Verifications",
+	    "all",
+	    "fully-verified"
+	]
+   ]
+}
+    
