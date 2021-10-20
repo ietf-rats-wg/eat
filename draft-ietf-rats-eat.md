@@ -667,7 +667,7 @@ An EAN-13 is also known as an International Article Number or most commonly as a
 
 ## Software Name Claim
 
-This is a simple free form text claim that names the software.
+This is a simple free-form text claim for the name of the software.
 A CoSWID manifest or other type of manifest can be used instead if this is too simple.
 
 ~~~~CDDL
@@ -677,7 +677,7 @@ A CoSWID manifest or other type of manifest can be used instead if this is too s
 
 ## Software Version Claim
 
-This makes use of the CoSWID version schemes to give a simple version for the software.
+This makes use of the CoSWID version scheme data type to give a simple version for the software.
 A full CoSWID manifest or other type of manifest can be instead if this is too simple.
 
 ~~~~CDDL
@@ -2440,3 +2440,4 @@ no new claims have been added.
 
 * Top level CDDL for CWT correctly refers to COSE
 
+* Add software and version claims as easy / JSON alternative to CoSWID
