@@ -15,4 +15,5 @@ manifests = 43
 swevidence = 44   
 dloas = 45   
 swresults = 45   
-
+sw-name-label = 46
+sw-version-label = 47
