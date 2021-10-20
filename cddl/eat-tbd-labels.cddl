@@ -11,4 +11,6 @@ sueids = <TBD42>
 manifests = <TBD43>
 swevidence = <TBD44>
 dloas = <TBD45>
-sweresults = <TBD45>
+swresults = <TBD45>
+sw-name-label = <TBD46>
+sw-version-label = <TBD47>
