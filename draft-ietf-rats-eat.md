@@ -944,6 +944,30 @@ security state of the entity storing the private key used in a PoP application.
 {::include cddl/intended-use.cddl}
 ~~~~
 
+
+## The Profile Claim (profile) {#profile-claim}
+
+See {{profiles}} for the detailed description of a profile.
+
+A profile is identified by either a URL or an OID.
+Typically, the URI will reference a document describing the profile.
+An OID is just a unique identifier for the profile.
+It may exist anywhere in the OID tree.
+There is no requirement that the named document be publicly accessible.
+The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
+
+The OID is encoded in CBOR according to {{CBOR.OID}} and the URI according to {{RFC8949}}.
+Both are unwrapped and thus not tags.
+The OID is always absolute and never relative.
+If the claims CBOR type is a text string it is a URI and if a byte string it is an OID.
+
+Note that this named "eat_profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
+
+~~~~CDDL
+{::include cddl/profile.cddl}
+~~~~
+
+
 ## The DLOA (Digital Letter or Approval) Claim (dloas)
 
 A DLOA (Digital Letter of Approval) {{DLOA}} is an XML document that describes a certification that a device or entity has received.
@@ -972,28 +996,6 @@ The method of combining the registrar URI, platform label and possibly applicati
 {::include cddl/dloas.cddl}
 ~~~~
 
-
-## The Profile Claim (profile) {#profile-claim}
-
-See {{profiles}} for the detailed description of a profile.
-
-A profile is identified by either a URL or an OID.
-Typically, the URI will reference a document describing the profile.
-An OID is just a unique identifier for the profile.
-It may exist anywhere in the OID tree.
-There is no requirement that the named document be publicly accessible.
-The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
-
-The OID is encoded in CBOR according to {{CBOR.OID}} and the URI according to {{RFC8949}}.
-Both are unwrapped and thus not tags.
-The OID is always absolute and never relative.
-If the claims CBOR type is a text string it is a URI and if a byte string it is an OID.
-
-Note that this named "eat_profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
-
-~~~~CDDL
-{::include cddl/profile.cddl}
-~~~~
 
 ## The Software Manifests Claim (manifests)
 
