@@ -38,7 +38,7 @@ $(JSON_CDDL_FOR_DOCUMENT): $(JSON_CDDL_FRAGS)
 	done > $@
 
 
-$(CDDL_FOR_CBOR_VALIDATION): $(VALIDATION_CBOR_CDDL) cose-stub.cddl concise-swid-tag.cddl
+$(CDDL_FOR_CBOR_VALIDATION): $(VALIDATION_CBOR_CDDL) cose-stub.cddl concise-swid-tag.cddl coswid-tag-stub.cddl
 	@for f in $^ ; do \
 		( cat $$f ; echo ) ; \
 	done > $@

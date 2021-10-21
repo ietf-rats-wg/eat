@@ -2,15 +2,16 @@
 ; These are intentionally above 24 so as to not use up
 ; single-byte labels.
 
-uptime = <TBD31>
-chip-version = <TBD32>
-board-version = <TBD33>
-device-version = <TBD34>
-intended-use = <TBD41>
-sueids = <TBD42>
-manifests = <TBD43>
-swevidence = <TBD44>
-dloas = <TBD45>
-swresults = <TBD45>
-sw-name-label = <TBD46>
-sw-version-label = <TBD47>
+sueids-label = <TBD25>
+chip-version-label = <TBD26>
+board-version-label = <TBD27>
+device-version-label = <TBD28>
+sw-name-label = <TBD29>
+sw-version-label = <TBD30>
+uptime-label = <TBD31>
+boot-seed-label = <TBD32>
+intended-use-label = <TBD33>
+dloas-label = <TBD34>
+manifests-label = <TBD35>
+swevidence-label = <TBD36>
+swresults-label = <TBD37>

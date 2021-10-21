@@ -1,6 +1,8 @@
+$$claims-set-claims //= (swresults-label => [ + swresult-type ])
+
 verification-result-cbor-type = &(
     verification-not-run: 1,
-    verification-indeterminite: 2,
+    verification-indeterminate: 2,
     verification-failed: 3,
     fully-verified: 4,
     partially-verified: 5,
@@ -8,7 +10,7 @@ verification-result-cbor-type = &(
 
 verification-result-json-type = 
     "verification-not-run" /
-    "verification-indeterminite" /
+    "verification-indeterminate" /
     "verification-failed" /
     "fully-verified" /
     "partially-verified" 
@@ -32,14 +34,11 @@ verification-objective-json-type =
     "partial"
 
 
-swresult = [
+swresult-type = [
     verification-system: tstr,
-    objective: verification-objective-cbor-type / verification-objective-json-type, 
-    result: verification-result-cbor-type / verification-result-json-type, 
+    objective: verification-objective-cbor-type /
+        verification-objective-json-type, 
+    result: verification-result-cbor-type / 
+        verification-result-json-type, 
     ? objective-name: tstr
 ]
-
-
-swresults-claim = ( 
-   swresults => [ + swresult ]
-)

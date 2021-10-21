@@ -1,9 +1,14 @@
+$$claims-set-claims //= (
+    intended-use-label =>
+        intended-use-cbor-type / intended-use-json-type
+)
+
 intended-use-cbor-type = &(
     generic: 1,
     registration: 2,
     provisioning: 3,
     csr: 4,
-    pop:  5
+    pop: 5
 )
 
 intended-use-json-type = 
@@ -13,6 +18,3 @@ intended-use-json-type =
     "csr" /
     "pop" 
 
-intended-use-claim = (
-    intended-use => intended-use-cbor-type / intended-use-json-type
-)

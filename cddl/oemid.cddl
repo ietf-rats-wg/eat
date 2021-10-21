@@ -5,6 +5,4 @@ oemid-ieee = bstr .size 3
 oemid-random = bstr .size 16
 
 
-oemid-claim = (
-    oemid => oemid-random / oemid-ieee / oemid-pen
-)
+$$claims-set-claims //= (oemid-label => oemid-random / oemid-ieee / oemid-pen)

@@ -1,9 +1,12 @@
-swevidence-claim = (
-    swevidence => swevidence-type
+$$claims-set-claims //= (
+    swevidence-label => swevidence-type
 )
 
-swevidence-type = [+ $swevidence-formats]
+swevidence-type = [+ $$swevidence-formats]
 
-; Must be a CoSWID evidence type
-$swevidence-formats /= bytes .cbor concise-swid-tag
+; Must be a CoSWID evidence type that is a CBOR tag
+; TODO: fix the CDDL so a signed CoSWID is allowed too 
+coswid-that-is-a-cbor-tag = tagged-coswid<concise-swid-tag>
+$$swevidence-formats /= bytes .cbor coswid-that-is-a-cbor-tag 
+
 

@@ -1,4 +1,4 @@
-; This is CDDL for the 7 indivisual claims that are defined in CWT
+; This is CDDL for the 7 individual claims that are defined in CWT
 ; and JWT.  This CDDL works for either CBOR format CWT or JSON format
 ; JWT The integer format CWT Claim Keys (the labels) are defined in
 ; cwt-labels.cddl.  The string format JWT Claim Names (the labels)

@@ -1,9 +1,8 @@
+$$claims-set-claims //= (sw-version-label => sw-version-type)
+
 sw-version-type = [
     version:  tstr,
     scheme:  $version-scheme / As defined by CoSWID /
 ]
 
-sw-version-claim = (
-    sw-version-label => sw-version-type
-)
 

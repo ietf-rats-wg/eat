@@ -16,7 +16,7 @@
         / security-level /      14: 2, / restricted /
         / secure-boot /         15: true,
         / debug-status /        16: 2, / disabled-since-boot /
-        / swevidence /          44: [
+        / swevidence /          36: [
                                     / This is a byte-string wrapped /
 			            / evidence CoSWID. It has       /
 				    / hashes of the main files of   /

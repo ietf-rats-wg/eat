@@ -1,3 +1,1 @@
-boot-seed-claim = (
-    boot-seed => bytes
-)
+$$claims-set-claims //=  (boot-seed-label => bytes)

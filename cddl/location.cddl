@@ -1,3 +1,5 @@
+$$claims-set-claims //= (location-label => location-type)
+
 location-type = {
     latitude => number,
     longitude => number,
@@ -20,6 +22,3 @@ speed = 7 / "speed"
 timestamp = 8 / "timestamp"
 age = 9 / "age"
 
-location-claim = (
-    location-label => location-type
-)
