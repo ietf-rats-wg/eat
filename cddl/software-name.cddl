@@ -1,2 +1,2 @@
-sw-name-claim = ( sw-name-label => tstr )
+$$claims-set-claims //= ( sw-name-label => tstr )
 

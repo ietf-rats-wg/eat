@@ -1,11 +1,15 @@
-manifests-claim = (
-    manifests => manifests-type
+$$claims-set-claims //= (
+    manifests-label => manifests-type
 )
 
-manifests-type = [+ $manifest-formats]
+manifests-type = [+ $$manifest-formats]
 
 ; Must be a CoSWID payload type
-$manifest-formats /= bytes .cbor concise-swid-tag
+; TODO: signed CoSWIDs
+coswid-that-is-a-cbor-tag-xx = tagged-coswid<concise-swid-tag>
 
-$manifest-formats /= bytes .cbor SUIT_Envelope_Tagged
+$$manifest-formats /= bytes .cbor coswid-that-is-a-cbor-tag-xx
+
+; TODO: make this work too
+;$$manifest-formats /= bytes .cbor SUIT_Envelope_Tagged
 

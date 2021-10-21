@@ -1,5 +1,5 @@
-dloas-claim = (
-    dloas => [ + dloa-type ]
+$$claims-set-claims //= (
+    dloas-label => [ + dloa-type ]
 )
 
 dloa-type = [

@@ -1,5 +1,3 @@
-ueid-type = bstr .size (7..33)
+$$claims-set-claims //= (ueid-label => ueid-type)
 
-ueid-claim = (
-     ueid => ueid-type
-)
+ueid-type = bstr .size (7..33)

@@ -1,23 +1,16 @@
+$$claims-set-claims //=  (
+    chip-version-label => hw-version-type
+)
+
+$$claims-set-claims //=  (
+    board-version-label => hw-version-type
+)
+
+$$claims-set-claims //=  (
+    device-version-label => hw-version-type
+)
+
 hw-version-type = [
     version:  tstr,
     scheme:  $version-scheme
 ]
-
-chip-version-claim = (
-    chip-version => hw-version-type
-)
-
-board-version-claim = (
-    board-version => hw-version-type
-)
-
-device-version-claim = (
-    device-version => hw-version-type
-)
-
-hardware-version-claims = (
-    ? chip-version-claim,
-    ? board-version-claim,
-    ? device-version-claim,
-)
-

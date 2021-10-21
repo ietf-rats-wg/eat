@@ -1,3 +1,9 @@
+$$claims-set-claims //= (
+    security-level-label => 
+        security-level-cbor-type / 
+        security-level-json-type
+)
+
 security-level-cbor-type = &(
     unrestricted: 1,
     restricted: 2,
@@ -10,7 +16,3 @@ security-level-json-type =
     "restricted" /
     "secure-restricted" /
     "hardware"
-
-security-level-claim = (
-    security-level => security-level-cbor-type / security-level-json-type
-)

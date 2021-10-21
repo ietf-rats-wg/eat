@@ -5,15 +5,16 @@
 ; This file is used for cddl validation. It is not included
 ; in the document. The file eat-tbd-labels.cddl is for the document.
 
-uptime = 31
-chip-version = 32
-board-version = 33
-device-version = 34
-intended-use = 41
-sueids = 42
-manifests = 43
-swevidence = 44   
-dloas = 45   
-swresults = 45   
+uptime-label = 31
+chip-version-label = 32
+board-version-label = 33
+device-version-label = 34
+intended-use-label = 41
+sueids-label = 42
+manifests-label = 43
+swevidence-label = 44   
+dloas-label = 45   
+swresults-label = 45   
 sw-name-label = 46
 sw-version-label = 47
+boot-seed-label = 48
