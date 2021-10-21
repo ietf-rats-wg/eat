@@ -10,7 +10,7 @@
     / security-level /  14: 4, / hardware level security /
     / secure-boot /     15: true,
     / debug-status /    16: 3, / disabled-permanently /
-    / chip-version /    32: [ "3.1", 1 ], / multipartnumeric /
+    / chip-version /    26: [ "3.1", 1 ], / multipartnumeric /
     / submods/          20: {
                                 "TEE": [ / detached digest submod /
 				    -16, / SHA-256 /
