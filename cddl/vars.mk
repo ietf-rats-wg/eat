@@ -21,6 +21,7 @@ COMMON_CDDL_FRAGS += profile.cddl
 COMMON_CDDL_FRAGS += manifests.cddl
 COMMON_CDDL_FRAGS += swevidence.cddl
 COMMON_CDDL_FRAGS += swresults.cddl
+COMMON_CDDL_FRAGS += resultcode.cddl
 COMMON_CDDL_FRAGS += submods.cddl
 COMMON_CDDL_FRAGS += deb.cddl
 
