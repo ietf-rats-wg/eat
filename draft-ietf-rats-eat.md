@@ -1140,6 +1140,8 @@ For example, "Linux kernel" or "Facebook App"
 
 This is a simple enumerated claim with four values to indicate an overall result for the token.
 It is intended to indicate the overall result in an Attestation Results EAT that was produced by a Verifier, but it can be used for another other purpose.
+It may be accompanied by many other claims to form the full Attestation Results.
+Some schemes for Attestation Results might not use it at all.
 
 It has only four values and is not extensible to be as simple as possible to interpret.
 Specific use cases should invent other claims to give more detailed error numbers, error strings and such.
