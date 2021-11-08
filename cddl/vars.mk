@@ -59,6 +59,7 @@ VALIDATION_CBOR_CDDL += cwt-labels.cddl
 VALIDATION_CBOR_CDDL += eat-assigned-labels.cddl
 VALIDATION_CBOR_CDDL += eat-tbd-labels-validate.cddl
 VALIDATION_CBOR_CDDL += cose-stub.cddl
+VALIDATION_CBOR_CDDL += oid-stub.cddl
 
 
 # Make targets that get put in the document

@@ -59,6 +59,7 @@ normative:
   RFC8610:
   RFC8747:
   RFC3986:
+  RFC9090:
       
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
@@ -116,8 +117,6 @@ normative:
     - fullname: M. Jones
     - fullname: B. de Medeiros
     - fullname: C. Mortimore
-
-  CBOR.OID: I-D.ietf-cbor-tags-oid
   
   DLOA:
     target: https://globalplatform.org/wp-content/uploads/2015/12/GPC_DigitalLetterOfApproval_v1.0.pdf
@@ -956,7 +955,7 @@ It may exist anywhere in the OID tree.
 There is no requirement that the named document be publicly accessible.
 The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
 
-The OID is encoded in CBOR according to {{CBOR.OID}} and the URI according to {{RFC8949}}.
+The OID is encoded in CBOR according to {{RFC9090}} and the URI according to {{RFC8949}}.
 Both are unwrapped and thus not tags.
 The OID is always absolute and never relative.
 If the claims CBOR type is a text string it is a URI and if a byte string it is an OID.

@@ -1,0 +1,6 @@
+; This CDDL is copied from RFC 9090. It is here to allow automatic 
+; validation of the CDDl and examples.
+
+oid = #6.111(bstr)
+roid = #6.110(bstr)
+pen = #6.112(bstr)

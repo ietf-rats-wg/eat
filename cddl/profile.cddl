@@ -1,4 +1,1 @@
 $$claims-set-claims //= (profile-label => ~uri / ~oid)
-
-oid = #6.4000(bstr) ; TODO: Replace with CDDL from OID RFC
-
