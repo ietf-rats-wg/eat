@@ -2538,3 +2538,11 @@ no new claims have been added.
 * Expand the examples section
 
 * Add software and version claims as easy / JSON alternative to CoSWID
+
+
+## From draft-ietf-rats-eat-11
+
+* Add the result code claim
+
+* Change reference for CBOR OID draft to RFC 9090
+
