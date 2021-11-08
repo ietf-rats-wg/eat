@@ -650,8 +650,21 @@ The hardware version can also be given by a 13-digit {{EAN-13}}.
 A new CoSWID version scheme is registered with IANA by this document in {{registerversionscheme}}.
 An EAN-13 is also known as an International Article Number or most commonly as a bar code.
 
+
 ~~~~CDDL
 {::include cddl/hardware-version.cddl}
+~~~~
+
+## Hardware OEM Class Claim (hardware-class-claim)
+
+This claim value is set by the hardware OEM vendor to indicate the specific hardware model.
+It is useful for determining software compatibility with the hardware.
+
+There is no global scheme or format for this claim.
+Each hardware OEM vendor uses it as they see fit.
+
+~~~~CDDL
+{::include cddl/hardware-class.cddl}
 ~~~~
 
 
@@ -2515,3 +2528,10 @@ no new claims have been added.
 * Expand the examples section
 
 * Add software and version claims as easy / JSON alternative to CoSWID
+
+
+## From draft-ietf-rats-eat-11
+
+* Add HW Class claim
+
+
