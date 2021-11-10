@@ -1,0 +1,17 @@
+$$claims-set-claims //= (resultcode-label => resultcode-type)
+
+resultcode-type = resultcode-cbor-type / resultcode-json-type
+
+resultcode-cbor-type = &(
+    result-success: 0,
+    result-fail: 1,
+    result-malfunction: 2,
+    result-input-type: 3
+)
+
+resultcode-json-type = 
+    "success" /
+    "fail" /
+    "malfunction" /
+    "input-type"
+
