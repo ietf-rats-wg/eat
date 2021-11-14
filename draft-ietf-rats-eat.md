@@ -638,6 +638,32 @@ It is encoded as a number in JSON.
 ~~~~
 
 
+## Hardware OEM Class Claim (hardware-class-claim)
+
+This claim differentiates between different hardware models, products and variants manufactured by a particular OEM.
+The OEM is identified by OEM ID in {{oemid}}.
+
+This claim must be unique so as to differentiate the models and products for the OEM. 
+This claim does not have to be globally unique, but it can be.
+A receiver of this claim MUST not assume it is globally unique.
+To globally identify a particular product, the receiver should concatenate the OEM ID and this claim.
+
+The purpose of this claim is to identify models and products for use by protocols, not for human-readable descriptions.
+The format and encoding of this claim should not be human-readable to discourage use other than in protocols.
+If this claim is to be derived from an already-in-use human-readable identifier, it can be run through a hash function to make it not human-readable.
+
+There is no minimum length so that an OEM with a very small number of products can use a one-byte encoding.
+The maximum length is 32 bytes.
+All receivers of this claim MUST be able to receive this maximum size.
+
+The receiver of this claim MUST treat this as a completely opaque string of bytes (the same as UEID), even if there is some apparent naming or structure.
+The OEM is free to change the internal structure of these bytes for new products as long as the claim continues to uniquely identify the model, product or variant.
+
+~~~~CDDL
+{::include cddl/hardware-class.cddl}
+~~~~
+
+
 ## Hardware Version Claims (hardware-version-claims)
 
 The hardware version can be claimed at three different levels, the chip, the circuit board and the final device assembly.
@@ -653,18 +679,6 @@ An EAN-13 is also known as an International Article Number or most commonly as a
 
 ~~~~CDDL
 {::include cddl/hardware-version.cddl}
-~~~~
-
-## Hardware OEM Class Claim (hardware-class-claim)
-
-This claim value is set by the hardware OEM vendor to indicate the specific hardware model.
-It is useful for determining software compatibility with the hardware.
-
-There is no global scheme or format for this claim.
-Each hardware OEM vendor uses it as they see fit.
-
-~~~~CDDL
-{::include cddl/hardware-class.cddl}
 ~~~~
 
 
