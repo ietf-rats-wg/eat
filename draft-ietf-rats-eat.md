@@ -643,10 +643,15 @@ It is encoded as a number in JSON.
 This claim differentiates between different hardware models, products and variants manufactured by a particular OEM.
 The OEM is identified by OEM ID in {{oemid}}.
 
-This claim must be unique so as to differentiate the models and products for the OEM. 
+This claim must be unique so as to differentiate the models and products for the OEM ID. 
 This claim does not have to be globally unique, but it can be.
 A receiver of this claim MUST not assume it is globally unique.
 To globally identify a particular product, the receiver should concatenate the OEM ID and this claim.
+
+The granularity of the model, product or variant identification is for each OEM to decide.
+It may be very granular, perhaps including some version information.
+It may be very general, perhaps only indicating top-level products.
+An EAT profile may be more specific about what it should differentiate.
 
 The purpose of this claim is to identify models and products for use by protocols, not for human-readable descriptions.
 The format and encoding of this claim should not be human-readable to discourage use other than in protocols.
@@ -656,7 +661,7 @@ There is no minimum length so that an OEM with a very small number of products c
 The maximum length is 32 bytes.
 All receivers of this claim MUST be able to receive this maximum size.
 
-The receiver of this claim MUST treat this as a completely opaque string of bytes (the same as UEID), even if there is some apparent naming or structure.
+The receiver of this claim MUST treat this as a completely opaque string of bytes, even if there is some apparent naming or structure.
 The OEM is free to change the internal structure of these bytes for new products as long as the claim continues to uniquely identify the model, product or variant.
 
 ~~~~CDDL
