@@ -2580,4 +2580,5 @@ no new claims have been added.
 
 * Change reference for CBOR OID draft to RFC 9090
 
+* Correct the iat claim in some examples
 

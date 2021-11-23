@@ -6,5 +6,5 @@
     / HW Class /        39: h'881cf5f243fbef3336bbd22547dddefc',
     / secure-boot /     15: true,
     / debug-disable /   16: 3, / permanent-disable /
-    / timestamp (iat) /  6: 1(1526542894)
+    / timestamp (iat) /  6: 1526542894
 }
