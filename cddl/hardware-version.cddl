@@ -1,13 +1,5 @@
 $$claims-set-claims //=  (
-    chip-version-label => hw-version-type
-)
-
-$$claims-set-claims //=  (
-    board-version-label => hw-version-type
-)
-
-$$claims-set-claims //=  (
-    device-version-label => hw-version-type
+    hw-version-label => hw-version-type
 )
 
 hw-version-type = [

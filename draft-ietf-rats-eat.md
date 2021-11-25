@@ -638,10 +638,7 @@ It is encoded as a number in JSON.
 ~~~~
 
 
-## Hardware Version Claims (hardware-version-claims)
-
-The hardware version can be claimed at three different levels, the chip, the circuit board and the final device assembly.
-An EAT can include any combination these claims.
+## Hardware Version Claim (hardware-version-claim)
 
 The hardware version is a simple text string the format of which is set by each manufacturer.
 The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
@@ -2091,6 +2088,12 @@ This is a simple attestation of a TEE that includes a manifest that is a payload
 
 ~~~~
 {::include cddl/examples/coswid/tee-coswid.diag}
+~~~~
+
+## Submodules for Board and Device
+
+~~~~
+{::include cddl/examples/valid_submods.diag}
 ~~~~
 
 

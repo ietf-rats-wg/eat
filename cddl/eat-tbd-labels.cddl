@@ -3,9 +3,7 @@
 ; single-byte labels.
 
 sueids-label = <TBD25>
-chip-version-label = <TBD26>
-board-version-label = <TBD27>
-device-version-label = <TBD28>
+hw-version-label = <TBD26>
 sw-name-label = <TBD29>
 sw-version-label = <TBD30>
 uptime-label = <TBD31>
