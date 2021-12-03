@@ -20,7 +20,6 @@ dloas-label /= "dloas"
 swresults-label /= "swresults"
 sw-name-label /= "swname"
 sw-version-label /= "swversion"
-resultcode-label /= "result"
 
 latitude /= "lat"
 longitude /= "long"

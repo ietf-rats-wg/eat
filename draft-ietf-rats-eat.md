@@ -1135,28 +1135,6 @@ For example, "Linux kernel" or "Facebook App"
 ~~~~
 
 
-## Result Code
-
-This is a simple enumerated claim with four values to indicate an overall result for the token.
-It is intended to indicate the overall result in an Attestation Results EAT that was produced by a Verifier, but it can be used for another other purpose.
-It may be accompanied by many other claims to form the full Attestation Results.
-Some schemes for Attestation Results might not use it at all.
-
-It has only four values and is not extensible to be as simple as possible to interpret.
-Specific use cases should invent other claims to give more detailed error numbers, error strings and such.
-
-| Result | Value | Description |
-| Success | 0 | The input was fully and successfully processed against the required rules and policies. |
-| Failure | 1 | The input was processed at least partially and found not to mean the required rules and policies. |
-| Malfunction | 2 | The input was not processed because the Verifier itself failed. Trying again later when the Verifier is fixed or not overloaded may be useful. |
-| Input Type | 3 | The input is of the wrong type for the Verifier. It is not useful to try again with the same input.
-
-~~~~CDDL
-{::include cddl/resultcode.cddl}
-~~~~
-
-
-
 ## Submodules (submods)
 
 Some devices are complex, having many subsystems.  A
@@ -2541,8 +2519,6 @@ no new claims have been added.
 
 
 ## From draft-ietf-rats-eat-11
-
-* Add the result code claim
 
 * Change reference for CBOR OID draft to RFC 9090
 
