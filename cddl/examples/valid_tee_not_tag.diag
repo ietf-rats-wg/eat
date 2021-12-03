@@ -5,7 +5,7 @@
     / security-level /  14: 3, / secure-restricted /
     / secure-boot /     15: true,
     / debug-status /    16: 2, / disabled-since-boot /
-    / manfests /        43: [
+    / manfests /        35: [
                                / This is byte-string wrapped payload CoSWID. It   /
 			       / gives the TEE software name, the version and the /
 			       / name of the file it is in./
