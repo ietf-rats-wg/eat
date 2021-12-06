@@ -2564,3 +2564,4 @@ no new claims have been added.
 
 * Correct the iat claim in some examples
 
+* Make HW Version just one claim rather than 3 (device, board and chip)
