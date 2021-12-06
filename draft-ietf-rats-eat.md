@@ -2103,6 +2103,12 @@ This is a simple attestation of a TEE that includes a manifest that is a payload
 {::include cddl/examples/coswid/tee-coswid.diag}
 ~~~~
 
+## Submodules for Board and Device
+
+~~~~
+{::include cddl/examples/valid_submods.diag}
+~~~~
+
 
 ## EAT Produced by Attestation Hardware Block
 

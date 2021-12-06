@@ -6,9 +6,7 @@
 ; in the document. The file eat-tbd-labels.cddl is for the document.
 
 sueids-label = 25
-chip-version-label = 26
-board-version-label = 27
-device-version-label = 28
+hw-version-label = 26
 sw-name-label = 29
 sw-version-label = 30
 uptime-label = 31
