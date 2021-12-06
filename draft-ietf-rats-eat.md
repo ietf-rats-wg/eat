@@ -638,7 +638,41 @@ It is encoded as a number in JSON.
 ~~~~
 
 
-## Hardware Version Claim (hardware-version-claim)
+## Hardware OEM Class Claim (hardware-class-claim)
+
+This claim differentiates between different hardware models, products and variants manufactured by a particular OEM.
+The OEM is identified by OEM ID in {{oemid}}.
+
+This claim must be unique so as to differentiate the models and products for the OEM ID. 
+This claim does not have to be globally unique, but it can be.
+A receiver of this claim MUST not assume it is globally unique.
+To globally identify a particular product, the receiver should concatenate the OEM ID and this claim.
+
+The granularity of the model, product or variant identification is for each OEM to decide.
+It may be very granular, perhaps including some version information.
+It may be very general, perhaps only indicating top-level products.
+An EAT profile may be more specific about what it should differentiate.
+
+The purpose of this claim is to identify models and products for use by protocols, not for human-readable descriptions.
+The format and encoding of this claim should not be human-readable to discourage use other than in protocols.
+If this claim is to be derived from an already-in-use human-readable identifier, it can be run through a hash function to make it not human-readable.
+
+There is no minimum length so that an OEM with a very small number of products can use a one-byte encoding.
+The maximum length is 32 bytes.
+All receivers of this claim MUST be able to receive this maximum size.
+
+The receiver of this claim MUST treat this as a completely opaque string of bytes, even if there is some apparent naming or structure.
+The OEM is free to change the internal structure of these bytes for new products as long as the claim continues to uniquely identify the model, product or variant.
+
+~~~~CDDL
+{::include cddl/hardware-class.cddl}
+~~~~
+
+
+## Hardware Version Claims (hardware-version-claims)
+
+The hardware version can be claimed at three different levels, the chip, the circuit board and the final device assembly.
+An EAT can include any combination these claims.
 
 The hardware version is a simple text string the format of which is set by each manufacturer.
 The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
@@ -646,6 +680,7 @@ The structure and sorting order of this text string can be specified using the v
 The hardware version can also be given by a 13-digit {{EAN-13}}.
 A new CoSWID version scheme is registered with IANA by this document in {{registerversionscheme}}.
 An EAN-13 is also known as an International Article Number or most commonly as a bar code.
+
 
 ~~~~CDDL
 {::include cddl/hardware-version.cddl}
@@ -1130,28 +1165,6 @@ For example, "Linux kernel" or "Facebook App"
 ~~~~CDDL
 {::include cddl/swresults.cddl}
 ~~~~
-
-
-## Result Code
-
-This is a simple enumerated claim with four values to indicate an overall result for the token.
-It is intended to indicate the overall result in an Attestation Results EAT that was produced by a Verifier, but it can be used for another other purpose.
-It may be accompanied by many other claims to form the full Attestation Results.
-Some schemes for Attestation Results might not use it at all.
-
-It has only four values and is not extensible to be as simple as possible to interpret.
-Specific use cases should invent other claims to give more detailed error numbers, error strings and such.
-
-| Result | Value | Description |
-| Success | 0 | The input was fully and successfully processed against the required rules and policies. |
-| Failure | 1 | The input was processed at least partially and found not to mean the required rules and policies. |
-| Malfunction | 2 | The input was not processed because the Verifier itself failed. Trying again later when the Verifier is fixed or not overloaded may be useful. |
-| Input Type | 3 | The input is of the wrong type for the Verifier. It is not useful to try again with the same input.
-
-~~~~CDDL
-{::include cddl/resultcode.cddl}
-~~~~
-
 
 
 ## Submodules (submods)
@@ -2545,8 +2558,9 @@ no new claims have been added.
 
 ## From draft-ietf-rats-eat-11
 
-* Add the result code claim
+* Add HW Class claim
 
 * Change reference for CBOR OID draft to RFC 9090
 
 * Correct the iat claim in some examples
+

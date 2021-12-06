@@ -8,6 +8,7 @@ COMMON_CDDL_FRAGS += ueid.cddl
 COMMON_CDDL_FRAGS += sueids.cddl
 COMMON_CDDL_FRAGS += oemid.cddl
 COMMON_CDDL_FRAGS += hardware-version.cddl
+COMMON_CDDL_FRAGS += hardware-class.cddl
 COMMON_CDDL_FRAGS += software-name.cddl
 COMMON_CDDL_FRAGS += security-level.cddl
 COMMON_CDDL_FRAGS += secure-boot.cddl
@@ -21,7 +22,6 @@ COMMON_CDDL_FRAGS += profile.cddl
 COMMON_CDDL_FRAGS += manifests.cddl
 COMMON_CDDL_FRAGS += swevidence.cddl
 COMMON_CDDL_FRAGS += swresults.cddl
-COMMON_CDDL_FRAGS += resultcode.cddl
 COMMON_CDDL_FRAGS += submods.cddl
 COMMON_CDDL_FRAGS += deb.cddl
 
