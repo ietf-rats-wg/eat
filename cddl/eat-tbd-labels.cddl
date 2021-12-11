@@ -3,9 +3,7 @@
 ; single-byte labels.
 
 sueids-label = <TBD25>
-chip-version-label = <TBD26>
-board-version-label = <TBD27>
-device-version-label = <TBD28>
+hw-version-label = <TBD26>
 sw-name-label = <TBD29>
 sw-version-label = <TBD30>
 uptime-label = <TBD31>
@@ -15,3 +13,4 @@ dloas-label = <TBD34>
 manifests-label = <TBD35>
 swevidence-label = <TBD36>
 swresults-label = <TBD37>
+hardware-class-label = <TBD39>
