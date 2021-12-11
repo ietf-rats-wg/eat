@@ -12,4 +12,3 @@ $$manifest-formats /= bytes .cbor coswid-that-is-a-cbor-tag-xx
 
 ; TODO: make this work too
 ;$$manifest-formats /= bytes .cbor SUIT_Envelope_Tagged
-

@@ -478,7 +478,7 @@ Multiple nonces are allowed to accommodate multistage verification
 and consumption.
 
 ~~~~CDDL
-{::include cddl/nonce.cddl}
+{::include nc-cddl/nonce.cddl}
 ~~~~
 
 ## Universal Entity ID Claim (ueid) {#UEID}
@@ -547,7 +547,7 @@ this are:
 A Device Indentifier URN is registered for UEIDs. See {{registerueidurn}}.
   
 ~~~~CDDL
-{::include cddl/ueid.cddl}
+{::include nc-cddl/ueid.cddl}
 ~~~~
 
 
@@ -570,7 +570,7 @@ There are privacy considerations for SUEID's. See {{ueidprivacyconsiderations}}.
 A Device Indentifier URN is registered for SUEIDs. See {{registerueidurn}}.
 
 ~~~~CDDL
-{::include cddl/sueids.cddl}
+{::include nc-cddl/sueids.cddl}
 ~~~~
 
 
@@ -634,7 +634,7 @@ In CBOR this is encoded as a major type 0 integer in CBOR and is typically 3 byt
 It is encoded as a number in JSON.
 
 ~~~~CDDL
-{::include cddl/oemid.cddl}
+{::include nc-cddl/oemid.cddl}
 ~~~~
 
 
@@ -651,7 +651,7 @@ A new CoSWID version scheme is registered with IANA by this document in {{regist
 An EAN-13 is also known as an International Article Number or most commonly as a bar code.
 
 ~~~~CDDL
-{::include cddl/hardware-version.cddl}
+{::include nc-cddl/hardware-version.cddl}
 ~~~~
 
 
@@ -661,7 +661,7 @@ This is a simple free-form text claim for the name of the software.
 A CoSWID manifest or other type of manifest can be used instead if this is too simple.
 
 ~~~~CDDL
-{::include cddl/software-name.cddl}
+{::include nc-cddl/software-name.cddl}
 ~~~~
 
 
@@ -671,7 +671,7 @@ This makes use of the CoSWID version scheme data type to give a simple version f
 A full CoSWID manifest or other type of manifest can be instead if this is too simple.
 
 ~~~~CDDL
-{::include cddl/software-version.cddl}
+{::include nc-cddl/software-version.cddl}
 ~~~~
 
 
@@ -726,7 +726,7 @@ or those based on Common Criteria {{Common.Criteria}}. The
 claim made here is solely a self-claim made by the Attester.
 
 ~~~~CDDL
-{::include cddl/security-level.cddl}
+{::include nc-cddl/security-level.cddl}
 ~~~~
 
 ## Secure Boot Claim (secure-boot)
@@ -739,7 +739,7 @@ in ROM or because it is cryptographically authenticated or some
 combination of the two or other.
 
 ~~~~CDDL
-{::include cddl/secure-boot.cddl}
+{::include nc-cddl/secure-boot.cddl}
 ~~~~
 
 ## Debug Status Claim (debug-status)
@@ -824,7 +824,7 @@ This level indicates that all debug capabilities for the target
 device/sub-module are permanently disabled.
 
 ~~~~CDDL
-{::include cddl/debug-status.cddl}
+{::include nc-cddl/debug-status.cddl}
 ~~~~
 
 ## Including Keys
@@ -884,7 +884,7 @@ data and token creation.
 See location-related privacy considerations in {{locationprivacyconsiderations}} below.
 
 ~~~~CDDL
-{::include cddl/location.cddl}
+{::include nc-cddl/location.cddl}
 ~~~~
 
 ## The Uptime Claim (uptime)
@@ -893,7 +893,7 @@ The "uptime" claim contains a value that represents the number of
 seconds that have elapsed since the entity or submod was last booted.
 
 ~~~~CDDL
-{::include cddl/uptime.cddl}
+{::include nc-cddl/uptime.cddl}
 ~~~~
 
 ## The Boot Seed Claim (boot-seed)
@@ -903,7 +903,7 @@ This value is usually public and not protected.
 It is not the same as a seed for a random number generator which must be kept secret.
 
 ~~~~CDDL
-{::include cddl/boot-seed.cddl}
+{::include nc-cddl/boot-seed.cddl}
 ~~~~
 
 ## The Intended Use Claim (intended-use)
@@ -940,7 +940,7 @@ of a key.  This kind of attestation may be neceesary to verify the
 security state of the entity storing the private key used in a PoP application.
 
 ~~~~CDDL
-{::include cddl/intended-use.cddl}
+{::include nc-cddl/intended-use.cddl}
 ~~~~
 
 
@@ -963,7 +963,7 @@ If the claims CBOR type is a text string it is a URI and if a byte string it is 
 Note that this named "eat_profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
 
 ~~~~CDDL
-{::include cddl/profile.cddl}
+{::include nc-cddl/profile.cddl}
 ~~~~
 
 
@@ -992,7 +992,7 @@ In that case it has the URI for the registrar, a platform label and additionally
 The method of combining the registrar URI, platform label and possibly application label is specified in {{DLOA}}.
 
 ~~~~CDDL
-{::include cddl/dloas.cddl}
+{::include nc-cddl/dloas.cddl}
 ~~~~
 
 
@@ -1040,7 +1040,7 @@ In some cases EAT submodules may be used instead of the array structure in this 
 When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
 
 ~~~~CDDL
-{::include cddl/manifests.cddl}
+{::include nc-cddl/manifests.cddl}
 ~~~~
 
 ## The Software Evidence Claim (swevidence) {#swevidence}
@@ -1058,7 +1058,7 @@ See the discussion above in the manifests claim.
 When the {{CoSWID}} format is used, it MUST be evidence CoSWIDs, not payload CoSWIDS.
 
 ~~~~CDDL
-{::include cddl/swevidence.cddl}
+{::include nc-cddl/swevidence.cddl}
 ~~~~
 
 ## The SW Measurement Results Claim (swresults) {#swresults}
@@ -1131,7 +1131,7 @@ For example, "Linux kernel" or "Facebook App"
 
 
 ~~~~CDDL
-{::include cddl/swresults.cddl}
+{::include nc-cddl/swresults.cddl}
 ~~~~
 
 
@@ -1212,7 +1212,7 @@ That JSON is the exactly the JSON described in the next section with one excepti
 The token can't be CBOR-encoded.
 
 ~~~~CDDL
-{::include cddl/cbor-nested-token.cddl}
+{::include nc-cddl/cbor-nested-token.cddl}
 ~~~~
 
 
@@ -1233,7 +1233,7 @@ The first is a string that indicates the type of the second item as follows:
 : A JSON-encoded Detached EAT Bundle.
 
 ~~~~CDDL
-{::include cddl/json-nested-token.cddl}
+{::include nc-cddl/json-nested-token.cddl}
 ~~~~
 
 
@@ -1302,7 +1302,7 @@ string naming the submodule. No submodules may have the same name.
 ### CDDL for submods
 
 ~~~~CDDL
-{::include cddl/submods.cddl}
+{::include nc-cddl/submods.cddl}
 ~~~~
 
 
@@ -1351,7 +1351,7 @@ It is up to the constructor of the detached EAT bundle to ensure the names uniqu
 Since the names are used only in the detached EAT bundle, they can be very short, perhaps one byte.
 
 ~~~~CDDL
-{::include cddl/deb.cddl}
+{::include nc-cddl/deb.cddl}
 ~~~~
 
 
@@ -1610,7 +1610,7 @@ Unless expliclity indicated, URIs are not the URI tag defined in {{RFC8949}}.
 They are just text strings that contain a URI.
 
 ~~~~CDDL
-{::include cddl/common-types.cddl}
+{::include nc-cddl/common-types.cddl}
 ~~~~
 
 ### JSON Interoperability {#jsoninterop}
@@ -1673,21 +1673,21 @@ The EAT encoder must not send duplicate map keys/labels or invalid UTF-8 strings
 ## Collected Common CDDL
 
 ~~~~JSON
-{::include cddl/common.cddl}
+{::include nc-cddl/common.cddl}
 ~~~~
 
 
 ## Collected CDDL for CBOR
 
 ~~~~CDDL
-{::include cddl/cbor.cddl}
+{::include nc-cddl/cbor.cddl}
 ~~~~
 
 
 ## Collected CDDL for JSON
 
 ~~~~JSON
-{::include cddl/json.cddl}
+{::include nc-cddl/json.cddl}
 ~~~~
 
 
