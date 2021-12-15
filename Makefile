@@ -3,7 +3,7 @@ SHELL := /bin/bash
 # Rule to build CDDL files without CDDL comments
 nc-cddl/%.cddl: cddl/%.cddl
 	mkdir -p nc-cddl
-	grep -v '^;' $< | cat -s > $@
+	sed 's/;.*//' $< | cat -s > $@
 
 LIBDIR := lib
 include $(LIBDIR)/main.mk
