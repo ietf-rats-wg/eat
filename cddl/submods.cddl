@@ -35,5 +35,3 @@ Detached-Submodule-Digest = [
    algorithm : int / text,
    digest : bstr 
 ]
-
-

@@ -1,5 +1,5 @@
 
-# CDDL that is common to CBOR and JSON
+# Files with CDDL fragments that are common to CBOR and JSON
 COMMON_CDDL_FRAGS := claims-set.cddl
 COMMON_CDDL_FRAGS += common-types.cddl
 COMMON_CDDL_FRAGS += web-token-claims.cddl
@@ -10,6 +10,7 @@ COMMON_CDDL_FRAGS += oemid.cddl
 COMMON_CDDL_FRAGS += hardware-version.cddl
 COMMON_CDDL_FRAGS += hardware-class.cddl
 COMMON_CDDL_FRAGS += software-name.cddl
+COMMON_CDDL_FRAGS += software-version.cddl
 COMMON_CDDL_FRAGS += security-level.cddl
 COMMON_CDDL_FRAGS += secure-boot.cddl
 COMMON_CDDL_FRAGS += debug-status.cddl
@@ -26,8 +27,7 @@ COMMON_CDDL_FRAGS += submods.cddl
 COMMON_CDDL_FRAGS += deb.cddl
 
 
-
-# CDDL that is for CBOR only
+# CDDL files that are for CBOR only
 CBOR_CDDL_FRAGS := cbor-token.cddl
 CBOR_CDDL_FRAGS += cbor-nested-token.cddl
 CBOR_CDDL_FRAGS += cwt-labels.cddl
@@ -35,8 +35,7 @@ CBOR_CDDL_FRAGS += eat-assigned-labels.cddl
 CBOR_CDDL_FRAGS += eat-tbd-labels.cddl
 
 
-
-# CDDL that is for JSON only
+# CDDL files that are for JSON only
 JSON_CDDL_FRAGS := json-token.cddl
 JSON_CDDL_FRAGS += json-nested-token.cddl
 JSON_CDDL_FRAGS += jwt-labels.cddl
@@ -62,11 +61,6 @@ VALIDATION_CBOR_CDDL += eat-tbd-labels-validate.cddl
 VALIDATION_CBOR_CDDL += cose-stub.cddl
 VALIDATION_CBOR_CDDL += oid-stub.cddl
 
-
-# Make targets that get put in the document
-COMMON_CDDL_FOR_DOCUMENT := common.cddl
-CBOR_CDDL_FOR_DOCUMENT := cbor.cddl
-JSON_CDDL_FOR_DOCUMENT := json.cddl
 
 # Make targets that are used for validation
 CDDL_FOR_CBOR_VALIDATION = cbor-for-validation.cddl

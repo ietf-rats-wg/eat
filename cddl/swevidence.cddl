@@ -8,5 +8,3 @@ swevidence-type = [+ $$swevidence-formats]
 ; TODO: fix the CDDL so a signed CoSWID is allowed too 
 coswid-that-is-a-cbor-tag = tagged-coswid<concise-swid-tag>
 $$swevidence-formats /= bytes .cbor coswid-that-is-a-cbor-tag 
-
-

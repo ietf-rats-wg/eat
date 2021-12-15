@@ -4,5 +4,3 @@ sw-version-type = [
     version:  tstr,
     scheme:  $version-scheme / As defined by CoSWID /
 ]
-
-

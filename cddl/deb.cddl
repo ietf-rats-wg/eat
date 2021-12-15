@@ -14,5 +14,3 @@ json-wrapped-claims-set = tstr .regexp "[A-Za-z0-9_=-]+"
 
 
 cbor-wrapped-claims-set = bstr .cbor Claims-Set
-
-
