@@ -21,4 +21,3 @@ heading = 6 / "heading"
 speed = 7 / "speed"
 timestamp = 8 / "timestamp"
 age = 9 / "age"
-

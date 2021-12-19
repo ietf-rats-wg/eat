@@ -2,4 +2,3 @@ $$claims-set-claims //=
     (nonce-label => nonce-type / [ 2* nonce-type ])
 
 nonce-type = bstr .size (8..64)
-

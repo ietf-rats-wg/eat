@@ -7,5 +7,3 @@ dloa-type = [
     dloa_platform_label: text 
     ? dloa_application_label: text
 ]
-
-
