@@ -638,7 +638,7 @@ It is encoded as a number in JSON.
 ~~~~
 
 
-## Hardware OEM Class Claim (hardware-class-claim)
+## Hardware Model Claim (hardware-model-claim)
 
 This claim differentiates between different hardware models, products and variants manufactured by a particular OEM.
 The OEM is identified by OEM ID in {{oemid}}.
@@ -665,7 +665,7 @@ The receiver of this claim MUST treat this as a completely opaque string of byte
 The OEM is free to change the internal structure of these bytes for new products as long as the claim continues to uniquely identify the model, product or variant.
 
 ~~~~CDDL
-{::include cddl/hardware-class.cddl}
+{::include cddl/hardware-model.cddl}
 ~~~~
 
 
@@ -2558,7 +2558,7 @@ no new claims have been added.
 
 ## From draft-ietf-rats-eat-11
 
-* Add HW Class claim
+* Add HW model claim
 
 * Change reference for CBOR OID draft to RFC 9090
 
