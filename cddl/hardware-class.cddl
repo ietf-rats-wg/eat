@@ -1,3 +1,0 @@
-hardware-class-type = bytes .size (1..32)
-
-$$claims-set-claims //= (hardware-class-label => hardware-class-type)

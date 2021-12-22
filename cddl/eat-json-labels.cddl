@@ -20,7 +20,7 @@ dloas-label /= "dloas"
 swresults-label /= "swresults"
 sw-name-label /= "swname"
 sw-version-label /= "swversion"
-hardware-class-label /= "hwclass"
+hardware-model-label /= "hwmodel"
 
 latitude /= "lat"
 longitude /= "long"

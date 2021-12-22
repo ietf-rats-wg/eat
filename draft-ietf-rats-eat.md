@@ -638,34 +638,32 @@ It is encoded as a number in JSON.
 ~~~~
 
 
-## Hardware OEM Class Claim (hardware-class-claim)
+## Hardware Model Claim (hardware-model)
 
-This claim differentiates between different hardware models, products and variants manufactured by a particular OEM.
-The OEM is identified by OEM ID in {{oemid}}.
+This claim differentiates hardware models, products and variants manufactured by a particular OEM, the one identified by OEM ID in {{oemid}}.
 
 This claim must be unique so as to differentiate the models and products for the OEM ID. 
 This claim does not have to be globally unique, but it can be.
 A receiver of this claim MUST not assume it is globally unique.
 To globally identify a particular product, the receiver should concatenate the OEM ID and this claim.
 
-The granularity of the model, product or variant identification is for each OEM to decide.
+The granularity of the model identification is for each OEM to decide.
 It may be very granular, perhaps including some version information.
 It may be very general, perhaps only indicating top-level products.
-An EAT profile may be more specific about what it should differentiate.
 
-The purpose of this claim is to identify models and products for use by protocols, not for human-readable descriptions.
+The purpose of this claim is to identify models within protocols, not for human-readable descriptions.
 The format and encoding of this claim should not be human-readable to discourage use other than in protocols.
-If this claim is to be derived from an already-in-use human-readable identifier, it can be run through a hash function to make it not human-readable.
+If this claim is to be derived from an already-in-use human-readable identifier, it can be run through a hash function.
 
-There is no minimum length so that an OEM with a very small number of products can use a one-byte encoding.
+There is no minimum length so that an OEM with a very small number of models can use a one-byte encoding.
 The maximum length is 32 bytes.
 All receivers of this claim MUST be able to receive this maximum size.
 
-The receiver of this claim MUST treat this as a completely opaque string of bytes, even if there is some apparent naming or structure.
-The OEM is free to change the internal structure of these bytes for new products as long as the claim continues to uniquely identify the model, product or variant.
+The receiver of this claim MUST treat it as a completely opaque string of bytes, even if there is some apparent naming or structure.
+The OEM is free to alter the internal structure of these bytes as long as the claim continues to uniquely identify its models.
 
 ~~~~CDDL
-{::include cddl/hardware-class.cddl}
+{::include cddl/hardware-model.cddl}
 ~~~~
 
 
@@ -2558,7 +2556,7 @@ no new claims have been added.
 
 ## From draft-ietf-rats-eat-11
 
-* Add HW Class claim
+* Add HW model claim
 
 * Change reference for CBOR OID draft to RFC 9090
 
