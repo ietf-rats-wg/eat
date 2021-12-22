@@ -1,0 +1,9 @@
+; TODO: rename this to hardware-class-label once the other claim of this name is renamed to hardware-model-label
+
+hardware-class-bstr-type = bstr .size 16
+
+$$claims-set-claims //= (
+    hardware-class2-label => ~uri /
+                             ~oid /
+                              hardware-class-bstr-type
+)
