@@ -21,6 +21,7 @@ swresults-label /= "swresults"
 sw-name-label /= "swname"
 sw-version-label /= "swversion"
 hardware-model-label /= "hwmodel"
+hardware-class-label /= "hwclass"
 
 latitude /= "lat"
 longitude /= "long"

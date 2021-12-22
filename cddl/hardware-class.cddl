@@ -1,0 +1,7 @@
+hardware-class-bstr-type = bstr .size 16
+
+$$claims-set-claims //= (
+    hardware-class-label => ~uri /
+                            ~oid /
+                             hardware-class-bstr-type
+)

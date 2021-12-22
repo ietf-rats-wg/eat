@@ -689,7 +689,7 @@ An EAN-13 is also known as an International Article Number or most commonly as a
 ~~~~
 
 
-## Hardware Class Claim (hardware-class2)
+## Hardware Class Claim (hardware-class)
 
 This claim identifies hardware equivalence classes.
 It is a globally unique identifier that applies across hardware OEMs.
@@ -701,7 +701,7 @@ When it is a byte string it should be a one-time generated random number.
 Its global uniqueness is achieved probabilistically.
 
 ~~~~CDDL
-{::include nc-cddl/hardware-class2.cddl}
+{::include nc-cddl/hardware-class.cddl}
 ~~~~
 
 
