@@ -200,7 +200,11 @@ informative:
   COSE.X509.Draft: I-D.ietf-cose-x509
 
   CBOR.Cert.Draft: I-D.ietf-cose-cbor-encoded-cert
-  
+
+  HW-IP:
+    title: Semiconductor intellectual property core
+    target: https://en.wikipedia.org/wiki/Semiconductor_intellectual_property_core
+    date: false  
 
 --- abstract
 
@@ -684,6 +688,22 @@ An EAN-13 is also known as an International Article Number or most commonly as a
 
 ~~~~CDDL
 {::include nc-cddl/hardware-version.cddl}
+~~~~
+
+
+## Hardware Class Claim (hardware-class2)
+
+This claim identifies hardware equivalence classes.
+It is a globally unique identifier that applies across hardware OEMs.
+Its purpose is to identify that some hardware or subsystem is equivalent, even though it is made by different OEMs.
+For example, multiple chip makers might integrate one particular hardware subsystem like a TEE that is supplied by a single hardware designer or hardware “IP” provider {{HW-IP}}.
+
+This claim may be an OID, URI or byte string, 16 bytes in length.
+When it is a byte string it should be a one-time generated random number. 
+Its global uniqueness is achieved probabilistically.
+
+~~~~CDDL
+{::include nc-cddl/hardware-class2.cddl}
 ~~~~
 
 
