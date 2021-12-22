@@ -1,3 +1,5 @@
 hardware-model-type = bytes .size (1..32)
 
-$$claims-set-claims //= (hardware-model-label => hardware-model-type)
+$$claims-set-claims //= (
+    hardware-model-label => hardware-model-type
+)

@@ -19,7 +19,7 @@
     / nonce /           10: h'948f8860d13a463e8e',
     / UEID /            11: h'0198f50a4ff6c05861c8860d13a638ea',
     / HW OEM ID /       13: h'894823', / IEEE OUI format OEM ID /
-    / HW Class ID /     39: h'549dcecc8b987c737b44e40f7c635ce8'
+    / HW Model ID /     39: h'549dcecc8b987c737b44e40f7c635ce8'
                               / Hash of chip model name /,
     / HW Version /      26: ["1.3.4", 1], / Multipartnumeric version /
     / SW Name /         29: "Acme OS",
@@ -32,7 +32,7 @@
         / A submodule to hold some claims about the circuit board /
         "board" :  {
 	    / HW OEM ID /   13: h'9bef8787eba13e2c8f6e7cb4b1f4619a',
-	    / HW Class ID / 39: h'ee80f5a66c1fb9742999a8fdab930893'
+	    / HW Model ID / 39: h'ee80f5a66c1fb9742999a8fdab930893'
 	                              / Hash of board module name /,
 	    / HW Version /  26: ["2.0a", 2] / multipartnumeric+suffix /
         },
