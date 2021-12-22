@@ -16,5 +16,5 @@ dloas-label = 34
 manifests-label = 35
 swevidence-label = 36   
 swresults-label = 37   
-hardware-class2-label = 38
-hardware-class-label = 39
+hardware-class-label = 38
+hardware-model-label = 39
