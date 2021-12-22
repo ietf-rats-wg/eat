@@ -2586,3 +2586,5 @@ no new claims have been added.
 
 * Remove CDDL comments from CDDL blocks
 
+* Add HW class claim
+
