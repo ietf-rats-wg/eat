@@ -696,9 +696,11 @@ It is a globally unique identifier that applies across hardware OEMs.
 Its purpose is to identify that some hardware or subsystem is equivalent, even though it is made by different OEMs.
 For example, multiple chip makers might integrate one particular hardware subsystem like a TEE that is supplied by a single hardware designer or hardware “IP” provider {{HW-IP}}.
 
+Often, a class identifier value will be created and published by the hardware designer for each of their designs.
+
 This claim may be an OID, URI or byte string, 16 bytes in length.
 When it is a byte string it should be a one-time generated random number. 
-Its global uniqueness is achieved probabilistically.
+They byte string's global uniqueness is achieved probabilistically.
 
 ~~~~CDDL
 {::include nc-cddl/hardware-class.cddl}
