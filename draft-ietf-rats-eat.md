@@ -669,9 +669,6 @@ The OEM is free to alter the internal structure of these bytes as long as the cl
 
 ## Hardware Version Claims (hardware-version-claims)
 
-The hardware version can be claimed at three different levels, the chip, the circuit board and the final device assembly.
-An EAT can include any combination these claims.
-
 The hardware version is a simple text string the format of which is set by each manufacturer.
 The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
 
