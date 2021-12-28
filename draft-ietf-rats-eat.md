@@ -249,7 +249,7 @@ Here "entity" never refers to a person or organization.
 
 An entity is never a server or a service.
 
-An entity roughly corresponds to an Attester as defined in RATS Architecture.
+An entity corresponds to an Attester as defined in RATS Architecture.
 
 An entity may be the whole device or it may be a subsystem, a subsystem of a subsystem and so on.
 EAT allows claims to be organized into submodules {{submods}}, nested EATs and so on.
