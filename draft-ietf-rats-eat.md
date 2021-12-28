@@ -243,9 +243,9 @@ The claims defined in this document are claims about an entity.
 
 An entity is an implementation in hardware, software or both.
 
-An entity is the same as an Attester as defined in RATS Architecture.
+An entity is the same as the Attester Target Environment defined in RATS Architecture.
 
-An entity corresponds to a "system component" as defined in the Internet Security Glossary {{RFC4949}}.
+An entity also corresponds to a "system component" as defined in the Internet Security Glossary {{RFC4949}}.
 That glossary also defines "entity" and "system entity" as something that may be a person or organization as well as a system component.
 Here "entity" never refers to a person or organization.
 
