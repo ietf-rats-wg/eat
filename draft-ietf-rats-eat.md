@@ -700,7 +700,7 @@ Often, a class identifier value will be created and published by the hardware de
 
 This claim may be an OID, URI or byte string, 16 bytes in length.
 When it is a byte string it should be a one-time generated random number. 
-They byte string's global uniqueness is achieved probabilistically.
+The byte string's global uniqueness is achieved probabilistically.
 
 ~~~~CDDL
 {::include nc-cddl/hardware-class.cddl}
