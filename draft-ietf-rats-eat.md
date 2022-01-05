@@ -204,9 +204,9 @@ informative:
 
 --- abstract
 
-An Entity Attestation Token (EAT) provides an attested set of
-claims that describe state and characteristics of an entity,
-a device like a phone, IoT device, network equipment or such.  These claims are used by a
+An Entity Attestation Token (EAT) provides an attested claims set
+that describes state and characteristics of an entity,
+a device like a phone, IoT device, network equipment or such.  This claims set is used by a
 Relying Party to determine how much it wishes to trust the entity.
 
 An EAT is either a CBOR Web Token (CWT) or JSON Web Token (JWT) with attestation-oriented 
@@ -218,11 +218,11 @@ CWT and JWT.
 
 # Introduction
 
-Remote device attestation is a fundamental service that allows a remote
-device such as a mobile phone, an Internet-of-Things (IoT) device, or
+Remote entity attestation is a fundamental service that allows a remote
+entity such as a mobile phone, an Internet-of-Things (IoT) device, or
 other endpoint to prove itself to a Relying Party, a server or a
 service.  This allows the Relying Party to know some characteristics
-about the device and decide whether it trusts the device.
+about the entity and decide if and how it will interact with it.
 
 The notion of attestation here is large and may include, but is not limited to the following:
 
@@ -236,10 +236,44 @@ The notion of attestation here is large and may include, but is not limited to t
 This document uses the terminology and main operational model defined in [RATS.architecture].
 In particular it is a format that can be used for Attestation Evidence or Attestation Results as defined in the RATS architecture.
 
+## Entity Overview
+
+The document uses the term "entity" to refer to the target of the attestation token.
+The claims defined in this document are claims about an entity.
+
+An entity is an implementation in hardware, software or both.
+
+An entity is the same as the Attester Target Environment defined in RATS Architecture.
+
+An entity also corresponds to a "system component" as defined in the Internet Security Glossary {{RFC4949}}.
+That glossary also defines "entity" and "system entity" as something that may be a person or organization as well as a system component.
+Here "entity" never refers to a person or organization.
+
+An entity is never a server or a service.
+
+An entity may be the whole device or it may be a subsystem, a subsystem of a subsystem and so on.
+EAT allows claims to be organized into submodules {{submods}}, nested EATs and so on.
+The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
+
+Some examples of entities:
+
+* A Secure Element
+* A TEE
+* A card in a network router
+* A network router, perhaps with each card in the router a submodule
+* An IoT device
+* An individual process
+* An app on a smartphone
+* A smartphone with many submodules for its many subsystems
+* A subsystem in a smartphone like the modem or the camera
+
+An entity may have strong security like defenses against hardware invasive attacks.
+It may also have low security, having no special security defenses.
+There is no minimum security requirement to be an entity.
 
 ## CWT, JWT, UCCS, UJCS and DEB
 
-An EAT is a set of claims about an entity/device based on one of the following:
+An EAT is a claims set about an entity based on one of the following:
 
 * CBOR Web Token (CWT) {{RFC8392}}
 * Unprotected CWT Claims Sets (UCCS) {{UCCS.Draft}}
@@ -262,7 +296,7 @@ This specification adds two more top-level messages:
 * Unprotected JWT Claims Set (UJCS) {{UJCS}}
 * Detached EAT Bundle (DEB), {{DEB}}
 
-A DEB is structure to hold a collection of detached claims-sets and the EAT that separately provides integrity and authenticity protection for them.
+A DEB is structure to hold a collection of detached claims sets and the EAT that separately provides integrity and authenticity protection for them.
 It can be either CBOR or JSON encoded.
 
 ## CDDL, CBOR and JSON
@@ -290,19 +324,19 @@ This specification provides CDDL for it.
 While it is not required that EAT be used with the RATS operational model described in Figure 1 in {{RATS.Architecture}}, or even that it be used for attestation, this document is authored with an orientation around that model.
 
 To summarize, an Attester generates Attestation Evidence.
-Attestation Evidence is a Claims Set describing various characteristics of the entity/device.
-Attestation Evidence is usually signed by a key that proves the entity/device and the evidence it produces are authentic.
-Signing also provides integrity protection.
-The Claims Set includes a nonce or some other means to provide freshness.
+Attestation Evidence is a claims set describing various characteristics of an entity.
+Attestation Evidence also is usually signed by a key that proves the entity and the evidence it produces are authentic.
+The claims set includes a nonce or some other means to provide freshness.
 EAT is designed to carry Attestation Evidence.
 The Attestation Evidence goes to a Verifier where the signature is verified.
-Some of the Claims may also be checked against Reference Values.
-The Verifier then produces Attestation Results which is also usually a Claims Set.
+Some of the claims may also be checked against Reference Values.
+The Verifier then produces Attestation Results which is also usually a claims set.
 EAT is also designed to carry Attestation Results.
 The Attestation Results go to the Relying Party which is the ultimate consumer of the "Remote Attestaton Procedures", RATS.
-The Relying Party uses the Attestation Results as needed for the use case, perhaps allowing a device on the network, allowing a financial transaction or such.
+The Relying Party uses the Attestation Results as needed for the use case, perhaps allowing a entity on the network, allowing a financial transaction or such.
 
 Note that sometimes the Verifier and Relying Party are not separate and thus there is no need for a protocol to carry Attestation Results.
+
 
 
 ### Relationship bewteen Attestation Evidence and Attestation Results
@@ -310,7 +344,7 @@ Note that sometimes the Verifier and Relying Party are not separate and thus the
 Any claim defined in this document or in the IANA CWT or JWT registry may be used in Attestation Evidence or Attestation Results.
 
 Many claims in Attestation Evidence simply will pass through the Verifier to the Relying Party without modification.
-They will be verified as authentic from the device by the Verifier just through normal verification of the Attester's signature.
+They will be verified as authentic from the entity by the Verifier just through normal verification of the Attester's signature.
 The UEID, {{UEID}}, and Location, {{location}}, are examples of claims that may be passed through.
 
 Some claims in Attestation Evidence will be verified by the Verifier by comparison to Reference Values.
@@ -320,32 +354,6 @@ For example, the Verifier receives the Software Evidence claim, {{swevidence}}, 
 
 In some cases the Verifier may provide privacy-preserving functionality by stripping or modifying claims that do not posses sufficient privacy-preserving characteristics.
 For example, the data in the Location claim, {{location}}, may be modified to have a precision of a few kilometers rather than a few meters.
-
-When the Verifier is remote from the Relying Party, the Attestation Results must be protected for integrity, authenticity and possibly confidentiality.
-Often this will simply be HTTPS as per a normal web service, but COSE or JOSE may also be used.
-The details of this protection are beyond the scope of this document.
-
-
-## Entity Overview
-
-An "entity" can be any device or device subassembly ("submodule") that
-can generate its own attestation in the form of an EAT.  The
-attestation should be cryptographically verifiable by the EAT
-consumer. An EAT at the device-level can be composed of several
-submodule EAT's.  
-
-Modern devices such as a mobile phone have many different execution
-environments operating with different security levels. For example, it
-is common for a mobile phone to have an “apps” environment that runs
-an operating system (OS) that hosts a plethora of downloadable
-apps. It may also have a TEE (Trusted Execution Environment) that is
-distinct, isolated, and hosts security-oriented functionality like
-biometric authentication. Additionally, it may have an eSE (embedded
-Secure Element) - a high security chip with defenses against HW
-attacks that is used to produce attestations.  This device attestation format
-allows the attested data to be tagged at a security level from which
-it originates.  In general, any discrete execution environment that
-has an identifiable security level can be considered an entity.
 
 
 # Terminology
@@ -465,11 +473,11 @@ and consumption.
 
 ## Universal Entity ID Claim (ueid) {#UEID}
 
-UEID’s identify individual manufactured entities / devices such as a
+UEID’s identify individual manufactured entities such as a
 mobile phone, a water meter, a Bluetooth speaker or a networked
-security camera. It may identify the entire device or a submodule or
+security camera. It may identify the entire entity or a submodule or
 subsystem. It does not identify types, models or classes of
-devices. It is akin to a serial number, though it does not have to be
+entities. It is akin to a serial number, though it does not have to be
 sequential.
 
 UEID’s must be universally and globally unique across manufacturers
@@ -479,13 +487,12 @@ systems. No two products anywhere, even in completely different
 industries made by two different manufacturers in two different
 countries should have the same UEID (if they are not global and
 universal in this way, then Relying Parties receiving them will have
-to track other characteristics of the device to keep devices distinct
+to track other characteristics of the entity to keep entities distinct
 between manufacturers).
 
 There are privacy considerations for UEID's. See {{ueidprivacyconsiderations}}.
 
-The UEID is permanent. It never change for a given
-device / entity. 
+The UEID is permanent. It never changes for a given entity. 
 
 UEIDs are variable length. All implementations MUST be able to receive
 UEIDs that are 33 bytes long (1 type byte and 256 bits).  The
@@ -500,8 +507,8 @@ manufacturer registrations.
 Creation of new types requires a Standards Action {{RFC8126}}.
 
 | Type Byte | Type Name | Specification |
-| 0x01 | RAND | This is a 128, 192 or 256 bit random number generated once and stored in the device. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the device and stored. It may not be smaller than 128 bits. |
-| 0x02 | IEEE EUI | This makes use of the IEEE company identification registry. An EUI is either an EUI-48, EUI-60 or EUI-64 and made up of an OUI, OUI-36 or a CID, different registered company identifiers, and some unique per-device identifier. EUIs are often the same as or similar to MAC addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while devices with multiple network interfaces may have multiple MAC addresses, there is only one UEID for a device) {{IEEE.802-2001}}, {{OUI.Guide}} |
+| 0x01 | RAND | This is a 128, 192 or 256 bit random number generated once and stored in the entity. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the entity and stored. It may not be smaller than 128 bits. |
+| 0x02 | IEEE EUI | This makes use of the IEEE company identification registry. An EUI is either an EUI-48, EUI-60 or EUI-64 and made up of an OUI, OUI-36 or a CID, different registered company identifiers, and some unique per-entity identifier. EUIs are often the same as or similar to MAC addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while entities with multiple network interfaces may have multiple MAC addresses, there is only one UEID for an entity) {{IEEE.802-2001}}, {{OUI.Guide}} |
 | 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. {{ThreeGPP.IMEI}} |
 {: #ueid-types-table title="UEID Composition Types"}
 
@@ -511,8 +518,8 @@ the case of a device), so no textual representation is defined.
 The consumer (the Relying Party) of a UEID MUST treat a UEID as a
 completely opaque string of bytes and not make any use of its internal
 structure. For example, they should not use the OUI part of a type
-0x02 UEID to identify the manufacturer of the device. Instead they
-should use the oemid claim that is defined elsewhere. The reasons for
+0x02 UEID to identify the manufacturer of the entity. Instead they
+should use the OEMID claim. See {{oemid}}. The reasons for
 this are:
 
 * UEIDs types may vary freely from one manufacturer to the next.
@@ -520,7 +527,7 @@ this are:
 * New types of UEIDs may be created. For example, a type 0x07 UEID may
   be created based on some other manufacturer registration scheme.
 
-* Device manufacturers are allowed to change from one type of UEID to
+* Entity manufacturers are allowed to change from one type of UEID to
   another anytime they want. For example, they may find they can
   optimize their manufacturing by switching from type 0x01 to type
   0x02 or vice versa.  The main requirement on the manufacturer is
@@ -537,7 +544,7 @@ A Device Indentifier URN is registered for UEIDs. See {{registerueidurn}}.
 
 An SEUID is of the same format as a UEID, but it may change to a different value on device life-cycle events.
 Examples of these events are change of ownership, factory reset and on-boarding into an IoT device management system.
-A device may have both a UEID and SUEIDs, neither, one or the other.
+An entity may have both a UEID and SUEIDs, neither, one or the other.
 
 There may be multiple SUEIDs.
 Each one has a text string label the purpose of which is to distinguish it from others in the token.
@@ -568,7 +575,7 @@ This format is always 16 bytes in size (128 bits).
 
 The OEM may create their own ID by using a cryptographic-quality random number generator.
 They would perform this only once in the life of the company to generate the single ID for said company.
-They would use that same ID in every device they make.
+They would use that same ID in every entity they make.
 This uniquely identifies the OEM on a statistical basis and is large enough should there be ten billion companies.
 
 The OEM may also use a hash like SHA-256 and truncate the output to 128 bits.
@@ -592,7 +599,7 @@ for Use of EUI, OUI, and CID {{OUI.Guide}} and provides a lookup
 services {{OUI.Lookup}}.
 
 Companies that have more than one of these IDs or MAC address blocks
-should pick one and prefer that for all their devices.
+should pick one and prefer that for all their entities.
 
 Commonly, these are expressed in Hexadecimal Representation
 {{IEEE.802-2001}} also called the Canonical format. When this claim is
@@ -686,13 +693,13 @@ A full CoSWID manifest or other type of manifest can be instead if this is too s
 
 ## The Security Level Claim (security-level)
 
-This claim characterizes the device/entity 
+This claim characterizes the entity 
 ability to defend against attacks aimed at capturing the signing
 key, forging claims and at forging EATs. This is by
 defining four security levels as described below. 
 
 These claims describe security environment and countermeasures
-available on the end-entity/client device where the attestation key
+available on the entity  where the attestation key
 resides and the claims originate.
 
 1 - Unrestricted:
@@ -716,12 +723,12 @@ Some unrestricted devices may be implemented in a way that provides poor protect
 Restricted Operating Environments {{FIDO.AROE}}. Examples include TEE's and 
 schemes using virtualization-based security. Like the FIDO security goal,
 security at this level is aimed at defending well against large-scale
-network/remote attacks against the device.
+network/remote attacks against the entity.
 
 4 - Hardware:
 : Entities at this level must include substantial defense 
-against physical or electrical attacks against the device itself.
-It is assumed any potential attacker has captured the device and can 
+against physical or electrical attacks against the entity itself.
+It is assumed any potential attacker has captured the entity and can 
 disassemble it. Examples include TPMs and Secure Elements.
 
 The entity should claim the highest security level it achieves and no higher.
@@ -729,7 +736,7 @@ This set is not extensible so as to provide a common interoperable description o
 If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
 It may consider including both this claim as a coarse indication of security and its own proprietary claim as a refined indication.
 
-This claim is not intended as a replacement for a proper end-device
+This claim is not intended as a replacement for a proper
 security certification scheme such as those based on FIPS 140 {{FIPS-140}} 
 or those based on Common Criteria {{Common.Criteria}}. The 
 claim made here is solely a self-claim made by the Attester.
@@ -754,7 +761,7 @@ combination of the two or other.
 ## Debug Status Claim (debug-status)
 
 This applies to system-wide or submodule-wide debug facilities of the
-target device / submodule like JTAG and diagnostic hardware built into
+entity like JTAG and diagnostic hardware built into
 chips. It applies to any software debug facilities related to root,
 operating system or privileged software that allow system-wide memory
 inspection, tracing or modification of non-system software like user
@@ -766,15 +773,13 @@ that no enabling is possible. An example of dynamic enabling is one
 where some authentication is required to enable debugging. An example
 of permanent disabling is blowing a hardware fuse in a chip. The specific
 type of the mechanism is not taken into account. For example, it does
-not matter if authentication is by a global password or by per-device
+not matter if authentication is by a global password or by per-entity
 public keys.
 
-As with all claims, the absence of the debug level claim means
-it is not reported. A conservative interpretation might assume
-the Not Disabled state. It could however be that it is reported
-in a proprietary claim.
+As with all claims, the absence of the debug level claim means it is not reported.
+A conservative interpretation might assume the enabled state. 
 
-This claim is not extensible so as to provide a common interoperable description of debug status to the Relying Party.
+This claim is not extensible so as to provide a common interoperable description of debug status.
 If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
 It may consider including both this claim as a coarse indication of debug status and its own proprietary claim as a refined indication.
 
@@ -787,11 +792,11 @@ There is no inheritance of claims from a submodule to a superior
 module or vice versa. There is no assumption, requirement or guarantee
 that the target of a superior module encompasses the targets of
 submodules. Thus, every submodule must explicitly describe its own
-debug state. The Verifier or Relying Party receiving an EAT cannot
+debug state. The receiver of an EAT MUST not
 assume that debug is turned off in a submodule because there is a claim
 indicating it is turned off in a superior module.
 
-An individual target device / submodule may have multiple debug
+An entity may have multiple debug
 facilities. The use of plural in the description of the states
 refers to that, not to any aggregation or inheritance.
 
@@ -799,7 +804,7 @@ The architecture of some chips or devices may be such that a debug
 facility operates for the whole chip or device. If the EAT for such
 a chip includes submodules, then each submodule should independently
 report the status of the whole-chip or whole-device debug facility.
-This is the only way the Relying Party can know the debug status
+This is the only way the receiver can know the debug status
 of the submodules since there is no inheritance.
 
 ### Enabled
@@ -810,27 +815,25 @@ currently enabled, then this level must be indicated.
 ### Disabled
 
 This level indicates all debug facilities are currently disabled. It
-may be possible to enable them in the future, and it may also be
-possible that they were enabled in the past after the
-target device/sub-system booted/started, but they are currently disabled.
+may be possible to enable them in the future. It may also be
+that they were enabled in the past, but they are currently disabled.
 
 ### Disabled Since Boot
 
 This level indicates all debug facilities are currently disabled and
-have been so since the target device/sub-system booted/started.
+have been so since the entity booted/started.
 
 ### Disabled Permanently
 
 This level indicates all non-manufacturer facilities are permanently
-disabled such that no end user or developer cannot enable them. Only
+disabled such that no end user or developer can enable them. Only
 the manufacturer indicated in the OEMID claim can enable them. This
 also indicates that all debug facilities are currently disabled and
 have been so since boot/start.
 
 ### Disabled Fully and Permanently
 
-This level indicates that all debug capabilities for the target
-device/sub-module are permanently disabled.
+This level indicates that all debug facilities for the entity are permanently disabled.
 
 ~~~~CDDL
 {::include nc-cddl/debug-status.cddl}
@@ -865,14 +868,14 @@ That is, the same, equivalent or better hardware defenses, access controls, key 
 
 ## The Location Claim (location) {#location}
 
-The location claim gives the location of the device entity from which the attestation originates.
+The location claim gives the location of the entity from which the attestation originates.
 It is derived from the W3C Geolocation API {{W3C.GeoLoc}}.
 The latitude, longitude, altitude and accuracy must conform to {{WGS84}}.
 The altitude is in meters above the {{WGS84}} ellipsoid.
 The two accuracy values are positive numbers in meters.
 The heading is in degrees relative to true north.
-If the device is stationary, the heading is NaN (floating-point not-a-number).
-The speed is the horizontal component of the device velocity in meters per second.
+If the entity is stationary, the heading is NaN (floating-point not-a-number).
+The speed is the horizontal component of the entity velocity in meters per second.
 
 When encoding floating-point numbers half-precision should not be used.
 It usually does not provide enough precision for a geographic location.
@@ -934,7 +937,7 @@ setting indicates that the attestation is not intended for any use but registrat
 3 -- Provisioning
 : Entities may be provisioned with different values or settings by an EAT
 consumer.  Examples include key material or device management trees.  The consumer
-may require an EAT to assess device security state of the entity prior to provisioning.
+may require an EAT to assess entity security state of the entity prior to provisioning.
 
 4 -- Certificate Issuance (Certificate Signing Request)
 : Certifying authorities (CA's) may require attestations prior to
@@ -978,15 +981,15 @@ Note that this named "eat_profile" for JWT and is distinct from the already regi
 
 ## The DLOA (Digital Letter or Approval) Claim (dloas)
 
-A DLOA (Digital Letter of Approval) {{DLOA}} is an XML document that describes a certification that a device or entity has received.
+A DLOA (Digital Letter of Approval) {{DLOA}} is an XML document that describes a certification that an entity has received.
 Examples of certifications represented by a DLOA include those issued by Global Platform and those based on Common Criteria.
 The DLOA is unspecific to any particular certification type or those issued by any particular organization.
 
 This claim is typically issued by a Verifier, not an Attester.
-When this claim is issued by a Verifier, it MUST be because the entity, device or submodule has received the certification in the DLOA.
+When this claim is issued by a Verifier, it MUST be because the entity has received the certification in the DLOA.
 
 This claim can contain more than one DLOA.
-If multiple DLOAs are present, it MUST be because the entity, device or submodule received all of the certifications.
+If multiple DLOAs are present, it MUST be because the entity received all of the certifications.
 
 DLOA XML documents are always fetched from a registrar that stores them.
 This claim contains several data items used to construct a URL for fetching the DLOA from the particular registrar.
@@ -1007,10 +1010,10 @@ The method of combining the registrar URI, platform label and possibly applicati
 
 ## The Software Manifests Claim (manifests)
 
-This claim contains descriptions of software that is present on the device.
-These manifests are installed on the device when the software is installed or are created as part of the installation process.
-Installation is anything that adds software to the device, possibly factory installation, the user installing elective applications and so on.
-The defining characteristic is that they are created by the software manufacturer.
+This claim contains descriptions of software present on the entity.
+These manifests are installed on the entity when the software is installed or are created as part of the installation process.
+Installation is anything that adds software to the entity, possibly factory installation, the user installing elective applications and so on.
+The defining characteristic is they are created by the software manufacturer.
 The purpose of these claims in an EAT is to relay them without modification to the Verifier and/or the Relying Party.
 
 In some cases these will be signed by the software manufacturer independent of any signing for the purpose of EAT attestation.
@@ -1039,7 +1042,7 @@ The contents of the tag, the byte string, are handed to the manifest processor.
 Note that a byte string is used to contain the manifest whether it is a text based format or not.
 An example of this is an XML format ISO/IEC 19770 SWID.
 
-It is not possible to describe the above requirements in CDDL so the type for an individual manifest is any in the CDDL below.
+It is not possible to describe the above requirements in CDDL, so the type for an individual manifest is any in the CDDL below.
 The above text sets the encoding requirement.
 
 This claim allows for multiple manifests in one token since multiple software packages are likely to be present.
@@ -1054,8 +1057,8 @@ When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence
 
 ## The Software Evidence Claim (swevidence) {#swevidence}
 
-This claim contains descriptions, lists, evidence or measurements of the software that exists on the device.
-The defining characteristic of this claim is that its contents are created by processes on the device that inventory, measure or otherwise characterize the software on the device.
+This claim contains descriptions, lists, evidence or measurements of the software that exists on the entity.
+The defining characteristic of this claim is that its contents are created by processes on the entity that inventory, measure or otherwise characterize the software on the entity.
 The contents of this claim do not originate from the software manufacturer.
 
 In most cases the contents of this claim are signed as part of attestation signing, but independent signing in addition to the attestation signing is not ruled out when a particular evidence format supports it.
@@ -1078,7 +1081,7 @@ It may report a successful comparison, failed comparison or other.
 This claim may be generated by the Verifier and sent to the Relying Party.
 For example, it could be the results of the Verifier comparing the contents of the swevidence claim to Reference Values.
 
-This claim can also be generated on the device if the device has the ability for one subsystem to measure another subsystem.
+This claim can also be generated on the entity if the entity has the ability for one subsystem to measure another subsystem.
 For example, a TEE might have the ability to measure the software of the rich OS and may have the Reference Values for the rich OS.
 
 Within an attestation target or submodule, multiple results can be reported.
@@ -1144,7 +1147,7 @@ For example, "Linux kernel" or "Facebook App"
 ~~~~
 
 
-## Submodules (submods)
+## Submodules (submods) {#submods}
 
 Some devices are complex, having many subsystems.  A
 mobile phone is a good example. It may have several connectivity
@@ -1417,7 +1420,7 @@ These are identified by their own header parameters (c5t, c5u,…).
 
 ### Claim-Based Key Identification
 
-For some attestation systems, a claim may be re-used as a key identifier. For example, the UEID uniquely identifies the device and therefore can work well as a key identifier or Endorsement identifier.
+For some attestation systems, a claim may be re-used as a key identifier. For example, the UEID uniquely identifies the entity and therefore can work well as a key identifier or Endorsement identifier.
 
 This has the advantage that key identification requires no additional bytes in the EAT and makes the EAT smaller.
 
@@ -1653,7 +1656,7 @@ It also may result in EAT implementations that don’t interoperate.
 One way to guarantee interoperability is to clearly specify CBOR serialization in a profile document.
 See {{profiles}} for a list of serialization issues that should be addressed.
 
-EAT will be commonly used where the device generating the attestation is constrained and the receiver/Verifier of the attestation is a capacious server.
+EAT will be commonly used where the entity generating the attestation is constrained and the receiver/Verifier of the attestation is a capacious server.
 Following is a set of serialization requirements that work well for that use case and are guaranteed to interoperate.
 Use of this serialization is recommended where possible, but not required.
 An EAT profile may just reference the following section rather than spell out serialization details.
@@ -1933,9 +1936,11 @@ unauthenticated consumers.
 ## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
 
 A UEID is usually not privacy-preserving. Any set of Relying Parties
-that receives tokens that happen to be from a single device will be
-able to know the tokens are all from the same device and be able to
-track the device. Thus, in many usage situations UEID violates
+that receives tokens that happen to be from a particular entity will be
+able to know the tokens are all from the same entity and be able to
+track it.
+
+Thus, in many usage situations UEID violates
 governmental privacy regulation. In other usage situations a UEID will
 not be allowed for certain products like browsers that give privacy
 for the end user. It will often be the case that tokens will not have
@@ -1948,7 +1953,7 @@ when it is generated.
 There are several strategies that can be used to still be able to put
 UEIDs and SUEIDs in tokens:
 
-* The device obtains explicit permission from the user of the device
+* The entity obtains explicit permission from the user of the entity
 to use the UEID/SUEID. This may be through a prompt. It may also be through
 a license agreement.  For example, agreements for some online banking
 and brokerage services might already cover use of a UEID/SUEID.
@@ -1956,15 +1961,15 @@ and brokerage services might already cover use of a UEID/SUEID.
 * The UEID/SUEID is used only in a particular context or particular use
 case. It is used only by one Relying Party.
 
-* The device authenticates the Relying Party and generates a derived
+* The entity authenticates the Relying Party and generates a derived
 UEID/SUEID just for that particular Relying Party.  For example, the Relying
-Party could prove their identity cryptographically to the device, then
-the device generates a UEID just for that Relying Party by hashing a
-proofed Relying Party ID with the main device UEID/SUEID.
+Party could prove their identity cryptographically to the entity, then
+the entity generates a UEID just for that Relying Party by hashing a
+proofed Relying Party ID with the main entity UEID/SUEID.
 
 Note that some of these privacy preservation strategies result in
-multiple UEIDs and SUEIDs per device. Each UEID/SUEID is used in a
-different context, use case or system on the device. However, from the
+multiple UEIDs and SUEIDs per entity. Each UEID/SUEID is used in a
+different context, use case or system on the entity. However, from the
 view of the Relying Party, there is just one UEID and it is still
 globally universal across manufacturers.
 
@@ -1972,7 +1977,7 @@ globally universal across manufacturers.
 
 Geographic location is most always considered personally identifiable information.
 Implementers should consider laws and regulations governing the transmission of location data from end user devices to servers and services.
-Implementers should consider using location management facilities offered by the operating system on the device generating the attestation.
+Implementers should consider using location management facilities offered by the operating system on the entity generating the attestation.
 For example, many mobile phones prompt the user for permission when before sending location data.
 
 # Security Considerations {#securitycons}
@@ -2545,4 +2550,7 @@ no new claims have been added.
 
 * Remove CDDL comments from CDDL blocks
 
+* More clearly define "entity" and use it more broadly, particularly instead of "device"
+
 * Lots of rewording and tightening up of section 1
+
