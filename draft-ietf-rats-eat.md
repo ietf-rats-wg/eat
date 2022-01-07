@@ -137,8 +137,10 @@ normative:
 
 informative:
   RFC4122:
+  RFC4422:
   RFC4949:
   RFC7120:
+  RFC8446:
   RFC9039:
 
   RATS.Architecture: I-D.ietf-rats-architecture
@@ -207,7 +209,7 @@ informative:
 An Entity Attestation Token (EAT) provides an attested claims set
 that describes state and characteristics of an entity,
 a device like a phone, IoT device, network equipment or such.  This claims set is used by a
-Relying Party to determine how much it wishes to trust the entity.
+relying party, server or service to determine how much it wishes to trust the entity.
 
 An EAT is either a CBOR Web Token (CWT) or JSON Web Token (JWT) with attestation-oriented 
 claims. To a large degree, all this document does is extend
@@ -218,23 +220,38 @@ CWT and JWT.
 
 # Introduction
 
-Remote entity attestation is a fundamental service that allows a remote
-entity such as a mobile phone, an Internet-of-Things (IoT) device, or
-other endpoint to prove itself to a Relying Party, a server or a
-service.  This allows the Relying Party to know some characteristics
-about the entity and decide if and how it will interact with it.
+EAT provides the definition of a base set of claims that can be made about an entity, a device, an implementation, some software and/or some hardware.
+This claims set is received by a relying party who uses it to decide if and how it will interact with the remote entity.
+It may choose to not trust the entity at all and not interact with it.
+It may completely trust it.
+It may partially trust it, for example allowing monetary transactions only up to a limit.
 
-The notion of attestation here is large and may include, but is not limited to the following:
+EAT defines the encoding of the claims set in CBOR and JSON.
+EAT is an extension of CWT and JWT.
 
- * Proof of the make and model of the device hardware (HW)
- * Proof of the make and model of the device processor, particularly
-   for security-oriented chips
- * Measurement of the software (SW) running on the device
- * Configuration and state of the device
- * Environmental characteristics of the device such as its GPS location
+The claims set is secured in transit utilizing the same mechanisms used by CWT and JWT, in particular COSE and JOSE.
+Authenticity and integrity protection MUST always be provided.
+Privacy (encryption) may additionally be provided.
+The key material used to sign and encrypt is specifically created and provisioned for this purpose.
+It is this use of this key material that make the claims set "attested" rather than just some parameters sent to the relying party by the device.
+
+EAT is focused on authenticating, identifying and characterizing implementations where implementations are devices, chips, hardware, software and such.
+This is distinct from protocols like TLS {{RFC8446}} that authenticate and identify servers and services.
+It is equally distinct from protocols like SASL {{RFC4422}} that authenticate and identify persons.
+
+The notion of attestation is large, ranging over a broad variety of use cases and security levels.
+Here are a few examples of claims:
+
+* Make and model of manufactured consumer device
+* Make and model of a chip or processor, particularly for a security-oriented chip
+* Measurement and identification of the software running on a device
+* Configuration and state of a device
+* Environmental characteristics of a device such as its GPS location
+* Formal certifications received
+* Submodules and nested EATs for complex composite devices
 
 This document uses the terminology and main operational model defined in [RATS.architecture].
-In particular it is a format that can be used for Attestation Evidence or Attestation Results as defined in the RATS architecture.
+In particular, it is a format that can be used for Attestation Evidence and Attestation Results.
 
 ## Entity Overview
 
