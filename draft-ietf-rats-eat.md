@@ -47,18 +47,20 @@ author:
 
 normative:
   RFC2119:
+  RFC7159:
   RFC7515:
+  RFC7516:
   RFC8949:
   RFC7517:
   RFC7519:
   RFC7800:
   RFC8126:
   RFC8174:
-  RFC8152:
   RFC8392:
   RFC8610:
   RFC8747:
   RFC3986:
+  RFC8152:
   RFC9090:
       
   WGS84:
@@ -155,11 +157,6 @@ informative:
     date: December 2009
     target: http://standards.ieee.org/findstds/standard/802.1AR-2009.html
 
-  ECMAScript:
-    title: Ecma International, "ECMAScript Language Specification, 5.1 Edition", ECMA Standard 262
-    date:  June 2011
-    target: http://www.ecma-international.org/ecma-262/5.1/ECMA-262.pdf
-
   W3C.GeoLoc:
     title: Geolocation API Specification 2nd Edition
     date: January 2018
@@ -220,20 +217,21 @@ CWT and JWT.
 
 # Introduction
 
-EAT provides the definition of a base set of claims that can be made about an entity, a device, an implementation, some software and/or some hardware.
+EAT provides the definition of a base set of claims that can be made about an entity, a device, some software and/or some hardware.
 This claims set is received by a relying party who uses it to decide if and how it will interact with the remote entity.
-It may choose to not trust the entity at all and not interact with it.
-It may completely trust it.
+It may choose to not trust the entity and not interact with it.
+It may choose to trust it.
 It may partially trust it, for example allowing monetary transactions only up to a limit.
 
-EAT defines the encoding of the claims set in CBOR and JSON.
-EAT is an extension of CWT and JWT.
+EAT defines the encoding of the claims set in CBOR {{RFC8949}} and JSON {{RFC7159}}.
+EAT is an extension to CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}}.
 
-The claims set is secured in transit utilizing the same mechanisms used by CWT and JWT, in particular COSE and JOSE.
+The claims set is secured in transit with the same mechanisms used by CWT and JWT, in particular CBOR Object Signing and Encryption (COSE) {{RFC8152}} and JSON Object Signing
+   and Encryption (JOSE) {{RFC7515}} {{RFC7516}}.
 Authenticity and integrity protection MUST always be provided.
 Privacy (encryption) may additionally be provided.
-The key material used to sign and encrypt is specifically created and provisioned for this purpose.
-It is this use of this key material that make the claims set "attested" rather than just some parameters sent to the relying party by the device.
+The key material used to sign and encrypt is specifically created and provisioned for the purpose of atestation.
+It is the use of this key material that make the claims set "attested" rather than just some parameters sent to the relying party by the device.
 
 EAT is focused on authenticating, identifying and characterizing implementations where implementations are devices, chips, hardware, software and such.
 This is distinct from protocols like TLS {{RFC8446}} that authenticate and identify servers and services.
@@ -244,14 +242,14 @@ Here are a few examples of claims:
 
 * Make and model of manufactured consumer device
 * Make and model of a chip or processor, particularly for a security-oriented chip
-* Measurement and identification of the software running on a device
+* Identification and measurement of the software running on a device
 * Configuration and state of a device
-* Environmental characteristics of a device such as its GPS location
+* Environmental characteristics of a device like its GPS location
 * Formal certifications received
 * Submodules and nested EATs for complex composite devices
 
 This document uses the terminology and main operational model defined in [RATS.architecture].
-In particular, it is a format that can be used for Attestation Evidence and Attestation Results.
+In particular, it can be used for Attestation Evidence and Attestation Results.
 
 ## Entity Overview
 
@@ -318,7 +316,7 @@ It can be either CBOR or JSON encoded.
 
 ## CDDL, CBOR and JSON
 
-This document defines Concise Binary Object Representation (CBOR) {{RFC4949}} and Javascript Object Notation (JSON) JSON {{ECMAScript}} encoding for an EAT.
+This document defines Concise Binary Object Representation (CBOR) {{RFC8949}} and Javascript Object Notation (JSON) JSON {{RFC7159}} encoding for an EAT.
 All claims in an EAT MUST use the same encoding except where explicitly allowed.
 It is explicitly allowed for a nested token to be of a different encoding.
 Some claims expliclity contain objects and messages that may use a different encoding than the enclosing EAT.
