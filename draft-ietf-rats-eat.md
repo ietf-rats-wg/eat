@@ -228,9 +228,9 @@ EAT is an extension to CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT)
 
 The claims set is secured in transit with the same mechanisms used by CWT and JWT, in particular CBOR Object Signing and Encryption (COSE) {{RFC8152}} and JSON Object Signing
    and Encryption (JOSE) {{RFC7515}} {{RFC7516}}.
-Authenticity and integrity protection MUST always be provided.
+Authenticity and integrity protection must always be provided.
 Privacy (encryption) may additionally be provided.
-The key material used to sign and encrypt is specifically created and provisioned for the purpose of atestation.
+The key material used to sign and encrypt is specifically created and provisioned for the purpose of attestation.
 It is the use of this key material that make the claims set "attested" rather than just some parameters sent to the relying party by the device.
 
 EAT is focused on authenticating, identifying and characterizing implementations where implementations are devices, chips, hardware, software and such.
@@ -246,10 +246,11 @@ Here are a few examples of claims:
 * Configuration and state of a device
 * Environmental characteristics of a device like its GPS location
 * Formal certifications received
-* Submodules and nested EATs for complex composite devices
+
+EAT also supports nesting of sets of claims and EAT tokens for use with complex composite devices.
 
 This document uses the terminology and main operational model defined in [RATS.architecture].
-In particular, it can be used for Attestation Evidence and Attestation Results.
+In particular, it can be used for RATS Attestation Evidence and Attestation Results.
 
 ## Entity Overview
 
@@ -267,7 +268,7 @@ Here "entity" never refers to a person or organization.
 An entity is never a server or a service.
 
 An entity may be the whole device or it may be a subsystem, a subsystem of a subsystem and so on.
-EAT allows claims to be organized into submodules {{submods}}, nested EATs and so on.
+EAT allows claims to be organized into submodules, nested EATs and so on. See {{submods}}.
 The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
 
 Some examples of entities:
@@ -316,10 +317,10 @@ It can be either CBOR or JSON encoded.
 
 ## CDDL, CBOR and JSON
 
-This document defines Concise Binary Object Representation (CBOR) {{RFC8949}} and Javascript Object Notation (JSON) JSON {{RFC7159}} encoding for an EAT.
+This document defines Concise Binary Object Representation (CBOR) {{RFC8949}} and Javascript Object Notation (JSON) {{RFC7159}} encoding for an EAT.
 All claims in an EAT MUST use the same encoding except where explicitly allowed.
 It is explicitly allowed for a nested token to be of a different encoding.
-Some claims expliclity contain objects and messages that may use a different encoding than the enclosing EAT.
+Some claims explicitly contain objects and messages that may use a different encoding than the enclosing EAT.
 
 This specification uses Concise Data Definition Language (CDDL) {{RFC8610}} for all definitions.
 The implementor interprets the CDDL to come to either the CBOR or JSON encoding.
@@ -336,7 +337,7 @@ This specification provides CDDL for it.
 
 ## Operating Model and RATS Architecture
 
-While it is not required that EAT be used with the RATS operational model described in Figure 1 in {{RATS.Architecture}}, or even that it be used for attestation, this document is authored with an orientation around that model.
+While it is not required that EAT be used with the RATS operational model described in Figure 1 in {{RATS.Architecture}}, or even that it be used for attestation, this document is oriented around that model.
 
 To summarize, an Attester generates Attestation Evidence.
 Attestation Evidence is a claims set describing various characteristics of an entity.
@@ -347,14 +348,13 @@ The Attestation Evidence goes to a Verifier where the signature is verified.
 Some of the claims may also be checked against Reference Values.
 The Verifier then produces Attestation Results which is also usually a claims set.
 EAT is also designed to carry Attestation Results.
-The Attestation Results go to the Relying Party which is the ultimate consumer of the "Remote Attestaton Procedures", RATS.
-The Relying Party uses the Attestation Results as needed for the use case, perhaps allowing a entity on the network, allowing a financial transaction or such.
+The Attestation Results go to the Relying Party which is the ultimate consumer of the Remote Attestation Procedure.
+The Relying Party uses the Attestation Results as needed for the use case, perhaps allowing an entity on the network, allowing a financial transaction or such.
 
 Note that sometimes the Verifier and Relying Party are not separate and thus there is no need for a protocol to carry Attestation Results.
 
 
-
-### Relationship bewteen Attestation Evidence and Attestation Results
+### Relationship between Attestation Evidence and Attestation Results
 
 Any claim defined in this document or in the IANA CWT or JWT registry may be used in Attestation Evidence or Attestation Results.
 
