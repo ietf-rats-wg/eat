@@ -921,24 +921,6 @@ See location-related privacy considerations in {{locationprivacyconsiderations}}
 {::include nc-cddl/location.cddl}
 ~~~~
 
-## The Uptime Claim (uptime)
-
-The "uptime" claim contains a value that represents the number of
-seconds that have elapsed since the entity or submod was last booted.
-
-~~~~CDDL
-{::include nc-cddl/uptime.cddl}
-~~~~
-
-## The Boot Seed Claim (boot-seed)
-
-The Boot Seed claim is a random value created at system boot time that will allow differentiation of reports from different boot sessions.
-This value is usually public and not protected.
-It is not the same as a seed for a random number generator which must be kept secret.
-
-~~~~CDDL
-{::include nc-cddl/boot-seed.cddl}
-~~~~
 
 ## The Intended Use Claim (intended-use)
 
@@ -2573,3 +2555,5 @@ no new claims have been added.
 * Remove CDDL comments from CDDL blocks
 
 * More clearly define "entity" and use it more broadly, particularly instead of "device"
+
+* Remove boot seed and uptime claims since they are not particularly critical
