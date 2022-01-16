@@ -47,18 +47,20 @@ author:
 
 normative:
   RFC2119:
+  RFC7159:
   RFC7515:
+  RFC7516:
   RFC8949:
   RFC7517:
   RFC7519:
   RFC7800:
   RFC8126:
   RFC8174:
-  RFC8152:
   RFC8392:
   RFC8610:
   RFC8747:
   RFC3986:
+  RFC8152:
   RFC9090:
       
   WGS84:
@@ -137,8 +139,10 @@ normative:
 
 informative:
   RFC4122:
+  RFC4422:
   RFC4949:
   RFC7120:
+  RFC8446:
   RFC9039:
 
   RATS.Architecture: I-D.ietf-rats-architecture
@@ -152,11 +156,6 @@ informative:
     title: IEEE Standard, "IEEE 802.1AR Secure Device Identifier"
     date: December 2009
     target: http://standards.ieee.org/findstds/standard/802.1AR-2009.html
-
-  ECMAScript:
-    title: Ecma International, "ECMAScript Language Specification, 5.1 Edition", ECMA Standard 262
-    date:  June 2011
-    target: http://www.ecma-international.org/ecma-262/5.1/ECMA-262.pdf
 
   W3C.GeoLoc:
     title: Geolocation API Specification 2nd Edition
@@ -204,12 +203,12 @@ informative:
 
 --- abstract
 
-An Entity Attestation Token (EAT) provides a signed (attested) set of
-claims that describe state and characteristics of an entity, typically
-a device like a phone or an IoT device.  These claims are used by a
-Relying Party to determine how much it wishes to trust the entity.
+An Entity Attestation Token (EAT) provides an attested claims set
+that describes state and characteristics of an entity,
+a device like a phone, IoT device, network equipment or such.  This claims set is used by a
+relying party, server or service to determine how much it wishes to trust the entity.
 
-An EAT is either a CWT or JWT with some attestation-oriented 
+An EAT is either a CBOR Web Token (CWT) or JSON Web Token (JWT) with attestation-oriented 
 claims. To a large degree, all this document does is extend
 CWT and JWT.
 
@@ -218,23 +217,40 @@ CWT and JWT.
 
 # Introduction
 
-Remote entity attestation is a fundamental service that allows a remote
-entity such as a mobile phone, an Internet-of-Things (IoT) device, or
-other endpoint to prove itself to a Relying Party, a server or a
-service.  This allows the Relying Party to know some characteristics
-about the entity and decide if and how it will interact with it.
+EAT provides the definition of a base set of claims that can be made about an entity, a device, some software and/or some hardware.
+This claims set is received by a relying party who uses it to decide if and how it will interact with the remote entity.
+It may choose to not trust the entity and not interact with it.
+It may choose to trust it.
+It may partially trust it, for example allowing monetary transactions only up to a limit.
 
-The notion of attestation here is large and may include, but is not limited to the following:
+EAT defines the encoding of the claims set in CBOR {{RFC8949}} and JSON {{RFC7159}}.
+EAT is an extension to CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}}.
 
- * Proof of the make and model of the device hardware (HW)
- * Proof of the make and model of the device processor, particularly
-   for security-oriented chips
- * Measurement of the software (SW) running on the device
- * Configuration and state of the device
- * Environmental characteristics of the device such as its GPS location
+The claims set is secured in transit with the same mechanisms used by CWT and JWT, in particular CBOR Object Signing and Encryption (COSE) {{RFC8152}} and JSON Object Signing
+   and Encryption (JOSE) {{RFC7515}} {{RFC7516}}.
+Authenticity and integrity protection must always be provided.
+Privacy (encryption) may additionally be provided.
+The key material used to sign and encrypt is specifically created and provisioned for the purpose of attestation.
+It is the use of this key material that make the claims set "attested" rather than just some parameters sent to the relying party by the device.
+
+EAT is focused on authenticating, identifying and characterizing implementations where implementations are devices, chips, hardware, software and such.
+This is distinct from protocols like TLS {{RFC8446}} that authenticate and identify servers and services.
+It is equally distinct from protocols like SASL {{RFC4422}} that authenticate and identify persons.
+
+The notion of attestation is large, ranging over a broad variety of use cases and security levels.
+Here are a few examples of claims:
+
+* Make and model of manufactured consumer device
+* Make and model of a chip or processor, particularly for a security-oriented chip
+* Identification and measurement of the software running on a device
+* Configuration and state of a device
+* Environmental characteristics of a device like its GPS location
+* Formal certifications received
+
+EAT also supports nesting of sets of claims and EAT tokens for use with complex composite devices.
 
 This document uses the terminology and main operational model defined in [RATS.architecture].
-In particular it is a format that can be used for Attestation Evidence or Attestation Results as defined in the RATS architecture.
+In particular, it can be used for RATS Attestation Evidence and Attestation Results.
 
 ## Entity Overview
 
@@ -252,7 +268,7 @@ Here "entity" never refers to a person or organization.
 An entity is never a server or a service.
 
 An entity may be the whole device or it may be a subsystem, a subsystem of a subsystem and so on.
-EAT allows claims to be organized into submodules {{submods}}, nested EATs and so on.
+EAT allows claims to be organized into submodules, nested EATs and so on. See {{submods}}.
 The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
 
 Some examples of entities:
@@ -273,11 +289,11 @@ There is no minimum security requirement to be an entity.
 
 ## CWT, JWT, UCCS, UJCS and DEB
 
-An EAT is a set of claims about an entity based on one of the following:
+An EAT is a claims set about an entity based on one of the following:
 
-* CBOR Web Token (CWT), {{RFC8392}}
-* Unprotected CWT Claims Sets (UCCS), {{UCCS.Draft}}
-* JSON Web Token (JWT), {{RFC7519}}
+* CBOR Web Token (CWT) {{RFC8392}}
+* Unprotected CWT Claims Sets (UCCS) {{UCCS.Draft}}
+* JSON Web Token (JWT) {{RFC7519}}
 
 All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on from these carry over to EAT.
 
@@ -293,28 +309,23 @@ There is no fixed mechanism across all use cases.
 
 This specification adds two more top-level messages:
 
-* Unprotected JWT Claims Set (UJCS), {{UJCS}}
+* Unprotected JWT Claims Set (UJCS) {{UJCS}}
 * Detached EAT Bundle (DEB), {{DEB}}
 
-A DEB is simple structure to hold a collection of detached claims-sets and the EAT that separately provides integrity and authenticity protection for them.
+A DEB is structure to hold a collection of detached claims sets and the EAT that separately provides integrity and authenticity protection for them.
 It can be either CBOR or JSON encoded.
 
 ## CDDL, CBOR and JSON
 
-An EAT can be encoded in either CBOR or JSON.
-The definition of each claim is such that it can be encoded either.
-Each token is either entirely CBOR or JSON, with only an exception for nested tokens.
+This document defines Concise Binary Object Representation (CBOR) {{RFC8949}} and Javascript Object Notation (JSON) {{RFC7159}} encoding for an EAT.
+All claims in an EAT MUST use the same encoding except where explicitly allowed.
+It is explicitly allowed for a nested token to be of a different encoding.
+Some claims explicitly contain objects and messages that may use a different encoding than the enclosing EAT.
 
-To implement composite attestation as described in the RATS architecture document, one token has to be nested inside another.
-It is also possible to construct composite Attestation Results (see below) which may be expressed as one token nested inside another.
-So as to not force each end-end attestation system to be all JSON or all CBOR, nesting of JSON-encoded tokens in CBOR-encoded tokens and vice versa is accommodated by this specification.
-This is the only place that CBOR and JSON can be mixed.
-
-This specification formally uses CDDL, {{RFC8610}}, to
-define each claim.  The implementor interprets the CDDL to come
-to either the CBOR {{RFC8949}} or JSON {{ECMAScript}}
-representation. In the case of JSON, Appendix E of {{RFC8610}} is
-followed. Additional rules are given in {{jsoninterop}} where Appendix E is insufficient.
+This specification uses Concise Data Definition Language (CDDL) {{RFC8610}} for all definitions.
+The implementor interprets the CDDL to come to either the CBOR or JSON encoding.
+In the case of JSON, Appendix E of {{RFC8610}} is followed.
+Additional rules are given in {{jsoninterop}} where Appendix E is insufficient.
 
 The CWT and JWT specifications were authored before CDDL was available and did not use CDDL.
 This specification includes a CDDL definition of most of what is defined in {{RFC8392}}.
@@ -323,43 +334,29 @@ Similarly, this specification includes CDDL for most of what is defined in {{RFC
 The UCCS specification does not include CDDL.
 This specification provides CDDL for it.
 
-(TODO: The authors are open to modifications to this specification and the UCCS specification to include CDDL for UCCS and UJCS there instead of here.)
-
 
 ## Operating Model and RATS Architecture
 
-While it is not required that EAT be used with the RATS operational model described in Figure 1 in {{RATS.Architecture}}, or even that it be used for attestation, this document is authored with an orientation around that model.
+While it is not required that EAT be used with the RATS operational model described in Figure 1 in {{RATS.Architecture}}, or even that it be used for attestation, this document is oriented around that model.
 
-To summarize, an Attester on an entity generates Attestation Evidence.
-Attestation Evidence is a Claims Set describing various characteristics of the entity.
+To summarize, an Attester generates Attestation Evidence.
+Attestation Evidence is a claims set describing various characteristics of an entity.
 Attestation Evidence also is usually signed by a key that proves the entity and the evidence it produces are authentic.
-The Claims Set includes a nonce or some other means to provide freshness.
+The claims set includes a nonce or some other means to provide freshness.
 EAT is designed to carry Attestation Evidence.
-The Attestation Evidence goes to a Verifier where the signature is validated.
-Some of the Claims may also be validated against Reference Values.
-The Verifier then produces Attestation Results which is also usually a Claims Set.
+The Attestation Evidence goes to a Verifier where the signature is verified.
+Some of the claims may also be checked against Reference Values.
+The Verifier then produces Attestation Results which is also usually a claims set.
 EAT is also designed to carry Attestation Results.
-The Attestation Results go to the Relying Party which is the ultimate consumer of the "Remote Attestaton Procedures", RATS.
-The Relying Party uses the Attestation Results as needed for the use case, perhaps allowing a entity on the network, allowing a financial transaction or such.
+The Attestation Results go to the Relying Party which is the ultimate consumer of the Remote Attestation Procedure.
+The Relying Party uses the Attestation Results as needed for the use case, perhaps allowing an entity on the network, allowing a financial transaction or such.
 
 Note that sometimes the Verifier and Relying Party are not separate and thus there is no need for a protocol to carry Attestation Results.
 
 
-### Use as Attestation Evidence
+### Relationship between Attestation Evidence and Attestation Results
 
-Any claim defined in this document or in the IANA CWT or JWT registry may be used in Attestation Evidence.
-
-Attestation Evidence nearly always has to be signed or otherwise have authenticity and integrity protection because the Attester is remote relative to the Verifier.
-Usually, this is by using COSE/JOSE signing where the signing key is an attestation key provisioned into the entity by its manufacturer.
-The details of how this is achieved are beyond this specification, but see {{keyid}}.
-If there is already a suitable secure channel between the Attester and Verifier, UCCS may be used.
-
-
-### Use as Attestation Results
-
-Any claim defined in this document or in the IANA CWT or JWT registry may be used in Attestation Results.
-
-It is useful to characterize the relationship of claims in Evidence to those in Attestation Results.
+Any claim defined in this document or in the IANA CWT or JWT registry may be used in Attestation Evidence or Attestation Results.
 
 Many claims in Attestation Evidence simply will pass through the Verifier to the Relying Party without modification.
 They will be verified as authentic from the entity by the Verifier just through normal verification of the Attester's signature.
@@ -372,10 +369,6 @@ For example, the Verifier receives the Software Evidence claim, {{swevidence}}, 
 
 In some cases the Verifier may provide privacy-preserving functionality by stripping or modifying claims that do not posses sufficient privacy-preserving characteristics.
 For example, the data in the Location claim, {{location}}, may be modified to have a precision of a few kilometers rather than a few meters.
-
-When the Verifier is remote from the Relying Party, the Attestation Results must be protected for integrity, authenticity and possibly confidentiality.
-Often this will simply be HTTPS as per a normal web service, but COSE or JOSE may also be used.
-The details of this protection are beyond the scope of this document.
 
 
 # Terminology
@@ -2573,3 +2566,6 @@ no new claims have been added.
 * Remove CDDL comments from CDDL blocks
 
 * More clearly define "entity" and use it more broadly, particularly instead of "device"
+
+* Lots of rewording and tightening up of section 1
+
