@@ -1834,28 +1834,59 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 * Claim Name: UEID
 * Claim Description: The Universal Entity ID
 * JWT Claim Name: "ueid"
-* CWT Claim Key: 11
+* CWT Claim Key: 256
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: OEMID
-* Claim Description: IEEE-based OEM ID
+* Claim Name: SUEIDs
+* Claim Description: Semi-permanent UEIDs
+* JWT Claim Name: "sueids"
+* CWT Claim Key: 257
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: HW OEMID
+* Claim Description: Hardware OEM ID
 * JWT Claim Name: "oemid"
-* Claim Key: 13
+* Claim Key: 258
+* Claim Value Type(s): byte string or integer
+* Change Controller: IESG
+* Specification Document(s): __this document__ 
+
+&nbsp;
+
+* Claim Name: HW Model
+* Claim Description: Model identifier for hardware
+* JWT Claim Name: "hwmodel"
+* Claim Key: 259
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__ 
 
 &nbsp;
 
+* Claim Name: HW Version
+* Claim Description: Hardware Version Identifier
+* JWT Claim Name: "hwversion"
+* Claim Key: 260
+* Claim Value Type(s): array
+* Change Controller: IESG
+* Specification Document(s): __this document__ 
+
+
+&nbsp;
+
 * Claim Name: Security Level
 * Claim Description: Characterization of the security of an Attester or submodule
 * JWT Claim Name: "seclevel"
-* Claim Key: 14
-* Claim Value Type(s): integer
+* Claim Key: 264
+* Claim Value Type(s): integer or string
 * Change Controller: IESG
 * Specification Document(s): __this document__    
 
@@ -1864,7 +1895,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 * Claim Name: Secure Boot
 * Claim Description: Indicate whether the boot was secure
 * JWT Claim Name: "secboot"
-* Claim Key: 15
+* Claim Key: 365
 * Claim Value Type(s): Boolean
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1874,8 +1905,8 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 * Claim Name: Debug Status
 * Claim Description: Indicate status of debug facilities
 * JWT Claim Name: "dbgstat"
-* Claim Key: 16
-* Claim Value Type(s): integer
+* Claim Key: 266
+* Claim Value Type(s): integer or string
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
@@ -1884,7 +1915,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 * Claim Name: Location
 * Claim Description: The geographic location
 * JWT Claim Name: "location"
-* Claim Key: 17
+* Claim Key: 262
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1894,22 +1925,95 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 * Claim Name: Profile
 * Claim Description: Indicates the EAT profile followed
 * JWT Claim Name: "eat_profile"
-* Claim Key: 18
-* Claim Value Type(s): map
+* Claim Key: 261
+* Claim Value Type(s): URI or OID
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
 &nbsp;
 
 * Claim Name: Submodules Section
-* Claim Description: The section containing submodules (not actually a claim)
+* Claim Description: The section containing submodules
 * JWT Claim Name: "submods"
-* Claim Key: 20
+* Claim Key: 263
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
 ### To be Assigned Claims
+
+&nbsp;
+
+* Claim Name: Intended Use
+* Claim Description: Indicates intended use of the EAT
+* JWT Claim Name: "intuse"
+* Claim Key: TBD
+* Claim Value Type(s): integer or string
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: DLOAs
+* Claim Description: The section containing submodules (not actually a claim)
+* JWT Claim Name: "dloas"
+* Claim Key: TBD
+* Claim Value Type(s): array
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: SW Name
+* Claim Description: The section containing submodules (not actually a claim)
+* JWT Claim Name: "swname"
+* Claim Key: TBD
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: SW Version
+* Claim Description: The section containing submodules (not actually a claim)
+* JWT Claim Name: "swversion"
+* Claim Key: TBD
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: SW Manifests
+* Claim Description: The section containing submodules (not actually a claim)
+* JWT Claim Name: "manifests"
+* Claim Key: TBD
+* Claim Value Type(s): array
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: SW Evidence
+* Claim Description: The section containing submodules (not actually a claim)
+* JWT Claim Name: "swevidence"
+* Claim Key: TBD
+* Claim Value Type(s): array
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: SW Measurment Results
+* Claim Description: The section containing submodules (not actually a claim)
+* JWT Claim Name: "swresults"
+* Claim Key: TBD
+* Claim Value Type(s): array
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+
+
 
 TODO: add the rest of the claims in here
 
