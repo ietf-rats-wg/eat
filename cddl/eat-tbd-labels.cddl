@@ -1,16 +1,14 @@
 ; These are not yet assigned in any way and may change.
-; These are intentionally above 24 so as to not use up
-; single-byte labels.
 
-sueids-label = <TBD25>
-hw-version-label = <TBD26>
-sw-name-label = <TBD29>
-sw-version-label = <TBD30>
-uptime-label = <TBD31>
-boot-seed-label = <TBD32>
-intended-use-label = <TBD33>
-dloas-label = <TBD34>
-manifests-label = <TBD35>
-swevidence-label = <TBD36>
-swresults-label = <TBD37>
-hardware-model-label = <TBD39>
+uptime-label = <TBD267>
+boot-seed-label = <TB268>
+intended-use-label = <TBD269>
+dloas-label = <TBD270>
+manifests-label = <TBD271>
+swevidence-label = <TBD272>
+swresults-label = <TBD273>
+sw-name-label = <TBD274>
+sw-version-label = <TBD275>
+
+
+
