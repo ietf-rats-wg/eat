@@ -1856,7 +1856,7 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: HW OEMID
+* Claim Name: Hardware OEMID
 * Claim Description: Hardware OEM ID
 * JWT Claim Name: "oemid"
 * Claim Key: 258
@@ -1866,7 +1866,7 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: HW Model
+* Claim Name: Hardware Model
 * Claim Description: Model identifier for hardware
 * JWT Claim Name: "hwmodel"
 * Claim Key: 259
@@ -1876,7 +1876,7 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: HW Version
+* Claim Name: Hardware Version
 * Claim Description: Hardware Version Identifier
 * JWT Claim Name: "hwversion"
 * Claim Key: 260

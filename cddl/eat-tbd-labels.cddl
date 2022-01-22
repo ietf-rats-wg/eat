@@ -4,11 +4,11 @@ uptime-label = <TBD267>
 boot-seed-label = <TB268>
 intended-use-label = <TBD269>
 dloas-label = <TBD270>
-manifests-label = <TBD271>
-swevidence-label = <TBD272>
-swresults-label = <TBD273>
-sw-name-label = <TBD274>
-sw-version-label = <TBD275>
+sw-name-label = <TBD271>
+sw-version-label = <TBD272>
+manifests-label = <TBD273>
+swevidence-label = <TBD274>
+swresults-label = <TBD275>
 
 
 

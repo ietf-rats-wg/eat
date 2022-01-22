@@ -20,10 +20,10 @@
 
 601({
     / nonce /           10: h'948f8860d13a463e',
-    / security-level /  14: 3, / secure-restricted /
-    / debug-status /    16: 2, / disabled-since-boot /
-    / secure-boot /     15: true,
-    / manifests /       35: [
+    / security-level / 261: 3, / secure-restricted /
+    / secure-boot /    262: true,
+    / debug-status /   263: 2, / disabled-since-boot /
+    / manifests /      273: [
                                 h'da53574944a600683762623334383766
                                   0c000169436172626f6e6974650d6331
                                   2e320e0102a2181f75496e6475737472
@@ -49,12 +49,12 @@
                                    c9ba860af7e0ca7ca7e9eecd0084d19c'
              },
 
-    / submods /        20 : { 
+    / submods /        266 : { 
                            "HLOS" : { / submod for high-level OS /
          / nonce /             10: h'948f8860d13a463e',
-           / security-level /  14: 1, / unrestricted /
-           / secure-boot /     15: true,
-           / manifests /       35: [
+           / security-level / 261: 1, / unrestricted /
+           / secure-boot /    262: true,
+           / manifests /      273: [
                                     h'da53574944a600687337
                                       6537346b78380c000168
                                       44726f6964204f530d65
