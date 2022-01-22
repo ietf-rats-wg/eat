@@ -1821,6 +1821,11 @@ They have been assigned values and registered before final publication of this d
 While their semantics is not expected to change in final publication, it is possible that they will.
 The JWT Claim Names and CWT Claim Keys are not expected to change.
 
+In draft -06 an early allocation was described.
+The processing of that early allocation was never correctly completed.
+This early allocation assigns different numbers for the CBOR claim labels.
+This early allocation will presumably complete correctly
+
 * Claim Name: Nonce
 * Claim Description: Nonce
 * JWT Claim Name: "nonce" (already registered for JWT)
@@ -1943,7 +1948,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 
 &nbsp;
 
-* Claim Name: uptime
+* Claim Name: Uptime
 * Claim Description: Uptime
 * JWT Claim Name: "uptime"
 * Claim Key: TBD267
@@ -1954,7 +1959,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 &nbsp;
 
 * Claim Name: Boot Seed
-* Claim Description: Indicates intended use of the EAT
+* Claim Description: Identifies a boot cycle
 * JWT Claim Name: "bootseed"
 * Claim Key: TBD268
 * Claim Value Type(s): bytes
@@ -1963,6 +1968,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 
 &nbsp;
 
+* Claim Name: Intended Use
 * Claim Description: Indicates intended use of the EAT
 * JWT Claim Name: "intuse"
 * Claim Key: TBD269
@@ -1973,7 +1979,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 &nbsp;
 
 * Claim Name: DLOAs
-* Claim Description: The section containing submodules (not actually a claim)
+* Claim Description: Certifications received as Digital Letters of Approval
 * JWT Claim Name: "dloas"
 * Claim Key: TBD270
 * Claim Value Type(s): array
@@ -1983,7 +1989,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 &nbsp;
 
 * Claim Name: SW Name
-* Claim Description: The section containing submodules (not actually a claim)
+* Claim Description: The name of the SW running in the entity
 * JWT Claim Name: "swname"
 * Claim Key: TBD271
 * Claim Value Type(s): map
@@ -1993,7 +1999,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 &nbsp;
 
 * Claim Name: SW Version
-* Claim Description: The section containing submodules (not actually a claim)
+* Claim Description: The version of SW running in the entity
 * JWT Claim Name: "swversion"
 * Claim Key: TBD272
 * Claim Value Type(s): map
@@ -2003,7 +2009,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 &nbsp;
 
 * Claim Name: SW Manifests
-* Claim Description: The section containing submodules (not actually a claim)
+* Claim Description: Manifests describing the SW installed on the entity
 * JWT Claim Name: "manifests"
 * Claim Key: TBD273
 * Claim Value Type(s): array
@@ -2013,7 +2019,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 &nbsp;
 
 * Claim Name: SW Evidence
-* Claim Description: The section containing submodules (not actually a claim)
+* Claim Description: Measurements of the SW, memory configuration and such on the entity
 * JWT Claim Name: "swevidence"
 * Claim Key: TBD274
 * Claim Value Type(s): array
@@ -2023,7 +2029,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 &nbsp;
 
 * Claim Name: SW Measurment Results
-* Claim Description: The section containing submodules (not actually a claim)
+* Claim Description: The results of comparing SW measurements to reference values
 * JWT Claim Name: "swresults"
 * Claim Key: TBD275
 * Claim Value Type(s): array
@@ -2692,3 +2698,5 @@ no new claims have been added.
 * Remove CDDL comments from CDDL blocks
 
 * More clearly define "entity" and use it more broadly, particularly instead of "device"
+
+* Re do early allocation of CBOR labels since last one didn't complete correctly
