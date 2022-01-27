@@ -2565,3 +2565,5 @@ no new claims have been added.
 
 * Lots of rewording and tightening up of section 1
 
+* Lots of wording improvements in section 3, particularly better use of normative language
+
