@@ -1934,7 +1934,46 @@ specification reference.
 | Tag    | Data Items     | Semantics                   |
 | TBD602 | array          | Detached EAT Bundle {{DEB}} |
 
+## Media Type Registration
 
+IANA is requested to register the "application/eat+cbor" media type in the
+"Media Types" registry {{!IANA.media-types}} in the manner described in
+{{!RFC6838}}, which can be used to indicate that the content is a EAT object:
+
+* Type name: `application`
+* Subtype name: `eat+cbor`
+* Required parameters: n/a
+* Optional parameters: "profile" (the EAT profile claim in string format.  OIDs
+  MUST use the dotted-decimal notation.)
+* Encoding considerations: binary
+* Security considerations: See the Security Considerations of <cref>RFCTHIS</cref>
+* Interoperability considerations: n/a
+* Published specification: <cref>RFCTHIS</cref>
+* Applications that use this media type: Attesters and other RATS roles
+  transferring EAT payloads over HTTP(S), CoAP(S), and other transports.
+* Fragment identifier considerations: n/a
+* Additional information:
+  * Magic number(s): n/a
+  * File extension(s): n/a
+  * Macintosh file type code(s): n/a
+* Person & email address to contact for further information: IESG,
+  iesg@ietf.org
+* Intended usage: COMMON
+* Restrictions on usage: none
+* Author: See Authors' Addresses section.
+* Change controller: IESG
+* Provisional registration?  No
+
+## CoAP Content-Formats Registration
+
+IANA is requested to register the CoAP Content-Format ID for the
+"application/eat+cbor" media type in the "CoAP Content-Formats" registry
+{{!IANA.core-parameters}} as follows:
+
+* Media Type: application/eat+cbor
+* Encoding: -
+* Id: <cref>TO-BE-ASSIGNED-BY IANA</cref>
+* Reference: <cref>RFCTHIS</cref>
 
 # Privacy Considerations {#privacyconsiderations}
 
