@@ -488,24 +488,15 @@ and consumption.
 
 ## Universal Entity ID Claim (ueid) {#UEID}
 
-<<<<<<< HEAD
-UEID's identify individual manufactured entities such as a
-=======
 A UEID identifies an individual manufactured entity like a
->>>>>>> master
 mobile phone, a water meter, a Bluetooth speaker or a networked
 security camera. It may identify the entire entity or a submodule.
 It does not identify types, models or classes of
 entities. It is akin to a serial number, though it does not have to be
 sequential.
 
-<<<<<<< HEAD
-UEID's MUST be universally and globally unique across manufacturers
-and countries. UEIDs must also be unique across protocols and systems,
-=======
-UEID’s MUST be universally and globally unique across manufacturers
+UEIDs MUST be universally and globally unique across manufacturers
 and countries. UEIDs MUST also be unique across protocols and systems,
->>>>>>> master
 as tokens are intended to be embedded in many different protocols and
 systems. No two products anywhere, even in completely different
 industries made by two different manufacturers in two different
@@ -514,7 +505,7 @@ universal in this way, then Relying Parties receiving them will have
 to track other characteristics of the entity to keep entities distinct
 between manufacturers).
 
-There are privacy considerations for UEID's. See {{ueidprivacyconsiderations}}.
+There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
 
 The UEID is permanent. It MUST never change for a given entity.
 
@@ -534,7 +525,7 @@ No UEID longer than 33 bytes SHOULD be sent.
 | 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. See {{ThreeGPP.IMEI}}. |
 {: #ueid-types-table title="UEID Composition Types"}
 
-UEID's are not designed for direct use by humans (e.g., printing on
+UEIDs are not designed for direct use by humans (e.g., printing on
 the case of a device), so no textual representation is defined.
 
 The consumer (the Relying Party) of a UEID MUST treat a UEID as a
@@ -576,7 +567,7 @@ The EAT profile MAY describe how SUEIDs should be labeled.
 If there is only one SUEID, the claim remains a map and there still must be a label.
 For example, the label for the SUEID used by FIDO Onboarding Protocol could simply be "FDO".
 
-There are privacy considerations for SUEID's. See {{ueidprivacyconsiderations}}.
+There are privacy considerations for SUEIDs. See {{ueidprivacyconsiderations}}.
 
 A Device Indentifier URN is registered for SUEIDs. See {{registerueidurn}}.
 
