@@ -488,15 +488,24 @@ and consumption.
 
 ## Universal Entity ID Claim (ueid) {#UEID}
 
+<<<<<<< HEAD
+UEID's identify individual manufactured entities such as a
+=======
 A UEID identifies an individual manufactured entity like a
+>>>>>>> master
 mobile phone, a water meter, a Bluetooth speaker or a networked
 security camera. It may identify the entire entity or a submodule.
 It does not identify types, models or classes of
 entities. It is akin to a serial number, though it does not have to be
 sequential.
 
+<<<<<<< HEAD
+UEID's MUST be universally and globally unique across manufacturers
+and countries. UEIDs must also be unique across protocols and systems,
+=======
 UEID’s MUST be universally and globally unique across manufacturers
 and countries. UEIDs MUST also be unique across protocols and systems,
+>>>>>>> master
 as tokens are intended to be embedded in many different protocols and
 systems. No two products anywhere, even in completely different
 industries made by two different manufacturers in two different
@@ -1163,8 +1172,8 @@ For example, "Linux kernel" or "Facebook App"
 Some devices are complex, having many subsystems.  A
 mobile phone is a good example. It may have several connectivity
 subsystems for communications (e.g., Wi-Fi and cellular). It may have
-subsystems for low-power audio and video playback. It may have one or
-more security-oriented subsystems like a TEE or a Secure Element.
+subsystems for low-power audio and video playback. It may have multiple
+security-oriented subsystems like a TEE and a Secure Element.
 
 The claims for a subsystem can be grouped together in a submodule or submod.
 
@@ -1179,29 +1188,27 @@ inside of claims sets...
 
 ### Submodule Types
 
-The following sections define the three major types of submodules:
+The following sections define the three types of submodules:
 
 * A submodule Claims-Set
 * A nested token, which can be any valid EAT token, CBOR or JSON
 * The digest of a detached Claims-Set
 
-These are distinguished primarily by their data type which may be a map/object, string or array.
-
-
 #### Submodule Claims-Set
 
-This is simply a subordinate Claims-Set containing claims about the submodule.
+This is a subordinate Claims-Set containing claims about the submodule.
 
 The submodule claims-set is produced by the same Attester as the surrounding token.
 It is secured using the same mechanism as the enclosing token (e.g., it is signed by the same attestation key).
-It roughly corresponds to an Attester Target Environment as described in the RATS architecture.
+It roughly corresponds to an Attester Target Environment, as described in the RATS architecture.
 
 It may contain claims that are the same as its surrounding token or superior submodules. 
 For example, the top-level of the token may have a UEID, a submod may have a different UEID and a further subordinate submodule may also have a UEID.
 
-The encoding of a submodule Claims-Set is always the same as the encoding as the token it is part of.
+The encoding of a submodule Claims-Set MUST be the same as the encoding as the token it is part of.
 
-This data type for this type of submodule is a map/object as that is the type of a Claims-Set.
+This data type for this type of submodule is a map/object.
+It is identified when decoding by it's type being a map/object.
 
 
 #### Nested Token
@@ -1209,20 +1216,16 @@ This data type for this type of submodule is a map/object as that is the type of
 This type of submodule is a fully formed complete token.
 It is typically produced by a separate Attester.
 It is typically used by a Composite Device as described in RATS Architecture {{RATS.Architecture}}
-
 In being a submodule of the surrounding token, it is cryptographically bound to the surrounding token.
 If it was conveyed in parallel with the surrounding token, there would be no such binding and attackers could substitute a good attestation from another device for the attestation of an errant subsystem.
 
-A nested token does NOT need to use the same encoding as the enclosing token.
+A nested token does not need to use the same encoding as the enclosing token.
 This is to allow Composite Devices to be built without regards to the encoding supported by their Attesters.
-
 Thus a CBOR-encoded token like a CWT or UCCS can have a JWT as a nested token submodule and a JSON-encoded token can have a CWT or UCCS as a nested token submodule.
-
-The data type for this type of submodule is either a text or byte string.
 
 Mechanisms are defined for identifying the encoding and type of the nested token. These mechanisms are different for CBOR and JSON encoding.
 The type of a CBOR-encoded nested token is identified using the CBOR tagging mechanism and thus is in common with identification used when any CBOR-encoded token is part of a CBOR-based protocol.
-A new simple type mechanism is defined for indication of the type of a JSON-encoded token since there is no JSON equivalent of tagging.
+A new type mechanism is defined for indication of the type of a JSON-encoded token since there is no JSON equivalent of tagging.
 
 ##### Surrounding EAT is CBOR-Encoded
 If the submodule is a byte string, then the nested token is CBOR-encoded.
@@ -1231,8 +1234,7 @@ The tag identifies whether the nested token is a CWT, a UCCS or a CBOR-encoded D
 
 If the submodule is a text string, then the nested token is JSON-encoded.
 The text string contains JSON.
-That JSON is the exactly the JSON described in the next section with one exception.
-The token can't be CBOR-encoded.
+That JSON is the exactly the JSON described in the next section with the exception that the nested token can NOT be CBOR format.
 
 ~~~~CDDL
 {::include nc-cddl/cbor-nested-token.cddl}
@@ -1240,14 +1242,14 @@ The token can't be CBOR-encoded.
 
 
 ##### Surrounding EAT is JSON-Encoded
-A nested token in a JSON-encoded token is an array of two items.
-The first is a string that indicates the type of the second item as follows:
+A nested token in a JSON-encoded token MUST be an array of two items.
+The first item in the array is a string that indicates the type of the second item as follows:
 
 "JWT"
 : A JWT formatted according to {{RFC7519}}
 
 "CBOR"
-: Some base64url-encoded CBOR that is a tag that is either a CWT, UCCS or CBOR-encoded DEB
+: Some base64url-encoded CBOR that is a tag, typically a CWT, UCCS or CBOR-encoded DEB
 
 "UJCS"
 : A UJCS-Message. (A UJCS-Message is identical to a JSON-encoded Claims-Set)
@@ -1285,8 +1287,16 @@ The integrity protection for the larger Claims Sets will not be as secure as tho
 It is possible for the hardware to enforce hardware access control (memory protection)  on the digest registers so that some of the larger claims can be more secure.
 For example, one register may be writable only by the TEE, so the detached claims from the TEE will have TEE-level security.
 
-The data type for this type of submodule is an array
+The data type for this type of submodule MUST be an array
 It contains two data items, an algorithm identifier and a byte string containing the digest.
+
+When decoding a CBOR format token the detached digest type is distringuished from the other types by it being an array.
+In CBOR the none of other submodule types are arrays.
+
+When decoding a JSON format token, a little more work is required because both the nested token and detached digest types are an array.
+To distinguish the nested token from the detached digest, the first element in the array is examined.
+If it is "JWT", "UJCS" or "DEB", the the submodule is a nested token.
+Otherwise it will contain an algorithm identifier and is a detached digest.
 
 A DEB, described in {{DEB}}, may be used to convey detached claims sets and the token with their detached digests.
 EAT, however, doesn't require use of a DEB.
@@ -1323,6 +1333,8 @@ string naming the submodule. No submodules may have the same name.
 
 
 ### CDDL for submods
+
+The submodule type is distinguished in the encoded bytes by its data type, map/object for a Claims-Set, string for nested token and array for a detached submodule. Nested tokens are byte-string wrapped when encoded in CBOR and base64 encoded for JSON.
 
 ~~~~CDDL
 {::include nc-cddl/submods.cddl}
@@ -1400,7 +1412,7 @@ In this use, the public key in the X.509 certificate becomes the verification ke
 
 The verification key identification and establishment of trust in the EAT and the attester may also be by some other means than an Endorsement.
 
-For the components (Attester, Verifier, Relying Party,…) of a particular end-end attestation system to reliably interoperate, its definition should specify how the verification key is identified.
+For the components (Attester, Verifier, Relying Party,...) of a particular end-end attestation system to reliably interoperate, its definition should specify how the verification key is identified.
 Usually, this will be in the profile document for a particular attestation system.
 
 ## Identification Methods
@@ -1415,11 +1427,11 @@ The COSE standard header parameter for Key ID (kid) may be used. See {{RFC8152}}
 
 COSE leaves the semantics of the key ID open-ended.
 It could be a record locator in a database, a hash of a public key, an input to a KDF, an authority key identifier (AKI) for an X.509 certificate or other.
-The profile document should specify what the key ID’s semantics are.
+The profile document should specify what the key ID's semantics are.
 
 ### JWS and COSE X.509 Header Parameters
 
-COSE X.509 {{COSE.X509.Draft}} and JSON Web Siganture {{RFC7515}} define several header parameters (x5t, x5u,…) for referencing or carrying X.509 certificates any of which may be used.
+COSE X.509 {{COSE.X509.Draft}} and JSON Web Siganture {{RFC7515}} define several header parameters (x5t, x5u,...) for referencing or carrying X.509 certificates any of which may be used.
 
 The X.509 certificate may be an Endorsement and thus carrying additional input to the Verifier. It may be just an X.509 certificate, not an Endorsement. The same header parameters are used in both cases. It is up to the attestation system design and the Verifier to determine which.
 
@@ -1427,7 +1439,7 @@ The X.509 certificate may be an Endorsement and thus carrying additional input t
 
 Compressed X.509 and CBOR Native certificates are defined by CBOR Certificates {{CBOR.Cert.Draft}}. These are semantically compatible with X.509 and therefore can be used as an equivalent to X.509 as described above.
 
-These are identified by their own header parameters (c5t, c5u,…).
+These are identified by their own header parameters (c5t, c5u,...).
 
 ### Claim-Based Key Identification
 
@@ -1658,11 +1670,11 @@ The CDDL in most cases gives both the integer label and the string label as it i
 ## CBOR Interoperability
 
 CBOR allows data items to be serialized in more than one form.
-If the sender uses a form that the receiver can’t decode, there will not be interoperability.
+If the sender uses a form that the receiver can't decode, there will not be interoperability.
 
 This specification gives no blanket requirements to narrow CBOR serialization for all uses of EAT.
 This allows individual uses to tailor serialization to the environment.
-It also may result in EAT implementations that don’t interoperate.
+It also may result in EAT implementations that don't interoperate.
 
 One way to guarantee interoperability is to clearly specify CBOR serialization in a profile document.
 See {{profiles}} for a list of serialization issues that should be addressed.
@@ -2221,13 +2233,13 @@ However, for the very large values involved here, this formula requires floating
 point precision higher than commonly available in calculators and SW so this
 simple approximation is used. See {{BirthdayAttack}}. 
 
-        p = k^2 / 2n 
+       p = k^2 / 2n 
 
 For this calculation:
       
-        p  Collision Probability
-        n  Total population based on number of bits in UEID
-        k  Population in a database
+       p  Collision Probability
+       n  Total population based on number of bits in UEID
+       k  Population in a database
 
 | Database Size           | 128-bit UEID | 192-bit UEID | 256-bit UEID |
 |-------------------------+--------------+--------------+--------------+
@@ -2566,4 +2578,6 @@ no new claims have been added.
 * Lots of rewording and tightening up of section 1
 
 * Lots of wording improvements in section 3, particularly better use of normative language
+
+* Improve wording in submodules section, particularly how to distinguish types when decoding
 
