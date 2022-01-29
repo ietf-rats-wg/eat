@@ -505,7 +505,7 @@ universal in this way, then Relying Parties receiving them will have
 to track other characteristics of the entity to keep entities distinct
 between manufacturers).
 
-There are privacy considerations for UEID's. See {{ueidprivacyconsiderations}}.
+There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
 
 The UEID is permanent. It MUST never change for a given entity.
 
@@ -525,7 +525,7 @@ No UEID longer than 33 bytes SHOULD be sent.
 | 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. See {{ThreeGPP.IMEI}}. |
 {: #ueid-types-table title="UEID Composition Types"}
 
-UEID's are not designed for direct use by humans (e.g., printing on
+UEIDs are not designed for direct use by humans (e.g., printing on
 the case of a device), so no textual representation is defined.
 
 The consumer (the Relying Party) of a UEID MUST treat a UEID as a
@@ -567,7 +567,7 @@ The EAT profile MAY describe how SUEIDs should be labeled.
 If there is only one SUEID, the claim remains a map and there still must be a label.
 For example, the label for the SUEID used by FIDO Onboarding Protocol could simply be "FDO".
 
-There are privacy considerations for SUEID's. See {{ueidprivacyconsiderations}}.
+There are privacy considerations for SUEIDs. See {{ueidprivacyconsiderations}}.
 
 A Device Indentifier URN is registered for SUEIDs. See {{registerueidurn}}.
 
@@ -1206,7 +1206,7 @@ It is identified when decoding by it's type being a map/object.
 
 This type of submodule is a fully formed complete token.
 It is typically produced by a separate Attester.
-It is typically used for a Composite Device as described in RATS Architecture {{RATS.Architecture}}
+It is typically used by a Composite Device as described in RATS Architecture {{RATS.Architecture}}
 In being a submodule of the surrounding token, it is cryptographically bound to the surrounding token.
 If it was conveyed in parallel with the surrounding token, there would be no such binding and attackers could substitute a good attestation from another device for the attestation of an errant subsystem.
 
