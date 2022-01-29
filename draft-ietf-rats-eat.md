@@ -1214,39 +1214,63 @@ A nested token does not need to use the same encoding as the enclosing token.
 This is to allow Composite Devices to be built without regards to the encoding supported by their Attesters.
 Thus a CBOR-encoded token like a CWT or UCCS can have a JWT as a nested token submodule and a JSON-encoded token can have a CWT or UCCS as a nested token submodule.
 
-Mechanisms are defined for identifying the encoding and type of the nested token. These mechanisms are different for CBOR and JSON encoding.
-The type of a CBOR-encoded nested token is identified using the CBOR tagging mechanism and thus is in common with identification used when any CBOR-encoded token is part of a CBOR-based protocol.
-A new type mechanism is defined for indication of the type of a JSON-encoded token since there is no JSON equivalent of tagging.
+The following two sections describe how to encode and decode a nested token.
 
 ##### Surrounding EAT is CBOR-Encoded
-If the submodule is a byte string, then the nested token is CBOR-encoded.
-The byte string always wraps a token that is a tag.
-The tag identifies whether the nested token is a CWT, a UCCS or a CBOR-encoded DEB.
+This describes the encoding and decoding of CBOR or JSON-encoded tokens nested inside a CBOR-encoded token.
 
-If the submodule is a text string, then the nested token is JSON-encoded.
-The text string contains JSON.
-That JSON is the exactly the JSON described in the next section with the exception that the nested token can NOT be CBOR format.
+If the nested token is CBOR-encoded, then it MUST be a CBOR tag and MUST be wrapped in a byte string.
+The tag identifies whether the nested token is a CWT, a UCCS, a CBOR-encoded DEB, or some other CBOR-format token defined in the future.
+A nested CBOR-encoded token that is not a CBOR tag is NOT allowed.
+
+If the nested token is JSON-encoded, then the data item MUST be a text string.
+The text string MUST contain a JSON-encoded array of two items.
+The first item is a string identifying the type of the token.
+The second item is the JSON-encoded token.
+
+The string identifying the JSON-encoded token MUST be one of the following:
+
+"JWT":
+: The second item MUST be a JWT formatted according to {{RFC7519}}
+
+"UJCS":
+: The second item MUST be a UJCS-Message as defined in this document.
+
+"DEB":
+: The second item MUST be a JSON-encoded Detached EAT Bundle as defined in this document.
+
+The definition of additional types requires a standards action.
+
+When decoding, if a byte string is encountered, it is known to be a nested CBOR-encoded token.
+The byte string wrapping is removed.
+The type of the token is determined by the CBOR tag.
+
+When decoding, if a text string is encountered, it is known to be a JSON-encoded token.
+The two-item array is decoded and tells the type of the JSON-encoded token.
 
 ~~~~CDDL
 {::include nc-cddl/cbor-nested-token.cddl}
 ~~~~
 
-
 ##### Surrounding EAT is JSON-Encoded
-A nested token in a JSON-encoded token MUST be an array of two items.
-The first item in the array is a string that indicates the type of the second item as follows:
+This describes the encoding and decoding of CBOR or JSON-encoded tokens nested inside a JSON-encoded token.
 
-"JWT"
-: A JWT formatted according to {{RFC7519}}
+The nested token MUST be an array of two in the same format as described in the section above.
 
-"CBOR"
+A CBOR-encoded token nested inside a JSON-encoded MUST use the same array of two, but with the type as follows:
+
+"CBOR":
 : Some base64url-encoded CBOR that is a tag, typically a CWT, UCCS or CBOR-encoded DEB
 
-"UJCS"
-: A UJCS-Message. (A UJCS-Message is identical to a JSON-encoded Claims-Set)
+When decoding, the array of two is decoded.
+The first item indicates the type and encoding of the nested token.
+If the type string is not "CBOR", then the token is JSON-encoded and of the type indicated by the string.
 
-"DEB"
-: A JSON-encoded Detached EAT Bundle.
+If the type string is "CBOR", then the token is CBOR-encoded.
+The base64url encoding is removed.
+The CBOR-encoded data is then decoded.
+The type of nested token is determined by the CBOR-tag.
+It is an error if the CBOR is not a tag.
 
 ~~~~CDDL
 {::include nc-cddl/json-nested-token.cddl}
