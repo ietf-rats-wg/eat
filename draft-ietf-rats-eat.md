@@ -2026,7 +2026,7 @@ in a CWT/JWT is a field that may be optionally included in the EAT and is in gen
 derived on the same device in which the entity is instantiated.  The nonce claim is based
 on a value that is usually derived remotely (outside of the entity).  These claims can be used
 to extract and convey personally-identifying information either inadvertently or by intention.  For instance,
-an implementor may choose a cti that is equivalent to the a username associated with the device (e.g. account
+an implementor may choose a cti that is equivalent to a username associated with the device (e.g., account
 login).  If the token is inspected by a 3rd-party then this information could be used to identify the source
 of the token or an account associated with the token (e.g., if the account name is used to derive the nonce).  In order
 to avoid the conveyance of privacy-related information in either the cti/jti or nonce claims, these fields
