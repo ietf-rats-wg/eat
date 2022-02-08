@@ -2020,7 +2020,7 @@ For example, many mobile phones prompt the user for permission when before sendi
 
 ## Replay Protection and Privacy (#replayprivacyconsiderations)
 
-EAT offers 2 primary mechanisms for toekn replay protection (also sometimes
+EAT offers 2 primary mechanisms for token replay protection (also sometimes
 known as token "freshness"):  the cti/jti claim and the nonce claim.  The cti/jti claim
 in a CWT/JWT is a field that may be optionally included in the EAT and is in general
 derived on the same device in which the entity is instantiated.  The nonce claim is based
