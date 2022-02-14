@@ -1,5 +1,6 @@
 ; These are not yet assigned in any way and may change.
 
+security-level-label = <TBD261>
 uptime-label = <TBD267>
 boot-seed-label = <TB268>
 intended-use-label = <TBD269>

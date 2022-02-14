@@ -5,6 +5,7 @@
 ; This file is used for cddl validation. It is not included
 ; in the document. The file eat-tbd-labels.cddl is for the document.
 
+security-level-label = 261
 uptime-label = 267
 boot-seed-label = 268
 intended-use-label = 269

@@ -1879,16 +1879,6 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: Security Level
-* Claim Description: Characterization of the security of an Attester or submodule
-* JWT Claim Name: "seclevel"
-* Claim Key: TBD (requested value 261)
-* Claim Value Type(s): integer or string
-* Change Controller: IESG
-* Specification Document(s): __this document__    
-
-&nbsp;
-
 * Claim Name: Secure Boot
 * Claim Description: Indicate whether the boot was secure
 * JWT Claim Name: "secboot"
@@ -1940,6 +1930,16 @@ This early allocation will presumably complete correctly
 ### To be Assigned Claims
 
 (Early assignment is NOT requested for these claims. Implementers should be aware they may change)
+
+&nbsp;
+
+* Claim Name: Security Level
+* Claim Description: Characterization of the security of an Attester or submodule
+* JWT Claim Name: "seclevel"
+* Claim Key: TBD261
+* Claim Value Type(s): integer or string
+* Change Controller: IESG
+* Specification Document(s): __this document__    
 
 &nbsp;
 
