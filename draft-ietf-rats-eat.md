@@ -1822,7 +1822,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Nonce
 * Claim Description: Nonce
 * JWT Claim Name: "nonce" (already registered for JWT)
-* Claim Key: 10
+* Claim Key: TBD (requested value 10)
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): {{OpenIDConnectCore}}, __this document__
@@ -1832,7 +1832,7 @@ This early allocation will presumably complete correctly
 * Claim Name: UEID
 * Claim Description: The Universal Entity ID
 * JWT Claim Name: "ueid"
-* CWT Claim Key: 256
+* CWT Claim Key: TBD (requested value 256)
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1842,7 +1842,7 @@ This early allocation will presumably complete correctly
 * Claim Name: SUEIDs
 * Claim Description: Semi-permanent UEIDs
 * JWT Claim Name: "sueids"
-* CWT Claim Key: 257
+* CWT Claim Key: TBD (requested value 257)
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1852,7 +1852,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Hardware OEMID
 * Claim Description: Hardware OEM ID
 * JWT Claim Name: "oemid"
-* Claim Key: 258
+* Claim Key: TBD (requeste value 258)
 * Claim Value Type(s): byte string or integer
 * Change Controller: IESG
 * Specification Document(s): __this document__ 
@@ -1862,7 +1862,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Hardware Model
 * Claim Description: Model identifier for hardware
 * JWT Claim Name: "hwmodel"
-* Claim Key: 259
+* Claim Key: TBD (requested value 259)
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__ 
@@ -1872,7 +1872,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Hardware Version
 * Claim Description: Hardware Version Identifier
 * JWT Claim Name: "hwversion"
-* Claim Key: 260
+* Claim Key: TBD (requested value 260)
 * Claim Value Type(s): array
 * Change Controller: IESG
 * Specification Document(s): __this document__ 
@@ -1882,7 +1882,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Security Level
 * Claim Description: Characterization of the security of an Attester or submodule
 * JWT Claim Name: "seclevel"
-* Claim Key: 261
+* Claim Key: TBD (requested value 261)
 * Claim Value Type(s): integer or string
 * Change Controller: IESG
 * Specification Document(s): __this document__    
@@ -1912,7 +1912,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Location
 * Claim Description: The geographic location
 * JWT Claim Name: "location"
-* Claim Key: 264
+* Claim Key: TBD (requested value 264)
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1922,7 +1922,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Profile
 * Claim Description: Indicates the EAT profile followed
 * JWT Claim Name: "eat_profile"
-* Claim Key: 265
+* Claim Key: TBD (requested value 265)
 * Claim Value Type(s): URI or OID
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1932,12 +1932,14 @@ This early allocation will presumably complete correctly
 * Claim Name: Submodules Section
 * Claim Description: The section containing submodules
 * JWT Claim Name: "submods"
-* Claim Key: 266
+* Claim Key: TBD (requested value 266)
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
 ### To be Assigned Claims
+
+(Early assignment is NOT requested for these claims. Implementers should be aware they may change)
 
 &nbsp;
 
