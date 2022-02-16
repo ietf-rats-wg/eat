@@ -1,15 +1,15 @@
-; These are not yet assigned in any way and may change.
+; These are not yet assigned numbers
 
-security-level-label = <TBD261>
-uptime-label = <TBD267>
-boot-seed-label = <TB268>
-intended-use-label = <TBD269>
-dloas-label = <TBD270>
-sw-name-label = <TBD271>
-sw-version-label = <TBD272>
-manifests-label = <TBD273>
-swevidence-label = <TBD274>
-swresults-label = <TBD275>
+security-level-label = <TBD>
+uptime-label = <TBD>
+boot-seed-label = <TB>
+intended-use-label = <TBD>
+dloas-label = <TBD>
+sw-name-label = <TBD>
+sw-version-label = <TBD>
+manifests-label = <TBD>
+swevidence-label = <TBD>
+swresults-label = <TBD>
 
 
 

@@ -1959,7 +1959,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Security Level
 * Claim Description: Characterization of the security of an Attester or submodule
 * JWT Claim Name: "seclevel"
-* Claim Key: TBD261
+* Claim Key: TBD
 * Claim Value Type(s): integer or string
 * Change Controller: IESG
 * Specification Document(s): __this document__    
@@ -1969,7 +1969,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Uptime
 * Claim Description: Uptime
 * JWT Claim Name: "uptime"
-* Claim Key: TBD267
+* Claim Key: TBD
 * Claim Value Type(s): unsigned integer 
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1979,7 +1979,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Boot Seed
 * Claim Description: Identifies a boot cycle
 * JWT Claim Name: "bootseed"
-* Claim Key: TBD268
+* Claim Key: TBD
 * Claim Value Type(s): bytes
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1989,7 +1989,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Intended Use
 * Claim Description: Indicates intended use of the EAT
 * JWT Claim Name: "intuse"
-* Claim Key: TBD269
+* Claim Key: TBD
 * Claim Value Type(s): integer or string
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1999,7 +1999,7 @@ This early allocation will presumably complete correctly
 * Claim Name: DLOAs
 * Claim Description: Certifications received as Digital Letters of Approval
 * JWT Claim Name: "dloas"
-* Claim Key: TBD270
+* Claim Key: TBD
 * Claim Value Type(s): array
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -2009,7 +2009,7 @@ This early allocation will presumably complete correctly
 * Claim Name: SW Name
 * Claim Description: The name of the SW running in the entity
 * JWT Claim Name: "swname"
-* Claim Key: TBD271
+* Claim Key: TBD
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -2019,7 +2019,7 @@ This early allocation will presumably complete correctly
 * Claim Name: SW Version
 * Claim Description: The version of SW running in the entity
 * JWT Claim Name: "swversion"
-* Claim Key: TBD272
+* Claim Key: TBD
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -2029,7 +2029,7 @@ This early allocation will presumably complete correctly
 * Claim Name: SW Manifests
 * Claim Description: Manifests describing the SW installed on the entity
 * JWT Claim Name: "manifests"
-* Claim Key: TBD273
+* Claim Key: TBD
 * Claim Value Type(s): array
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -2039,7 +2039,7 @@ This early allocation will presumably complete correctly
 * Claim Name: SW Evidence
 * Claim Description: Measurements of the SW, memory configuration and such on the entity
 * JWT Claim Name: "swevidence"
-* Claim Key: TBD274
+* Claim Key: TBD
 * Claim Value Type(s): array
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -2049,7 +2049,7 @@ This early allocation will presumably complete correctly
 * Claim Name: SW Measurment Results
 * Claim Description: The results of comparing SW measurements to reference values
 * JWT Claim Name: "swresults"
-* Claim Key: TBD275
+* Claim Key: TBD
 * Claim Value Type(s): array
 * Change Controller: IESG
 * Specification Document(s): __this document__
