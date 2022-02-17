@@ -2155,7 +2155,7 @@ Implementers should consider laws and regulations governing the transmission of 
 Implementers should consider using location management facilities offered by the operating system on the entity generating the attestation.
 For example, many mobile phones prompt the user for permission when before sending location data.
 
-## Replay Protection and Privacy (#replayprivacyconsiderations)
+## Replay Protection and Privacy {#replayprivacyconsiderations}
 
 EAT offers 2 primary mechanisms for token replay protection (also sometimes
 known as token "freshness"):  the cti/jti claim and the nonce claim.  The cti/jti claim
@@ -2753,3 +2753,5 @@ no new claims have been added.
 * Remove security-level from early allocation
 
 * Add boot odometer claim
+
+* Add privacy considerations for replay protection
