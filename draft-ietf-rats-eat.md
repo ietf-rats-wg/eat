@@ -2737,3 +2737,4 @@ no new claims have been added.
 
 * Remove security-level from early allocation
 
+* Add boot odometer claim

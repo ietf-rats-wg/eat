@@ -17,6 +17,7 @@ COMMON_CDDL_FRAGS += debug-status.cddl
 COMMON_CDDL_FRAGS += location.cddl
 COMMON_CDDL_FRAGS += uptime.cddl
 COMMON_CDDL_FRAGS += boot-seed.cddl
+COMMON_CDDL_FRAGS += odometer.cddl
 COMMON_CDDL_FRAGS += intended-use.cddl
 COMMON_CDDL_FRAGS += dloas.cddl
 COMMON_CDDL_FRAGS += profile.cddl
