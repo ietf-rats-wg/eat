@@ -3,6 +3,7 @@
 security-level-label = <TBD>
 uptime-label = <TBD>
 boot-seed-label = <TB>
+odometer-label = <TBD>
 intended-use-label = <TBD>
 dloas-label = <TBD>
 sw-name-label = <TBD>
