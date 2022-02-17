@@ -1,26 +1,29 @@
 ; The following are claim names for JSON encoded tokens.
 
+nonce-label /= "nonce"
+
+
 ueid-label /= "ueid"
 sueids-label /= "sueids"
-nonce-label /= "nonce"
 oemid-label /= "oemid"
+hardware-model-label /= "hwmodel"
+hardware-version-label /= "hwversion"
 security-level-label /= "seclevel"
 secure-boot-label /= "secboot"
 debug-status-label /= "dbgstat"
 location-label /= "location"
-uptime-label /= "uptime"
 profile-label /= "eat-profile"
-intended-use-label /= "intuse"
+uptime-label /= "uptime"
 boot-seed-label /= "bootseed"
-submods-label /= "submods"
-timestamp /= "timestamp"
-manifests-label /= "manifests"
-swevidence-label /= "swevidence"
+intended-use-label /= "intuse"
 dloas-label /= "dloas"
-swresults-label /= "swresults"
 sw-name-label /= "swname"
 sw-version-label /= "swversion"
-hardware-model-label /= "hwmodel"
+manifests-label /= "manifests"
+swevidence-label /= "swevidence"
+swresults-label /= "swresults"
+submods-label /= "submods"
+
 
 latitude /= "lat"
 longitude /= "long"

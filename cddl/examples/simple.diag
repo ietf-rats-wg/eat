@@ -1,10 +1,10 @@
 {
     / issuer /           1: "joe",
     / nonce /           10: h'948f8860d13a463e8e',
-    / UEID /            11: h'0198f50a4ff6c05861c8860d13a638ea',
-    / OEM ID /          13: h'88124e',
-    / HW Class /        39: h'881cf5f243fbef3336bbd22547dddefc',
-    / secure-boot /     15: true,
-    / debug-disable /   16: 3, / permanent-disable /
+    / UEID /           256: h'0198f50a4ff6c05861c8860d13a638ea',
+    / OEM ID /         258: h'88124e',
+    / HW Model /       259: h'881cf5f243fbef3336bbd22547dddefc',
+    / secure-boot /    262: true,
+    / debug-status /   263: 3, / permanent-disable /
     / timestamp (iat) /  6: 1526542894
 }

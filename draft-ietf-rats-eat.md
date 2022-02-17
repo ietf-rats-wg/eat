@@ -1837,10 +1837,15 @@ They have been assigned values and registered before final publication of this d
 While their semantics is not expected to change in final publication, it is possible that they will.
 The JWT Claim Names and CWT Claim Keys are not expected to change.
 
+In draft -06 an early allocation was described.
+The processing of that early allocation was never correctly completed.
+This early allocation assigns different numbers for the CBOR claim labels.
+This early allocation will presumably complete correctly
+
 * Claim Name: Nonce
 * Claim Description: Nonce
 * JWT Claim Name: "nonce" (already registered for JWT)
-* Claim Key: 10
+* Claim Key: TBD (requested value 10)
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): {{OpenIDConnectCore}}, __this document__
@@ -1850,37 +1855,57 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 * Claim Name: UEID
 * Claim Description: The Universal Entity ID
 * JWT Claim Name: "ueid"
-* CWT Claim Key: 11
+* CWT Claim Key: TBD (requested value 256)
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: OEMID
-* Claim Description: IEEE-based OEM ID
+* Claim Name: SUEIDs
+* Claim Description: Semi-permanent UEIDs
+* JWT Claim Name: "sueids"
+* CWT Claim Key: TBD (requested value 257)
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: Hardware OEMID
+* Claim Description: Hardware OEM ID
 * JWT Claim Name: "oemid"
-* Claim Key: 13
+* Claim Key: TBD (requeste value 258)
+* Claim Value Type(s): byte string or integer
+* Change Controller: IESG
+* Specification Document(s): __this document__ 
+
+&nbsp;
+
+* Claim Name: Hardware Model
+* Claim Description: Model identifier for hardware
+* JWT Claim Name: "hwmodel"
+* Claim Key: TBD (requested value 259)
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__ 
 
 &nbsp;
 
-* Claim Name: Security Level
-* Claim Description: Characterization of the security of an Attester or submodule
-* JWT Claim Name: "seclevel"
-* Claim Key: 14
-* Claim Value Type(s): integer
+* Claim Name: Hardware Version
+* Claim Description: Hardware Version Identifier
+* JWT Claim Name: "hwversion"
+* Claim Key: TBD (requested value 260)
+* Claim Value Type(s): array
 * Change Controller: IESG
-* Specification Document(s): __this document__    
+* Specification Document(s): __this document__ 
 
 &nbsp;
 
 * Claim Name: Secure Boot
 * Claim Description: Indicate whether the boot was secure
 * JWT Claim Name: "secboot"
-* Claim Key: 15
+* Claim Key: 262
 * Claim Value Type(s): Boolean
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1890,8 +1915,8 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 * Claim Name: Debug Status
 * Claim Description: Indicate status of debug facilities
 * JWT Claim Name: "dbgstat"
-* Claim Key: 16
-* Claim Value Type(s): integer
+* Claim Key: 263
+* Claim Value Type(s): integer or string
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
@@ -1900,7 +1925,7 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 * Claim Name: Location
 * Claim Description: The geographic location
 * JWT Claim Name: "location"
-* Claim Key: 17
+* Claim Key: TBD (requested value 264)
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1910,24 +1935,126 @@ The JWT Claim Names and CWT Claim Keys are not expected to change.
 * Claim Name: Profile
 * Claim Description: Indicates the EAT profile followed
 * JWT Claim Name: "eat_profile"
-* Claim Key: 18
-* Claim Value Type(s): map
+* Claim Key: TBD (requested value 265)
+* Claim Value Type(s): URI or OID
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
 &nbsp;
 
 * Claim Name: Submodules Section
-* Claim Description: The section containing submodules (not actually a claim)
+* Claim Description: The section containing submodules
 * JWT Claim Name: "submods"
-* Claim Key: 20
+* Claim Key: TBD (requested value 266)
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
 ### To be Assigned Claims
 
-TODO: add the rest of the claims in here
+(Early assignment is NOT requested for these claims. Implementers should be aware they may change)
+
+&nbsp;
+
+* Claim Name: Security Level
+* Claim Description: Characterization of the security of an Attester or submodule
+* JWT Claim Name: "seclevel"
+* Claim Key: TBD
+* Claim Value Type(s): integer or string
+* Change Controller: IESG
+* Specification Document(s): __this document__    
+
+&nbsp;
+
+* Claim Name: Uptime
+* Claim Description: Uptime
+* JWT Claim Name: "uptime"
+* Claim Key: TBD
+* Claim Value Type(s): unsigned integer 
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: Boot Seed
+* Claim Description: Identifies a boot cycle
+* JWT Claim Name: "bootseed"
+* Claim Key: TBD
+* Claim Value Type(s): bytes
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: Intended Use
+* Claim Description: Indicates intended use of the EAT
+* JWT Claim Name: "intuse"
+* Claim Key: TBD
+* Claim Value Type(s): integer or string
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: DLOAs
+* Claim Description: Certifications received as Digital Letters of Approval
+* JWT Claim Name: "dloas"
+* Claim Key: TBD
+* Claim Value Type(s): array
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: SW Name
+* Claim Description: The name of the SW running in the entity
+* JWT Claim Name: "swname"
+* Claim Key: TBD
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: SW Version
+* Claim Description: The version of SW running in the entity
+* JWT Claim Name: "swversion"
+* Claim Key: TBD
+* Claim Value Type(s): map
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: SW Manifests
+* Claim Description: Manifests describing the SW installed on the entity
+* JWT Claim Name: "manifests"
+* Claim Key: TBD
+* Claim Value Type(s): array
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: SW Evidence
+* Claim Description: Measurements of the SW, memory configuration and such on the entity
+* JWT Claim Name: "swevidence"
+* Claim Key: TBD
+* Claim Value Type(s): array
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+&nbsp;
+
+* Claim Name: SW Measurment Results
+* Claim Description: The results of comparing SW measurements to reference values
+* JWT Claim Name: "swresults"
+* Claim Key: TBD
+* Claim Value Type(s): array
+* Change Controller: IESG
+* Specification Document(s): __this document__
+
+
 
 ### Version Schemes Registered by this Document {#registerversionscheme}
 
@@ -2590,9 +2717,13 @@ no new claims have been added.
 
 * More clearly define "entity" and use it more broadly, particularly instead of "device"
 
+* Re do early allocation of CBOR labels since last one didn't complete correctly
+
 * Lots of rewording and tightening up of section 1
 
 * Lots of wording improvements in section 3, particularly better use of normative language
 
 * Improve wording in submodules section, particularly how to distinguish types when decoding
+
+* Remove security-level from early allocation
 

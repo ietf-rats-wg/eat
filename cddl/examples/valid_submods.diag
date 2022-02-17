@@ -17,30 +17,30 @@
 
 {
     / nonce /           10: h'948f8860d13a463e8e',
-    / UEID /            11: h'0198f50a4ff6c05861c8860d13a638ea',
-    / HW OEM ID /       13: h'894823', / IEEE OUI format OEM ID /
-    / HW Model ID /     39: h'549dcecc8b987c737b44e40f7c635ce8'
+    / UEID /           256: h'0198f50a4ff6c05861c8860d13a638ea',
+    / HW OEM ID /      258: h'894823', / IEEE OUI format OEM ID /
+    / HW Model ID /    259: h'549dcecc8b987c737b44e40f7c635ce8'
                               / Hash of chip model name /,
-    / HW Version /      26: ["1.3.4", 1], / Multipartnumeric version /
-    / SW Name /         29: "Acme OS",
-    / SW Version /      30: ["3.5.5", 1],
-    / secure-boot /     15: true,
-    / debug-disable /   16: 3, / permanent-disable  /
+    / HW Version /     260: ["1.3.4", 1], / Multipartnumeric version /
+    / SW Name /        271: "Acme OS",
+    / SW Version /     272: ["3.5.5", 1],
+    / secure-boot /    262: true,
+    / debug-status /   263: 3, / permanent-disable  /
     / timestamp (iat) /  6: 1526542894,
-    / security-level /  14: 3, / secure restricted OS /
-    / submods / 20: {
+    / security-level / 261: 3, / secure restricted OS /
+    / submods / 266: {
         / A submodule to hold some claims about the circuit board /
         "board" :  {
-	    / HW OEM ID /   13: h'9bef8787eba13e2c8f6e7cb4b1f4619a',
-	    / HW Model ID / 39: h'ee80f5a66c1fb9742999a8fdab930893'
+	    / HW OEM ID /   258: h'9bef8787eba13e2c8f6e7cb4b1f4619a',
+	    / HW Model ID / 259: h'ee80f5a66c1fb9742999a8fdab930893'
 	                              / Hash of board module name /,
-	    / HW Version /  26: ["2.0a", 2] / multipartnumeric+suffix /
+	    / HW Version /  260: ["2.0a", 2] / multipartnumeric+suffix /
         },
 
         / A submodule to hold claims about the overall device /
         "device" :  {
-	    / HW OEM ID /   13: 61234, / PEN Format OEM ID / 
-	    / HW Version /  26: ["4012345123456", 5] / EAN-13 format (barcode) /
+	    / HW OEM ID /   258: 61234, / PEN Format OEM ID / 
+	    / HW Version /  260: ["4012345123456", 5] / EAN-13 format (barcode) /
         }
     }
 }

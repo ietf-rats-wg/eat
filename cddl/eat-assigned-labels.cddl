@@ -3,11 +3,13 @@
 ; They are not expected to change in the final publication as an RFC.
 
 nonce-label = 10
-ueid-label = 11
-oemid-label = 13
-security-level-label = 14
-secure-boot-label = 15
-debug-status-label = 16
-location-label = 17
-profile-label = 18
-submods-label = 20
+ueid-label = 256
+sueids-label = 257
+oemid-label = 258
+hardware-model-label = 259
+hardware-version-label = 260
+secure-boot-label = 262
+debug-status-label = 263
+location-label = 264
+profile-label = 265
+submods-label = 266
