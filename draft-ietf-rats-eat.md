@@ -891,9 +891,6 @@ The heading is in degrees relative to true north.
 If the entity is stationary, the heading is NaN (floating-point not-a-number).
 The speed is the horizontal component of the entity velocity in meters per second.
 
-When encoding floating-point numbers half-precision SHOULD NOT be used.
-They usually do not provide enough precision for a geographic location.
-
 The location may have been cached for a period of time before token
 creation. For example, it might have been minutes or hours or more
 since the last contact with a GPS satellite. Either the timestamp or
