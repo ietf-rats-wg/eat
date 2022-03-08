@@ -1,6 +1,6 @@
 $$claims-set-claims //= (
     intended-use-label =>
-        intended-use-cbor-type / intended-use-json-type
+        JC<intended-use-json-type, intended-use-cbor-type>
 )
 
 intended-use-cbor-type = &(

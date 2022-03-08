@@ -1,1 +1,1 @@
-$$claims-set-claims //= (secure-boot-label => bool)
+$$Claims-Set-Claims //= (secure-boot-label => bool)

@@ -12,12 +12,12 @@ location-type = {
     ? age => uint
 }
 
-latitude = 1 / "latitude"
-longitude = 2 / "longitude"
-altitude = 3 / "altitude"
-accuracy = 4 / "accuracy"
-altitude-accuracy = 5 / "altitude-accuracy"
-heading = 6 / "heading"
-speed = 7 / "speed"
-timestamp = 8 / "timestamp"
-age = 9 / "age"
+latitude = JC<1, "latitude">
+longitude = JC<2, "longitude">
+altitude = JC<3, "altitude">
+accuracy = JC<4, "accuracy">
+altitude-accuracy = JC<5, "altitude-accuracy">
+heading = JC<6, "heading">
+speed = JC<7, "speed">
+timestamp = JC<8, "timestamp">
+age = JC<9, "age">

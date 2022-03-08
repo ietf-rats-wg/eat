@@ -1,11 +1,22 @@
 oemid-pen = int
 
-oemid-ieee = bstr .size 3
+;oemid-ieee-cbor = bstr .size 3
+oemid-ieee-cbor = bstr
+
+; TODO: size of base 64 string
+;oemid-ieee-json = base64-url-text
+oemid-ieee-json = [ xx:text , yy:int ]
+
+; oemid-ieee = JC<oemid-ieee-json, oemid-ieee-cbor>
+
+oemid-ieee = oemid-ieee-cbor .feature "cbor"
+
 
 oemid-random = bstr .size 16
 
 
-$$claims-set-claims //= (
+$$Claims-Set-Claims //= (
     oemid-label => 
         oemid-random / oemid-ieee / oemid-pen
+        ;oemid-random / oemid-ieee / oemid-pen
 )

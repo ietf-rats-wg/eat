@@ -5,40 +5,27 @@ include vars.mk
 
 %.cbor: %.diag ; @$(diag2cbor) $< > $@
 
-DIAG_EXAMPLES := $(wildcard examples/*.diag)
+#DIAG_EXAMPLES := $(wildcard examples/*.diag)
+DIAG_EXAMPLES := $(wildcard examples/simple.diag)
 CBOR_EXAMPLES := $(DIAG_EXAMPLES:.diag=.cbor)
 
 CLEANFILES += $(CBOR_EXAMPLES)
 
 .PHONY: check-examples
 
-all: $(COMMON_CDDL_FOR_DOCUMENT) $(CBOR_CDDL_FOR_DOCUMENT) $(JSON_CDDL_FOR_DOCUMENT) $(CDDL_FOR_CBOR_VALIDATION) check-examples
+all: $(CDDL_FOR_VALIDATION) check-examples
 
-check-examples: $(CDDL_FOR_CBOR_VALIDATION) $(CBOR_EXAMPLES)
+CDDL_FOR_VALIDATION := VALIDATION.CDDL
+
+check-examples: $(CDDL_FOR_VALIDATION) $(CBOR_EXAMPLES)
 	@for f in $(CBOR_EXAMPLES); do \
 		echo ">> validating $$f" ; \
 		$(cddl) $< validate $$f ; \
 	done
 
-$(COMMON_CDDL_FOR_DOCUMENT): $(COMMON_CDDL_FRAGS)
-	@for f in $^ ; do \
-		( cat $$f ; echo ) ; \
-	done > $@
 
 
-$(CBOR_CDDL_FOR_DOCUMENT): $(CBOR_CDDL_FRAGS)
-	@for f in $^ ; do \
-		( cat $$f ; echo ) ; \
-	done > $@
-
-
-$(JSON_CDDL_FOR_DOCUMENT): $(JSON_CDDL_FRAGS)
-	@for f in $^ ; do \
-		( cat $$f ; echo ) ; \
-	done > $@
-
-
-$(CDDL_FOR_CBOR_VALIDATION): $(VALIDATION_CBOR_CDDL) cose-stub.cddl concise-swid-tag.cddl coswid-tag-stub.cddl
+$(CDDL_FOR_VALIDATION): $(VALIDATION_CDDL) external/cose-stub.cddl external/concise-swid-tag.cddl external/coswid-tag-stub.cddl external/uccs.cddl
 	@for f in $^ ; do \
 		( cat $$f ; echo ) ; \
 	done > $@

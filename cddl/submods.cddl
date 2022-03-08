@@ -2,7 +2,7 @@
 ; is a peer with the claims in the token, but not a claim, only a
 ; map/object to hold all the submodules.
 
-$$claims-set-claims //= (submods-label => { + text => Submodule })
+$$Claims-set-Claims //= (submods-label => { + text => Submodule })
 
 
 ; A submodule can be:
@@ -33,5 +33,5 @@ Submodule = Claims-Set / Nested-Token / Detached-Submodule-Digest
 
 Detached-Submodule-Digest = [
    algorithm : int / text,
-   digest : bstr 
+   digest : binary-data 
 ]

@@ -1,4 +1,4 @@
-$$claims-set-claims //= (
+$$Claims-Set-Claims //= (
     manifests-label => manifests-type
 )
 

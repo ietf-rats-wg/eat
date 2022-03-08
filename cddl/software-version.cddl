@@ -1,4 +1,4 @@
-$$claims-set-claims //= (sw-version-label => sw-version-type)
+$$Claims-Set-Claims //= (sw-version-label => sw-version-type)
 
 sw-version-type = [
     version:  tstr,

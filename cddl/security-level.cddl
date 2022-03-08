@@ -1,7 +1,7 @@
-$$claims-set-claims //= (
+$$Claims-Set-Claims //= (
     security-level-label => 
-        security-level-cbor-type / 
-        security-level-json-type
+        JC<security-level-json-type, 
+        security-level-cbor-type>
 )
 
 security-level-cbor-type = &(

@@ -36,9 +36,9 @@ verification-objective-json-type =
 
 swresult-type = [
     verification-system: tstr,
-    objective: verification-objective-cbor-type /
-        verification-objective-json-type, 
-    result: verification-result-cbor-type / 
-        verification-result-json-type, 
+    objective: JC<verification-objective-json-type,
+        verification-objective-cbor-type>, 
+    result: JC<verification-result-cbor-type, 
+        verification-result-cbor-type>, 
     ? objective-name: tstr
 ]

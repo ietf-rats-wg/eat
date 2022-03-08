@@ -1,6 +1,6 @@
-$$claims-set-claims //=  (
+$$Claims-Set-Claims //=  (
     debug-status-label => 
-        debug-status-cbor-type / debug-status-json-type
+        JC<debug-status-json-type, debug-status-cbor-type>
 )
 
 debug-status-cbor-type = &(
