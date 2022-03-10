@@ -1,0 +1,19 @@
+; These are not yet assigned in any way and may change.
+; These are intentionally above 24 so as to not use up
+; single-byte labels.
+
+; This file is used for cddl validation. It is not included
+; in the document. The file eat-tbd-labels.cddl is for the document.
+
+security-level-label = 261
+uptime-label = 267
+boot-seed-label = 268
+intended-use-label = 269
+dloas-label = 270   
+sw-name-label = 271
+sw-version-label = 272
+manifests-label = 273
+swevidence-label = 274   
+swresults-label = 275   
+odometer-label = 276
+

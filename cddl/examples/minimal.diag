@@ -1,0 +1,4 @@
+601({
+    / nonce /           10: h'948f8860d13a463e8e',
+    / secure-boot /    262: true
+})

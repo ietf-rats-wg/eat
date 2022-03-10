@@ -1,8 +1,8 @@
 ; This is the part of a token that contains all the submodules.  It
 ; is a peer with the claims in the token, but not a claim, only a
 ; map/object to hold all the submodules.
-
-$$Claims-set-Claims //= (submods-label => { + text => Submodule })
+;
+$$Claims-Set-Claims //= (submods-label => { + text => Submodule })
 
 
 ; A submodule can be:
@@ -17,12 +17,12 @@ $$Claims-set-Claims //= (submods-label => { + text => Submodule })
 ;   that binary data must be B64 encoded when carried in
 ;   JSON. Nested-Token is defined in the format specific CDDL, not
 ;   here.
-
+;
 ; Note that at nested token can either be a signed token like a CWT
 ; or JWT, an unsigned token like a UCCS or UJCS, or a DEB (detached
 ; EAT bundle).  The specific encoding of these is format-specific
 ; so it doesn't appear here.
-
+;
 Submodule = Claims-Set / Nested-Token / Detached-Submodule-Digest
 
 
@@ -30,7 +30,8 @@ Submodule = Claims-Set / Nested-Token / Detached-Submodule-Digest
 ; algorithm from JOSE registry. CBOR uses integer label for
 ; algorithm from COSE registry. In JSON the digest is base64
 ; encoded.
-
+; TODO: use the JC<> generic for variants here
+;
 Detached-Submodule-Digest = [
    algorithm : int / text,
    digest : binary-data 

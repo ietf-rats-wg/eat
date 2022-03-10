@@ -1,0 +1,63 @@
+; This is a token that is nested inside another token.
+; The surrounding token may be
+;  - JSON encoded or CBOR encoded
+; A nested token may be 
+;  - JSON encoded or CBOR encoded
+;  - Ne
+;  - Signed (JWT or CWT), unsigned (UCCS or UJCS) or a DEB
+; 
+; The fan out of all those cases are handled here. This is the one and only place
+; in an EAT where encoding can switch from JSON to CBOR or 
+; vice versa. This is necessary for composite device that
+; integrate more than one attester so the composite device
+; can be made up of attesters that use either CBOR or JSON.
+;
+Nested-Token = CBOR-Nested-Token
+; TODO: fix this so it works for JSON
+;Nested-Token = JC<JSON-Nested-Token, CBOR-Nested-Token>
+
+
+; This defines a nested token that occurs inside a JSON-encoded
+; token. It is an array made up of a type indicator and the
+; actual token.  This array is a substitute for the CBOR tag mechanism that
+; JSON does not have.
+;
+JSON-Nested-Token = [
+   type : "JWT" / "CBOR" / "UJCS" / "DEB",
+   nested-token : JWT-Message /
+                  B64URL-Tagged-CBOR-Token /
+                  Detached-EAT-Bundle /
+                  UJCS-Message
+]
+
+
+; After the base64url encoding is removed, the contents of this
+; are a Tagged-CBOR-Token (see eat.cddl) encoded in **CBOR**.
+; This is the only transition point in EAT from JSON to CBOR.
+; For example, it is a CWT that is a COSE_Sign1
+; that is a CBOR tag that has been base64url encoded.
+;
+B64URL-Tagged-CBOR-Token = base64-url-text
+
+
+; This specifies how one fully-formed token is nested inside a
+; CBOR-format token.  The fully-formed nested token is any valid
+; token, CBOR or JSON (JWT, CWT, UCCS, DEB...)  The mechanism for
+; identifying the type of the nested token is specific to the format
+; of the surrounding token, CBOR in this case.
+;
+; If the data type here is text, then the nested token is JSON
+; format. This is the only transition point in EAT from CBOR to JSON.
+; The content of the text string is defined by JSON-Nested-Token
+; and is always encoded in **JSON**.
+;
+; If the data type is bstr, then the nested token
+; is CBOR format. It is byte-string wrapped and identified by a
+; CBOR tag.
+;
+CBOR-Nested-Token =
+    tstr / ; String is JSON-Nested-Token encoded in **JSON**
+    bstr .cbor Tagged-CBOR-Token
+
+
+
