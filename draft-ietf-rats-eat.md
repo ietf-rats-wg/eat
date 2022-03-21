@@ -354,21 +354,27 @@ The Relying Party uses the Attestation Results as needed for the use case, perha
 Note that sometimes the Verifier and Relying Party are not separate and thus there is no need for a protocol to carry Attestation Results.
 
 
-### Relationship between Attestation Evidence and Attestation Results
+### Relationship between Attestation Evidence and Attestation Results {#relationship}
 
 Any claim defined in this document or in the IANA CWT or JWT registry may be used in Attestation Evidence or Attestation Results.
 
-Many claims in Attestation Evidence simply will pass through the Verifier to the Relying Party without modification.
-They will be verified as authentic from the entity by the Verifier just through normal verification of the Attester's signature.
-The UEID, {{UEID}}, and Location, {{location}}, are examples of claims that may be passed through.
+The relationship of claims in Attestation Results to Attestation Evidence is fundamentally governed by the Verifier and the Verifier's Policy.
 
-Some claims in Attestation Evidence will be verified by the Verifier by comparison to Reference Values.
-These claims will not likely be conveyed to the Relying Party.
-Instead, some claim indicating they were checked may be added to the Attestation Results or it may be tacitly known that the Verifier always does this check.
-For example, the Verifier receives the Software Evidence claim, {{swevidence}}, compares it to Reference Values and conveys the results to the Relying Party in a Software Measurement Results Claim, {{swresults}}.
+A common use case is for the Verifier and its Policy to perform checks, calculations and processing with Attestation Evidence as the input to produce a summary result in Attestation Results that indicates the overall health and status of the entity.
+For example, measurements in Attestation Evidence may be compared to Reference Values the results of which are represented as a simple pass/fail in Attestation Results.
 
-In some cases the Verifier may provide privacy-preserving functionality by stripping or modifying claims that do not posses sufficient privacy-preserving characteristics.
-For example, the data in the Location claim, {{location}}, may be modified to have a precision of a few kilometers rather than a few meters.
+It is also possible that some claims in the Attestation Evidence will be forwarded unmodified to the Relying Party in Attestation Results.
+This forwarding is subject to the Verifier's implementation and Policy.
+The Relying Party should be aware of the Verifier's Policy to know what checks it has performed on claims it forwards.
+
+The Verifier may also modify or transform claims it forwards.
+This may be to implement some privacy preservation functionality.
+
+It is also possible the Verifier will put claims in the Attestation Results that give details about the entity that it has computed or looked up in a database.
+For example, the Verifier may be able to put a HW OEM ID Claim in the Attestation Results by performing a look up based on a UEID (serial number) it received in Attestation Evidence.
+
+There are no hard rules for how a Verifier processes Attestation Evidence to produce Attestation Results.
+What is important is the Relying Party understand what the Verifier does and what its policies are.
 
 
 # Terminology
@@ -461,6 +467,7 @@ this size requirement when used in an EAT.
 
 The claims in this section describe the entity itself.
 They describe the entity whether they occur in Attestation Evidence or occur in Attestation Results.
+See {{relationship}} for discussion on how Attestation Results relate to Attestation Evidence.
 
 
 ### Universal Entity ID Claim (ueid) {#UEID}
