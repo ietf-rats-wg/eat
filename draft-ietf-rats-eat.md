@@ -1001,7 +1001,7 @@ Note that this is named "eat_profile" for JWT and is distinct from the already r
 ~~~~
 
 
-## The DLOA (Digital Letter or Approval) Claim (dloas) {#dloas}
+## The DLOA (Digital Letter of Approval) Claim (dloas) {#dloas}
 
 A DLOA (Digital Letter of Approval) {{DLOA}} is an XML document that describes a certification that an entity has received.
 Examples of certifications represented by a DLOA include those issued by Global Platform and those based on Common Criteria.
