@@ -16,6 +16,7 @@ CLEANFILES += $(CBOR_EXAMPLES)
 all: $(CDDL_FOR_VALIDATION) check-examples
 
 CDDL_FOR_VALIDATION := VALIDATION.CDDL
+CLEANFILES += $(CDDL_FOR_VALIDATION)
 
 check-examples: $(CDDL_FOR_VALIDATION) $(CBOR_EXAMPLES)
 	@for f in $(CBOR_EXAMPLES); do \
@@ -25,7 +26,7 @@ check-examples: $(CDDL_FOR_VALIDATION) $(CBOR_EXAMPLES)
 
 
 
-$(CDDL_FOR_VALIDATION): $(VALIDATION_CDDL) external/cose-stub.cddl external/concise-swid-tag.cddl external/coswid-tag-stub.cddl external/uccs.cddl
+$(CDDL_FOR_VALIDATION): $(VALIDATION_CDDL) 
 	@for f in $^ ; do \
 		( cat $$f ; echo ) ; \
 	done > $@

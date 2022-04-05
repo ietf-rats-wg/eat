@@ -44,7 +44,9 @@ VALIDATION_CDDL += $(COMMON_CDDL_FRAGS)
 VALIDATION_CDDL += labels-validate.cddl
 VALIDATION_CDDL += external/cose-stub.cddl
 VALIDATION_CDDL += external/oid-stub.cddl
-VALIDATION_CDDL += external/uccs.cddl
+VALIDATION_CDDL += external/claims-set.cddl
+VALIDATION_CDDL += external/concise-swid-tag.cddl
+VALIDATION_CDDL += external/coswid-tag-stub.cddl
 
 
 
