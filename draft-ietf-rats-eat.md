@@ -540,11 +540,10 @@ this are:
 * New types of UEIDs may be created. For example, a type 0x07 UEID may
   be created based on some other manufacturer registration scheme.
 
-* Entity manufacturers are allowed to change from one type of UEID to
-  another anytime they want. For example, they may find they can
-  optimize their manufacturing by switching from type 0x01 to type
-  0x02 or vice versa. The essential requirement on the manufacturer is
-  that UEIDs be universally unique.
+* The manufacturing process for an entity is allowed to change from
+  using one type of UEID to another.  For example, a manufacturer
+  may find they can optimize their process by switching from type 0x01
+  to type 0x02 or vice versa.
 
 A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
   
