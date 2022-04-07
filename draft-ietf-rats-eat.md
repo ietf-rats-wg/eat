@@ -2786,3 +2786,5 @@ no new claims have been added.
 
 * Clarify relationship of claims in evidence to results when forwarding
 
+* Clarify manufacturer switching UEID types
+
