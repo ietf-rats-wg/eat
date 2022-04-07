@@ -899,7 +899,7 @@ It is not a secret and MUST NOT be used for any purpose that a secret seed is ne
 ~~~~
 
 
-## The DLOA (Digital Letter of Approval) Claim (dloas) {#dloas}
+### The DLOA (Digital Letter of Approval) Claim (dloas) {#dloas}
 
 A DLOA (Digital Letter of Approval) {{DLOA}} is an XML document that describes a certification that an entity has received.
 Examples of certifications represented by a DLOA include those issued by Global Platform and those based on Common Criteria.
@@ -1267,7 +1267,7 @@ The claims in this section provide meta data about the token they occur in.
 They do not describe the entity.
 
 They may appear in Attestation Evidence or Attestation Results.
-When these claims appear in Attestation Evidence, they must never be passed through the Verifier into Attestation Results.
+When these claims appear in Attestation Evidence, they SHOULD not be passed through the Verifier into Attestation Results.
 
 
 ### Token ID Claim (cti and jti)
@@ -2778,3 +2778,8 @@ no new claims have been added.
 * Add boot odometer claim
 
 * Add privacy considerations for replay protection
+
+## From draft-ietf-rats-eat-11
+
+* Reorganize claims into 4 sections, particularly claims about the entity and about the token
+
