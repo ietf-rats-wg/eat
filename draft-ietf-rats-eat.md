@@ -373,7 +373,7 @@ This may be to implement some privacy preservation functionality.
 It is also possible the Verifier will put claims in the Attestation Results that give details about the entity that it has computed or looked up in a database.
 For example, the Verifier may be able to put a HW OEM ID Claim in the Attestation Results by performing a look up based on a UEID (serial number) it received in Attestation Evidence.
 
-There are no hard rules for how a Verifier processes Attestation Evidence to produce Attestation Results.
+There are no fixed rules for how a Verifier processes Attestation Evidence to produce Attestation Results.
 What is important is the Relying Party understand what the Verifier does and what its policies are.
 
 
@@ -2782,4 +2782,8 @@ no new claims have been added.
 ## From draft-ietf-rats-eat-11
 
 * Reorganize claims into 4 sections, particularly claims about the entity and about the token
+
+* Nonce wording -- say nonce is required and other improvements
+
+* Clarify relationship of claims in evidence to results when forwarding
 
