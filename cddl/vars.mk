@@ -29,8 +29,6 @@ COMMON_CDDL_FRAGS += deb.cddl
 COMMON_CDDL_FRAGS += labels-assigned.cddl
 
 
-
-
 # This is the CDDL that is used to validate CBOR examples.
 # It varies from the main CDDL in the document in two ways.
 # First, it assigns actual labels rather than TBD lablels.
@@ -47,9 +45,6 @@ VALIDATION_CDDL += external/oid-stub.cddl
 VALIDATION_CDDL += external/claims-set.cddl
 VALIDATION_CDDL += external/concise-swid-tag.cddl
 VALIDATION_CDDL += external/coswid-tag-stub.cddl
-
-
-
 
 
 

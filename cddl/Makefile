@@ -40,11 +40,11 @@ GITHUB := https://raw.githubusercontent.com/
 # ---- Pull in the Coswid CDDL
 COSWID_REPO := sacmwg/draft-ietf-sacm-coswid/master
 COSWID_REPO_URL := $(join $(GITHUB), $(COSWID_REPO))
-concise-swid-tag.cddl: ; $(curl) -O $(COSWID_REPO_URL)/$@
-CLEANFILES += concise-swid-tag.cddl
+external/concise-swid-tag.cddl: ; (cd external ; $(curl) -O $(COSWID_REPO_URL)/concise-swid-tag.cddl )
+CLEANFILES += external/concise-swid-tag.cddl
 
 # ---- Pull in the SUIT Manifest CDDL
 SUIT_REPO := suit-wg/manifest-spec/master
 SUIT_REPO_URL := $(join $(GITHUB), $(SUIT_REPO))
-draft-ietf-suit-manifest.cddl: ; $(curl) -O $(SUIT_REPO_URL)/$@
-CLEANFILES += draft-ietf-suit-manifest.cddl
+external/draft-ietf-suit-manifest.cddl: ; (cd external; $(curl) -O $(SUIT_REPO_URL)/draft-ietf-suit-manifest.cddl )
+CLEANFILES += external/draft-ietf-suit-manifest.cddl
