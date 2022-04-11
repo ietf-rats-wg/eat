@@ -37,7 +37,7 @@ CLEANFILES += $(NC_JSON_CDDL_FRAGS)
 draft-ietf-rats-eat.md: $(NC_COMMON_CDDL_FRAGS) $(COMMON_CDDL_FOR_DOCUMENT) $(CBOR_CDDL_FOR_DOCUMENT) $(JSON_CDDL_FOR_DOCUMENT)
 
 
-; TODO clean this up... no more separation of CBOR and JSON
+# TODO clean this up... no more separation of CBOR and JSON
 
 $(COMMON_CDDL_FOR_DOCUMENT): $(NC_COMMON_CDDL_FRAGS)
 	@for f in $^ ; do \

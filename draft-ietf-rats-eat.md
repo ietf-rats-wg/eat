@@ -1258,9 +1258,6 @@ The type of the token is determined by the CBOR tag.
 When decoding, if a text string is encountered, it is known to be a JSON-encoded token.
 The two-item array is decoded and tells the type of the JSON-encoded token.
 
-~~~~CDDL
-{::include nc-cddl/cbor-nested-token.cddl}
-~~~~
 
 ##### Surrounding EAT is JSON-Encoded
 This describes the encoding and decoding of CBOR or JSON-encoded tokens nested inside a JSON-encoded token.
@@ -1283,7 +1280,7 @@ The type of nested token is determined by the CBOR-tag.
 It is an error if the CBOR is not a tag.
 
 ~~~~CDDL
-{::include nc-cddl/json-nested-token.cddl}
+{::include nc-cddl/nested-token.cddl}
 ~~~~
 
 
@@ -1407,7 +1404,7 @@ The normal rules apply for use or non-use of a tag.
 When it is sent as a submodule, it is always sent as a tag to distinguish it from the other types of nested tokens.
 
 The digests of the detached claims sets are associated with detached claims-sets by label/name.
-It is up to the constructor of the detached EAT bundle to ensure the names uniquely identify the detached claims sets.
+It is up to the constructor of the detached EAT bundle to ensure the names uniquely identify the detachedclaims sets.
 Since the names are used only in the detached EAT bundle, they can be very short, perhaps one byte.
 
 ~~~~CDDL
@@ -1730,26 +1727,11 @@ The EAT decoder must not rely on sorting.
 The EAT encoder must not send duplicate map keys/labels or invalid UTF-8 strings.
 
 
-## Collected Common CDDL
+## Collected CDDL
 
 ~~~~JSON
 {::include nc-cddl/common.cddl}
 ~~~~
-
-
-## Collected CDDL for CBOR
-
-~~~~CDDL
-{::include nc-cddl/cbor.cddl}
-~~~~
-
-
-## Collected CDDL for JSON
-
-~~~~JSON
-{::include nc-cddl/json.cddl}
-~~~~
-
 
 
 # IANA Considerations
@@ -2558,6 +2540,20 @@ EAT thus can't be defined permanence in terms of defense against attack.
 EAT's definition of permanence is in terms of operations and device lifecycle.
 
 
+# CDDL for CWT
+
+{{RFC8392}} was published before CDDL was available and thus is specified in prose, not CDDL.
+Following is CDDL specifying CWT as it is needed to complete this specification.
+This CDDL is covers the Claims-Set for JWT.
+
+This however is NOT a normative or standard definition of CWT or JWT in CDDL.
+The prose in CWT and JWT remain the normative definition.
+
+~~~~JSON
+{::include cddl/external/claims-set.cddl}
+~~~~
+
+
 # Changes from Previous Drafts
 
 The following is a list of known changes from the previous drafts.  This list is
@@ -2755,3 +2751,8 @@ no new claims have been added.
 * Add boot odometer claim
 
 * Add privacy considerations for replay protection
+
+
+## From draft-ietf-rats-eat-12
+
+* Make use of the JC<> generic to express CDDL for both JSON and CBOR

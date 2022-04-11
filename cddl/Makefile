@@ -3,10 +3,10 @@ SHELL := /bin/bash
 include tools.mk
 include vars.mk
 
+# Rule to make CBOR examples from diag files
 %.cbor: %.diag ; @$(diag2cbor) $< > $@
 
-#DIAG_EXAMPLES := $(wildcard examples/*.diag)
-DIAG_EXAMPLES := $(wildcard examples/simple.diag)
+DIAG_EXAMPLES := $(wildcard examples/*.diag)
 CBOR_EXAMPLES := $(DIAG_EXAMPLES:.diag=.cbor)
 
 CLEANFILES += $(CBOR_EXAMPLES)
@@ -36,16 +36,15 @@ $(CDDL_FOR_VALIDATION): $(VALIDATION_CDDL)
 clean: ; $(RM) $(CLEANFILES)
 
 GITHUB := https://raw.githubusercontent.com/
+
+# ---- Pull in the Coswid CDDL
 COSWID_REPO := sacmwg/draft-ietf-sacm-coswid/master
 COSWID_REPO_URL := $(join $(GITHUB), $(COSWID_REPO))
-
 concise-swid-tag.cddl: ; $(curl) -O $(COSWID_REPO_URL)/$@
-
 CLEANFILES += concise-swid-tag.cddl
 
+# ---- Pull in the SUIT Manifest CDDL
 SUIT_REPO := suit-wg/manifest-spec/master
 SUIT_REPO_URL := $(join $(GITHUB), $(SUIT_REPO))
-
 draft-ietf-suit-manifest.cddl: ; $(curl) -O $(SUIT_REPO_URL)/$@
-
 CLEANFILES += draft-ietf-suit-manifest.cddl
