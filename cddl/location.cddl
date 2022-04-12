@@ -1,4 +1,4 @@
-$$claims-set-claims //= (location-label => location-type)
+$$Claims-Set-Claims //= (location-label => location-type)
 
 location-type = {
     latitude => number,

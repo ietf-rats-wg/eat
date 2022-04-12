@@ -1,4 +1,4 @@
-$$claims-set-claims //= (swresults-label => [ + swresult-type ])
+$$Claims-Set-Claims //= (swresults-label => [ + swresult-type ])
 
 verification-result-cbor-type = &(
     verification-not-run: 1,

@@ -1,4 +1,4 @@
-$$claims-set-claims //= (
+$$Claims-Set-Claims //= (
     intended-use-label =>
         JC<intended-use-json-type, intended-use-cbor-type>
 )

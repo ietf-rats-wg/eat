@@ -1,1 +1,1 @@
-$$claims-set-claims //= (odometer-label => uint)
+$$Claims-Set-Claims //= (odometer-label => uint)
