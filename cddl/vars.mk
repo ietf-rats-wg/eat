@@ -1,6 +1,6 @@
 
 # Files with CDDL fragments that are common to CBOR and JSON
-COMMON_CDDL_FRAGS := eat.cddl
+COMMON_CDDL_FRAGS := eat-cbor.cddl
 COMMON_CDDL_FRAGS += common-types.cddl
 COMMON_CDDL_FRAGS += nonce.cddl
 COMMON_CDDL_FRAGS += ueid.cddl
@@ -24,7 +24,7 @@ COMMON_CDDL_FRAGS += manifests.cddl
 COMMON_CDDL_FRAGS += swevidence.cddl
 COMMON_CDDL_FRAGS += swresults.cddl
 COMMON_CDDL_FRAGS += submods.cddl
-COMMON_CDDL_FRAGS += nested-token.cddl
+#COMMON_CDDL_FRAGS += nested-token.cddl
 COMMON_CDDL_FRAGS += deb.cddl
 COMMON_CDDL_FRAGS += labels-assigned.cddl
 

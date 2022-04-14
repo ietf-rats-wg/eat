@@ -326,6 +326,7 @@ This specification uses Concise Data Definition Language (CDDL) {{RFC8610}} for 
 The implementor interprets the CDDL to come to either the CBOR or JSON encoding.
 In the case of JSON, Appendix E of {{RFC8610}} is followed.
 Additional rules are given in {{jsoninterop}} where Appendix E is insufficient.
+TODO: mention JC<> here and elsewhere
 
 The CWT and JWT specifications were authored before CDDL was available and did not use CDDL.
 This specification includes a CDDL definition of most of what is defined in {{RFC8392}}.

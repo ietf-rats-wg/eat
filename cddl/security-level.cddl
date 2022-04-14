@@ -1,18 +1,12 @@
-$$Claims-Set-Claims //= (
-    security-level-label => 
-        JC<security-level-json-type, 
-        security-level-cbor-type>
-)
+$$Claims-Set-Claims //= ( security-level-label => security-level-type ) 
 
-security-level-cbor-type = &(
-    unrestricted: 1,
-    restricted: 2,
-    secure-restricted: 3,
-    hardware: 4
-)
+security-level-type = unrestricted /
+                      restricted /
+                      secure-restricted /
+                      hardware
 
-security-level-json-type = 
-    "unrestricted" /
-    "restricted" /
-    "secure-restricted" /
-    "hardware"
+unrestricted       = JC< "unrestricted",      1>
+restricted         = JC< "restriced",         2>
+secure-restricted  = JC< "secure-restricted", 3>
+hardware           = JC< "hardware",          4>
+

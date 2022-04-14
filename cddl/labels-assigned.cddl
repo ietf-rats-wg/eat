@@ -1,14 +1,14 @@
 ; The following Claim Keys (labels) are pre-assigned by IANA.
 ; They are not expected to change in the final publication as an RFC.
 
-nonce-label = JC<"nonce",10>
-ueid-label = JC<"ueid", 256>
-sueids-label = JC<"sueids", 257>
-oemid-label = JC<"oemid", 258>
-hardware-model-label = JC<"hwmodel", 259>
-hardware-version-label = JC<"hwvers", 260>
-secure-boot-label = JC<"secboot", 262>
-debug-status-label = JC<"dbgstat", 263>
-location-label = JC<"location", 264>
-profile-label = JC<"profile", 265>
-submods-label = JC<"submods", 266>
+nonce-label            = JC< "nonce",    10 >
+ueid-label             = JC< "ueid",     256 >
+sueids-label           = JC< "sueids",   257 >
+oemid-label            = JC< "oemid",    258 >
+hardware-model-label   = JC< "hwmodel",  259 >
+hardware-version-label = JC< "hwvers",   260 >
+secure-boot-label      = JC< "secboot",  262 >
+debug-status-label     = JC< "dbgstat",  263 >
+location-label         = JC< "location", 264 >
+profile-label          = JC< "profile",  265 >
+submods-label          = JC< "submods",  266 >

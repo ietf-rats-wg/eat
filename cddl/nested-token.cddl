@@ -1,10 +1,25 @@
 ; This is a token that is nested inside another token.
-; The surrounding token may be
-;  - JSON encoded or CBOR encoded
-; A nested token may be 
-;  - JSON encoded or CBOR encoded
-;  - Ne
-;  - Signed (JWT or CWT), unsigned (UCCS or UJCS) or a DEB
+; When this occurs some means in needed to identify
+; the type of token (signed, unsigned or DEB) and
+; the encoding format (JSON or CBOR). This is the only
+; place in EAT where JSON can appear in a CBOR token
+; and CBOR inside a JSON token.
+;
+;CBOR Encoded Token may contain
+;- A CWT format token
+;- A CBOR-format DEB
+;- An unsigned CBOR format token (UCCS)
+;- A JWT format token
+;- A JWT-encoded DEB
+;- An unsigned JSON-encoded token (UJCS)
+;
+;A JSON Encoded Token may contain
+;- A CWT format token
+;- A CBOR-format DEB
+;- An unsigned CBOR format token (UCCS)
+;- A JWT format token
+;- A JWT-encoded DEB
+;- An unsigned JSON-encoded token (UJCS)
 ; 
 ; The fan out of all those cases are handled here. This is the one and only place
 ; in an EAT where encoding can switch from JSON to CBOR or 
@@ -18,8 +33,11 @@ Nested-Token = CBOR-Nested-Token
 
 
 ; This defines a nested token that occurs inside a JSON-encoded
-; token. It is an array made up of a type indicator and the
-; actual token.  This array is a substitute for the CBOR tag mechanism that
+; token. It only appears in JSON-encoded tokens, never in CBOR-encoded tokens.
+; It is always encoded in JSON.
+;
+; It is an array made up of a type indicator and the
+; actual token.  This array of two is a substitute for the CBOR tag mechanism that
 ; JSON does not have.
 ;
 JSON-Nested-Token = [
@@ -41,7 +59,10 @@ B64URL-Tagged-CBOR-Token = base64-url-text
 
 
 ; This specifies how one fully-formed token is nested inside a
-; CBOR-format token.  The fully-formed nested token is any valid
+; CBOR-format token. It only appears in CBOR-encoded tokens and
+; never in JSON-encoded tokens. It is always encoded in CBOR.
+;
+; The fully-formed nested token is any valid
 ; token, CBOR or JSON (JWT, CWT, UCCS, DEB...)  The mechanism for
 ; identifying the type of the nested token is specific to the format
 ; of the surrounding token, CBOR in this case.

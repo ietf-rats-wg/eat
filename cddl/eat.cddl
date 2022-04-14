@@ -1,7 +1,8 @@
 ; This is the root definition of an EAT token
 
 ;EAT = JC<JSON-Token, CBOR-Token>
-EAT = CBOR-Token
+EAT =  CBOR-Token .feature "cbor" / JSON-Token .feature "jsonxx"
+;EAT = CBOR-Token
 
 
 ; The top-level definition of a JSON Token

@@ -1,19 +1,13 @@
-$$Claims-Set-Claims //= (
-    intended-use-label =>
-        JC<intended-use-json-type, intended-use-cbor-type>
-)
+$$Claims-Set-Claims //= ( intended-use-label => intended-use-type )
 
-intended-use-cbor-type = &(
-    generic: 1,
-    registration: 2,
-    provisioning: 3,
-    csr: 4,
-    pop: 5
-)
+intended-use-type = generic /
+                    registration / 
+                    provisioning / 
+                    csr /
+                    pop
 
-intended-use-json-type = 
-    "generic" /
-    "registration" /
-    "provisioning" /
-    "csr" /
-    "pop" 
+generic      = JC< "generic",      1 >
+registration = JC< "registration", 2 >
+provisioning = JC< "provisioning", 3 >
+csr           = JC< "csr",          4 >
+pop          = JC< "pop",          5 >

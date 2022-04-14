@@ -6,9 +6,9 @@ $$Claims-Set-Claims //= (submods-label => { + text => Submodule })
 
 
 ; A submodule can be:
-; - A simple Claims-Set (encoded in the same format as the token)
-; - A digest of a detached Claims-Set (encoded in the same format as
-;    the token)
+; - A simple Claims-Set (always encoded same as the enclosing token)
+; - A digest of a detached Claims-Set (encoded the same as
+;    the enclosing token)
 ; - A nested token which may be either CBOR or JSON format. Further,
 ;   the mechanism for identifying and containing the nested token
 ;   depends on the format of the surrounding token, particularly
@@ -18,7 +18,7 @@ $$Claims-Set-Claims //= (submods-label => { + text => Submodule })
 ;   JSON. Nested-Token is defined in the format specific CDDL, not
 ;   here.
 ;
-; Note that at nested token can either be a signed token like a CWT
+; Note that a nested token can either be a signed token like a CWT
 ; or JWT, an unsigned token like a UCCS or UJCS, or a DEB (detached
 ; EAT bundle).  The specific encoding of these is format-specific
 ; so it doesn't appear here.
@@ -30,9 +30,8 @@ Submodule = Claims-Set / Nested-Token / Detached-Submodule-Digest
 ; algorithm from JOSE registry. CBOR uses integer label for
 ; algorithm from COSE registry. In JSON the digest is base64
 ; encoded.
-; TODO: use the JC<> generic for variants here
 ;
 Detached-Submodule-Digest = [
-   algorithm : int / text,
+   algorithm : JC<text,int>
    digest : binary-data 
 ]
