@@ -1,0 +1,13 @@
+; This is the digest (the hash) of a detached Claims-Set.
+; A detatched Claims-Set is one that is conveyed outside
+; and/or separately from the token.
+;
+; This definition is for both JSON and CBOR.  JSON uses text label for
+; algorithm from JOSE registry. CBOR uses integer label for
+; algorithm from COSE registry. In JSON the digest is base64
+; encoded.
+;
+Detached-Submodule-Digest = [
+   algorithm : JC< text, int >
+   digest    : binary-data 
+]

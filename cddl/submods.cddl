@@ -7,31 +7,13 @@ $$Claims-Set-Claims //= (submods-label => { + text => Submodule })
 
 ; A submodule can be:
 ; - A simple Claims-Set (always encoded same as the enclosing token)
-; - A digest of a detached Claims-Set (encoded the same as
-;    the enclosing token)
-; - A nested token which may be either CBOR or JSON format. Further,
-;   the mechanism for identifying and containing the nested token
-;   depends on the format of the surrounding token, particularly
-;   because JSON doesn't have any equivalent of a CBOR tag so a
-;   JSON-specific mechanism is invented. Also, there is the issue
-;   that binary data must be B64 encoded when carried in
-;   JSON. Nested-Token is defined in the format specific CDDL, not
-;   here.
-;
-; Note that a nested token can either be a signed token like a CWT
-; or JWT, an unsigned token like a UCCS or UJCS, or a DEB (detached
-; EAT bundle).  The specific encoding of these is format-specific
-; so it doesn't appear here.
+; - A nested token which is a fully formed EAT token or any type.
+;   It may be CBOR or JSON encoded, or signed or unsigned.
+;   See the definition of Nested-Token in cbor-nested-tokend.cddl
+;   or in json-nested-token.cddl.
+; - The digest of a detached Claims-Set (encoded the same as
+;   the enclosing token)
 ;
 Submodule = Claims-Set / Nested-Token / Detached-Submodule-Digest
 
 
-; This is for both JSON and CBOR.  JSON uses text label for
-; algorithm from JOSE registry. CBOR uses integer label for
-; algorithm from COSE registry. In JSON the digest is base64
-; encoded.
-;
-Detached-Submodule-Digest = [
-   algorithm : JC<text,int>
-   digest : binary-data 
-]

@@ -9,5 +9,5 @@ intended-use-type = generic /
 generic      = JC< "generic",      1 >
 registration = JC< "registration", 2 >
 provisioning = JC< "provisioning", 3 >
-csr           = JC< "csr",          4 >
+csr          = JC< "csr",          4 >
 pop          = JC< "pop",          5 >

@@ -24,7 +24,8 @@ cti-claim-label = CBOR-ONLY<7>  ; jti in JWT: different name and text
 JSON-ONLY<J> = J .feature "json"
 CBOR-ONLY<C> = C .feature "cbor"
 
-; This produces erroneous error messages with cddl tool circa March 2022.
+; This produces erroneous diagnostic messages with cddl tool
+; circa March 2022.
 ;JC<J,C> = JSON-ONLY<J> / CBOR-ONLY<C>
 
 ; This doesn't produce erroneous error messages

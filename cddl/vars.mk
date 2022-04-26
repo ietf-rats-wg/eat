@@ -1,8 +1,9 @@
 
-# Files with CDDL fragments that are common to CBOR and JSON
-COMMON_CDDL_FRAGS := eat-cbor.cddl
+
+# The big set of CDDL common to validation and the document
+# and common to JSON and CBOR. This is normative CDDL
+# that is defined in EAT
 COMMON_CDDL_FRAGS += common-types.cddl
-COMMON_CDDL_FRAGS += nonce.cddl
 COMMON_CDDL_FRAGS += ueid.cddl
 COMMON_CDDL_FRAGS += sueids.cddl
 COMMON_CDDL_FRAGS += oemid.cddl
@@ -24,29 +25,64 @@ COMMON_CDDL_FRAGS += manifests.cddl
 COMMON_CDDL_FRAGS += swevidence.cddl
 COMMON_CDDL_FRAGS += swresults.cddl
 COMMON_CDDL_FRAGS += submods.cddl
-#COMMON_CDDL_FRAGS += nested-token.cddl
+COMMON_CDDL_FRAGS += detached-digest.cddl
 COMMON_CDDL_FRAGS += deb.cddl
 COMMON_CDDL_FRAGS += labels-assigned.cddl
 
 
-# This is the CDDL that is used to validate CBOR examples.
-# It varies from the main CDDL in the document in two ways.
-# First, it assigns actual labels rather than TBD lablels.
-# Second, it includes CDDL from standards that are referenced
-# by EAT.
-#
-# When all the labels are officially assigned this can be
-# simplied. It only needs to add the CDDL from other standards
-# top CBOR_CDDL_FRAGS.
-VALIDATION_CDDL += $(COMMON_CDDL_FRAGS)
-VALIDATION_CDDL += labels-validate.cddl
-VALIDATION_CDDL += external/cose-stub.cddl
-VALIDATION_CDDL += external/oid-stub.cddl
-VALIDATION_CDDL += external/claims-set.cddl
-VALIDATION_CDDL += external/concise-swid-tag.cddl
-VALIDATION_CDDL += external/coswid-tag-stub.cddl
+# The common CDDL section in the document
+# The CDDL common to CBOR and JSON
+# (This will be the same as COMMON_CDDL_FRAGS when
+# there are no more tbd labels)
+DOCUMENT_COMMON_CDDL_FRAGS = $(COMMON_CDDL_FRAGS)
+DOCUMENT_COMMON_CDDL_FRAGS += labels-tbd.cddl
+
+
+# CDDL that is common to CBOR and JSON, that is a
+# refence or replication of something defined 
+# externally. It is not normative definitions.
+COMMON_EXTERNAL_CDDL_FRAGS = external/claims-set.cddl
+
+
+# Common to JSON and CBOR, used only for validation
+VALIDATION_COMMON_CDDL_FRAGS = labels-validate.cddl
+
+
+# This is normative EAT CDDL that is CBOR-specific
+CBOR_SPECIFIC_CDDL_FRAGS += eat-cbor.cddl
+CBOR_SPECIFIC_CDDL_FRAGS += cbor-nested-token.cddl
+CBOR_SPECIFIC_CDDL_FRAGS += nonce.cddl
+
+
+# This is normative EAT CDDL that is CBOR-specific
+JSON_SPECIFIC_CDDL_FRAGS += eat-json.cddl
+JSON_SPECIFIC_CDDL_FRAGS += json-nested-token.cddl
+
+
+# CDDL that is CBOR-specific that is a reference
+# or replication of something defined externally
+CBOR_EXTERNAL_CDDL_FRAGS += external/oid-stub.cddl
+CBOR_EXTERNAL_CDDL_FRAGS += external/cwt.cddl
+CBOR_EXTERNAL_CDDL_FRAGS += external/concise-swid-tag.cddl
+CBOR_EXTERNAL_CDDL_FRAGS += external/coswid-tag-stub.cddl
+CBOR_EXTERNAL_CDDL_FRAGS += external/cose-stub.cddl
 
 
 
+# CDDL that is JSON-specific that is a reference
+# or replication of something defined externally
+JSON_EXTERNAL_CDDL_FRAGS = external/jwt.cddl
 
-CLEANFILES += $(COMMON_CDDL_FOR_DOCUMENT)
+
+# The CDDL used for validating CBOR. Note
+# that this is just for validating payloads
+# The start of this CDDL is a Claims-Set
+CBOR_VALIDATION_CDDL_FRAGS += $(COMMON_EXTERNAL_CDDL_FRAGS)
+CBOR_VALIDATION_CDDL_FRAGS += $(COMMON_CDDL_FRAGS)
+CBOR_VALIDATION_CDDL_FRAGS += $(VALIDATION_COMMON_CDDL_FRAGS)
+CBOR_VALIDATION_CDDL_FRAGS += $(CBOR_SPECIFIC_CDDL_FRAGS)
+CBOR_VALIDATION_CDDL_FRAGS += $(CBOR_EXTERNAL_CDDL_FRAGS)
+
+
+# TODO: fill this in
+JSON_VALIDATION_CDDL_FRAGS += $(COMMON_EXTERNAL_CDDL_FRAGS)

@@ -1,5 +1,11 @@
 ; Top-level definition of a DEB for CBOR and JSON
 
+DEB-Messages = DEB-Tagged-Message / DEB-Untagged-Message
+
+; TODO: make this tag TBD (which involves forking this file)
+DEB-Tagged-Message   = #6.602(DEB-Untagged-Message)
+DEB-Untagged-Message = Detached-EAT-Bundle
+
 Detached-EAT-Bundle = [
     main-token : Nested-Token,
     detached-claims-sets: {
