@@ -50,13 +50,13 @@ VALIDATION_COMMON_CDDL_FRAGS = labels-validate.cddl
 
 # This is normative EAT CDDL that is CBOR-specific
 CBOR_SPECIFIC_CDDL_FRAGS += eat-cbor.cddl
-CBOR_SPECIFIC_CDDL_FRAGS += cbor-nested-token.cddl
+CBOR_SPECIFIC_CDDL_FRAGS += nested-token-cbor.cddl
 CBOR_SPECIFIC_CDDL_FRAGS += nonce.cddl
 
 
 # This is normative EAT CDDL that is CBOR-specific
 JSON_SPECIFIC_CDDL_FRAGS += eat-json.cddl
-JSON_SPECIFIC_CDDL_FRAGS += json-nested-token.cddl
+JSON_SPECIFIC_CDDL_FRAGS += nested-token-json.cddl
 
 
 # CDDL that is CBOR-specific that is a reference
