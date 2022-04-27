@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 include tools.mk
-include vars.mk
+include CDDL-FRAGS.mk
 
 
 # --- Make CBOR examples from diag files
@@ -22,7 +22,7 @@ all: check-examples
 # ---- Make the CBOR validation CDDL
 # Turn the CDDL fragments into one file 
 # that is used for validation.
-CBOR_VALIDATION_CDDL := CBOR_VALIDATION.CDDL
+CBOR_VALIDATION_CDDL := .CBOR_VALIDATION.CDDL
 CLEANFILES += $(CBOR_VALIDATION_CDDL)
 
 $(CBOR_VALIDATION_CDDL): $(CBOR_VALIDATION_CDDL_FRAGS) 

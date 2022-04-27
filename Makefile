@@ -15,7 +15,7 @@ endif
 
 
 #include cddl/tools.mk
-include cddl/vars.mk
+include cddl/CDDL-FRAGS.mk
 
 # The list of files that have CDDL fragments from which the comments were removed
 NC_COMMON_CDDL_FRAGS := $(addprefix nc-cddl/,$(DOCUMENT_COMMON_CDDL_FRAGS))
