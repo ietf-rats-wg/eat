@@ -1211,7 +1211,7 @@ The type of nested token is determined by the CBOR-tag.
 It is an error if the CBOR is not a tag.
 
 ~~~~CDDL
-{::include nc-cddl/json-nested-token.cddl}
+{::include nc-cddl/nested-token-json.cddl}
 ~~~~
 
 
