@@ -1175,7 +1175,7 @@ When decoding, if a text string is encountered, it is known to be a JSON-encoded
 The two-item array is decoded and tells the type of the JSON-encoded token.
 
 ~~~~CDDL
-{::include nc-cddl/cbor-nested-token.cddl}
+{::include nc-cddl/nested-token-cbor.cddl}
 ~~~~
 
 ###### Surrounding EAT is JSON-Encoded
