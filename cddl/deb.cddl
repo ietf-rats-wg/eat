@@ -2,16 +2,18 @@
 
 DEB-Messages = DEB-Tagged-Message / DEB-Untagged-Message
 
-; TODO: make this tag TBD (which involves forking this file)
+; Note that tag number 602 is not yet assigned by IANA
+; Also, 602 is replaced with "<TBD>" for the document by a
+; sed substituion performed in the document Makefile
 DEB-Tagged-Message   = #6.602(DEB-Untagged-Message)
 DEB-Untagged-Message = Detached-EAT-Bundle
 
 Detached-EAT-Bundle = [
-  ;  main-token : Nested-Token,
-    main-token : bstr,
+    main-token : Nested-Token,
+;    main-token : bstr,
     detached-claims-sets: {
-        + tstr => bstr
-;        + tstr => JC<json-wrapped-claims-set, cbor-wrapped-claims-set>
+;        + tstr => bstr
+        + tstr => JC<json-wrapped-claims-set, cbor-wrapped-claims-set>
     }
 ]
 
@@ -22,3 +24,4 @@ json-wrapped-claims-set = base64-url-text
 
 
 cbor-wrapped-claims-set = bstr .cbor Claims-Set
+
