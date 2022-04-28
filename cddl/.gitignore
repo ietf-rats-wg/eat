@@ -20,3 +20,4 @@ report.xml
 venv/
 lib
 draft-ietf-rats-eat.xml
+.CBOR*

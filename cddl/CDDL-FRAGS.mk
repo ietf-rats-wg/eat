@@ -1,8 +1,13 @@
+# These variables are lists of CDDL fragments used for 1) inclusion in
+# the document and 2) validation of examples.  There are variants
+# becase cddl and the cddl tool aren't fully up to the task handling
+# CBOR and JSON simultaneously.
 
 
-# The big set of CDDL common to validation and the document
-# and common to JSON and CBOR. This is normative CDDL
-# that is defined in EAT
+# The big set of CDDL fragments common to validation and the document,
+# and common to JSON and CBOR. This is original normative CDDL that is
+# defined by EAT.
+
 COMMON_CDDL_FRAGS += common-types.cddl
 COMMON_CDDL_FRAGS += ueid.cddl
 COMMON_CDDL_FRAGS += sueids.cddl
@@ -30,58 +35,75 @@ COMMON_CDDL_FRAGS += deb.cddl
 COMMON_CDDL_FRAGS += labels-assigned.cddl
 
 
-# The common CDDL section in the document
-# The CDDL common to CBOR and JSON
-# (This will be the same as COMMON_CDDL_FRAGS when
-# there are no more tbd labels)
+# The common CDDL section in the document.  The CDDL common to CBOR
+# and JSON.  (This will be the same as COMMON_CDDL_FRAGS when there
+# are no more tbd labels)
+
 DOCUMENT_COMMON_CDDL_FRAGS = $(COMMON_CDDL_FRAGS)
 DOCUMENT_COMMON_CDDL_FRAGS += labels-tbd.cddl
 
 
-# CDDL that is common to CBOR and JSON, that is a
-# refence or replication of something defined 
-# externally. It is not normative definitions.
+# CDDL that is common to CBOR and JSON, that is a refence or
+# replication of something defined externally. It is not normative
+# definitions.
+
 COMMON_EXTERNAL_CDDL_FRAGS = external/claims-set.cddl
 
 
 # Common to JSON and CBOR, used only for validation
 VALIDATION_COMMON_CDDL_FRAGS = labels-validate.cddl
 
+# This is normative CDDL defined by EAT that is CBOR-specific
 
-# This is normative EAT CDDL that is CBOR-specific
 CBOR_SPECIFIC_CDDL_FRAGS += eat-cbor.cddl
 CBOR_SPECIFIC_CDDL_FRAGS += nested-token-cbor.cddl
 CBOR_SPECIFIC_CDDL_FRAGS += nonce.cddl
 
 
-# This is normative EAT CDDL that is CBOR-specific
+# This is normative CDDL defined by EAT that is JSON-specific
+
 JSON_SPECIFIC_CDDL_FRAGS += eat-json.cddl
 JSON_SPECIFIC_CDDL_FRAGS += nested-token-json.cddl
 
 
-# CDDL that is CBOR-specific that is a reference
-# or replication of something defined externally
+# CDDL that is CBOR-specific that is a reference or replication of
+# something defined externally.
+
 CBOR_EXTERNAL_CDDL_FRAGS += external/oid-stub.cddl
 CBOR_EXTERNAL_CDDL_FRAGS += external/cwt.cddl
 CBOR_EXTERNAL_CDDL_FRAGS += external/concise-swid-tag.cddl
 CBOR_EXTERNAL_CDDL_FRAGS += external/coswid-tag-stub.cddl
 CBOR_EXTERNAL_CDDL_FRAGS += external/cose-stub.cddl
+# TODO: remove this or such...
+CBOR_EXTERNAL_CDDL_FRAGS += external/uccs.cddl
 
 
 
 # CDDL that is JSON-specific that is a reference
-# or replication of something defined externally
+# or replication of something defined externally.
+
 JSON_EXTERNAL_CDDL_FRAGS = external/jwt.cddl
 
 
-# The CDDL used for validating CBOR. Note
-# that this is just for validating payloads
-# The start of this CDDL is a Claims-Set
-CBOR_VALIDATION_CDDL_FRAGS += $(COMMON_EXTERNAL_CDDL_FRAGS)
-CBOR_VALIDATION_CDDL_FRAGS += $(COMMON_CDDL_FRAGS)
-CBOR_VALIDATION_CDDL_FRAGS += $(VALIDATION_COMMON_CDDL_FRAGS)
-CBOR_VALIDATION_CDDL_FRAGS += $(CBOR_SPECIFIC_CDDL_FRAGS)
-CBOR_VALIDATION_CDDL_FRAGS += $(CBOR_EXTERNAL_CDDL_FRAGS)
+# The CDDL used for validating CBOR starting with a payload. Note The
+# start of this CDDL is a Claims-Set.
+
+CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS += $(COMMON_EXTERNAL_CDDL_FRAGS)
+CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS += $(COMMON_CDDL_FRAGS)
+CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS += $(VALIDATION_COMMON_CDDL_FRAGS)
+CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS += $(CBOR_SPECIFIC_CDDL_FRAGS)
+CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS += $(CBOR_EXTERNAL_CDDL_FRAGS)
+
+
+# The CDDL used for validating CBOR a full CBOR Token. Note the start
+# is an EAT-CBOR-Token. The only difference from the above is the
+# order.
+
+CBOR_TOKEN_VALIDATION_CDDL_FRAGS += $(CBOR_SPECIFIC_CDDL_FRAGS)
+CBOR_TOKEN_VALIDATION_CDDL_FRAGS += $(COMMON_EXTERNAL_CDDL_FRAGS)
+CBOR_TOKEN_VALIDATION_CDDL_FRAGS += $(COMMON_CDDL_FRAGS)
+CBOR_TOKEN_VALIDATION_CDDL_FRAGS += $(VALIDATION_COMMON_CDDL_FRAGS)
+CBOR_TOKEN_VALIDATION_CDDL_FRAGS += $(CBOR_EXTERNAL_CDDL_FRAGS)
 
 
 # TODO: fill this in

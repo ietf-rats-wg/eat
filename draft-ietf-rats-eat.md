@@ -2304,86 +2304,68 @@ the EAT they are consuming.
 
 # Examples {#examples}
 
-These examples are either UCCS, shown as CBOR diagnostic, or UJCS messages.
-Full CWT and JWT examples with signing and encryption are not given.
+Most examples are shown as just a Claims-Set that would be a payload for a CWT, JWT, DEB or future token types.
+It is shown this way because the payload is all the claims, the most interesting part and showing full tokens makes it harder to show the claims.
 
-All UCCS examples can be the payload of a CWT.
-To do so, they must be converted from the UCCS message to a Claims-Set, which is achieve by "removing" the tag.
+Some examples of full tokens are also given.
 
-UJCS messages can be directly used as the payload of a JWT.
+TODO: describe cddl validation
 
 WARNING: These examples use tag and label numbers not yet assigned by IANA.
 
 
-## Simple TEE Attestation
+## Payload Examples
+
+### Simple TEE Attestation
 
 This is a simple attestation of a TEE that includes a manifest that is a payload CoSWID to describe the TEE's software.
 
 ~~~~
-{::include cddl/examples/valid_tee.diag}
+{::include cddl/Example-Payloads/valid_tee.diag}
 ~~~~
 
 ~~~~
-{::include cddl/examples/coswid/tee-coswid.diag}
+{::include cddl/Example-Payloads/coswid/tee-coswid.diag}
 ~~~~
 
-## Submodules for Board and Device
+### Submodules for Board and Device
 
 ~~~~
-{::include cddl/examples/valid_submods.diag}
-~~~~
-
-
-## EAT Produced by Attestation Hardware Block
-
-~~~~
-{::include cddl/examples/valid_hw_block.diag}
+{::include cddl/Example-Payloads/valid_submods.diag}
 ~~~~
 
 
-## Detached EAT Bundle
-
-In this DEB main token is produced by a HW attestation block.
-The detached Claims-Set is produced by a TEE and is largely identical to the Simple TEE examples above.
-The TEE digests its Claims-Set and feeds that digest to the HW block.
-
-In a better example the attestation produced by the HW block would be a CWT and thus signed and secured by the HW block.
-Since the signature covers the digest from the TEE that Claims-Set is also secured.
-
-The DEB itself can be assembled by untrusted SW.
+### EAT Produced by Attestation Hardware Block
 
 ~~~~
-{::include cddl/examples/valid_deb.diag}
-~~~~
-
-~~~~
-{::include cddl/examples/valid_hw_block2.diag}
+{::include cddl/Example-Payloads/valid_hw_block.diag}
 ~~~~
 
 
-## Key / Key Store Attestation
+
+### Key / Key Store Attestation
 
 ~~~~
-{::include cddl/examples/valid_key_store.diag}
+{::include cddl/Example-Payloads/valid_key_store.diag}
 ~~~~
 
 
-## SW Measurements of an IoT Device
+### SW Measurements of an IoT Device
 
 This is a simple token that might be for and IoT device.
 It includes CoSWID format measurments of the SW.
 The CoSWID is in byte-string wrapped in the token and also shown in diagnostic form.
 
 ~~~~
-{::include cddl/examples/valid_iot.diag}
+{::include cddl/Example-Payloads/valid_iot.diag}
 ~~~~
 
 ~~~~
-{::include cddl/examples/coswid/iot-sw.diag}
+{::include cddl/Example-Payloads/coswid/iot-sw.diag}
 ~~~~
 
 
-## Attestation Results in JSON format
+### Attestation Results in JSON format
 
 This is a UJCS format token that might be the output of a Verifier that evaluated the IoT Attestation example immediately above.
 
@@ -2395,8 +2377,31 @@ It informs the Relying Party that they were correct in the swresults claim.
 This UJCS is identical to JSON-encoded Claims-Set that could be a JWT payload.
 
 ~~~~
-{::include cddl/examples/valid_results.json}
+{::include cddl/Example-Payloads/valid_results.json}
 ~~~~
+
+
+## Full Token Examples
+
+### Detached EAT Bundle
+
+In this DEB main token is produced by a HW attestation block.
+The detached Claims-Set is produced by a TEE and is largely identical to the Simple TEE examples above.
+The TEE digests its Claims-Set and feeds that digest to the HW block.
+
+In a better example the attestation produced by the HW block would be a CWT and thus signed and secured by the HW block.
+Since the signature covers the digest from the TEE that Claims-Set is also secured.
+
+The DEB itself can be assembled by untrusted SW.
+
+~~~~
+{::include cddl/Example-Tokens/valid_deb.diag}
+~~~~
+
+~~~~
+{::include cddl/Example-Payloads/valid_hw_block2.diag}
+~~~~
+
 
 
 # UEID Design Rationale {#UEID-Design}

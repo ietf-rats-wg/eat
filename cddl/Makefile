@@ -1,6 +1,8 @@
 SHELL := /bin/bash
 
 include tools.mk
+
+# ---- Get the big list of CDDL fragment files
 include CDDL-FRAGS.mk
 
 
@@ -8,32 +10,48 @@ include CDDL-FRAGS.mk
 %.cbor: %.diag ; @$(diag2cbor) $< > $@
 
 
-DIAG_EXAMPLES := $(wildcard examples/*.diag)
-;DIAG_EXAMPLES := $(wildcard examples/simple.diag)
-CBOR_EXAMPLES := $(DIAG_EXAMPLES:.diag=.cbor)
+DIAG_PAYLOAD_EXAMPLES  := $(wildcard Example-Payloads/*.diag)
+DIAG_TOKEN_EXAMPLES    := $(wildcard Example-Tokens/*.diag)
+CBOR_PAYLOAD_EXAMPLES  := $(DIAG_PAYLOAD_EXAMPLES:.diag=.cbor)
+CBOR_TOKEN_EXAMPLES    := $(DIAG_TOKEN_EXAMPLES:.diag=.cbor)
 
-CLEANFILES += $(CBOR_EXAMPLES)
+CLEANFILES += $(CBOR_PAYLOAD_EXAMPLES)
 
-.PHONY: check-examples
 
-all: check-examples
+
+.PHONY: payload-examples token-examples
+
+all: payload-examples token-examples
 
 
 # ---- Make the CBOR validation CDDL
-# Turn the CDDL fragments into one file 
-# that is used for validation.
-CBOR_VALIDATION_CDDL := .CBOR_VALIDATION.CDDL
-CLEANFILES += $(CBOR_VALIDATION_CDDL)
+# Turn the CDDL fragments into single files that is used for
+# validation.
 
-$(CBOR_VALIDATION_CDDL): $(CBOR_VALIDATION_CDDL_FRAGS) 
+CBOR_PAYLOAD_VALIDATION_CDDL := .CBOR_PAYLOAD_VALIDATION.CDDL
+CBOR_TOKEN_VALIDATION_CDDL   := .CBOR_TOKEN_VALIDATION.CDDL
+CLEANFILES                   += $(CBOR_TOKEN_VALIDATION_CDDL) $(CBOR_PAYLOAD_VALIDATION_CDDL)
+
+$(CBOR_PAYLOAD_VALIDATION_CDDL): $(CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS) 
+	@for f in $^ ; do \
+		( cat $$f ; echo ) ; \
+	done > $@
+
+$(CBOR_TOKEN_VALIDATION_CDDL): $(CBOR_TOKEN_VALIDATION_CDDL_FRAGS) 
 	@for f in $^ ; do \
 		( cat $$f ; echo ) ; \
 	done > $@
 
 
 # ---- Actually run the validation
-check-examples: $(CBOR_VALIDATION_CDDL) $(CBOR_EXAMPLES)
-	@for f in $(CBOR_EXAMPLES); do \
+payload-examples: $(CBOR_PAYLOAD_VALIDATION_CDDL) $(CBOR_PAYLOAD_EXAMPLES)
+	@for f in $(CBOR_PAYLOAD_EXAMPLES); do \
+		echo ">> validating $$f" ; \
+		$(cddl) $< validate $$f ; \
+	done
+
+token-examples: $(CBOR_TOKEN_VALIDATION_CDDL) $(CBOR_TOKEN_EXAMPLES)
+	@for f in $(CBOR_TOKEN_EXAMPLES); do \
 		echo ">> validating $$f" ; \
 		$(cddl) $< validate $$f ; \
 	done
