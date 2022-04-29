@@ -1,4 +1,4 @@
-/ This is a UCCS EAT that describes a simple TEE. /
+/ This is an EAT payload that describes a simple TEE. /
 
 {
     / nonce /           10: h'948f8860d13a463e',

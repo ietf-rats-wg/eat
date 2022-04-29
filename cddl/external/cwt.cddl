@@ -1,5 +1,6 @@
-; This is some CDDL describing a CWT at the top level
-; This is not normative. RFC 8392 is the normative definition of CWT.
+; This is some CDDL describing a CWT at the top level This is
+; not normative. RFC 8392 is the normative definition of CWT.
+
 CWT-Messages = CWT-Tagged-Message / CWT-Untagged-Message
 
 ; The payload of the COSE_Message is always a Claims-Set

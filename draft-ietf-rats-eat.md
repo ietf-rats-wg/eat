@@ -84,8 +84,6 @@ normative:
      - org: IANA
      date: false
 
-  UCCS.Draft: I-D.ietf-rats-uccs
-
   ThreeGPP.IMEI:
     target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=729
     title: 3rd Generation Partnership Project; Technical Specification Group Core Network and Terminals; Numbering, addressing and identification
@@ -287,12 +285,11 @@ An entity may have strong security like defenses against hardware invasive attac
 It may also have low security, having no special security defenses.
 There is no minimum security requirement to be an entity.
 
-## CWT, JWT, UCCS, UJCS and DEB
+## CWT, JWT and DEB
 
-An EAT is a claims set about an entity based on one of the following:
+An EAT is primarily a claims set about an entity based on one of the following:
 
 * CBOR Web Token (CWT) {{RFC8392}}
-* Unprotected CWT Claims Sets (UCCS) {{UCCS.Draft}}
 * JSON Web Token (JWT) {{RFC7519}}
 
 All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on from these carry over to EAT.
@@ -301,18 +298,21 @@ This specification extends those specifications by defining additional claims fo
 This specification also describes the notion of a "profile" that can narrow the definition of an EAT, ensure interoperability and fill in details for specific usage scenarios.
 This specification also adds some considerations for registration of future EAT-related claims.
 
-The identification of a protocol element as an EAT, whether CBOR or JSON encoded, follows the general conventions used by CWT, JWT and UCCS.
+The identification of a protocol element as an EAT, whether CBOR or JSON encoded, follows the general conventions used by CWT, JWT.
 Largely this depends on the protocol carrying the EAT.
 In some cases it may be by content type (e.g., MIME type).
 In other cases it may be through use of CBOR tags.
 There is no fixed mechanism across all use cases.
 
-This specification adds one more top-level message:
+This specification adds one more top-level token type:
 
 * Detached EAT Bundle (DEB), {{DEB}}
 
 A DEB is structure to hold a collection of detached claims sets and the EAT that separately provides integrity and authenticity protection for them.
 It can be either CBOR or JSON encoded.
+
+Last, the definition of other token types is allowed.
+Of particular use may be a token type that provides no authenticity or integrity protection at all for use with transports like TLS that do provide that.
 
 ## CDDL, CBOR and JSON
 
@@ -325,16 +325,13 @@ This specification uses Concise Data Definition Language (CDDL) {{RFC8610}} for 
 The implementor interprets the CDDL to come to either the CBOR or JSON encoding.
 In the case of JSON, Appendix E of {{RFC8610}} is followed.
 Additional rules are given in {{jsoninterop}} where Appendix E is insufficient.
-In cases where the CDDL for CBOR is different than JSON the CDDL Generic named "JC<>" is used.
+In most cases where the CDDL for CBOR is different than JSON a CDDL Generic named "JC<>" is used.
 It is described in {{CDDL_for_CWT}}.
 
 The CWT and JWT specifications were authored before CDDL was available and did not use CDDL.
 This specification includes a CDDL definition of most of what is defined in {{RFC8392}}.
 Similarly, this specification includes CDDL for most of what is defined in {{RFC7519}}.
-
-The UCCS specification does not include CDDL.
-This specification provides CDDL for it.
-
+These definitions are in {{CDDL_for_CWT}} and are not normative.
 
 ## Operating Model and RATS Architecture
 
@@ -1152,16 +1149,15 @@ If it was conveyed in parallel with the surrounding token, there would be no suc
 
 A nested token does not need to use the same encoding as the enclosing token.
 This is to allow Composite Devices to be built without regards to the encoding supported by their Attesters.
-Thus a CBOR-encoded token like a CWT or UCCS can have a JWT as a nested token submodule and a JSON-encoded token can have a CWT or UCCS as a nested token submodule.
+Thus, a CBOR-encoded token like a CWT can have a JWT as a nested token submodule and vice versa.
 
-The following two sections describe how to encode and decode a nested token.
 
 ###### Surrounding EAT is CBOR-Encoded
 
 This describes the encoding and decoding of CBOR or JSON-encoded tokens nested inside a CBOR-encoded token.
 
 If the nested token is CBOR-encoded, then it MUST be a CBOR tag and MUST be wrapped in a byte string.
-The tag identifies whether the nested token is a CWT, a UCCS, a CBOR-encoded DEB, or some other CBOR-format token defined in the future.
+The tag identifies whether the nested token is a CWT, a CBOR-encoded DEB, or some other CBOR-format token defined in the future.
 A nested CBOR-encoded token that is not a CBOR tag is NOT allowed.
 
 If the nested token is JSON-encoded, then the data item MUST be a text string containing JSON.
@@ -1190,7 +1186,7 @@ The string identifying the JSON-encoded token MUST be one of the following:
 : The second array item MUST be a JWT formatted according to {{RFC7519}}
 
 "CBOR":
-: The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT, UCCS or CBOR-encoded DEB
+: The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded DEB
 
 "UJCS":
 : The second array item MUST be a UJCS-Message as defined in this document.
@@ -1421,8 +1417,8 @@ That is, the same, equivalent or better hardware defenses, access controls, key 
 # Detached EAT Bundles {#DEB}
 
 A detached EAT bundle is a structure to convey a fully-formed and signed token plus detached claims set that relate to that token.
-It is a top-level EAT message like a CWT, JWT, UCCS and UJCS.
-It can be used any place that CWT, JWT, UCCS or UJCS messages are used.
+It is a top-level EAT message like a CWT or JWT.
+It can be occur any place that CWT or JWT messages occur.
 It may also be sent as a submodule.
 
 A DEB has two main parts.
@@ -1430,7 +1426,8 @@ A DEB has two main parts.
 The first part is a full top-level token.
 This top-level token must have at least one submodule that is a detached digest.
 This top-level token may be either CBOR or JSON-encoded.
-It may be a CWT, JWT, UCCS or UJCS, but not a DEB.
+It may be a CWT, or JWT but not a DEB.
+It may also be some future-defined token type.
 The same mechanism for distinguishing the type for nested token submodules is used here.
 
 The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the full token.
@@ -1543,7 +1540,7 @@ For example, to require the altitude data item in the location claim, CDDL can b
 
 ## List of Profile Issues
 
-The following is a list of EAT, CWT, UCCS, JWS, UJCS, COSE, JOSE and CBOR options that a profile should address. 
+The following is a list of EAT, CWT, JWS, COSE, JOSE and CBOR options that a profile should address. 
 
 
 ### Use of JSON, CBOR or both
@@ -1583,9 +1580,9 @@ The profile should indicate whether decoders must accept non-preferred serializa
 ### COSE/JOSE Protection
 
 COSE and JOSE have several options for signed, MACed and encrypted messages.
-EAT/CWT has the option to have no protection using UCCS and JOSE has a NULL protection option.
+JWT may use the JOSE NULL protection option.
 It is possible to implement no protection, sign only, MAC only, sign then encrypt and so on.
-All combinations allowed by COSE, JOSE, JWT, CWT, UCCS and UJCS are allowed by EAT.
+All combinations allowed by COSE, JOSE, JWT, and CWT are allowed by EAT.
 
 The profile should list the protections that must be supported by all decoders implementing the profile.
 The encoders them must implement a subset of what is listed for the decoders, perhaps only one.
@@ -1654,7 +1651,6 @@ For example, it may require altitude in the location claim, or it may require th
 ### CBOR Tags
 
 The profile should specify whether the token should be a CWT Tag or not.
-Similarly, the profile should specify whether the token should be a UCCS tag or not.
 
 When COSE protection is used, the profile should specify whether COSE tags are used or not.
 Note that RFC 8392 requires COSE tags be used in a CWT tag.
@@ -1679,13 +1675,13 @@ Since CBOR can express some things that JSON can't (e.g., tags) or that are expr
 CDDL was not used to define CWT or JWT.
 It was not available at the time.
 
-This document defines CDDL for both CWT and JWT as well as UCCS.
+This document defines CDDL for both CWT and JWT.
 This document does not change the encoding or semantics of anything in a CWT or JWT.
 
-A Claims-Set is the central data structure for EAT, CWT, JWT and UCCS.
+A Claims-Set is the central data structure for EAT, CWT and JWT.
 It holds all the claims and is the structure that is secured by signing or other means.
-It is not possible to define EAT, CWT, JWT or UCCS in CDDL without it.
-The CDDL definition of Claims-Set here is applicable to EAT, CWT, JWT and UCCS.
+It is not possible to define EAT, CWT, or JWT in CDDL without it.
+The CDDL definition of Claims-Set here is applicable to EAT, CWT and JWT.
 
 This document specifies how to encode a Claims-Set in CBOR or JSON.
 
@@ -2846,5 +2842,19 @@ no new claims have been added.
 * Clarify relationship of claims in evidence to results when forwarding
 
 * Clarify manufacturer switching UEID types
+
+* Add new section on the top-level token type that has CBOR-specific and JSON-specific CDDL since the top-level can't be handled with JC<>
+
+* Remove definition of UCCS and UJCS, replacing it with a CDDL socket and mention of future token types
+
+* Split the examples into payload and top level tokens since UCCS can't be used for examples any more (It was nice because you could see the payload claims in it easily, where you can't with CWT)
+
+* Use JC<> Generic for most of the CDDL that varies between CBOR and JSON
+
+* DEB tag number is TBD rather than hard coded
+
+* Add appendix with non-normative CDDL for a Claims-Set, CWT and JWT
+
+* (Large reorganization of the document build and example verification makefile)
 
 

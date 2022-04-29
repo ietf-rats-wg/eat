@@ -1,8 +1,8 @@
-/ This EAT UCCS is for an IoT device with a TEE. The attestation   /
-/ is produced by the TEE. There is a submodule for the IoT OS (the /
-/ main OS of the IoT device that is not as secure as the TEE). The /
-/ submodule contains claims for the IoT OS. The TEE also measures  /
-/ the IoT OS and puts the measurements in the submodule.           /
+/ This EAT payload is for an IoT device with a TEE. The attestation /
+/ is produced by the TEE. There is a submodule for the IoT OS (the  /
+/ main OS of the IoT device that is not as secure as the TEE). The  /
+/ submodule contains claims for the IoT OS. The TEE also measures   /
+/ the IoT OS and puts the measurements in the submodule.            /
 
 {
     / nonce /           10: h'948f8860d13a463e',

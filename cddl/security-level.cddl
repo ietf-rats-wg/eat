@@ -1,4 +1,5 @@
-$$Claims-Set-Claims //= ( security-level-label => security-level-type ) 
+$$Claims-Set-Claims //=
+    ( security-level-label => security-level-type ) 
 
 security-level-type = unrestricted /
                       restricted /
