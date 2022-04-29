@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 EAT-CBOR-Token = $$EAT-CBOR-Tagged-Token / $$EAT-CBOR-Untagged-Token 
 
 $$EAT-CBOR-Tagged-Token /= CWT-Tagged-Message
@@ -5,3 +6,12 @@ $$EAT-CBOR-Tagged-Token /= DEB-Tagged-Message
 
 $$EAT-CBOR-Untagged-Token /= CWT-Untagged-Message
 $$EAT-CBOR-Untagged-Token /= DEB-Untagged-Message
+=======
+EAT-CBOR-Token = DEB-Tagged-Message ; $$EAT-CBOR-Tagged-Token / $$EAT-CBOR-Untagged-Token 
+
+;$$EAT-CBOR-Tagged-Token /= CWT-Tagged-Message
+$$EAT-CBOR-Tagged-Token /= DEB-Tagged-Message
+
+;$$EAT-CBOR-Untagged-Token /= CWT-Untagged-Message
+;$$EAT-CBOR-Untagged-Token /= DEB-Untagged-Message
+>>>>>>> master

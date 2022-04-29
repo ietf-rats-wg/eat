@@ -304,7 +304,11 @@ In some cases it may be by content type (e.g., MIME type).
 In other cases it may be through use of CBOR tags.
 There is no fixed mechanism across all use cases.
 
+<<<<<<< HEAD
 This specification adds one more top-level token type:
+=======
+This specification adds one more top-level message:
+>>>>>>> master
 
 * Detached EAT Bundle (DEB), {{DEB}}
 
@@ -325,7 +329,11 @@ This specification uses Concise Data Definition Language (CDDL) {{RFC8610}} for 
 The implementor interprets the CDDL to come to either the CBOR or JSON encoding.
 In the case of JSON, Appendix E of {{RFC8610}} is followed.
 Additional rules are given in {{jsoninterop}} where Appendix E is insufficient.
+<<<<<<< HEAD
 In most cases where the CDDL for CBOR is different than JSON a CDDL Generic named "JC<>" is used.
+=======
+In cases where the CDDL for CBOR is different than JSON the CDDL Generic named "JC<>" is used.
+>>>>>>> master
 It is described in {{CDDL_for_CWT}}.
 
 The CWT and JWT specifications were authored before CDDL was available and did not use CDDL.
@@ -1186,7 +1194,11 @@ The string identifying the JSON-encoded token MUST be one of the following:
 : The second array item MUST be a JWT formatted according to {{RFC7519}}
 
 "CBOR":
+<<<<<<< HEAD
 : The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded DEB
+=======
+: The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT, UCCS or CBOR-encoded DEB
+>>>>>>> master
 
 "UJCS":
 : The second array item MUST be a UJCS-Message as defined in this document.
@@ -1774,11 +1786,19 @@ This CDDL defines all the EAT Claims that are added to the main definition of a 
 Claims-Set is the payload for CWT, JWT and potentially other token types.
 This is for both CBOR and JSON.
 When there is variation between CBOR and JSON, the JC<> CDDL generic defined in {{CDDL_for_CWT}}.
+<<<<<<< HEAD
 
 This CDDL uses, but doesn't define Nested-Token because its definition varies between CBOR and JSON and the JC<> generic can't be used to define it.
 Nested-Token is the one place that that a CBOR token can be nested inside a JSON token and vice versa.
 Nested-Token is defined in the following sections.
 
+=======
+
+This CDDL uses, but doesn't define Nested-Token because its definition varies between CBOR and JSON and the JC<> generic can't be used to define it.
+Nested-Token is the one place that that a CBOR token can be nested inside a JSON token and vice versa.
+Nested-Token is defined in the following sections.
+
+>>>>>>> master
 ~~~~CDDL
 {::include nc-cddl/common.cddl}
 ~~~~
@@ -2311,9 +2331,15 @@ WARNING: These examples use tag and label numbers not yet assigned by IANA.
 
 
 ## Payload Examples
+<<<<<<< HEAD
+=======
+
+### Simple TEE Attestation
+>>>>>>> master
 
 ### Simple TEE Attestation
 
+<<<<<<< HEAD
 This is a simple attestation of a TEE that includes a manifest that is a payload CoSWID to describe the TEE's software.
 
 ~~~~
@@ -2342,6 +2368,34 @@ This is a simple attestation of a TEE that includes a manifest that is a payload
 ### Key / Key Store Attestation
 
 ~~~~
+=======
+~~~~
+{::include cddl/Example-Payloads/valid_tee.diag}
+~~~~
+
+~~~~
+{::include cddl/Example-Payloads/coswid/tee-coswid.diag}
+~~~~
+
+### Submodules for Board and Device
+
+~~~~
+{::include cddl/Example-Payloads/valid_submods.diag}
+~~~~
+
+
+### EAT Produced by Attestation Hardware Block
+
+~~~~
+{::include cddl/Example-Payloads/valid_hw_block.diag}
+~~~~
+
+
+
+### Key / Key Store Attestation
+
+~~~~
+>>>>>>> master
 {::include cddl/Example-Payloads/valid_key_store.diag}
 ~~~~
 
@@ -2843,6 +2897,7 @@ no new claims have been added.
 
 * Clarify manufacturer switching UEID types
 
+<<<<<<< HEAD
 * Add new section on the top-level token type that has CBOR-specific and JSON-specific CDDL since the top-level can't be handled with JC<>
 
 * Remove definition of UCCS and UJCS, replacing it with a CDDL socket and mention of future token types
@@ -2857,4 +2912,6 @@ no new claims have been added.
 
 * (Large reorganization of the document build and example verification makefile)
 
+=======
+>>>>>>> master
 
