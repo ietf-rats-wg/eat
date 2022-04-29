@@ -1,3 +1,5 @@
-string-or-uri = tstr 
-
 time-int = #6.1(int)
+
+binary-data = JC<base64-url-text, bstr>
+
+base64-url-text = tstr .regexp "[A-Za-z0-9_=-]+"

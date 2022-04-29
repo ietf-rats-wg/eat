@@ -4,7 +4,7 @@
 / submodule contains claims for the IoT OS. The TEE also measures  /
 / the IoT OS and puts the measurements in the submodule.           /
 
-601({
+{
     / nonce /           10: h'948f8860d13a463e',
     / security-level / 261: 3, / secure-restricted /
     / secure-boot /    262: true,
@@ -41,5 +41,5 @@
 		           	]
 			    }
 		        }
-})
+}
 

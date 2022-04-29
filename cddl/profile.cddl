@@ -1,1 +1,1 @@
-$$claims-set-claims //= (profile-label => ~uri / ~oid)
+$$Claims-Set-Claims //= (profile-label => ~uri / ~oid)

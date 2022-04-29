@@ -1,11 +1,15 @@
+$$Claims-Set-Claims //= (
+    oemid-label => oemid-pen / oemid-ieee / oemid-random
+)
+
 oemid-pen = int
 
-oemid-ieee = bstr .size 3
+oemid-ieee = JC<oemid-ieee-json, oemid-ieee-cbor>
+oemid-ieee-cbor = bstr .size 3
+oemid-ieee-json = base64-url-text .size 4
 
-oemid-random = bstr .size 16
+oemid-random = JC<oemid-random-json, oemid-random-cbor>
+oemid-random-cbor = bstr .size 16
+oemid-random-json = base64-url-text .size 24
 
 
-$$claims-set-claims //= (
-    oemid-label => 
-        oemid-random / oemid-ieee / oemid-pen
-)

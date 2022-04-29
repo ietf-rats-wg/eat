@@ -1,6 +1,6 @@
 / This is a UCCS EAT that describes a simple TEE. /
 
-601({
+{
     / nonce /           10: h'948f8860d13a463e',
     / security-level / 261: 3, / secure-restricted /
     / secure-boot /    262: true,
@@ -17,6 +17,6 @@
                                   4545204f5318210206a111a118186e61
                                   636d655f7465655f332e657865'
 			]
-})
+}
     
 

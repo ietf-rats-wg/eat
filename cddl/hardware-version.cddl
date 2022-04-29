@@ -1,4 +1,4 @@
-$$claims-set-claims //=  (
+$$Claims-Set-Claims //=  (
     hardware-version-label => hardware-version-type
 )
 

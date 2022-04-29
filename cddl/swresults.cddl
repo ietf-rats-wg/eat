@@ -1,44 +1,37 @@
-$$claims-set-claims //= (swresults-label => [ + swresult-type ])
-
-verification-result-cbor-type = &(
-    verification-not-run: 1,
-    verification-indeterminate: 2,
-    verification-failed: 3,
-    fully-verified: 4,
-    partially-verified: 5,
-)
-
-verification-result-json-type = 
-    "verification-not-run" /
-    "verification-indeterminate" /
-    "verification-failed" /
-    "fully-verified" /
-    "partially-verified" 
-
-
-verification-objective-cbor-type = &(
-    all: 1,
-    firmware: 2,
-    kernel: 3,
-    privileged: 4,
-    system-libs: 5,
-    partial: 6,
-)
-
-verification-objective-json-type = 
-    "all" /
-    "firmware" /
-    "kernel" /
-    "privileged" /
-    "system-libs" /
-    "partial"
-
+$$Claims-Set-Claims //= ( swresults-label => [ + swresult-type ] )
 
 swresult-type = [
     verification-system: tstr,
-    objective: verification-objective-cbor-type /
-        verification-objective-json-type, 
-    result: verification-result-cbor-type / 
-        verification-result-json-type, 
-    ? objective-name: tstr
+    objective:           verification-objective-type,
+    result:              verification-result-type, 
+    ? objective-name:    tstr
 ]
+
+
+verification-result-type = verification-not-run /
+                           verification-indeterminate /
+                           verification-failed /
+                           fully-verified /
+                           partially-verified
+
+verification-not-run       = JC< "verification-not-run",       1 >
+verification-indeterminate = JC< "verification-indeterminate", 2 >
+verification-failed        = JC< "verification-failed",        3 >
+fully-verified             = JC< "fully-verified",             4 >
+partially-verified         = JC< "partially-verified",         5 >
+
+
+verification-objective-type = all /
+                              firmware /
+                              kernel /
+                              privileged / 
+                              system-libs /
+                              partial 
+
+all         = JC< "all",         1 >
+firmware    = JC< "firmware",    2 >
+kernel      = JC< "kernel",      3 >
+privileged  = JC< "privilege",   4 >
+system-libs = JC< "system-libs", 5 >
+partial     = JC< "partial",     6 >
+

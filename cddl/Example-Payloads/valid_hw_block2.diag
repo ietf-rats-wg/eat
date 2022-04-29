@@ -3,7 +3,7 @@
 / Other than that is is the other example of a token from an   /
 / attestation HW block                                         /
 
-601({
+{
     / nonce /           10: h'948f8860d13a463e',
     / UEID /           256: h'0198f50a4ff6c05861c8860d13a638ea',
     / OEMID /          258: 64242, / Private Enterprise Number /
@@ -20,5 +20,5 @@
 				      a0b'
 				]
 		            }
-})
+}
 
