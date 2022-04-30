@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 $$Claims-Set-Claims //=
     ( security-level-label => security-level-type ) 
-=======
-$$Claims-Set-Claims //= ( security-level-label => security-level-type ) 
->>>>>>> master
 
 security-level-type = unrestricted /
                       restricted /

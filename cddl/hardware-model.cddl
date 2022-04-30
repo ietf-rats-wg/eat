@@ -2,9 +2,5 @@ $$Claims-Set-Claims //= (
     hardware-model-label => hardware-model-type
 )
 
-<<<<<<< HEAD
 hardware-model-type = JC<base64-url-text .size (4..44),
                          bytes .size (1..32)>
-=======
-hardware-model-type = JC<base64-url-text .size (4..44), bytes .size (1..32)>
->>>>>>> master

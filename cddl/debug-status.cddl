@@ -10,10 +10,5 @@ ds-enabled                     = JC< "enabled", 0 >
 disabled                       = JC< "disabled", 1 >
 disabled-since-boot            = JC< "disabled-since-boot", 2 >
 disabled-permanently           = JC< "disabled-permanently", 3 >
-<<<<<<< HEAD
 disabled-fully-and-permanently = JC< "disabled-fully-and-permanently",
                                       4 >
-=======
-disabled-fully-and-permanently = JC< "disabled-fully-and-permanently", 4 >
->>>>>>> master
-

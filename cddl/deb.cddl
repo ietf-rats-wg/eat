@@ -10,15 +10,9 @@ DEB-Untagged-Message = Detached-EAT-Bundle
 
 Detached-EAT-Bundle = [
     main-token : Nested-Token,
-;    main-token : bstr,
     detached-claims-sets: {
-;        + tstr => bstr
-<<<<<<< HEAD
         + tstr => JC<json-wrapped-claims-set,
                      cbor-wrapped-claims-set>
-=======
-        + tstr => JC<json-wrapped-claims-set, cbor-wrapped-claims-set>
->>>>>>> master
     }
 ]
 
