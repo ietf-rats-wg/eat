@@ -3,6 +3,8 @@ unsigned-coswid = concise-swid-tag / tagged-coswid<concise-swid-tag>
 signed-coswid1 = signed-coswid-for<unsigned-coswid>
 signed-coswid = signed-coswid1 / tagged-coswid<signed-coswid1>
 
+untagged-coswid  = concise-swid-tag
+
 tagged-coswid<T> = #6.1398229316(T)
 
 signed-coswid-for<payload> = #6.18(COSE-Sign1-coswid<payload>)
