@@ -440,9 +440,8 @@ See {{CDDL_for_CWT}} for the CDDL definitions of a CWT and JWT.
 
 Nesting of EATs is allowed and defined in {{Nested-Token}}.
 This nesting includes nesting of a token that is a different format than the enclosing token.
-The definition of Nested-Token makes use of the CDDL defined in this section.
-When new token formats are defined, there means for identification as a nested token MUST also be defined.
-
+The definition of Nested-Token references the CDDL defined in this section.
+When new token formats are defined, the means for identification in a nested token MUST also be defined.
 
 ~~~~CDDL
 {::include cddl/eat-cbor.cddl}
@@ -1189,9 +1188,6 @@ The string identifying the JSON-encoded token MUST be one of the following:
 "CBOR":
 : The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded DEB
 
-"UJCS":
-: The second array item MUST be a UJCS-Message as defined in this document.
-
 "DEB":
 : The second array item MUST be a JSON-encoded Detached EAT Bundle as defined in this document.
 
@@ -1245,13 +1241,13 @@ In CBOR the none of other submodule types are arrays.
 
 When decoding a JSON format token, a little more work is required because both the nested token and detached digest types are an array.
 To distinguish the nested token from the detached digest, the first element in the array is examined.
-If it is "JWT", "UJCS" or "DEB", the the submodule is a nested token.
+If it is "JWT" or "DEB", then the submodule is a nested token.
 Otherwise it will contain an algorithm identifier and is a detached digest.
 
 A DEB, described in {{DEB}}, may be used to convey detached claims sets and the token with their detached digests.
 EAT, however, doesn't require use of a DEB.
 Any other protocols may be used to convey detached claims sets and the token with their detached digests.
-Note that since detached Claims-Sets are usually signed, protocols conveying them must make sure they are not modified in transit.
+Note that since detached Claims-Sets are signed, protocols conveying them must make sure they are not modified in transit.
 
 ~~~~CDDL
 {::include nc-cddl/detached-digest.cddl}
@@ -2388,14 +2384,12 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
 
 ### Attestation Results in JSON format
 
-This is a UJCS format token that might be the output of a Verifier that evaluated the IoT Attestation example immediately above.
+This is a JSON-format payload that might be the output of a Verifier that evaluated the IoT Attestation example immediately above.
 
 This particular Verifier knows enough about the TEE Attester to be able to pass claims like security level directly through to the Relying Party.
 The Verifier also knows the Reference Values for the measured SW components and is able to check them.
 It informs the Relying Party that they were correct in the swresults claim.
 "Trustus Verifications" is the name of the services that verifies the SW component measurements.
-
-This UJCS is identical to JSON-encoded Claims-Set that could be a JWT payload.
 
 ~~~~
 {::include cddl/Example-Payloads/valid_results.json}
