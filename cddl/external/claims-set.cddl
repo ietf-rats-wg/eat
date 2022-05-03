@@ -1,3 +1,5 @@
+; This is replicated from draft-ietf-rats-uccs
+
 Claims-Set = {
     * $$Claims-Set-Claims
     * Claim-Label .feature "extended-claims-label" => any

@@ -39,6 +39,7 @@ draft-ietf-rats-eat.md: $(NC_COMMON_CDDL_FRAGS) \
 
 # Rule to build CDDL files without CDDL comments
 # This also turns the unassigned integer labels in to "TBD"
+# Remove these substitutions when they are no longer TBD.
 nc-cddl/%.cddl: cddl/%.cddl
 	mkdir -p nc-cddl
 	sed 's/;.*//' $< | \
@@ -64,15 +65,7 @@ $(NC_JSON_CDDL_FOR_DOCUMENT): $(NC_JSON_CDDL_FRAGS)
 	done > $@
 
 
+# TODO: re-enable examples checking as some point
 #.PHONY: examples
 #examples: ; $(MAKE) -C cddl check-examples
-
-
-#  -- For validating CBOR tokens
-#  -- For validating JSON tokens
-#  -- Common CDDL for document
-#  -- CBOR CDDL for document
-#  -- JSON CDDL for document
-#  -- Claims-Set
-#  -- All the individual fragments
 

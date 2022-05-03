@@ -14,6 +14,7 @@
         / 2nd submod, A nested EAT from a secure element /
         "Secure Element Eat" :
             / an embedded EAT, bytes of which are not shown /
+            / TODO: make this a CWT, not a UCCS /
             h'd90259a20a49948f8860d13a463e8e190106f5',
 
         / 3rd submod, information about Linux Android /

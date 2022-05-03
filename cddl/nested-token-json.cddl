@@ -1,28 +1,29 @@
 ; This is a token that is nested inside another token.
-; When this occurs some means in needed to identify
+; When this occurs some means is needed to identify
 ; the type of token (signed, unsigned or DEB) and
 ; the encoding format (JSON or CBOR). This is the only
 ; place where CBOR can occur inside a JSON token.
 ;
 ;A JSON Encoded Token may contain
 ;- A CWT format token
-;- A CBOR-format DEB
-;- An unsigned CBOR format token (UCCS)
+;- A CBOR-encoded DEB
 ;- A JWT format token
 ;- A JWT-encoded DEB
-;- An unsigned JSON-encoded token (UJCS)
-;
-; In JSON-encoded tokens the Nested-Token reference made in
-; submods.cddl is a JSON-Nested-Token.
+;- Some future token like a UCCS or UJCS
+
+
+; The main EAT CDDL references Nested-Token.  When this file is
+; included it is redirected to this. The JC < > generic doesn't work
+; here.
 ;
 Nested-Token = JSON-Nested-Token
 
 ; This defines a nested token that occurs inside a JSON-encoded
-; token. It only appears in JSON-encoded tokens, never in CBOR-encoded tokens.
-; It is always encoded in JSON.
+; token. It only appears in JSON-encoded tokens, never in CBOR-encoded
+; tokens.  It is always encoded in JSON.
 ;
-; It is an array made up of a type indicator and the
-; actual token.  This array of two is a substitute for the CBOR tag mechanism that
+; It is an array made up of a type indicator and the actual token.
+; This array of two is a substitute for the CBOR tag mechanism that
 ; JSON does not have.
 ;
 JSON-Nested-Token = [
@@ -32,11 +33,10 @@ JSON-Nested-Token = [
                   Detached-EAT-Bundle 
 ]
 
-
-; After the base64url encoding is removed, the contents of this
-; are a Tagged-CBOR-Token (see eat.cddl) encoded in **CBOR**.
-; This is the only transition point in EAT from JSON to CBOR.
-; For example, it is a CWT that is a COSE_Sign1
-; that is a CBOR tag that has been base64url encoded.
+; After the base64url encoding is removed, the contents of this are a
+; $$EAT-CBOR-Tagged-Token (see eat-cbor.cddl) encoded in **CBOR**.
+; This is the only transition point in EAT from JSON to CBOR.  For
+; example, it is a CWT that is a COSE_Sign1 that is a CBOR tag that
+; has been base64url encoded.
 ;
 CBOR-Token-Inside-JSON-Token = base64-url-text
