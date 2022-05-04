@@ -9,6 +9,7 @@
     /                                                           /
     / This token here is in UCCS format (unsigned). In a more   /
     / realistic example, it would be a signed CWT.              /
+    / TODO: make this a CWT /
     h'd90259a80a48948f8860d13a463e190100500198
     f50a4ff6c05861c8860d13a638ea19010219faf2
     19010504190106f5190107031901048263332e31

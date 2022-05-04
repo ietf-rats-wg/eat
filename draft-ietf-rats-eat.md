@@ -2398,6 +2398,14 @@ It informs the Relying Party that they were correct in the swresults claim.
 
 ## Full Token Examples
 
+### Basic CWT Example
+
+This is a simple ECDSA signed CWT-format token.
+
+~~~~
+{::include cddl/Example-Tokens/valid_cwt.diag}
+~~~~
+
 ### Detached EAT Bundle
 
 In this DEB main token is produced by a HW attestation block.
