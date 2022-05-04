@@ -6,16 +6,14 @@
     / UEID. Most importantly, it includes a submodule that is a /
     / detached digest which is the hash of the "TEE" claims set /
     / in the next section.                                      /
-    /                                                           /
-    / This token here is in UCCS format (unsigned). In a more   /
-    / realistic example, it would be a signed CWT.              /
-    / TODO: make this a CWT /
-    h'd90259a80a48948f8860d13a463e190100500198
-    f50a4ff6c05861c8860d13a638ea19010219faf2
-    19010504190106f5190107031901048263332e31
-    0119010aa163544545822f5820e5cf95fd24fab7
-    1446742dd58d43dae178e55fe2b94291a9291082
-    ffc2635a0b',
+    h'D83DD28443A10126A05866A80A48948F8860D13A463E1901
+      00500198F50A4FF6C05861C8860D13A638EA19010219FAF2
+      19010504190106F5190107031901048263332E310119010A
+      A163544545822F5820E5CF95FD24FAB71446742DD58D43DA
+      E178E55FE2B94291A9291082FFC2635A0B5840F690CB0388
+      677FA624A3775FD7CBC4E8409EC9816BE32FA474733B0F98
+      C27FBAEDBBC9963B9CB5ECC03C3E35B3AFC0B7B35B495DEA
+      C0997122EA867F07B8D5EB',
     {
        / A CBOR-encoded byte-string wrapped EAT claims-set. It /
        / contains claims suitable for a TEE                    /
