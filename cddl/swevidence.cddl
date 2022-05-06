@@ -10,9 +10,12 @@ swevidence-format = [
                     $$swevidence-body-cbor .feature "C"
 ]
 
-; The JSON and CBOR types for CoSWID
-; When a CoSWID occurs in a JSON token it is an untagged-coswid 
-; encoded in CBOR as usual, but then wrapped with B64 encoding.
+; The JSON and CBOR types for CoSWID. CoSWIDs are of course alwas in
+; CBOR format. When a CoSWID occurs in a CBOR token, it is bstr
+; wrapped.  When a CoSWID occurs in a JSON token it is an
+; untagged-coswid encoded in CBOR as usual, but then wrapped with B64
+; encoding.
+;
 $$swevidence-body-cbor /= bytes .cbor untagged-coswid
 $$swevidence-body-json /= base64-url-text
 
