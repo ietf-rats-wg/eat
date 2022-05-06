@@ -925,7 +925,7 @@ The method of constructing the registrar URI, platform label and possibly applic
 ~~~~
 
 
-### The Software Manifests Claim (manifests)
+### The Software Manifests Claim (manifests) {#manifests}
 
 This claim contains descriptions of software present on the entity.
 These manifests are installed on the entity when the software is installed or are created as part of the installation process.
@@ -968,10 +968,11 @@ This claim contains descriptions, lists, evidence or measurements of the softwar
 The defining characteristic of this claim is that its contents are created by processes on the entity that inventory, measure or otherwise characterize the software on the entity.
 The contents of this claim do not originate from the software manufacturer.
 
-This claim uses the same mechanism for identification of the type of the swevidence as is used for the type of the manifest in the manifests claim.
-See the discussion above in the manifests claim.
+This claim can be a {{CoSWID}}.
+When the CoSWID format is used, it MUST be evidence CoSWIDs, not payload CoSWIDS.
 
-When the {{CoSWID}} format is used, it MUST be evidence CoSWIDs, not payload CoSWIDS.
+Formats other than CoSWID can be used.
+The identification of format is by CoAP Content Format, the same as the manifests claim in {{manifests}}.
 
 ~~~~CDDL
 {::include nc-cddl/swevidence.cddl}

@@ -4,6 +4,8 @@ $$claims-set-claims //= (
 
 manifests-type = [+ manifest-format]
 
+; TODO: switch to JC<> macro
+
 manifest-format = [
     content-type:   uint, ; CoAP Content Format
     content-format: $$manifest-body-json .feature "J" /
