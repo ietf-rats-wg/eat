@@ -1,19 +1,15 @@
 {
-    "nonce" : "lI+IYNE6Rj4=",
+    "nonce" :    "lI-IYNE6Rj4=",
     "seclevel" : "secure-restricted",
-    "secboot" : true,
-    "dbgstat" : "disabled-since-boot",
-    "OEMID" : "iUWt",
-    "UEID" : "AZj1Ck/2wFhhyIYNE6Y4",
-    "submods" : {
-        "seclevel" : "restricted",
-        "secboot" : true,
-        "dbgstat" : "disabled-since-boot",
-        "swname" : "Acme R-IoT-OS",
-        "sw-version" : [
+    "secboot" :  true,
+    "dbgstat" :  "disabled-since-boot",
+    "oemid" :    "iUWt",
+    "ueid" :     "AZj1Ck_2wFhhyIYNE6Y4",
+    "swname" :   "Acme R-IoT-OS",
+    "swversion" : [
             "3.1.4"
         ],
-        "swresults" : [
+    "swresults" : [
             [
                 "Trustus Verifications",
                 "all",

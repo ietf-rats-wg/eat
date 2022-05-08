@@ -15,13 +15,16 @@ DIAG_TOKEN_EXAMPLES    := $(wildcard Example-Tokens/*.diag)
 CBOR_PAYLOAD_EXAMPLES  := $(DIAG_PAYLOAD_EXAMPLES:.diag=.cbor)
 CBOR_TOKEN_EXAMPLES    := $(DIAG_TOKEN_EXAMPLES:.diag=.cbor)
 
+JSON_PAYLOAD_EXAMPLES  := $(wildcard Example-Payloads/*.json)
+JSON_TOKEN_EXAMPLES    := $(wildcard Example-Tokens/*.json)
+
 CLEANFILES += $(CBOR_PAYLOAD_EXAMPLES)
 
 
 
-.PHONY: payload-examples token-examples
+.PHONY: payload-examples token-examples json-payload-examples json-token-examples
 
-all: payload-examples token-examples
+all: payload-examples token-examples json-payload-examples json-token-examples
 
 
 # ---- Make the CBOR validation CDDL
@@ -30,16 +33,35 @@ all: payload-examples token-examples
 
 CBOR_PAYLOAD_VALIDATION_CDDL := .CBOR_PAYLOAD_VALIDATION.CDDL
 CBOR_TOKEN_VALIDATION_CDDL   := .CBOR_TOKEN_VALIDATION.CDDL
+JSON_PAYLOAD_VALIDATION_CDDL := .JSON_PAYLOAD_VALIDATION.CDDL
+JSON_TOKEN_VALIDATION_CDDL   := .JSON_TOKEN_VALIDATION.CDDL
 CLEANFILES                   += $(CBOR_TOKEN_VALIDATION_CDDL) $(CBOR_PAYLOAD_VALIDATION_CDDL)
+CLEANFILES                   += $(JSON_PAYLOAD_VALIDATION_CDDL)
+CLEANFILES                   += $(JSON_TOKEN_VALIDATION_CDDL)
 
-$(CBOR_PAYLOAD_VALIDATION_CDDL): $(CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS) 
+$(CBOR_PAYLOAD_VALIDATION_CDDL): $(CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS)
+	@for f in $^ ; do \
+		( echo "; ==== $$f ====" ; cat $$f ; echo ) ; \
+	done > $@
+
+$(CBOR_TOKEN_VALIDATION_CDDL): $(CBOR_TOKEN_VALIDATION_CDDL_FRAGS)
 	@for f in $^ ; do \
 		( cat $$f ; echo ) ; \
 	done > $@
 
-$(CBOR_TOKEN_VALIDATION_CDDL): $(CBOR_TOKEN_VALIDATION_CDDL_FRAGS) 
+# The sed script JSON-CDDL.sed removes some things that don't work
+# in CDDL for JSON, ".cbor" and "~" for example
+$(JSON_TOKEN_VALIDATION_CDDL): $(JSON_TOKEN_VALIDATION_CDDL_FRAGS)
 	@for f in $^ ; do \
-		( cat $$f ; echo ) ; \
+		( echo "; ==== $$f ====" ; sed -f JSON-CDDL.sed $$f ; echo ) ; \
+	done > $@
+
+
+# The sed script JSON-CDDL.sed removes some things that don't work
+# in CDDL for JSON, ".cbor" and "~" for example
+$(JSON_PAYLOAD_VALIDATION_CDDL): $(JSON_PAYLOAD_VALIDATION_CDDL_FRAGS)
+	@for f in $^ ; do \
+		( echo "; ==== $$f ====" ; sed -f JSON-CDDL.sed $$f ; echo ) ; \
 	done > $@
 
 
@@ -55,6 +77,19 @@ token-examples: $(CBOR_TOKEN_VALIDATION_CDDL) $(CBOR_TOKEN_EXAMPLES)
 		echo ">> validating $$f" ; \
 		$(cddl) $< validate $$f ; \
 	done
+
+json-payload-examples: $(JSON_PAYLOAD_VALIDATION_CDDL) $(JSON_PAYLOAD_EXAMPLES)
+	@for f in $(JSON_PAYLOAD_EXAMPLES); do \
+		echo ">> validating $$f" ; \
+		$(cddl) $< validate $$f ; \
+	done
+
+json-token-examples: $(JSON_TOKEN_VALIDATION_CDDL) $(JSON_TOKEN_EXAMPLES)
+	@for f in $(JSON_TOKEN_EXAMPLES); do \
+		echo ">> validating $$f" ; \
+		$(cddl) $< validate $$f ; \
+	done
+
 
 
 .PHONY: clean

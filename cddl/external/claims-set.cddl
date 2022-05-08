@@ -7,12 +7,15 @@ Claims-Set = {
 Claim-Label = int / text
 string-or-uri = text
 
+; TODO: see if there a way to use ~time
+general-time =  integer; JC<integer, ~time>
+
 $$Claims-Set-Claims //= ( iss-claim-label => string-or-uri  )
 $$Claims-Set-Claims //= ( sub-claim-label => string-or-uri  )
 $$Claims-Set-Claims //= ( aud-claim-label => string-or-uri  )
-$$Claims-Set-Claims //= ( exp-claim-label => ~time )
-$$Claims-Set-Claims //= ( nbf-claim-label => ~time )
-$$Claims-Set-Claims //= ( iat-claim-label => ~time )
+$$Claims-Set-Claims //= ( exp-claim-label => general-time )
+$$Claims-Set-Claims //= ( nbf-claim-label => general-time )
+$$Claims-Set-Claims //= ( iat-claim-label => general-time )
 $$Claims-Set-Claims //= ( cti-claim-label => bytes )
 
 iss-claim-label = JC<"iss", 1>

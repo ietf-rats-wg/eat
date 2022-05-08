@@ -4,5 +4,5 @@ $$Claims-Set-Claims //=  (
 
 hardware-version-type = [
     version:  tstr,
-    scheme:  $version-scheme
+    ? scheme:  $version-scheme
 ]

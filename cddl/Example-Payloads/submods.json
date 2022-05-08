@@ -1,0 +1,27 @@
+{
+    "none":     "lI-IYNE6Rj6O",
+    "ueid":     "AJj1Ck_2wFhhyIYNE6Y46g==",
+    "secboot":  true,
+    "dbgstat":  "permanent-disable", 
+    "iat":      1526542894,
+    "seclevel": "secure-restricted", 
+    "submods": {
+        "Android App Foo" :  {
+            "seclevel": "unrestricted"
+        },
+
+        "Secure Element Eat" : [
+            "CBOR",
+            "2D3ShEOhASagWGaoCkiUj4hg0TpGPhkBAFABmPUKT_bAWGHIhg0TpjjqGQECGfryGQEFBBkBBvUZAQcDGQEEgmMzLjEBGQEKoWNURUWCL1gg5c-V_ST6txRGdC3VjUPa4XjlX-K5QpGpKRCC_8JjWgtYQPaQywOIZ3-mJKN3X9fLxOhAnsmBa-MvpHRzOw-Ywn-67bvJljuctezAPD41s6_At7NbSV3qwJlxIuqGfwe41es="
+        ],
+
+        "Linux Android": {
+            "seclevel": "unrestricted"
+        },
+
+        "Subsystem J": [ 
+            "JWT",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJKLUF0dGVzdGVyIiwiaWF0IjoxNjUxNzc0ODY4LCJleHAiOm51bGwsImF1ZCI6IiIsInN1YiI6IiJ9.gjw4nFMhLpJUuPXvMPzK1GMjhyJq2vWXg1416XKszwQ"
+        ] 
+    }
+}

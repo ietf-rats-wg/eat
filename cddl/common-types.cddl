@@ -1,5 +1,11 @@
-time-int = #6.1(int)
+general-time-int = JC<int, #6.1(int)>
 
 binary-data = JC<base64-url-text, bstr>
 
 base64-url-text = tstr .regexp "[A-Za-z0-9_=-]+"
+
+; TODO: see if there is a way to use ~oid
+general-oid = JC<text, bstr>
+
+; TODO see if there is a way to use ~uri
+general-uri = text ; JC<text, ~uri>

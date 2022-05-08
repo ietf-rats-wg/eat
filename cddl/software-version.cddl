@@ -1,6 +1,6 @@
 $$Claims-Set-Claims //= (sw-version-label => sw-version-type)
 
 sw-version-type = [
-    version:  tstr,
-    scheme:  $version-scheme ; As defined by CoSWID 
+    version:  tstr
+    ? scheme:  $version-scheme ; As defined by CoSWID
 ]

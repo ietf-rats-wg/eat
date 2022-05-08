@@ -2302,8 +2302,6 @@ It is shown this way because the payload is all the claims, the most interesting
 
 Some examples of full tokens are also given.
 
-TODO: describe cddl validation
-
 WARNING: These examples use tag and label numbers not yet assigned by IANA.
 
 
@@ -2394,6 +2392,25 @@ It informs the Relying Party that they were correct in the swresults claim.
 ~~~~
 {::include cddl/Example-Payloads/valid_results.json}
 ~~~~
+
+
+### JSON-encoded Token with Sumodules
+
+~~~~
+{::include cddl/Example-Payloads/submods.json}
+~~~~
+
+
+### JSON-encoded Detached EAT Bundle
+
+In this bundle there are two detached Claims-Sets, "CS1" and "CS2".
+The JWT at the start of the bundle has detached signature submodules with hashes of "CS1" and "CS2".
+TODO: make the JWT actually be correct verifiable JWT.
+
+~~~~
+{::include cddl/Example-Payloads/deb.json}
+~~~~
+
 
 
 ## Full Token Examples
