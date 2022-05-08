@@ -1,11 +1,28 @@
 / This is a detached EAT bundle (DEB) tag.  /
+/ Note that 602, the tag identifying a DEB is not yet registered with IANA /
 
 602([
 
     / First part is a full EAT token with claims like nonce and /
     / UEID. Most importantly, it includes a submodule that is a /
     / detached digest which is the hash of the "TEE" claims set /
-    / in the next section.                                      /
+    / in the next section. The COSE payload follows:            /
+    / { /
+    /      10: h'948F8860D13A463E', /
+    /     256: h'0198F50A4FF6C05861C8860D13A638EA', /
+    /     258: 64242, /
+    /     261: 4,  /
+    /     262: true, /
+    /     263: 3, /
+    /     260: ["3.1", 1], /
+    /     266: { /
+    /         "TEE": [ /
+    /             -16, /
+    /              h'E5CF95FD24FAB71446742DD58D43DAE1 /
+    /                78E55FE2B94291A9291082FFC2635A0B' /
+    /         ] /
+    /     } /
+    /   }  /
     h'D83DD28443A10126A05866A80A48948F8860D13A463E1901
       00500198F50A4FF6C05861C8860D13A638EA19010219FAF2
       19010504190106F5190107031901048263332E310119010A
@@ -17,13 +34,13 @@
     {
        / A CBOR-encoded byte-string wrapped EAT claims-set. It /
        / contains claims suitable for a TEE                    /
-       "TEE" : h'a50a48948f8860d13a463e19010503190106f519
-                 01070219011181585dda53574944a60064336132
-                 340c01016b41636d6520544545204f530d65332e
-                 312e340282a2181f6b41636d6520544545204f53
-                 182101a2181f6b41636d6520544545204f531821
-                 0206a111a118186e61636d655f7465655f332e65
-                 7865'
+       "TEE" : h'a50a48948f8860d13a463e19010503190106
+                 f519010702190111818218795858a6006433
+                 6132340c01016b41636d6520544545204f53
+                 0d65332e312e340282a2181f6b41636d6520
+                 544545204f53182101a2181f6b41636d6520
+                 544545204f5318210206a111a118186e6163
+                 6d655f7465655f332e657865'
     }
  ])
  

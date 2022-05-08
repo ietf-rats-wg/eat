@@ -1,8 +1,8 @@
 {
-    "none":     "lI-IYNE6Rj6O",
+    "nonce":    "lI-IYNE6Rj6O",
     "ueid":     "AJj1Ck_2wFhhyIYNE6Y46g==",
     "secboot":  true,
-    "dbgstat":  "permanent-disable", 
+    "dbgstat":  "disabled-permanently",
     "iat":      1526542894,
     "seclevel": "secure-restricted", 
     "submods": {

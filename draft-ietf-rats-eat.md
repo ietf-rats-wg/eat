@@ -2392,18 +2392,6 @@ It informs the Relying Party that they were correct in the swresults claim.
 ~~~~
 
 
-### JSON-encoded Detached EAT Bundle
-
-In this bundle there are two detached Claims-Sets, "CS1" and "CS2".
-The JWT at the start of the bundle has detached signature submodules with hashes of "CS1" and "CS2".
-TODO: make the JWT actually be correct verifiable JWT.
-
-~~~~
-{::include cddl/Example-Payloads/deb.json}
-~~~~
-
-
-
 ## Full Token Examples
 
 ### Basic CWT Example
@@ -2433,6 +2421,16 @@ The DEB itself can be assembled by untrusted SW.
 {::include cddl/Example-Payloads/valid_hw_block2.diag}
 ~~~~
 
+
+### JSON-encoded Detached EAT Bundle
+
+In this bundle there are two detached Claims-Sets, "CS1" and "CS2".
+The JWT at the start of the bundle has detached signature submodules with hashes of "CS1" and "CS2".
+TODO: make the JWT actually be correct verifiable JWT.
+
+~~~~
+{::include cddl/Example-Tokens/deb.json}
+~~~~
 
 
 # UEID Design Rationale {#UEID-Design}
