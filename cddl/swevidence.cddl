@@ -2,9 +2,23 @@ $$claims-set-claims //= (
     swevidence-label => swevidence-type
 )
 
-swevidence-type = [+ $$swevidence-formats]
+swevidence-type = [+ swevidence-format]
 
-; Must be a CoSWID evidence type that is a CBOR tag
-; TODO: fix the CDDL so a signed CoSWID is allowed too 
-coswid-that-is-a-cbor-tag = tagged-coswid<concise-swid-tag>
-$$swevidence-formats /= bytes .cbor coswid-that-is-a-cbor-tag 
+; TODO: switch to JC<> macro when 
+
+swevidence-format = [
+    content-type:   uint, ; CoAP Content Format
+    content-format: $$swevidence-body-json .feature "J" /
+                    $$swevidence-body-cbor .feature "C"
+]
+
+; The JSON and CBOR types for CoSWID. CoSWIDs are of course alwas in
+; CBOR format. When a CoSWID occurs in a CBOR token, it is bstr
+; wrapped.  When a CoSWID occurs in a JSON token it is an
+; untagged-coswid encoded in CBOR as usual, but then wrapped with B64
+; encoding.
+;
+$$swevidence-body-cbor /= bytes .cbor untagged-coswid
+$$swevidence-body-json /= base64-url-text
+
+
