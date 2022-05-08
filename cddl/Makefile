@@ -6,7 +6,6 @@ include vars.mk
 %.cbor: %.diag ; @$(diag2cbor) $< > $@
 
 DIAG_EXAMPLES := $(wildcard examples/*.diag)
-;DIAG_EXAMPLES := $(wildcard examples/valid_key_store.diag)
 CBOR_EXAMPLES := $(DIAG_EXAMPLES:.diag=.cbor)
 
 CLEANFILES += $(CBOR_EXAMPLES)
