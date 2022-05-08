@@ -6,6 +6,7 @@ include vars.mk
 %.cbor: %.diag ; @$(diag2cbor) $< > $@
 
 DIAG_EXAMPLES := $(wildcard examples/*.diag)
+;DIAG_EXAMPLES := $(wildcard examples/valid_key_store.diag)
 CBOR_EXAMPLES := $(DIAG_EXAMPLES:.diag=.cbor)
 
 CLEANFILES += $(CBOR_EXAMPLES)
@@ -38,7 +39,7 @@ $(JSON_CDDL_FOR_DOCUMENT): $(JSON_CDDL_FRAGS)
 	done > $@
 
 
-$(CDDL_FOR_CBOR_VALIDATION): $(VALIDATION_CBOR_CDDL) cose-stub.cddl concise-swid-tag.cddl coswid-tag-stub.cddl
+$(CDDL_FOR_CBOR_VALIDATION): $(VALIDATION_CBOR_CDDL) cose-stub.cddl concise-swid-tag.cddl coswid-tag-stub.cddl  draft-ietf-suit-manifest.cddl
 	@for f in $^ ; do \
 		( cat $$f ; echo ) ; \
 	done > $@

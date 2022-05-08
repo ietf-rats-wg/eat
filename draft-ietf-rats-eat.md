@@ -939,7 +939,7 @@ For example, the manifest might be a CoSWID signed by the software manufacturer,
 
 This claim allows multiple formats for the manifest.
 For example, the manifest may be a CBOR-format CoSWID, an XML-format SWID or other.
-Identification of the type of manifest is always by a CoAP Content-Format integer. {{RFC7252}}
+Identification of the type of manifest is always by a CoAP Content-Format integer {{RFC7252}}.
 If there is no CoAP identifier registered for the manifest format, one should be registered, perhaps in the experimental or first-come-first-served range.
 
 This claim MUST be an array of one or more manifests.
@@ -2779,3 +2779,6 @@ no new claims have been added.
 
 * Clarify manufacturer switching UEID types
 
+## From draft-ietf-rats-eat-11
+
+* Use CoAP content format ID to distinguish manifest and evidence formats instead of CBOR tag
