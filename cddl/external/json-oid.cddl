@@ -1,0 +1,7 @@
+; This is a JSON rendering of OIDs
+; TODO: where is this standardized?
+; TODO: what is the standard here?
+
+oid = tstr
+roid = tstr
+pen = tstr
