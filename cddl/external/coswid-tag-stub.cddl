@@ -1,12 +1,23 @@
-coswid = unsigned-coswid / signed-coswid
-unsigned-coswid = concise-swid-tag / tagged-coswid<concise-swid-tag>
-signed-coswid1 = signed-coswid-for<unsigned-coswid>
-signed-coswid = signed-coswid1 / tagged-coswid<signed-coswid1>
+; CoSWID section 8 don't provide the CDDL that is needed
+; for EAT, in particular the CDDL for a non-tag CoSWID,
+; so it is provided here.
+;
+; CoSWID section 8 does not allow for a signed CoSWID 
+; without a COSE tag number. This is different from 
+; CWT which does allow it. CoSWID section 8 doesn't
+; say this in prose, but the CDDL does specify it.
 
-untagged-coswid = concise-swid-tag / signed-coswid1
+untagged-coswid = concise-swid-tag / untagged-signed-coswid1
 
-tagged-coswid<T> = #6.1398229316(T)
+; The COSE payload of COSE here is as specified in CoSWID, 
+; a concise-swid-tag. 
+;
+; CoSWID section 8 replicates and modifies a lot of the COSE
+; CDDL for several reasons. One is so that the type of the
+; COSE payload can be explicitly specified in CDDL. That is
+; not done with this CDDL for brevity. This does reduce the
+; amount of CDDL validation possible, but is not an
+; underspecification.
 
-signed-coswid-for<payload> = #6.18(COSE-Sign1-coswid<payload>)
-    / #6.98(COSE-Sign-coswid<payload>)
+untagged-signed-coswid1 = COSE_Sign1_Tagged / COSE_Sign_Tagged
 

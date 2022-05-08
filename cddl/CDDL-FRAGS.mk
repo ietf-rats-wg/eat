@@ -69,6 +69,7 @@ CBOR_EXTERNAL_CDDL_FRAGS += external/cwt.cddl
 CBOR_EXTERNAL_CDDL_FRAGS += external/concise-swid-tag.cddl
 CBOR_EXTERNAL_CDDL_FRAGS += external/coswid-tag-stub.cddl
 CBOR_EXTERNAL_CDDL_FRAGS += external/cose-stub.cddl
+CBOR_EXTERNAL_CDDL_FRAGS += external/draft-ietf-suit-manifest.cddl
 # TODO: remove this or such...
 CBOR_EXTERNAL_CDDL_FRAGS += external/uccs.cddl
 

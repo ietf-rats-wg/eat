@@ -51,6 +51,7 @@ normative:
   RFC7515:
   RFC7516:
   RFC8949:
+  RFC7252:
   RFC7517:
   RFC7519:
   RFC7800:
@@ -953,7 +954,7 @@ The method of constructing the registrar URI, platform label and possibly applic
 ~~~~
 
 
-### The Software Manifests Claim (manifests)
+### The Software Manifests Claim (manifests) {#manifests}
 
 This claim contains descriptions of software present on the entity.
 These manifests are installed on the entity when the software is installed or are created as part of the installation process.
@@ -967,31 +968,21 @@ For example, the manifest might be a CoSWID signed by the software manufacturer,
 
 This claim allows multiple formats for the manifest.
 For example, the manifest may be a CBOR-format CoSWID, an XML-format SWID or other.
-Identification of the type of manifest is always by a CBOR tag.
-In many cases, for examples CoSWID, a tag will already be registered with IANA.
-If not, a tag MUST be registered.
-It can be in the first-come-first-served space which has minimal requirements for registration.
+Identification of the type of manifest is always by a CoAP Content-Format integer {{RFC7252}}.
+If there is no CoAP identifier registered for the manifest format, one should be registered, perhaps in the experimental or first-come-first-served range.
 
-The claim is an array of one or more manifests.
-To facilitate hand off of the manifest to a decoding library, each manifest is contained in a byte string.
-This occurs for CBOR-format manifests as well as non-CBOR format manifests.
+This claim MUST be an array of one or more manifests.
+Each manifest in the claim MUST be an array of two.
+The first item in the array of two MUST be an integer CoAP Content-Format identifier.
+The second item is MUST be the actual manifest.
 
-If a particular manifest type uses CBOR encoding, then the item in the array for it MUST be a byte string that contains a CBOR tag.
-The EAT decoder must decode the byte string and then the CBOR within it to find the tag number to identify the type of manifest.
-The contents of the byte string is then handed to the particular manifest processor for that type of manifest.
-CoSWID and SUIT manifest are examples of this.
+In CBOR-encoded EATs the manifest, whatever format it is, MUST be placed in a byte string.
 
-If a particular manifest type does not use CBOR encoding, then the item in the array for it MUST be a CBOR tag that contains a byte string.
-The EAT decoder uses the tag to identify the processor for that type of manifest.
-The contents of the tag, the byte string, are handed to the manifest processor.
-Note that a byte string is used to contain the manifest whether it is a text based format or not.
-An example of this is an XML format ISO/IEC 19770 SWID.
-
-It is not possible to describe the above requirements in CDDL, so the type for an individual manifest is any in the CDDL below.
-The above text sets the encoding requirement.
+In JSON-format tokens the manifest, whatever format it is, MUST be placed in a text string.
+When a non-text format manifest like a CBOR-encoded CoSWID is put in a JSON-encoded token, the manifest MUST be base-64 encoded.
 
 This claim allows for multiple manifests in one token since multiple software packages are likely to be present.
-The multiple manifests MAY be of multiple formats.
+The multiple manifests MAY be of different formats.
 In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.
 
 When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
@@ -1006,11 +997,11 @@ This claim contains descriptions, lists, evidence or measurements of the softwar
 The defining characteristic of this claim is that its contents are created by processes on the entity that inventory, measure or otherwise characterize the software on the entity.
 The contents of this claim do not originate from the software manufacturer.
 
-This claim uses the same mechanism for identification of the type of the swevidence as is used for the type of the manifest in the manifests claim.
-It also uses the same byte string based mechanism for containing the claim and easing the hand off to a processing library.
-See the discussion above in the manifests claim.
+This claim can be a {{CoSWID}}.
+When the CoSWID format is used, it MUST be evidence CoSWIDs, not payload CoSWIDS.
 
-When the {{CoSWID}} format is used, it MUST be evidence CoSWIDs, not payload CoSWIDS.
+Formats other than CoSWID can be used.
+The identification of format is by CoAP Content Format, the same as the manifests claim in {{manifests}}.
 
 ~~~~CDDL
 {::include nc-cddl/swevidence.cddl}
@@ -2900,5 +2891,7 @@ no new claims have been added.
 * Add appendix with non-normative CDDL for a Claims-Set, CWT and JWT
 
 * (Large reorganization of the document build and example verification makefile)
+
+* Use CoAP content format ID to distinguish manifest and evidence formats instead of CBOR tag
 
 
