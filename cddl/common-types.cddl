@@ -1,10 +1,18 @@
-; TODO: is this right?
-general-time-int = JC<int, #6.1(int)>
+; The same as the standard time, but floating point
+; is not allowed. 
+time-int = #6.1(int)
 
-binary-data = JC<base64-url-text, bstr>
+; Time that is defined for both JSON and CBOR
+general-time-int = JC< int, ~time-int >
+
+
+; binary data that works for both JSON and CBOR. 
+binary-data = JC< base64-url-text, bstr>
 
 base64-url-text = tstr .regexp "[A-Za-z0-9_=-]+"
 
+
+; OID for both JSON and CBOR
 general-oid = JC< json-oid, ~oid >
 
 ; This is a normative definition for the encoding of an OID
@@ -12,4 +20,5 @@ general-oid = JC< json-oid, ~oid >
 json-oid = tstr .regexp "[0-9\.]+"
 
 
+; URI for both JSON and CBOR
 general-uri = JC< text, ~uri >
