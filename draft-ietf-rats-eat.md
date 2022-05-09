@@ -1326,9 +1326,8 @@ There is no requirement that the named document be publicly accessible.
 The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
 
 The OID is always absolute and never relative.
-In CBOR tokens, the OID MUST be encoded according to {{RFC9090}} and the URI according to {{RFC8949}}.
-Both are unwrapped and thus not CBOR tags.
-In JSON tokens, the OID is a string of the form "X.X.X", and a URI is a normal URI string.
+
+See {{common-types}} for OID and URI encoding.
 
 Note that this is named "eat_profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
 
@@ -1682,10 +1681,13 @@ CDDL for the seven claims defined by {{RFC8392}} and {{RFC7519}} is included her
 
 This makes use of the types defined in {{RFC8610}} Appendix D, Standard Prelude.
 
-### Common Data Types
+### Common Data Types {#common-types}
 
 time-int is identical to the epoch-based time, but disallows
 floating-point representation.
+
+The OID encoding from {{RFC9090}} is used without the tag number in CBOR-encoded tokens.
+In JSON tokens OIDs are a text string in the common form of "nn.nn.nn...".
 
 Unless expliclity indicated, URIs are not the URI tag defined in {{RFC8949}}.
 They are just text strings that contain a URI.

@@ -79,8 +79,8 @@ CBOR_EXTERNAL_CDDL_FRAGS += external/uccs.cddl
 # or replication of something defined externally.
 
 JSON_EXTERNAL_CDDL_FRAGS += external/jwt.cddl
-JSON_EXTERNAL_CDDL_FRAGS += external/json-oid.cddl
 JSON_EXTERNAL_CDDL_FRAGS += external/coswid-version-for-json.cddl
+JSON_EXTERNAL_CDDL_FRAGS += external/oid-stub.cddl
 
 
 # The CDDL used for validating CBOR starting with a payload. Note The

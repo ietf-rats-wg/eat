@@ -1,11 +1,15 @@
+; TODO: is this right?
 general-time-int = JC<int, #6.1(int)>
 
 binary-data = JC<base64-url-text, bstr>
 
 base64-url-text = tstr .regexp "[A-Za-z0-9_=-]+"
 
-; TODO: see if there is a way to use ~oid
-general-oid = JC<text, bstr>
+general-oid = JC< json-oid, ~oid >
+
+; This is a normative definition for the encoding of an OID
+; as a text string in JSON as used by EAT
+json-oid = tstr .regexp "[0-9\.]+"
 
 ; TODO see if there is a way to use ~uri
 general-uri = text ; JC<text, ~uri>
