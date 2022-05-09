@@ -11,5 +11,5 @@ general-oid = JC< json-oid, ~oid >
 ; as a text string in JSON as used by EAT
 json-oid = tstr .regexp "[0-9\.]+"
 
-; TODO see if there is a way to use ~uri
-general-uri = text ; JC<text, ~uri>
+
+general-uri = JC< text, ~uri >
