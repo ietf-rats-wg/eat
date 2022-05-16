@@ -725,7 +725,7 @@ This claim characterizes the entity's ability to defend against attacks aimed at
 The intent of this claim is only to give the recipient a rough idea of the security the entity is aiming for.
 This is via a simple, non-extensible set of three levels.
 
-This takes a very broad view of the range of defenses because EAT is targeted at a broad range of use cases.
+This takes a broad view of the range of defenses because EAT is targeted at a broad range of use cases.
 The least secure level involves minimal SW defenses.
 The most secure level involves specialized hardware to defend against hardware-based attacks.
 
@@ -744,19 +744,18 @@ Examples include TEE's and schemes using virtualization-based security.
 Security at this level is aimed at defending against large-scale network/remote attacks by having a reduced attack surface.
 
 3 - Hardware:
-: Entities at this level are indicating they have some countermeasures to defend 
-against physical or electrical attacks against the entity itself.
-It is assumed the potential attacker has captured the entity and can 
-disassemble it. Examples include TPMs and Secure Elements.
+: Entities at this level are indicating they have some countermeasures to defend against physical or electrical attacks against the entity.
+Security at this level is aimed at defending against attackers that physically capture the entity to attack it.
+Examples include TPMs and Secure Elements.
 
 An entity should claim the highest security level it achieves and no higher.
 
 This set is not extensible so this remains a broad interoperable description of security level.
 
-In particular use cases, alternate claims may be defined that give more specific information than this claim about security level.
+In particular use cases, alternate claims may be defined that give more specific information than this claim.
 For example, FIDO defines several levels of security certification in the domain of user authentication that could be the basis for an alternate claim.
 
-See also the DLOAs claim in {{dloas}}, a claim that specifically provides certification information about the entity.
+See also the DLOAs claim in {{dloas}}, a claim that specifically provides information about certifications received.
 
 
 ~~~~CDDL
