@@ -7,12 +7,10 @@ $$claims-set-claims //= (
 security-level-cbor-type = &(
     unrestricted: 1,
     restricted: 2,
-    secure-restricted: 3,
-    hardware: 4
+    hardware: 3
 )
 
 security-level-json-type = 
     "unrestricted" /
     "restricted" /
-    "secure-restricted" /
     "hardware"
