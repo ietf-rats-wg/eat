@@ -1,4 +1,4 @@
-$$claims-set-claims //= (location-label => location-type)
+$$Claims-Set-Claims //= (location-label => location-type)
 
 location-type = {
     latitude => number,
@@ -12,12 +12,12 @@ location-type = {
     ? age => uint
 }
 
-latitude = 1 / "latitude"
-longitude = 2 / "longitude"
-altitude = 3 / "altitude"
-accuracy = 4 / "accuracy"
-altitude-accuracy = 5 / "altitude-accuracy"
-heading = 6 / "heading"
-speed = 7 / "speed"
-timestamp = 8 / "timestamp"
-age = 9 / "age"
+latitude          = JC< "latitude",          1 >
+longitude         = JC< "longitude",         2 >
+altitude          = JC< "altitude",          3 >
+accuracy          = JC< "accuracy",          4 >
+altitude-accuracy = JC< "altitude-accuracy", 5 >
+heading           = JC< "heading",           6 >
+speed             = JC< "speed",             7 >
+timestamp         = JC< "timestamp",         8 >
+age               = JC< "age",               9 >

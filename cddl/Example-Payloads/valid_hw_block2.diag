@@ -3,15 +3,15 @@
 / Other than that is is the other example of a token from an   /
 / attestation HW block                                         /
 
-601({
+{
     / nonce /           10: h'948f8860d13a463e',
-    / UEID /            11: h'0198f50a4ff6c05861c8860d13a638ea',
-    / OEMID /           13: 64242, / Private Enterprise Number /
-    / security-level /  14: 4, / hardware level security /
-    / secure-boot /     15: true,
-    / debug-status /    16: 3, / disabled-permanently /
-    / chip-version /    26: [ "3.1", 1 ], / multipartnumeric /
-    / submods/          20: {
+    / UEID /           256: h'0198f50a4ff6c05861c8860d13a638ea',
+    / OEMID /          258: 64242, / Private Enterprise Number /
+    / security-level / 261: 4, / hardware level security /
+    / secure-boot /    262: true,
+    / debug-status /   263: 3, / disabled-permanently /
+    / hw version /     260: [ "3.1", 1 ], / multipartnumeric /
+    / submods/         266: {
                                 "TEE": [ / detached digest submod /
 				    -16, / SHA-256 /
 			            h'e5cf95fd24fab7144674
@@ -20,5 +20,5 @@
 				      a0b'
 				]
 		            }
-})
+}
 

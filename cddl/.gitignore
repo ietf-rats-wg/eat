@@ -1,3 +1,4 @@
+VALIDATION.cddl
 cbor.cddl
 common.cddl
 json.cddl
@@ -19,3 +20,4 @@ report.xml
 venv/
 lib
 draft-ietf-rats-eat.xml
+.CBOR*

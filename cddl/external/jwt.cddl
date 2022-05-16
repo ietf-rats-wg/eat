@@ -1,0 +1,18 @@
+; A JWT message is either a JWS or JWE in compact serialization form
+; with the payload a Claims-Set. Compact serialization is the
+; protected headers, payload and signature, each b64url encoded and
+; separated by a ".". This CDDL simply matches top-level syntax of of
+; a JWS or JWE since it is not possible to do more in CDDL.
+
+JWT-Message = text .regexp "[A-Za-z0-9_=-]+\.[A-Za-z0-9_=-]+\.[A-Za-z0-9_=-]+"
+
+; The nonce was added to JWT in the IANA registry after the publication of
+; RFC 7519
+; TODO: what about multiple nonces in JSON?
+; TODO: add reference to IANA and OpenID (or such document that defines nonce)
+$$Claims-Set-Claims //=
+    (nonce-label => nonce-type / [ 2* nonce-type ])
+nonce-type = text
+
+
+; TODO: nonce-label for JSON should probably be here

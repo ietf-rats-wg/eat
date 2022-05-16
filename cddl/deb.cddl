@@ -1,16 +1,26 @@
 ; Top-level definition of a DEB for CBOR and JSON
 
+DEB-Messages = DEB-Tagged-Message / DEB-Untagged-Message
+
+; Note that tag number 602 is not yet assigned by IANA
+; Also, 602 is replaced with "<TBD>" for the document by a
+; sed substituion performed in the document Makefile
+DEB-Tagged-Message   = #6.602(DEB-Untagged-Message)
+DEB-Untagged-Message = Detached-EAT-Bundle
+
 Detached-EAT-Bundle = [
     main-token : Nested-Token,
     detached-claims-sets: {
-        + tstr => cbor-wrapped-claims-set / json-wrapped-claims-set
+        + tstr => JC<json-wrapped-claims-set,
+                     cbor-wrapped-claims-set>
     }
 ]
 
 
 ; text content is a base64url encoded JSON-format Claims-Set
 
-json-wrapped-claims-set = tstr .regexp "[A-Za-z0-9_=-]+" 
+json-wrapped-claims-set = base64-url-text
 
 
 cbor-wrapped-claims-set = bstr .cbor Claims-Set
+

@@ -1,4 +1,4 @@
-$$claims-set-claims //= (sueids-label => sueids-type)
+$$Claims-Set-Claims //= (sueids-label => sueids-type)
 
 sueids-type = {
     + tstr => ueid-type

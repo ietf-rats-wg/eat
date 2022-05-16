@@ -1,27 +1,32 @@
-/ This EAT UCCS is for an IoT device with a TEE. The attestation   /
-/ is produced by the TEE. There is a submodule for the IoT OS (the /
-/ main OS of the IoT device that is not as secure as the TEE). The /
-/ submodule contains claims for the IoT OS. The TEE also measures  /
-/ the IoT OS and puts the measurements in the submodule.           /
+/ This EAT payload is for an IoT device with a TEE. The attestation /
+/ is produced by the TEE. There is a submodule for the IoT OS (the  /
+/ main OS of the IoT device that is not as secure as the TEE). The  /
+/ submodule contains claims for the IoT OS. The TEE also measures   /
+/ the IoT OS and puts the measurements in the submodule.            /
 
-601({
+{
     / nonce /           10: h'948f8860d13a463e',
-    / security-level /  14: 3, / secure-restricted /
-    / secure-boot /     15: true,
-    / debug-status /    16: 2, / disabled-since-boot /
-    / OEMID /           13: h'8945ad', / IEEE CID based /
-    / UEID /            11: h'0198f50a4ff6c05861c8860d13a638ea', 
-    / sumods /          20: {
+    / security-level / 261: 3, / secure-restricted /
+    / secure-boot /    262: true,
+    / debug-status /   263: 2, / disabled-since-boot /
+    / OEMID /          258: h'8945ad', / IEEE CID based /
+    / UEID /           256: h'0198f50a4ff6c05861c8860d13a638ea', 
+    / sumods /         266: {
                             "OS" : {
-        / security-level /      14: 2, / restricted /
-        / secure-boot /         15: true,
-        / debug-status /        16: 2, / disabled-since-boot /
-        / swevidence /          36: [
+        / security-level /     261: 2, / restricted /
+        / secure-boot /        262: true,
+        / debug-status /       263: 2, / disabled-since-boot /
+        / swevidence /         274: [
+                                   [
+                                       121, / CoAP Content ID. A     /
+                                            / made up one until one  /
+                                            / is assigned for CoSWID /
+
                                     / This is a byte-string wrapped /
 			            / evidence CoSWID. It has       /
 				    / hashes of the main files of   /
 				    / the IoT OS.  /
-                                    h'da53574944a600663463613234350c
+                                    h'a600663463613234350c
                                       17016d41636d6520522d496f542d4f
                                       530d65332e312e3402a2181f724163
                                       6d6520426173652041747465737465
@@ -38,8 +43,9 @@
                                       3d3b0782015820a6a9dcdfb3884da5
                                       f884e4e1e8e8629958c2dbc7027414
                                       43a913e34de9333be6'
-		           	]
+		           	    ]
+                                ]
 			    }
 		        }
-})
+}
 

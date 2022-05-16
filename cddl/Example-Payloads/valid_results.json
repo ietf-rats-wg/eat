@@ -1,0 +1,19 @@
+{
+    "nonce" :    "lI-IYNE6Rj4=",
+    "seclevel" : "secure-restricted",
+    "secboot" :  true,
+    "dbgstat" :  "disabled-since-boot",
+    "oemid" :    "iUWt",
+    "ueid" :     "AZj1Ck_2wFhhyIYNE6Y4",
+    "swname" :   "Acme R-IoT-OS",
+    "swversion" : [
+            "3.1.4"
+        ],
+    "swresults" : [
+            [
+                "Trustus Verifications",
+                "all",
+                "fully-verified"
+            ]
+       ]
+}
