@@ -1,6 +1,5 @@
 $$Claims-Set-Claims //= 
     (nonce-label => nonce-type / [ 2* nonce-type ])
 
-nonce-type = bstr .size (8..64)
+nonce-type = JC< tstr .size (10..74), bstr .size (8..64)>
 
-; TODO -- what about JSON nonce?

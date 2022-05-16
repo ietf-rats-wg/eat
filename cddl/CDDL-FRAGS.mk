@@ -9,6 +9,7 @@
 # defined by EAT.
 
 COMMON_CDDL_FRAGS += common-types.cddl
+COMMON_CDDL_FRAGS += nonce.cddl
 COMMON_CDDL_FRAGS += ueid.cddl
 COMMON_CDDL_FRAGS += sueids.cddl
 COMMON_CDDL_FRAGS += oemid.cddl
@@ -52,7 +53,6 @@ COMMON_EXTERNAL_CDDL_FRAGS = external/claims-set.cddl
 
 CBOR_SPECIFIC_CDDL_FRAGS += eat-cbor.cddl
 CBOR_SPECIFIC_CDDL_FRAGS += nested-token-cbor.cddl
-CBOR_SPECIFIC_CDDL_FRAGS += nonce.cddl
 
 
 # This is normative CDDL defined by EAT that is JSON-specific

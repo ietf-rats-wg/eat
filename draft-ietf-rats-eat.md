@@ -475,18 +475,19 @@ All EATs MUST have a nonce to prevent replay attacks.
 Multiple nonces are allowed to accommodate multistage verification and consumption.
 See the extensive discussion on attestation freshness in Appendix A of RATS Architecture {{RATS.Architecture}}
 
-This defines the nonce claim for registration in the IANA CWT 
-claims registry. This is equivalent to the JWT nonce claim that is
-already registered.
+This defines the nonce claim for registration in the IANA CWT
+claims registry.
+This claim is also to be registered in the IANA JWT claims registry.
+While there is already a nonce claim registered for JWT, it doesn't allow multiple nonces.
 
-The nonce MUST be at least 8 bytes (64 bits) long as fewer bytes are unlikely
-to be secure. 
+For CBOR the byte string nonce MUST be at least 8 bytes (64 bits) long as fewer bytes are unlikely
+to be secure.
 The nonce MUST be 64 bytes or less in length to limit the memory
-a constrained implementation uses. 
+a constrained implementation uses.
 The receiver of an EAT MUST be able to process a 64 byte nonce.
-This size range is not set
-for the already-registered JWT nonce, but it should follow
-this size requirement when used in an EAT.
+
+In JSON the nonce is a text string.
+Working off the assumption that only characters represented by the lower 7 bits will be used, it is recommended that a text string nonce be one seventh larger than a byte string nonce to achive equivalent entropy.
 
 
 ~~~~CDDL
