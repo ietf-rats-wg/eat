@@ -3,11 +3,8 @@ $$Claims-Set-Claims //=
 
 security-level-type = unrestricted /
                       restricted /
-                      secure-restricted /
                       hardware
 
 unrestricted       = JC< "unrestricted",      1>
-restricted         = JC< "restriced",         2>
-secure-restricted  = JC< "secure-restricted", 3>
-hardware           = JC< "hardware",          4>
-
+restricted         = JC< "restricted",        2>
+hardware           = JC< "hardware",          3>

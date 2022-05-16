@@ -720,53 +720,41 @@ A full CoSWID manifest or other type of manifest can be instead if this is too s
 
 ### The Security Level Claim (security-level)
 
-This claim characterizes the entity's
-ability to defend against attacks aimed at capturing the signing
-key, forging claims and at forging EATs. This is by
-defining four security levels. 
+This claim characterizes the entity's ability to defend against attacks aimed at capturing the signing key, forging claims and forging EATs.
 
-This claim describes the security environment and countermeasures
-available on the entity where the attestation key
-resides and the claims originate.
+The intent of this claim is only to give the recipient a rough idea of the security the entity is aiming for.
+This is via a simple, non-extensible set of three levels.
+
+This takes a broad view of the range of defenses because EAT is targeted at a broad range of use cases.
+The least secure level involves minimal SW defenses.
+The most secure level involves specialized hardware to defend against hardware-based attacks.
+
+Only through expansive certification programs like Common Criteria and FIDO certification is it possible to sharply define security levels.
+Sharp definition of security levels is not possible here because the IETF doesn't define and operate certification programs.
+It is also not possible here because any sharp definition of security levels would be a document larger than the EAT specification.
+Thus, this definition takes the view that the security level definition possible here is a simple, modest, rough characterization.
 
 1 - Unrestricted:
-: There is some expectation that implementor will
-protect the attestation signing keys at this level. Otherwise,
-the EAT provides no meaningful security assurances. 
+: An entity is categorized as unrestricted when it doesn't meet the criteria for any of the higher levels.
+This level does not indicate there is no protection at all, just that the entity doesn't qualify for the higher levels.
 
 2 - Restricted:
-: Entities at this level are not general-purpose
-operating environments that host features, such as app download
-systems, web browsers and complex applications.
-It is akin to the secure-restricted level (see below) without the
-security orientation. Examples include a Wi-Fi subsystem,
-an IoT camera, or sensor device.
-Often these can be considered more secure than unrestricted just because they are much simpler and a smaller attack surface, but this won't always be the case.
-Some unrestricted devices may be implemented in a way that provides poor protection of signing keys.
+: Entities at this level MUST meet the criteria defined in Section 4 of FIDO Allowed Restricted Operating Environments {{FIDO.AROE}}.
+Examples include TEE's and schemes using virtualization-based security. 
+Security at this level is aimed at defending against large-scale network/remote attacks by having a reduced attack surface.
 
+3 - Hardware:
+: Entities at this level are indicating they have some countermeasures to defend against physical or electrical attacks against the entity.
+Security at this level is aimed at defending against attackers that physically capture the entity to attack it.
+Examples include TPMs and Secure Elements.
 
-3 - Secure-Restricted:
-: Entities at this level must meet the criteria defined in Section 4 of FIDO Allowed
-Restricted Operating Environments {{FIDO.AROE}}. Examples include TEE's and 
-schemes using virtualization-based security. 
-Security at this level is aimed at defending against large-scale
-network/remote attacks against the entity.
+An entity should claim the highest security level it achieves and no higher.
 
-4 - Hardware:
-: Entities at this level must include substantial defense 
-against physical or electrical attacks against the entity itself.
-It is assumed the potential attacker has captured the entity and can 
-disassemble it. Examples include TPMs and Secure Elements.
+This set of three is not extensible so this remains a broad interoperable description of security level.
 
-The entity should claim the highest security level it achieves and no higher.
-This set is not extensible so as to provide a common interoperable description of security level to the Relying Party.
-If a particular use case considers this claim to be inadequate, it can define its own proprietary claim.
-It may consider including both this claim as a coarse indication of security and its own proprietary claim as a refined indication.
+In particular use cases, alternate claims may be defined that give finer grained information than this claim.
 
-This claim is not intended as a replacement for a formal
-security certification scheme, such as those based on FIPS 140 {{FIPS-140}} 
-or those based on Common Criteria {{Common.Criteria}}.
-See {{dloas}}.
+See also the DLOAs claim in {{dloas}}, a claim that specifically provides information about certifications received.
 
 
 ~~~~CDDL
@@ -2897,3 +2885,5 @@ no new claims have been added.
 * All CDDL is validating against all examples
 
 * Unassigned IANA requests are clearly TBD in the document (and have real values as is necessary in the example validation process)
+
+* Improve security-level claim
