@@ -1,0 +1,32 @@
+; The following Claim Keys (labels) are pre-assigned by IANA.
+; They are not expected to change in the final publication as an RFC.
+
+nonce-label            = JC< "nonce",      10 >
+ueid-label             = JC< "ueid",       256 >
+sueids-label           = JC< "sueids",     257 >
+oemid-label            = JC< "oemid",      258 >
+hardware-model-label   = JC< "hwmodel",    259 >
+hardware-version-label = JC< "hwvers",     260 >
+secure-boot-label      = JC< "secboot",    262 >
+debug-status-label     = JC< "dbgstat",    263 >
+location-label         = JC< "location",   264 >
+profile-label          = JC< "profile",    265 >
+submods-label          = JC< "submods",    266 >
+
+
+; These are not yet assigned in any way and may change.
+; These are intentionally above 24 so as to not use up
+; single-byte labels.
+
+security-level-label   = JC< "seclevel",   261 >
+uptime-label           = JC< "uptime",     267 >
+boot-seed-label        = JC< "bootseed",   268 >
+intended-use-label     = JC< "intuse",     269 >
+dloas-label            = JC< "dloas",      270 >
+sw-name-label          = JC< "swname",     271 >
+sw-version-label       = JC< "swversion",  272 >
+manifests-label        = JC< "manifests",  273 >
+swevidence-label       = JC< "swevidence", 274 >
+swresults-label        = JC< "swresults" , 275 >
+odometer-label         = JC< "odometer",   276 >
+

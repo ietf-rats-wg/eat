@@ -1,8 +1,8 @@
-$$claims-set-claims //=  (
+$$Claims-Set-Claims //=  (
     hardware-version-label => hardware-version-type
 )
 
 hardware-version-type = [
     version:  tstr,
-    scheme:  $version-scheme
+    ? scheme:  $version-scheme
 ]

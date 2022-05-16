@@ -1,19 +1,14 @@
-$$claims-set-claims //=  (
-    debug-status-label => 
-        debug-status-cbor-type / debug-status-json-type
-)
+$$Claims-Set-Claims //= ( debug-status-label => debug-status-type )
 
-debug-status-cbor-type = &(
-    enabled: 0,
-    disabled: 1,
-    disabled-since-boot: 2,
-    disabled-permanently: 3,
-    disabled-fully-and-permanently: 4
-)
+debug-status-type = ds-enabled /
+                    disabled /
+                    disabled-since-boot /
+                    disabled-permanently /
+                    disabled-fully-and-permanently
 
-debug-status-json-type = 
-    "enabled" /
-    "disabled" /
-    "disabled-since-boot" /
-    "disabled-permanently" /
-    "disabled-fully-and-permanently"
+ds-enabled                     = JC< "enabled", 0 >
+disabled                       = JC< "disabled", 1 >
+disabled-since-boot            = JC< "disabled-since-boot", 2 >
+disabled-permanently           = JC< "disabled-permanently", 3 >
+disabled-fully-and-permanently = JC< "disabled-fully-and-permanently",
+                                      4 >

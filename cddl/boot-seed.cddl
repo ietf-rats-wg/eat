@@ -1,1 +1,1 @@
-$$claims-set-claims //=  (boot-seed-label => bytes)
+$$Claims-Set-Claims //=  (boot-seed-label => binary-data)

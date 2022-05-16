@@ -1,0 +1,18 @@
+; This is copied from CoSWID and used for JSON
+; because you can't use the whole CoSWID CDDL with JSON.
+; This is because the swversion claim uses this CDDL
+
+$version-scheme /= multipartnumeric
+$version-scheme /= multipartnumeric-suffix
+$version-scheme /= alphanumeric
+$version-scheme /= decimal
+$version-scheme /= semver
+$version-scheme /= int / text
+
+; "version-scheme" integer indexes
+multipartnumeric = 1
+multipartnumeric-suffix = 2
+alphanumeric = 3
+decimal = 4
+semver = 16384
+

@@ -1,1 +1,1 @@
-$$claims-set-claims //= (uptime-label => uint)
+$$Claims-Set-Claims //= (uptime-label => uint)

@@ -1,5 +1,6 @@
 ; This CDDL is copied from RFC 9090. It is here to allow automatic 
-; validation of the CDDl and examples.
+; validation of the CDDl and examples. RFC 9090 is the normative
+; definition, not this.
 
 oid = #6.111(bstr)
 roid = #6.110(bstr)
