@@ -750,10 +750,9 @@ Examples include TPMs and Secure Elements.
 
 An entity should claim the highest security level it achieves and no higher.
 
-This set is not extensible so this remains a broad interoperable description of security level.
+This set of three is not extensible so this remains a broad interoperable description of security level.
 
-In particular use cases, alternate claims may be defined that give more specific information than this claim.
-For example, FIDO defines several levels of security certification in the domain of user authentication that could be the basis for an alternate claim.
+In particular use cases, alternate claims may be defined that give finer grained information than this claim.
 
 See also the DLOAs claim in {{dloas}}, a claim that specifically provides information about certifications received.
 
