@@ -8,7 +8,7 @@ location-type = {
     ? altitude-accuracy => number,
     ? heading => number,
     ? speed => number,
-    ? timestamp => general-time-int,
+    ? timestamp => ~time-int,
     ? age => uint
 }
 

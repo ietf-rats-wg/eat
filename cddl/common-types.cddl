@@ -2,9 +2,6 @@
 ; is not allowed. 
 time-int = #6.1(int)
 
-; Time that is defined for both JSON and CBOR
-general-time-int = JC< int, ~time-int >
-
 
 ; binary data that works for both JSON and CBOR. 
 binary-data = JC< base64-url-text, bstr>
