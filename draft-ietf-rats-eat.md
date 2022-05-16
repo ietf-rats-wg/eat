@@ -745,8 +745,8 @@ against physical or electrical attacks against the entity itself.
 It is assumed the potential attacker has captured the entity and can 
 disassemble it. Examples include TPMs and Secure Elements.
 
-The security level claimed MUST be for the weakest point in the entity, not the strongest.
-For example, if attestation key is protected by hardware, but the rest of the attester is in a TEE, the claim must be for secure-restriced.
+The security level claimed should be for the weakest point in the entity, not the strongest.
+For example, if attestation key is protected by hardware, but the rest of the attester is in a TEE, the claim must be for restriced.
 
 This set is not extensible so as to provide a common interoperable description of security level to the Relying Party.
 If a particular use case considers this claim to be inadequate, it can define its own proprietary claim.
