@@ -1,0 +1,12 @@
+/ This is a full CWT-format token with a very simple payloal. / 
+/ The main structure visible here is that of the COSE_Sign1.  /
+
+61( 18( [
+    h'A10126',                           / protected headers  /
+    {},                           / empty unprotected headers / 
+    h'A20B46024A6B0978DE0A49000102030405060708',    / payload /
+    h'9B9B2F5E470000F6A20C8A4157B5763FC45BE759
+      9A5334028517768C21AFFB845A56AB557E0C8973
+      A07417391243A79C478562D285612E292C622162
+      AB233787'                                   / signature / 
+] ) )

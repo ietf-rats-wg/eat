@@ -1,15 +1,13 @@
-$$claims-set-claims //= (
+$$Claims-Set-Claims //= (
     swevidence-label => swevidence-type
 )
 
 swevidence-type = [+ swevidence-format]
 
-; TODO: switch to JC<> macro when 
-
 swevidence-format = [
     content-type:   uint, ; CoAP Content Format
-    content-format: $$swevidence-body-json .feature "J" /
-                    $$swevidence-body-cbor .feature "C"
+    content-format: JC< $$swevidence-body-json,
+                        $$swevidence-body-cbor > 
 ]
 
 ; The JSON and CBOR types for CoSWID. CoSWIDs are of course alwas in

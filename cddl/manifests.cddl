@@ -1,15 +1,13 @@
-$$claims-set-claims //= (
+$$Claims-Set-Claims //= (
     manifests-label => manifests-type
 )
 
 manifests-type = [+ manifest-format]
 
-; TODO: switch to JC<> macro
-
 manifest-format = [
     content-type:   uint, ; CoAP Content Format
-    content-format: $$manifest-body-json .feature "J" /
-                    $$manifest-body-cbor .feature "C"
+    content-format: JC< $$manifest-body-json, 
+                        $$manifest-body-cbor >
 ]
 
 ; The JSON and CBOR types for CoSWID. CoSWIDs are of course alwas in
@@ -31,8 +29,3 @@ $$manifest-body-json /= base64-url-text
 
 ; TODO: remove this when SUIT CDDL gets fixed
 suit-directive-process-dependency = 19
-
-
-; TODO remove this when merged with other PR that defines it
-base64-url-text = text
-

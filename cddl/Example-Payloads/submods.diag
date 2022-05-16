@@ -13,12 +13,21 @@
 
         / 2nd submod, A nested EAT from a secure element /
         "Secure Element Eat" :
-            / an embedded EAT, bytes of which are not shown /
-            h'420123', / TODO: make this real /
+            h'D83DD28443A10126A05866A80A48948F8860D13A463E1901
+             00500198F50A4FF6C05861C8860D13A638EA19010219FAF2
+             19010504190106F5190107031901048263332E310119010A
+             A163544545822F5820E5CF95FD24FAB71446742DD58D43DA
+             E178E55FE2B94291A9291082FFC2635A0B5840F690CB0388
+             677FA624A3775FD7CBC4E8409EC9816BE32FA474733B0F98
+             C27FBAEDBBC9963B9CB5ECC03C3E35B3AFC0B7B35B495DEA
+             C0997122EA867F07B8D5EB',
 
         / 3rd submod, information about Linux Android /
         "Linux Android": {
             / security-level /  261: 1 / unrestricted /
-        }
+        },
+        / A JWT-format token /
+        "Subsystem J": 
+            "[ \"JWT\", \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJKLUF0dGVzdGVyIiwiaWF0IjoxNjUxNzc0ODY4LCJleHAiOm51bGwsImF1ZCI6IiIsInN1YiI6IiJ9.gjw4nFMhLpJUuPXvMPzK1GMjhyJq2vWXg1416XKszwQ\" ]" 
     }
 }

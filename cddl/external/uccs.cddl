@@ -1,0 +1,10 @@
+; This is the anticipated definition of a UCCS 
+; in terms of a Claims-Set.  Not much to it!
+; Not sure when / where this will actually be 
+; defined, but we have it here to be able to
+; test that the socket works and that we can
+; make a few examples with it.
+
+$$EAT-CBOR-Tagged-Token /= #6.601(Claims-Set)
+$$EAT-CBOR-Untagged-Token /= Claims-Set
+

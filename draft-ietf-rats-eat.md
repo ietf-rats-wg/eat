@@ -85,8 +85,6 @@ normative:
      - org: IANA
      date: false
 
-  UCCS.Draft: I-D.ietf-rats-uccs
-
   ThreeGPP.IMEI:
     target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=729
     title: 3rd Generation Partnership Project; Technical Specification Group Core Network and Terminals; Numbering, addressing and identification
@@ -288,12 +286,11 @@ An entity may have strong security like defenses against hardware invasive attac
 It may also have low security, having no special security defenses.
 There is no minimum security requirement to be an entity.
 
-## CWT, JWT, UCCS, UJCS and DEB
+## CWT, JWT and DEB
 
-An EAT is a claims set about an entity based on one of the following:
+An EAT is primarily a claims set about an entity based on one of the following:
 
 * CBOR Web Token (CWT) {{RFC8392}}
-* Unprotected CWT Claims Sets (UCCS) {{UCCS.Draft}}
 * JSON Web Token (JWT) {{RFC7519}}
 
 All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on from these carry over to EAT.
@@ -302,19 +299,21 @@ This specification extends those specifications by defining additional claims fo
 This specification also describes the notion of a "profile" that can narrow the definition of an EAT, ensure interoperability and fill in details for specific usage scenarios.
 This specification also adds some considerations for registration of future EAT-related claims.
 
-The identification of a protocol element as an EAT, whether CBOR or JSON encoded, follows the general conventions used by CWT, JWT and UCCS.
+The identification of a protocol element as an EAT, whether CBOR or JSON encoded, follows the general conventions used by CWT, JWT.
 Largely this depends on the protocol carrying the EAT.
 In some cases it may be by content type (e.g., MIME type).
 In other cases it may be through use of CBOR tags.
 There is no fixed mechanism across all use cases.
 
-This specification adds two more top-level messages:
+This specification adds one more top-level token type:
 
-* Unprotected JWT Claims Set (UJCS) {{UJCS}}
 * Detached EAT Bundle (DEB), {{DEB}}
 
 A DEB is structure to hold a collection of detached claims sets and the EAT that separately provides integrity and authenticity protection for them.
 It can be either CBOR or JSON encoded.
+
+Last, the definition of other token types is allowed.
+Of particular use may be a token type that provides no authenticity or integrity protection at all for use with transports like TLS that do provide that.
 
 ## CDDL, CBOR and JSON
 
@@ -328,13 +327,13 @@ The implementor interprets the CDDL to come to either the CBOR or JSON encoding.
 In the case of JSON, Appendix E of {{RFC8610}} is followed.
 Additional rules are given in {{jsoninterop}} where Appendix E is insufficient.
 
+In most cases where the CDDL for CBOR is different than JSON a CDDL Generic named "JC<>" is used.
+It is described in {{CDDL_for_CWT}}.
+
 The CWT and JWT specifications were authored before CDDL was available and did not use CDDL.
 This specification includes a CDDL definition of most of what is defined in {{RFC8392}}.
 Similarly, this specification includes CDDL for most of what is defined in {{RFC7519}}.
-
-The UCCS specification does not include CDDL.
-This specification provides CDDL for it.
-
+These definitions are in {{CDDL_for_CWT}} and are not normative.
 
 ## Operating Model and RATS Architecture
 
@@ -422,6 +421,36 @@ Attestation Results:
 
 Reference Values:
 : A set of values against which values of Claims can be compared as part of applying an Appraisal Policy for Attestation Evidence.  Reference Values are sometimes referred to in other documents as known-good values, golden measurements, or nominal values, although those terms typically assume comparison for equality, whereas here Reference Values might be more general and be used in any sort of comparison.
+
+
+# Top-Level Token Definition
+
+An EAT is a "message", a "token", or such whose content is a Claims-Set about an entity or some number of entities.
+An EAT MUST always contains a Claims-Set.
+
+An EAT may be encoded in CBOR or JSON as defined here.
+While not encouraged, other documents may define EAT encoding in other formats.
+
+EAT as defined here is always integrity and authenticity protected through use of CWT or JWT.
+Other token formats using other methods of protection may be defined outside this document.
+
+This document also defines the Detatched EAT Bundle {{DEB}}, a bundle of some detached Claims-Sets and CWTs or JWTs that provide protection for the detached Claims-Set.
+
+The following CDDL defines the top-levels of an EAT token as a socket indicating future token formats may be defined.
+See {{CDDL_for_CWT}} for the CDDL definitions of a CWT and JWT.
+
+Nesting of EATs is allowed and defined in {{Nested-Token}}.
+This nesting includes nesting of a token that is a different format than the enclosing token.
+The definition of Nested-Token references the CDDL defined in this section.
+When new token formats are defined, the means for identification in a nested token MUST also be defined.
+
+~~~~CDDL
+{::include cddl/eat-cbor.cddl}
+~~~~
+
+~~~~CDDL
+{::include cddl/eat-json.cddl}
+~~~~
 
 
 # The Claims
@@ -1080,11 +1109,15 @@ The following sections define the three types of submodules:
 * A nested token, which can be any valid EAT token, CBOR or JSON
 * The digest of a detached Claims-Set
 
+~~~~CDDL
+{::include nc-cddl/submods.cddl}
+~~~~
+
 ##### Submodule Claims-Set
 
 This is a subordinate Claims-Set containing claims about the submodule.
 
-The submodule claims-set is produced by the same Attester as the surrounding token.
+The submodule Claims-Set is produced by the same Attester as the surrounding token.
 It is secured using the same mechanism as the enclosing token (e.g., it is signed by the same attestation key).
 It roughly corresponds to an Attester Target Environment, as described in the RATS architecture.
 
@@ -1097,7 +1130,7 @@ This data type for this type of submodule is a map/object.
 It is identified when decoding by it's type being a map/object.
 
 
-##### Nested Token
+##### Nested Token {#Nested-Token}
 
 This type of submodule is a fully formed complete token.
 It is typically produced by a separate Attester.
@@ -1107,34 +1140,19 @@ If it was conveyed in parallel with the surrounding token, there would be no suc
 
 A nested token does not need to use the same encoding as the enclosing token.
 This is to allow Composite Devices to be built without regards to the encoding supported by their Attesters.
-Thus a CBOR-encoded token like a CWT or UCCS can have a JWT as a nested token submodule and a JSON-encoded token can have a CWT or UCCS as a nested token submodule.
+Thus, a CBOR-encoded token like a CWT can have a JWT as a nested token submodule and vice versa.
 
-The following two sections describe how to encode and decode a nested token.
 
 ###### Surrounding EAT is CBOR-Encoded
+
 This describes the encoding and decoding of CBOR or JSON-encoded tokens nested inside a CBOR-encoded token.
 
 If the nested token is CBOR-encoded, then it MUST be a CBOR tag and MUST be wrapped in a byte string.
-The tag identifies whether the nested token is a CWT, a UCCS, a CBOR-encoded DEB, or some other CBOR-format token defined in the future.
+The tag identifies whether the nested token is a CWT, a CBOR-encoded DEB, or some other CBOR-format token defined in the future.
 A nested CBOR-encoded token that is not a CBOR tag is NOT allowed.
 
-If the nested token is JSON-encoded, then the data item MUST be a text string.
-The text string MUST contain a JSON-encoded array of two items.
-The first item is a string identifying the type of the token.
-The second item is the JSON-encoded token.
-
-The string identifying the JSON-encoded token MUST be one of the following:
-
-"JWT":
-: The second item MUST be a JWT formatted according to {{RFC7519}}
-
-"UJCS":
-: The second item MUST be a UJCS-Message as defined in this document.
-
-"DEB":
-: The second item MUST be a JSON-encoded Detached EAT Bundle as defined in this document.
-
-The definition of additional types requires a standards action.
+If the nested token is JSON-encoded, then the data item MUST be a text string containing JSON.
+The JSON is defined in CDDL by JSON-Nested-Token in the next section.
 
 When decoding, if a byte string is encountered, it is known to be a nested CBOR-encoded token.
 The byte string wrapping is removed.
@@ -1144,18 +1162,27 @@ When decoding, if a text string is encountered, it is known to be a JSON-encoded
 The two-item array is decoded and tells the type of the JSON-encoded token.
 
 ~~~~CDDL
-{::include nc-cddl/cbor-nested-token.cddl}
+{::include nc-cddl/nested-token-cbor.cddl}
 ~~~~
 
 ###### Surrounding EAT is JSON-Encoded
+
 This describes the encoding and decoding of CBOR or JSON-encoded tokens nested inside a JSON-encoded token.
 
-The nested token MUST be an array of two in the same format as described in the section above.
+The nested token MUST be an array of two, a text string type indicator and the actual token.
 
-A CBOR-encoded token nested inside a JSON-encoded MUST use the same array of two, but with the type as follows:
+The string identifying the JSON-encoded token MUST be one of the following:
+
+"JWT":
+: The second array item MUST be a JWT formatted according to {{RFC7519}}
 
 "CBOR":
-: Some base64url-encoded CBOR that is a tag, typically a CWT, UCCS or CBOR-encoded DEB
+: The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded DEB
+
+"DEB":
+: The second array item MUST be a JSON-encoded Detached EAT Bundle as defined in this document.
+
+Additional types may be defined by a standards action.
 
 When decoding, the array of two is decoded.
 The first item indicates the type and encoding of the nested token.
@@ -1168,7 +1195,7 @@ The type of nested token is determined by the CBOR-tag.
 It is an error if the CBOR is not a tag.
 
 ~~~~CDDL
-{::include nc-cddl/json-nested-token.cddl}
+{::include nc-cddl/nested-token-json.cddl}
 ~~~~
 
 
@@ -1205,13 +1232,17 @@ In CBOR the none of other submodule types are arrays.
 
 When decoding a JSON format token, a little more work is required because both the nested token and detached digest types are an array.
 To distinguish the nested token from the detached digest, the first element in the array is examined.
-If it is "JWT", "UJCS" or "DEB", the the submodule is a nested token.
+If it is "JWT" or "DEB", then the submodule is a nested token.
 Otherwise it will contain an algorithm identifier and is a detached digest.
 
 A DEB, described in {{DEB}}, may be used to convey detached claims sets and the token with their detached digests.
 EAT, however, doesn't require use of a DEB.
 Any other protocols may be used to convey detached claims sets and the token with their detached digests.
-Note that since detached Claims-Sets are usually signed, protocols conveying them must make sure they are not modified in transit. 
+Note that since detached Claims-Sets are signed, protocols conveying them must make sure they are not modified in transit.
+
+~~~~CDDL
+{::include nc-cddl/detached-digest.cddl}
+~~~~
 
 
 #### No Inheritance
@@ -1241,14 +1272,6 @@ secure element.
 The label or name for each submodule in the submods map is a text
 string naming the submodule. No submodules may have the same name.
 
-
-#### CDDL for submods
-
-The submodule type is distinguished in the encoded bytes by its data type, map/object for a Claims-Set, string for nested token and array for a detached submodule. Nested tokens are byte-string wrapped when encoded in CBOR and base64 encoded for JSON.
-
-~~~~CDDL
-{::include nc-cddl/submods.cddl}
-~~~~
 
 
 ## Claims Describing the Token
@@ -1303,9 +1326,8 @@ There is no requirement that the named document be publicly accessible.
 The primary purpose of the profile claim is to uniquely identify the profile even if it is a private profile.
 
 The OID is always absolute and never relative.
-In CBOR tokens, the OID MUST be encoded according to {{RFC9090}} and the URI according to {{RFC8949}}.
-Both are unwrapped and thus not CBOR tags.
-In JSON tokens, the OID is a string of the form "X.X.X", and a URI is a normal URI string.
+
+See {{common-types}} for OID and URI encoding.
 
 Note that this is named "eat_profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
 
@@ -1379,26 +1401,11 @@ The key in the confirmation claim MUST be protected in the same way as the key u
 That is, the same, equivalent or better hardware defenses, access controls, key generation and such must be used.
 
 
-# Unprotected JWT Claims-Sets {#UJCS}
-
-This is simply the JSON equivalent of an Unprotected CWT Claims-Set {{UCCS.Draft}}.
-
-It has no protection of its own so protections must be provided by the protocol carrying it.
-These are extensively discussed in {{UCCS.Draft}}.
-All the security discussion and security considerations in {{UCCS.Draft}} apply to UJCS.
-
-(Note: The EAT author is open to this definition being moved into the UCCS draft, perhaps along with the related CDDL.
-It is place here for now so that the current UCCS draft plus this document are complete.
-UJCS is needed for the same use cases that a UCCS is needed.
-Further, JSON will commonly be used to convey Attestation Results since JSON is common for server to server communications.
-Server to server communications will often have established security (e.g., TLS) therefore the signing and encryption from JWS and JWE are unnecssary and burdensome).
-
-
 # Detached EAT Bundles {#DEB}
 
 A detached EAT bundle is a structure to convey a fully-formed and signed token plus detached claims set that relate to that token.
-It is a top-level EAT message like a CWT, JWT, UCCS and UJCS.
-It can be used any place that CWT, JWT, UCCS or UJCS messages are used.
+It is a top-level EAT message like a CWT or JWT.
+It can be occur any place that CWT or JWT messages occur.
 It may also be sent as a submodule.
 
 A DEB has two main parts.
@@ -1406,7 +1413,8 @@ A DEB has two main parts.
 The first part is a full top-level token.
 This top-level token must have at least one submodule that is a detached digest.
 This top-level token may be either CBOR or JSON-encoded.
-It may be a CWT, JWT, UCCS or UJCS, but not a DEB.
+It may be a CWT, or JWT but not a DEB.
+It may also be some future-defined token type.
 The same mechanism for distinguishing the type for nested token submodules is used here.
 
 The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the full token.
@@ -1419,8 +1427,8 @@ For CBOR-encoded DEBs, tag TBD602 can be used to identify it.
 The normal rules apply for use or non-use of a tag.
 When it is sent as a submodule, it is always sent as a tag to distinguish it from the other types of nested tokens.
 
-The digests of the detached claims sets are associated with detached claims-sets by label/name.
-It is up to the constructor of the detached EAT bundle to ensure the names uniquely identify the detached claims sets.
+The digests of the detached claims sets are associated with detached Claims-Sets by label/name.
+It is up to the constructor of the detached EAT bundle to ensure the names uniquely identify the detachedclaims sets.
 Since the names are used only in the detached EAT bundle, they can be very short, perhaps one byte.
 
 ~~~~CDDL
@@ -1519,7 +1527,7 @@ For example, to require the altitude data item in the location claim, CDDL can b
 
 ## List of Profile Issues
 
-The following is a list of EAT, CWT, UCCS, JWS, UJCS, COSE, JOSE and CBOR options that a profile should address. 
+The following is a list of EAT, CWT, JWS, COSE, JOSE and CBOR options that a profile should address. 
 
 
 ### Use of JSON, CBOR or both
@@ -1559,9 +1567,9 @@ The profile should indicate whether decoders must accept non-preferred serializa
 ### COSE/JOSE Protection
 
 COSE and JOSE have several options for signed, MACed and encrypted messages.
-EAT/CWT has the option to have no protection using UCCS and JOSE has a NULL protection option.
+JWT may use the JOSE NULL protection option.
 It is possible to implement no protection, sign only, MAC only, sign then encrypt and so on.
-All combinations allowed by COSE, JOSE, JWT, CWT, UCCS and UJCS are allowed by EAT.
+All combinations allowed by COSE, JOSE, JWT, and CWT are allowed by EAT.
 
 The profile should list the protections that must be supported by all decoders implementing the profile.
 The encoders them must implement a subset of what is listed for the decoders, perhaps only one.
@@ -1630,7 +1638,6 @@ For example, it may require altitude in the location claim, or it may require th
 ### CBOR Tags
 
 The profile should specify whether the token should be a CWT Tag or not.
-Similarly, the profile should specify whether the token should be a UCCS tag or not.
 
 When COSE protection is used, the profile should specify whether COSE tags are used or not.
 Note that RFC 8392 requires COSE tags be used in a CWT tag.
@@ -1655,13 +1662,13 @@ Since CBOR can express some things that JSON can't (e.g., tags) or that are expr
 CDDL was not used to define CWT or JWT.
 It was not available at the time.
 
-This document defines CDDL for both CWT and JWT as well as UCCS.
+This document defines CDDL for both CWT and JWT.
 This document does not change the encoding or semantics of anything in a CWT or JWT.
 
-A Claims-Set is the central data structure for EAT, CWT, JWT and UCCS.
+A Claims-Set is the central data structure for EAT, CWT and JWT.
 It holds all the claims and is the structure that is secured by signing or other means.
-It is not possible to define EAT, CWT, JWT or UCCS in CDDL without it.
-The CDDL definition of Claims-Set here is applicable to EAT, CWT, JWT and UCCS.
+It is not possible to define EAT, CWT, or JWT in CDDL without it.
+The CDDL definition of Claims-Set here is applicable to EAT, CWT and JWT.
 
 This document specifies how to encode a Claims-Set in CBOR or JSON.
 
@@ -1674,10 +1681,13 @@ CDDL for the seven claims defined by {{RFC8392}} and {{RFC7519}} is included her
 
 This makes use of the types defined in {{RFC8610}} Appendix D, Standard Prelude.
 
-### Common Data Types
+### Common Data Types {#common-types}
 
 time-int is identical to the epoch-based time, but disallows
 floating-point representation.
+
+The OID encoding from {{RFC9090}} is used without the tag number in CBOR-encoded tokens.
+In JSON tokens OIDs are a text string in the common form of "nn.nn.nn...".
 
 Unless expliclity indicated, URIs are not the URI tag defined in {{RFC8949}}.
 They are just text strings that contain a URI.
@@ -1696,6 +1706,9 @@ following CDDL types are encoded in JSON as follows:
 * string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
 * uri -- must be a URI {{RFC3986}}.
 * oid -- encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").
+
+The CDDL generic "JC< >" is used in most places where there is a variance between CBOR and JSON.
+The first argument is the CDDL for JSON and the second is CDDL for CBOR.
 
 ### Labels
 
@@ -1743,25 +1756,37 @@ The EAT decoder must not rely on sorting.
 The EAT encoder must not send duplicate map keys/labels or invalid UTF-8 strings.
 
 
-## Collected Common CDDL
+## Collected CDDL
 
-~~~~JSON
+### Payload CDDL
+
+This CDDL defines all the EAT Claims that are added to the main definition of a Claim-Set in {{CDDL_for_CWT}}.
+Claims-Set is the payload for CWT, JWT and potentially other token types.
+This is for both CBOR and JSON.
+When there is variation between CBOR and JSON, the JC<> CDDL generic defined in {{CDDL_for_CWT}}.
+
+This CDDL uses, but doesn't define Nested-Token because its definition varies between CBOR and JSON and the JC<> generic can't be used to define it.
+Nested-Token is the one place that that a CBOR token can be nested inside a JSON token and vice versa.
+Nested-Token is defined in the following sections.
+
+~~~~CDDL
 {::include nc-cddl/common.cddl}
 ~~~~
 
-
-## Collected CDDL for CBOR
+### CBOR-Specific CDDL
 
 ~~~~CDDL
 {::include nc-cddl/cbor.cddl}
 ~~~~
 
+### JSON-Specific CDDL
 
-## Collected CDDL for JSON
-
-~~~~JSON
+~~~~CDDL
 {::include nc-cddl/json.cddl}
 ~~~~
+
+
+
 
 
 
@@ -2265,44 +2290,121 @@ the EAT they are consuming.
 
 # Examples {#examples}
 
-These examples are either UCCS, shown as CBOR diagnostic, or UJCS messages.
-Full CWT and JWT examples with signing and encryption are not given.
+Most examples are shown as just a Claims-Set that would be a payload for a CWT, JWT, DEB or future token types.
+It is shown this way because the payload is all the claims, the most interesting part and showing full tokens makes it harder to show the claims.
 
-All UCCS examples can be the payload of a CWT.
-To do so, they must be converted from the UCCS message to a Claims-Set, which is achieve by "removing" the tag.
-
-UJCS messages can be directly used as the payload of a JWT.
+Some examples of full tokens are also given.
 
 WARNING: These examples use tag and label numbers not yet assigned by IANA.
 
 
-## Simple TEE Attestation
+## Payload Examples
+
+### Simple TEE Attestation
 
 This is a simple attestation of a TEE that includes a manifest that is a payload CoSWID to describe the TEE's software.
 
 ~~~~
-{::include cddl/examples/valid_tee.diag}
+{::include cddl/Example-Payloads/valid_tee.diag}
 ~~~~
 
 ~~~~
-{::include cddl/examples/coswid/tee-coswid.diag}
+{::include cddl/Example-Payloads/coswid/tee-coswid.diag}
 ~~~~
 
-## Submodules for Board and Device
+### Submodules for Board and Device
 
 ~~~~
-{::include cddl/examples/valid_submods.diag}
-~~~~
-
-
-## EAT Produced by Attestation Hardware Block
-
-~~~~
-{::include cddl/examples/valid_hw_block.diag}
+{::include cddl/Example-Payloads/valid_submods.diag}
 ~~~~
 
 
-## Detached EAT Bundle
+### EAT Produced by Attestation Hardware Block
+
+~~~~
+{::include cddl/Example-Payloads/valid_hw_block.diag}
+~~~~
+
+
+
+### Key / Key Store Attestation
+
+~~~~
+{::include cddl/Example-Payloads/valid_tee.diag}
+~~~~
+
+~~~~
+{::include cddl/Example-Payloads/coswid/tee-coswid.diag}
+~~~~
+
+### Submodules for Board and Device
+
+~~~~
+{::include cddl/Example-Payloads/valid_submods.diag}
+~~~~
+
+
+### EAT Produced by Attestation Hardware Block
+
+~~~~
+{::include cddl/Example-Payloads/valid_hw_block.diag}
+~~~~
+
+
+### Key / Key Store Attestation
+
+~~~~
+{::include cddl/Example-Payloads/valid_key_store.diag}
+~~~~
+
+
+### SW Measurements of an IoT Device
+
+This is a simple token that might be for and IoT device.
+It includes CoSWID format measurments of the SW.
+The CoSWID is in byte-string wrapped in the token and also shown in diagnostic form.
+
+~~~~
+{::include cddl/Example-Payloads/valid_iot.diag}
+~~~~
+
+~~~~
+{::include cddl/Example-Payloads/coswid/iot-sw.diag}
+~~~~
+
+
+### Attestation Results in JSON format
+
+This is a JSON-format payload that might be the output of a Verifier that evaluated the IoT Attestation example immediately above.
+
+This particular Verifier knows enough about the TEE Attester to be able to pass claims like security level directly through to the Relying Party.
+The Verifier also knows the Reference Values for the measured SW components and is able to check them.
+It informs the Relying Party that they were correct in the swresults claim.
+"Trustus Verifications" is the name of the services that verifies the SW component measurements.
+
+~~~~
+{::include cddl/Example-Payloads/valid_results.json}
+~~~~
+
+
+### JSON-encoded Token with Sumodules
+
+~~~~
+{::include cddl/Example-Payloads/submods.json}
+~~~~
+
+
+## Full Token Examples
+
+### Basic CWT Example
+
+This is a simple ECDSA signed CWT-format token.
+
+~~~~
+{::include cddl/Example-Tokens/valid_cwt.diag}
+~~~~
+
+### Detached EAT Bundle
 
 In this DEB main token is produced by a HW attestation block.
 The detached Claims-Set is produced by a TEE and is largely identical to the Simple TEE examples above.
@@ -2314,49 +2416,22 @@ Since the signature covers the digest from the TEE that Claims-Set is also secur
 The DEB itself can be assembled by untrusted SW.
 
 ~~~~
-{::include cddl/examples/valid_deb.diag}
+{::include cddl/Example-Tokens/valid_deb.diag}
 ~~~~
 
 ~~~~
-{::include cddl/examples/valid_hw_block2.diag}
+{::include cddl/Example-Payloads/valid_hw_block2.diag}
 ~~~~
 
 
-## Key / Key Store Attestation
+### JSON-encoded Detached EAT Bundle
+
+In this bundle there are two detached Claims-Sets, "CS1" and "CS2".
+The JWT at the start of the bundle has detached signature submodules with hashes of "CS1" and "CS2".
+TODO: make the JWT actually be correct verifiable JWT.
 
 ~~~~
-{::include cddl/examples/valid_key_store.diag}
-~~~~
-
-
-## SW Measurements of an IoT Device
-
-This is a simple token that might be for and IoT device.
-It includes CoSWID format measurments of the SW.
-The CoSWID is in byte-string wrapped in the token and also shown in diagnostic form.
-
-~~~~
-{::include cddl/examples/valid_iot.diag}
-~~~~
-
-~~~~
-{::include cddl/examples/coswid/iot-sw.diag}
-~~~~
-
-
-## Attestation Results in JSON format
-
-This is a UJCS format token that might be the output of a Verifier that evaluated the IoT Attestation example immediately above.
-
-This particular Verifier knows enough about the TEE Attester to be able to pass claims like security level directly through to the Relying Party.
-The Verifier also knows the Reference Values for the measured SW components and is able to check them.
-It informs the Relying Party that they were correct in the swresults claim.
-"Trustus Verifications" is the name of the services that verifies the SW component measurements.
-
-This UJCS is identical to JSON-encoded Claims-Set that could be a JWT payload.
-
-~~~~
-{::include cddl/examples/valid_results.json}
+{::include cddl/Example-Tokens/deb.json}
 ~~~~
 
 
@@ -2571,6 +2646,27 @@ EAT thus can't be defined permanence in terms of defense against attack.
 EAT's definition of permanence is in terms of operations and device lifecycle.
 
 
+# CDDL for CWT and JWT {#CDDL_for_CWT}
+
+{{RFC8392}} was published before CDDL was available and thus is specified in prose, not CDDL.
+Following is CDDL specifying CWT as it is needed to complete this specification.
+This CDDL also covers the Claims-Set for JWT.
+
+This however is NOT a normative or standard definition of CWT or JWT in CDDL.
+The prose in CWT and JWT remain the normative definition.
+
+~~~~CDDL
+{::include cddl/external/claims-set.cddl}
+~~~~
+
+~~~~CDDL
+{::include cddl/external/jwt.cddl}
+~~~~
+
+~~~~CDDL
+{::include cddl/external/cwt.cddl}
+~~~~
+
 # Changes from Previous Drafts
 
 The following is a list of known changes from the previous drafts.  This list is
@@ -2769,7 +2865,10 @@ no new claims have been added.
 
 * Add privacy considerations for replay protection
 
-## From draft-ietf-rats-eat-11
+
+## From draft-ietf-rats-eat-12
+
+* Make use of the JC<> generic to express CDDL for both JSON and CBOR
 
 * Reorganize claims into 4 sections, particularly claims about the entity and about the token
 
@@ -2779,6 +2878,22 @@ no new claims have been added.
 
 * Clarify manufacturer switching UEID types
 
-## From draft-ietf-rats-eat-11
+* Add new section on the top-level token type that has CBOR-specific and JSON-specific CDDL since the top-level can't be handled with JC<>
+
+* Remove definition of UCCS and UJCS, replacing it with a CDDL socket and mention of future token types
+
+* Split the examples into payload and top level tokens since UCCS can't be used for examples any more (It was nice because you could see the payload claims in it easily, where you can't with CWT)
+
+* DEB tag number is TBD rather than hard coded
+
+* Add appendix with non-normative CDDL for a Claims-Set, CWT and JWT
+
+* (Large reorganization of the document build and example verification makefile)
 
 * Use CoAP content format ID to distinguish manifest and evidence formats instead of CBOR tag
+
+* Added more examples, both CBOR and JSON
+
+* All CDDL is validating against all examples
+
+* Unassigned IANA requests are clearly TBD in the document (and have real values as is necessary in the example validation process)
