@@ -10,7 +10,7 @@ hardware-version-label = JC< "hwvers",     260 >
 secure-boot-label      = JC< "secboot",    262 >
 debug-status-label     = JC< "dbgstat",    263 >
 location-label         = JC< "location",   264 >
-profile-label          = JC< "profile",    265 >
+profile-label          = JC< "eat_profile",265 >
 submods-label          = JC< "submods",    266 >
 
 
