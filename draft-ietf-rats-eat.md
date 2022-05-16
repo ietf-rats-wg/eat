@@ -748,7 +748,8 @@ Security at this level is aimed at defending against large-scale network/remote 
 Security at this level is aimed at defending against attackers that physically capture the entity to attack it.
 Examples include TPMs and Secure Elements.
 
-An entity should claim the highest security level it achieves and no higher.
+The security level claimed should be for the weakest point in the entity, not the strongest.
+For example, if attestation key is protected by hardware, but the rest of the attester is in a TEE, the claim must be for restriced.
 
 This set of three is not extensible so this remains a broad interoperable description of security level.
 
