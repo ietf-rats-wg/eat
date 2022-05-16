@@ -2884,8 +2884,6 @@ no new claims have been added.
 
 * Split the examples into payload and top level tokens since UCCS can't be used for examples any more (It was nice because you could see the payload claims in it easily, where you can't with CWT)
 
-* Use JC<> Generic for most of the CDDL that varies between CBOR and JSON
-
 * DEB tag number is TBD rather than hard coded
 
 * Add appendix with non-normative CDDL for a Claims-Set, CWT and JWT
@@ -2894,4 +2892,8 @@ no new claims have been added.
 
 * Use CoAP content format ID to distinguish manifest and evidence formats instead of CBOR tag
 
+* Added more examples, both CBOR and JSON
 
+* All CDDL is validating against all examples
+
+* Unassigned IANA requests are clearly TBD in the document (and have real values as is necessary in the example validation process)
