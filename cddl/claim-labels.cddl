@@ -1,7 +1,7 @@
 ; The following Claim Keys (labels) are pre-assigned by IANA.
 ; They are not expected to change in the final publication as an RFC.
 
-nonce-label            = JC< "nonce",      10 >
+nonce-label            = JC< "eat_nonce",  10 >
 ueid-label             = JC< "ueid",       256 >
 sueids-label           = JC< "sueids",     257 >
 oemid-label            = JC< "oemid",      258 >

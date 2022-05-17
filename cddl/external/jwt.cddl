@@ -6,13 +6,6 @@
 
 JWT-Message = text .regexp "[A-Za-z0-9_=-]+\.[A-Za-z0-9_=-]+\.[A-Za-z0-9_=-]+"
 
-; The nonce was added to JWT in the IANA registry after the publication of
-; RFC 7519
-; TODO: what about multiple nonces in JSON?
-; TODO: add reference to IANA and OpenID (or such document that defines nonce)
-$$Claims-Set-Claims //=
-    (nonce-label => nonce-type / [ 2* nonce-type ])
-nonce-type = text
 
-
-; TODO: nonce-label for JSON should probably be here
+; Note that the payload of a JWT is defined in claims-set.cddl. That 
+; definition is common to CBOR and JSON.

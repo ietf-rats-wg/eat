@@ -472,22 +472,27 @@ JSON encoded tokens MUST use only the text string for Claim Names.
 ## Nonce Claim (nonce)
 
 All EATs MUST have a nonce to prevent replay attacks.
-Multiple nonces are allowed to accommodate multistage verification and consumption.
-See the extensive discussion on attestation freshness in Appendix A of RATS Architecture {{RATS.Architecture}}
 
-This defines the nonce claim for registration in the IANA CWT 
-claims registry. This is equivalent to the JWT nonce claim that is
-already registered.
+This claim is either a single byte or text string or an array of byte or text strings.
+The array is to accommodate multistage EAT verification and consumption.
+See the extensive discussion on attestation freshness in Appendix A of RATS Architecture {{RATS.Architecture}}.
 
-The nonce MUST be at least 8 bytes (64 bits) long as fewer bytes are unlikely
-to be secure. 
-The nonce MUST be 64 bytes or less in length to limit the memory
-a constrained implementation uses. 
-The receiver of an EAT MUST be able to process a 64 byte nonce.
-This size range is not set
-for the already-registered JWT nonce, but it should follow
-this size requirement when used in an EAT.
+A claim named "nonce" is previously defined and registered with IANA for JWT, but MUST not be used in an EAT.
+It does not support multiple nonces.
+No previous nonce claim was defined for CWT.
 
+The nonce MUST have 64 bits of entropy as fewer bits are unlikely to be secure.
+A maximum nonce size is set to limit the memory required for an implementation.
+All receivers MUST be able to accommodate the maximum size.
+
+In CBOR, the nonce is a byte string and every bit in the byte string contributes to entropy.
+The minimum size is 8 bytes.
+The maximum size is 64 bytes.
+
+In JSON the nonce is a text string.
+It is assumed that the only characters represented by the lower 7 bits will be used so the text string must be one-seventh longer.
+The minimum size is 10 bytes.
+The maximum size is 74 bytes.
 
 ~~~~CDDL
 {::include nc-cddl/nonce.cddl}
