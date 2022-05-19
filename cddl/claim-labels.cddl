@@ -27,6 +27,6 @@ sw-name-label          = JC< "swname",     271 >
 sw-version-label       = JC< "swversion",  272 >
 manifests-label        = JC< "manifests",  273 >
 swevidence-label       = JC< "swevidence", 274 >
-swresults-label        = JC< "swresults" , 275 >
+measurement-results-label = JC< "measres" , 275 >
 odometer-label         = JC< "odometer",   276 >
 

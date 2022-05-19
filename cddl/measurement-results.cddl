@@ -1,0 +1,25 @@
+$$Claims-Set-Claims //= ( 
+    measurement-results-label => 
+        [ + measurement-results-group ] )
+
+measurement-results-group = [
+    measurement-system: tstr,
+    measruement-results: [ + individual-result ]
+]
+
+individual-result = [
+    results-id: tstr, ;  / bstr,
+    result:     result-type, 
+]
+
+result-type = comparison-successful /
+              comparison-fail /
+              comparison-not-run /
+              measurement-absent 
+
+comparison-successful    = JC< "success",       1 >
+comparison-fail          = JC< "fail",          2 >
+comparison-not-run       = JC< "not-run",       3 >
+measurement-absent       = JC< "absent",        4 >
+
+
