@@ -9,7 +9,7 @@
     / nonce /           10: h'948f8860d13a463e',
     / UEID /           256: h'0198f50a4ff6c05861c8860d13a638ea',
     / OEMID /          258: 64242, / Private Enterprise Number /
-    / security-level / 261: 4, / hardware level security /
+    / security-level / 261: 3, / hardware level security /
     / secure-boot /    262: true,
     / debug-status /   263: 3, / disabled-permanently /
     / HW version /     260: [ "3.1", 1 ] / Type is multipartnumeric /

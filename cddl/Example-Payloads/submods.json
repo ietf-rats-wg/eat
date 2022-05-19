@@ -4,7 +4,7 @@
     "secboot":  true,
     "dbgstat":  "disabled-permanently",
     "iat":      1526542894,
-    "seclevel": "secure-restricted", 
+    "seclevel": "restricted", 
     "submods": {
         "Android App Foo" :  {
             "seclevel": "unrestricted"

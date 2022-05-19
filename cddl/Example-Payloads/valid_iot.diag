@@ -6,7 +6,7 @@
 
 {
     / nonce /           10: h'948f8860d13a463e',
-    / security-level / 261: 3, / secure-restricted /
+    / security-level / 261: 2, / restricted /
     / secure-boot /    262: true,
     / debug-status /   263: 2, / disabled-since-boot /
     / OEMID /          258: h'8945ad', / IEEE CID based /
