@@ -9,11 +9,12 @@
     "swversion" : [
             "3.1.4"
         ],
-    "swresults" : [
+    "measres" : [
+        [
+            "Trustus Measurements",
             [
-                "Trustus Verifications",
-                "all",
-                "fully-verified"
+                [ "all" , "success" ]
             ]
        ]
+    ]
 }
