@@ -2190,7 +2190,7 @@ Private key material can be used to sign and/or encrypt the EAT, or
 can be used to derive the keys used for signing and/or encryption.  In
 some instances, the manufacturer of the entity may create the key
 material separately and provision the key material in the entity
-itself.  The manfuacturer of any entity that is capable of producing
+itself.  The manufacturer of any entity that is capable of producing
 an EAT should take care to ensure that any private key material be
 suitably protected prior to provisioning the key material in the
 entity itself.  This can require creation of key material in an
