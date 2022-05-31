@@ -63,7 +63,7 @@ normative:
   RFC3986:
   RFC8152:
   RFC9090:
-      
+
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
     title: WORLD GEODETIC SYSTEM 1984, NGA.STND.0036_1.0.0_WGS84
@@ -74,14 +74,14 @@ normative:
   IANA.CWT.Claims:
     target: http://www.iana.org/assignments/cwt
     title: CBOR Web Token (CWT) Claims
-    author: 
+    author:
     - org: IANA
     date: false
 
   IANA.JWT.Claims:
      target: https://www.iana.org/assignments/jwt
      title: JSON Web Token (JWT) Claims
-     author: 
+     author:
      - org: IANA
      date: false
 
@@ -90,7 +90,7 @@ normative:
     title: 3rd Generation Partnership Project; Technical Specification Group Core Network and Terminals; Numbering, addressing and identification
     author:
     - org: 3GPP
-    date: 2019 
+    date: 2019
 
   FIDO.AROE:
     title: FIDO Authenticator Allowed Restricted Operating Environments List
@@ -112,13 +112,13 @@ normative:
     target: https://openid.net/specs/openid-connect-core-1_0.html
     title: OpenID Connect Core 1.0 incorporating errata set 1
     date: November 8 2014
-    author: 
+    author:
     - fullname: N. Sakimura
     - fullname: J. Bradley
     - fullname: M. Jones
     - fullname: B. de Medeiros
     - fullname: C. Mortimore
-  
+
   DLOA:
     target: https://globalplatform.org/wp-content/uploads/2015/12/GPC_DigitalLetterOfApproval_v1.0.pdf
     title: Digital Letter of Approval
@@ -189,7 +189,7 @@ informative:
     author:
     - org: National Institue of Standards
     date: May 2001
-  
+
   Common.Criteria:
     title: Common Criteria for Information Technology Security Evaluation
     target: https://www.commoncriteriaportal.org/cc/
@@ -198,7 +198,7 @@ informative:
   COSE.X509.Draft: I-D.ietf-cose-x509
 
   CBOR.Cert.Draft: I-D.ietf-cose-cbor-encoded-cert
-  
+
 
 --- abstract
 
@@ -207,7 +207,7 @@ that describes state and characteristics of an entity,
 a device like a phone, IoT device, network equipment or such.  This claims set is used by a
 relying party, server or service to determine how much it wishes to trust the entity.
 
-An EAT is either a CBOR Web Token (CWT) or JSON Web Token (JWT) with attestation-oriented 
+An EAT is either a CBOR Web Token (CWT) or JSON Web Token (JWT) with attestation-oriented
 claims. To a large degree, all this document does is extend
 CWT and JWT.
 
@@ -565,7 +565,7 @@ this are:
   to type 0x02 or vice versa.
 
 A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
-  
+
 ~~~~CDDL
 {::include nc-cddl/ueid.cddl}
 ~~~~
@@ -662,7 +662,7 @@ In JSON, this value MUST be encoded as a number.
 
 This claim differentiates hardware models, products and variants manufactured by a particular OEM, the one identified by OEM ID in {{oemid}}.
 
-This claim must be unique so as to differentiate the models and products for the OEM ID. 
+This claim must be unique so as to differentiate the models and products for the OEM ID.
 This claim does not have to be globally unique, but it can be.
 A receiver of this claim MUST not assume it is globally unique.
 To globally identify a particular product, the receiver should concatenate the OEM ID and this claim.
@@ -745,7 +745,7 @@ This level does not indicate there is no protection at all, just that the entity
 
 2 - Restricted:
 : Entities at this level MUST meet the criteria defined in Section 4 of FIDO Allowed Restricted Operating Environments {{FIDO.AROE}}.
-Examples include TEE's and schemes using virtualization-based security. 
+Examples include TEE's and schemes using virtualization-based security.
 Security at this level is aimed at defending against large-scale network/remote attacks by having a reduced attack surface.
 
 3 - Hardware:
@@ -798,7 +798,7 @@ not matter if authentication is by a global password or by per-entity
 public keys.
 
 As with all claims, the absence of the debug level claim means it is not reported.
-A conservative interpretation might assume the enabled state. 
+A conservative interpretation might assume the enabled state.
 
 This claim is not extensible so as to provide a common interoperable description of debug status.
 If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
@@ -902,8 +902,8 @@ seconds that have elapsed since the entity or submod was last booted.
 ### The Boot Odometer Claim (odometer)
 
 The "odometer" claim contains a value that represents the number of
-times the entity or submod has been booted. Support for this claim 
-requires a persistent storage on the device. 
+times the entity or submod has been booted. Support for this claim
+requires a persistent storage on the device.
 
 ~~~~CDDL
 {::include nc-cddl/odometer.cddl}
@@ -1041,7 +1041,7 @@ The values for the results enumerated type are as follows:
 : The comparison was completed and did not compare correctly to the Reference Values.
 
 3 -- comparison not run
-: The comparison was not run. This includes error conditions such as running out of memory. 
+: The comparison was not run. This includes error conditions such as running out of memory.
 
 4 -- measurement absent
 : The particular measurement was not available for comparison.
@@ -1091,7 +1091,7 @@ The submodule Claims-Set is produced by the same Attester as the surrounding tok
 It is secured using the same mechanism as the enclosing token (e.g., it is signed by the same attestation key).
 It roughly corresponds to an Attester Target Environment, as described in the RATS architecture.
 
-It may contain claims that are the same as its surrounding token or superior submodules. 
+It may contain claims that are the same as its surrounding token or superior submodules.
 For example, the top-level of the token may have a UEID, a submod may have a different UEID and a further subordinate submodule may also have a UEID.
 
 The encoding of a submodule Claims-Set MUST be the same as the encoding as the token it is part of.
@@ -1222,7 +1222,7 @@ token.  The subordinate modules must explicitly include all of their
 claims. This is the case even for claims like the nonce.
 
 This rule is in place for simplicity. It avoids complex inheritance
-rules that might vary from one type of claim to another. 
+rules that might vary from one type of claim to another.
 
 #### Security Levels
 
@@ -1269,7 +1269,7 @@ date-of-creation of the token, the time at which the claims are
 collected and the token is composed and signed.
 
 The data for some claims may be held or cached for some period of
-time before the token is created. This period may be long, even 
+time before the token is created. This period may be long, even
 days. Examples are measurements taken at boot or a geographic
 position fix taken the last time a satellite signal was received.
 There are individual timestamps associated with these claims to
@@ -1278,9 +1278,9 @@ indicate their age is older than the "iat" timestamp.
 CWT allows the use floating-point for this claim. EAT disallows
 the use of floating-point. An EAT token MUST NOT contain an iat claim in
 float-point format. Any recipient of a token with a floating-point
-format iat claim MUST consider it an error.  A 64-bit integer 
+format iat claim MUST consider it an error.  A 64-bit integer
 representation of epoch time can represent a range of +/- 500 billion
-years, so the only point of a floating-point timestamp is to 
+years, so the only point of a floating-point timestamp is to
 have precession greater than one second. This is not needed for EAT.
 
 
@@ -1318,7 +1318,7 @@ requires the most up-to-date security assessment of the attesting entity. It
 is expected that this is the most commonly-used application of EAT.
 
 2-- Registration:
-: Entities that are registering for a new service may be expected to 
+: Entities that are registering for a new service may be expected to
 provide an attestation as part of the registration process.  This intended-use
 setting indicates that the attestation is not intended for any use but registration.
 
@@ -1333,7 +1333,7 @@ the issuance of certificates related to keypairs hosted at the entity.  An
 EAT may be used as part of the certificate signing request (CSR).
 
 5 -- Proof-of-Possession:
-: An EAT consumer may require an attestation as part of an accompanying 
+: An EAT consumer may require an attestation as part of an accompanying
 proof-of-possession (PoP) application. More precisely, a PoP transaction is intended
 to provide to the recipient cryptographically-verifiable proof that the sender has possession
 of a key.  This kind of attestation may be necceesary to verify the
@@ -1361,13 +1361,13 @@ Their use avoids the need to decode other serialization formats.
 These two formats can be extended to support further key types through their IANA registries.
 
 The general confirmation claim format {{RFC8747}}, {{RFC7800}} may also be used.
-It provides key encryption. 
+It provides key encryption.
 It also allows for inclusion by reference through a key ID.
-The confirmation claim format may employed in the definition of some new claim for a a particular use case. 
+The confirmation claim format may employed in the definition of some new claim for a a particular use case.
 
 When the actual confirmation claim is included in an EAT, this document associates no use case semantics other than proof of possession.
 Different EAT use cases may choose to associate further semantics.
-The key in the confirmation claim MUST be protected in the same way as the key used to sign the EAT. 
+The key in the confirmation claim MUST be protected in the same way as the key used to sign the EAT.
 That is, the same, equivalent or better hardware defenses, access controls, key generation and such must be used.
 
 
@@ -1411,7 +1411,7 @@ Since the names are used only in the detached EAT bundle, they can be very short
 
 The Verifier must possess the correct key when it performs the cryptographic part of an EAT verification (e.g., verifying the COSE/JOSE signature).
 This section describes several ways to identify the verification key.
-There is not one standard method. 
+There is not one standard method.
 
 The verification key itself may be a public key, a symmetric key or something complicated in the case of a scheme like Direct Anonymous Attestation (DAA).
 
@@ -1463,7 +1463,7 @@ For some attestation systems, a claim may be re-used as a key identifier. For ex
 
 This has the advantage that key identification requires no additional bytes in the EAT and makes the EAT smaller.
 
-This has the disadvantage that the unverified EAT must be substantially decoded to obtain the identifier since the identifier is in the COSE/JOSE payload, not in the headers. 
+This has the disadvantage that the unverified EAT must be substantially decoded to obtain the identifier since the identifier is in the COSE/JOSE payload, not in the headers.
 
 ## Other Considerations
 
@@ -1497,7 +1497,7 @@ For example, to require the altitude data item in the location claim, CDDL can b
 
 ## List of Profile Issues
 
-The following is a list of EAT, CWT, JWS, COSE, JOSE and CBOR options that a profile should address. 
+The following is a list of EAT, CWT, JWS, COSE, JOSE and CBOR options that a profile should address.
 
 
 ### Use of JSON, CBOR or both
@@ -1553,7 +1553,7 @@ The key for encryption requires less protection.
 ### COSE/JOSE Algorithms
 
 The profile document should list the COSE algorithms that a Verifier must implement.
-The Attester will select one of them. 
+The Attester will select one of them.
 Since there is no negotiation, the Verifier should implement all algorithms listed in the profile.
 If detached submodules are used, the COSE algorithms allowed for their digests should also be in the profile.
 
@@ -1779,7 +1779,7 @@ Much of this guidance is generic and could also be considered when designing new
 
 ### Interoperability and Relying Party Orientation
 
-It is a broad goal that EATs can be processed by Relying Parties in a general way regardless of the type, manufacturer or technology of the device from which they originate. 
+It is a broad goal that EATs can be processed by Relying Parties in a general way regardless of the type, manufacturer or technology of the device from which they originate.
 It is a goal that there be general-purpose verification implementations that can verify tokens for large numbers of use cases with special cases and configurations for different device types.
 This is a goal of interoperability of the semantics of claims themselves, not just of the signing, encoding and serialization formats.
 
@@ -1795,15 +1795,15 @@ They should also be applicable to multiple small embedded operating systems from
 
 Claims should not be defined such that they are specific to a SW environment or programming language.
 
-Claims should not be defined such that they are specific to a chip or particular hardware. 
+Claims should not be defined such that they are specific to a chip or particular hardware.
 For example, they should not just be the contents of some HW status register as it is unlikely that the same HW status register with the same bits exists on a chip of a different manufacturer.
 
 The boot and debug state claims in this document are an example of a claim that has been defined in this neutral way.
 
 ### Security Level Neutral
 
-Many use cases will have EATs generated by some of the most secure hardware and software that exists. 
-Secure Elements and smart cards are examples of this. 
+Many use cases will have EATs generated by some of the most secure hardware and software that exists.
+Secure Elements and smart cards are examples of this.
 However, EAT is intended for use in low-security use cases the same as high-security use case.
 For example, an app on a mobile device may generate EATs on its own.
 
@@ -1827,7 +1827,7 @@ This retains interoperability with the extensive infrastructure for creating and
 
 EAT allows the definition and use of proprietary claims.
 
-For example, a device manufacturer may generate a token with proprietary claims intended only for verification by a service offered by that device manufacturer. 
+For example, a device manufacturer may generate a token with proprietary claims intended only for verification by a service offered by that device manufacturer.
 This is a supported use case.
 
 In many cases proprietary claims will be the easiest and most obvious way to proceed, however for better interoperability, use of general standardized claims is preferred.
@@ -1896,7 +1896,7 @@ This early allocation will presumably complete correctly
 * Claim Key: TBD (requeste value 258)
 * Claim Value Type(s): byte string or integer
 * Change Controller: IESG
-* Specification Document(s): __this document__ 
+* Specification Document(s): __this document__
 
 &nbsp;
 
@@ -1906,7 +1906,7 @@ This early allocation will presumably complete correctly
 * Claim Key: TBD (requested value 259)
 * Claim Value Type(s): byte string
 * Change Controller: IESG
-* Specification Document(s): __this document__ 
+* Specification Document(s): __this document__
 
 &nbsp;
 
@@ -1916,7 +1916,7 @@ This early allocation will presumably complete correctly
 * Claim Key: TBD (requested value 260)
 * Claim Value Type(s): array
 * Change Controller: IESG
-* Specification Document(s): __this document__ 
+* Specification Document(s): __this document__
 
 &nbsp;
 
@@ -1980,7 +1980,7 @@ This early allocation will presumably complete correctly
 * Claim Key: TBD
 * Claim Value Type(s): integer or string
 * Change Controller: IESG
-* Specification Document(s): __this document__    
+* Specification Document(s): __this document__
 
 &nbsp;
 
@@ -1988,7 +1988,7 @@ This early allocation will presumably complete correctly
 * Claim Description: Uptime
 * JWT Claim Name: "uptime"
 * Claim Key: TBD
-* Claim Value Type(s): unsigned integer 
+* Claim Value Type(s): unsigned integer
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
@@ -2084,7 +2084,7 @@ This version scheme is the ASCII text representation of EAN-13 digits, the same 
 This version scheme must comply with the EAN allocation and assignment rules.
 For example, this requires the manufacturer to obtain a manufacture code from GS1.
 
-| Index | Version Scheme Name | Specification | 
+| Index | Version Scheme Name | Specification |
 | 5     | ean-13              | This document |
 
 
@@ -2092,7 +2092,7 @@ For example, this requires the manufacturer to obtain a manufacture code from GS
 
 IANA is requested to register the following new subtypes in the "DEV URN Subtypes" registry under "Device Identification". See {{RFC9039}}.
 
-| Subtype | Description                                | Reference     | 
+| Subtype | Description                                | Reference     |
 | ueid    | Universal Entity Identifier                | This document |
 | sueid   | Semi-permanent Universal Entity Identifier | This document |
 
@@ -2181,7 +2181,7 @@ source of randomness that would still meet the target system requirements for re
 # Security Considerations {#securitycons}
 
 The security considerations provided in Section 8 of {{RFC8392}} and Section 11
-of {{RFC7519}} apply to EAT in its CWT and JWT form, respectively.  In addition, 
+of {{RFC7519}} apply to EAT in its CWT and JWT form, respectively.  In addition,
 implementors should consider the following.
 
 ## Key Provisioning
@@ -2436,9 +2436,9 @@ not the same problem as sizing IP addresses.
 
 | People     | Devices / Person | Subsystems / Device | Database Portion | Database Size           |
 |------------+------------------+------------------- -+------------------+-------------------------+
-| 10 billion | 100              | 10                  | 10%              | trillion (10^12)        | 
-| 10 billion | 100,000          | 10                  | 10%              | quadrillion (10^15)     | 
-|100 billion | 1,000,000        | 10                  | 10%              | 100 quadrillion (10^17) | 
+| 10 billion | 100              | 10                  | 10%              | trillion (10^12)        |
+| 10 billion | 100,000          | 10                  | 10%              | quadrillion (10^15)     |
+|100 billion | 1,000,000        | 10                  | 10%              | 100 quadrillion (10^17) |
 
 
 This is conceptually similar to the Birthday Problem where m is the
@@ -2449,19 +2449,19 @@ collisions of the output of hash functions are considered.
 The proper formula for the collision calculation is
 
        p = 1 - e^{-k^2/(2n)}
-    
+
        p   Collision Probability
        n   Total possible population
        k   Actual population
 
 However, for the very large values involved here, this formula requires floating
 point precision higher than commonly available in calculators and SW so this
-simple approximation is used. See {{BirthdayAttack}}. 
+simple approximation is used. See {{BirthdayAttack}}.
 
-       p = k^2 / 2n 
+       p = k^2 / 2n
 
 For this calculation:
-      
+
        p  Collision Probability
        n  Total population based on number of bits in UEID
        k  Population in a database
@@ -2472,7 +2472,7 @@ For this calculation:
 | quadrillion (10^15)     | 2 * 10^-09   | 8 * 10^-29   | 5 * 10^-49   |
 | 100 quadrillion (10^17) | 2 * 10^-05   | 8 * 10^-25   | 5 * 10^-45   |
 
-Next, to calculate the probability of a collision occurring in one year's 
+Next, to calculate the probability of a collision occurring in one year's
 operation of a database, it is assumed that the database size is in
 a steady state and that 10% of the database changes per year. For example,
 a trillion record database would have 100 billion states per year. Each
@@ -2483,12 +2483,12 @@ state of the database is completely independent from the previous state.
 In reality this is unlikely as state changes will be the addition or
 deletion of a few records.
 
-The following tables gives the time interval until there is a probability of 
+The following tables gives the time interval until there is a probability of
 a collision based on there being one tenth the number of states per year
 as the number of records in the database.
-   
+
       t = 1 / ((k / 10) * p)
-  
+
       t  Time until a collision
       p  Collision probability for UEID size
       k  Database size
@@ -2518,12 +2518,12 @@ use cases.
 
 Today, cryptographic-quality random numbers are available from common
 CPUs and hardware. This hardware was introduced between 2010 and 2015.
-Operating systems and cryptographic libraries give access to this 
+Operating systems and cryptographic libraries give access to this
 hardware. Consequently, there is little need for implementations
 to construct such random values from multiple sources on their own.
 
-Version 4 UUIDs do allow for use of such cryptographic-quality 
-random numbers, but do so by mapping into the overall UUID 
+Version 4 UUIDs do allow for use of such cryptographic-quality
+random numbers, but do so by mapping into the overall UUID
 structure of time and clock values. This structure is of no
 value here yet adds complexity. It also slightly reduces the
 number of actual bits with entropy.
@@ -2672,7 +2672,7 @@ no new claims have been added.
 
 * Submods part now includes nested eat tokens so they can be named and
   there can be more tha one of them
-  
+
 * Lots of fixes to the CDDL
 
 * Added security considerations
@@ -2728,7 +2728,7 @@ no new claims have been added.
 * Added boot-seed claim
 
 * Rework CBOR interoperability section
- 
+
 * Added profiles claim and section
 
 ## From draft-ietf-rats-eat-07
