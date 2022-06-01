@@ -911,7 +911,9 @@ requires a persistent storage on the device.
 
 ### The Boot Seed Claim (boot-seed)
 
-The Boot Seed claim contains a value created at system boot time that will  provide uniqueness per entity and per boot epoch.
+The Boot Seed claim contains a value created at system boot time that
+allows differentiation of attestation reports from different boot sessions of a
+particular entity (e.g., a certain UEID).
 
 This value is usually public.
 It is not a secret and MUST NOT be used for any purpose that a secret seed is needed, such as seeding a random number generator.
