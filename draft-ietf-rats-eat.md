@@ -437,6 +437,7 @@ Other token formats using other methods of protection may be defined outside thi
 This document also defines the Detatched EAT Bundle {{DEB}}, a bundle of some detached Claims-Sets and CWTs or JWTs that provide protection for the detached Claims-Set.
 
 The following CDDL defines the top-levels of an EAT token as a socket indicating future token formats may be defined.
+The definition of formats that plug into this socket must be IETF standards.
 See {{CDDL_for_CWT}} for the CDDL definitions of a CWT and JWT.
 
 Nesting of EATs is allowed and defined in {{Nested-Token}}.
