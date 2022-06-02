@@ -911,11 +911,13 @@ requires a persistent storage on the device.
 
 ### The Boot Seed Claim (boot-seed)
 
-The Boot Seed claim MUST contain a random value created at system boot time that will allow differentiation of reports from different boot sessions.
+
+The Boot Seed claim contains a value created at system boot time that allows differentiation of attestation reports from different boot sessions of a particular entity (e.g., a certain UEID).
 
 This value is usually public.
 It is not a secret and MUST NOT be used for any purpose that a secret seed is needed, such as seeding a random number generator.
 
+There are privacy considerations for Boot Seed. See {{bootseedprivacyconsiderations}}.
 
 ~~~~CDDL
 {::include nc-cddl/boot-seed.cddl}
@@ -2162,6 +2164,10 @@ Geographic location is most always considered personally identifiable informatio
 Implementers should consider laws and regulations governing the transmission of location data from end user devices to servers and services.
 Implementers should consider using location management facilities offered by the operating system on the entity generating the attestation.
 For example, many mobile phones prompt the user for permission when before sending location data.
+
+## Boot Seed Privacy Considerations {#bootseedprivacyconsiderations}
+
+The Boot Seed claim is effectively a stable entity identifier within a given boot epoch.  Therefore, it is not suitable for use in attestation schemes that are privacy-preserving.
 
 ## Replay Protection and Privacy {#replayprivacyconsiderations}
 
