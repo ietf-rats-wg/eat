@@ -573,17 +573,23 @@ A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 
 ### Semi-permanent UEIDs (SUEIDs)
 
-An SEUID is of the same format as a UEID, but it MAY change to a different value on device life-cycle events.
-Examples of these events are change of ownership, factory reset and on-boarding into an IoT device management system.
+An SUEID has the same format, characteristics and requirements as a UEID, but MAY change to a different value on entity life-cycle events.
 An entity MAY have both a UEID and SUEIDs, neither, one or the other.
 
+Examples of life-cycle events are change of ownership, factory reset and on-boarding into an IoT device management system.
+It is beyond the scope of this document to specify particular types of SUEIDs and the life-cycle events that trigger their change.
+An EAT profile MAY provide this specification.
+
 There MAY be multiple SUEIDs.
-Each one has a text string label the purpose of which is to distinguish it from others in the token.
+Each has a text string label the purpose of which is to distinguish it from others.
 The label MAY name the purpose, application or type of the SUEID.
-Typically, there will be few SUEDs so there is no need for a formal labeling mechanism like a registry.
-The EAT profile MAY describe how SUEIDs should be labeled.
-If there is only one SUEID, the claim remains a map and there still must be a label.
-For example, the label for the SUEID used by FIDO Onboarding Protocol could simply be "FDO".
+For example, the label for the SUEID used by FIDO Onboarding Protocol could be "FDO".
+It is beyond the scope of this document to specify any SUEID labeling schemes.
+They are use-case specific and MAY be specified in an EAT profile.
+
+If there is only one SUEID, the claim remains a map and there still MUST be a label.
+
+An SUEID provides functionality similar to an IEEE LDevID {{IEEE.802.1AR}}.
 
 There are privacy considerations for SUEIDs. See {{ueidprivacyconsiderations}}.
 
