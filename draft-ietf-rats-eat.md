@@ -534,9 +534,15 @@ and to have an alternative that doesn't require paying a registration fee.
 
 Creation of new types requires a Standards Action {{RFC8126}}.
 
-UEIDs are variable length. All implementations MUST be able to receive
-UEIDs that are 33 bytes long (1 type byte and 256 bits).
-No UEID longer than 33 bytes SHOULD be sent.
+UEIDS are variable length to accommodate the types defined here and new types that may be defined in the future.
+
+All implementations MUST be able to receive UEIDs up to 33 bytes long.
+33 bytes is the longest defined in this document and gives necessary entropy for probabilistic uniqueness.
+See {{UEID-Design}}.
+
+UEIDs SHOULD NOT be longer than 33 bytes.
+If they are longer, there is no guarantee that a receiver will be able to accept them.
+
 
 | Type Byte | Type Name | Specification |
 | 0x01 | RAND | This is a 128, 192 or 256-bit random number generated once and stored in the entity. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the entity and stored. It MUST NOT be smaller than 128 bits. See the length analysis in {{UEID-Design}}. |
@@ -563,6 +569,9 @@ this are:
   using one type of UEID to another.  For example, a manufacturer
   may find they can optimize their process by switching from type 0x01
   to type 0x02 or vice versa.
+
+The type byte is needed to distinguish UEIDs of different types that by chance have the same identifier value, but do not identify the same entity.
+The type byte MUST be treated as part of the opaque UEID and MUST not be used to make use of the internal structure of the UEID.
 
 A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 
