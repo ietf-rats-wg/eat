@@ -249,7 +249,7 @@ Here are a few examples of claims:
 EAT also supports nesting of sets of claims and EAT tokens for use with complex composite devices.
 
 This document uses the terminology and main operational model defined in [RATS.architecture].
-In particular, it can be used for RATS Attestation Evidence and Attestation Results.
+In particular, it can be used for Evidence and Attestation Results.
 
 ## Entity Overview
 
@@ -339,12 +339,12 @@ These definitions are in {{CDDL_for_CWT}} and are not normative.
 
 While it is not required that EAT be used with the RATS operational model described in Figure 1 in {{RATS.Architecture}}, or even that it be used for attestation, this document is oriented around that model.
 
-To summarize, an Attester generates Attestation Evidence.
-Attestation Evidence is a claims set describing various characteristics of an entity.
-Attestation Evidence also is usually signed by a key that proves the entity and the evidence it produces are authentic.
+To summarize, an Attester generates Evidence.
+Evidence is a claims set describing various characteristics of an entity.
+Evidence also is usually signed by a key that proves the entity and the evidence it produces are authentic.
 The claims set includes a nonce or some other means to provide freshness.
-EAT is designed to carry Attestation Evidence.
-The Attestation Evidence goes to a Verifier where the signature is verified.
+EAT is designed to carry Evidence.
+The Evidence goes to a Verifier where the signature is verified.
 Some of the claims may also be checked against Reference Values.
 The Verifier then produces Attestation Results which is also usually a claims set.
 EAT is also designed to carry Attestation Results.
@@ -354,16 +354,16 @@ The Relying Party uses the Attestation Results as needed for the use case, perha
 Note that sometimes the Verifier and Relying Party are not separate and thus there is no need for a protocol to carry Attestation Results.
 
 
-### Relationship between Attestation Evidence and Attestation Results {#relationship}
+### Relationship between Evidence and Attestation Results {#relationship}
 
-Any claim defined in this document or in the IANA CWT or JWT registry may be used in Attestation Evidence or Attestation Results.
+Any claim defined in this document or in the IANA CWT or JWT registry may be used in Evidence or Attestation Results.
 
-The relationship of claims in Attestation Results to Attestation Evidence is fundamentally governed by the Verifier and the Verifier's Policy.
+The relationship of claims in Attestation Results to Evidence is fundamentally governed by the Verifier and the Verifier's Policy.
 
-A common use case is for the Verifier and its Policy to perform checks, calculations and processing with Attestation Evidence as the input to produce a summary result in Attestation Results that indicates the overall health and status of the entity.
-For example, measurements in Attestation Evidence may be compared to Reference Values the results of which are represented as a simple pass/fail in Attestation Results.
+A common use case is for the Verifier and its Policy to perform checks, calculations and processing with Evidence as the input to produce a summary result in Attestation Results that indicates the overall health and status of the entity.
+For example, measurements in Evidence may be compared to Reference Values the results of which are represented as a simple pass/fail in Attestation Results.
 
-It is also possible that some claims in the Attestation Evidence will be forwarded unmodified to the Relying Party in Attestation Results.
+It is also possible that some claims in the Evidence will be forwarded unmodified to the Relying Party in Attestation Results.
 This forwarding is subject to the Verifier's implementation and Policy.
 The Relying Party should be aware of the Verifier's Policy to know what checks it has performed on claims it forwards.
 
@@ -371,9 +371,9 @@ The Verifier may also modify or transform claims it forwards.
 This may be to implement some privacy preservation functionality.
 
 It is also possible the Verifier will put claims in the Attestation Results that give details about the entity that it has computed or looked up in a database.
-For example, the Verifier may be able to put a HW OEM ID Claim in the Attestation Results by performing a look up based on a UEID (serial number) it received in Attestation Evidence.
+For example, the Verifier may be able to put a HW OEM ID Claim in the Attestation Results by performing a look up based on a UEID (serial number) it received in Evidence.
 
-There are no fixed rules for how a Verifier processes Attestation Evidence to produce Attestation Results.
+There are no fixed rules for how a Verifier processes Evidence to produce Attestation Results.
 What is important is the Relying Party understand what the Verifier does and what its policies are.
 
 
@@ -408,19 +408,19 @@ Attester:
 : A role performed by an entity (typically a device) whose Evidence must be appraised in order to infer the extent to which the Attester is considered trustworthy, such as when deciding whether it is authorized to perform some operation.
 
 Verifier:
-: A role that appraises the validity of Attestation Evidence about an Attester and produces Attestation Results to be used by a Relying Party.
+: A role that appraises the validity of Evidence about an Attester and produces Attestation Results to be used by a Relying Party.
 
 Relying Party:
 : A role that depends on the validity of information about an Attester, for purposes of reliably applying application specific actions. Compare /relying party/ in [RFC4949].
 
-Attestation Evidence:
-: A Claims Set generated by an Attester to be appraised by a Verifier.  Attestation Evidence may include configuration data, measurements, telemetry, or inferences.
+Evidence:
+: A Claims Set generated by an Attester to be appraised by a Verifier.  Evidence may include configuration data, measurements, telemetry, or inferences.
 
 Attestation Results:
 : The output generated by a Verifier, typically including information about an Attester, where the Verifier vouches for the validity of the results
 
 Reference Values:
-: A set of values against which values of Claims can be compared as part of applying an Appraisal Policy for Attestation Evidence.  Reference Values are sometimes referred to in other documents as known-good values, golden measurements, or nominal values, although those terms typically assume comparison for equality, whereas here Reference Values might be more general and be used in any sort of comparison.
+: A set of values against which values of Claims can be compared as part of applying an Appraisal Policy for Evidence.  Reference Values are sometimes referred to in other documents as known-good values, golden measurements, or nominal values, although those terms typically assume comparison for equality, whereas here Reference Values might be more general and be used in any sort of comparison.
 
 
 # Top-Level Token Definition
@@ -501,8 +501,8 @@ The maximum size is 74 bytes.
 ## Claims Describing the Entity
 
 The claims in this section describe the entity itself.
-They describe the entity whether they occur in Attestation Evidence or occur in Attestation Results.
-See {{relationship}} for discussion on how Attestation Results relate to Attestation Evidence.
+They describe the entity whether they occur in Evidence or occur in Attestation Results.
+See {{relationship}} for discussion on how Attestation Results relate to Evidence.
 
 
 ### Universal Entity ID Claim (ueid) {#UEID}
@@ -1251,8 +1251,8 @@ string naming the submodule. No submodules may have the same name.
 The claims in this section provide meta data about the token they occur in.
 They do not describe the entity.
 
-They may appear in Attestation Evidence or Attestation Results.
-When these claims appear in Attestation Evidence, they SHOULD not be passed through the Verifier into Attestation Results.
+They may appear in Evidence or Attestation Results.
+When these claims appear in Evidence, they SHOULD not be passed through the Verifier into Attestation Results.
 
 
 ### Token ID Claim (cti and jti)
@@ -1488,7 +1488,7 @@ An ideal EAT profile will guarantee interoperability.
 
 The profile can be named in the token using the profile claim described in {{profile-claim}}.
 
-A profile can apply to Attestation Evidence or to Attestation Results or both.
+A profile can apply to Evidence or to Attestation Results or both.
 
 ## Format of a Profile Document
 
