@@ -899,14 +899,14 @@ seconds that have elapsed since the entity or submod was last booted.
 {::include nc-cddl/uptime.cddl}
 ~~~~
 
-### The Boot Odometer Claim (odometer)
+### The Boot Count Claim (boot-count)
 
-The "odometer" claim contains a value that represents the number of
+This claim contains a count of the number
 times the entity or submod has been booted. Support for this claim
 requires a persistent storage on the device.
 
 ~~~~CDDL
-{::include nc-cddl/odometer.cddl}
+{::include nc-cddl/boot-count.cddl}
 ~~~~
 
 ### The Boot Seed Claim (boot-seed)
