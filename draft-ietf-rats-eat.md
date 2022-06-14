@@ -926,17 +926,17 @@ There are privacy considerations for Boot Seed. See {{bootseedprivacyconsiderati
 
 ### The DLOA (Digital Letter of Approval) Claim (dloas) {#dloas}
 
-A DLOA (Digital Letter of Approval) {{DLOA}} is an XML document that describes a certification that an entity has received.
+A DLOA (Digital Letter of Approval) {{DLOA}} is a document that describes a certification that an entity has received.
 Examples of certifications represented by a DLOA include those issued by Global Platform and those based on Common Criteria.
 The DLOA is unspecific to any particular certification type or those issued by any particular organization.
 
 This claim is typically issued by a Verifier, not an Attester.
-When this claim is issued by a Verifier, it MUST be because the entity has received the certification in the DLOA.
+Verifiers MUST NOT issue this claim unless the entity has received the certification indicated by the DLOA.
 
 This claim MAY contain more than one DLOA.
 If multiple DLOAs are present, it MUST be because the entity received all of the certifications.
 
-DLOA XML documents are always fetched from a registrar that stores them.
+DLOA documents are always fetched from a registrar that stores them.
 This claim contains several data items used to construct a URL for fetching the DLOA from the particular registrar.
 
 This claim MUST be encoded as an array with either two or three elements.
