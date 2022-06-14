@@ -934,7 +934,7 @@ This claim is typically issued by a Verifier, not an Attester.
 Verifiers MUST NOT issue this claim unless the entity has received the certification indicated by the DLOA.
 
 This claim MAY contain more than one DLOA.
-If multiple DLOAs are present, it MUST be because the entity received all of the certifications.
+If multiple DLOAs are present, Verifiers MUST NOT issue this claim unless the entity has received all of the certifications.
 
 DLOA documents are always fetched from a registrar that stores them.
 This claim contains several data items used to construct a URL for fetching the DLOA from the particular registrar.
