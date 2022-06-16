@@ -2550,11 +2550,11 @@ This section describes several distinct ways in which an IEEE IDevID {{IEEE.802.
 {{IEEE.802.1AR}} orients around the definition of an implementation called a "DevID Module."
 It describes how IDevIDs and LDevIDs are stored, protected and accessed using a DevID Module.
 A particular level of defense against attack that should be achieved to be a DevID is defined.
-The intent is that IDevIDs and LDevIDs are used with an open set of network protocols for authentication and such.
-In these protocols the DevID secret is used to sign a nonce or similar to proof the association of the DevID certificates with the device.
+The intent is that IDevIDs and LDevIDs can be used with any network protocol or message format.
+In these protocols and message formats the DevID secret is used to sign a nonce or similar to prove the association of the DevID certificates with the device.
 
-By contrast, EAT defines network protocol for proving trustworthiness to a Relying Party, the very thing that is not defined in {{IEEE.802.1AR}}.
-Nor does not give details on how keys, data and such are stored protected and accessed.
+By contrast, EAT defines a message format for proving trustworthiness to a Relying Party, the very thing that is not defined in {{IEEE.802.1AR}}.
+Nor does EAT give details on how keys, data and such are stored protected and accessed.
 EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
 It does not define any particular level of defense against attack, instead providing a set of security considerations.
 
