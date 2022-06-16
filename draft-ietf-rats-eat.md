@@ -1684,11 +1684,8 @@ The first argument is the CDDL for JSON and the second is CDDL for CBOR.
 
 ### Labels
 
-Map labels, including Claims-Keys and Claim-Names, and enumerated-type values are always integers when encoding in CBOR and strings when encoding in JSON.
-There is an exception to this for naming submodules and detached claims sets in a DEB.
-These are strings in CBOR.
-
-The CDDL in most cases gives both the integer label and the string label as it is not convenient to have conditional CDDL for such.
+Most map labels, Claims-Keys, Claim-Names and enumerated-type values are integers for CBOR-encoded tokens and strings for JSON-encoded tokens.
+When this is the case the "JC < >" CDDL construct is used to give both the integer and string values.
 
 ## CBOR Interoperability
 
