@@ -61,7 +61,7 @@ normative:
   RFC8610:
   RFC8747:
   RFC3986:
-  RFC8152:
+  RFC9052:
   RFC9090:
 
   WGS84:
@@ -225,7 +225,7 @@ It may partially trust it, for example allowing monetary transactions only up to
 EAT defines the encoding of the claims set in CBOR {{RFC8949}} and JSON {{RFC7159}}.
 EAT is an extension to CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}}.
 
-The claims set is secured in transit with the same mechanisms used by CWT and JWT, in particular CBOR Object Signing and Encryption (COSE) {{RFC8152}} and JSON Object Signing
+The claims set is secured in transit with the same mechanisms used by CWT and JWT, in particular CBOR Object Signing and Encryption (COSE) {{RFC9052}} and JSON Object Signing
    and Encryption (JOSE) {{RFC7515}} {{RFC7516}}.
 Authenticity and integrity protection must always be provided.
 Privacy (encryption) may additionally be provided.
@@ -1357,7 +1357,7 @@ When the FIDO protocol includes a public key in its attestation message, the key
 This document describes how claims containing keys should be defined for the various use cases.
 It does not define specific claims for specific use cases.
 
-Keys in CBOR format tokens SHOULD be the COSE_Key format {{RFC8152}} and keys in JSON format tokens SHOULD be the JSON Web Key format {{RFC7517}}.
+Keys in CBOR format tokens SHOULD be the COSE_Key format {{RFC9052}} and keys in JSON format tokens SHOULD be the JSON Web Key format {{RFC7517}}.
 These two formats support many common key types.
 Their use avoids the need to decode other serialization formats.
 These two formats can be extended to support further key types through their IANA registries.
@@ -1441,7 +1441,7 @@ The following assumes Endorsements are X.509 certificates or equivalent and thus
 
 ### COSE/JWS Key ID
 
-The COSE standard header parameter for Key ID (kid) may be used. See {{RFC8152}} and {{RFC7515}}
+The COSE standard header parameter for Key ID (kid) may be used. See {{RFC9052}} and {{RFC7515}}
 
 COSE leaves the semantics of the key ID open-ended.
 It could be a record locator in a database, a hash of a public key, an input to a KDF, an authority key identifier (AKI) for an X.509 certificate or other.
@@ -2626,7 +2626,9 @@ EAT's definition of permanence is in terms of operations and device lifecycle.
 
 {{RFC8392}} was published before CDDL was available and thus is specified in prose, not CDDL.
 Following is CDDL specifying CWT as it is needed to complete this specification.
-This CDDL also covers the Claims-Set for JWT.
+This CDDL also covers the Claims-Set for JWT. 
+
+The COSE-related types in this CDDL are defined in {{RFC9052}}.
 
 This however is NOT a normative or standard definition of CWT or JWT in CDDL.
 The prose in CWT and JWT remain the normative definition.
