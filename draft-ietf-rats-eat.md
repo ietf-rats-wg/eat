@@ -62,6 +62,7 @@ normative:
   RFC8747:
   RFC3986:
   RFC8152:
+  RFC9052:
   RFC9090:
 
   WGS84:
@@ -1346,31 +1347,15 @@ security state of the entity storing the private key used in a PoP application.
 ~~~~
 
 
-## Including Keys
+## Claims That Include Keys
 
-An EAT may include a cryptographic key such as a public key.
-The signing of the EAT binds the key to all the other claims in the token.
+This document defines no claims that contain cryptographic keys.
+When claims are defined that include cryptographic keys, they SHOULD use COSE_Key {{RFC9052}} in CBOR-encoded tokens or JSON Web Key {{RFC7517}} in JSON-encoded tokens.
 
-The purpose for inclusion of the key may vary by use case.
-For example, the key may be included as part of an IoT device onboarding protocol.
-When the FIDO protocol includes a public key in its attestation message, the key represents the binding of a user, device and Relying Party.
-This document describes how claims containing keys should be defined for the various use cases.
-It does not define specific claims for specific use cases.
-
-Keys in CBOR format tokens SHOULD be the COSE_Key format {{RFC8152}} and keys in JSON format tokens SHOULD be the JSON Web Key format {{RFC7517}}.
-These two formats support many common key types.
-Their use avoids the need to decode other serialization formats.
-These two formats can be extended to support further key types through their IANA registries.
-
-The general confirmation claim format {{RFC8747}}, {{RFC7800}} may also be used.
-It provides key encryption.
-It also allows for inclusion by reference through a key ID.
-The confirmation claim format may employed in the definition of some new claim for a a particular use case.
-
-When the actual confirmation claim is included in an EAT, this document associates no use case semantics other than proof of possession.
-Different EAT use cases may choose to associate further semantics.
-The key in the confirmation claim MUST be protected in the same way as the key used to sign the EAT.
-That is, the same, equivalent or better hardware defenses, access controls, key generation and such must be used.
+{{RFC7800}} defines a proof-of-possion/confirmation claim named "cnf" that can hold a cryptographic key for JWTs.
+{{RFC8747}} does the same for CWTs with claim key 8.
+These particular claims are defined for authentication and authorization.
+Their semantics don't translate to attestation and they SHOULD NOT be used in an EAT.
 
 
 # Detached EAT Bundles {#DEB}
