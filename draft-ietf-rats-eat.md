@@ -1279,10 +1279,12 @@ indicate their age is older than the "iat" timestamp.
 
 CWT allows the use floating-point for this claim. EAT disallows
 the use of floating-point. An EAT token MUST NOT contain an iat claim in
-float-point format. Any recipient of a token with a floating-point
-format iat claim MUST consider it an error.  A 64-bit integer
-representation of epoch time can represent a range of +/- 500 billion
-years, so the only point of a floating-point timestamp is to
+floating-point format. Any recipient of a token with a floating-point
+format iat claim MUST consider it an error. 
+
+A 64-bit integer representation of the CBOR epoch-based time
+{{RFC8949}} used by this claim can represent a range of +/- 500
+billion years, so the only point of a floating-point timestamp is to
 have precession greater than one second. This is not needed for EAT.
 
 
