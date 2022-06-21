@@ -62,6 +62,7 @@ normative:
   RFC8747:
   RFC3986:
   RFC8152:
+  RFC9052:
   RFC9090:
 
   WGS84:
@@ -1481,12 +1482,19 @@ This is in line with the requirements in section 6 on Key Identification in JSON
 
 # Profiles {#profiles}
 
-This EAT specification does not gaurantee that implementations of it will interoperate.
-The variability in this specification is necessary to accommodate the widely varying use cases.
-An EAT profile narrows the specification for a specific use case.
-An ideal EAT profile will guarantee interoperability.
+EAT makes normative use of CBOR, JSON, COSE, JWT and CWT.
+Most of these have implementation options to accommodate a range of use case.
+For example, COSE doesn't require a particular set of cryptographic algorithms so as to accommodate different usage scenarios and evolution of algorithms over time.
+Similarly, CBOR provides indefinite length encoding which is not commonly used, but valuable for very constrained devices.
+For EAT itself, in a particular use case some claims will be used and others will not.
+For example a mobile phone use case may require the device make and model, and prohibit UEID and location for privacy policy.
+The general EAT standard retains all this flexibility because it too is aimed to accommodate a broad range of use cases.
 
-The profile can be named in the token using the profile claim described in {{profile-claim}}.
+It is necessary to narrow these implementation options in EAT to guarantee interoperability just like it is necessary to do so for CBOR, COSE, CWT and JWT.
+The mechanism for achieving that is an EAT profile as described in this section.
+Below is a list of the various issues that should be addressed by a profile.
+
+The profile claim in {{profile-claim}} provides a unique identifier for the profile a particular token uses.
 
 A profile can apply to Attestation Evidence or to Attestation Results or both.
 
@@ -1553,6 +1561,8 @@ The key for encryption requires less protection.
 
 
 ### COSE/JOSE Algorithms
+
+See the section on "Application Profiling Considerations" in {{RFC9052}} for a discussion on selection of cryptgraphic algorithms and related issues.
 
 The profile document should list the COSE algorithms that a Verifier must implement.
 The Attester will select one of them.
