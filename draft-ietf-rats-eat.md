@@ -1482,16 +1482,25 @@ This is in line with the requirements in section 6 on Key Identification in JSON
 
 # Profiles {#profiles}
 
-EAT makes normative use of CBOR, JSON, COSE, JWT and CWT.
-Most of these have implementation options to accommodate a range of use case.
+EAT makes normative use of CBOR, JSON, COSE, JOSE, CWT and JWT.
+Most of these have implementation options to accommodate a range of use cases.
+
 For example, COSE doesn't require a particular set of cryptographic algorithms so as to accommodate different usage scenarios and evolution of algorithms over time.
+Section 10 of {{RFC9052}} describes the profiling considerations for COSE.
+
+The use of encryption is optional for both CWT and JWT.
+Section 8 of {{RFC7519}} describes implementation requirement and recommendations for JWT.
+
 Similarly, CBOR provides indefinite length encoding which is not commonly used, but valuable for very constrained devices.
 For EAT itself, in a particular use case some claims will be used and others will not.
+Section 4 of {{RFC8949}} describes serialization considerations for CBOR.
+
 For example a mobile phone use case may require the device make and model, and prohibit UEID and location for privacy policy.
 The general EAT standard retains all this flexibility because it too is aimed to accommodate a broad range of use cases.
 
-It is necessary to narrow these implementation options in EAT to guarantee interoperability just like it is necessary to do so for CBOR, COSE, CWT and JWT.
-The mechanism for achieving that is an EAT profile as described in this section.
+It is necessary to explicitly narrow these implementation options to guarantee interoperability.
+EAT chooses one general and explicit mechanism, the profile, to indicate the choices made for these implementation options for all aspects of the token.
+
 Below is a list of the various issues that should be addressed by a profile.
 
 The profile claim in {{profile-claim}} provides a unique identifier for the profile a particular token uses.
