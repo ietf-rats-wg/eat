@@ -1642,7 +1642,7 @@ The identifier for this profile is "https://tools.ietf.org/RFC-TBD"
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce must be used for every token request |
-| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply -- the nonce must be present and the receiver must not error out on any claims it doesn't understand|
+| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply -- the nonce MUST be present and the receiver MUST not error out on any claims it doesn't understand |
 
 Stricly speaking, slight modifications such use of a different means of key identification are a divergence from this claim and should use a different profile identifier.
 
