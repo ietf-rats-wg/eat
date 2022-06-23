@@ -705,8 +705,11 @@ An EAN-13 is also known as an International Article Number or most commonly as a
 
 ### Software Name Claim
 
-This is a free-form text claim for the name of the software for the entity or submodule.
-A CoSWID manifest or other type of manifest can be used instead if this claim is to limited to correctly characterize the SW for the entity or submodule.
+This is a very simple free-form text claim for naming the software used by the entity.
+Intentionally, no general rules or structure are set.
+This will make it unsuitable for use cases that wish precise naming.
+
+If precise and rigourous naming of the SW for the entity is needed, the manifests claim {{manifests}} may be used instead.
 
 ~~~~CDDL
 {::include nc-cddl/software-name.cddl}
