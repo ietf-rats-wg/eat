@@ -1637,7 +1637,7 @@ The identifier for this profile is "https://tools.ietf.org/RFC-TBD"
 | CBOR Encoding | Only definite length strings are allowed |
 | CBOR Serialization | Only preferred serialization is allowed |
 | COSE Protection | Only COSE_Sign1 format is used |
-| Algorithms | Receiver must accept ES 256, ES384 and ES 512. Sender must send one of these |
+| Algorithms | Receiver must accept ES256, ES384 and ES512. Sender must send one of these |
 | DEB Usage | DEB may not be sent with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
