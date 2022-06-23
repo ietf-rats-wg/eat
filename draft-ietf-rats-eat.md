@@ -1644,7 +1644,7 @@ The identifier for this profile is "https://tools.ietf.org/RFC-TBD"
 | Nonce | A new single unique nonce must be used for every token request |
 | Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply -- the nonce MUST be present and the receiver MUST not error out on any claims it doesn't understand |
 
-Stricly speaking, slight modifications such use of a different means of key identification are a divergence from this claim and should use a different profile identifier.
+Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
 
 A profile that is similar to this can be defined and/or standardized by making normative reference to this and adding other requirements. 
 Such a definition should have a different profile ID.
