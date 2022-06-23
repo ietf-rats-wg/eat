@@ -1494,8 +1494,7 @@ A profile can apply to Attestation Evidence or to Attestation Results or both.
 
 A profile document doesn't have to be in any particular format. It may be simple text, something more formal or a combination.
 
-In some cases it may be desirable for CDDL to be created that replaces CDDL in this or other document to express some profile requirements.
-For example, to require the altitude data item in the location claim, CDDL can be written that replicates the location claim with the altitude no longer optional.  In that case, the profile MUST define a new claim in the place of the original EAT claim and leverage the appropriate IANA registries to point to assign an appropriate claim identifier and pointer to the profile specification.
+A profile may define, and possibly register, one or more new claims if needed. A profile may also reuse one or more already defined claims, either as-is or with values constrained to a subset or subrange.
 
 ## List of Profile Issues
 
