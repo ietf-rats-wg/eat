@@ -135,6 +135,21 @@ normative:
     target: https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml
 
 
+  SPDX:
+    title: Software Package Data Exchange (SPDX)
+    target: https://spdx.dev/wp-content/uploads/sites/41/2020/08/SPDX-specification-2-2.pdf
+    date: 2020
+
+  CycloneDX:
+     title: CycloneDX
+     target: https://cyclonedx.org/specification/overview/
+     date: false
+
+
+  IANA.core-parameters:
+    title: IANA Constrained RESTful Environments (CoRE) Parameters
+    target: <https://www.iana.org/assignments/core-parameters>
+
 
 informative:
   RFC4122:
@@ -982,6 +997,8 @@ The multiple manifests MAY be of different formats.
 In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.
 
 When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
+
+This document registers CoAP Content Formats for CycloneDX {{CycloneDX}} and SPDX {{SPDX}} so they can be used as a manifest. 
 
 ~~~~CDDL
 {::include nc-cddl/manifests.cddl}
@@ -2108,6 +2125,29 @@ specification reference.
 | Tag    | Data Items     | Semantics                   |
 | TBD602 | array          | Detached EAT Bundle {{DEB}} |
 
+
+### Media Types Registered by this Document
+
+It is requested that the CoAP Content-Format for SPDX and CycloneDX be been registered in the "CoAP Content-Formats" subregistry within the "Constrained RESTful Environments (CoRE) Parameters" registry [IANA.core-parameters]:
+
+* Media Type: application/spdx+json
+* Encoding: binary
+* ID: TBD
+* Reference: {{SPDX}}
+
+&nbsp;
+
+* Media Type: vendor/vnd.cyclonedx+xml
+* Encoding: binary
+* ID: TBD
+* Reference: {{CycloneDX}}
+
+&nbsp;
+
+* Media Type: vendor/vnd.cyclonedx+json
+* Encoding: binary
+* ID: TBD
+* Reference: {{CycloneDX}}
 
 
 # Privacy Considerations {#privacyconsiderations}
