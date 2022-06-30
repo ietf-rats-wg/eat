@@ -485,12 +485,12 @@ The nonce MUST have 64 bits of entropy as fewer bits are unlikely to be secure.
 A maximum nonce size is set to limit the memory required for an implementation.
 All receivers MUST be able to accommodate the maximum size.
 
-In CBOR, the nonce is a byte string and every bit in the byte string contributes to entropy.
+In CBOR, the nonce is a byte string.
 The minimum size is 8 bytes.
 The maximum size is 64 bytes.
 
 In JSON the nonce is a text string.
-It is assumed that the only characters represented by the lower 7 bits will be used so the text string must be one-seventh longer.
+It is assumed that the only characters represented by the lower 7 bits will be used so the text string must be one-seventh longer because the 8th bit doesn't contribute to entropy.
 The minimum size is 10 bytes.
 The maximum size is 74 bytes.
 
