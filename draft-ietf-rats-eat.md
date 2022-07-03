@@ -725,19 +725,21 @@ A full CoSWID manifest or other type of manifest can be instead if this is too s
 
 ### The Security Level Claim (security-level)
 
-This claim characterizes the entity's ability to defend against attacks aimed at capturing the signing key, forging claims and forging EATs.
+This claim characterizes the design intent of the entity's ability to defend against attacks aimed at capturing the signing key, forging claims and forging EATs.
 
-The intent of this claim is only to give the recipient a rough idea of the security the entity is aiming for.
+This claim is only to give the recipient a rough idea of the security design the entity is aiming for.
 This is via a simple, non-extensible set of three levels.
 
+While this claim may be forwarded in Attestation Results as described in {{relationship}}, this claim MUST NOT be used to represent the output of a RATS Verifier.
+
 This takes a broad view of the range of defenses because EAT is targeted at a broad range of use cases.
-The least secure level involves minimal SW defenses.
-The most secure level involves specialized hardware to defend against hardware-based attacks.
+The least secure level may have only minimal SW defenses.
+The most secure level may have specialized hardware to defend against hardware-based attacks.
 
 Only through expansive certification programs like Common Criteria and FIDO certification is it possible to sharply define security levels.
 Sharp definition of security levels is not possible here because the IETF doesn't define and operate certification programs.
 It is also not possible here because any sharp definition of security levels would be a document larger than the EAT specification.
-Thus, this definition takes the view that the security level definition possible here is a simple, modest, rough characterization.
+Thus, this definition takes the view that the security level definition possible is a simple, modest, rough characterization.
 
 1 - Unrestricted:
 : An entity is categorized as unrestricted when it doesn't meet the criteria for any of the higher levels.
@@ -756,9 +758,7 @@ Examples include TPMs and Secure Elements.
 The security level claimed should be for the weakest point in the entity, not the strongest.
 For example, if attestation key is protected by hardware, but the rest of the attester is in a TEE, the claim must be for restriced.
 
-This set of three is not extensible so this remains a broad interoperable description of security level.
-
-In particular use cases, alternate claims may be defined that give finer grained information than this claim.
+This set of three is not extensible so this remains broadly interoperable. In particular use cases, alternate claims may be defined that give finer grained information than this claim.
 
 See also the DLOAs claim in {{dloas}}, a claim that specifically provides information about certifications received.
 
