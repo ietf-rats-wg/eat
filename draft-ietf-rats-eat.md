@@ -744,7 +744,7 @@ Thus, this definition takes the view that the security level definition possible
 This level does not indicate there is no protection at all, just that the entity doesn't qualify for the higher levels.
 
 2 - Restricted:
-: Entities at this level MUST meet the criteria defined in Section 4 of FIDO Allowed Restricted Operating Environments {{FIDO.AROE}}.
+: Entities at this level indicate that they verify software process integrity (e.g. through signature verification) and provide memory isolation for software processes executing within the entity.
 Examples include TEE's and schemes using virtualization-based security.
 Security at this level is aimed at defending against large-scale network/remote attacks by having a reduced attack surface.
 
