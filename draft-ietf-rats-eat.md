@@ -736,7 +736,7 @@ This takes a broad view of the range of defenses because EAT is targeted at a br
 The least secure level may have only minimal SW defenses.
 The most secure level may have specialized hardware to defend against hardware-based attacks.
 
-Only through expansive certification programs like Common Criteria and FIDO certification is it possible to sharply define security levels.
+Only through expansive certification programs like Common Criteria is it possible to sharply define security levels.
 Sharp definition of security levels is not possible here because the IETF doesn't define and operate certification programs.
 It is also not possible here because any sharp definition of security levels would be a document larger than the EAT specification.
 Thus, this definition takes the view that the security level definition possible is a simple, modest, rough characterization.
