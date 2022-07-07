@@ -464,8 +464,8 @@ independent of encoding.  Each claim is defined as a CDDL group.
 In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
 
 Each claim described has a unique text string and integer that identifies it.
-CBOR encoded tokens MUST use only the integer for Claim Keys.
-JSON encoded tokens MUST use only the text string for Claim Names.
+CBOR-encoded tokens MUST use only the integer for Claim Keys.
+JSON-encoded tokens MUST use only the text string for Claim Names.
 
 
 
