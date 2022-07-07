@@ -319,7 +319,7 @@ Of particular use may be a token type that provides no authenticity or integrity
 ## CDDL, CBOR and JSON
 
 This document defines Concise Binary Object Representation (CBOR) {{RFC8949}} and Javascript Object Notation (JSON) {{RFC7159}} encoding for an EAT.
-All claims in an EAT MUST use the same encoding except where explicitly allowed.
+All claims in an EAT MUST use the same encoding except where otherwise explicitly stated.
 It is explicitly allowed for a nested token to be of a different encoding.
 Some claims explicitly contain objects and messages that may use a different encoding than the enclosing EAT.
 
