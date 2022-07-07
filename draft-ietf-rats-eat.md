@@ -260,15 +260,15 @@ An entity is an implementation in hardware, software or both.
 
 An entity is the same as the Attester Target Environment defined in RATS Architecture.
 
+An entity may be the whole device or it may be a subsystem, a subsystem of a subsystem and so on.
+EAT allows claims to be organized into submodules, nested EATs and so on. See {{submods}}.
+The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
+
 An entity also corresponds to a "system component" as defined in the Internet Security Glossary {{RFC4949}}.
 That glossary also defines "entity" and "system entity" as something that may be a person or organization as well as a system component.
 Here "entity" never refers to a person or organization.
 
-An entity is never a server or a service.
-
-An entity may be the whole device or it may be a subsystem, a subsystem of a subsystem and so on.
-EAT allows claims to be organized into submodules, nested EATs and so on. See {{submods}}.
-The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
+The hardware and software that implement a server or service like a web site may be an entity, but the web site itself or the organization that runs the web site are not an entity.
 
 Some examples of entities:
 
