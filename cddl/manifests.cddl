@@ -5,7 +5,7 @@ $$Claims-Set-Claims //= (
 manifests-type = [+ manifest-format]
 
 manifest-format = [
-    content-type:   uint, ; CoAP Content Format
+    content-type:   coap-content-format,
     content-format: JC< $$manifest-body-json, 
                         $$manifest-body-cbor >
 ]
