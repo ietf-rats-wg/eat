@@ -2483,13 +2483,9 @@ structure of time and clock values. This structure is of no
 value here yet adds complexity. It also slightly reduces the
 number of actual bits with entropy.
 
-UUIDs seem to have been designed for scenarios where the implementor
-does not have full control over the environment and uniqueness has to
-be constructed from identifiers at hand. UEID takes the view that
-hardware, software and/or manufacturing process directly implement
-UEID in a simple and direct way. It takes the view that cryptographic
-quality random number generators are readily available as they are
-implemented in commonly used CPU hardware.
+The design of UUID accommodates the construction of a unique identifier by combination of several identifiers that separately do not provide sufficient uniqueness.
+UEID takes the view that this construction is no longer needed, in particular because cryptographic-quality random number generators are readily available.
+It takes the view that hardware, software and/or manufacturing process implement UEID in a simple and direct way.
 
 
 # EAT Relation to IEEE.802.1AR Secure Device Identity (DevID)
