@@ -400,7 +400,7 @@ Claim Key:
 Claim Value:
 : The value portion of the claim. A claim value can be any CBOR data item or JSON value.
 
-CWT/JWT Claims Set:
+Claims Set:
 : The CBOR map or JSON object that contains the claims conveyed by the CWT or JWT.
 
 This document reuses terminology from RATS Architecure {{RATS.Architecture}}
@@ -1106,10 +1106,10 @@ The following sections define the three types of submodules:
 
 ##### Submodule Claims-Set
 
-This is a subordinate Claims-Set containing claims about the submodule.
+This is a subordinate Claims-Set containing claims about a submodule, a subordinate entity.
 
 The submodule Claims-Set is produced by the same Attester as the surrounding token.
-It is secured using the same mechanism as the enclosing token (e.g., it is signed by the same attestation key).
+It is secured by the same mechanism as the enclosing token (e.g., it is signed by the same attestation key).
 It roughly corresponds to an Attester Target Environment, as described in the RATS architecture.
 
 It may contain claims that are the same as its surrounding token or superior submodules.
@@ -1117,20 +1117,20 @@ For example, the top-level of the token may have a UEID, a submod may have a dif
 
 The encoding of a submodule Claims-Set MUST be the same as the encoding as the token it is part of.
 
-This data type for this type of submodule is a map/object.
-It is identified when decoding by it's type being a map/object.
+The data type for this type of submodule is a map/object.
+It is identified when decoding by its type being a map/object.
 
 
 ##### Nested Token {#Nested-Token}
 
 This type of submodule is a fully formed complete token.
 It is typically produced by a separate Attester.
-It is typically used by a Composite Device as described in RATS Architecture {{RATS.Architecture}}
+It is typically used by a composite device as described in RATS Architecture {{RATS.Architecture}}
 In being a submodule of the surrounding token, it is cryptographically bound to the surrounding token.
 If it was conveyed in parallel with the surrounding token, there would be no such binding and attackers could substitute a good attestation from another device for the attestation of an errant subsystem.
 
 A nested token does not need to use the same encoding as the enclosing token.
-This is to allow Composite Devices to be built without regards to the encoding supported by their Attesters.
+This is to allow composite devices to be built without regards to the encoding supported by their Attesters.
 Thus, a CBOR-encoded token like a CWT can have a JWT as a nested token submodule and vice versa.
 
 
