@@ -469,7 +469,7 @@ JSON-encoded tokens MUST use only the text string for Claim Names.
 
 
 
-## Nonce Claim (nonce)
+## Nonce Claim (nonce) {#nonce}
 
 All EATs MUST have a nonce to prevent replay attacks.
 
@@ -1273,10 +1273,9 @@ When these claims appear in Evidence, they SHOULD not be passed through the Veri
 ### Token ID Claim (cti and jti)
 
 CWT defines the "cti" claim. JWT defines the "jti" claim. These are
-equivalent to each other in EAT and carry a unique token identifier as
+equivalent in EAT and carry a unique token identifier as
 they do in JWT and CWT.  They may be used to defend against re use of
-the token but are distinct from the nonce that is used by the Relying
-Party to guarantee freshness and defend against replay.
+the token but are not a substitute for the nonce described in {{nonce}} and do not guarantee freshness and defend against replay.
 
 
 ### Timestamp claim (iat)
