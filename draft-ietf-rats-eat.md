@@ -348,6 +348,7 @@ EAT is designed to carry Evidence.
 The Evidence goes to a Verifier where the signature is verified.
 Some of the claims may also be checked against Reference Values.
 The Verifier then produces Attestation Results which is also usually a claims set.
+
 EAT is also designed to carry Attestation Results.
 The Attestation Results go to the Relying Party which is the ultimate consumer of the Remote Attestation Procedure.
 The Relying Party uses the Attestation Results as needed for the use case, perhaps allowing an entity on the network, allowing a financial transaction or such.
@@ -374,8 +375,9 @@ This may be to implement some privacy preservation functionality.
 It is also possible the Verifier will put claims in the Attestation Results that give details about the entity that it has computed or looked up in a database.
 For example, the Verifier may be able to put a HW OEM ID Claim in the Attestation Results by performing a look up based on a UEID (serial number) it received in Evidence.
 
-There are no fixed rules for how a Verifier processes Evidence to produce Attestation Results.
-What is important is the Relying Party understand what the Verifier does and what its policies are.
+This specification does not establish any normative rules for the Verifier to follow.
+They are a matter of configured policy.
+It is up to each Relying Party to understand the processing rules of each Verifier to know how to interpret claims in Attestation Results.
 
 
 # Terminology
