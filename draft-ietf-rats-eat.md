@@ -1701,43 +1701,10 @@ The first argument is the CDDL for JSON and the second is CDDL for CBOR.
 Most map labels, Claims-Keys, Claim-Names and enumerated-type values are integers for CBOR-encoded tokens and strings for JSON-encoded tokens.
 When this is the case the "JC < >" CDDL construct is used to give both the integer and string values.
 
-## CBOR Interoperability
+### CBOR Interoperability
 
-CBOR allows data items to be serialized in more than one form.
-If the sender uses a form that the receiver can't decode, there will not be interoperability.
-
-This specification gives no blanket requirements to narrow CBOR serialization for all uses of EAT.
-This allows individual uses to tailor serialization to the environment.
-It also may result in EAT implementations that don't interoperate.
-
-One way to guarantee interoperability is to clearly specify CBOR serialization in a profile document.
-See {{profiles}} for a list of serialization issues that should be addressed.
-
-EAT will be commonly used where the entity generating the attestation is constrained and the receiver/Verifier of the attestation is a capacious server.
-Following is a set of serialization requirements that work well for that use case and are guaranteed to interoperate.
-Use of this serialization is recommended where possible, but not required.
-An EAT profile may just reference the following section rather than spell out serialization details.
-
-#### EAT Constrained Device Serialization
-
-* Preferred serialization described in section 4.1 of {{RFC8949}} is not required.
-The EAT decoder must accept all forms of number serialization.
-The EAT encoder may use any form it wishes.
-
-* The EAT decoder must accept indefinite length arrays and maps as described in section 3.2.2 of {{RFC8949}}.
-The EAT encoder may use indefinite length arrays and maps if it wishes.
-
-* The EAT decoder must accept indefinite length strings as described in section 3.2.3 of {{RFC8949}}.
-The EAT encoder may use indefinite length strings if it wishes.
-
-* Sorting of maps by key is not required.
-The EAT decoder must not rely on sorting.
-
-* Deterministic encoding described in Section 4.2 of {{RFC8949}} is not required.
-
-* Basic validity described in section 5.3.1 of {{RFC8949}} must be followed.
-The EAT encoder must not send duplicate map keys/labels or invalid UTF-8 strings.
-
+CBOR allows data items to be serialized in more than one form to accommodate a variety of use cases.
+This is addressed in {{profiles}}.
 
 ## Collected CDDL
 
