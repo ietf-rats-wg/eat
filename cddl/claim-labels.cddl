@@ -28,5 +28,5 @@ sw-version-label       = JC< "swversion",  272 >
 manifests-label        = JC< "manifests",  273 >
 swevidence-label       = JC< "swevidence", 274 >
 measurement-results-label = JC< "measres" , 275 >
-odometer-label         = JC< "odometer",   276 >
+boot-count-label       = JC< "bootcount",  276 >
 
