@@ -1587,6 +1587,33 @@ For example, there are variations in the CoSWID format.
 A profile that require the receiver to accept all variations that are allowed to be sent.
 
 
+## The Constrained Device Standard Profile
+
+It is anticipated that there will be many profiles defined for EAT for many different use cases.
+This section standardizes one profile that is good for many constrained device use cases.
+
+The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
+
+
+| Issue | Profile Definition |
+| CBOR/JSON | CBOR only |
+| CBOR Encoding | Only definite length maps and arrays are allowed |
+| CBOR Encoding | Only definite length strings are allowed |
+| CBOR Serialization | Only preferred serialization is allowed |
+| COSE Protection | Only COSE_Sign1 format is used |
+| Algorithms | Receiver MUST accept ES256, ES384 and ES512; sender MUST send one of these |
+| DEB Usage | DEB may not be sent with this profile |
+| Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
+| Endorsements | This profile contains no endorsement identifier |
+| Nonce | A new single unique nonce must be used for every token request |
+| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply. The nonce MUST be present and the receiver MUST not error out on any claims it doesn't understand. |
+
+Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
+
+A profile that is similar to this can be defined and/or standardized by making normative reference to this and adding other requirements. 
+Such a definition MUST have a different profile identifier.
+
+
 # Encoding and Collected CDDL {#encoding}
 
 An EAT is fundamentally defined using CDDL.
@@ -1685,7 +1712,157 @@ Nested-Token is defined in the following sections.
 {::include nc-cddl/json.cddl}
 ~~~~
 
+# Privacy Considerations {#privacyconsiderations}
 
+Certain EAT claims can be used to track the owner of an entity and
+therefore, implementations should consider providing privacy-preserving
+options dependent on the intended usage of the EAT.  Examples would
+include suppression of location claims for EAT's provided to
+unauthenticated consumers.
+
+## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
+
+A UEID is usually not privacy-preserving. Any set of Relying Parties
+that receives tokens that happen to be from a particular entity will be
+able to know the tokens are all from the same entity and be able to
+track it.
+
+Thus, in many usage situations UEID violates
+governmental privacy regulation. In other usage situations a UEID will
+not be allowed for certain products like browsers that give privacy
+for the end user. It will often be the case that tokens will not have
+a UEID for these reasons.
+
+An SUEID is also usually not privacy-preserving.  In some cases it may
+have fewer privacy issues than a UEID depending on when and how and
+when it is generated.
+
+There are several strategies that can be used to still be able to put
+UEIDs and SUEIDs in tokens:
+
+* The entity obtains explicit permission from the user of the entity
+to use the UEID/SUEID. This may be through a prompt. It may also be through
+a license agreement.  For example, agreements for some online banking
+and brokerage services might already cover use of a UEID/SUEID.
+
+* The UEID/SUEID is used only in a particular context or particular use
+case. It is used only by one Relying Party.
+
+* The entity authenticates the Relying Party and generates a derived
+UEID/SUEID just for that particular Relying Party.  For example, the Relying
+Party could prove their identity cryptographically to the entity, then
+the entity generates a UEID just for that Relying Party by hashing a
+proofed Relying Party ID with the main entity UEID/SUEID.
+
+Note that some of these privacy preservation strategies result in
+multiple UEIDs and SUEIDs per entity. Each UEID/SUEID is used in a
+different context, use case or system on the entity. However, from the
+view of the Relying Party, there is just one UEID and it is still
+globally universal across manufacturers.
+
+## Location Privacy Considerations {#locationprivacyconsiderations}
+
+Geographic location is most always considered personally identifiable information.
+Implementers should consider laws and regulations governing the transmission of location data from end user devices to servers and services.
+Implementers should consider using location management facilities offered by the operating system on the entity generating the attestation.
+For example, many mobile phones prompt the user for permission when before sending location data.
+
+## Boot Seed Privacy Considerations {#bootseedprivacyconsiderations}
+
+The Boot Seed claim is effectively a stable entity identifier within a given boot epoch.  Therefore, it is not suitable for use in attestation schemes that are privacy-preserving.
+
+## Replay Protection and Privacy {#replayprivacyconsiderations}
+
+EAT offers 2 primary mechanisms for token replay protection (also sometimes
+known as token "freshness"):  the cti/jti claim and the nonce claim.  The cti/jti claim
+in a CWT/JWT is a field that may be optionally included in the EAT and is in general
+derived on the same device in which the entity is instantiated.  The nonce claim is based
+on a value that is usually derived remotely (outside of the entity).  These claims can be used
+to extract and convey personally-identifying information either inadvertently or by intention.  For instance,
+an implementor may choose a cti that is equivalent to a username associated with the device (e.g., account
+login).  If the token is inspected by a 3rd-party then this information could be used to identify the source
+of the token or an account associated with the token (e.g., if the account name is used to derive the nonce).  In order
+to avoid the conveyance of privacy-related information in either the cti/jti or nonce claims, these fields
+should be derived using a salt that originates from a true and reliable random number generator or any other
+source of randomness that would still meet the target system requirements for replay protection.
+
+# Security Considerations {#securitycons}
+
+The security considerations provided in Section 8 of {{RFC8392}} and Section 11
+of {{RFC7519}} apply to EAT in its CWT and JWT form, respectively.  In addition,
+implementors should consider the following.
+
+## Key Provisioning
+
+Private key material can be used to sign and/or encrypt the EAT, or
+can be used to derive the keys used for signing and/or encryption.  In
+some instances, the manufacturer of the entity may create the key
+material separately and provision the key material in the entity
+itself.  The manufacturer of any entity that is capable of producing
+an EAT should take care to ensure that any private key material be
+suitably protected prior to provisioning the key material in the
+entity itself.  This can require creation of key material in an
+enclave (see {{RFC4949}} for definition of "enclave"), secure
+transmission of the key material from the enclave to the entity using
+an appropriate protocol, and persistence of the private key material
+in some form of secure storage to which (preferably) only the entity
+has access.
+
+### Transmission of Key Material
+
+Regarding transmission of key material from the enclave to the entity,
+the key material may pass through one or more intermediaries.
+Therefore some form of protection ("key wrapping") may be necessary.
+The transmission itself may be performed electronically, but can also
+be done by human courier.  In the latter case, there should be minimal
+to no exposure of the key material to the human (e.g. encrypted
+portable memory).  Moreover, the human should transport the key
+material directly from the secure enclave where it was created to a
+destination secure enclave where it can be provisioned.
+
+## Transport Security
+
+As stated in Section 8 of {{RFC8392}}, "The security of the CWT relies
+upon on the protections offered by COSE".  Similar considerations
+apply to EAT when sent as a CWT.  However, EAT introduces the concept
+of a nonce to protect against replay.  Since an EAT may be created by
+an entity that may not support the same type of transport security as
+the consumer of the EAT, intermediaries may be required to bridge
+communications between the entity and consumer.  As a result, it is
+RECOMMENDED that both the consumer create a nonce, and the entity
+leverage the nonce along with COSE mechanisms for encryption and/or
+signing to create the EAT.
+
+Similar considerations apply to the use of EAT as a JWT.  Although the
+security of a JWT leverages the JSON Web Encryption (JWE) and JSON Web
+Signature (JWS) specifications, it is still recommended to make use of
+the EAT nonce.
+
+## Multiple EAT Consumers
+
+In many cases, more than one EAT consumer may be required to fully
+verify the entity attestation.  Examples include individual consumers
+for nested EATs, or consumers for individual claims with an EAT.  When
+multiple consumers are required for verification of an EAT, it is
+important to minimize information exposure to each consumer.  In
+addition, the communication between multiple consumers should be
+secure.
+
+For instance, consider the example of an encrypted and signed EAT with
+multiple claims.  A consumer may receive the EAT (denoted as the
+"receiving consumer"), decrypt its payload, verify its signature, but
+then pass specific subsets of claims to other consumers for evaluation
+("downstream consumers").  Since any COSE encryption will be removed
+by the receiving consumer, the communication of claim subsets to any
+downstream consumer should leverage a secure protocol (e.g.one that
+uses transport-layer security, i.e. TLS),
+
+However, assume the EAT of the previous example is hierarchical and
+each claim subset for a downstream consumer is created in the form of
+a nested EAT.  Then transport security between the receiving and
+downstream consumers is not strictly required.  Nevertheless,
+downstream consumers of a nested EAT should provide a nonce unique to
+the EAT they are consuming.
 
 # IANA Considerations
 
@@ -1976,157 +2153,7 @@ specification reference.
 
 
 
-# Privacy Considerations {#privacyconsiderations}
 
-Certain EAT claims can be used to track the owner of an entity and
-therefore, implementations should consider providing privacy-preserving
-options dependent on the intended usage of the EAT.  Examples would
-include suppression of location claims for EAT's provided to
-unauthenticated consumers.
-
-## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
-
-A UEID is usually not privacy-preserving. Any set of Relying Parties
-that receives tokens that happen to be from a particular entity will be
-able to know the tokens are all from the same entity and be able to
-track it.
-
-Thus, in many usage situations UEID violates
-governmental privacy regulation. In other usage situations a UEID will
-not be allowed for certain products like browsers that give privacy
-for the end user. It will often be the case that tokens will not have
-a UEID for these reasons.
-
-An SUEID is also usually not privacy-preserving.  In some cases it may
-have fewer privacy issues than a UEID depending on when and how and
-when it is generated.
-
-There are several strategies that can be used to still be able to put
-UEIDs and SUEIDs in tokens:
-
-* The entity obtains explicit permission from the user of the entity
-to use the UEID/SUEID. This may be through a prompt. It may also be through
-a license agreement.  For example, agreements for some online banking
-and brokerage services might already cover use of a UEID/SUEID.
-
-* The UEID/SUEID is used only in a particular context or particular use
-case. It is used only by one Relying Party.
-
-* The entity authenticates the Relying Party and generates a derived
-UEID/SUEID just for that particular Relying Party.  For example, the Relying
-Party could prove their identity cryptographically to the entity, then
-the entity generates a UEID just for that Relying Party by hashing a
-proofed Relying Party ID with the main entity UEID/SUEID.
-
-Note that some of these privacy preservation strategies result in
-multiple UEIDs and SUEIDs per entity. Each UEID/SUEID is used in a
-different context, use case or system on the entity. However, from the
-view of the Relying Party, there is just one UEID and it is still
-globally universal across manufacturers.
-
-## Location Privacy Considerations {#locationprivacyconsiderations}
-
-Geographic location is most always considered personally identifiable information.
-Implementers should consider laws and regulations governing the transmission of location data from end user devices to servers and services.
-Implementers should consider using location management facilities offered by the operating system on the entity generating the attestation.
-For example, many mobile phones prompt the user for permission when before sending location data.
-
-## Boot Seed Privacy Considerations {#bootseedprivacyconsiderations}
-
-The Boot Seed claim is effectively a stable entity identifier within a given boot epoch.  Therefore, it is not suitable for use in attestation schemes that are privacy-preserving.
-
-## Replay Protection and Privacy {#replayprivacyconsiderations}
-
-EAT offers 2 primary mechanisms for token replay protection (also sometimes
-known as token "freshness"):  the cti/jti claim and the nonce claim.  The cti/jti claim
-in a CWT/JWT is a field that may be optionally included in the EAT and is in general
-derived on the same device in which the entity is instantiated.  The nonce claim is based
-on a value that is usually derived remotely (outside of the entity).  These claims can be used
-to extract and convey personally-identifying information either inadvertently or by intention.  For instance,
-an implementor may choose a cti that is equivalent to a username associated with the device (e.g., account
-login).  If the token is inspected by a 3rd-party then this information could be used to identify the source
-of the token or an account associated with the token (e.g., if the account name is used to derive the nonce).  In order
-to avoid the conveyance of privacy-related information in either the cti/jti or nonce claims, these fields
-should be derived using a salt that originates from a true and reliable random number generator or any other
-source of randomness that would still meet the target system requirements for replay protection.
-
-# Security Considerations {#securitycons}
-
-The security considerations provided in Section 8 of {{RFC8392}} and Section 11
-of {{RFC7519}} apply to EAT in its CWT and JWT form, respectively.  In addition,
-implementors should consider the following.
-
-## Key Provisioning
-
-Private key material can be used to sign and/or encrypt the EAT, or
-can be used to derive the keys used for signing and/or encryption.  In
-some instances, the manufacturer of the entity may create the key
-material separately and provision the key material in the entity
-itself.  The manufacturer of any entity that is capable of producing
-an EAT should take care to ensure that any private key material be
-suitably protected prior to provisioning the key material in the
-entity itself.  This can require creation of key material in an
-enclave (see {{RFC4949}} for definition of "enclave"), secure
-transmission of the key material from the enclave to the entity using
-an appropriate protocol, and persistence of the private key material
-in some form of secure storage to which (preferably) only the entity
-has access.
-
-### Transmission of Key Material
-
-Regarding transmission of key material from the enclave to the entity,
-the key material may pass through one or more intermediaries.
-Therefore some form of protection ("key wrapping") may be necessary.
-The transmission itself may be performed electronically, but can also
-be done by human courier.  In the latter case, there should be minimal
-to no exposure of the key material to the human (e.g. encrypted
-portable memory).  Moreover, the human should transport the key
-material directly from the secure enclave where it was created to a
-destination secure enclave where it can be provisioned.
-
-## Transport Security
-
-As stated in Section 8 of {{RFC8392}}, "The security of the CWT relies
-upon on the protections offered by COSE".  Similar considerations
-apply to EAT when sent as a CWT.  However, EAT introduces the concept
-of a nonce to protect against replay.  Since an EAT may be created by
-an entity that may not support the same type of transport security as
-the consumer of the EAT, intermediaries may be required to bridge
-communications between the entity and consumer.  As a result, it is
-RECOMMENDED that both the consumer create a nonce, and the entity
-leverage the nonce along with COSE mechanisms for encryption and/or
-signing to create the EAT.
-
-Similar considerations apply to the use of EAT as a JWT.  Although the
-security of a JWT leverages the JSON Web Encryption (JWE) and JSON Web
-Signature (JWS) specifications, it is still recommended to make use of
-the EAT nonce.
-
-## Multiple EAT Consumers
-
-In many cases, more than one EAT consumer may be required to fully
-verify the entity attestation.  Examples include individual consumers
-for nested EATs, or consumers for individual claims with an EAT.  When
-multiple consumers are required for verification of an EAT, it is
-important to minimize information exposure to each consumer.  In
-addition, the communication between multiple consumers should be
-secure.
-
-For instance, consider the example of an encrypted and signed EAT with
-multiple claims.  A consumer may receive the EAT (denoted as the
-"receiving consumer"), decrypt its payload, verify its signature, but
-then pass specific subsets of claims to other consumers for evaluation
-("downstream consumers").  Since any COSE encryption will be removed
-by the receiving consumer, the communication of claim subsets to any
-downstream consumer should leverage a secure protocol (e.g.one that
-uses transport-layer security, i.e. TLS),
-
-However, assume the EAT of the previous example is hierarchical and
-each claim subset for a downstream consumer is created in the form of
-a nested EAT.  Then transport security between the receiving and
-downstream consumers is not strictly required.  Nevertheless,
-downstream consumers of a nested EAT should provide a nonce unique to
-the EAT they are consuming.
 
 --- back
 
@@ -2936,3 +2963,5 @@ no new claims have been added.
 * Improve CDDL for OID in JSON
 
 * Move Endorsements and Verification Keys to a new Appendix
+
+* Move privacy and security considerations to before IANA section
