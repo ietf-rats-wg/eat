@@ -1628,7 +1628,7 @@ The profile may also go on to say which parts and options of these formats are u
 It is anticipated that there will be many profiles defined for EAT for many different use cases.
 This section standardizes one profile that is good for many constrained device use cases.
 
-The identifier for this profile is "https://tools.ietf.org/RFC-TBD"
+The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 
 
 | Issue | Profile Definition |
