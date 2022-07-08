@@ -1489,12 +1489,28 @@ This is in line with the requirements in section 6 on Key Identification in JSON
 
 # Profiles {#profiles}
 
-This EAT specification does not gaurantee that implementations of it will interoperate.
-The variability in this specification is necessary to accommodate the widely varying use cases.
-An EAT profile narrows the specification for a specific use case.
-An ideal EAT profile will guarantee interoperability.
+EAT makes normative use of CBOR, JSON, COSE, JOSE, CWT and JWT.
+Most of these have implementation options to accommodate a range of use cases.
 
-The profile can be named in the token using the profile claim described in {{profile-claim}}.
+For example, COSE doesn't require a particular set of cryptographic algorithms so as to accommodate different usage scenarios and evolution of algorithms over time.
+Section 10 of {{RFC9052}} describes the profiling considerations for COSE.
+
+The use of encryption is optional for both CWT and JWT.
+Section 8 of {{RFC7519}} describes implementation requirement and recommendations for JWT.
+
+Similarly, CBOR provides indefinite length encoding which is not commonly used, but valuable for very constrained devices.
+For EAT itself, in a particular use case some claims will be used and others will not.
+Section 4 of {{RFC8949}} describes serialization considerations for CBOR.
+
+For example a mobile phone use case may require the device make and model, and prohibit UEID and location for privacy policy.
+The general EAT standard retains all this flexibility because it too is aimed to accommodate a broad range of use cases.
+
+It is necessary to explicitly narrow these implementation options to guarantee interoperability.
+EAT chooses one general and explicit mechanism, the profile, to indicate the choices made for these implementation options for all aspects of the token.
+
+Below is a list of the various issues that should be addressed by a profile.
+
+The profile claim in {{profile-claim}} provides a unique identifier for the profile a particular token uses.
 
 A profile can apply to Evidence or to Attestation Results or both.
 
@@ -1570,10 +1586,12 @@ When both signing and encryption are allowed, a profile should specify which is 
 
 ### COSE/JOSE Algorithms
 
-A profile should specify which algorithms the sender can use.
-A profile should specify that the receiver be able to accept all the algorithms the sender is allowed to send.
+See the section on "Application Profiling Considerations" in {{RFC9052}} for a discussion on selection of cryptgraphic algorithms and related issues.
 
-This specification should be for all uses of algorithms, including those in nested tokens, detached digests and nested signing and encryption and such.
+The profile document should list the COSE algorithms that a Verifier must implement.
+The Attester will select one of them.
+Since there is no negotiation, the Verifier should implement all algorithms listed in the profile.
+If detached submodules are used, the COSE algorithms allowed for their digests should also be in the profile.
 
 
 ### DEB Support
