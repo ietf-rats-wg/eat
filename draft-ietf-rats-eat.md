@@ -2875,3 +2875,60 @@ no new claims have been added.
 * swresults claim is now measurement results claim
 
 * substantial redesign of measurement results claim
+
+
+## From draft-ietf-rats-eat-13
+
+* UEID length and type clarifications
+
+* Address comments on SUEIDs
+
+* "Attestation Evidence" -> “Evidence"
+
+* Wording clarification for “entity"
+
+* Wording clarifications for DLOAs claim
+
+* CDDL type for CoAP Content Format
+
+* Move Claim Characteristics to an Appendix
+
+* Rename odometer to boot-count
+
+* Correct/clarify section on JSON/CBOR labels (Carl’s comment)
+
+* Wording clarifications in Appendix C (Carl’s comment)
+
+* xxx encoded -> xxx-encoded
+
+* Clarifications for cti and jti claims
+
+* The 8th bit in a 7 bit text string doesn't contribute to entro
+
+* Improve SW Name Claim description
+
+* Update commentary on UUID vs UEID
+
+* Remove most of section 8.3 on CBOR Serialization, redundant with profiles
+
+* The 8th bit in a 7 bit text string doesn't contribute to entropy
+
+* Improve SW Name description
+
+* Don’t capitalize composite device
+
+* Reword encoding exception sentence
+
+* Wording improvements in section 1 related to Attestation Results
+
+* Lots of rewording to make profile issues more prescriptive
+
+* Sync terminology definitions with RATS Architecture, include Endorsement definition
+
+* Plug-ins to the EAT format socket must be an IETF standard
+
+* Link to RFC 9052 instead of 8152
+
+* Improve introduction to profiles
+
+* Improve CDDL for OID in JSON
