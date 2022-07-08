@@ -1503,8 +1503,7 @@ A profile can apply to Evidence or to Attestation Results or both.
 
 A profile document doesn't have to be in any particular format. It may be simple text, something more formal or a combination.
 
-In some cases CDDL may be created that replaces CDDL in this or other document to express some profile requirements.
-For example, to require the altitude data item in the location claim, CDDL can be written that replicates the location claim with the altitude no longer optional.
+A profile may define, and possibly register, one or more new claims if needed. A profile may also reuse one or more already defined claims, either as-is or with values constrained to a subset or subrange.
 
 ## List of Profile Issues
 
