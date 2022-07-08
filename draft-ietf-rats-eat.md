@@ -995,8 +995,6 @@ Each manifest in the claim MUST be an array of two.
 The first item in the array of two MUST be an integer CoAP Content-Format identifier.
 The second item is MUST be the actual manifest.
 
-In CBOR-encoded EATs the manifest, whatever format it is, MUST be placed in a byte string.
-
 In JSON-format tokens the manifest, whatever format it is, MUST be placed in a text string.
 When a non-text format manifest like a CBOR-encoded CoSWID is put in a JSON-encoded token, the manifest MUST be base-64 encoded.
 
