@@ -14,8 +14,13 @@ general-oid = JC< json-oid, ~oid >
 
 ; This is a normative definition for the encoding of an OID
 ; as a text string in JSON as used by EAT
-json-oid = tstr .regexp "[0-9\.]+"
+json-oid = tstr .regexp "([0-2])((\.0)|(\.[1-9][0-9]*))*"
 
 
 ; URI for both JSON and CBOR
 general-uri = JC< text, ~uri >
+
+
+; CoAP Content-Format from RFC 7252 section 12.3
+coap-content-format = uint .le 65535
+
