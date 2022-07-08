@@ -5,7 +5,7 @@ $$Claims-Set-Claims //= (
 swevidence-type = [+ swevidence-format]
 
 swevidence-format = [
-    content-type:   uint, ; CoAP Content Format
+    content-type:   coap-content-format,
     content-format: JC< $$swevidence-body-json,
                         $$swevidence-body-cbor > 
 ]
