@@ -1656,6 +1656,33 @@ For example, there are variations in the CoSWID format.
 A profile that require the receiver to accept all variations that are allowed to be sent.
 
 
+## The Constrained Device Standard Profile
+
+It is anticipated that there will be many profiles defined for EAT for many different use cases.
+This section standardizes one profile that is good for many constrained device use cases.
+
+The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
+
+
+| Issue | Profile Definition |
+| CBOR/JSON | CBOR only |
+| CBOR Encoding | Only definite length maps and arrays are allowed |
+| CBOR Encoding | Only definite length strings are allowed |
+| CBOR Serialization | Only preferred serialization is allowed |
+| COSE Protection | Only COSE_Sign1 format is used |
+| Algorithms | Receiver MUST accept ES256, ES384 and ES512; sender MUST send one of these |
+| DEB Usage | DEB may not be sent with this profile |
+| Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
+| Endorsements | This profile contains no endorsement identifier |
+| Nonce | A new single unique nonce must be used for every token request |
+| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply. The nonce MUST be present and the receiver MUST not error out on any claims it doesn't understand. |
+
+Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
+
+A profile that is similar to this can be defined and/or standardized by making normative reference to this and adding other requirements. 
+Such a definition MUST have a different profile identifier.
+
+
 # Encoding and Collected CDDL {#encoding}
 
 An EAT is fundamentally defined using CDDL.
