@@ -747,6 +747,7 @@ This level does not indicate there is no protection at all, just that the entity
 
 2 - Restricted:
 : Entities at this level MUST meet the criteria defined in Section 4 of FIDO Allowed Restricted Operating Environments {{FIDO.AROE}}.
+(Note only Section 4 is referenced. The other sections, in particularly Section 3 do not apply.)
 Examples include TEE's and schemes using virtualization-based security.
 Security at this level is aimed at defending against large-scale network/remote attacks by having a reduced attack surface.
 
