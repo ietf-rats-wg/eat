@@ -3026,3 +3026,5 @@ no new claims have been added.
 
 * Add a standard constrained device profile
 
+* Added DEB security considerations
+
