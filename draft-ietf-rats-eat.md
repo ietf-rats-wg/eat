@@ -3016,3 +3016,13 @@ no new claims have been added.
 
 * Move privacy and security considerations to before IANA section
 
+* Clarify that security-level is only the intended design
+
+* Clarify that security-level only references section four of FIDO AROE
+
+* Remove requirement that manifests be a byte string in CBOR-encoded tokens
+
+* Add manifests for SPDX and CycloneDX
+
+* Add a standard constrained device profile
+
