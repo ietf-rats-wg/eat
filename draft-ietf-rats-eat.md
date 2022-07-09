@@ -2194,6 +2194,16 @@ It is requested that the CoAP Content-Format for SPDX and CycloneDX be been regi
 
 
 
+## DEB Security Considerations
+
+A DEB (detached EAT bundle) is composed of a nested full token appended to
+an unsigned claims set as per {{DEB}} .  The attached claims set is vulnerable to
+modification in transit.  Although the nested token does contain digests corresponding
+to the unsigned claims set (as a submodule), these digests themselves should be protected
+from manipulation during transit so that a verifier can detect tampering of the detached claims
+set.  A suitable singing and/or encryption method should be sufficinet to protect the nested token if transport
+layer cryptographic protection is not feasible.
+
 --- back
 
 # Examples {#examples}
@@ -2943,6 +2953,7 @@ no new claims have been added.
 * swresults claim is now measurement results claim
 
 * substantial redesign of measurement results claim
+
 
 
 ## From draft-ietf-rats-eat-13
