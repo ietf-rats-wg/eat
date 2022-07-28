@@ -231,6 +231,8 @@ CWT and JWT.
 
 # Introduction
 
+Readers unfamiliar with device/entity attestation are referred to {{RATS.Architecture}} for a description of the purpose and end-to-end trust model. Such is not provided in this document.
+
 EAT provides the definition of a base set of claims that can be made about an entity, a device, some software and/or some hardware.
 This claims set is received by a relying party who uses it to decide if and how it will interact with the remote entity.
 It may choose to not trust the entity and not interact with it.
