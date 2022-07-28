@@ -6,37 +6,38 @@ manifests-type = [+ manifest-format]
 
 manifest-format = [
     content-type:   coap-content-format,
-    content-format: JC< $$manifest-body-json, 
-                        $$manifest-body-cbor >
+    content-format: JC< $manifest-body-json,
+                        $manifest-body-cbor >
 ]
 
-; The JSON and CBOR types for CoSWID. CoSWIDs are of course alwas in
+; The JSON and CBOR types for CoSWID. CoSWIDs are of course always in
 ; CBOR format. When a CoSWID occurs in a CBOR token, it is bstr
 ; wrapped.  When a CoSWID occurs in a JSON token it is an
 ; untagged-coswid encoded in CBOR as usual, but then wrapped with B64
-; encoding.
+; encoding. Because manifests are always text or byte strings,
+; the type socket ($) is used rather than the group socket ($$).
 ;
-$$manifest-body-cbor /= bytes .cbor untagged-coswid
-$$manifest-body-json /= base64-url-text
+$manifest-body-cbor /= bytes .cbor untagged-coswid
+$manifest-body-json /= base64-url-text
 
 
 ; A SUIT manifest is always CBOR, so the same is done for it as is
 ; done for a CoSWID.
 ;
-$$manifest-body-cbor /= bytes .cbor SUIT_Envelope
-$$manifest-body-json /= base64-url-text
+$manifest-body-cbor /= bytes .cbor SUIT_Envelope
+$manifest-body-json /= base64-url-text
 
 
 ; SPDX in JSON format
-$$manifest-body-cbor /= spdx-json
-$$manifest-body-json /= spdx-json
+$manifest-body-cbor /= spdx-json
+$manifest-body-json /= spdx-json
 spdx-json = text
 
 ; CycloneDX in XML or JSON format
-$$manifest-body-cbor /= cyclone-dx-json
-$$manifest-body-cbor /= cyclone-dx-xml
-$$manifest-body-json /= cyclone-dx-json
-$$manifest-body-json /= cyclone-dx-xml
+$manifest-body-cbor /= cyclone-dx-json
+$manifest-body-cbor /= cyclone-dx-xml
+$manifest-body-json /= cyclone-dx-json
+$manifest-body-json /= cyclone-dx-xml
 cyclone-dx-json = text
 cyclone-dx-xml  = text
 
