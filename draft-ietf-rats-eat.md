@@ -223,8 +223,7 @@ a device like a phone, IoT device, network equipment or such.  This claims set i
 relying party, server or service to determine how much it wishes to trust the entity.
 
 An EAT is either a CBOR Web Token (CWT) or JSON Web Token (JWT) with attestation-oriented
-claims. To a large degree, all this document does is extend
-CWT and JWT.
+claims.
 
 
 --- middle
@@ -244,7 +243,8 @@ The claims set is secured in transit with the same mechanisms used by CWT and JW
    and Encryption (JOSE) {{RFC7515}} {{RFC7516}}.
 Authenticity and integrity protection must always be provided.
 Privacy (encryption) may additionally be provided.
-The key material used to sign and encrypt is specifically created and provisioned for the purpose of attestation.
+
+The key material used to sign is specifically created and provisioned for the purpose of attestation.
 It is the use of this key material that make the claims set "attested" rather than just some parameters sent to the relying party by the device.
 
 EAT is focused on authenticating, identifying and characterizing implementations where implementations are devices, chips, hardware, software and such.
@@ -2487,7 +2487,7 @@ A particular level of defense against attack that should be achieved to be a Dev
 The intent is that IDevIDs and LDevIDs can be used with any network protocol or message format.
 In these protocols and message formats the DevID secret is used to sign a nonce or similar to prove the association of the DevID certificates with the device.
 
-By contrast, EAT defines a message format for proving trustworthiness to a Relying Party, the very thing that is not defined in {{IEEE.802.1AR}}.
+By contrast, EAT standardizes a message that is sent to a Relying Party, the very thing that is not defined in {{IEEE.802.1AR}}.
 Nor does EAT give details on how keys, data and such are stored protected and accessed.
 EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
 It does not define any particular level of defense against attack, instead providing a set of security considerations.
