@@ -1538,7 +1538,7 @@ See the section on "Application Profiling Considerations" in {{RFC9052}} for a d
 The profile document should list the COSE algorithms that a verifier must implement.
 The attester will select one of them.
 Since there is no negotiation, the verifier should implement all algorithms listed in the profile.
-If detached submodules are used, the COSE algorithms allowed for their digests should also be in the profile.
+If detached submodule digests are used, the COSE algorithms allowed for their digests should also be in the profile.
 
 
 ### DEB Support
@@ -2201,6 +2201,7 @@ It is requested that the CoAP Content-Format for SPDX and CycloneDX be been regi
 * ID: TBD
 * Reference: {{CycloneDX}}
 
+--- back
 
 # Examples {#examples}
 
