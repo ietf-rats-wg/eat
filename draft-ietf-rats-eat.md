@@ -1243,11 +1243,11 @@ It is possible for the hardware to enforce hardware access control (memory prote
 For example, one register may be writable only by the TEE, so the detached claims from the TEE will have TEE-level security.
 
 The data type for this type of submodule MUST be an array
-It contains two data items, an algorithm identifier and a byte string containing the digest.
+It contains two data items, a hash algorithm identifier and a byte string containing the digest.
 
-The algorithm identifier is always from the COSE Algorithm registry, {{IANA.COSE.Algorithms}}.
+The hash algorithm identifier is always from the COSE Algorithm registry, {{IANA.COSE.Algorithms}}.
 Either the integer or string identifier may be used.
-The algorithm identifier is never from the JOSE Algorithm registry.
+The hash algorithm identifier is never from the JOSE Algorithm registry.
 
 When decoding a CBOR format token, the detached digest type is distinguished from the other types by it being an array.
 In CBOR encoded tokens none of other submodule types are arrays.

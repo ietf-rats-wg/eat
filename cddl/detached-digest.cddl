@@ -1,13 +1,13 @@
 ; This is the digest (the hash) of a detached Claims-Set.  A detatched
 ; Claims-Set is one that is conveyed outside and/or separately from
 ; the token.
-;
-; This definition is for both JSON and CBOR. The algorithm
-; is always from the IANA COSE registry, never the JOSE
-; registry. Either the integer or string form may be used.
-; In JSON the digest is base64 encoded.
-;
+
+; This definition is for both JSON and CBOR. The algorithm is always a
+; hash algorithm from the IANA COSE registry, never the JOSE
+; registry. Either the integer or string form may be used.  In JSON
+; the digest is base64 encoded.
+
 Detached-Submodule-Digest = [
-   algorithm : text / int 
-   digest    : binary-data 
+   hash-algorithm : text / int,
+   digest         : binary-data
 ]
