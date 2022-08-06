@@ -85,6 +85,13 @@ normative:
      - org: IANA
      date: false
 
+  IANA.COSE.Algorithms:
+    target: https://www.iana.org/assignments/cose/
+    title: "COSE Algorithms"
+    author:
+    -org: IANA
+    date: false
+
   ThreeGPP.IMEI:
     target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=729
     title: 3rd Generation Partnership Project; Technical Specification Group Core Network and Terminals; Numbering, addressing and identification
@@ -1236,10 +1243,14 @@ It is possible for the hardware to enforce hardware access control (memory prote
 For example, one register may be writable only by the TEE, so the detached claims from the TEE will have TEE-level security.
 
 The data type for this type of submodule MUST be an array
-It contains two data items, an algorithm identifier and a byte string containing the digest.
+It contains two data items, a hash algorithm identifier and a byte string containing the digest.
 
-When decoding a CBOR format token the detached digest type is distringuished from the other types by it being an array.
-In CBOR the none of other submodule types are arrays.
+The hash algorithm identifier is always from the COSE Algorithm registry, {{IANA.COSE.Algorithms}}.
+Either the integer or string identifier may be used.
+The hash algorithm identifier is never from the JOSE Algorithm registry.
+
+When decoding a CBOR format token, the detached digest type is distinguished from the other types by it being an array.
+In CBOR encoded tokens none of other submodule types are arrays.
 
 When decoding a JSON format token, a little more work is required because both the nested token and detached digest types are an array.
 To distinguish the nested token from the detached digest, the first element in the array is examined.
