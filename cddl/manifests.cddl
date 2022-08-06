@@ -18,7 +18,7 @@ manifest-format = [
 ; CBOR format. When a CoSWID occurs in a CBOR token, it is bstr
 ; wrapped.  When a CoSWID occurs in a JSON token it is an
 ; untagged-coswid encoded in CBOR as usual, but then wrapped with B64
-; encoding. 
+; encoding.
 
 $manifest-body-cbor /= bytes .cbor untagged-coswid
 $manifest-body-json /= base64-url-text
