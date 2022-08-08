@@ -17,7 +17,6 @@ COMMON_CDDL_FRAGS += hardware-version.cddl
 COMMON_CDDL_FRAGS += hardware-model.cddl
 COMMON_CDDL_FRAGS += software-name.cddl
 COMMON_CDDL_FRAGS += software-version.cddl
-COMMON_CDDL_FRAGS += security-level.cddl
 COMMON_CDDL_FRAGS += secure-boot.cddl
 COMMON_CDDL_FRAGS += debug-status.cddl
 COMMON_CDDL_FRAGS += location.cddl

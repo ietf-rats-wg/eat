@@ -18,7 +18,6 @@ submods-label          = JC< "submods",    266 >
 ; These are intentionally above 24 so as to not use up
 ; single-byte labels.
 
-security-level-label   = JC< "seclevel",   261 >
 uptime-label           = JC< "uptime",     267 >
 boot-seed-label        = JC< "bootseed",   268 >
 intended-use-label     = JC< "intuse",     269 >
