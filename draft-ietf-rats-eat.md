@@ -460,7 +460,7 @@ While not encouraged, other documents may define EAT encoding in other formats.
 EAT as defined here is always integrity and authenticity protected through use of CWT or JWT.
 Other token formats using other methods of protection may be defined outside this document.
 
-This document also defines the detatched EAT bundle {{DEB}}, a bundle of some detached Claims-Sets and CWTs or JWTs that provide protection for the detached Claims-Set.
+This document also defines the detatched EAT bundle ({{DEB}}), a bundle of some detached Claims-Sets and CWTs or JWTs that provide protection for the detached Claims-Set.
 
 The following CDDL defines the top-levels of an EAT token as a socket indicating future token formats may be defined.
 Any new format that plugs into this socket MUST be defined in a IETF standards track document.
@@ -1554,7 +1554,7 @@ If detached submodule digests are used, the COSE algorithms allowed for their di
 
 ### Detached EAT Bundle Support
 
-A profile should specify whether or not a detached EAT bundle {{DEB}} can be sent.
+A profile should specify whether or not a detached EAT bundle ({{DEB}}) can be sent.
 A profile should specify that a receiver be able to accept a detached EAT bundle if the sender is allowed to send it.
 
 
