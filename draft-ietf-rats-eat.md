@@ -308,7 +308,7 @@ An entity may have strong security like defenses against hardware invasive attac
 It may also have low security, having no special security defenses.
 There is no minimum security requirement to be an entity.
 
-## CWT, JWT and DEB
+## CWT, JWT and Detached EAT Bundle
 
 An EAT is primarily a claims set about an entity based on one of the following:
 
@@ -329,9 +329,9 @@ There is no fixed mechanism across all use cases.
 
 This specification adds one more top-level token type:
 
-* Detached EAT Bundle (DEB), {{DEB}}
+* Detached EAT Bundle, {{DEB}}
 
-A DEB is structure to hold a collection of detached claims sets and the EAT that separately provides integrity and authenticity protection for them.
+A detached EAT bundle is structure to hold a collection of detached claims sets and the EAT that separately provides integrity and authenticity protection for them.
 It can be either CBOR or JSON encoded.
 
 Last, the definition of other token types is allowed.
@@ -460,7 +460,7 @@ While not encouraged, other documents may define EAT encoding in other formats.
 EAT as defined here is always integrity and authenticity protected through use of CWT or JWT.
 Other token formats using other methods of protection may be defined outside this document.
 
-This document also defines the Detatched EAT Bundle {{DEB}}, a bundle of some detached Claims-Sets and CWTs or JWTs that provide protection for the detached Claims-Set.
+This document also defines the detatched EAT bundle {{DEB}}, a bundle of some detached Claims-Sets and CWTs or JWTs that provide protection for the detached Claims-Set.
 
 The following CDDL defines the top-levels of an EAT token as a socket indicating future token formats may be defined.
 Any new format that plugs into this socket MUST be defined in a IETF standards track document.
@@ -1166,7 +1166,7 @@ Thus, a CBOR-encoded token like a CWT can have a JWT as a nested token submodule
 This describes the encoding and decoding of CBOR or JSON-encoded tokens nested inside a CBOR-encoded token.
 
 If the nested token is CBOR-encoded, then it MUST be a CBOR tag and MUST be wrapped in a byte string.
-The tag identifies whether the nested token is a CWT, a CBOR-encoded DEB, or some other CBOR-format token defined in the future.
+The tag identifies whether the nested token is a CWT, a CBOR-encoded detached EAT bundle, or some other CBOR-format token defined in the future.
 A nested CBOR-encoded token that is not a CBOR tag is NOT allowed.
 
 If the nested token is JSON-encoded, then the data item MUST be a text string containing JSON.
@@ -1195,10 +1195,10 @@ The string identifying the JSON-encoded token MUST be one of the following:
 : The second array item MUST be a JWT formatted according to {{RFC7519}}
 
 "CBOR":
-: The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded DEB
+: The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded detached EAT bundle
 
-"DEB":
-: The second array item MUST be a JSON-encoded Detached EAT Bundle as defined in this document.
+"DEAT":
+: The second array item MUST be a JSON-encoded detached EAT bundle (DEAT) as defined in this document.
 
 Additional types may be defined by a standards action.
 
@@ -1254,11 +1254,11 @@ In CBOR encoded tokens none of other submodule types are arrays.
 
 When decoding a JSON format token, a little more work is required because both the nested token and detached digest types are an array.
 To distinguish the nested token from the detached digest, the first element in the array is examined.
-If it is "JWT" or "DEB", then the submodule is a nested token.
+If it is "JWT" or "DEAT", then the submodule is a nested token.
 Otherwise it will contain an algorithm identifier and is a detached digest.
 
-A DEB, described in {{DEB}}, may be used to convey detached claims sets and the token with their detached digests.
-EAT, however, doesn't require use of a DEB.
+A detached EAT bundle, described in {{DEB}}, may be used to convey detached claims sets and the token with their detached digests.
+EAT, however, doesn't require use of a detached EAT bundle.
 Any other protocols may be used to convey detached claims sets and the token with their detached digests.
 Note that since detached Claims-Sets are signed, protocols conveying them must make sure they are not modified in transit.
 
@@ -1415,22 +1415,22 @@ It is a top-level EAT message like a CWT or JWT.
 It can be occur any place that CWT or JWT messages occur.
 It may also be sent as a submodule.
 
-A DEB has two main parts.
+A detached EAT bundle has two main parts.
 
 The first part is a full top-level token.
 This top-level token must have at least one submodule that is a detached digest.
 This top-level token may be either CBOR or JSON-encoded.
-It may be a CWT, or JWT but not a DEB.
+It may be a CWT, or JWT but not a detached EAT bundle.
 It may also be some future-defined token type.
 The same mechanism for distinguishing the type for nested token submodules is used here.
 
 The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the full token.
-When the DEB is CBOR-encoded, each Claims-Set is wrapped in a byte string.
-When the DEB is JSON-encoded, each Claims-Set is base64url encoded.
-All the detached Claims-Sets MUST be encoded in the same format as the DEB.
-No mixing of encoding formats is allowed for the Claims-Sets in a DEB.
+When the detached EAT bundle is CBOR-encoded, each Claims-Set is wrapped in a byte string.
+When the detached EAT bundle is JSON-encoded, each Claims-Set is base64url encoded.
+All the detached Claims-Sets MUST be encoded in the same format as the detached EAT bundle.
+No mixing of encoding formats is allowed for the Claims-Sets in a detached EAT bundle.
 
-For CBOR-encoded DEBs, tag TBD602 can be used to identify it.
+For CBOR-encoded detached EAT bundles, tag TBD602 can be used to identify it.
 The normal rules apply for use or non-use of a tag.
 When it is sent as a submodule, it is always sent as a tag to distinguish it from the other types of nested tokens.
 
@@ -1552,10 +1552,10 @@ Since there is no negotiation, the verifier should implement all algorithms list
 If detached submodule digests are used, the COSE algorithms allowed for their digests should also be in the profile.
 
 
-### DEB Support
+### Detached EAT Bundle Support
 
-A profile should specify whether or not a Detached EAT Bundle {{DEB}} can be sent.
-A profile should specify that a receiver be able to accept a Detached EAT Bundle if the sender is allowed to send it.
+A profile should specify whether or not a detached EAT bundle {{DEB}} can be sent.
+A profile should specify that a receiver be able to accept a detached EAT bundle if the sender is allowed to send it.
 
 
 ### Key Identification
@@ -1629,7 +1629,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | CBOR Serialization | Only preferred serialization is allowed |
 | COSE Protection | Only COSE_Sign1 format is used |
 | Algorithms | Receiver MUST accept ES256, ES384 and ES512; sender MUST send one of these |
-| DEB Usage | DEB may not be sent with this profile |
+| Detached EAT Bundle Usage | Detached EAT bundles may not be sent with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce must be used for every token request |
@@ -1891,9 +1891,9 @@ downstream consumers is not strictly required.  Nevertheless,
 downstream consumers of a nested EAT should provide a nonce unique to
 the EAT they are consuming.
 
-## DEB Security Considerations
+## Detached EAT Bundle Security Considerations
 
-A DEB (detached EAT bundle) is composed of a nested full token appended to
+A detached EAT bundle is composed of a nested full token appended to
 an unsigned claims set as per {{DEB}} .  The attached claims set is vulnerable to
 modification in transit.  Although the nested token does contain digests corresponding
 to the unsigned claims set (as a submodule), these digests themselves should be protected
@@ -2216,7 +2216,7 @@ It is requested that the CoAP Content-Format for SPDX and CycloneDX be been regi
 
 # Examples {#examples}
 
-Most examples are shown as just a Claims-Set that would be a payload for a CWT, JWT, DEB or future token types.
+Most examples are shown as just a Claims-Set that would be a payload for a CWT, JWT, detached EAT bundle or future token types.
 It is shown this way because the payload is all the claims, the most interesting part and showing full tokens makes it harder to show the claims.
 
 Some examples of full tokens are also given.
@@ -2332,14 +2332,14 @@ This is a simple ECDSA signed CWT-format token.
 
 ### Detached EAT Bundle
 
-In this DEB main token is produced by a HW attestation block.
+In this detached EAT bundle, the main token is produced by a HW attestation block.
 The detached Claims-Set is produced by a TEE and is largely identical to the Simple TEE examples above.
 The TEE digests its Claims-Set and feeds that digest to the HW block.
 
 In a better example the attestation produced by the HW block would be a CWT and thus signed and secured by the HW block.
 Since the signature covers the digest from the TEE that Claims-Set is also secured.
 
-The DEB itself can be assembled by untrusted SW.
+The detached EAT bundle itself can be assembled by untrusted SW.
 
 ~~~~
 {::include cddl/Example-Tokens/valid_deb.diag}
