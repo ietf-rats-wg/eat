@@ -27,7 +27,7 @@ Nested-Token = JSON-Nested-Token
 ; JSON does not have.
 ;
 JSON-Nested-Token = [
-   type : "JWT" / "CBOR" / "DEAT",
+   type : "JWT" / "CBOR" / "BUNDLE",
    nested-token : JWT-Message /
                   CBOR-Token-Inside-JSON-Token /
                   Detached-EAT-Bundle 

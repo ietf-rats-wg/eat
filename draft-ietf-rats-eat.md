@@ -1197,8 +1197,8 @@ The string identifying the JSON-encoded token MUST be one of the following:
 "CBOR":
 : The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded detached EAT bundle
 
-"DEAT":
-: The second array item MUST be a JSON-encoded detached EAT bundle (DEAT) as defined in this document.
+"BUNDLE":
+: The second array item MUST be a JSON-encoded detached EAT bundle as defined in this document.
 
 Additional types may be defined by a standards action.
 
@@ -1254,7 +1254,7 @@ In CBOR encoded tokens none of other submodule types are arrays.
 
 When decoding a JSON format token, a little more work is required because both the nested token and detached digest types are an array.
 To distinguish the nested token from the detached digest, the first element in the array is examined.
-If it is "JWT" or "DEAT", then the submodule is a nested token.
+If it is "JWT" or "BUNDLE", then the submodule is a nested token.
 Otherwise it will contain an algorithm identifier and is a detached digest.
 
 A detached EAT bundle, described in {{DEB}}, may be used to convey detached claims sets and the token with their detached digests.
