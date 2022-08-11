@@ -308,7 +308,7 @@ An entity may have strong security like defenses against hardware invasive attac
 It may also have low security, having no special security defenses.
 There is no minimum security requirement to be an entity.
 
-## CWT, JWT and DEB
+## CWT, JWT and Detached EAT Bundle
 
 An EAT is primarily a claims set about an entity based on one of the following:
 
@@ -329,9 +329,9 @@ There is no fixed mechanism across all use cases.
 
 This specification adds one more top-level token type:
 
-* Detached EAT Bundle (DEB), {{DEB}}
+* Detached EAT Bundle, {{DEB}}
 
-A DEB is structure to hold a collection of detached claims sets and the EAT that separately provides integrity and authenticity protection for them.
+A detached EAT bundle is structure to hold a collection of detached claims sets and the EAT that separately provides integrity and authenticity protection for them.
 It can be either CBOR or JSON encoded.
 
 Last, the definition of other token types is allowed.
@@ -460,7 +460,7 @@ While not encouraged, other documents may define EAT encoding in other formats.
 EAT as defined here is always integrity and authenticity protected through use of CWT or JWT.
 Other token formats using other methods of protection may be defined outside this document.
 
-This document also defines the Detatched EAT Bundle {{DEB}}, a bundle of some detached Claims-Sets and CWTs or JWTs that provide protection for the detached Claims-Set.
+This document also defines the detatched EAT bundle ({{DEB}}), a bundle of some detached Claims-Sets and CWTs or JWTs that provide protection for the detached Claims-Set.
 
 The following CDDL defines the top-levels of an EAT token as a socket indicating future token formats may be defined.
 Any new format that plugs into this socket MUST be defined in a IETF standards track document.
@@ -1121,7 +1121,7 @@ Thus, a CBOR-encoded token like a CWT can have a JWT as a nested token submodule
 This describes the encoding and decoding of CBOR or JSON-encoded tokens nested inside a CBOR-encoded token.
 
 If the nested token is CBOR-encoded, then it MUST be a CBOR tag and MUST be wrapped in a byte string.
-The tag identifies whether the nested token is a CWT, a CBOR-encoded DEB, or some other CBOR-format token defined in the future.
+The tag identifies whether the nested token is a CWT, a CBOR-encoded detached EAT bundle, or some other CBOR-format token defined in the future.
 A nested CBOR-encoded token that is not a CBOR tag is NOT allowed.
 
 If the nested token is JSON-encoded, then the data item MUST be a text string containing JSON.
@@ -1150,10 +1150,10 @@ The string identifying the JSON-encoded token MUST be one of the following:
 : The second array item MUST be a JWT formatted according to {{RFC7519}}
 
 "CBOR":
-: The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded DEB
+: The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded detached EAT bundle
 
-"DEB":
-: The second array item MUST be a JSON-encoded Detached EAT Bundle as defined in this document.
+"BUNDLE":
+: The second array item MUST be a JSON-encoded detached EAT bundle as defined in this document.
 
 Additional types may be defined by a standards action.
 
@@ -1209,11 +1209,11 @@ In CBOR encoded tokens none of other submodule types are arrays.
 
 When decoding a JSON format token, a little more work is required because both the nested token and detached digest types are an array.
 To distinguish the nested token from the detached digest, the first element in the array is examined.
-If it is "JWT" or "DEB", then the submodule is a nested token.
+If it is "JWT" or "BUNDLE", then the submodule is a nested token.
 Otherwise it will contain an algorithm identifier and is a detached digest.
 
-A DEB, described in {{DEB}}, may be used to convey detached claims sets and the token with their detached digests.
-EAT, however, doesn't require use of a DEB.
+A detached EAT bundle, described in {{DEB}}, may be used to convey detached claims sets and the token with their detached digests.
+EAT, however, doesn't require use of a detached EAT bundle.
 Any other protocols may be used to convey detached claims sets and the token with their detached digests.
 Note that since detached Claims-Sets are signed, protocols conveying them must make sure they are not modified in transit.
 
@@ -1370,22 +1370,22 @@ It is a top-level EAT message like a CWT or JWT.
 It can be occur any place that CWT or JWT messages occur.
 It may also be sent as a submodule.
 
-A DEB has two main parts.
+A detached EAT bundle has two main parts.
 
 The first part is a full top-level token.
 This top-level token must have at least one submodule that is a detached digest.
 This top-level token may be either CBOR or JSON-encoded.
-It may be a CWT, or JWT but not a DEB.
+It may be a CWT, or JWT but not a detached EAT bundle.
 It may also be some future-defined token type.
 The same mechanism for distinguishing the type for nested token submodules is used here.
 
 The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the full token.
-When the DEB is CBOR-encoded, each Claims-Set is wrapped in a byte string.
-When the DEB is JSON-encoded, each Claims-Set is base64url encoded.
-All the detached Claims-Sets MUST be encoded in the same format as the DEB.
-No mixing of encoding formats is allowed for the Claims-Sets in a DEB.
+When the detached EAT bundle is CBOR-encoded, each Claims-Set is wrapped in a byte string.
+When the detached EAT bundle is JSON-encoded, each Claims-Set is base64url encoded.
+All the detached Claims-Sets MUST be encoded in the same format as the detached EAT bundle.
+No mixing of encoding formats is allowed for the Claims-Sets in a detached EAT bundle.
 
-For CBOR-encoded DEBs, tag TBD602 can be used to identify it.
+For CBOR-encoded detached EAT bundles, tag TBD602 can be used to identify it.
 The normal rules apply for use or non-use of a tag.
 When it is sent as a submodule, it is always sent as a tag to distinguish it from the other types of nested tokens.
 
@@ -1507,10 +1507,10 @@ Since there is no negotiation, the verifier should implement all algorithms list
 If detached submodule digests are used, the COSE algorithms allowed for their digests should also be in the profile.
 
 
-### DEB Support
+### Detached EAT Bundle Support
 
-A profile should specify whether or not a Detached EAT Bundle {{DEB}} can be sent.
-A profile should specify that a receiver be able to accept a Detached EAT Bundle if the sender is allowed to send it.
+A profile should specify whether or not a detached EAT bundle ({{DEB}}) can be sent.
+A profile should specify that a receiver be able to accept a detached EAT bundle if the sender is allowed to send it.
 
 
 ### Key Identification
@@ -1584,7 +1584,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | CBOR Serialization | Only preferred serialization is allowed |
 | COSE Protection | Only COSE_Sign1 format is used |
 | Algorithms | Receiver MUST accept ES256, ES384 and ES512; sender MUST send one of these |
-| DEB Usage | DEB may not be sent with this profile |
+| Detached EAT Bundle Usage | Detached EAT bundles may not be sent with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce must be used for every token request |
@@ -1846,9 +1846,9 @@ downstream consumers is not strictly required.  Nevertheless,
 downstream consumers of a nested EAT should provide a nonce unique to
 the EAT they are consuming.
 
-## DEB Security Considerations
+## Detached EAT Bundle Security Considerations
 
-A DEB (detached EAT bundle) is composed of a nested full token appended to
+A detached EAT bundle is composed of a nested full token appended to
 an unsigned claims set as per {{DEB}} .  The attached claims set is vulnerable to
 modification in transit.  Although the nested token does contain digests corresponding
 to the unsigned claims set (as a submodule), these digests themselves should be protected
@@ -2171,7 +2171,7 @@ It is requested that the CoAP Content-Format for SPDX and CycloneDX be been regi
 
 # Examples {#examples}
 
-Most examples are shown as just a Claims-Set that would be a payload for a CWT, JWT, DEB or future token types.
+Most examples are shown as just a Claims-Set that would be a payload for a CWT, JWT, detached EAT bundle or future token types.
 It is shown this way because the payload is all the claims, the most interesting part and showing full tokens makes it harder to show the claims.
 
 Some examples of full tokens are also given.
@@ -2287,14 +2287,14 @@ This is a simple ECDSA signed CWT-format token.
 
 ### Detached EAT Bundle
 
-In this DEB main token is produced by a HW attestation block.
+In this detached EAT bundle, the main token is produced by a HW attestation block.
 The detached Claims-Set is produced by a TEE and is largely identical to the Simple TEE examples above.
 The TEE digests its Claims-Set and feeds that digest to the HW block.
 
 In a better example the attestation produced by the HW block would be a CWT and thus signed and secured by the HW block.
 Since the signature covers the digest from the TEE that Claims-Set is also secured.
 
-The DEB itself can be assembled by untrusted SW.
+The detached EAT bundle itself can be assembled by untrusted SW.
 
 ~~~~
 {::include cddl/Example-Tokens/valid_deb.diag}
@@ -2682,316 +2682,14 @@ This is in line with the requirements in section 6 on Key Identification in JSON
 
 # Changes from Previous Drafts
 
-The following is a list of known changes from the previous drafts.  This list is
+The following is a list of known changes since the immediately previous drafts.  This list is
 non-authoritative.  It is meant to help reviewers see the significant
-differences.
-
-## From draft-rats-eat-01
-
-* Added UEID design rationale appendix
-
-## From draft-mandyam-rats-eat-00
-
-This is a fairly large change in the orientation of the document, but
-no new claims have been added.
-
-* Separate information and data model using CDDL.
-* Say an EAT is a CWT or JWT
-* Use a map to structure the boot_state and location claims
-
-## From draft-ietf-rats-eat-01
-
-* Clarifications and corrections for OEMID claim
-* Minor spelling and other fixes
-* Add the nonce claim, clarify jti claim
-
-## From draft-ietf-rats-eat-02
-
-* Roll all EUIs back into one UEID type
-
-* UEIDs can be one of three lengths, 128, 192 and 256.
-
-* Added appendix justifying UEID design and size.
-
-* Submods part now includes nested eat tokens so they can be named and
-  there can be more tha one of them
-
-* Lots of fixes to the CDDL
-
-* Added security considerations
-
-
-## From draft-ietf-rats-eat-03
-
-* Split boot_state into secure-boot and debug-disable claims
-
-* Debug disable is an enumerated type rather than Booleans
-
-
-## From draft-ietf-rats-eat-04
-
-* Change IMEI-based UEIDs to be encoded as a 14-byte string
-
-* CDDL cleaned up some more
-
-* CDDL allows for JWTs and UCCSs
-
-* CWT format submodules are byte string wrapped
-
-* Allows for JWT nested in CWT and vice versa
-
-* Allows UCCS (unsigned CWTs) and JWT unsecured tokens
-
-* Clarify tag usage when nesting tokens
-
-* Add section on key inclusion
-
-* Add hardware version claims
-
-* Collected CDDL is now filled in. Other CDDL corrections.
-
-* Rename debug-disable to debug-status; clarify that it is not extensible
-
-* Security level claim is not extensible
-
-* Improve specification of location claim and added a location privacy section
-
-* Add intended use claim
-
-
-## From draft-ietf-rats-eat-05
-
-* CDDL format issues resolved
-
-* Corrected reference to Location Privacy section
-
-
-## From draft-ietf-rats-eat-06
-
-* Added boot-seed claim
-
-* Rework CBOR interoperability section
-
-* Added profiles claim and section
-
-## From draft-ietf-rats-eat-07
-
-* Filled in IANA and other sections for possible preassignment of Claim Keys for well understood claims
-
-
-## From draft-ietf-rats-eat-08
-
-* Change profile claim to be either a URL or an OID rather than a test string
-
-
-## From draft-ietf-rats-eat-09
-
-* Add SUEIDs
-
-* Add appendix comparing IDevID to EAT
-
-* Added section on use for Evidence and Attestation Results
-
-* Fill in the key ID and endorsements identificaiton section
-
-* Remove origination claim as it is replaced by key IDs and endorsements
-
-* Added manifests and software evidence claims
-
-* Add string labels non-claim labels for use with JSON (e.g. labels for members of location claim)
-
-* EAN-13 HW versions are no longer a separate claim. Now they are folded in as a CoSWID version scheme.
-
-
-## From draft-ietf-rats-eat-10
-
-* Hardware version is made into an array of two rather than two claims
-
-* Corrections and wording improvements for security levels claim
-
-* Add swresults claim
-
-* Add dloas claim -- Digitial Letter of Approvals, a list of certifications
-
-* CDDL for each claim no longer in a separate sub section
-
-* Consistent use of terminology from RATS architecture document
-
-* Consistent use of terminology from CWT and JWT documents
-
-* Remove operating model and procedures; refer to CWT, JWT and RATS architecture instead
-
-* Some reorganization of Section 1
-
-* Moved a few references, including RATS Architecture, to informative.
-
-* Add detached submodule digests and detached eat bundles (DEBs)
-
-* New simpler and more universal scheme for identifying the encoding of a nested token
-
-* Made clear that CBOR and JSON are only mixed when nesting a token in another token
-
-* Clearly separate CDDL for JSON and CBOR-specific data items
-
-* Define UJCS (unsigned JWTs)
-
-* Add CDDL for a general Claims-Set used by UCCS, UJCS, CWT, JWT and EAT
-
-* Top level CDDL for CWT correctly refers to COSE
-
-* OEM ID is specifically for HW, not for SW
-
-* HW OEM ID can now be a PEN
-
-* HW OEM ID can now be a 128-bit random number
-
-* Expand the examples section
-
-* Add software and version claims as easy / JSON alternative to CoSWID
-
-
-## From draft-ietf-rats-eat-11
-
-* Add HW model claim
-
-* Change reference for CBOR OID draft to RFC 9090
-
-* Correct the iat claim in some examples
-
-* Make HW Version just one claim rather than 3 (device, board and chip)
-
-* Remove CDDL comments from CDDL blocks
-
-* More clearly define "entity" and use it more broadly, particularly instead of "device"
-
-* Re do early allocation of CBOR labels since last one didn't complete correctly
-
-* Lots of rewording and tightening up of section 1
-
-* Lots of wording improvements in section 3, particularly better use of normative language
-
-* Improve wording in submodules section, particularly how to distinguish types when decoding
-
-* Remove security-level from early allocation
-
-* Add boot odometer claim
-
-* Add privacy considerations for replay protection
-
-
-## From draft-ietf-rats-eat-12
-
-* Make use of the JC<> generic to express CDDL for both JSON and CBOR
-
-* Reorganize claims into 4 sections, particularly claims about the entity and about the token
-
-* Nonce wording -- say nonce is required and other improvements
-
-* Clarify relationship of claims in evidence to results when forwarding
-
-* Clarify manufacturer switching UEID types
-
-* Add new section on the top-level token type that has CBOR-specific and JSON-specific CDDL since the top-level can't be handled with JC<>
-
-* Remove definition of UCCS and UJCS, replacing it with a CDDL socket and mention of future token types
-
-* Split the examples into payload and top level tokens since UCCS can't be used for examples any more (It was nice because you could see the payload claims in it easily, where you can't with CWT)
-
-* DEB tag number is TBD rather than hard coded
-
-* Add appendix with non-normative CDDL for a Claims-Set, CWT and JWT
-
-* (Large reorganization of the document build and example verification makefile)
-
-* Use CoAP content format ID to distinguish manifest and evidence formats instead of CBOR tag
-
-* Added more examples, both CBOR and JSON
-
-* All CDDL is validating against all examples
-
-* Unassigned IANA requests are clearly TBD in the document (and have real values as is necessary in the example validation process)
-
-* Improve security-level claim
-
-* swresults claim is now measurement results claim
-
-* substantial redesign of measurement results claim
-
-
-
-## From draft-ietf-rats-eat-13
-
-* UEID length and type clarifications
-
-* Address comments on SUEIDs
-
-* "Attestation Evidence" -> “Evidence"
-
-* Wording clarification for “entity"
-
-* Wording clarifications for DLOAs claim
-
-* CDDL type for CoAP Content Format
-
-* Move Claim Characteristics to an Appendix
-
-* Rename odometer to boot-count
-
-* Correct/clarify section on JSON/CBOR labels (Carl’s comment)
-
-* Wording clarifications in Appendix C (Carl’s comment)
-
-* xxx encoded -> xxx-encoded
-
-* Clarifications for cti and jti claims
-
-* The 8th bit in a 7 bit text string doesn't contribute to entro
-
-* Improve SW Name Claim description
-
-* Update commentary on UUID vs UEID
-
-* Remove most of section 8.3 on CBOR Serialization, redundant with profiles
-
-* The 8th bit in a 7 bit text string doesn't contribute to entropy
-
-* Improve SW Name description
-
-* Don’t capitalize composite device
-
-* Reword encoding exception sentence
-
-* Wording improvements in section 1 related to Attestation Results
-
-* Lots of rewording to make profile issues more prescriptive
-
-* Sync terminology definitions with RATS Architecture, include Endorsement definition
-
-* Plug-ins to the EAT format socket must be an IETF standard
-
-* Link to RFC 9052 instead of 8152
-
-* Improve introduction to profiles
-
-* Improve CDDL for OID in JSON
-
-* Move Endorsements and Verification Keys to a new Appendix
-
-* Move privacy and security considerations to before IANA section
-
-* Clarify that security-level is only the intended design
-
-* Clarify that security-level only references section four of FIDO AROE
-
-* Remove requirement that manifests be a byte string in CBOR-encoded tokens
-
-* Add manifests for SPDX and CycloneDX
-
-* Add a standard constrained device profile
-
-* Added DEB security considerations
+differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
 
 ## From draft-ietf-rats-eat-14
 
-* Remove security-level claim
+- Removed security level claim
+- Changed capitalization throughout the document for various terms
+- Eliminated use of DEB acronym for detached EAT bundles
+

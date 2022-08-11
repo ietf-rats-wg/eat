@@ -1,12 +1,12 @@
-; Top-level definition of a DEB for CBOR and JSON
+; Top-level definition of a detached EAT bundle for CBOR and JSON
 
-DEB-Messages = DEB-Tagged-Message / DEB-Untagged-Message
+BUNDLE-Messages = BUNDLE-Tagged-Message / BUNDLE-Untagged-Message
 
 ; Note that tag number 602 is not yet assigned by IANA
 ; Also, 602 is replaced with "<TBD>" for the document by a
 ; sed substituion performed in the document Makefile
-DEB-Tagged-Message   = #6.602(DEB-Untagged-Message)
-DEB-Untagged-Message = Detached-EAT-Bundle
+BUNDLE-Tagged-Message   = #6.602(BUNDLE-Untagged-Message)
+BUNDLE-Untagged-Message = Detached-EAT-Bundle
 
 Detached-EAT-Bundle = [
     main-token : Nested-Token,
