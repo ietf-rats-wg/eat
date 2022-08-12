@@ -482,33 +482,31 @@ When new token formats are defined, the means for identification in a nested tok
 
 # The Claims
 
-This section describes new claims defined for attestation that are to be added to the CWT {{IANA.CWT.Claims}} and JWT {{IANA.JWT.Claims}} IANA registries.
+This section describes new claims defined for attestation that are to be added to the CWT {{IANA.CWT.Claims}} and JWT {{IANA.JWT.Claims}} IANA registries. 
+Additionally, it describes how several extant CWT and JWT claims apply to the EAT format.
 
-This section also describes how several extant CWT and JWT claims apply in EAT.
+Each claim is defined as a CDDL group and features prose that describes the claim.
+As shown in {{encoding}}, the CDDL groups are encoded as map entries in CBOR and name/value pairs in JSON.
 
-CDDL, along with a text description, is used to define each claim
-independent of encoding.  Each claim is defined as a CDDL group.
-In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
-
-Each claim described has a unique text string and integer that identifies it.
+Each claim has a unique text string and integer that identifies it.
 CBOR-encoded tokens MUST use only the integer for Claim Keys.
 JSON-encoded tokens MUST use only the text string for Claim Names.
 
-
+Each claim is appended to the \$\$Claims-Set-Claims socket. Specifications that define additional claims SHOULD also supply additions to the \$\$Claims-Set-Claims socket.
 
 ## Nonce Claim (nonce) {#nonce}
 
-All EATs MUST have a nonce to prevent replay attacks.
+All EATs MUST provide for freshness, i.e., replay protection. A nonce claim SHOULD be used for this purpose.
 
-This claim is either a single byte or text string or an array of byte or text strings.
-The array is to accommodate multistage EAT verification and consumption.
+A nonce is either a byte or text string or an array of byte or text strings.
+The array option supports multistage EAT verification and consumption.
 See the extensive discussion on attestation freshness in Appendix A of RATS Architecture {{RATS.Architecture}}.
 
-A claim named "nonce" is previously defined and registered with IANA for JWT, but MUST not be used in an EAT.
-It does not support multiple nonces.
-No previous nonce claim was defined for CWT.
+A claim named "nonce" was defined and registered with IANA for JWT, but MUST NOT be used in an EAT because
+it does not support multiple nonces.
+No previous nonce claim was defined for CWT. To distinguish from the previously defined nonce claim, the nonce claim for JSON-formatted EATs is named eat_nonce.
 
-The nonce MUST have 64 bits of entropy as fewer bits are unlikely to be secure.
+The nonce MUST have 64 bits of entropy.
 A maximum nonce size is set to limit the memory required for an implementation.
 All receivers MUST be able to accommodate the maximum size.
 
@@ -517,9 +515,8 @@ The minimum size is 8 bytes.
 The maximum size is 64 bytes.
 
 In JSON the nonce is a text string.
-It is assumed that the only characters represented by the lower 7 bits will be used so the text string must be one-seventh longer because the 8th bit doesn't contribute to entropy.
-The minimum size is 10 bytes.
-The maximum size is 74 bytes.
+It is assumed that only characters represented by the lower 7 bits of each byte will be used, so the text string must be one-seventh longer because the 8th bit doesn't contribute to entropy.
+The minimum size for JSON encoded EATs is 10 bytes and the maximum size is 74 bytes.
 
 ~~~~CDDL
 {::include nc-cddl/nonce.cddl}
@@ -527,8 +524,7 @@ The maximum size is 74 bytes.
 
 ## Claims Describing the Entity
 
-The claims in this section describe the entity itself.
-They describe the entity whether they occur in evidence or occur in attestation results.
+The claims in this section describe the entity itself, whether they occur in evidence or in attestation results.
 See {{relationship}} for discussion on how attestation results relate to evidence.
 
 
@@ -539,21 +535,19 @@ mobile phone, a water meter, a Bluetooth speaker or a networked
 security camera. It may identify the entire entity or a submodule.
 It does not identify types, models or classes of
 entities. It is akin to a serial number, though it does not have to be
-sequential.
+sequential. UEIDs are permanent and MUST never change for a given entity.
 
-UEIDs MUST be universally and globally unique across manufacturers
+UEIDs MUST be universally unique across manufacturers
 and countries. UEIDs MUST also be unique across protocols and systems,
 as tokens are intended to be embedded in many different protocols and
 systems. No two products anywhere, even in completely different
 industries made by two different manufacturers in two different
-countries should have the same UEID (if they are not global and
-universal in this way, then Relying Parties receiving them will have
+countries should have the same UEID (if they are not 
+universal in this way, then relying parties receiving them will have
 to track other characteristics of the entity to keep entities distinct
 between manufacturers).
 
 There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
-
-The UEID is permanent. It MUST never change for a given entity.
 
 A UEID is constructed of a single type byte followed by the bytes that are the identifier.
 Several types are allowed to accommodate different industries, different manufacturing processes
@@ -567,14 +561,10 @@ All implementations MUST be able to receive UEIDs up to 33 bytes long.
 33 bytes is the longest defined in this document and gives necessary entropy for probabilistic uniqueness.
 See {{UEID-Design}}.
 
-UEIDs SHOULD NOT be longer than 33 bytes.
-If they are longer, there is no guarantee that a receiver will be able to accept them.
-
-
 | Type Byte | Type Name | Specification |
-| 0x01 | RAND | This is a 128, 192 or 256-bit random number generated once and stored in the entity. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the entity and stored. It MUST NOT be smaller than 128 bits. See the length analysis in {{UEID-Design}}. |
-| 0x02 | IEEE EUI | This uses the IEEE company identification registry. An EUI is either an EUI-48, EUI-60 or EUI-64 and made up of an OUI, OUI-36 or a CID, different registered company identifiers, and some unique per-entity identifier. EUIs are often the same as or similar to MAC addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while entities with multiple network interfaces may have multiple MAC addresses, there is only one UEID for an entity) {{IEEE.802-2001}}, {{OUI.Guide}}. |
-| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. See {{ThreeGPP.IMEI}}. |
+| 0x01 | RAND | This is a 128, 192 or 256-bit random number generated once and stored in an entity. It may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function or may be a cryptographic quality random number generated once at the beginning of the life of the entity and stored. It MUST NOT be smaller than 128 bits. See the length analysis in {{UEID-Design}}. |
+| 0x02 | IEEE EUI | This uses the IEEE company identification registry. An Extended Unique Identifier (EUI) is either an EUI-48, EUI-60 or EUI-64 and made up of an Organizationally Unique Identifier (OUI), OUI-36 or a Company ID (CID), different registered company identifiers, and some unique per-entity identifier. EUIs are often the same as or similar to Media Access Control (MAC) addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while entities with multiple network interfaces may have multiple MAC addresses, there is only one UEID for an entity) {{IEEE.802-2001}}, {{OUI.Guide}}. |
+| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The International Mobile Equipment Identity (IMEI) value encoded SHALL NOT include Luhn checksum or Software Version Number (SVN) information. See {{ThreeGPP.IMEI}}. |
 {: #ueid-types-table title="UEID Composition Types"}
 
 UEIDs are not designed for direct use by humans (e.g., printing on
@@ -587,18 +577,18 @@ structure. For example, they should not use the OUI part of a type
 should use the OEMID claim. See {{oemid}}. The reasons for
 this are:
 
-* UEIDs types may vary freely from one manufacturer to the next.
+- UEIDs types may vary freely from one manufacturer to the next.
 
-* New types of UEIDs may be created. For example, a type 0x07 UEID may
-  be created based on some other manufacturer registration scheme.
+- New types of UEIDs may be created. For example, a type 0x07 UEID may
+  be created based on some manufacturer registration scheme.
 
-* The manufacturing process for an entity is allowed to change from
+- The manufacturing process for an entity is allowed to change from
   using one type of UEID to another.  For example, a manufacturer
   may find they can optimize their process by switching from type 0x01
   to type 0x02 or vice versa.
 
-The type byte is needed to distinguish UEIDs of different types that by chance have the same identifier value, but do not identify the same entity.
-The type byte MUST be treated as part of the opaque UEID and MUST not be used to make use of the internal structure of the UEID.
+The type byte is needed to distinguish UEIDs of different types that have the same identifier value, but do not identify the same entity.
+The type byte MUST be treated as part of the opaque UEID and MUST NOT be used to make use of the internal structure of the UEID.
 
 A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 
@@ -606,24 +596,21 @@ A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 {::include nc-cddl/ueid.cddl}
 ~~~~
 
-
 ### Semi-permanent UEIDs (SUEIDs)
 
-An SUEID has the same format, characteristics and requirements as a UEID, but MAY change to a different value on entity life-cycle events.
-An entity MAY have both a UEID and SUEIDs, neither, one or the other.
+An SUEID has the same format, characteristics and requirements as a UEID, but MAY change on entity life-cycle events.
+An entity MAY have both a UEID and SUEID(s), neither, one or the other.
 
-Examples of life-cycle events are change of ownership, factory reset and on-boarding into an IoT device management system.
-It is beyond the scope of this document to specify particular types of SUEIDs and the life-cycle events that trigger their change.
-An EAT profile MAY provide this specification.
+Examples of life-cycle events include change of ownership, factory reset and on-boarding into an IoT device management system.
+It is beyond the scope of this document to specify particular types of SUEIDs and the life-cycle events that trigger change, 
+but an EAT profile MAY provide this specification.
 
 There MAY be multiple SUEIDs.
-Each has a text string label the purpose of which is to distinguish it from others.
+Each has a text string label to distinguish it from others.
 The label MAY name the purpose, application or type of the SUEID.
 For example, the label for the SUEID used by FIDO Onboarding Protocol could be "FDO".
 It is beyond the scope of this document to specify any SUEID labeling schemes.
 They are use-case specific and MAY be specified in an EAT profile.
-
-If there is only one SUEID, the claim remains a map and there still MUST be a label.
 
 An SUEID provides functionality similar to an IEEE LDevID {{IEEE.802.1AR}}.
 
@@ -635,31 +622,29 @@ A Device Indentifier URN is registered for SUEIDs. See {{registerueidurn}}.
 {::include nc-cddl/sueids.cddl}
 ~~~~
 
-
 ### Hardware OEM Identification (oemid) {#oemid}
 
-This claim identifies the Original Equipment Manufacturer (OEM) of the hardware.
-Any of the three forms described below MAY be used at the convenience of the claim sender.
-The receiver of this claim MUST be able to handle all three forms.
+The hardware original equipment manufacturer (OEM) identification claim defines three methods for identitying the OEM of the hardware, as described in the subsections below.
+Receivers of this claim MUST be able to handle all three forms.
+
+~~~~CDDL
+{::include nc-cddl/oemid.cddl}
+~~~~
 
 #### Random Number Based OEMID
 
-The random number based OEMID MUST always 16 bytes (128 bits).
-
 The OEM MAY create their own ID by using a cryptographic-quality random number generator.
-They would perform this only once in the life of the company to generate the single ID for said company.
-They would use that same ID in every entity they make.
+The ID would be created once in the life of the company with the same value asserted in every entity they generate.
+The random number based OEMID MUST be 16 bytes (128 bits).
 This uniquely identifies the OEM on a statistical basis and is large enough should there be ten billion companies.
 
 The OEM MAY also use a hash function like SHA-256 and truncate the output to 128 bits.
-The input to the hash should be somethings that have at least 96 bits of entropy, but preferably 128 bits of entropy.
+The input to the hash SHOULD have at least 96 bits of entropy, but preferably 128 bits of entropy.
 The input to the hash MAY be something whose uniqueness is managed by a central registry like a domain name.
-
-In JSON format tokens this MUST be base64url encoded.
 
 #### IEEE Based OEMID
 
-The IEEE operates a global registry for MAC addresses and company IDs.
+The Institute of Electrical and Electronics Engineers (IEEE) operates a global registry for MAC addresses and company IDs.
 This claim uses that database to identify OEMs. The contents of the
 claim may be either an IEEE MA-L, MA-M, MA-S or an IEEE CID
 {{IEEE.RA}}.  An MA-L, formerly known as an OUI, is a 24-bit value
@@ -686,40 +671,33 @@ In JSON format tokens, this MUST be base64url encoded and always 4 bytes.
 
 #### IANA Private Enterprise Number Based OEMID
 
-IANA maintains a integer-based company registry called the Private Enterprise Number (PEN) {{PEN}}.
+IANA maintains a registry for Private Enterprise Numbers (PEN) {{PEN}}. A PEN is an integer that identifies an enterprise and may be
+used to construct an object identifier (OID) relative to the following OID arc that is managed by IANA:  iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1).
 
-PENs are often used to create an OID.
-That is not the case here.
-They are used only as an integer.
+For EAT purposes, only the integer value assigned by IANA as the PEN is relevant, not the full OID value.
 
 In CBOR this value MUST be encoded as a major type 0 integer and is typically 3 bytes.
 In JSON, this value MUST be encoded as a number.
 
-~~~~CDDL
-{::include nc-cddl/oemid.cddl}
-~~~~
-
-
 ### Hardware Model Claim (hardware-model)
 
-This claim differentiates hardware models, products and variants manufactured by a particular OEM, the one identified by OEM ID in {{oemid}}.
+The hardware module claim differentiates hardware models, products and variants manufactured by a particular OEM, where the OEM is identified by OEM ID as described in {{oemid}}.
 
-This claim must be unique so as to differentiate the models and products for the OEM ID.
-This claim does not have to be globally unique, but it can be.
-A receiver of this claim MUST not assume it is globally unique.
+This claim MUST be unique across the set the models, products and etc. associated with a given OEM ID.
+This claim MAY be globally unique, but this is not required.
+A receiver of this claim MUST NOT assume it is globally unique.
 To globally identify a particular product, the receiver should concatenate the OEM ID and this claim.
 
 The granularity of the model identification is for each OEM to decide.
-It may be very granular, perhaps including some version information.
-It may be very general, perhaps only indicating top-level products.
+It may be very granular, perhaps including version information, or very general, only indicating top-level products.
 
 The purpose of this claim is to identify models within protocols, not for human-readable descriptions.
 The format and encoding of this claim should not be human-readable to discourage use other than in protocols.
 If this claim is to be derived from an already-in-use human-readable identifier, it can be run through a hash function.
 
-There is no minimum length so that an OEM with a very small number of models can use a one-byte encoding.
+There is no minimum length, so an OEM with a very small number of models can use a one-byte encoding.
 The maximum length is 32 bytes.
-All receivers of this claim MUST be able to receive this maximum size.
+All receivers of this claim MUST be able to receive the maximum size.
 
 The receiver of this claim MUST treat it as a completely opaque string of bytes, even if there is some apparent naming or structure.
 The OEM is free to alter the internal structure of these bytes as long as the claim continues to uniquely identify its models.
@@ -728,10 +706,9 @@ The OEM is free to alter the internal structure of these bytes as long as the cl
 {::include cddl/hardware-model.cddl}
 ~~~~
 
-
 ### Hardware Version Claims (hardware-version-claims)
 
-The hardware version is a text string the format of which is set by each manufacturer.
+The hardware version claim is a text string the format of which is set by each manufacturer.
 The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
 It is useful to know how to sort versions so the newer can be distinguished from the older.
 
@@ -739,15 +716,13 @@ The hardware version can also be given by a 13-digit {{EAN-13}}.
 A new CoSWID version scheme is registered with IANA by this document in {{registerversionscheme}}.
 An EAN-13 is also known as an International Article Number or most commonly as a bar code.
 
-
 ~~~~CDDL
 {::include nc-cddl/hardware-version.cddl}
 ~~~~
 
-
 ### Software Name Claim
 
-This is a very simple free-form text claim for naming the software used by the entity.
+The software name claim is a very simple free-form text claim for naming the software used by the entity.
 Intentionally, no general rules or structure are set.
 This will make it unsuitable for use cases that wish precise naming.
 
@@ -757,16 +732,14 @@ If precise and rigourous naming of the SW for the entity is needed, the manifest
 {::include nc-cddl/software-name.cddl}
 ~~~~
 
-
 ### Software Version Claim
 
-This makes use of the CoSWID version scheme data type to give a simple version for the software.
-A full CoSWID manifest or other type of manifest can be instead if this is too simple.
+The software version claim uses the CoSWID version-scheme type as a simple software version indicator.
+A full CoSWID manifest or other software manifest can be used where additional details are required.
 
 ~~~~CDDL
 {::include nc-cddl/software-version.cddl}
 ~~~~
-
 
 ### The Security Level Claim (security-level)
 
@@ -815,11 +788,11 @@ See also the DLOAs claim in {{dloas}}, a claim that specifically provides inform
 
 ### Secure Boot Claim (secure-boot)
 
-The value of true indicates secure boot is enabled. Secure boot is
+The secure boot claim is used to indicate whether a device boots using only software that is trusted by the OEM. The value of true indicates secure boot is enabled. Secure boot is
 considered enabled when the firmware and operating
-system, are under control of the manufacturer of the entity identified in the
+system are under control of the manufacturer identified in the
 OEMID claim described in {{oemid}}.
-Control by the manufacturer of the firmware and the operating system may be by it being in ROM, being cryptographically authenticated, a combination of the two or similar.
+The manufacturer may achieve controll of the firmware and the operating system via use of read-only memory (ROM), cryptographic authentication, a combination of the two or similar.
 
 ~~~~CDDL
 {::include nc-cddl/secure-boot.cddl}
@@ -827,11 +800,11 @@ Control by the manufacturer of the firmware and the operating system may be by i
 
 ### Debug Status Claim (debug-status)
 
-This applies to entity-wide or submodule-wide debug facilities of the
-entity like JTAG and diagnostic hardware built into
+The debug status claim applies to entity-wide or submodule-wide debug facilities of the
+entity, like JTAG and diagnostic hardware built into
 chips. It applies to any software debug facilities related to root,
 operating system or privileged software that allow system-wide memory
-inspection, tracing or modification of non-system software like user
+inspection, tracing or modification of non-system software, including user
 mode applications.
 
 This characterization assumes that debug facilities can be enabled and
@@ -843,29 +816,28 @@ type of the mechanism is not taken into account. For example, it does
 not matter if authentication is by a global password or by per-entity
 public keys.
 
-As with all claims, the absence of the debug level claim means it is not reported.
-A conservative interpretation might assume the enabled state.
+The absence of the debug-status claim means it has not been reported.
+A conservative interpretation might use enabled as a default.
 
 This claim is not extensible so as to provide a common interoperable description of debug status.
 If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
 It may consider including both this claim as a coarse indication of debug status and its own proprietary claim as a refined indication.
 
-The higher levels of debug disabling requires that all debug disabling
+The higher levels of debug disabling require that all debug disabling
 of the levels below it be in effect. Since the lowest level requires
 that all of the target's debug be currently disabled, all other levels
 require that too.
 
-There is no inheritance of claims from a submodule to a superior
+Within an EAT, there is no inheritance of claims from a submodule to a superior
 module or vice versa. There is no assumption, requirement or guarantee
 that the target of a superior module encompasses the targets of
 submodules. Thus, every submodule must explicitly describe its own
-debug state. The receiver of an EAT MUST not
+debug state. The receiver of an EAT MUST NOT
 assume that debug is turned off in a submodule because there is a claim
 indicating it is turned off in a superior module.
 
-An entity may have multiple debug
-facilities. The use of plural in the description of the states
-refers to that, not to any aggregation or inheritance.
+Entities may have multiple debug
+facilities, which is reflected in the state descriptions, not aggregation or inheritance.
 
 The architecture of some chips or devices may be such that a debug
 facility operates for the whole chip or device. If the EAT for such
@@ -938,7 +910,7 @@ See location-related privacy considerations in {{locationprivacyconsiderations}}
 
 ### The Uptime Claim (uptime)
 
-The "uptime" claim MUST contain a value that represents the number of
+The uptime claim contains a value that represents the number of
 seconds that have elapsed since the entity or submod was last booted.
 
 ~~~~CDDL
@@ -947,7 +919,7 @@ seconds that have elapsed since the entity or submod was last booted.
 
 ### The Boot Count Claim (boot-count)
 
-This claim contains a count of the number
+The boot count claim contains the number
 times the entity or submod has been booted. Support for this claim
 requires a persistent storage on the device.
 
@@ -957,18 +929,15 @@ requires a persistent storage on the device.
 
 ### The Boot Seed Claim (boot-seed)
 
+The boot seed claim contains a value created at system boot time that allows differentiation of attestation reports from different boot sessions of a particular entity (e.g., a certain UEID).
 
-The Boot Seed claim contains a value created at system boot time that allows differentiation of attestation reports from different boot sessions of a particular entity (e.g., a certain UEID).
-
-This value is usually public.
-It is not a secret and MUST NOT be used for any purpose that a secret seed is needed, such as seeding a random number generator.
+This value is usually public. It is not a secret and MUST NOT be used for any purpose that a secret seed is needed, such as seeding a random number generator.
 
 There are privacy considerations for Boot Seed. See {{bootseedprivacyconsiderations}}.
 
 ~~~~CDDL
 {::include nc-cddl/boot-seed.cddl}
 ~~~~
-
 
 ### The DLOA (Digital Letter of Approval) Claim (dloas) {#dloas}
 
@@ -995,18 +964,17 @@ The method of constructing the registrar URI, platform label and possibly applic
 {::include nc-cddl/dloas.cddl}
 ~~~~
 
-
 ### The Software Manifests Claim (manifests) {#manifests}
 
-This claim contains descriptions of software present on the entity.
+Software manifest claims contain descriptions of software present on the entity.
 These manifests are installed on the entity when the software is installed or are created as part of the installation process.
 Installation is anything that adds software to the entity, possibly factory installation, the user installing elective applications and so on.
-The defining characteristic is they are created by the software manufacturer.
-The purpose of these claims in an EAT is to relay them without modification to the verifier and possibly to the relying party.
+The defining characteristic is that manifests are created by the software manufacturer.
+The manifest claim relays the values without modification to the verifier and possibly to the relying party.
 
-Some manifests may be signed by their software manufacturer before they are put into this EAT claim.
-When such manifests are put into this claim, the manufacturer's signature SHOULD be included.
-For example, the manifest might be a CoSWID signed by the software manufacturer, in which case the full signed CoSWID should be put in this claim.
+Some manifests may be signed by their software manufacturer before they are included in the claim.
+When manifests are put into this claim, the manufacturer's signature SHOULD be included.
+For example, the manifest might be a CoSWID signed by the software manufacturer, in which case the claim contains the full signed CoSWID.
 
 This claim allows multiple formats for the manifest.
 For example, the manifest may be a CBOR-format CoSWID, an XML-format SWID or other.
@@ -1018,8 +986,7 @@ Each manifest in the claim MUST be an array of two.
 The first item in the array of two MUST be an integer CoAP Content-Format identifier.
 The second item is MUST be the actual manifest.
 
-In JSON-format tokens the manifest, whatever format it is, MUST be placed in a text string.
-When a non-text format manifest like a CBOR-encoded CoSWID is put in a JSON-encoded token, the manifest MUST be base-64 encoded.
+In JSON-format tokens the manifest, whatever format it is, MUST be base-64 encoded then placed in a text string.
 
 This claim allows for multiple manifests in one token since multiple software packages are likely to be present.
 The multiple manifests MAY be of different formats.
@@ -1027,7 +994,7 @@ In some cases EAT submodules may be used instead of the array structure in this 
 
 When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
 
-This document registers CoAP Content Formats for CycloneDX {{CycloneDX}} and SPDX {{SPDX}} so they can be used as a manifest. 
+This document registers CoAP Content Formats for CycloneDX {{CycloneDX}} and SPDX {{SPDX}} so they can be used as a manifest.
 
 ~~~~CDDL
 {::include nc-cddl/manifests.cddl}
@@ -1043,15 +1010,15 @@ This claim can be a {{CoSWID}}.
 When the CoSWID format is used, it MUST be evidence CoSWIDs, not payload CoSWIDS.
 
 Formats other than CoSWID can be used.
-The identification of format is by CoAP Content Format, the same as the manifests claim in {{manifests}}.
+The identification of format is by CoAP Content Format, as with manifests claim in {{manifests}}.
 
 ~~~~CDDL
 {::include nc-cddl/swevidence.cddl}
 ~~~~
 
-### The Measurement Results Claim (measurement-results) {#measurementresults}
+### The Measurement Comparison Results Claim (measurement-results) {#measurementresults}
 
-This claim is a general-purpose structure for reporting comparison of measurements to expected reference values.
+The measurement comparison results claim is a general-purpose structure for reporting comparison of measurements to expected reference values.
 This claim provides a simple standard way to report the result of a comparison as success, failure, fail to run, ...
 
 It is the nature of measurement systems that they are specific to the operating system, software and hardware of the entity that is being measured.
@@ -1098,7 +1065,6 @@ The values for the results enumerated type are as follows:
 ~~~~CDDL
 {::include nc-cddl/measurement-results.cddl}
 ~~~~
-
 
 ### Submodules (submods) {#submods}
 
@@ -1298,20 +1264,18 @@ string naming the submodule. No submodules may have the same name.
 
 ## Claims Describing the Token
 
-The claims in this section provide meta data about the token they occur in.
+The claims in this section provide meta data about the EAT they occur in.
 They do not describe the entity.
 
 They may appear in evidence or attestation results.
-When these claims appear in evidence, they SHOULD not be passed through the verifier into attestation results.
-
+When these claims appear in evidence, they SHOULD NOT be passed through the verifier into attestation results.
 
 ### Token ID Claim (cti and jti)
 
 CWT defines the "cti" claim. JWT defines the "jti" claim. These are
 equivalent in EAT and carry a unique token identifier as
-they do in JWT and CWT.  They may be used to defend against re use of
+they do in JWT and CWT.  They may be used to defend against reuse of
 the token but are not a substitute for the nonce described in {{nonce}} and do not guarantee freshness and defend against replay.
-
 
 ### Timestamp Claim (iat)
 
@@ -1326,16 +1290,15 @@ position fix taken the last time a satellite signal was received.
 There are individual timestamps associated with these claims to
 indicate their age is older than the "iat" timestamp.
 
-CWT allows the use floating-point for this claim. EAT disallows
-the use of floating-point. An EAT token MUST NOT contain an iat claim in
+CWT allows the use floating-point for this claim. The EAT format disallows
+the use of floating-point. An EAT MUST NOT contain an iat claim in
 floating-point format. Any recipient of a token with a floating-point
-format iat claim MUST consider it an error. 
+format iat claim MUST consider it an error.
 
 A 64-bit integer representation of the CBOR epoch-based time
 {{RFC8949}} used by this claim can represent a range of +/- 500
 billion years, so the only point of a floating-point timestamp is to
-have precession greater than one second. This is not needed for EAT.
-
+have precession greater than one second. This is not needed for the EAT format.
 
 ### The Profile Claim (profile) {#profile-claim}
 
@@ -1357,7 +1320,6 @@ Note that this is named "eat_profile" for JWT and is distinct from the already r
 ~~~~CDDL
 {::include nc-cddl/profile.cddl}
 ~~~~
-
 
 ### The Intended Use Claim (intended-use)
 
@@ -1389,18 +1351,17 @@ EAT may be used as part of the certificate signing request (CSR).
 : An EAT consumer may require an attestation as part of an accompanying
 proof-of-possession (PoP) application. More precisely, a PoP transaction is intended
 to provide to the recipient cryptographically-verifiable proof that the sender has possession
-of a key.  This kind of attestation may be necceesary to verify the
+of a key.  This kind of attestation may be necessary to verify the
 security state of the entity storing the private key used in a PoP application.
 
 ~~~~CDDL
 {::include nc-cddl/intended-use.cddl}
 ~~~~
 
-
 ## Claims That Include Keys
 
 This document defines no claims that contain cryptographic keys.
-When claims are defined that include cryptographic keys, they SHOULD use COSE_Key {{RFC9052}} in CBOR-encoded tokens or JSON Web Key {{RFC7517}} in JSON-encoded tokens.
+When claims are defined that include cryptographic keys, they SHOULD use COSE_Key {{RFC9052}} in CBOR-encoded EATs or JSON Web Key {{RFC7517}} in JSON-encoded EATs.
 
 {{RFC7800}} defines a proof-of-possion/confirmation claim named "cnf" that can hold a cryptographic key for JWTs.
 {{RFC8747}} does the same for CWTs with claim key 8.
