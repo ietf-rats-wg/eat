@@ -1410,18 +1410,13 @@ Their semantics don't translate to attestation and they SHOULD NOT be used in an
 
 # Detached EAT Bundles {#DEB}
 
-A detached EAT bundle is a structure to convey a fully-formed and signed token plus detached claims set that relate to that token.
+A detached EAT bundle is a structure that conveys a fully-formed and signed EAT along with related detached claims.
 It is a top-level EAT message like a CWT or JWT.
 It can be occur any place that CWT or JWT messages occur.
-It may also be sent as a submodule.
+It may also be included in a submodule claim.
 
-A detached EAT bundle has two main parts.
-
-The first part is a full top-level token.
-This top-level token must have at least one submodule that is a detached digest.
-This top-level token may be either CBOR or JSON-encoded.
-It may be a CWT, or JWT but not a detached EAT bundle.
-It may also be some future-defined token type.
+A detached EAT bundle has two main parts. The first part is a full top-level token that includes at least one submodule that is a detached digest.
+This top-level token may be either a CWT or JWT but not a detached EAT bundle.
 The same mechanism for distinguishing the type for nested token submodules is used here.
 
 The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the full token.
@@ -1432,41 +1427,36 @@ No mixing of encoding formats is allowed for the Claims-Sets in a detached EAT b
 
 For CBOR-encoded detached EAT bundles, tag TBD602 can be used to identify it.
 The normal rules apply for use or non-use of a tag.
-When it is sent as a submodule, it is always sent as a tag to distinguish it from the other types of nested tokens.
+When it is included in a submodule claim, it is always be tagged to distinguish it from the other submodule options.
 
 The digests of the detached claims sets are associated with detached Claims-Sets by label/name.
-It is up to the constructor of the detached EAT bundle to ensure the names uniquely identify the detachedclaims sets.
+The creator of the detached EAT bundle MUST ensure the names uniquely identify the detached claims sets.
 Since the names are used only in the detached EAT bundle, they can be very short, perhaps one byte.
 
 ~~~~CDDL
 {::include nc-cddl/deb.cddl}
 ~~~~
 
-
-
-
 # Profiles {#profiles}
 
 EAT makes normative use of CBOR, JSON, COSE, JOSE, CWT and JWT.
-Most of these have implementation options to accommodate a range of use cases.
-
-For example, COSE doesn't require a particular set of cryptographic algorithms so as to accommodate different usage scenarios and evolution of algorithms over time.
+Most of these have implementation options to accommodate a range of use cases. For example, COSE doesn't require a particular set of cryptographic algorithms so as to accommodate different usage scenarios and evolution of algorithms over time.
 Section 10 of {{RFC9052}} describes the profiling considerations for COSE.
 
 The use of encryption is optional for both CWT and JWT.
 Section 8 of {{RFC7519}} describes implementation requirement and recommendations for JWT.
 
 Similarly, CBOR provides indefinite length encoding which is not commonly used, but valuable for very constrained devices.
-For EAT itself, in a particular use case some claims will be used and others will not.
 Section 4 of {{RFC8949}} describes serialization considerations for CBOR.
 
-For example a mobile phone use case may require the device make and model, and prohibit UEID and location for privacy policy.
-The general EAT standard retains all this flexibility because it too is aimed to accommodate a broad range of use cases.
+For EAT itself, in a particular use case some claims will be used and others will not.
+For example a mobile phone use case may require the device make and model, and prohibit UEID and location per privacy policy.
+The EAT format retains all this flexibility because aims to accommodate a broad range of use cases.
 
 It is necessary to explicitly narrow these implementation options to guarantee interoperability.
 EAT chooses one general and explicit mechanism, the profile, to indicate the choices made for these implementation options for all aspects of the token.
 
-Below is a list of the various issues that should be addressed by a profile.
+Below is a list of various elements that should be addressed by a profile.
 
 The profile claim in {{profile-claim}} provides a unique identifier for the profile a particular token uses.
 
@@ -1475,56 +1465,36 @@ A profile can apply to evidence or to attestation results or both.
 ## Format of a Profile Document
 
 A profile document doesn't have to be in any particular format. It may be simple text, something more formal or a combination.
-
 A profile may define, and possibly register, one or more new claims if needed. A profile may also reuse one or more already defined claims, either as-is or with values constrained to a subset or subrange.
 
-## List of Profile Issues
+## List of Profile Elements
 
-The following is a list of EAT, CWT, JWS, COSE, JOSE and CBOR options that a profile should address.
-
+The following is a list of EAT, CWT, JWS, COSE, JOSE and CBOR options that a profile should address. In all cases, any use of nested tokens should be considered when addressing elements in a profile.
 
 ### Use of JSON, CBOR or both
 
-A profile should specify whether CBOR, JSON or both may be sent.
-A profile should specify that the receiver can accept all encoding formats that the sender is allowed to send.
-
-This should be specified for the top-level and all nested tokens.
+A profile should specify whether CBOR, JSON or both may be used.
 For example, a profile might require all nested tokens to be of the same encoding of the top level token.
-
 
 ### CBOR Map and Array Encoding
 
-A profile should specify whether definite-length arrays/maps, indefinite-length arrays/maps or both may be sent.
-A profile should specify that the receiver be able to accept all length encodings that the sender is allowed to send.
-
-This applies to individual EAT claims, CWT and COSE parts of the implementation.
-
-For most use cases, specifying that only definite-length arrays/maps may be sent is suitable. 
-
+A profile should specify whether definite-length arrays/maps, indefinite-length arrays/maps or both may be used.
+For most use cases, specifying that only definite-length arrays/maps may be used is suitable.
 
 ### CBOR String Encoding
 
-A profile should specify whether definite-length strings, indefinite-length strings or both may be sent.
-A profile should specify that the receiver be able to accept all types of string encodings that the sender is allowed to send.
-
-For most use cases, specifying that only definite-length strings may be sent is suitable.
-
+A profile should specify whether definite-length strings, indefinite-length strings or both may be used.
+For most use cases, specifying that only definite-length strings may be used is suitable.
 
 ### CBOR Preferred Serialization
 
-A profile should specify whether or not CBOR preferred serialization must be sent or not.
-A profile should specify the receiver be able to accept preferred and/or non-preferred serialization so it will be able to accept anything sent by the sender.
-
+A profile should specify whether or not CBOR preferred serialization must be used.
 
 ### CBOR Tags
 
-The profile should specify whether the token should be a CWT Tag or not.
-
-When COSE protection is used, the profile should specify whether COSE tags are used or not.
-Note that RFC 8392 requires COSE tags be used in a CWT tag.
-
+The profile should specify whether and how CBOR tags are used.
 Often a tag is unnecessary because the surrounding or carrying protocol identifies the object as an EAT.
-
+However, {{RFC8392}} requires COSE tags be used in a CWT tag.
 
 ### COSE/JOSE Protection
 
@@ -1533,14 +1503,10 @@ JWT may use the JOSE NULL protection option.
 It is possible to implement no protection, sign only, MAC only, sign then encrypt and so on.
 All combinations allowed by COSE, JOSE, JWT, and CWT are allowed by EAT.
 
-A profile should specify all signing, encryption and MAC message formats that may be sent.
-For example, a profile might allow only COSE_Sign1 to be sent.
-For another example, a profile might allow COSE_Sign and COSE_Encrypt to be sent to carry multiple signatures for post quantum cryptography and to use encryption to provide confidentiality.
-
-A profile should specify the receiver accepts all message formats that are allowed to be sent.
+A profile should specify all signing, encryption and MAC message formats that may be used.
+For example, a profile might allow only COSE_Sign1 to be used; another profile might allow COSE_Sign and COSE_Encrypt to be used to carry multiple signatures for post quantum cryptography and to use encryption to provide confidentiality.
 
 When both signing and encryption are allowed, a profile should specify which is applied first.
-
 
 ### COSE/JOSE Algorithms
 
@@ -1549,42 +1515,36 @@ See the section on "Application Profiling Considerations" in {{RFC9052}} for a d
 The profile document should list the COSE algorithms that a verifier must implement.
 The attester will select one of them.
 Since there is no negotiation, the verifier should implement all algorithms listed in the profile.
-If detached submodule digests are used, the COSE algorithms allowed for their digests should also be in the profile.
-
+If detached submodules are used, the COSE algorithms allowed for their digests should also be in the profile.
 
 ### Detached EAT Bundle Support
 
-A profile should specify whether or not a detached EAT bundle ({{DEB}}) can be sent.
-A profile should specify that a receiver be able to accept a detached EAT bundle if the sender is allowed to send it.
-
+A profile should specify whether or not a detached EAT bundle {{DEB}} can be used.
 
 ### Key Identification
 
-A profile should specify what must be sent to identify the verification, decryption or MAC key or keys.
-If multiple methods of key identification may be sent, a profile should require the receiver support them all.
+A profile should specify what information is available to identify the verification, decryption or MAC key or keys.
+If multiple methods of key identification are used, a profile should require the receiver support them all.
 
-{{keyid}} describes a number of methods for identifying verification keys.
-When encryption is used, there are further considerations.
+{{keyid}} describes a number of methods for identifying verification
+   keys.  When encryption is used, there are further considerations.
 In some cases key identification may be very simple and in others involve a multiple components.
 For example, it may be simple through use of COSE key ID or it may be complex through use of an X.509 certificate hierarchy.
 
-While not always possible, a profile should specify, or make reference to, a full end-end specification for key identification.
+Where possible, a profile should specify, or make reference to, a full end-end specification for key identification.
 For example, a profile should specify in full detail how COSE key IDs are to be created, their lifecycle and such rather than just specifying that a COSE key ID be used.
-For example, a profile should specify the full details of an X.509 hierarchy including extension processing, algorithms allowed and so on rather than just saying X.509 certificate are used.
-Though not always possible, ideally, a profile should be a complete specification for key identification for both the sender and the receiver such that interoperability is guaranteed.
-
+For example, a profile should specify the full details of an X.509 hierarchy including extension processing, algorithms allowed, trust establishment, and so on rather than just saying X.509 certificate are used.
+Ideally, a profile should be a complete specification for key identification for both the sender and the receiver such that interoperability is guaranteed.
 
 ### Endorsement Identification
 
-Similar to, or perhaps the same as verification key identification, the profile may wish to specify how endorsements are to be identified.
-However note that endorsement identification is optional, where as key identification is not.
+Similar to, or perhaps the same as Verification Key Identification, the profile may wish to specify how Endorsements are to be identified.
+However note that Endorsement Identification is optional, where as key identification is not.
 
 ### Freshness
 
-A nonce is always required by EAT.
-
-A profile should specify whether multiple nonces may be sent.
-If a profile allows multiple nonces to be sent, it should require the receiver to process multiple nonces.
+Freshness is always required by EAT. This may be achieved using a nonce.
+A profile should specify whether a nonce is required and whether multiple nonces may be used.
 
 Just about every use case will require some means of knowing the EAT is recent enough and not a replay of an old token.
 The profile should describe how freshness is achieved.
@@ -1606,13 +1566,10 @@ For example, a profile may require the nonce be a certain length or the location
 
 Some claims are "pluggable" in that they allow different formats for their content.
 The manifests and software evidence claims are examples of this, allowing the use of CoSWID, TEEP Manifests and other formats.
-A profile should specify which formats are allowed to be sent.
-A profile should require the receiver to accept all formats that are allowed to be sent.
+A profile should specify which formats are allowed.
 
-Further, if there is variation within a format that is allowed, the profile should specify which variations can be sent.
+Further, if there is variation within a format that is allowed, the profile should specify which variations are used.
 For example, there are variations in the CoSWID format.
-A profile that require the receiver to accept all variations that are allowed to be sent.
-
 
 ## The Constrained Device Standard Profile
 
@@ -1621,25 +1578,23 @@ This section standardizes one profile that is good for many constrained device u
 
 The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 
-
-| Issue | Profile Definition |
+| Element | Profile Definition |
 | CBOR/JSON | CBOR only |
 | CBOR Encoding | Only definite length maps and arrays are allowed |
 | CBOR Encoding | Only definite length strings are allowed |
 | CBOR Serialization | Only preferred serialization is allowed |
 | COSE Protection | Only COSE_Sign1 format is used |
 | Algorithms | Receiver MUST accept ES256, ES384 and ES512; sender MUST send one of these |
-| Detached EAT Bundle Usage | Detached EAT bundles may not be sent with this profile |
+| Detached EAT Bundle Usage | Detached EAT bundles may not be used with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce must be used for every token request |
-| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply. The nonce MUST be present and the receiver MUST not error out on any claims it doesn't understand. |
+| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply. The nonce MUST be present and the receiver MUST NOT error out on any claims it doesn't understand. |
 
 Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
 
-A profile that is similar to this can be defined and/or standardized by making normative reference to this and adding other requirements. 
+A profile that is similar to this can be defined and/or standardized by making normative reference to this and adding other requirements.
 Such a definition MUST have a different profile identifier.
-
 
 # Encoding and Collected CDDL {#encoding}
 
