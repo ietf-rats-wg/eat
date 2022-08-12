@@ -1666,15 +1666,14 @@ With the exception of nested tokens and some other externally defined structures
 
 CDDL for the seven claims defined by {{RFC8392}} and {{RFC7519}} is included here.
 
-
 ## Encoding Data Types
 
 This makes use of the types defined in {{RFC8610}} Appendix D, Standard Prelude.
 
 ### Common Data Types {#common-types}
 
-time-int is identical to the epoch-based time, but disallows
-floating-point representation.
+time-int is identical to the epoch-based date/time defined in {{RFC8949}}, except it disallows
+floating-point representation (as permitted by section 3.4.2 of {{RFC8949}}).
 
 The OID encoding from {{RFC9090}} is used without the tag number in CBOR-encoded tokens.
 In JSON tokens OIDs are a text string in the common form of "nn.nn.nn...".
@@ -1691,11 +1690,11 @@ They are just text strings that contain a URI.
 JSON should be encoded per {{RFC8610}} Appendix E. In addition, the
 following CDDL types are encoded in JSON as follows:
 
-* bstr -- must be base64url encoded
-* time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
-* string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
-* uri -- must be a URI {{RFC3986}}.
-* oid -- encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").
+- bstr -- must be base64url encoded
+- time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
+- string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
+- uri -- must be a URI {{RFC3986}}.
+- oid -- encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").
 
 The CDDL generic "JC< >" is used in most places where there is a variance between CBOR and JSON.
 The first argument is the CDDL for JSON and the second is CDDL for CBOR.
@@ -1749,7 +1748,7 @@ unauthenticated consumers.
 
 ## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
 
-A UEID is usually not privacy-preserving. Any set of Relying Parties
+A UEID is usually not privacy-preserving. Any set of relying parties
 that receives tokens that happen to be from a particular entity will be
 able to know the tokens are all from the same entity and be able to
 track it.
@@ -1767,15 +1766,15 @@ when it is generated.
 There are several strategies that can be used to still be able to put
 UEIDs and SUEIDs in tokens:
 
-* The entity obtains explicit permission from the user of the entity
+- The entity obtains explicit permission from the user of the entity
 to use the UEID/SUEID. This may be through a prompt. It may also be through
 a license agreement.  For example, agreements for some online banking
 and brokerage services might already cover use of a UEID/SUEID.
 
-* The UEID/SUEID is used only in a particular context or particular use
+- The UEID/SUEID is used only in a particular context or particular use
 case. It is used only by one relying party.
 
-* The entity authenticates the relying party and generates a derived
+- The entity authenticates the relying party and generates a derived
 UEID/SUEID just for that particular relying party.  For example, the Relying
 Party could prove their identity cryptographically to the entity, then
 the entity generates a UEID just for that relying party by hashing a
@@ -1800,8 +1799,8 @@ The Boot Seed claim is effectively a stable entity identifier within a given boo
 
 ## Replay Protection and Privacy {#replayprivacyconsiderations}
 
-EAT offers 2 primary mechanisms for token replay protection (also sometimes
-known as token "freshness"):  the cti/jti claim and the nonce claim.  The cti/jti claim
+EAT offers 2 primary mechanisms for EAT freshness (also sometimes
+known as replay protection):  the cti/jti claim and the nonce claim.  The cti/jti claim
 in a CWT/JWT is a field that may be optionally included in the EAT and is in general
 derived on the same device in which the entity is instantiated.  The nonce claim is based
 on a value that is usually derived remotely (outside of the entity).  These claims can be used
@@ -1811,7 +1810,7 @@ login).  If the token is inspected by a 3rd-party then this information could be
 of the token or an account associated with the token (e.g., if the account name is used to derive the nonce).  In order
 to avoid the conveyance of privacy-related information in either the cti/jti or nonce claims, these fields
 should be derived using a salt that originates from a true and reliable random number generator or any other
-source of randomness that would still meet the target system requirements for replay protection.
+source of randomness that would still meet the target system requirements for freshness.
 
 # Security Considerations {#securitycons}
 
@@ -1914,7 +1913,6 @@ All new EAT claims defined subsequently should be placed in both registries.
 
 {{Claim_Characteristics}} describes some considerations when defining new claims.
 
-
 ## Claims Registered by This Document
 
 This specification adds the following values to the "JSON Web Token
@@ -1928,6 +1926,7 @@ The "Claim Name" is as defined for the CWT registry, not the JWT registry.
 The "JWT Claim Name" is equivalent to the "Claim Name" in the JWT registry.
 
 ### Claims for Early Assignment
+
 RFC Editor: in the final publication this section should be combined with the following
 section as it will no longer be necessary to distinguish claims with early assignment.
 Also, the following paragraph should be removed.
@@ -1942,113 +1941,113 @@ The processing of that early allocation was never correctly completed.
 This early allocation assigns different numbers for the CBOR claim labels.
 This early allocation will presumably complete correctly
 
-* Claim Name: Nonce
-* Claim Description: Nonce
-* JWT Claim Name: "nonce" (already registered for JWT)
-* Claim Key: TBD (requested value 10)
-* Claim Value Type(s): byte string
-* Change Controller: IESG
-* Specification Document(s): {{OpenIDConnectCore}}, __this document__
+- Claim Name: Nonce
+- Claim Description: Nonce
+- JWT Claim Name: "nonce" (already registered for JWT)
+- Claim Key: TBD (requested value 10)
+- Claim Value Type(s): byte string
+- Change Controller: IESG
+- Specification Document(s): {{OpenIDConnectCore}}, __this document__
 
 &nbsp;
 
-* Claim Name: UEID
-* Claim Description: The Universal Entity ID
-* JWT Claim Name: "ueid"
-* CWT Claim Key: TBD (requested value 256)
-* Claim Value Type(s): byte string
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: UEID
+- Claim Description: The Universal Entity ID
+- JWT Claim Name: "ueid"
+- CWT Claim Key: TBD (requested value 256)
+- Claim Value Type(s): byte string
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SUEIDs
-* Claim Description: Semi-permanent UEIDs
-* JWT Claim Name: "sueids"
-* CWT Claim Key: TBD (requested value 257)
-* Claim Value Type(s): map
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: SUEIDs
+- Claim Description: Semi-permanent UEIDs
+- JWT Claim Name: "sueids"
+- CWT Claim Key: TBD (requested value 257)
+- Claim Value Type(s): map
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Hardware OEMID
-* Claim Description: Hardware OEM ID
-* JWT Claim Name: "oemid"
-* Claim Key: TBD (requeste value 258)
-* Claim Value Type(s): byte string or integer
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Hardware OEMID
+- Claim Description: Hardware OEM ID
+- JWT Claim Name: "oemid"
+- Claim Key: TBD (requeste value 258)
+- Claim Value Type(s): byte string or integer
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Hardware Model
-* Claim Description: Model identifier for hardware
-* JWT Claim Name: "hwmodel"
-* Claim Key: TBD (requested value 259)
-* Claim Value Type(s): byte string
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Hardware Model
+- Claim Description: Model identifier for hardware
+- JWT Claim Name: "hwmodel"
+- Claim Key: TBD (requested value 259)
+- Claim Value Type(s): byte string
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Hardware Version
-* Claim Description: Hardware Version Identifier
-* JWT Claim Name: "hwversion"
-* Claim Key: TBD (requested value 260)
-* Claim Value Type(s): array
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Hardware Version
+- Claim Description: Hardware Version Identifier
+- JWT Claim Name: "hwversion"
+- Claim Key: TBD (requested value 260)
+- Claim Value Type(s): array
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Secure Boot
-* Claim Description: Indicate whether the boot was secure
-* JWT Claim Name: "secboot"
-* Claim Key: 262
-* Claim Value Type(s): Boolean
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Secure Boot
+- Claim Description: Indicate whether the boot was secure
+- JWT Claim Name: "secboot"
+- Claim Key: 262
+- Claim Value Type(s): Boolean
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Debug Status
-* Claim Description: Indicate status of debug facilities
-* JWT Claim Name: "dbgstat"
-* Claim Key: 263
-* Claim Value Type(s): integer or string
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Debug Status
+- Claim Description: Indicate status of debug facilities
+- JWT Claim Name: "dbgstat"
+- Claim Key: 263
+- Claim Value Type(s): integer or string
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Location
-* Claim Description: The geographic location
-* JWT Claim Name: "location"
-* Claim Key: TBD (requested value 264)
-* Claim Value Type(s): map
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Location
+- Claim Description: The geographic location
+- JWT Claim Name: "location"
+- Claim Key: TBD (requested value 264)
+- Claim Value Type(s): map
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Profile
-* Claim Description: Indicates the EAT profile followed
-* JWT Claim Name: "eat_profile"
-* Claim Key: TBD (requested value 265)
-* Claim Value Type(s): URI or OID
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Profile
+- Claim Description: Indicates the EAT profile followed
+- JWT Claim Name: "eat_profile"
+- Claim Key: TBD (requested value 265)
+- Claim Value Type(s): URI or OID
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Submodules Section
-* Claim Description: The section containing submodules
-* JWT Claim Name: "submods"
-* Claim Key: TBD (requested value 266)
-* Claim Value Type(s): map
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Submodules Section
+- Claim Description: The section containing submodules
+- JWT Claim Name: "submods"
+- Claim Key: TBD (requested value 266)
+- Claim Value Type(s): map
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 ### To be Assigned Claims
 
@@ -2066,94 +2065,93 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: Uptime
-* Claim Description: Uptime
-* JWT Claim Name: "uptime"
-* Claim Key: TBD
-* Claim Value Type(s): unsigned integer
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Uptime
+- Claim Description: Uptime
+- JWT Claim Name: "uptime"
+- Claim Key: TBD
+- Claim Value Type(s): unsigned integer
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Boot Seed
-* Claim Description: Identifies a boot cycle
-* JWT Claim Name: "bootseed"
-* Claim Key: TBD
-* Claim Value Type(s): bytes
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Boot Seed
+- Claim Description: Identifies a boot cycle
+- JWT Claim Name: "bootseed"
+- Claim Key: TBD
+- Claim Value Type(s): bytes
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Intended Use
-* Claim Description: Indicates intended use of the EAT
-* JWT Claim Name: "intuse"
-* Claim Key: TBD
-* Claim Value Type(s): integer or string
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Intended Use
+- Claim Description: Indicates intended use of the EAT
+- JWT Claim Name: "intuse"
+- Claim Key: TBD
+- Claim Value Type(s): integer or string
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: DLOAs
-* Claim Description: Certifications received as Digital Letters of Approval
-* JWT Claim Name: "dloas"
-* Claim Key: TBD
-* Claim Value Type(s): array
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: DLOAs
+- Claim Description: Certifications received as Digital Letters of Approval
+- JWT Claim Name: "dloas"
+- Claim Key: TBD
+- Claim Value Type(s): array
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SW Name
-* Claim Description: The name of the SW running in the entity
-* JWT Claim Name: "swname"
-* Claim Key: TBD
-* Claim Value Type(s): map
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: SW Name
+- Claim Description: The name of the SW running in the entity
+- JWT Claim Name: "swname"
+- Claim Key: TBD
+- Claim Value Type(s): map
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SW Version
-* Claim Description: The version of SW running in the entity
-* JWT Claim Name: "swversion"
-* Claim Key: TBD
-* Claim Value Type(s): map
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: SW Version
+- Claim Description: The version of SW running in the entity
+- JWT Claim Name: "swversion"
+- Claim Key: TBD
+- Claim Value Type(s): map
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SW Manifests
-* Claim Description: Manifests describing the SW installed on the entity
-* JWT Claim Name: "manifests"
-* Claim Key: TBD
-* Claim Value Type(s): array
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: SW Manifests
+- Claim Description: Manifests describing the SW installed on the entity
+- JWT Claim Name: "manifests"
+- Claim Key: TBD
+- Claim Value Type(s): array
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SW Evidence
-* Claim Description: Measurements of the SW, memory configuration and such on the entity
-* JWT Claim Name: "swevidence"
-* Claim Key: TBD
-* Claim Value Type(s): array
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: SW Evidence
+- Claim Description: Measurements of the SW, memory configuration and such on the entity
+- JWT Claim Name: "swevidence"
+- Claim Key: TBD
+- Claim Value Type(s): array
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SW Measurment Results
+* Claim Name: SW Measurment Comparison Results
 * Claim Description: The results of comparing SW measurements to reference values
-* JWT Claim Name: "swresults"
+* JWT Claim Name: "measres"
 * Claim Key: TBD
 * Claim Value Type(s): array
 * Change Controller: IESG
 * Specification Document(s): __this document__
-
 
 
 ### Version Schemes Registered by this Document {#registerversionscheme}
@@ -2169,7 +2167,6 @@ For example, this requires the manufacturer to obtain a manufacture code from GS
 | Index | Version Scheme Name | Specification |
 | 5     | ean-13              | This document |
 
-
 ### UEID URN Registered by this Document {#registerueidurn}
 
 IANA is requested to register the following new subtypes in the "DEV URN Subtypes" registry under "Device Identification". See {{RFC9039}}.
@@ -2177,7 +2174,6 @@ IANA is requested to register the following new subtypes in the "DEV URN Subtype
 | Subtype | Description                                | Reference     |
 | ueid    | Universal Entity Identifier                | This document |
 | sueid   | Semi-permanent Universal Entity Identifier | This document |
-
 
 ### Tag for Detached EAT Bundle
 
@@ -2188,29 +2184,28 @@ specification reference.
 | Tag    | Data Items     | Semantics                   |
 | TBD602 | array          | Detached EAT Bundle {{DEB}} |
 
-
 ### Media Types Registered by this Document
 
 It is requested that the CoAP Content-Format for SPDX and CycloneDX be been registered in the "CoAP Content-Formats" subregistry within the "Constrained RESTful Environments (CoRE) Parameters" registry [IANA.core-parameters]:
 
-* Media Type: application/spdx+json
-* Encoding: binary
-* ID: TBD
-* Reference: {{SPDX}}
+- Media Type: application/spdx+json
+- Encoding: binary
+- ID: TBD
+- Reference: {{SPDX}}
 
 &nbsp;
 
-* Media Type: vendor/vnd.cyclonedx+xml
-* Encoding: binary
-* ID: TBD
-* Reference: {{CycloneDX}}
+- Media Type: vendor/vnd.cyclonedx+xml
+- Encoding: binary
+- ID: TBD
+- Reference: {{CycloneDX}}
 
 &nbsp;
 
-* Media Type: vendor/vnd.cyclonedx+json
-* Encoding: binary
-* ID: TBD
-* Reference: {{CycloneDX}}
+- Media Type: vendor/vnd.cyclonedx+json
+- Encoding: binary
+- ID: TBD
+- Reference: {{CycloneDX}}
 
 --- back
 
@@ -2222,7 +2217,6 @@ It is shown this way because the payload is all the claims, the most interesting
 Some examples of full tokens are also given.
 
 WARNING: These examples use tag and label numbers not yet assigned by IANA.
-
 
 ## Payload Examples
 
@@ -2244,45 +2238,17 @@ This is a simple attestation of a TEE that includes a manifest that is a payload
 {::include cddl/Example-Payloads/valid_submods.diag}
 ~~~~
 
-
 ### EAT Produced by Attestation Hardware Block
 
 ~~~~
 {::include cddl/Example-Payloads/valid_hw_block.diag}
 ~~~~
-
-
-
-### Key / Key Store Attestation
-
-~~~~
-{::include cddl/Example-Payloads/valid_tee.diag}
-~~~~
-
-~~~~
-{::include cddl/Example-Payloads/coswid/tee-coswid.diag}
-~~~~
-
-### Submodules for Board and Device
-
-~~~~
-{::include cddl/Example-Payloads/valid_submods.diag}
-~~~~
-
-
-### EAT Produced by Attestation Hardware Block
-
-~~~~
-{::include cddl/Example-Payloads/valid_hw_block.diag}
-~~~~
-
 
 ### Key / Key Store Attestation
 
 ~~~~
 {::include cddl/Example-Payloads/valid_key_store.diag}
 ~~~~
-
 
 ### SW Measurements of an IoT Device
 
@@ -2298,12 +2264,10 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
 {::include cddl/Example-Payloads/coswid/iot-sw.diag}
 ~~~~
 
-
 ### Attestation Results in JSON format
 
 This is a JSON-format payload that might be the output of a verifier that evaluated the IoT Attestation example immediately above.
 
-This particular verifier knows enough about the TEE attester to be able to pass claims like security level directly through to the relying party.
 The verifier also knows the reference values for the measured SW components and is able to check them.
 It informs the relying party that they were correct in the swresults claim.
 "Trustus Verifications" is the name of the services that verifies the SW component measurements.
@@ -2312,13 +2276,11 @@ It informs the relying party that they were correct in the swresults claim.
 {::include cddl/Example-Payloads/valid_results.json}
 ~~~~
 
-
 ### JSON-encoded Token with Sumodules
 
 ~~~~
 {::include cddl/Example-Payloads/submods.json}
 ~~~~
-
 
 ## Full Token Examples
 
@@ -2349,7 +2311,6 @@ The detached EAT bundle itself can be assembled by untrusted SW.
 {::include cddl/Example-Payloads/valid_hw_block2.diag}
 ~~~~
 
-
 ### JSON-encoded Detached EAT Bundle
 
 In this bundle there are two detached Claims-Sets, "CS1" and "CS2".
@@ -2359,7 +2320,6 @@ TODO: make the JWT actually be correct verifiable JWT.
 ~~~~
 {::include cddl/Example-Tokens/deb.json}
 ~~~~
-
 
 # UEID Design Rationale {#UEID-Design}
 
@@ -2396,7 +2356,6 @@ not the same problem as sizing IP addresses.
 | 10 billion | 100,000          | 10                  | 10%              | quadrillion (10^15)     |
 |100 billion | 1,000,000        | 10                  | 10%              | 100 quadrillion (10^17) |
 
-
 This is conceptually similar to the Birthday Problem where m is the
 number of possible birthdays, always 365, and k is the number of
 people. It is also conceptually similar to the Birthday Attack where
@@ -2424,9 +2383,9 @@ For this calculation:
 
 | Database Size           | 128-bit UEID | 192-bit UEID | 256-bit UEID |
 |-------------------------+--------------+--------------+--------------+
-| trillion (10^12)        | 2 * 10^-15   | 8 * 10^-35   | 5 * 10^-55   |
-| quadrillion (10^15)     | 2 * 10^-09   | 8 * 10^-29   | 5 * 10^-49   |
-| 100 quadrillion (10^17) | 2 * 10^-05   | 8 * 10^-25   | 5 * 10^-45   |
+| trillion (10^12)        | 2 *10^-15   | 8* 10^-35   | 5 *10^-55   |
+| quadrillion (10^15)     | 2* 10^-09   | 8 *10^-29   | 5* 10^-49   |
+| 100 quadrillion (10^17) | 2 *10^-05   | 8* 10^-25   | 5 * 10^-45   |
 
 Next, to calculate the probability of a collision occurring in one year's
 operation of a database, it is assumed that the database size is in
@@ -2488,7 +2447,6 @@ The design of UUID accommodates the construction of a unique identifier by combi
 UEID takes the view that this construction is no longer needed, in particular because cryptographic-quality random number generators are readily available.
 It takes the view that hardware, software and/or manufacturing process implement UEID in a simple and direct way.
 
-
 # EAT Relation to IEEE.802.1AR Secure Device Identity (DevID)
 
 This section describes several distinct ways in which an IEEE IDevID {{IEEE.802.1AR}} relates to EAT, particularly to UEID and SUEID.
@@ -2499,35 +2457,35 @@ A particular level of defense against attack that should be achieved to be a Dev
 The intent is that IDevIDs and LDevIDs can be used with any network protocol or message format.
 In these protocols and message formats the DevID secret is used to sign a nonce or similar to prove the association of the DevID certificates with the device.
 
-By contrast, EAT defines a message format for proving trustworthiness to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
-Nor does EAT give details on how keys, data and such are stored protected and accessed.
-EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
+By contrast, this document defines a message format for demonstrating trustworthiness to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
+Nor does the EAT format give details on how keys, data and such are stored protected and accessed.
+EATs are intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
 It does not define any particular level of defense against attack, instead providing a set of security considerations.
 
 EAT and DevID can be viewed as complimentary when used together or as competing to provide a device identity service.
 
-## DevID Used With EAT
+## DevID Used With the EAT
 
-As just described, EAT defines a network protocol and {{IEEE.802.1AR}} doesn't.
-Vice versa, EAT doesn't define a an device implementation and DevID does.
+As just described, the EAT format is a message format for demonstrating trustworthiness to a relying party and {{IEEE.802.1AR}} doesn't.
+Vice versa, EAT doesn't define a device implementation and DevID does.
 
-Hence, EAT can be the network protocol that a DevID is used with.
+Hence, EATs are a message format that a DevID is used with.
 The DevID secret becomes the attestation key used to sign EATs.
-The DevID and its certificate chain become the endorsement sent to the verifier.
+The DevID and its certificate chain become the Endorsement provided to the verifier.
 
-In this case the EAT and the DevID are likely to both provide a device identifier (e.g. a serial number).
+In this case an EAT and a DevID are likely to both provide a device identifier (e.g. a serial number).
 In the EAT it is the UEID (or SUEID).
 In the DevID (used as an endorsement), it is a device serial number included in the subject field of the DevID certificate.
-It is probably a good idea in this use for them to be the same serial number or for the UEID to be a hash of the DevID serial number.
+It is probably a good idea in this use case for the respective values to be the same serial number or for the UEID to be a hash of the DevID serial number.
 
 ## How EAT Provides an Equivalent Secure Device Identity
 
 The UEID, SUEID and other claims like OEM ID are equivalent to the secure device identity put into the subject field of a DevID certificate.
 These EAT claims can represent all the same fields and values that can be put in a DevID certificate subject.
-EAT explicitly and carefully defines a variety of useful claims.
+The EAT format explicitly and carefully defines a variety of useful claims.
 
-EAT secures the conveyance of these claims by having them signed on the device by the attestation key when the EAT is generated.
-EAT also signs the nonce that gives freshness at this time.
+The EAT format secures the conveyance of these claims by having them signed on the device by the attestation key when the EAT is generated.
+The EAT format also supports signing a nonce that proves freshness.
 Since these claims are signed for every EAT generated, they can include things that vary over time like GPS location.
 
 DevID secures the device identity fields by having them signed by the manufacturer of the device sign them into a certificate.
@@ -2545,12 +2503,12 @@ This allows EAT to be implemented with the strongest defenses possible.
 
 It is possible to define a way to encode EAT claims in an X.509 certificate.
 For example, the EAT claims might be mapped to X.509 v3 extensions.
-It is even possible to stuff a whole CBOR-encoded unsigned EAT token into a X.509 certificate.
+It is even possible to stuff a whole CBOR-encoded unsigned EAT into a X.509 certificate.
 
 If that X.509 certificate is an IDevID or LDevID, this becomes another way to use EAT and DevID together.
 
-Note that the DevID must still be used with an authentication protocol that has a nonce or equivalent.
-The EAT here is not being used as the protocol to interact with the rely party.
+Where a DevID incorporates an EAT, the process MUST provide for integrity, authentication and freshness as described for EAT generation independent of DevIDs.
+In this case, a nonce containined in the EAT here may be of no use to the relying party of the DevID.
 
 ## Device Identifier Permanence
 
@@ -2563,16 +2521,15 @@ They change on device life-cycle events.
 {{IEEE.802.1AR}} describes much of this permanence as resistant to attacks that seek to change the ID.
 IDevID permanence can be described this way because {{IEEE.802.1AR}} is oriented around the definition of an implementation with a particular level of defense against attack.
 
-EAT is not defined around a particular implementation and must work on a range of devices that have a range of defenses against attack.
-EAT thus can't be defined permanence in terms of defense against attack.
+The EAT format is not defined around a particular implementation and must work on a range of devices that have a range of defenses against attack.
+The EAT format thus can't define permanence in terms of defense against attack.
 EAT's definition of permanence is in terms of operations and device lifecycle.
-
 
 # CDDL for CWT and JWT {#CDDL_for_CWT}
 
 {{RFC8392}} was published before CDDL was available and thus is specified in prose, not CDDL.
 Following is CDDL specifying CWT as it is needed to complete this specification.
-This CDDL also covers the Claims-Set for JWT. 
+This CDDL also covers the Claims-Set for JWT.
 
 The COSE-related types in this CDDL are defined in {{RFC9052}}.
 
@@ -2591,33 +2548,26 @@ The prose in CWT and JWT remain the normative definition.
 {::include cddl/external/cwt.cddl}
 ~~~~
 
+# Design Guidance for Defining New EAT Claims {#Claim_Characteristics}
 
-# Claim Characteristics {#Claim_Characteristics}
+The section provides design guidance for defining new EAT claims, particularly those to be registered with IANA. Much of this guidance is generic and could be applied when designing new CWT or JWT claims.
 
-The following is design guidance for creating new EAT claims, particularly those to be registered with IANA.
+## Interoperability and Technology Neutrality
 
-Much of this guidance is generic and could also be considered when designing new CWT or JWT claims.
+An overarching goal of the EAT format is to enable interoperability with regard to claim semantics as well as security envelope and serialization formats. Relying parties should be able to process EATs in a general way regardless of the type, manufacturer or technology of the device from which they originate.
+Ideally, general-purpose verification implementations will be developed that can verify tokens for a large variety of use cases, including those with special cases and configurations for different device types.
 
-## Interoperability and Relying Party Orientation
+This is a lofty, difficult to achieve goal that requirs careful definition of claims in a technology neutral way.
+Where possible, claims designers SHOULD design claims that can represent the semantics of data from very different device types.
 
-It is a broad goal that EATs can be processed by Relying Parties in a general way regardless of the type, manufacturer or technology of the device from which they originate.
-It is a goal that there be general-purpose verification implementations that can verify tokens for large numbers of use cases with special cases and configurations for different device types.
-This is a goal of interoperability of the semantics of claims themselves, not just of the signing, encoding and serialization formats.
-
-This is a lofty goal and difficult to achieve broadly requiring careful definition of claims in a technology neutral way.
-Sometimes it will be difficult to design a claim that can represent the semantics of data from very different device types.
-However, the goal remains even when difficult.
-
-## Operating System and Technology Neutral
-
-Claims should be defined such that they are not specific to an operating system.
-They should be applicable to multiple large high-level operating systems from different vendors.
+Claims SHOULD NOT be defined such that they are specific to an operating system.
+Claims should be applicable to multiple large high-level operating systems from different vendors.
 They should also be applicable to multiple small embedded operating systems from multiple vendors and everything in between.
 
-Claims should not be defined such that they are specific to a SW environment or programming language.
+Claims SHOULD NOT be defined such that they are specific to a specific software environment or programming language.
 
-Claims should not be defined such that they are specific to a chip or particular hardware.
-For example, they should not just be the contents of some HW status register as it is unlikely that the same HW status register with the same bits exists on a chip of a different manufacturer.
+Claims SHOULD NOT be defined such that they are specific to a chip or particular hardware.
+For example, a claim should not contain the contents of a chip-specific status register, as it is unlikely that the same status register with the same bits will exist on a different manufacturer's chip.
 
 The boot and debug state claims in this document are an example of a claim that has been defined in this neutral way.
 
@@ -2626,7 +2576,7 @@ The boot and debug state claims in this document are an example of a claim that 
 Many use cases will have EATs generated by some of the most secure hardware and software that exists.
 Secure Elements and smart cards are examples of this.
 However, EAT is intended for use in low-security use cases the same as high-security use case.
-For example, an app on a mobile device may generate EATs on its own.
+For example, an app on a mobile device may generate EATs.
 
 Claims should be defined and registered on the basis of whether they are useful and interoperable, not based on security level.
 In particular, there should be no exclusion of claims because they are just used only in low-security environments.
@@ -2637,12 +2587,10 @@ Where possible, claims should use already standardized data items, identifiers a
 This takes advantage of the expertise put into creating those formats and improves interoperability.
 
 Often extant claims will not be defined in an encoding or serialization format used by EAT.
-It is preferred to define a CBOR and JSON format for them so that EAT implementations do not require a plethora of encoders and decoders for serialization formats.
+It is preferred to provide a CDDL definition for them so that EAT implementations do not require a plethora of encoders and decoders for serialization formats.
 
 In some cases, it may be better to use the encoding and serialization as is.
-For example, signed X.509 certificates and CRLs can be carried as-is in a byte string.
-This retains interoperability with the extensive infrastructure for creating and processing X.509 certificates and CRLs.
-
+For example, signed X.509 certificates and CRLs can be carried as-is in a byte string to retain interoperability with the extensive infrastructure for creating and processing X.509 certificates and CRLs.
 
 ## Proprietary Claims
 
@@ -2652,7 +2600,6 @@ For example, a device manufacturer may generate a token with proprietary claims 
 This is a supported use case.
 
 In many cases proprietary claims will be the easiest and most obvious way to proceed, however for better interoperability, use of general standardized claims is preferred.
-
 
 # Endorsements and Verification Keys {#keyid}
 
@@ -2724,7 +2671,6 @@ For example, an X.509 certificate might have key usage constraints and an endors
 When this is the case, the key identifier must be either a protected header or in the payload such that it is cryptographically bound to the EAT.
 This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
 
-
 # Changes from Previous Drafts
 
 The following is a list of known changes since the immediately previous drafts.  This list is
@@ -2737,3 +2683,5 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Removed security level claim
 - Changed capitalization throughout the document for various terms
 - Eliminated use of DEB acronym for detached EAT bundles
+- Introduced profile concept early in the document
+- General wordsmithing (mostly for brevity)
