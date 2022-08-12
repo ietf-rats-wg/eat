@@ -44,10 +44,14 @@ author:
   country: United Kingdom
   phone: +44 1252 363189
   email: jodonogh@qti.qualcomm.com
+- ins: C. Wallace
+  name: Carl Wallace
+  org: Red Hound Software, Inc.
+  email: carl@redhoundsoftware.com
 
 normative:
   RFC2119:
-  RFC7159:
+  RFC8259:
   RFC7515:
   RFC7516:
   RFC8949:
@@ -63,6 +67,7 @@ normative:
   RFC3986:
   RFC9052:
   RFC9090:
+  RFC9165:
 
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
@@ -131,16 +136,13 @@ normative:
     title: Digital Letter of Approval
     date: November 2015
 
-
   PEN:
     target: https://pen.iana.org/pen/PenApplication.page
     title: Private Enterprise Number (PEN) Request
 
-
   IANA.cbor-tags:
     title: IANA CBOR Tags Registry
     target: https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml
-
 
   SPDX:
     title: Software Package Data Exchange (SPDX)
@@ -152,25 +154,21 @@ normative:
      target: https://cyclonedx.org/specification/overview/
      date: false
 
-
   IANA.core-parameters:
     title: IANA Constrained RESTful Environments (CoRE) Parameters
     target: <https://www.iana.org/assignments/core-parameters>
 
-
 informative:
   RFC4122:
-  RFC4422:
   RFC4949:
   RFC7120:
-  RFC8446:
   RFC9039:
 
   RATS.Architecture: I-D.ietf-rats-architecture
 
   BirthdayAttack:
     title: Birthday attack
-    target: https://en.wikipedia.org/wiki/Birthday_attack.
+    target: https://en.wikipedia.org/wiki/Birthday_attack
     date: false
 
   IEEE.802.1AR:
@@ -224,164 +222,101 @@ informative:
 
 --- abstract
 
-An Entity Attestation Token (EAT) provides an attested claims set
-that describes state and characteristics of an entity,
-a device like a phone, IoT device, network equipment or such.  This claims set is used by a
-relying party, server or service to determine how much it wishes to trust the entity.
+The Entity Attestation Token (EAT) format enables attesters to create EATs, which are attested claims sets
+that describe characteristics of an entity. A relying party may use an EAT to determine the trustworthiness of the entity described by the EAT, and may choose to trust, not trust or partially trust the entity.
 
-An EAT is either a CBOR Web Token (CWT) or JSON Web Token (JWT) with attestation-oriented
-claims. To a large degree, all this document does is extend
-CWT and JWT.
+The EAT format provides a type system (i.e., base set of claim and aggregation types),
+Concise Binary Object Representation (CBOR) and JavaScript Object Notation (JSON) serializations, a set of security envelopes based on CBOR Object Signing and Encryption(COSE) and JSON Object Signing and Encryption (JOSE), and a number
+of claims-related semantics. Most EATs created using the EAT format are either CBOR Web Tokens
+(CWTs) or JSON Web Tokens (JWTs) containing attestation-oriented claims.
+
+Due to the flexibility in the components that comprise the EAT format, it is typically necessary to use a profile when generating or verifying an EAT. This document provides a generic profile for constrained devices.
 
 
 --- middle
 
 # Introduction
 
-EAT provides the definition of a base set of claims that can be made about an entity, a device, some software and/or some hardware.
-This claims set is received by a relying party who uses it to decide if and how it will interact with the remote entity.
-It may choose to not trust the entity and not interact with it.
-It may choose to trust it.
-It may partially trust it, for example allowing monetary transactions only up to a limit.
+The Entity Attestation Token (EAT) format enables attesters to create EATs, which are attested claims sets
+that describe characteristics of an entity, i.e., a device, a software environment, a hardware environment or combination. A relying party may use an EAT when determining the trustworthiness of the corresponding entity, and may choose to trust, not trust or partially trust the entity.
 
-EAT defines the encoding of the claims set in CBOR {{RFC8949}} and JSON {{RFC7159}}.
-EAT is an extension to CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}}.
+The EAT format defines the encoding of claims sets in both CBOR {{RFC8949}} and JSON {{RFC8259}} and defines EATs as extensions to the CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}} specifications. Data structures are defined using the Concise Data Description Language (CDDL) {{RFC8610}}. Authenticity and integrity protection MUST be provided and privacy (encryption) MAY additionally be provided for EATs. The CBOR Object Signing and Encryption (COSE) {{RFC9052}} and JSON Object Signing and Encryption (JOSE) {{RFC7515}} {{RFC7516}} SHOULD be used to provide these security services.
 
-The claims set is secured in transit with the same mechanisms used by CWT and JWT, in particular CBOR Object Signing and Encryption (COSE) {{RFC9052}} and JSON Object Signing
-   and Encryption (JOSE) {{RFC7515}} {{RFC7516}}.
-Authenticity and integrity protection must always be provided.
-Privacy (encryption) may additionally be provided.
-The key material used to sign and encrypt is specifically created and provisioned for the purpose of attestation.
-It is the use of this key material that make the claims set "attested" rather than just some parameters sent to the relying party by the device.
+The key material used to sign and encrypt SHOULD be created and provisioned exclusively for the purpose of attestation, as it is the use of this key material that make the claims set "attested". [RATS.architecture] provides additional information related to provisioning key material used to sign and verify EATs.
 
-EAT is focused on authenticating, identifying and characterizing implementations where implementations are devices, chips, hardware, software and such.
-This is distinct from protocols like TLS {{RFC8446}} that authenticate and identify servers and services.
-It is equally distinct from protocols like SASL {{RFC4422}} that authenticate and identify persons.
+An EAT is an object that asserts the validity of a set of attested claims. This is different than protocols that authenticate and identify servers and services or protocols that authenticate and identify persons. The notion of attestation is large, ranging over a broad variety of use cases and security levels.
+Here are a few examples of claims that may appear in an EAT:
 
-The notion of attestation is large, ranging over a broad variety of use cases and security levels.
-Here are a few examples of claims:
+- Make and model of manufactured consumer device
+- Make and model of a chip or processor, particularly for a security-oriented chip
+- Identification and measurement of the software running on a device
+- Configuration and state of a device
+- Environmental characteristics of a device, like its GPS location
+- Formal certifications received
 
-* Make and model of manufactured consumer device
-* Make and model of a chip or processor, particularly for a security-oriented chip
-* Identification and measurement of the software running on a device
-* Configuration and state of a device
-* Environmental characteristics of a device like its GPS location
-* Formal certifications received
+The EAT format supports nesting claims sets and EATs as well as the use of detached claim sets to enable representation of claims from use cases featuring complex composite devices. Owing to the goal of supporting a broad range of use cases, and because {{RFC8392}} and {{RFC7519}} are very flexible, the profile concept (see {{profiles}}) is defined to enable the usage of the EAT format to be tailored to specific use cases to ensure interoperability.
 
-EAT also supports nesting of sets of claims and EAT tokens for use with complex composite devices.
-
-This document uses the terminology and main operational model defined in [RATS.architecture].
-In particular, it can be used for evidence and attestation results.
+This document uses the terminology and operational models defined in [RATS.architecture].
+In particular, EATs can be used for evidence and attestation results.
+This specification provides some considerations for registration of future EAT-related claims.
 
 ## Entity Overview
 
-The document uses the term "entity" to refer to the target of the attestation token.
-The claims defined in this document are claims about an entity.
-
-An entity is an implementation in hardware, software or both.
-
-An entity is the same as the attesting environment defined in RATS Architecture.
-
-An entity may be the whole device or it may be a subsystem, a subsystem of a subsystem and so on.
-EAT allows claims to be organized into submodules, nested EATs and so on. See {{submods}}.
+The document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
+Correspondingly, the EAT format allows claims to be organized using mechanisms like submodules and nested EATs (see {{submods}}).
 The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
 
-An entity also corresponds to a "system component" as defined in the Internet Security Glossary {{RFC4949}}.
+An entity also corresponds to a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
 That glossary also defines "entity" and "system entity" as something that may be a person or organization as well as a system component.
-Here "entity" never refers to a person or organization.
-
-The hardware and software that implement a server or service like a web site may be an entity, but the web site itself or the organization that runs the web site are not an entity.
+In the EAT framwwork, "entity" never refers to a person or organization. The hardware and software that implement a server or service used by a web site may be an entity, but the organization that runs the web site is not an entity nor is the web site itself.
 
 Some examples of entities:
 
-* A Secure Element
-* A TEE
-* A card in a network router
-* A network router, perhaps with each card in the router a submodule
-* An IoT device
-* An individual process
-* An app on a smartphone
-* A smartphone with many submodules for its many subsystems
-* A subsystem in a smartphone like the modem or the camera
+- A Secure Element
+- A Trusted Execution Environment (TEE)
+- A card in a network router
+- A network router, perhaps with each card in the router represented as a submodule
+- An Internet of Things (IoT) device
+- An individual process
+- An app on a smartphone
+- A smartphone with many submodules for its many subsystems
+- A subsystem in a smartphone like a modem or a camera
 
-An entity may have strong security like defenses against hardware invasive attacks.
+An entity may have strong security defenses against hardware invasive attacks.
 It may also have low security, having no special security defenses.
 There is no minimum security requirement to be an entity.
 
-## CWT, JWT and Detached EAT Bundle
-
-An EAT is primarily a claims set about an entity based on one of the following:
-
-* CBOR Web Token (CWT) {{RFC8392}}
-* JSON Web Token (JWT) {{RFC7519}}
-
-All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on from these carry over to EAT.
-
-This specification extends those specifications by defining additional claims for attestation.
-This specification also describes the notion of a "profile" that can narrow the definition of an EAT, ensure interoperability and fill in details for specific usage scenarios.
-This specification also adds some considerations for registration of future EAT-related claims.
-
-The identification of a protocol element as an EAT, whether CBOR or JSON encoded, follows the general conventions used by CWT, JWT.
-Largely this depends on the protocol carrying the EAT.
-In some cases it may be by content type (e.g., MIME type).
-In other cases it may be through use of CBOR tags.
-There is no fixed mechanism across all use cases.
-
-This specification adds one more top-level token type:
-
-* Detached EAT Bundle, {{DEB}}
-
-A detached EAT bundle is structure to hold a collection of detached claims sets and the EAT that separately provides integrity and authenticity protection for them.
-It can be either CBOR or JSON encoded.
-
-Last, the definition of other token types is allowed.
-Of particular use may be a token type that provides no authenticity or integrity protection at all for use with transports like TLS that do provide that.
-
 ## CDDL, CBOR and JSON
 
-This document defines Concise Binary Object Representation (CBOR) {{RFC8949}} and Javascript Object Notation (JSON) {{RFC7159}} encoding for an EAT.
-All claims in an EAT MUST use the same encoding except where otherwise explicitly stated.
-It is explicitly allowed for a nested token to be of a different encoding.
-Some claims explicitly contain objects and messages that may use a different encoding than the enclosing EAT.
+This document defines CBOR {{RFC8949}} and JSON {{RFC8259}} encodings for all elements that comprise an EAT.
+However, all claims in an EAT SHOULD use the same encoding except for Nested-Tokens, which MAY use different encodings, or where otherwise explicitly stated in a profile or claim specification.
+Some claims MAY contain objects and messages that may use a different encoding than the enclosing EAT.
 
-This specification uses Concise Data Definition Language (CDDL) {{RFC8610}} for all definitions.
+CDDL {{RFC8610}} is used for all definitions.
 The implementor interprets the CDDL to come to either the CBOR or JSON encoding.
 In the case of JSON, Appendix E of {{RFC8610}} is followed.
 Additional rules are given in {{jsoninterop}} where Appendix E is insufficient.
-
-In most cases where the CDDL for CBOR is different than JSON a CDDL Generic named "JC<>" is used.
-It is described in {{CDDL_for_CWT}}.
+In most cases where the CDDL for CBOR is different than JSON, a CDDL Generic named "JC<>" {{RFC9165}} is used.
 
 The CWT and JWT specifications were authored before CDDL was available and did not use CDDL.
-This specification includes a CDDL definition of most of what is defined in {{RFC8392}}.
-Similarly, this specification includes CDDL for most of what is defined in {{RFC7519}}.
+This specification includes a CDDL definition of most of what is defined in {{RFC8392}} and {{RFC7519}}.
 These definitions are in {{CDDL_for_CWT}} and are not normative.
 
 ## Operating Model and RATS Architecture
 
-While it is not required that EAT be used with the RATS operational model described in Figure 1 in {{RATS.Architecture}}, or even that it be used for attestation, this document is oriented around that model.
+The EAT format follows the operational model described in Figure 1 in {{RATS.Architecture}}. To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
+Evidence is usually signed by a key that proves the attester and the evidence it produces are authentic.
+The claims set includes a nonce or some other means to assure freshness.
 
-To summarize, an attester generates evidence.
-Evidence is a claims set describing various characteristics of an entity.
-Evidence also is usually signed by a key that proves the entity and the evidence it produces are authentic.
-The claims set includes a nonce or some other means to provide freshness.
-EAT is designed to carry evidence.
-The evidence goes to a verifier where the signature is verified.
-Some of the claims may also be checked against reference values.
-The verifier then produces attestation results which is also usually a claims set.
-
-EAT is also designed to carry attestation results.
-The attestation results go to the relying party which is the ultimate consumer of the Remote Attestation Procedure.
-The relying party uses the attestation results as needed for the use case, perhaps allowing an entity on the network, allowing a financial transaction or such.
-
-Note that sometimes the verifier and relying party are not separate and thus there is no need for a protocol to carry attestation results.
-
+A verifier confirms an EAT is valid by verifying the signature using a trustworthy public key and may vet some claims using reference values.
+The verifier then produces attestation results, which may also be represented as an EAT.
+The attestation results are provided to the relying party, which is the ultimate consumer of the Remote Attestation Procedure.
+The relying party uses the attestation results as needed for its use case, perhaps allowing an entity to access a network, allowing a financial transaction or such.
+In some cases, the verifier and relying party are not distinct entities.
 
 ### Relationship between Evidence and Attestation Results {#relationship}
 
-Any claim defined in this document or in the IANA CWT or JWT registry may be used in evidence or attestation results.
-
-The relationship of claims in attestation results to evidence is fundamentally governed by the verifier and the verifier's policy.
+Any claim defined in this document or in the IANA CWT or JWT registry may be used in evidence or attestation results. The relationship of claims in attestation results to evidence is fundamentally governed by the verifier and the verifier's policy.
 
 A common use case is for the verifier and its policy to perform checks, calculations and processing with evidence as the input to produce a summary result in attestation results that indicates the overall health and status of the entity.
 For example, measurements in evidence may be compared to reference values the results of which are represented as a simple pass/fail in attestation results.
@@ -390,16 +325,14 @@ It is also possible that some claims in the Evidence will be forwarded unmodifie
 This forwarding is subject to the verifier's implementation and policy.
 The relying party should be aware of the verifier's policy to know what checks it has performed on claims it forwards.
 
-The verifier may also modify or transform claims it forwards.
-This may be to implement some privacy preservation functionality.
+The verifier may modify claims it forwards, for example, to implement a privacy preservation functionality.
+The verifier MUST provide authenticity and integrity protection for attestation results.
 
 It is also possible the verifier will put claims in the attestation results that give details about the entity that it has computed or looked up in a database.
 For example, the verifier may be able to put a HW OEM ID Claim in the attestation results by performing a look up based on a UEID (serial number) it received in evidence.
 
-This specification does not establish any normative rules for the verifier to follow.
-They are a matter of configured policy.
+This specification does not establish any normative rules for the verifier to follow, as these are a matter of local policy.
 It is up to each relying party to understand the processing rules of each verifier to know how to interpret claims in attestation results.
-
 
 # Terminology
 
@@ -412,7 +345,7 @@ capitals, as shown here.
 This document reuses terminology from JWT {{RFC7519}} and CWT {{RFC8392}}.
 
 Claim:
-: A piece of information asserted about a subject. A claim is represented as pair with a value and either a name or key to identify it.
+: A piece of information asserted about an entity. A claim is represented as pair with a value and either a name or key to identify it.
 
 Claim Name:
 : A unique text string that identifies the claim. It is used as the claim name for JSON encoding.
@@ -444,30 +377,33 @@ Attestation Results:
 : The output generated by a verifier, typically including information about an attester, where the verifier vouches for the validity of the results
 
 Reference Values:
-: A set of values against which values of Claims can be compared as part of applying an appraisal policy for evidence.  Reference Values are sometimes referred to in other documents as known-good values, golden measurements, or nominal values, although those terms typically assume comparison for equality, whereas here reference values might be more general and be used in any sort of comparison.
+: A set of values against which values of Claims can be compared as part of applying an appraisal policy for evidence.  Reference values are sometimes referred to in other documents as known-good values, golden measurements, or nominal values, although those terms typically assume comparison for equality, whereas here reference values might be more general and be used in any sort of comparison.
 
 Endorsement:
 : A secure statement that an Endorser vouches for the integrity of an attester's various capabilities such as Claims collection and evidence signing.
 
 # Top-Level Token Definition
 
-An EAT is a "message", a "token", or such whose content is a Claims-Set about an entity or some number of entities.
-An EAT MUST always contains a Claims-Set.
+In most cases, an EAT contains a claims set about an entity packaged as a CWT {{RFC8392}} or JWT {{RFC7519}}. This specification extends {{RFC8392}} and {{RFC7519}} by defining additional claims for attestation. All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on from CWT and JWT apply to the EAT format.
 
-An EAT may be encoded in CBOR or JSON as defined here.
-While not encouraged, other documents may define EAT encoding in other formats.
+Authenticity and integrity protection MUST be provided for EATs. This document defines the use of CWT or JWT for this purpose.
+Extensions to this specification MAY use other methods of protection.
 
-EAT as defined here is always integrity and authenticity protected through use of CWT or JWT.
-Other token formats using other methods of protection may be defined outside this document.
+The identification of a protocol element as an EAT follows the general conventions used for CWTs and JWTs.
+Identification depends on the protocol carrying the EAT.
+In some cases it may be by content type (e.g., MIME type).
+In other cases it may be through use of CBOR tags.
+There is no fixed mechanism across all use cases.
 
-This document also defines the detatched EAT bundle ({{DEB}}), a bundle of some detached Claims-Sets and CWTs or JWTs that provide protection for the detached Claims-Set.
+This document also defines the detatched EAT bundle (see {{DEB}}), which holds a collection of detached claims sets and an EAT that provides integrity and authenticity protection for them.
+Detached EAT bundles can be either CBOR or JSON encoded.
 
-The following CDDL defines the top-levels of an EAT token as a socket indicating future token formats may be defined.
-Any new format that plugs into this socket MUST be defined in a IETF standards track document.
-See {{CDDL_for_CWT}} for the CDDL definitions of a CWT and JWT.
+The following CDDL defines the top-level \$\$EAT-CBOR-Tagged-Token, \$\$EAT-CBOR-Untagged-Token and \$\$EAT-JSON-Token-Formats sockets, enabling future token formats may be defined.
+Any new format that plugs into one or more of these sockets MUST be defined in a IETF standards track document.
+See {{CDDL_for_CWT}} for the CDDL definitions of a CWT and JWT. Of particular use may be a token type that provides no direct authenticity or integrity protection for use with transports mechanisms that do provide the necessary security services.
 
 Nesting of EATs is allowed and defined in {{Nested-Token}}.
-This nesting includes nesting of a token that is a different format than the enclosing token.
+This includes the nesting of an EAT that is a different format than the enclosing EAT.
 The definition of Nested-Token references the CDDL defined in this section.
 When new token formats are defined, the means for identification in a nested token MUST also be defined.
 
@@ -479,36 +415,34 @@ When new token formats are defined, the means for identification in a nested tok
 {::include cddl/eat-json.cddl}
 ~~~~
 
-
 # The Claims
 
-This section describes new claims defined for attestation that are to be added to the CWT {{IANA.CWT.Claims}} and JWT {{IANA.JWT.Claims}} IANA registries.
+This section describes new claims defined for attestation that are to be added to the CWT {{IANA.CWT.Claims}} and JWT {{IANA.JWT.Claims}} IANA registries. 
+Additionally, it describes how several extant CWT and JWT claims apply to the EAT format.
 
-This section also describes how several extant CWT and JWT claims apply in EAT.
+Each claim is defined as a CDDL group and features prose that describes the claim.
+As shown in {{encoding}}, the CDDL groups are encoded as map entries in CBOR and name/value pairs in JSON.
 
-CDDL, along with a text description, is used to define each claim
-independent of encoding.  Each claim is defined as a CDDL group.
-In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
-
-Each claim described has a unique text string and integer that identifies it.
+Each claim has a unique text string and integer that identifies it.
 CBOR-encoded tokens MUST use only the integer for Claim Keys.
 JSON-encoded tokens MUST use only the text string for Claim Names.
 
+Each claim is appended to the \$\$Claims-Set-Claims socket. Specifications that define additional claims SHOULD also supply additions to the \$\$Claims-Set-Claims socket.
 
 
 ## Nonce Claim (nonce) {#nonce}
 
-All EATs MUST have a nonce to prevent replay attacks.
+All EATs MUST provide for freshness, i.e., replay protection. A nonce claim SHOULD be used for this purpose.
 
-This claim is either a single byte or text string or an array of byte or text strings.
-The array is to accommodate multistage EAT verification and consumption.
+A nonce is either a byte or text string or an array of byte or text strings.
+The array option supports multistage EAT verification and consumption.
 See the extensive discussion on attestation freshness in Appendix A of RATS Architecture {{RATS.Architecture}}.
 
-A claim named "nonce" is previously defined and registered with IANA for JWT, but MUST not be used in an EAT.
-It does not support multiple nonces.
-No previous nonce claim was defined for CWT.
+A claim named "nonce" was defined and registered with IANA for JWT, but MUST NOT be used in an EAT because
+it does not support multiple nonces.
+No previous nonce claim was defined for CWT. To distinguish from the previously defined nonce claim, the nonce claim for JSON-formatted EATs is named eat_nonce.
 
-The nonce MUST have 64 bits of entropy as fewer bits are unlikely to be secure.
+The nonce MUST have 64 bits of entropy.
 A maximum nonce size is set to limit the memory required for an implementation.
 All receivers MUST be able to accommodate the maximum size.
 
@@ -517,9 +451,8 @@ The minimum size is 8 bytes.
 The maximum size is 64 bytes.
 
 In JSON the nonce is a text string.
-It is assumed that the only characters represented by the lower 7 bits will be used so the text string must be one-seventh longer because the 8th bit doesn't contribute to entropy.
-The minimum size is 10 bytes.
-The maximum size is 74 bytes.
+It is assumed that only characters represented by the lower 7 bits of each byte will be used, so the text string must be one-seventh longer because the 8th bit doesn't contribute to entropy.
+The minimum size for JSON encoded EATs is 10 bytes and the maximum size is 74 bytes.
 
 ~~~~CDDL
 {::include nc-cddl/nonce.cddl}
@@ -527,8 +460,7 @@ The maximum size is 74 bytes.
 
 ## Claims Describing the Entity
 
-The claims in this section describe the entity itself.
-They describe the entity whether they occur in evidence or occur in attestation results.
+The claims in this section describe the entity itself, whether they occur in evidence or in attestation results.
 See {{relationship}} for discussion on how attestation results relate to evidence.
 
 
@@ -539,21 +471,19 @@ mobile phone, a water meter, a Bluetooth speaker or a networked
 security camera. It may identify the entire entity or a submodule.
 It does not identify types, models or classes of
 entities. It is akin to a serial number, though it does not have to be
-sequential.
+sequential. UEIDs are permanent and MUST never change for a given entity.
 
-UEIDs MUST be universally and globally unique across manufacturers
+UEIDs MUST be universally unique across manufacturers
 and countries. UEIDs MUST also be unique across protocols and systems,
 as tokens are intended to be embedded in many different protocols and
 systems. No two products anywhere, even in completely different
 industries made by two different manufacturers in two different
-countries should have the same UEID (if they are not global and
-universal in this way, then Relying Parties receiving them will have
+countries should have the same UEID (if they are not 
+universal in this way, then relying parties receiving them will have
 to track other characteristics of the entity to keep entities distinct
 between manufacturers).
 
 There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
-
-The UEID is permanent. It MUST never change for a given entity.
 
 A UEID is constructed of a single type byte followed by the bytes that are the identifier.
 Several types are allowed to accommodate different industries, different manufacturing processes
@@ -567,14 +497,10 @@ All implementations MUST be able to receive UEIDs up to 33 bytes long.
 33 bytes is the longest defined in this document and gives necessary entropy for probabilistic uniqueness.
 See {{UEID-Design}}.
 
-UEIDs SHOULD NOT be longer than 33 bytes.
-If they are longer, there is no guarantee that a receiver will be able to accept them.
-
-
 | Type Byte | Type Name | Specification |
-| 0x01 | RAND | This is a 128, 192 or 256-bit random number generated once and stored in the entity. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the entity and stored. It MUST NOT be smaller than 128 bits. See the length analysis in {{UEID-Design}}. |
-| 0x02 | IEEE EUI | This uses the IEEE company identification registry. An EUI is either an EUI-48, EUI-60 or EUI-64 and made up of an OUI, OUI-36 or a CID, different registered company identifiers, and some unique per-entity identifier. EUIs are often the same as or similar to MAC addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while entities with multiple network interfaces may have multiple MAC addresses, there is only one UEID for an entity) {{IEEE.802-2001}}, {{OUI.Guide}}. |
-| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. See {{ThreeGPP.IMEI}}. |
+| 0x01 | RAND | This is a 128, 192 or 256-bit random number generated once and stored in an entity. It may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function or may be a cryptographic quality random number generated once at the beginning of the life of the entity and stored. It MUST NOT be smaller than 128 bits. See the length analysis in {{UEID-Design}}. |
+| 0x02 | IEEE EUI | This uses the IEEE company identification registry. An Extended Unique Identifier (EUI) is either an EUI-48, EUI-60 or EUI-64 and made up of an Organizationally Unique Identifier (OUI), OUI-36 or a Company ID (CID), different registered company identifiers, and some unique per-entity identifier. EUIs are often the same as or similar to Media Access Control (MAC) addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while entities with multiple network interfaces may have multiple MAC addresses, there is only one UEID for an entity) {{IEEE.802-2001}}, {{OUI.Guide}}. |
+| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The International Mobile Equipment Identity (IMEI) value encoded SHALL NOT include Luhn checksum or Software Version Number (SVN) information. See {{ThreeGPP.IMEI}}. |
 {: #ueid-types-table title="UEID Composition Types"}
 
 UEIDs are not designed for direct use by humans (e.g., printing on
@@ -587,18 +513,18 @@ structure. For example, they should not use the OUI part of a type
 should use the OEMID claim. See {{oemid}}. The reasons for
 this are:
 
-* UEIDs types may vary freely from one manufacturer to the next.
+- UEIDs types may vary freely from one manufacturer to the next.
 
-* New types of UEIDs may be created. For example, a type 0x07 UEID may
-  be created based on some other manufacturer registration scheme.
+- New types of UEIDs may be created. For example, a type 0x07 UEID may
+  be created based on some manufacturer registration scheme.
 
-* The manufacturing process for an entity is allowed to change from
+- The manufacturing process for an entity is allowed to change from
   using one type of UEID to another.  For example, a manufacturer
   may find they can optimize their process by switching from type 0x01
   to type 0x02 or vice versa.
 
-The type byte is needed to distinguish UEIDs of different types that by chance have the same identifier value, but do not identify the same entity.
-The type byte MUST be treated as part of the opaque UEID and MUST not be used to make use of the internal structure of the UEID.
+The type byte is needed to distinguish UEIDs of different types that have the same identifier value, but do not identify the same entity.
+The type byte MUST be treated as part of the opaque UEID and MUST NOT be used to make use of the internal structure of the UEID.
 
 A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 
@@ -606,24 +532,21 @@ A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 {::include nc-cddl/ueid.cddl}
 ~~~~
 
-
 ### Semi-permanent UEIDs (SUEIDs)
 
-An SUEID has the same format, characteristics and requirements as a UEID, but MAY change to a different value on entity life-cycle events.
-An entity MAY have both a UEID and SUEIDs, neither, one or the other.
+An SUEID has the same format, characteristics and requirements as a UEID, but MAY change on entity life-cycle events.
+An entity MAY have both a UEID and SUEID(s), neither, one or the other.
 
-Examples of life-cycle events are change of ownership, factory reset and on-boarding into an IoT device management system.
-It is beyond the scope of this document to specify particular types of SUEIDs and the life-cycle events that trigger their change.
-An EAT profile MAY provide this specification.
+Examples of life-cycle events include change of ownership, factory reset and on-boarding into an IoT device management system.
+It is beyond the scope of this document to specify particular types of SUEIDs and the life-cycle events that trigger change, 
+but an EAT profile MAY provide this specification.
 
 There MAY be multiple SUEIDs.
-Each has a text string label the purpose of which is to distinguish it from others.
+Each has a text string label to distinguish it from others.
 The label MAY name the purpose, application or type of the SUEID.
 For example, the label for the SUEID used by FIDO Onboarding Protocol could be "FDO".
 It is beyond the scope of this document to specify any SUEID labeling schemes.
 They are use-case specific and MAY be specified in an EAT profile.
-
-If there is only one SUEID, the claim remains a map and there still MUST be a label.
 
 An SUEID provides functionality similar to an IEEE LDevID {{IEEE.802.1AR}}.
 
@@ -635,31 +558,29 @@ A Device Indentifier URN is registered for SUEIDs. See {{registerueidurn}}.
 {::include nc-cddl/sueids.cddl}
 ~~~~
 
-
 ### Hardware OEM Identification (oemid) {#oemid}
 
-This claim identifies the Original Equipment Manufacturer (OEM) of the hardware.
-Any of the three forms described below MAY be used at the convenience of the claim sender.
-The receiver of this claim MUST be able to handle all three forms.
+The hardware original equipment manufacturer (OEM) identification claim defines three methods for identitying the OEM of the hardware, as described in the subsections below.
+Receivers of this claim MUST be able to handle all three forms.
+
+~~~~CDDL
+{::include nc-cddl/oemid.cddl}
+~~~~
 
 #### Random Number Based OEMID
 
-The random number based OEMID MUST always 16 bytes (128 bits).
-
 The OEM MAY create their own ID by using a cryptographic-quality random number generator.
-They would perform this only once in the life of the company to generate the single ID for said company.
-They would use that same ID in every entity they make.
+The ID would be created once in the life of the company with the same value asserted in every entity they generate.
+The random number based OEMID MUST be 16 bytes (128 bits).
 This uniquely identifies the OEM on a statistical basis and is large enough should there be ten billion companies.
 
 The OEM MAY also use a hash function like SHA-256 and truncate the output to 128 bits.
-The input to the hash should be somethings that have at least 96 bits of entropy, but preferably 128 bits of entropy.
+The input to the hash SHOULD have at least 96 bits of entropy, but preferably 128 bits of entropy.
 The input to the hash MAY be something whose uniqueness is managed by a central registry like a domain name.
-
-In JSON format tokens this MUST be base64url encoded.
 
 #### IEEE Based OEMID
 
-The IEEE operates a global registry for MAC addresses and company IDs.
+The Institute of Electrical and Electronics Engineers (IEEE) operates a global registry for MAC addresses and company IDs.
 This claim uses that database to identify OEMs. The contents of the
 claim may be either an IEEE MA-L, MA-M, MA-S or an IEEE CID
 {{IEEE.RA}}.  An MA-L, formerly known as an OUI, is a 24-bit value
@@ -686,40 +607,33 @@ In JSON format tokens, this MUST be base64url encoded and always 4 bytes.
 
 #### IANA Private Enterprise Number Based OEMID
 
-IANA maintains a integer-based company registry called the Private Enterprise Number (PEN) {{PEN}}.
+IANA maintains a registry for Private Enterprise Numbers (PEN) {{PEN}}. A PEN is an integer that identifies an enterprise and may be
+used to construct an object identifier (OID) relative to the following OID arc that is managed by IANA:  iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1).
 
-PENs are often used to create an OID.
-That is not the case here.
-They are used only as an integer.
+For EAT purposes, only the integer value assigned by IANA as the PEN is relevant, not the full OID value.
 
 In CBOR this value MUST be encoded as a major type 0 integer and is typically 3 bytes.
 In JSON, this value MUST be encoded as a number.
 
-~~~~CDDL
-{::include nc-cddl/oemid.cddl}
-~~~~
-
-
 ### Hardware Model Claim (hardware-model)
 
-This claim differentiates hardware models, products and variants manufactured by a particular OEM, the one identified by OEM ID in {{oemid}}.
+The hardware module claim differentiates hardware models, products and variants manufactured by a particular OEM, where the OEM is identified by OEM ID as described in {{oemid}}.
 
-This claim must be unique so as to differentiate the models and products for the OEM ID.
-This claim does not have to be globally unique, but it can be.
-A receiver of this claim MUST not assume it is globally unique.
+This claim MUST be unique across the set the models, products and etc. associated with a given OEM ID.
+This claim MAY be globally unique, but this is not required.
+A receiver of this claim MUST NOT assume it is globally unique.
 To globally identify a particular product, the receiver should concatenate the OEM ID and this claim.
 
 The granularity of the model identification is for each OEM to decide.
-It may be very granular, perhaps including some version information.
-It may be very general, perhaps only indicating top-level products.
+It may be very granular, perhaps including version information, or very general, only indicating top-level products.
 
 The purpose of this claim is to identify models within protocols, not for human-readable descriptions.
 The format and encoding of this claim should not be human-readable to discourage use other than in protocols.
 If this claim is to be derived from an already-in-use human-readable identifier, it can be run through a hash function.
 
-There is no minimum length so that an OEM with a very small number of models can use a one-byte encoding.
+There is no minimum length, so an OEM with a very small number of models can use a one-byte encoding.
 The maximum length is 32 bytes.
-All receivers of this claim MUST be able to receive this maximum size.
+All receivers of this claim MUST be able to receive the maximum size.
 
 The receiver of this claim MUST treat it as a completely opaque string of bytes, even if there is some apparent naming or structure.
 The OEM is free to alter the internal structure of these bytes as long as the claim continues to uniquely identify its models.
@@ -728,10 +642,9 @@ The OEM is free to alter the internal structure of these bytes as long as the cl
 {::include cddl/hardware-model.cddl}
 ~~~~
 
-
 ### Hardware Version Claims (hardware-version-claims)
 
-The hardware version is a text string the format of which is set by each manufacturer.
+The hardware version claim is a text string the format of which is set by each manufacturer.
 The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
 It is useful to know how to sort versions so the newer can be distinguished from the older.
 
@@ -739,15 +652,13 @@ The hardware version can also be given by a 13-digit {{EAN-13}}.
 A new CoSWID version scheme is registered with IANA by this document in {{registerversionscheme}}.
 An EAN-13 is also known as an International Article Number or most commonly as a bar code.
 
-
 ~~~~CDDL
 {::include nc-cddl/hardware-version.cddl}
 ~~~~
 
-
 ### Software Name Claim
 
-This is a very simple free-form text claim for naming the software used by the entity.
+The software name claim is a very simple free-form text claim for naming the software used by the entity.
 Intentionally, no general rules or structure are set.
 This will make it unsuitable for use cases that wish precise naming.
 
@@ -757,16 +668,14 @@ If precise and rigourous naming of the SW for the entity is needed, the manifest
 {::include nc-cddl/software-name.cddl}
 ~~~~
 
-
 ### Software Version Claim
 
-This makes use of the CoSWID version scheme data type to give a simple version for the software.
-A full CoSWID manifest or other type of manifest can be instead if this is too simple.
+The software version claim uses the CoSWID version-scheme type as a simple software version indicator.
+A full CoSWID manifest or other software manifest can be used where additional details are required.
 
 ~~~~CDDL
 {::include nc-cddl/software-version.cddl}
 ~~~~
-
 
 ### The Security Level Claim (security-level)
 
@@ -808,18 +717,17 @@ This set of three is not extensible so this remains broadly interoperable. In pa
 
 See also the DLOAs claim in {{dloas}}, a claim that specifically provides information about certifications received.
 
-
 ~~~~CDDL
 {::include nc-cddl/security-level.cddl}
 ~~~~
 
 ### Secure Boot Claim (secure-boot)
 
-The value of true indicates secure boot is enabled. Secure boot is
+The secure boot claim is used to indicate whether a device boots using only software that is trusted by the OEM. The value of true indicates secure boot is enabled. Secure boot is
 considered enabled when the firmware and operating
-system, are under control of the manufacturer of the entity identified in the
+system are under control of the manufacturer identified in the
 OEMID claim described in {{oemid}}.
-Control by the manufacturer of the firmware and the operating system may be by it being in ROM, being cryptographically authenticated, a combination of the two or similar.
+The manufacturer may achieve controll of the firmware and the operating system via use of read-only memory (ROM), cryptographic authentication, a combination of the two or similar.
 
 ~~~~CDDL
 {::include nc-cddl/secure-boot.cddl}
@@ -827,11 +735,11 @@ Control by the manufacturer of the firmware and the operating system may be by i
 
 ### Debug Status Claim (debug-status)
 
-This applies to entity-wide or submodule-wide debug facilities of the
-entity like JTAG and diagnostic hardware built into
+The debug status claim applies to entity-wide or submodule-wide debug facilities of the
+entity, like JTAG and diagnostic hardware built into
 chips. It applies to any software debug facilities related to root,
 operating system or privileged software that allow system-wide memory
-inspection, tracing or modification of non-system software like user
+inspection, tracing or modification of non-system software, including user
 mode applications.
 
 This characterization assumes that debug facilities can be enabled and
@@ -843,29 +751,28 @@ type of the mechanism is not taken into account. For example, it does
 not matter if authentication is by a global password or by per-entity
 public keys.
 
-As with all claims, the absence of the debug level claim means it is not reported.
-A conservative interpretation might assume the enabled state.
+The absence of the debug-status claim means it has not been reported.
+A conservative interpretation might use enabled as a default.
 
 This claim is not extensible so as to provide a common interoperable description of debug status.
 If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
 It may consider including both this claim as a coarse indication of debug status and its own proprietary claim as a refined indication.
 
-The higher levels of debug disabling requires that all debug disabling
+The higher levels of debug disabling require that all debug disabling
 of the levels below it be in effect. Since the lowest level requires
 that all of the target's debug be currently disabled, all other levels
 require that too.
 
-There is no inheritance of claims from a submodule to a superior
+Within an EAT, there is no inheritance of claims from a submodule to a superior
 module or vice versa. There is no assumption, requirement or guarantee
 that the target of a superior module encompasses the targets of
 submodules. Thus, every submodule must explicitly describe its own
-debug state. The receiver of an EAT MUST not
+debug state. The receiver of an EAT MUST NOT
 assume that debug is turned off in a submodule because there is a claim
 indicating it is turned off in a superior module.
 
-An entity may have multiple debug
-facilities. The use of plural in the description of the states
-refers to that, not to any aggregation or inheritance.
+Entities may have multiple debug
+facilities, which is reflected in the state descriptions, not aggregation or inheritance.
 
 The architecture of some chips or devices may be such that a debug
 facility operates for the whole chip or device. If the EAT for such
@@ -938,7 +845,7 @@ See location-related privacy considerations in {{locationprivacyconsiderations}}
 
 ### The Uptime Claim (uptime)
 
-The "uptime" claim MUST contain a value that represents the number of
+The uptime claim contains a value that represents the number of
 seconds that have elapsed since the entity or submod was last booted.
 
 ~~~~CDDL
@@ -947,7 +854,7 @@ seconds that have elapsed since the entity or submod was last booted.
 
 ### The Boot Count Claim (boot-count)
 
-This claim contains a count of the number
+The boot count claim contains the number
 times the entity or submod has been booted. Support for this claim
 requires a persistent storage on the device.
 
@@ -957,18 +864,15 @@ requires a persistent storage on the device.
 
 ### The Boot Seed Claim (boot-seed)
 
+The boot seed claim contains a value created at system boot time that allows differentiation of attestation reports from different boot sessions of a particular entity (e.g., a certain UEID).
 
-The Boot Seed claim contains a value created at system boot time that allows differentiation of attestation reports from different boot sessions of a particular entity (e.g., a certain UEID).
-
-This value is usually public.
-It is not a secret and MUST NOT be used for any purpose that a secret seed is needed, such as seeding a random number generator.
+This value is usually public. It is not a secret and MUST NOT be used for any purpose that a secret seed is needed, such as seeding a random number generator.
 
 There are privacy considerations for Boot Seed. See {{bootseedprivacyconsiderations}}.
 
 ~~~~CDDL
 {::include nc-cddl/boot-seed.cddl}
 ~~~~
-
 
 ### The DLOA (Digital Letter of Approval) Claim (dloas) {#dloas}
 
@@ -995,18 +899,17 @@ The method of constructing the registrar URI, platform label and possibly applic
 {::include nc-cddl/dloas.cddl}
 ~~~~
 
-
 ### The Software Manifests Claim (manifests) {#manifests}
 
-This claim contains descriptions of software present on the entity.
+Software manifest claims contain descriptions of software present on the entity.
 These manifests are installed on the entity when the software is installed or are created as part of the installation process.
 Installation is anything that adds software to the entity, possibly factory installation, the user installing elective applications and so on.
-The defining characteristic is they are created by the software manufacturer.
-The purpose of these claims in an EAT is to relay them without modification to the verifier and possibly to the relying party.
+The defining characteristic is that manifests are created by the software manufacturer.
+The manifest claim relays the values without modification to the verifier and possibly to the relying party.
 
-Some manifests may be signed by their software manufacturer before they are put into this EAT claim.
-When such manifests are put into this claim, the manufacturer's signature SHOULD be included.
-For example, the manifest might be a CoSWID signed by the software manufacturer, in which case the full signed CoSWID should be put in this claim.
+Some manifests may be signed by their software manufacturer before they are included in the claim.
+When manifests are put into this claim, the manufacturer's signature SHOULD be included.
+For example, the manifest might be a CoSWID signed by the software manufacturer, in which case the claim contains the full signed CoSWID.
 
 This claim allows multiple formats for the manifest.
 For example, the manifest may be a CBOR-format CoSWID, an XML-format SWID or other.
@@ -1018,8 +921,7 @@ Each manifest in the claim MUST be an array of two.
 The first item in the array of two MUST be an integer CoAP Content-Format identifier.
 The second item is MUST be the actual manifest.
 
-In JSON-format tokens the manifest, whatever format it is, MUST be placed in a text string.
-When a non-text format manifest like a CBOR-encoded CoSWID is put in a JSON-encoded token, the manifest MUST be base-64 encoded.
+In JSON-format tokens the manifest, whatever format it is, MUST be base-64 encoded then placed in a text string.
 
 This claim allows for multiple manifests in one token since multiple software packages are likely to be present.
 The multiple manifests MAY be of different formats.
@@ -1027,7 +929,7 @@ In some cases EAT submodules may be used instead of the array structure in this 
 
 When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
 
-This document registers CoAP Content Formats for CycloneDX {{CycloneDX}} and SPDX {{SPDX}} so they can be used as a manifest. 
+This document registers CoAP Content Formats for CycloneDX {{CycloneDX}} and SPDX {{SPDX}} so they can be used as a manifest.
 
 ~~~~CDDL
 {::include nc-cddl/manifests.cddl}
@@ -1043,15 +945,15 @@ This claim can be a {{CoSWID}}.
 When the CoSWID format is used, it MUST be evidence CoSWIDs, not payload CoSWIDS.
 
 Formats other than CoSWID can be used.
-The identification of format is by CoAP Content Format, the same as the manifests claim in {{manifests}}.
+The identification of format is by CoAP Content Format, as with manifests claim in {{manifests}}.
 
 ~~~~CDDL
 {::include nc-cddl/swevidence.cddl}
 ~~~~
 
-### The Measurement Results Claim (measurement-results) {#measurementresults}
+### The Measurement Comparison Results Claim (measurement-results) {#measurementresults}
 
-This claim is a general-purpose structure for reporting comparison of measurements to expected reference values.
+The measurement comparison results claim is a general-purpose structure for reporting comparison of measurements to expected reference values.
 This claim provides a simple standard way to report the result of a comparison as success, failure, fail to run, ...
 
 It is the nature of measurement systems that they are specific to the operating system, software and hardware of the entity that is being measured.
@@ -1099,97 +1001,39 @@ The values for the results enumerated type are as follows:
 {::include nc-cddl/measurement-results.cddl}
 ~~~~
 
-
 ### Submodules (submods) {#submods}
 
-Some devices are complex, having many subsystems.  A
-mobile phone is a good example. It may have several connectivity
-subsystems for communications (e.g., Wi-Fi and cellular). It may have
-subsystems for low-power audio and video playback. It may have multiple
-security-oriented subsystems like a TEE and a Secure Element.
+Some devices are complex and have many subsystems.  A mobile phone is a good example. It may have subsystems for communications (e.g., Wi-Fi and cellular), low-power audio and video playback, multiple
+security-oriented subsystems like a TEE and a Secure Element, and etc. The submodule claim enables claims for each subsystem to be grouped together.
 
-The claims for a subsystem can be grouped together in a submodule or submod.
+The submodule claim is defined as a map, where the map key identifies the submodule. The label for each submodule SHOULD be unique. Sibling submodules MUST NOT have the same label.
+The value of each entry in the submodule claim may be a Claims-Set, Nested-Token or Detached-Submodule-Digest.
+This allows for the submodule to serve as its own attester or not and allows for claims
+for each submodule to be represented directly or indirectly, i.e., detached. 
 
-The submods are in a single map/object, one entry per submodule.
-There is only one submods map/object in a token. It is
-identified by its specific label. It is a peer to other claims, but it
-is not called a claim because it is a container for a claims set rather
-than an individual claim. This submods part of a token allows what
-might be called recursion. It allows claims sets inside of claims sets
-inside of claims sets...
+A submodule may include a submodule claim, allowing for arbitrary levels of nesting.
+However, subodules do not inherit anything from the containing token and must explicitly include all claims.
+Submodules may contain claims that are present in any surrounding token or submodule.
+For example, the top-level of the token may have a UEID, a submodule may have a different UEID and a further subordinate submodule may also have a UEID.
 
+The following sub-sections define the three mechanisms for representing submodule claims:
 
-#### Submodule Types
-
-The following sections define the three types of submodules:
-
-* A submodule Claims-Set
-* A nested token, which can be any valid EAT token, CBOR or JSON
-* The digest of a detached Claims-Set
+- A submodule Claims-Set
+- A nested token, which can be any EAT
+- The digest of a detached Claims-Set
 
 ~~~~CDDL
 {::include nc-cddl/submods.cddl}
 ~~~~
 
-##### Submodule Claims-Set
+When decoding a submodule claim in a CBOR-formatted EAT, the Claims-Set option will be encoded as a map, the Nested-Token option as a CBOR-tagged object and the Detached-Submodule-Digest as an array.
 
-This is a subordinate Claims-Set containing claims about a submodule, a subordinate entity.
+When decoding a JSON format EAT, a little more work is required because both the Nested-Token and Detached-Submodule-Digest tyoes are arrays.
+To distinguish the nested token from the detached digest, the first element in the array is examined.
+If it is "JWT" or "BUNDLE", then the submodule is a Nested-Token.
+Otherwise it will contain an algorithm identifier and is a Detached-Submodule-Digest.
 
-The submodule Claims-Set is produced by the same attester as the surrounding token.
-It is secured by the same mechanism as the enclosing token (e.g., it is signed by the same attestation key).
-It roughly corresponds to an attesting environment, as described in the RATS architecture.
-
-It may contain claims that are the same as its surrounding token or superior submodules.
-For example, the top-level of the token may have a UEID, a submod may have a different UEID and a further subordinate submodule may also have a UEID.
-
-The encoding of a submodule Claims-Set MUST be the same as the encoding as the token it is part of.
-
-The data type for this type of submodule is a map/object.
-It is identified when decoding by its type being a map/object.
-
-
-##### Nested Token {#Nested-Token}
-
-This type of submodule is a fully formed complete token.
-It is typically produced by a separate attester.
-It is typically used by a composite device as described in RATS Architecture {{RATS.Architecture}}
-In being a submodule of the surrounding token, it is cryptographically bound to the surrounding token.
-If it was conveyed in parallel with the surrounding token, there would be no such binding and attackers could substitute a good attestation from another device for the attestation of an errant subsystem.
-
-A nested token does not need to use the same encoding as the enclosing token.
-This is to allow composite devices to be built without regards to the encoding supported by their attesters.
-Thus, a CBOR-encoded token like a CWT can have a JWT as a nested token submodule and vice versa.
-
-
-###### Surrounding EAT is CBOR-Encoded
-
-This describes the encoding and decoding of CBOR or JSON-encoded tokens nested inside a CBOR-encoded token.
-
-If the nested token is CBOR-encoded, then it MUST be a CBOR tag and MUST be wrapped in a byte string.
-The tag identifies whether the nested token is a CWT, a CBOR-encoded detached EAT bundle, or some other CBOR-format token defined in the future.
-A nested CBOR-encoded token that is not a CBOR tag is NOT allowed.
-
-If the nested token is JSON-encoded, then the data item MUST be a text string containing JSON.
-The JSON is defined in CDDL by JSON-Nested-Token in the next section.
-
-When decoding, if a byte string is encountered, it is known to be a nested CBOR-encoded token.
-The byte string wrapping is removed.
-The type of the token is determined by the CBOR tag.
-
-When decoding, if a text string is encountered, it is known to be a JSON-encoded token.
-The two-item array is decoded and tells the type of the JSON-encoded token.
-
-~~~~CDDL
-{::include nc-cddl/nested-token-cbor.cddl}
-~~~~
-
-###### Surrounding EAT is JSON-Encoded
-
-This describes the encoding and decoding of CBOR or JSON-encoded tokens nested inside a JSON-encoded token.
-
-The nested token MUST be an array of two, a text string type indicator and the actual token.
-
-The string identifying the JSON-encoded token MUST be one of the following:
+Where Nested-Token is used, nested CBOR EATs MUST be tagged, i.e., a CBOR tag will be used to distinguish between CWT or BUNDLE. Nested JSON EATs will be encoded as an JSON-Nested-Token, with the type indicated in the type field, i.e., first element in the array. The string identifying the JSON-encoded token SHOULD be one of the following:
 
 "JWT":
 : The second array item MUST be a JWT formatted according to {{RFC7519}}
@@ -1198,120 +1042,54 @@ The string identifying the JSON-encoded token MUST be one of the following:
 : The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded detached EAT bundle
 
 "BUNDLE":
-: The second array item MUST be a JSON-encoded detached EAT bundle as defined in this document.
+: The second array item MUST be a JSON-encoded Detached EAT Bundle as defined in this document.
 
-Additional types may be defined by a standards action.
+As noted elsewhere, additional EAT types may be defined by a standards action. New type specifications MUST address the integration of the new type into the Nested-Token claim option for submodules.
 
-When decoding, the array of two is decoded.
-The first item indicates the type and encoding of the nested token.
-If the type string is not "CBOR", then the token is JSON-encoded and of the type indicated by the string.
+#### Submodule Claims-Set
 
-If the type string is "CBOR", then the token is CBOR-encoded.
-The base64url encoding is removed.
-The CBOR-encoded data is then decoded.
-The type of nested token is determined by the CBOR-tag.
-It is an error if the CBOR is not a tag.
+The Claims-Set option provides a means of representing claims from a submodule that does not have its own attesting environment,
+i.e., it has no keys distinct from the attester producing the surrounding token. Claims are represented as a Claims-Set. Submodule claims represented in this way are secured by the same
+mechanism as the enclosing token (e.g., it is signed by the same attestation key).
 
-~~~~CDDL
-{::include nc-cddl/nested-token-json.cddl}
-~~~~
+The encoding of a submodule Claims-Set MUST be the same as the encoding as the surrounding EAT.
 
+#### Nested-Token {#Nested-Token}
 
-##### Detached Submodule Digest
+The Nested-Token option provides a means of representing claims from a submodule that has its own attesting environment,
+i.e., it has keys distinct from the attester producing the surrounding token. Claims are represented in a signed EAT token. Inclusion of a signed
+eat as a claim cryptographically binds the EAT to the surrounding token.
+If it was conveyed in parallel with the surrounding token, there would be no such binding and attackers could substitute a good attestation from another device for the attestation of an errant subsystem.
 
-This is type of submodule equivalent to a Claims-Set submodule, except the Claims-Set is conveyed separately outside of the token.
+A nested token need not use the same encoding as the enclosing token.
+This enables composite devices to be built without regards to the encoding used by components.
+Thus, a CBOR-encoded EAT can have a JSON-encoded EAT as a nested token and vice versa.
 
-This type of submodule consists of a digest made using a cryptographic hash of a Claims-Set.
-The Claims-Set is not included in the token.
-It is conveyed to the verifier outside of the token.
-The submodule containing the digest is called a detached digest.
-The separately conveyed Claims-Set is called a detached claims set.
+#### Detached Submodule Digest
 
-The input to the digest is exactly the byte-string wrapped encoded form of the Claims-Set for the submodule.
-That Claims-Set can include other submodules including nested tokens and detached digests.
+The Detached-Submodule-Digest option is similar to a Claims-Set submodule, except a digest of the Claims-Set is included in the claim with the Claims-Set contents conveyed separately. The separately conveyed Claims-Set is called a detached claims set. The input to the digest algorithm is the byte-string wrapped encoded form of the detached Claims-Set.
 
-The primary use for this is to facilitate the implementation of a small and secure attester, perhaps purely in hardware.
-This small, secure attester implements COSE signing and only a few claims, perhaps just UEID and hardware identification.
-It has inputs for digests of submodules, perhaps 32-byte hardware registers.
-Software running on the device constructs larger claim sets, perhaps very large, encodes them and digests them.
-The digests are written into the small secure attesters registers.
-The EAT produced by the small secure attester only contains the UEID, hardware identification and digests and is thus simple enough to be implemented in hardware.
-Probably, every data item in it is of fixed length.
+The data type for this type of submodule is an array consisting of two data items: an algorithm identifier and a byte string containing the digest. The hash algorithm identifier is always from the COSE Algorithm registry, {{IANA.COSE.Algorithms}}. Either the integer or string identifier may be used. The hash algorithm identifier is never from the JOSE Algorithm registry.
 
-The integrity protection for the larger claims sets will not be as secure as those originating in hardware block, but the key material and hardware-based claims will be.
-It is possible for the hardware to enforce hardware access control (memory protection)  on the digest registers so that some of the larger claims can be more secure.
-For example, one register may be writable only by the TEE, so the detached claims from the TEE will have TEE-level security.
-
-The data type for this type of submodule MUST be an array
-It contains two data items, a hash algorithm identifier and a byte string containing the digest.
-
-The hash algorithm identifier is always from the COSE Algorithm registry, {{IANA.COSE.Algorithms}}.
-Either the integer or string identifier may be used.
-The hash algorithm identifier is never from the JOSE Algorithm registry.
-
-When decoding a CBOR format token, the detached digest type is distinguished from the other types by it being an array.
-In CBOR encoded tokens none of other submodule types are arrays.
-
-When decoding a JSON format token, a little more work is required because both the nested token and detached digest types are an array.
-To distinguish the nested token from the detached digest, the first element in the array is examined.
-If it is "JWT" or "BUNDLE", then the submodule is a nested token.
-Otherwise it will contain an algorithm identifier and is a detached digest.
-
-A detached EAT bundle, described in {{DEB}}, may be used to convey detached claims sets and the token with their detached digests.
-EAT, however, doesn't require use of a detached EAT bundle.
-Any other protocols may be used to convey detached claims sets and the token with their detached digests.
+A detached EAT bundle, described in {{DEB}}, may be used to convey detached claims sets and the EAT containing the corresponding detached digests.
+The EAT format, however, doesn't require use of a detached EAT bundle.
+Any other protocols may be used to convey detached claims sets and the EAT containing the corresponding detached digests.
 Note that since detached Claims-Sets are signed, protocols conveying them must make sure they are not modified in transit.
-
-~~~~CDDL
-{::include nc-cddl/detached-digest.cddl}
-~~~~
-
-
-#### No Inheritance
-
-The subordinate modules do not inherit anything from the containing
-token.  The subordinate modules must explicitly include all of their
-claims. This is the case even for claims like the nonce.
-
-This rule is in place for simplicity. It avoids complex inheritance
-rules that might vary from one type of claim to another.
-
-#### Security Levels
-
-The security level of the non-token subordinate modules should always
-be less than or equal to that of the containing modules in the case of non-token
-submodules. It makes no sense for a module of lesser security to be
-signing claims of a module of higher security. An example of this is a
-TEE signing claims made by the non-TEE parts (e.g. the high-level OS)
-of the device.
-
-The opposite may be true for the nested tokens. They usually have
-their own more secure key material. An example of this is an embedded
-secure element.
-
-#### Submodule Names
-
-The label or name for each submodule in the submods map is a text
-string naming the submodule. No submodules may have the same name.
-
-
 
 ## Claims Describing the Token
 
-The claims in this section provide meta data about the token they occur in.
+The claims in this section provide meta data about the EAT they occur in.
 They do not describe the entity.
 
 They may appear in evidence or attestation results.
-When these claims appear in evidence, they SHOULD not be passed through the verifier into attestation results.
-
+When these claims appear in evidence, they SHOULD NOT be passed through the verifier into attestation results.
 
 ### Token ID Claim (cti and jti)
 
 CWT defines the "cti" claim. JWT defines the "jti" claim. These are
 equivalent in EAT and carry a unique token identifier as
-they do in JWT and CWT.  They may be used to defend against re use of
+they do in JWT and CWT.  They may be used to defend against reuse of
 the token but are not a substitute for the nonce described in {{nonce}} and do not guarantee freshness and defend against replay.
-
 
 ### Timestamp Claim (iat)
 
@@ -1326,16 +1104,15 @@ position fix taken the last time a satellite signal was received.
 There are individual timestamps associated with these claims to
 indicate their age is older than the "iat" timestamp.
 
-CWT allows the use floating-point for this claim. EAT disallows
-the use of floating-point. An EAT token MUST NOT contain an iat claim in
+CWT allows the use floating-point for this claim. The EAT format disallows
+the use of floating-point. An EAT MUST NOT contain an iat claim in
 floating-point format. Any recipient of a token with a floating-point
-format iat claim MUST consider it an error. 
+format iat claim MUST consider it an error.
 
 A 64-bit integer representation of the CBOR epoch-based time
 {{RFC8949}} used by this claim can represent a range of +/- 500
 billion years, so the only point of a floating-point timestamp is to
-have precession greater than one second. This is not needed for EAT.
-
+have precession greater than one second. This is not needed for the EAT format.
 
 ### The Profile Claim (profile) {#profile-claim}
 
@@ -1357,7 +1134,6 @@ Note that this is named "eat_profile" for JWT and is distinct from the already r
 ~~~~CDDL
 {::include nc-cddl/profile.cddl}
 ~~~~
-
 
 ### The Intended Use Claim (intended-use)
 
@@ -1389,39 +1165,32 @@ EAT may be used as part of the certificate signing request (CSR).
 : An EAT consumer may require an attestation as part of an accompanying
 proof-of-possession (PoP) application. More precisely, a PoP transaction is intended
 to provide to the recipient cryptographically-verifiable proof that the sender has possession
-of a key.  This kind of attestation may be necceesary to verify the
+of a key.  This kind of attestation may be necessary to verify the
 security state of the entity storing the private key used in a PoP application.
 
 ~~~~CDDL
 {::include nc-cddl/intended-use.cddl}
 ~~~~
 
-
 ## Claims That Include Keys
 
 This document defines no claims that contain cryptographic keys.
-When claims are defined that include cryptographic keys, they SHOULD use COSE_Key {{RFC9052}} in CBOR-encoded tokens or JSON Web Key {{RFC7517}} in JSON-encoded tokens.
+When claims are defined that include cryptographic keys, they SHOULD use COSE_Key {{RFC9052}} in CBOR-encoded EATs or JSON Web Key {{RFC7517}} in JSON-encoded EATs.
 
 {{RFC7800}} defines a proof-of-possion/confirmation claim named "cnf" that can hold a cryptographic key for JWTs.
 {{RFC8747}} does the same for CWTs with claim key 8.
 These particular claims are defined for authentication and authorization.
 Their semantics don't translate to attestation and they SHOULD NOT be used in an EAT.
 
-
 # Detached EAT Bundles {#DEB}
 
-A detached EAT bundle is a structure to convey a fully-formed and signed token plus detached claims set that relate to that token.
+A detached EAT bundle is a structure that conveys a fully-formed and signed EAT along with related detached claims.
 It is a top-level EAT message like a CWT or JWT.
 It can be occur any place that CWT or JWT messages occur.
-It may also be sent as a submodule.
+It may also be included in a submodule claim.
 
-A detached EAT bundle has two main parts.
-
-The first part is a full top-level token.
-This top-level token must have at least one submodule that is a detached digest.
-This top-level token may be either CBOR or JSON-encoded.
-It may be a CWT, or JWT but not a detached EAT bundle.
-It may also be some future-defined token type.
+A detached EAT bundle has two main parts. The first part is a full top-level token that includes at least one submodule that is a detached digest.
+This top-level token may be either a CWT or JWT but not a detached EAT bundle.
 The same mechanism for distinguishing the type for nested token submodules is used here.
 
 The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the full token.
@@ -1432,41 +1201,36 @@ No mixing of encoding formats is allowed for the Claims-Sets in a detached EAT b
 
 For CBOR-encoded detached EAT bundles, tag TBD602 can be used to identify it.
 The normal rules apply for use or non-use of a tag.
-When it is sent as a submodule, it is always sent as a tag to distinguish it from the other types of nested tokens.
+When it is included in a submodule claim, it is always be tagged to distinguish it from the other submodule options.
 
 The digests of the detached claims sets are associated with detached Claims-Sets by label/name.
-It is up to the constructor of the detached EAT bundle to ensure the names uniquely identify the detachedclaims sets.
+The creator of the detached EAT bundle MUST ensure the names uniquely identify the detached claims sets.
 Since the names are used only in the detached EAT bundle, they can be very short, perhaps one byte.
 
 ~~~~CDDL
 {::include nc-cddl/deb.cddl}
 ~~~~
 
-
-
-
 # Profiles {#profiles}
 
 EAT makes normative use of CBOR, JSON, COSE, JOSE, CWT and JWT.
-Most of these have implementation options to accommodate a range of use cases.
-
-For example, COSE doesn't require a particular set of cryptographic algorithms so as to accommodate different usage scenarios and evolution of algorithms over time.
+Most of these have implementation options to accommodate a range of use cases. For example, COSE doesn't require a particular set of cryptographic algorithms so as to accommodate different usage scenarios and evolution of algorithms over time.
 Section 10 of {{RFC9052}} describes the profiling considerations for COSE.
 
 The use of encryption is optional for both CWT and JWT.
 Section 8 of {{RFC7519}} describes implementation requirement and recommendations for JWT.
 
 Similarly, CBOR provides indefinite length encoding which is not commonly used, but valuable for very constrained devices.
-For EAT itself, in a particular use case some claims will be used and others will not.
 Section 4 of {{RFC8949}} describes serialization considerations for CBOR.
 
-For example a mobile phone use case may require the device make and model, and prohibit UEID and location for privacy policy.
-The general EAT standard retains all this flexibility because it too is aimed to accommodate a broad range of use cases.
+For EAT itself, in a particular use case some claims will be used and others will not.
+For example a mobile phone use case may require the device make and model, and prohibit UEID and location per privacy policy.
+The EAT format retains all this flexibility because aims to accommodate a broad range of use cases.
 
 It is necessary to explicitly narrow these implementation options to guarantee interoperability.
 EAT chooses one general and explicit mechanism, the profile, to indicate the choices made for these implementation options for all aspects of the token.
 
-Below is a list of the various issues that should be addressed by a profile.
+Below is a list of various elements that should be addressed by a profile.
 
 The profile claim in {{profile-claim}} provides a unique identifier for the profile a particular token uses.
 
@@ -1475,56 +1239,36 @@ A profile can apply to evidence or to attestation results or both.
 ## Format of a Profile Document
 
 A profile document doesn't have to be in any particular format. It may be simple text, something more formal or a combination.
-
 A profile may define, and possibly register, one or more new claims if needed. A profile may also reuse one or more already defined claims, either as-is or with values constrained to a subset or subrange.
 
-## List of Profile Issues
+## List of Profile Elements
 
-The following is a list of EAT, CWT, JWS, COSE, JOSE and CBOR options that a profile should address.
-
+The following is a list of EAT, CWT, JWS, COSE, JOSE and CBOR options that a profile should address. In all cases, any use of nested tokens should be considered when addressing elements in a profile.
 
 ### Use of JSON, CBOR or both
 
-A profile should specify whether CBOR, JSON or both may be sent.
-A profile should specify that the receiver can accept all encoding formats that the sender is allowed to send.
-
-This should be specified for the top-level and all nested tokens.
+A profile should specify whether CBOR, JSON or both may be used.
 For example, a profile might require all nested tokens to be of the same encoding of the top level token.
-
 
 ### CBOR Map and Array Encoding
 
-A profile should specify whether definite-length arrays/maps, indefinite-length arrays/maps or both may be sent.
-A profile should specify that the receiver be able to accept all length encodings that the sender is allowed to send.
-
-This applies to individual EAT claims, CWT and COSE parts of the implementation.
-
-For most use cases, specifying that only definite-length arrays/maps may be sent is suitable. 
-
+A profile should specify whether definite-length arrays/maps, indefinite-length arrays/maps or both may be used.
+For most use cases, specifying that only definite-length arrays/maps may be used is suitable.
 
 ### CBOR String Encoding
 
-A profile should specify whether definite-length strings, indefinite-length strings or both may be sent.
-A profile should specify that the receiver be able to accept all types of string encodings that the sender is allowed to send.
-
-For most use cases, specifying that only definite-length strings may be sent is suitable.
-
+A profile should specify whether definite-length strings, indefinite-length strings or both may be used.
+For most use cases, specifying that only definite-length strings may be used is suitable.
 
 ### CBOR Preferred Serialization
 
-A profile should specify whether or not CBOR preferred serialization must be sent or not.
-A profile should specify the receiver be able to accept preferred and/or non-preferred serialization so it will be able to accept anything sent by the sender.
-
+A profile should specify whether or not CBOR preferred serialization must be used.
 
 ### CBOR Tags
 
-The profile should specify whether the token should be a CWT Tag or not.
-
-When COSE protection is used, the profile should specify whether COSE tags are used or not.
-Note that RFC 8392 requires COSE tags be used in a CWT tag.
-
+The profile should specify whether and how CBOR tags are used.
 Often a tag is unnecessary because the surrounding or carrying protocol identifies the object as an EAT.
-
+However, {{RFC8392}} requires COSE tags be used in a CWT tag.
 
 ### COSE/JOSE Protection
 
@@ -1533,14 +1277,10 @@ JWT may use the JOSE NULL protection option.
 It is possible to implement no protection, sign only, MAC only, sign then encrypt and so on.
 All combinations allowed by COSE, JOSE, JWT, and CWT are allowed by EAT.
 
-A profile should specify all signing, encryption and MAC message formats that may be sent.
-For example, a profile might allow only COSE_Sign1 to be sent.
-For another example, a profile might allow COSE_Sign and COSE_Encrypt to be sent to carry multiple signatures for post quantum cryptography and to use encryption to provide confidentiality.
-
-A profile should specify the receiver accepts all message formats that are allowed to be sent.
+A profile should specify all signing, encryption and MAC message formats that may be used.
+For example, a profile might allow only COSE_Sign1 to be used; another profile might allow COSE_Sign and COSE_Encrypt to be used to carry multiple signatures for post quantum cryptography and to use encryption to provide confidentiality.
 
 When both signing and encryption are allowed, a profile should specify which is applied first.
-
 
 ### COSE/JOSE Algorithms
 
@@ -1549,42 +1289,35 @@ See the section on "Application Profiling Considerations" in {{RFC9052}} for a d
 The profile document should list the COSE algorithms that a verifier must implement.
 The attester will select one of them.
 Since there is no negotiation, the verifier should implement all algorithms listed in the profile.
-If detached submodule digests are used, the COSE algorithms allowed for their digests should also be in the profile.
-
+If detached submodules are used, the COSE algorithms allowed for their digests should also be in the profile.
 
 ### Detached EAT Bundle Support
 
-A profile should specify whether or not a detached EAT bundle ({{DEB}}) can be sent.
-A profile should specify that a receiver be able to accept a detached EAT bundle if the sender is allowed to send it.
-
+A profile should specify whether or not a detached EAT bundle {{DEB}} can be used.
 
 ### Key Identification
 
-A profile should specify what must be sent to identify the verification, decryption or MAC key or keys.
-If multiple methods of key identification may be sent, a profile should require the receiver support them all.
+A profile should specify what information is available to identify the verification, decryption or MAC key or keys.
+If multiple methods of key identification are used, a profile should require the receiver support them all.
 
-{{keyid}} describes a number of methods for identifying verification keys.
 When encryption is used, there are further considerations.
 In some cases key identification may be very simple and in others involve a multiple components.
 For example, it may be simple through use of COSE key ID or it may be complex through use of an X.509 certificate hierarchy.
 
-While not always possible, a profile should specify, or make reference to, a full end-end specification for key identification.
+Where possible, a profile should specify, or make reference to, a full end-end specification for key identification.
 For example, a profile should specify in full detail how COSE key IDs are to be created, their lifecycle and such rather than just specifying that a COSE key ID be used.
-For example, a profile should specify the full details of an X.509 hierarchy including extension processing, algorithms allowed and so on rather than just saying X.509 certificate are used.
-Though not always possible, ideally, a profile should be a complete specification for key identification for both the sender and the receiver such that interoperability is guaranteed.
-
+For example, a profile should specify the full details of an X.509 hierarchy including extension processing, algorithms allowed, trust establishment, and so on rather than just saying X.509 certificate are used.
+Ideally, a profile should be a complete specification for key identification for both the sender and the receiver such that interoperability is guaranteed.
 
 ### Endorsement Identification
 
-Similar to, or perhaps the same as verification key identification, the profile may wish to specify how endorsements are to be identified.
-However note that endorsement identification is optional, where as key identification is not.
+Similar to, or perhaps the same as Verification Key Identification, the profile may wish to specify how Endorsements are to be identified.
+However note that Endorsement Identification is optional, where as key identification is not.
 
 ### Freshness
 
-A nonce is always required by EAT.
-
-A profile should specify whether multiple nonces may be sent.
-If a profile allows multiple nonces to be sent, it should require the receiver to process multiple nonces.
+Freshness is always required by EAT. This may be achieved using a nonce.
+A profile should specify whether a nonce is required and whether multiple nonces may be used.
 
 Just about every use case will require some means of knowing the EAT is recent enough and not a replay of an old token.
 The profile should describe how freshness is achieved.
@@ -1606,13 +1339,10 @@ For example, a profile may require the nonce be a certain length or the location
 
 Some claims are "pluggable" in that they allow different formats for their content.
 The manifests and software evidence claims are examples of this, allowing the use of CoSWID, TEEP Manifests and other formats.
-A profile should specify which formats are allowed to be sent.
-A profile should require the receiver to accept all formats that are allowed to be sent.
+A profile should specify which formats are allowed.
 
-Further, if there is variation within a format that is allowed, the profile should specify which variations can be sent.
+Further, if there is variation within a format that is allowed, the profile should specify which variations are used.
 For example, there are variations in the CoSWID format.
-A profile that require the receiver to accept all variations that are allowed to be sent.
-
 
 ## The Constrained Device Standard Profile
 
@@ -1621,25 +1351,23 @@ This section standardizes one profile that is good for many constrained device u
 
 The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 
-
-| Issue | Profile Definition |
+| Element | Profile Definition |
 | CBOR/JSON | CBOR only |
 | CBOR Encoding | Only definite length maps and arrays are allowed |
 | CBOR Encoding | Only definite length strings are allowed |
 | CBOR Serialization | Only preferred serialization is allowed |
 | COSE Protection | Only COSE_Sign1 format is used |
 | Algorithms | Receiver MUST accept ES256, ES384 and ES512; sender MUST send one of these |
-| Detached EAT Bundle Usage | Detached EAT bundles may not be sent with this profile |
+| Detached EAT Bundle Usage | Detached EAT bundles may not be used with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce must be used for every token request |
-| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply. The nonce MUST be present and the receiver MUST not error out on any claims it doesn't understand. |
+| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply. The nonce MUST be present and the receiver MUST NOT error out on any claims it doesn't understand. |
 
 Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
 
-A profile that is similar to this can be defined and/or standardized by making normative reference to this and adding other requirements. 
+A profile that is similar to this can be defined and/or standardized by making normative reference to this and adding other requirements.
 Such a definition MUST have a different profile identifier.
-
 
 # Encoding and Collected CDDL {#encoding}
 
@@ -1666,15 +1394,14 @@ With the exception of nested tokens and some other externally defined structures
 
 CDDL for the seven claims defined by {{RFC8392}} and {{RFC7519}} is included here.
 
-
 ## Encoding Data Types
 
 This makes use of the types defined in {{RFC8610}} Appendix D, Standard Prelude.
 
 ### Common Data Types {#common-types}
 
-time-int is identical to the epoch-based time, but disallows
-floating-point representation.
+time-int is identical to the epoch-based date/time defined in {{RFC8949}}, except it disallows
+floating-point representation (as permitted by section 3.4.2 of {{RFC8949}}).
 
 The OID encoding from {{RFC9090}} is used without the tag number in CBOR-encoded tokens.
 In JSON tokens OIDs are a text string in the common form of "nn.nn.nn...".
@@ -1691,11 +1418,11 @@ They are just text strings that contain a URI.
 JSON should be encoded per {{RFC8610}} Appendix E. In addition, the
 following CDDL types are encoded in JSON as follows:
 
-* bstr -- must be base64url encoded
-* time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
-* string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
-* uri -- must be a URI {{RFC3986}}.
-* oid -- encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").
+- bstr -- must be base64url encoded
+- time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
+- string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
+- uri -- must be a URI {{RFC3986}}.
+- oid -- encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").
 
 The CDDL generic "JC< >" is used in most places where there is a variance between CBOR and JSON.
 The first argument is the CDDL for JSON and the second is CDDL for CBOR.
@@ -1749,7 +1476,7 @@ unauthenticated consumers.
 
 ## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
 
-A UEID is usually not privacy-preserving. Any set of Relying Parties
+A UEID is usually not privacy-preserving. Any set of relying parties
 that receives tokens that happen to be from a particular entity will be
 able to know the tokens are all from the same entity and be able to
 track it.
@@ -1767,15 +1494,15 @@ when it is generated.
 There are several strategies that can be used to still be able to put
 UEIDs and SUEIDs in tokens:
 
-* The entity obtains explicit permission from the user of the entity
+- The entity obtains explicit permission from the user of the entity
 to use the UEID/SUEID. This may be through a prompt. It may also be through
 a license agreement.  For example, agreements for some online banking
 and brokerage services might already cover use of a UEID/SUEID.
 
-* The UEID/SUEID is used only in a particular context or particular use
+- The UEID/SUEID is used only in a particular context or particular use
 case. It is used only by one relying party.
 
-* The entity authenticates the relying party and generates a derived
+- The entity authenticates the relying party and generates a derived
 UEID/SUEID just for that particular relying party.  For example, the Relying
 Party could prove their identity cryptographically to the entity, then
 the entity generates a UEID just for that relying party by hashing a
@@ -1800,8 +1527,8 @@ The Boot Seed claim is effectively a stable entity identifier within a given boo
 
 ## Replay Protection and Privacy {#replayprivacyconsiderations}
 
-EAT offers 2 primary mechanisms for token replay protection (also sometimes
-known as token "freshness"):  the cti/jti claim and the nonce claim.  The cti/jti claim
+EAT offers 2 primary mechanisms for EAT freshness (also sometimes
+known as replay protection):  the cti/jti claim and the nonce claim.  The cti/jti claim
 in a CWT/JWT is a field that may be optionally included in the EAT and is in general
 derived on the same device in which the entity is instantiated.  The nonce claim is based
 on a value that is usually derived remotely (outside of the entity).  These claims can be used
@@ -1811,7 +1538,7 @@ login).  If the token is inspected by a 3rd-party then this information could be
 of the token or an account associated with the token (e.g., if the account name is used to derive the nonce).  In order
 to avoid the conveyance of privacy-related information in either the cti/jti or nonce claims, these fields
 should be derived using a salt that originates from a true and reliable random number generator or any other
-source of randomness that would still meet the target system requirements for replay protection.
+source of randomness that would still meet the target system requirements for freshness.
 
 # Security Considerations {#securitycons}
 
@@ -1914,7 +1641,6 @@ All new EAT claims defined subsequently should be placed in both registries.
 
 {{Claim_Characteristics}} describes some considerations when defining new claims.
 
-
 ## Claims Registered by This Document
 
 This specification adds the following values to the "JSON Web Token
@@ -1928,6 +1654,7 @@ The "Claim Name" is as defined for the CWT registry, not the JWT registry.
 The "JWT Claim Name" is equivalent to the "Claim Name" in the JWT registry.
 
 ### Claims for Early Assignment
+
 RFC Editor: in the final publication this section should be combined with the following
 section as it will no longer be necessary to distinguish claims with early assignment.
 Also, the following paragraph should be removed.
@@ -1942,113 +1669,113 @@ The processing of that early allocation was never correctly completed.
 This early allocation assigns different numbers for the CBOR claim labels.
 This early allocation will presumably complete correctly
 
-* Claim Name: Nonce
-* Claim Description: Nonce
-* JWT Claim Name: "nonce" (already registered for JWT)
-* Claim Key: TBD (requested value 10)
-* Claim Value Type(s): byte string
-* Change Controller: IESG
-* Specification Document(s): {{OpenIDConnectCore}}, __this document__
+- Claim Name: Nonce
+- Claim Description: Nonce
+- JWT Claim Name: "nonce" (already registered for JWT)
+- Claim Key: TBD (requested value 10)
+- Claim Value Type(s): byte string
+- Change Controller: IESG
+- Specification Document(s): {{OpenIDConnectCore}}, __this document__
 
 &nbsp;
 
-* Claim Name: UEID
-* Claim Description: The Universal Entity ID
-* JWT Claim Name: "ueid"
-* CWT Claim Key: TBD (requested value 256)
-* Claim Value Type(s): byte string
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: UEID
+- Claim Description: The Universal Entity ID
+- JWT Claim Name: "ueid"
+- CWT Claim Key: TBD (requested value 256)
+- Claim Value Type(s): byte string
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SUEIDs
-* Claim Description: Semi-permanent UEIDs
-* JWT Claim Name: "sueids"
-* CWT Claim Key: TBD (requested value 257)
-* Claim Value Type(s): map
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: SUEIDs
+- Claim Description: Semi-permanent UEIDs
+- JWT Claim Name: "sueids"
+- CWT Claim Key: TBD (requested value 257)
+- Claim Value Type(s): map
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Hardware OEMID
-* Claim Description: Hardware OEM ID
-* JWT Claim Name: "oemid"
-* Claim Key: TBD (requeste value 258)
-* Claim Value Type(s): byte string or integer
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Hardware OEMID
+- Claim Description: Hardware OEM ID
+- JWT Claim Name: "oemid"
+- Claim Key: TBD (requeste value 258)
+- Claim Value Type(s): byte string or integer
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Hardware Model
-* Claim Description: Model identifier for hardware
-* JWT Claim Name: "hwmodel"
-* Claim Key: TBD (requested value 259)
-* Claim Value Type(s): byte string
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Hardware Model
+- Claim Description: Model identifier for hardware
+- JWT Claim Name: "hwmodel"
+- Claim Key: TBD (requested value 259)
+- Claim Value Type(s): byte string
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Hardware Version
-* Claim Description: Hardware Version Identifier
-* JWT Claim Name: "hwversion"
-* Claim Key: TBD (requested value 260)
-* Claim Value Type(s): array
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Hardware Version
+- Claim Description: Hardware Version Identifier
+- JWT Claim Name: "hwversion"
+- Claim Key: TBD (requested value 260)
+- Claim Value Type(s): array
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Secure Boot
-* Claim Description: Indicate whether the boot was secure
-* JWT Claim Name: "secboot"
-* Claim Key: 262
-* Claim Value Type(s): Boolean
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Secure Boot
+- Claim Description: Indicate whether the boot was secure
+- JWT Claim Name: "secboot"
+- Claim Key: 262
+- Claim Value Type(s): Boolean
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Debug Status
-* Claim Description: Indicate status of debug facilities
-* JWT Claim Name: "dbgstat"
-* Claim Key: 263
-* Claim Value Type(s): integer or string
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Debug Status
+- Claim Description: Indicate status of debug facilities
+- JWT Claim Name: "dbgstat"
+- Claim Key: 263
+- Claim Value Type(s): integer or string
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Location
-* Claim Description: The geographic location
-* JWT Claim Name: "location"
-* Claim Key: TBD (requested value 264)
-* Claim Value Type(s): map
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Location
+- Claim Description: The geographic location
+- JWT Claim Name: "location"
+- Claim Key: TBD (requested value 264)
+- Claim Value Type(s): map
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Profile
-* Claim Description: Indicates the EAT profile followed
-* JWT Claim Name: "eat_profile"
-* Claim Key: TBD (requested value 265)
-* Claim Value Type(s): URI or OID
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Profile
+- Claim Description: Indicates the EAT profile followed
+- JWT Claim Name: "eat_profile"
+- Claim Key: TBD (requested value 265)
+- Claim Value Type(s): URI or OID
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Submodules Section
-* Claim Description: The section containing submodules
-* JWT Claim Name: "submods"
-* Claim Key: TBD (requested value 266)
-* Claim Value Type(s): map
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Submodules Section
+- Claim Description: The section containing submodules
+- JWT Claim Name: "submods"
+- Claim Key: TBD (requested value 266)
+- Claim Value Type(s): map
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 ### To be Assigned Claims
 
@@ -2066,94 +1793,93 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: Uptime
-* Claim Description: Uptime
-* JWT Claim Name: "uptime"
-* Claim Key: TBD
-* Claim Value Type(s): unsigned integer
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Uptime
+- Claim Description: Uptime
+- JWT Claim Name: "uptime"
+- Claim Key: TBD
+- Claim Value Type(s): unsigned integer
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Boot Seed
-* Claim Description: Identifies a boot cycle
-* JWT Claim Name: "bootseed"
-* Claim Key: TBD
-* Claim Value Type(s): bytes
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Boot Seed
+- Claim Description: Identifies a boot cycle
+- JWT Claim Name: "bootseed"
+- Claim Key: TBD
+- Claim Value Type(s): bytes
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Intended Use
-* Claim Description: Indicates intended use of the EAT
-* JWT Claim Name: "intuse"
-* Claim Key: TBD
-* Claim Value Type(s): integer or string
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: Intended Use
+- Claim Description: Indicates intended use of the EAT
+- JWT Claim Name: "intuse"
+- Claim Key: TBD
+- Claim Value Type(s): integer or string
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: DLOAs
-* Claim Description: Certifications received as Digital Letters of Approval
-* JWT Claim Name: "dloas"
-* Claim Key: TBD
-* Claim Value Type(s): array
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: DLOAs
+- Claim Description: Certifications received as Digital Letters of Approval
+- JWT Claim Name: "dloas"
+- Claim Key: TBD
+- Claim Value Type(s): array
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SW Name
-* Claim Description: The name of the SW running in the entity
-* JWT Claim Name: "swname"
-* Claim Key: TBD
-* Claim Value Type(s): map
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: SW Name
+- Claim Description: The name of the SW running in the entity
+- JWT Claim Name: "swname"
+- Claim Key: TBD
+- Claim Value Type(s): map
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SW Version
-* Claim Description: The version of SW running in the entity
-* JWT Claim Name: "swversion"
-* Claim Key: TBD
-* Claim Value Type(s): map
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: SW Version
+- Claim Description: The version of SW running in the entity
+- JWT Claim Name: "swversion"
+- Claim Key: TBD
+- Claim Value Type(s): map
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SW Manifests
-* Claim Description: Manifests describing the SW installed on the entity
-* JWT Claim Name: "manifests"
-* Claim Key: TBD
-* Claim Value Type(s): array
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: SW Manifests
+- Claim Description: Manifests describing the SW installed on the entity
+- JWT Claim Name: "manifests"
+- Claim Key: TBD
+- Claim Value Type(s): array
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SW Evidence
-* Claim Description: Measurements of the SW, memory configuration and such on the entity
-* JWT Claim Name: "swevidence"
-* Claim Key: TBD
-* Claim Value Type(s): array
-* Change Controller: IESG
-* Specification Document(s): __this document__
+- Claim Name: SW Evidence
+- Claim Description: Measurements of the SW, memory configuration and such on the entity
+- JWT Claim Name: "swevidence"
+- Claim Key: TBD
+- Claim Value Type(s): array
+- Change Controller: IESG
+- Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: SW Measurment Results
+* Claim Name: SW Measurment Comparison Results
 * Claim Description: The results of comparing SW measurements to reference values
-* JWT Claim Name: "swresults"
+* JWT Claim Name: "measres"
 * Claim Key: TBD
 * Claim Value Type(s): array
 * Change Controller: IESG
 * Specification Document(s): __this document__
-
 
 
 ### Version Schemes Registered by this Document {#registerversionscheme}
@@ -2169,7 +1895,6 @@ For example, this requires the manufacturer to obtain a manufacture code from GS
 | Index | Version Scheme Name | Specification |
 | 5     | ean-13              | This document |
 
-
 ### UEID URN Registered by this Document {#registerueidurn}
 
 IANA is requested to register the following new subtypes in the "DEV URN Subtypes" registry under "Device Identification". See {{RFC9039}}.
@@ -2177,7 +1902,6 @@ IANA is requested to register the following new subtypes in the "DEV URN Subtype
 | Subtype | Description                                | Reference     |
 | ueid    | Universal Entity Identifier                | This document |
 | sueid   | Semi-permanent Universal Entity Identifier | This document |
-
 
 ### Tag for Detached EAT Bundle
 
@@ -2188,29 +1912,28 @@ specification reference.
 | Tag    | Data Items     | Semantics                   |
 | TBD602 | array          | Detached EAT Bundle {{DEB}} |
 
-
 ### Media Types Registered by this Document
 
 It is requested that the CoAP Content-Format for SPDX and CycloneDX be been registered in the "CoAP Content-Formats" subregistry within the "Constrained RESTful Environments (CoRE) Parameters" registry [IANA.core-parameters]:
 
-* Media Type: application/spdx+json
-* Encoding: binary
-* ID: TBD
-* Reference: {{SPDX}}
+- Media Type: application/spdx+json
+- Encoding: binary
+- ID: TBD
+- Reference: {{SPDX}}
 
 &nbsp;
 
-* Media Type: vendor/vnd.cyclonedx+xml
-* Encoding: binary
-* ID: TBD
-* Reference: {{CycloneDX}}
+- Media Type: vendor/vnd.cyclonedx+xml
+- Encoding: binary
+- ID: TBD
+- Reference: {{CycloneDX}}
 
 &nbsp;
 
-* Media Type: vendor/vnd.cyclonedx+json
-* Encoding: binary
-* ID: TBD
-* Reference: {{CycloneDX}}
+- Media Type: vendor/vnd.cyclonedx+json
+- Encoding: binary
+- ID: TBD
+- Reference: {{CycloneDX}}
 
 --- back
 
@@ -2222,7 +1945,6 @@ It is shown this way because the payload is all the claims, the most interesting
 Some examples of full tokens are also given.
 
 WARNING: These examples use tag and label numbers not yet assigned by IANA.
-
 
 ## Payload Examples
 
@@ -2244,45 +1966,17 @@ This is a simple attestation of a TEE that includes a manifest that is a payload
 {::include cddl/Example-Payloads/valid_submods.diag}
 ~~~~
 
-
 ### EAT Produced by Attestation Hardware Block
 
 ~~~~
 {::include cddl/Example-Payloads/valid_hw_block.diag}
 ~~~~
-
-
-
-### Key / Key Store Attestation
-
-~~~~
-{::include cddl/Example-Payloads/valid_tee.diag}
-~~~~
-
-~~~~
-{::include cddl/Example-Payloads/coswid/tee-coswid.diag}
-~~~~
-
-### Submodules for Board and Device
-
-~~~~
-{::include cddl/Example-Payloads/valid_submods.diag}
-~~~~
-
-
-### EAT Produced by Attestation Hardware Block
-
-~~~~
-{::include cddl/Example-Payloads/valid_hw_block.diag}
-~~~~
-
 
 ### Key / Key Store Attestation
 
 ~~~~
 {::include cddl/Example-Payloads/valid_key_store.diag}
 ~~~~
-
 
 ### SW Measurements of an IoT Device
 
@@ -2298,12 +1992,10 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
 {::include cddl/Example-Payloads/coswid/iot-sw.diag}
 ~~~~
 
-
 ### Attestation Results in JSON format
 
 This is a JSON-format payload that might be the output of a verifier that evaluated the IoT Attestation example immediately above.
 
-This particular verifier knows enough about the TEE attester to be able to pass claims like security level directly through to the relying party.
 The verifier also knows the reference values for the measured SW components and is able to check them.
 It informs the relying party that they were correct in the swresults claim.
 "Trustus Verifications" is the name of the services that verifies the SW component measurements.
@@ -2312,13 +2004,11 @@ It informs the relying party that they were correct in the swresults claim.
 {::include cddl/Example-Payloads/valid_results.json}
 ~~~~
 
-
 ### JSON-encoded Token with Sumodules
 
 ~~~~
 {::include cddl/Example-Payloads/submods.json}
 ~~~~
-
 
 ## Full Token Examples
 
@@ -2349,7 +2039,6 @@ The detached EAT bundle itself can be assembled by untrusted SW.
 {::include cddl/Example-Payloads/valid_hw_block2.diag}
 ~~~~
 
-
 ### JSON-encoded Detached EAT Bundle
 
 In this bundle there are two detached Claims-Sets, "CS1" and "CS2".
@@ -2359,7 +2048,6 @@ TODO: make the JWT actually be correct verifiable JWT.
 ~~~~
 {::include cddl/Example-Tokens/deb.json}
 ~~~~
-
 
 # UEID Design Rationale {#UEID-Design}
 
@@ -2396,7 +2084,6 @@ not the same problem as sizing IP addresses.
 | 10 billion | 100,000          | 10                  | 10%              | quadrillion (10^15)     |
 |100 billion | 1,000,000        | 10                  | 10%              | 100 quadrillion (10^17) |
 
-
 This is conceptually similar to the Birthday Problem where m is the
 number of possible birthdays, always 365, and k is the number of
 people. It is also conceptually similar to the Birthday Attack where
@@ -2424,9 +2111,9 @@ For this calculation:
 
 | Database Size           | 128-bit UEID | 192-bit UEID | 256-bit UEID |
 |-------------------------+--------------+--------------+--------------+
-| trillion (10^12)        | 2 * 10^-15   | 8 * 10^-35   | 5 * 10^-55   |
-| quadrillion (10^15)     | 2 * 10^-09   | 8 * 10^-29   | 5 * 10^-49   |
-| 100 quadrillion (10^17) | 2 * 10^-05   | 8 * 10^-25   | 5 * 10^-45   |
+| trillion (10^12)        | 2 *10^-15   | 8* 10^-35   | 5 *10^-55   |
+| quadrillion (10^15)     | 2* 10^-09   | 8 *10^-29   | 5* 10^-49   |
+| 100 quadrillion (10^17) | 2 *10^-05   | 8* 10^-25   | 5 * 10^-45   |
 
 Next, to calculate the probability of a collision occurring in one year's
 operation of a database, it is assumed that the database size is in
@@ -2488,7 +2175,6 @@ The design of UUID accommodates the construction of a unique identifier by combi
 UEID takes the view that this construction is no longer needed, in particular because cryptographic-quality random number generators are readily available.
 It takes the view that hardware, software and/or manufacturing process implement UEID in a simple and direct way.
 
-
 # EAT Relation to IEEE.802.1AR Secure Device Identity (DevID)
 
 This section describes several distinct ways in which an IEEE IDevID {{IEEE.802.1AR}} relates to EAT, particularly to UEID and SUEID.
@@ -2499,35 +2185,35 @@ A particular level of defense against attack that should be achieved to be a Dev
 The intent is that IDevIDs and LDevIDs can be used with any network protocol or message format.
 In these protocols and message formats the DevID secret is used to sign a nonce or similar to prove the association of the DevID certificates with the device.
 
-By contrast, EAT defines a message format for proving trustworthiness to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
-Nor does EAT give details on how keys, data and such are stored protected and accessed.
-EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
+By contrast, this document defines a message format for demonstrating trustworthiness to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
+Nor does the EAT format give details on how keys, data and such are stored protected and accessed.
+EATs are intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
 It does not define any particular level of defense against attack, instead providing a set of security considerations.
 
 EAT and DevID can be viewed as complimentary when used together or as competing to provide a device identity service.
 
-## DevID Used With EAT
+## DevID Used With the EAT
 
-As just described, EAT defines a network protocol and {{IEEE.802.1AR}} doesn't.
-Vice versa, EAT doesn't define a an device implementation and DevID does.
+As just described, the EAT format is a message format for demonstrating trustworthiness to a relying party and {{IEEE.802.1AR}} doesn't.
+Vice versa, EAT doesn't define a device implementation and DevID does.
 
-Hence, EAT can be the network protocol that a DevID is used with.
+Hence, EATs are a message format that a DevID is used with.
 The DevID secret becomes the attestation key used to sign EATs.
-The DevID and its certificate chain become the endorsement sent to the verifier.
+The DevID and its certificate chain become the Endorsement provided to the verifier.
 
-In this case the EAT and the DevID are likely to both provide a device identifier (e.g. a serial number).
+In this case an EAT and a DevID are likely to both provide a device identifier (e.g. a serial number).
 In the EAT it is the UEID (or SUEID).
 In the DevID (used as an endorsement), it is a device serial number included in the subject field of the DevID certificate.
-It is probably a good idea in this use for them to be the same serial number or for the UEID to be a hash of the DevID serial number.
+It is probably a good idea in this use case for the respective values to be the same serial number or for the UEID to be a hash of the DevID serial number.
 
 ## How EAT Provides an Equivalent Secure Device Identity
 
 The UEID, SUEID and other claims like OEM ID are equivalent to the secure device identity put into the subject field of a DevID certificate.
 These EAT claims can represent all the same fields and values that can be put in a DevID certificate subject.
-EAT explicitly and carefully defines a variety of useful claims.
+The EAT format explicitly and carefully defines a variety of useful claims.
 
-EAT secures the conveyance of these claims by having them signed on the device by the attestation key when the EAT is generated.
-EAT also signs the nonce that gives freshness at this time.
+The EAT format secures the conveyance of these claims by having them signed on the device by the attestation key when the EAT is generated.
+The EAT format also supports signing a nonce that proves freshness.
 Since these claims are signed for every EAT generated, they can include things that vary over time like GPS location.
 
 DevID secures the device identity fields by having them signed by the manufacturer of the device sign them into a certificate.
@@ -2545,12 +2231,12 @@ This allows EAT to be implemented with the strongest defenses possible.
 
 It is possible to define a way to encode EAT claims in an X.509 certificate.
 For example, the EAT claims might be mapped to X.509 v3 extensions.
-It is even possible to stuff a whole CBOR-encoded unsigned EAT token into a X.509 certificate.
+It is even possible to stuff a whole CBOR-encoded unsigned EAT into a X.509 certificate.
 
 If that X.509 certificate is an IDevID or LDevID, this becomes another way to use EAT and DevID together.
 
-Note that the DevID must still be used with an authentication protocol that has a nonce or equivalent.
-The EAT here is not being used as the protocol to interact with the rely party.
+Where a DevID incorporates an EAT, the process MUST provide for integrity, authentication and freshness as described for EAT generation independent of DevIDs.
+In this case, a nonce containined in the EAT here may be of no use to the relying party of the DevID.
 
 ## Device Identifier Permanence
 
@@ -2563,16 +2249,15 @@ They change on device life-cycle events.
 {{IEEE.802.1AR}} describes much of this permanence as resistant to attacks that seek to change the ID.
 IDevID permanence can be described this way because {{IEEE.802.1AR}} is oriented around the definition of an implementation with a particular level of defense against attack.
 
-EAT is not defined around a particular implementation and must work on a range of devices that have a range of defenses against attack.
-EAT thus can't be defined permanence in terms of defense against attack.
+The EAT format is not defined around a particular implementation and must work on a range of devices that have a range of defenses against attack.
+The EAT format thus can't define permanence in terms of defense against attack.
 EAT's definition of permanence is in terms of operations and device lifecycle.
-
 
 # CDDL for CWT and JWT {#CDDL_for_CWT}
 
 {{RFC8392}} was published before CDDL was available and thus is specified in prose, not CDDL.
 Following is CDDL specifying CWT as it is needed to complete this specification.
-This CDDL also covers the Claims-Set for JWT. 
+This CDDL also covers the Claims-Set for JWT.
 
 The COSE-related types in this CDDL are defined in {{RFC9052}}.
 
@@ -2591,33 +2276,26 @@ The prose in CWT and JWT remain the normative definition.
 {::include cddl/external/cwt.cddl}
 ~~~~
 
+# Design Guidance for Defining New EAT Claims {#Claim_Characteristics}
 
-# Claim Characteristics {#Claim_Characteristics}
+The section provides design guidance for defining new EAT claims, particularly those to be registered with IANA. Much of this guidance is generic and could be applied when designing new CWT or JWT claims.
 
-The following is design guidance for creating new EAT claims, particularly those to be registered with IANA.
+## Interoperability and Technology Neutrality
 
-Much of this guidance is generic and could also be considered when designing new CWT or JWT claims.
+An overarching goal of the EAT format is to enable interoperability with regard to claim semantics as well as security envelope and serialization formats. Relying parties should be able to process EATs in a general way regardless of the type, manufacturer or technology of the device from which they originate.
+Ideally, general-purpose verification implementations will be developed that can verify tokens for a large variety of use cases, including those with special cases and configurations for different device types.
 
-## Interoperability and Relying Party Orientation
+This is a lofty, difficult to achieve goal that requirs careful definition of claims in a technology neutral way.
+Where possible, claims designers SHOULD design claims that can represent the semantics of data from very different device types.
 
-It is a broad goal that EATs can be processed by Relying Parties in a general way regardless of the type, manufacturer or technology of the device from which they originate.
-It is a goal that there be general-purpose verification implementations that can verify tokens for large numbers of use cases with special cases and configurations for different device types.
-This is a goal of interoperability of the semantics of claims themselves, not just of the signing, encoding and serialization formats.
-
-This is a lofty goal and difficult to achieve broadly requiring careful definition of claims in a technology neutral way.
-Sometimes it will be difficult to design a claim that can represent the semantics of data from very different device types.
-However, the goal remains even when difficult.
-
-## Operating System and Technology Neutral
-
-Claims should be defined such that they are not specific to an operating system.
-They should be applicable to multiple large high-level operating systems from different vendors.
+Claims SHOULD NOT be defined such that they are specific to an operating system.
+Claims should be applicable to multiple large high-level operating systems from different vendors.
 They should also be applicable to multiple small embedded operating systems from multiple vendors and everything in between.
 
-Claims should not be defined such that they are specific to a SW environment or programming language.
+Claims SHOULD NOT be defined such that they are specific to a specific software environment or programming language.
 
-Claims should not be defined such that they are specific to a chip or particular hardware.
-For example, they should not just be the contents of some HW status register as it is unlikely that the same HW status register with the same bits exists on a chip of a different manufacturer.
+Claims SHOULD NOT be defined such that they are specific to a chip or particular hardware.
+For example, a claim should not contain the contents of a chip-specific status register, as it is unlikely that the same status register with the same bits will exist on a different manufacturer's chip.
 
 The boot and debug state claims in this document are an example of a claim that has been defined in this neutral way.
 
@@ -2626,7 +2304,7 @@ The boot and debug state claims in this document are an example of a claim that 
 Many use cases will have EATs generated by some of the most secure hardware and software that exists.
 Secure Elements and smart cards are examples of this.
 However, EAT is intended for use in low-security use cases the same as high-security use case.
-For example, an app on a mobile device may generate EATs on its own.
+For example, an app on a mobile device may generate EATs.
 
 Claims should be defined and registered on the basis of whether they are useful and interoperable, not based on security level.
 In particular, there should be no exclusion of claims because they are just used only in low-security environments.
@@ -2637,12 +2315,10 @@ Where possible, claims should use already standardized data items, identifiers a
 This takes advantage of the expertise put into creating those formats and improves interoperability.
 
 Often extant claims will not be defined in an encoding or serialization format used by EAT.
-It is preferred to define a CBOR and JSON format for them so that EAT implementations do not require a plethora of encoders and decoders for serialization formats.
+It is preferred to provide a CDDL definition for them so that EAT implementations do not require a plethora of encoders and decoders for serialization formats.
 
 In some cases, it may be better to use the encoding and serialization as is.
-For example, signed X.509 certificates and CRLs can be carried as-is in a byte string.
-This retains interoperability with the extensive infrastructure for creating and processing X.509 certificates and CRLs.
-
+For example, signed X.509 certificates and CRLs can be carried as-is in a byte string to retain interoperability with the extensive infrastructure for creating and processing X.509 certificates and CRLs.
 
 ## Proprietary Claims
 
@@ -2652,7 +2328,6 @@ For example, a device manufacturer may generate a token with proprietary claims 
 This is a supported use case.
 
 In many cases proprietary claims will be the easiest and most obvious way to proceed, however for better interoperability, use of general standardized claims is preferred.
-
 
 # Endorsements and Verification Keys {#keyid}
 
@@ -2724,7 +2399,6 @@ For example, an X.509 certificate might have key usage constraints and an endors
 When this is the case, the key identifier must be either a protected header or in the payload such that it is cryptographically bound to the EAT.
 This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
 
-
 # Changes from Previous Drafts
 
 The following is a list of known changes since the immediately previous drafts.  This list is
@@ -2737,3 +2411,5 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Removed security level claim
 - Changed capitalization throughout the document for various terms
 - Eliminated use of DEB acronym for detached EAT bundles
+- Introduced profile concept early in the document
+- General wordsmithing (mostly for brevity)
