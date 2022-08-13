@@ -2147,7 +2147,7 @@ This early allocation will presumably complete correctly
 
 * Claim Name: SW Measurment Comparison Results
 * Claim Description: The results of comparing SW measurements to reference values
-* JWT Claim Name: "measres"
+* JWT Claim Name: "swresults"
 * Claim Key: TBD
 * Claim Value Type(s): array
 * Change Controller: IESG
