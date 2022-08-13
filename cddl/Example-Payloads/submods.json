@@ -4,10 +4,9 @@
     "secboot":  true,
     "dbgstat":  "disabled-permanently",
     "iat":      1526542894,
-    "seclevel": "restricted", 
     "submods": {
         "Android App Foo" :  {
-            "seclevel": "unrestricted"
+            "swname": "Foo.app"
         },
 
         "Secure Element Eat" : [
@@ -16,7 +15,7 @@
         ],
 
         "Linux Android": {
-            "seclevel": "unrestricted"
+            "swname": "Android"
         },
 
         "Subsystem J": [ 

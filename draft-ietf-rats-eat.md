@@ -2011,16 +2011,6 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: Security Level
-* Claim Description: Characterization of the security of an attester or submodule
-* JWT Claim Name: "seclevel"
-* Claim Key: TBD
-* Claim Value Type(s): integer or string
-* Change Controller: IESG
-* Specification Document(s): __this document__
-
-&nbsp;
-
 * Claim Name: Uptime
 * Claim Description: Uptime
 * JWT Claim Name: "uptime"
@@ -2258,7 +2248,7 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
 
 This is a JSON-format payload that might be the output of a verifier that evaluated the IoT Attestation example immediately above.
 
-This particular verifier knows enough about the TEE attester to be able to pass claims like security level directly through to the relying party.
+This particular verifier knows enough about the TEE attester to be able to pass claims like debug status directly through to the relying party.
 The verifier also knows the reference values for the measured SW components and is able to check them.
 It informs the relying party that they were correct in the swresults claim.
 "Trustus Verifications" is the name of the services that verifies the SW component measurements.
