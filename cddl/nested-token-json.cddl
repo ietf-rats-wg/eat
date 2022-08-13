@@ -1,14 +1,14 @@
 ; This is a token that is nested inside another token.
 ; When this occurs some means is needed to identify
-; the type of token (signed, unsigned or DEB) and
+; the type of token (signed, unsigned or detached) and
 ; the encoding format (JSON or CBOR). This is the only
 ; place where CBOR can occur inside a JSON token.
 ;
 ;A JSON Encoded Token may contain
 ;- A CWT format token
-;- A CBOR-encoded DEB
+;- A CBOR-encoded detached EAT bundle
 ;- A JWT format token
-;- A JWT-encoded DEB
+;- A JWT-encoded detached EAT bundle
 ;- Some future token like a UCCS or UJCS
 
 
@@ -27,7 +27,7 @@ Nested-Token = JSON-Nested-Token
 ; JSON does not have.
 ;
 JSON-Nested-Token = [
-   type : "JWT" / "CBOR" / "DEB",
+   type : "JWT" / "CBOR" / "BUNDLE",
    nested-token : JWT-Message /
                   CBOR-Token-Inside-JSON-Token /
                   Detached-EAT-Bundle 

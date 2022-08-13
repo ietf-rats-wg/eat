@@ -1,13 +1,13 @@
 ; This is an EAT token that is nested inside a CBOR token.  When this
 ; occurs some means is needed to identify the type of token (signed,
-; unsigned or DEB) and the encoding format (JSON or CBOR). This is the
+; unsigned or detached EAT bundle) and the encoding format (JSON or CBOR). This is the
 ; only place in EAT where JSON can appear in a CBOR token.
 ;
 ; The nested token may be one of these:
 ;- A CWT format token
-;- A CBOR-format DEB
+;- A CBOR-format detached EAT bundle
 ;- A JWT format token
-;- A JWT-encoded DEB
+;- A JWT-encoded detached EAT bundle
 ;- Some future-defined token type or encoding
 ;  such as a UCCS or UJCS
 
