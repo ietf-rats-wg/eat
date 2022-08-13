@@ -158,6 +158,9 @@ normative:
     target: <https://www.iana.org/assignments/core-parameters>
 
 
+  SUIT.Manifest: I-D.draft-ietf-suit-manifest
+
+
 informative:
   RFC4122:
   RFC4422:
@@ -1027,7 +1030,13 @@ In some cases EAT submodules may be used instead of the array structure in this 
 
 When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
 
-This document registers CoAP Content Formats for CycloneDX {{CycloneDX}} and SPDX {{SPDX}} so they can be used as a manifest. 
+A {{SUIT.Manifest}} may be used as a manifest.
+
+This document registers CoAP Content Formats for CycloneDX {{CycloneDX}} and SPDX {{SPDX}} so they can be used as a manifest.
+
+This claim is extensible for use of manifest formats beyond those mentioned in this document.
+No particular manifest format is preferred.
+For manifest interoperability, an EAT profile, {{profiles}}, should be used that specifies what manifest format(s) are allowed.
 
 ~~~~CDDL
 {::include nc-cddl/manifests.cddl}
@@ -2734,6 +2743,8 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 
 ## From draft-ietf-rats-eat-14
 
+- Reference to SUIT manifest
+- Clarifications about manifest extensibility
 - Removed security level claim
 - Changed capitalization throughout the document for various terms
 - Eliminated use of DEB acronym for detached EAT bundles
