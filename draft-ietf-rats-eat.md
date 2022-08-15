@@ -771,51 +771,6 @@ A full CoSWID manifest or other type of manifest can be instead if this is too s
 ~~~~
 
 
-### The Security Level Claim (security-level)
-
-This claim characterizes the design intent of the entity's ability to defend against attacks aimed at capturing the signing key, forging claims and forging EATs.
-
-This claim is only to give the recipient a rough idea of the security design the entity is aiming for.
-This is via a simple, non-extensible set of three levels.
-
-While this claim may be forwarded in attestation results as described in {{relationship}}, this claim MUST NOT be used to represent the output of a RATS verifier.
-
-This takes a broad view of the range of defenses because EAT is targeted at a broad range of use cases.
-The least secure level may have only minimal SW defenses.
-The most secure level may have specialized hardware to defend against hardware-based attacks.
-
-Only through expansive certification programs like Common Criteria is it possible to sharply define security levels.
-Sharp definition of security levels is not possible here because the IETF doesn't define and operate certification programs.
-It is also not possible here because any sharp definition of security levels would be a document larger than the EAT specification.
-Thus, this definition takes the view that the security level definition possible is a simple, modest, rough characterization.
-
-1 - Unrestricted:
-: An entity is categorized as unrestricted when it doesn't meet the criteria for any of the higher levels.
-This level does not indicate there is no protection at all, just that the entity doesn't qualify for the higher levels.
-
-2 - Restricted:
-: Entities at this level MUST meet the criteria defined in Section 4 of FIDO Allowed Restricted Operating Environments {{FIDO.AROE}}.
-(Note only Section 4 is referenced. The other sections, in particularly Section 3 do not apply.)
-Examples include TEE's and schemes using virtualization-based security.
-Security at this level is aimed at defending against large-scale network/remote attacks by having a reduced attack surface.
-
-3 - Hardware:
-: Entities at this level are indicating they have some countermeasures to defend against physical or electrical attacks against the entity.
-Security at this level is aimed at defending against attackers that physically capture the entity to attack it.
-Examples include TPMs and Secure Elements.
-
-The security level claimed should be for the weakest point in the entity, not the strongest.
-For example, if attestation key is protected by hardware, but the rest of the attester is in a TEE, the claim must be for restriced.
-
-This set of three is not extensible so this remains broadly interoperable. In particular use cases, alternate claims may be defined that give finer grained information than this claim.
-
-See also the DLOAs claim in {{dloas}}, a claim that specifically provides information about certifications received.
-
-
-~~~~CDDL
-{::include nc-cddl/security-level.cddl}
-~~~~
-
 ### Secure Boot Claim (secure-boot)
 
 The value of true indicates secure boot is enabled. Secure boot is
@@ -2065,16 +2020,6 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: Security Level
-* Claim Description: Characterization of the security of an attester or submodule
-* JWT Claim Name: "seclevel"
-* Claim Key: TBD
-* Claim Value Type(s): integer or string
-* Change Controller: IESG
-* Specification Document(s): __this document__
-
-&nbsp;
-
 * Claim Name: Uptime
 * Claim Description: Uptime
 * JWT Claim Name: "uptime"
@@ -2312,7 +2257,7 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
 
 This is a JSON-format payload that might be the output of a verifier that evaluated the IoT Attestation example immediately above.
 
-This particular verifier knows enough about the TEE attester to be able to pass claims like security level directly through to the relying party.
+This particular verifier knows enough about the TEE attester to be able to pass claims like debug status directly through to the relying party.
 The verifier also knows the reference values for the measured SW components and is able to check them.
 It informs the relying party that they were correct in the swresults claim.
 "Trustus Verifications" is the name of the services that verifies the SW component measurements.
@@ -2748,3 +2693,4 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Removed security level claim
 - Changed capitalization throughout the document for various terms
 - Eliminated use of DEB acronym for detached EAT bundles
+
