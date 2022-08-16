@@ -241,6 +241,10 @@ CWT and JWT.
 
 # Introduction
 
+Some of the goals and fundamentals in the security model for attestation are not the same as other security standards such as those aimed at privacy (e.g., TLS) and authentication (e.g. FIDO).
+The security model for attestation is not described here.
+Instead see {{RATS.Architecture}}.
+
 EAT provides the definition of a base set of claims that can be made about an entity, a device, some software and/or some hardware.
 This claims set is received by a relying party who uses it to decide if and how it will interact with the remote entity.
 It may choose to not trust the entity and not interact with it.
