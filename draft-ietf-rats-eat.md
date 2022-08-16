@@ -477,6 +477,10 @@ When new token formats are defined, the means for identification in a nested tok
 
 This section describes new claims defined for attestation that are to be added to the CWT {{IANA.CWT.Claims}} and JWT {{IANA.JWT.Claims}} IANA registries.
 
+With one exception, as specified in and carried over from CWT and JWT, all claims are optional.
+The exception is that EATs MUST have a claim or mechanism to provide freshness (i.e., provide replay protection).
+This is typically, but not necessarily, the nonce claim {{nonce}}.
+
 This section also describes how several extant CWT and JWT claims apply in EAT.
 
 CDDL, along with a text description, is used to define each claim
@@ -491,11 +495,12 @@ JSON-encoded tokens MUST use only the text string for Claim Names.
 
 ## Nonce Claim (nonce) {#nonce}
 
-All EATs MUST have a nonce to prevent replay attacks.
+All EATs MUST provide for freshness, i.e., replay protection.
+See the extensive discussion describing several options for providing freshness in Appendix A of RATS Architecture {{RATS.Architecture}}.
+The nonce claim described here is one commonly used option.
 
 This claim is either a single byte or text string or an array of byte or text strings.
 The array is to accommodate multistage EAT verification and consumption.
-See the extensive discussion on attestation freshness in Appendix A of RATS Architecture {{RATS.Architecture}}.
 
 A claim named "nonce" is previously defined and registered with IANA for JWT, but MUST not be used in an EAT.
 It does not support multiple nonces.
@@ -1298,8 +1303,8 @@ When these claims appear in Evidence, they SHOULD not be passed through the Veri
 
 CWT defines the "cti" claim. JWT defines the "jti" claim. These are
 equivalent in EAT and carry a unique token identifier as
-they do in JWT and CWT.  They may be used to defend against re use of
-the token but are not a substitute for the nonce described in {{nonce}} and do not guarantee freshness and defend against replay.
+they do in JWT and CWT.  They may be used to defend against reuse of
+the token but are not a substitute for the nonce described in {{nonce}} and do not guarantee freshness or provide defence against replay in EATs (evnn though {{RFC7519}} says they can be used to prevent replay).
 
 
 ### Timestamp claim (iat)
@@ -1570,14 +1575,13 @@ However note that Endorsement Identification is optional, where as key identific
 
 ### Freshness
 
-A nonce is always required by EAT.
+A freshness mechanism is required for all EAT use cases.
+This may be the nonce claim {{nonce}}, or some other claim or mechanism
+The section on freshness in {{RATS.Architecture}} describes several solutions.
+A profile should specify which freshness mechanism or mechanisms can be used.
 
-A profile should specify whether multiple nonces may be sent.
+If the nonce claim is used, a profile should specify whether multiple nonces may be sent.
 If a profile allows multiple nonces to be sent, it should require the receiver to process multiple nonces.
-
-Just about every use case will require some means of knowing the EAT is recent enough and not a replay of an old token.
-The profile should describe how freshness is achieved.
-The section on Freshness in {{RATS.Architecture}} describes some of the possible solutions to achieve this.
 
 ### Claims Requirements
 
@@ -1587,7 +1591,6 @@ This document requires an EAT receiver must accept all claims it does not unders
 A profile for a specific use case may reverse this and allow a receiver to reject tokens with claims it does not understand.
 A profile for a specific use case may specify that specific claims are prohibited.
 
-By default only the nonce claim is required by EAT.
 A profile for a specific use case may modify this and specify that some claims are required.
 
 A profile may constrain the definition of claims that are defined in this document or elsewhere.
@@ -1787,20 +1790,10 @@ For example, many mobile phones prompt the user for permission when before sendi
 
 The Boot Seed claim is effectively a stable entity identifier within a given boot epoch.  Therefore, it is not suitable for use in attestation schemes that are privacy-preserving.
 
-## Replay Protection and Privacy {#replayprivacyconsiderations}
 
-EAT offers 2 primary mechanisms for token replay protection (also sometimes
-known as token "freshness"):  the cti/jti claim and the nonce claim.  The cti/jti claim
-in a CWT/JWT is a field that may be optionally included in the EAT and is in general
-derived on the same device in which the entity is instantiated.  The nonce claim is based
-on a value that is usually derived remotely (outside of the entity).  These claims can be used
-to extract and convey personally-identifying information either inadvertently or by intention.  For instance,
-an implementor may choose a cti that is equivalent to a username associated with the device (e.g., account
-login).  If the token is inspected by a 3rd-party then this information could be used to identify the source
-of the token or an account associated with the token (e.g., if the account name is used to derive the nonce).  In order
-to avoid the conveyance of privacy-related information in either the cti/jti or nonce claims, these fields
-should be derived using a salt that originates from a true and reliable random number generator or any other
-source of randomness that would still meet the target system requirements for replay protection.
+## Token ID Privacy Considerations
+
+The cti/jti claims SHOULD be created using a cryptographic-quality random number generator rather than unique data items like MAC addresses to not disclose any system or person-identifying data.
 
 # Security Considerations {#securitycons}
 
@@ -1840,19 +1833,14 @@ destination secure enclave where it can be provisioned.
 
 As stated in Section 8 of {{RFC8392}}, "The security of the CWT relies
 upon on the protections offered by COSE".  Similar considerations
-apply to EAT when sent as a CWT.  However, EAT introduces the concept
-of a nonce to protect against replay.  Since an EAT may be created by
-an entity that may not support the same type of transport security as
-the consumer of the EAT, intermediaries may be required to bridge
-communications between the entity and consumer.  As a result, it is
-RECOMMENDED that both the consumer create a nonce, and the entity
-leverage the nonce along with COSE mechanisms for encryption and/or
-signing to create the EAT.
+apply to EAT when sent as a CWT.
 
-Similar considerations apply to the use of EAT as a JWT.  Although the
-security of a JWT leverages the JSON Web Encryption (JWE) and JSON Web
-Signature (JWS) specifications, it is still recommended to make use of
-the EAT nonce.
+
+## Freshness
+
+All EAT use MUST provide a freshness mechanism to prevent replay and related attacks.
+The extensive discussion on freshness in {{RATS.Architecture}} including security considerations apply here.
+(TODO: this is probably insufficient text, but it would be nice if it wasn't).
 
 ## Multiple EAT Consumers
 
