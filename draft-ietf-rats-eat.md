@@ -1115,7 +1115,7 @@ However, submodules do not inherit anything from the containing token and must e
 Submodules may contain claims that are present in any surrounding token or submodule.
 For example, the top-level of the token may have a UEID, a submodule may have a different UEID and a further subordinate submodule may also have a UEID.
 
-The following sub-sections define the three mechanisms for representing submodule claims:
+The following sub-sections define the three types for representing submodule claims:
 
 * A submodule Claims-Set
 * A nested token, which can be any EAT
