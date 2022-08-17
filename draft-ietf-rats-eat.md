@@ -1124,6 +1124,15 @@ The following sub-sections define the three mechanisms for representing submodul
 ~~~~CDDL
 {::include nc-cddl/submods.cddl}
 ~~~~
+~~~~CDDL
+{::include nc-cddl/nested-token-cbor.cddl}
+~~~~
+~~~~CDDL
+{::include nc-cddl/nested-token-json.cddl}
+~~~~
+~~~~CDDL
+{::include nc-cddl/detached-digest.cddl}
+~~~~
 
 When decoding a submodule claim in a CBOR-encoded EAT, the Claims-Set option will be encoded as a map, the Nested-Token option as a CBOR-tagged object and the Detached-Submodule-Digest as an array.
 
