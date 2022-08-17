@@ -1117,9 +1117,9 @@ For example, the top-level of the token may have a UEID, a submodule may have a 
 
 The following sub-sections define the three mechanisms for representing submodule claims:
 
-- A submodule Claims-Set
-- A nested token, which can be any EAT
-- The digest of a detached Claims-Set
+* A submodule Claims-Set
+* A nested token, which can be any EAT
+* The digest of a detached Claims-Set
 
 ~~~~CDDL
 {::include nc-cddl/submods.cddl}
