@@ -1127,7 +1127,7 @@ The following sub-sections define the three mechanisms for representing submodul
 
 When decoding a submodule claim in a CBOR-formatted EAT, the Claims-Set option will be encoded as a map, the Nested-Token option as a CBOR-tagged object and the Detached-Submodule-Digest as an array.
 
-When decoding a JSON format EAT, a little more work is required because both the Nested-Token and Detached-Submodule-Digest tyoes are arrays.
+When decoding a JSON-encoded EAT, a little more work is required because both the Nested-Token and Detached-Submodule-Digest types are arrays.
 To distinguish the nested token from the detached digest, the first element in the array is examined.
 If it is "JWT" or "BUNDLE", then the submodule is a Nested-Token.
 Otherwise it will contain an algorithm identifier and is a Detached-Submodule-Digest.
