@@ -1132,7 +1132,7 @@ To distinguish the nested token from the detached digest, the first element in t
 If it is "JWT" or "BUNDLE", then the submodule is a Nested-Token.
 Otherwise it will contain an algorithm identifier and is a Detached-Submodule-Digest.
 
-Where Nested-Token is used, nested CBOR EATs MUST be tagged, i.e., a CBOR tag will be used to distinguish between CWT or BUNDLE. Nested JSON EATs will be encoded as an JSON-Nested-Token, with the type indicated in the type field, i.e., first element in the array. The string identifying the JSON-encoded token SHOULD be one of the following:
+Where Nested-Token is used, nested CBOR EATs MUST be tagged, i.e., a CBOR tag will be used to distinguish between CWT or BUNDLE. Nested JSON EATs will be encoded as an JSON-Nested-Token, with the type indicated in the type field, i.e., first element in the array. The string identifying the JSON-encoded token MUST be one of the following:
 
 "JWT":
 : The second array item MUST be a JWT formatted according to {{RFC7519}}
