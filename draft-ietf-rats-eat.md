@@ -1111,7 +1111,7 @@ This allows for the submodule to serve as its own attester or not and allows for
 for each submodule to be represented directly or indirectly, i.e., detached. 
 
 A submodule may include a submodule claim, allowing for arbitrary levels of nesting.
-However, subodules do not inherit anything from the containing token and must explicitly include all claims.
+However, submodules do not inherit anything from the containing token and must explicitly include all claims.
 Submodules may contain claims that are present in any surrounding token or submodule.
 For example, the top-level of the token may have a UEID, a submodule may have a different UEID and a further subordinate submodule may also have a UEID.
 
