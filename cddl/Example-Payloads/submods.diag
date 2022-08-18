@@ -4,11 +4,10 @@
     / secure-boot /          262: true,
     / debug-status /         263: 3, / permanent-disable  /
     / timestamp (iat) /        6: 1526542894,
-    / security-level /       261: 2, / restricted OS /
     / submods / 266: {
         / first submod, an Android Application /
         "Android App Foo" :  {
-            / security-level /  261: 1 / unrestricted /
+            / Software Name /   271: "Foo.app"
         },
 
         / 2nd submod, A nested EAT from a secure element /
@@ -24,9 +23,9 @@
 
         / 3rd submod, information about Linux Android /
         "Linux Android": {
-            / security-level /  261: 1 / unrestricted /
+            / Software Name /   271: "Android"
         },
-        / A JWT-format token /
+        / A JWT-format token from another subsystem on the device /
         "Subsystem J": 
             "[ \"JWT\", \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJKLUF0dGVzdGVyIiwiaWF0IjoxNjUxNzc0ODY4LCJleHAiOm51bGwsImF1ZCI6IiIsInN1YiI6IiJ9.gjw4nFMhLpJUuPXvMPzK1GMjhyJq2vWXg1416XKszwQ\" ]" 
     }

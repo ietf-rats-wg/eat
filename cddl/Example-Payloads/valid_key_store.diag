@@ -20,7 +20,6 @@
 
 {
     / nonce /           10: h'948f8860d13a463e',
-    / security-level / 261: 2, / restricted /
     / secure-boot /    262: true,
     / debug-status /   263: 2, / disabled-since-boot /
     / manifests /      273: [
@@ -56,7 +55,6 @@
     / submods /        266 : { 
                            "HLOS" : { / submod for high-level OS /
          / nonce /             10: h'948f8860d13a463e',
-           / security-level / 261: 1, / unrestricted /
            / secure-boot /    262: true,
            / manifests /      273: [ 
                                 [ 121, / CoAP Content ID. A      /
