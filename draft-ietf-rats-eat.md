@@ -477,11 +477,11 @@ When new token formats are defined, the means for identification in a nested tok
 
 This section describes new claims defined for attestation that are to be added to the CWT {{IANA.CWT.Claims}} and JWT {{IANA.JWT.Claims}} IANA registries.
 
-With one exception, as specified in and carried over from CWT and JWT, all claims are optional.
-The exception is that EATs MUST have a claim or mechanism to provide freshness (i.e., provide replay protection).
-This is typically, but not necessarily, the nonce claim {{nonce}}.
-
 This section also describes how several extant CWT and JWT claims apply in EAT.
+
+With one exception, as specified in and carried over from CWT and JWT, all claims are optional.
+The exception is that EATs MUST have a claim or mechanism to provide freshness (i.e., provide replay attack protection).
+This is typically, but not necessarily, the nonce claim in {{nonce}}.
 
 CDDL, along with a text description, is used to define each claim
 independent of encoding.  Each claim is defined as a CDDL group.
@@ -495,8 +495,8 @@ JSON-encoded tokens MUST use only the text string for Claim Names.
 
 ## Nonce Claim (nonce) {#nonce}
 
-All EATs MUST provide for freshness, i.e., replay protection.
-See the extensive discussion describing several options for providing freshness in Appendix A of RATS Architecture {{RATS.Architecture}}.
+All EATs MUST provide for freshness, i.e., replay attack protection.
+See the extensive discussion describing several options for providing freshness in Section 10 of RATS Architecture {{RATS.Architecture}}.
 The nonce claim described here is one commonly used option.
 
 This claim is either a single byte or text string or an array of byte or text strings.
@@ -1304,7 +1304,7 @@ When these claims appear in Evidence, they SHOULD not be passed through the Veri
 CWT defines the "cti" claim. JWT defines the "jti" claim. These are
 equivalent in EAT and carry a unique token identifier as
 they do in JWT and CWT.  They may be used to defend against reuse of
-the token but are not a substitute for the nonce described in {{nonce}} and do not guarantee freshness or provide defence against replay in EATs (evnn though {{RFC7519}} says they can be used to prevent replay).
+the token but are not a substitute for the nonce described in {{nonce}} and do not guarantee freshness or provide defense against replay attack (even though {{RFC7519}} says they can be used to prevent replay).
 
 
 ### Timestamp claim (iat)
@@ -1576,7 +1576,7 @@ However note that Endorsement Identification is optional, where as key identific
 ### Freshness
 
 A freshness mechanism is required for all EAT use cases.
-This may be the nonce claim {{nonce}}, or some other claim or mechanism
+This may be the nonce claim in {{nonce}}, or some claim or mechanism defined outside this document.
 The section on freshness in {{RATS.Architecture}} describes several solutions.
 A profile should specify which freshness mechanism or mechanisms can be used.
 
@@ -1625,7 +1625,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce must be used for every token request |
-| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply. The nonce MUST be present and the receiver MUST not error out on any claims it doesn't understand. |
+| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply. The receiver MUST not error out on claims it doesn't understand. There must be a nonce or some other freshness mechanism. |
 
 Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
 
@@ -1793,7 +1793,7 @@ The Boot Seed claim is effectively a stable entity identifier within a given boo
 
 ## Token ID Privacy Considerations
 
-The cti/jti claims SHOULD be created using a cryptographic-quality random number generator rather than unique data items like MAC addresses to not disclose any system or person-identifying data.
+The cti/jti claim SHOULD be created using a cryptographic-quality random number generator rather than unique data items like MAC addresses to not disclose any system or person-identifying data.
 
 # Security Considerations {#securitycons}
 
@@ -1839,8 +1839,8 @@ apply to EAT when sent as a CWT.
 ## Freshness
 
 All EAT use MUST provide a freshness mechanism to prevent replay and related attacks.
-The extensive discussion on freshness in {{RATS.Architecture}} including security considerations apply here.
-(TODO: this is probably insufficient text, but it would be nice if it wasn't).
+The extensive discussions on freshness in {{RATS.Architecture}} including security considerations apply here.
+
 
 ## Multiple EAT Consumers
 
@@ -1896,8 +1896,8 @@ All new EAT claims defined subsequently should be placed in both registries.
 
 This specification adds the following values to the "JSON Web Token
 Claims" registry established by {{RFC7519}} and the "CBOR Web Token Claims Registry"
-established by {{RFC8392}}. Each entry below is an addition to both registries (except
-for the nonce claim which is already registered for JWT, but not registered for CWT).
+established by {{RFC8392}}.
+Each entry below is an addition to both registries.
 
 The "Claim Description", "Change Controller" and "Specification Documents" are common and equivalent for the JWT and CWT registries.
 The "Claim Key" and "Claim Value Types(s)" are for the CWT registry only.
@@ -1921,11 +1921,11 @@ This early allocation will presumably complete correctly
 
 * Claim Name: Nonce
 * Claim Description: Nonce
-* JWT Claim Name: "nonce" (already registered for JWT)
+* JWT Claim Name: "eat_nonce"
 * Claim Key: TBD (requested value 10)
 * Claim Value Type(s): byte string
 * Change Controller: IESG
-* Specification Document(s): {{OpenIDConnectCore}}, __this document__
+* Specification Document(s): __this document__
 
 &nbsp;
 
