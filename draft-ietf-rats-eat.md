@@ -1604,7 +1604,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce must be used for every token request |
-| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply. The receiver MUST not error out on claims it doesn't understand. There must be a nonce or some other freshness mechanism. |
+| Claims | No requirement is made on the presence or absence of claims other than requiring a nonce. As per general EAT rules, the receiver MUST not error out on claims it doesn't understand. |
 
 Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
 
@@ -2685,4 +2685,8 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Removed security level claim
 - Changed capitalization throughout the document for various terms
 - Eliminated use of DEB acronym for detached EAT bundles
-
+- Several edits and clarifications for freshness and nonces
+- Say cti/jti claims can NOT be used for freshness
+- Correct eat_nonce registration for JSON-encoded tokens
+- Add security considerations for freshness
+- Remove privacy considerations for nonce
