@@ -507,27 +507,27 @@ JSON-encoded tokens MUST use only the text string for Claim Names.
 
 
 
-## Nonce Claim (nonce) {#nonce}
+## EAT Nonce Claim (nonce) {#nonce}
 
-This claim is either a single byte or text string or an array of byte or text strings.
-The array is to accommodate multistage EAT verification and consumption.
+An EAT nonce is either a byte or text string or an array of byte or text strings.
+The array option supports multistage EAT verification and consumption.
 
-A claim named "nonce" is previously defined and registered with IANA for JWT, but MUST NOT be used in an EAT.
-It does not support multiple nonces.
+A claim named "nonce" was defined and registered with IANA for JWT, but MUST NOT be used because it does not support multiple nonces.
 No previous nonce claim was defined for CWT.
+To distinguish from the previously defined nonce claim, this claim is named "eat_nonce" in JSON-encoded EATs.
 
-The nonce MUST have 64 bits of entropy as fewer bits are unlikely to be secure.
-A maximum nonce size is set to limit the memory required for an implementation.
+The EAT nonce MUST have at least 64 bits of entropy.
+A maximum EAT nonce size is set to limit the memory required for an implementation.
 All receivers MUST be able to accommodate the maximum size.
 
-In CBOR, the nonce is a byte string.
+In CBOR, the EAT nonce is a byte string.
 The minimum size is 8 bytes.
 The maximum size is 64 bytes.
 
-In JSON the nonce is a text string.
-It is assumed that the only characters represented by the lower 7 bits will be used so the text string must be one-seventh longer because the 8th bit doesn't contribute to entropy.
-The minimum size is 10 bytes.
-The maximum size is 74 bytes.
+In JSON the EAT nonce is a text string.
+It is assumed that only characters represented by the lower 7 bits of each byte will be used, so the text string must be one-seventh longer because the 8th bit doesn't contribute to entropy.
+The minimum size for JSON-encoded EATs is 10 bytes and the maximum size is 74 bytes.
+
 
 ~~~~CDDL
 {::include nc-cddl/nonce.cddl}
