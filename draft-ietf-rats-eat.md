@@ -2702,8 +2702,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Removed security level claim
 - Changed capitalization throughout the document for various terms
 - Eliminated use of DEB acronym for detached EAT bundles
+- Replicate claim optionality text from CWT and JWT
 - Several edits and clarifications for freshness and nonces
-- Say cti/jti claims can NOT be used for freshness
 - Correct eat_nonce registration for JSON-encoded tokens
 - Add security considerations for freshness
-- Remove privacy considerations for nonce
