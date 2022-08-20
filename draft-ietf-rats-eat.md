@@ -1551,10 +1551,10 @@ However note that endorsement identification is optional, where as key identific
 
 A freshness mechanism is required for all EAT use cases.
 This may be the EAT nonce claim in {{nonce}}, or some claim or mechanism defined outside this document.
-The section on freshness in {{RATS.Architecture}} describes several solutions.
+The section on freshness in {{RATS.Architecture}} describes several options.
 A profile should specify which freshness mechanism or mechanisms can be used.
 
-If the nonce claim is used, a profile should specify whether multiple nonces may be sent.
+If the EAT nonce claim is used, a profile should specify whether multiple nonces may be sent.
 If a profile allows multiple nonces to be sent, it should require the receiver to process multiple nonces.
 
 ### Claims Requirements
@@ -1599,7 +1599,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce must be used for every token request |
-| Claims | No requirement is made on the presence or absence of claims other than requiring a nonce. As per general EAT rules, the receiver MUST not error out on claims it doesn't understand. |
+| Claims | No requirement is made on the presence or absence of claims other than requiring an EAT nonce. As per general EAT rules, the receiver MUST not error out on claims it doesn't understand. |
 
 Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
 
@@ -1764,9 +1764,6 @@ For example, many mobile phones prompt the user for permission when before sendi
 
 The Boot Seed claim is effectively a stable entity identifier within a given boot epoch.  Therefore, it is not suitable for use in attestation schemes that are privacy-preserving.
 
-
-## Token ID Privacy Considerations
-
 ## Replay Protection and Privacy {#replayprivacyconsiderations}
 
 EAT offers 2 primary mechanisms for token replay protection (also sometimes
@@ -1781,7 +1778,6 @@ of the token or an account associated with the token (e.g., if the account name 
 to avoid the conveyance of privacy-related information in either the cti/jti or nonce claims, these fields
 should be derived using a salt that originates from a true and reliable random number generator or any other
 source of randomness that would still meet the target system requirements for replay protection.
-
 
 # Security Considerations {#securitycons}
 
