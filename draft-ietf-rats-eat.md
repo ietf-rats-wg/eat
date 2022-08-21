@@ -1549,7 +1549,7 @@ However note that endorsement identification is optional, where as key identific
 
 ### Freshness
 
-A freshness mechanism is required for all EAT use cases.
+Security considerations {{sec-con-freshness}} very strongly recommends a mechanism to provide freshness.
 This may be the EAT nonce claim in {{nonce}}, or some claim or mechanism defined outside this document.
 The section on freshness in {{RATS.Architecture}} describes several options.
 A profile should specify which freshness mechanism or mechanisms can be used.
@@ -1598,7 +1598,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | Detached EAT Bundle Usage | Detached EAT bundles may not be sent with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
-| Nonce | A new single unique nonce must be used for every token request |
+| Nonce | A new single unique nonce MUST be used for every token request |
 | Claims | No requirement is made on the presence or absence of claims other than requiring an EAT nonce. As per general EAT rules, the receiver MUST not error out on claims it doesn't understand. |
 
 Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
@@ -1831,7 +1831,7 @@ security of a JWT leverages the JSON Web Encryption (JWE) and JSON Web
 Signature (JWS) specifications, it is still recommended to make use of
 the EAT nonce.
 
-## Freshness
+## Freshness {#sec-con-freshness}
 
 All EAT use MUST provide a freshness mechanism to prevent replay and related attacks.
 The extensive discussions on freshness in {{RATS.Architecture}} including security considerations apply here.
