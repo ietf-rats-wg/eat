@@ -1206,10 +1206,6 @@ The digests are written into the small secure attesters registers.
 The EAT produced by the small secure attester only contains the UEID, hardware identification and digests and is thus simple enough to be implemented in hardware.
 Probably, every data item in it is of fixed length.
 
-The integrity protection for the larger claims sets will not be as secure as those originating in hardware block, but the key material and hardware-based claims will be.
-It is possible for the hardware to enforce hardware access control (memory protection)  on the digest registers so that some of the larger claims can be more secure.
-For example, one register may be writable only by the TEE, so the detached claims from the TEE will have TEE-level security.
-
 The data type for this type of submodule MUST be an array
 It contains two data items, a hash algorithm identifier and a byte string containing the digest.
 
@@ -1862,12 +1858,12 @@ the EAT they are consuming.
 ## Detached EAT Bundle Security Considerations
 
 A detached EAT bundle is composed of a nested full token appended to
-an unsigned claims set as per {{DEB}} .  The attached claims set is vulnerable to
-modification in transit.  Although the nested token does contain digests corresponding
-to the unsigned claims set (as a submodule), these digests themselves should be protected
-from manipulation during transit so that a verifier can detect tampering of the detached claims
-set.  A suitable singing and/or encryption method should be sufficinet to protect the nested token if transport
-layer cryptographic protection is not feasible.
+an unsigned claims set as per {{DEB}} .  Althugh the attached claims set is vulnerable to
+modification in transit, any modification can be detected by the receiver through the associated
+digest, which is a claim fully contained within an EAT.  Moreover, the digest itself can only be derived using
+an appropriate COSE hash algorithm, implying that an attacker cannot induce false detection
+of a modifie detached claims sbecause the algorithms in the COSE registry are assumed to be
+of sufficient cryptographic strength.
 
 # IANA Considerations
 
