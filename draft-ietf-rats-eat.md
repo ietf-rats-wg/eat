@@ -1001,11 +1001,12 @@ For manifest interoperability, an EAT profile, {{profiles}}, should be used that
 {::include nc-cddl/manifests.cddl}
 ~~~~
 
-### The Software Evidence Claim (swevidence) {#swevidence}
+### The Measurements and Software Evidence Claim (swevidence) {#swevidence}
 
-This claim contains descriptions, lists, evidence or measurements of the software that exists on the entity.
+This claim contains descriptions, lists, evidence or measurements of the software that exists on the entity or any other measurable
+subsystem of the entity (e.g. hash of sections of a file system or non-volatile memory).
 The defining characteristic of this claim is that its contents are created by processes on the entity that inventory, measure or otherwise characterize the software on the entity.
-The contents of this claim do not originate from the software manufacturer.
+The contents of this claim do not originate from the manufacturer of the measurable subsystem (e.g. developer of a software library).
 
 This claim can be a {{CoSWID}}.
 When the CoSWID format is used, it MUST be evidence CoSWIDs, not payload CoSWIDS.
@@ -1573,8 +1574,8 @@ A profile may constrain the definition of claims that are defined in this docume
 For example, a profile may require the nonce be a certain length or the location claim always include the altitude.
 
 Some claims are "pluggable" in that they allow different formats for their content.
-The manifests and software evidence claims are examples of this, allowing the use of CoSWID, TEEP Manifests and other formats.
-A profile should specify which formats are allowed to be sent.
+The manifests claim ({{manifests}}) along with the measurement and software evidence ({{swevidence}})) claims are examples of this, allowing the use of CoSWID, TEEP Manifests and other formats.
+A profile should specify which formats are allowed to be sent, with the assumption that the corresponding COAP content types have been registered.
 A profile should require the receiver to accept all formats that are allowed to be sent.
 
 Further, if there is variation within a format that is allowed, the profile should specify which variations can be sent.
