@@ -2210,31 +2210,6 @@ This is a simple attestation of a TEE that includes a manifest that is a payload
 ~~~~
 
 
-
-### Key / Key Store Attestation
-
-~~~~
-{::include cddl/Example-Payloads/valid_tee.diag}
-~~~~
-
-~~~~
-{::include cddl/Example-Payloads/coswid/tee-coswid.diag}
-~~~~
-
-### Submodules for Board and Device
-
-~~~~
-{::include cddl/Example-Payloads/valid_submods.diag}
-~~~~
-
-
-### EAT Produced by Attestation Hardware Block
-
-~~~~
-{::include cddl/Example-Payloads/valid_hw_block.diag}
-~~~~
-
-
 ### Key / Key Store Attestation
 
 ~~~~
