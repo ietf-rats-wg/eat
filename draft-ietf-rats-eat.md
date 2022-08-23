@@ -115,17 +115,6 @@ normative:
 
   CoSWID: I-D.ietf-sacm-coswid
 
-  OpenIDConnectCore:
-    target: https://openid.net/specs/openid-connect-core-1_0.html
-    title: OpenID Connect Core 1.0 incorporating errata set 1
-    date: November 8 2014
-    author:
-    - fullname: N. Sakimura
-    - fullname: J. Bradley
-    - fullname: M. Jones
-    - fullname: B. de Medeiros
-    - fullname: C. Mortimore
-
   DLOA:
     target: https://globalplatform.org/wp-content/uploads/2015/12/GPC_DigitalLetterOfApproval_v1.0.pdf
     title: Digital Letter of Approval
@@ -493,6 +482,10 @@ This section describes new claims defined for attestation that are to be added t
 
 This section also describes how several extant CWT and JWT claims apply in EAT.
 
+The set of claims that an EAT must contain to be considered valid is context dependent and is outside the scope of this specification.
+Specific applications of EATs will require implementations to understand and process some claims in particular ways.
+However, in the absence of such requirements, all claims that are not understood by implementations MUST be ignored.
+
 CDDL, along with a text description, is used to define each claim
 independent of encoding.  Each claim is defined as a CDDL group.
 In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
@@ -503,30 +496,27 @@ JSON-encoded tokens MUST use only the text string for Claim Names.
 
 
 
-## Nonce Claim (nonce) {#nonce}
+## EAT Nonce Claim (nonce) {#nonce}
 
-All EATs MUST have a nonce to prevent replay attacks.
+An EAT nonce is either a byte or text string or an array of byte or text strings.
+The array option supports multistage EAT verification and consumption.
 
-This claim is either a single byte or text string or an array of byte or text strings.
-The array is to accommodate multistage EAT verification and consumption.
-See the extensive discussion on attestation freshness in Appendix A of RATS Architecture {{RATS.Architecture}}.
-
-A claim named "nonce" is previously defined and registered with IANA for JWT, but MUST not be used in an EAT.
-It does not support multiple nonces.
+A claim named "nonce" was defined and registered with IANA for JWT, but MUST NOT be used because it does not support multiple nonces.
 No previous nonce claim was defined for CWT.
+To distinguish from the previously defined nonce claim, this claim is named "eat_nonce" in JSON-encoded EATs.
 
-The nonce MUST have 64 bits of entropy as fewer bits are unlikely to be secure.
-A maximum nonce size is set to limit the memory required for an implementation.
+The EAT nonce MUST have at least 64 bits of entropy.
+A maximum EAT nonce size is set to limit the memory required for an implementation.
 All receivers MUST be able to accommodate the maximum size.
 
-In CBOR, the nonce is a byte string.
+In CBOR, the EAT nonce is a byte string.
 The minimum size is 8 bytes.
 The maximum size is 64 bytes.
 
-In JSON the nonce is a text string.
-It is assumed that the only characters represented by the lower 7 bits will be used so the text string must be one-seventh longer because the 8th bit doesn't contribute to entropy.
-The minimum size is 10 bytes.
-The maximum size is 74 bytes.
+In JSON the EAT nonce is a text string.
+It is assumed that only characters represented by the lower 7 bits of each byte will be used, so the text string must be one-seventh longer because the 8th bit doesn't contribute to entropy.
+The minimum size for JSON-encoded EATs is 10 bytes and the maximum size is 74 bytes.
+
 
 ~~~~CDDL
 {::include nc-cddl/nonce.cddl}
@@ -1277,8 +1267,7 @@ When these claims appear in evidence, they SHOULD not be passed through the veri
 
 CWT defines the "cti" claim. JWT defines the "jti" claim. These are
 equivalent in EAT and carry a unique token identifier as
-they do in JWT and CWT.  They may be used to defend against re use of
-the token but are not a substitute for the nonce described in {{nonce}} and do not guarantee freshness and defend against replay.
+they do in JWT and CWT.
 
 
 ### Timestamp Claim (iat)
@@ -1549,14 +1538,13 @@ However note that endorsement identification is optional, where as key identific
 
 ### Freshness
 
-A nonce is always required by EAT.
+Security considerations {{sec-con-freshness}} requires a mechanism to provide freshness.
+This may be the EAT nonce claim in {{nonce}}, or some claim or mechanism defined outside this document.
+The section on freshness in {{RATS.Architecture}} describes several options.
+A profile should specify which freshness mechanism or mechanisms can be used.
 
-A profile should specify whether multiple nonces may be sent.
+If the EAT nonce claim is used, a profile should specify whether multiple nonces may be sent.
 If a profile allows multiple nonces to be sent, it should require the receiver to process multiple nonces.
-
-Just about every use case will require some means of knowing the EAT is recent enough and not a replay of an old token.
-The profile should describe how freshness is achieved.
-The section on Freshness in {{RATS.Architecture}} describes some of the possible solutions to achieve this.
 
 ### Claims Requirements
 
@@ -1566,7 +1554,6 @@ This document requires an EAT receiver must accept all claims it does not unders
 A profile for a specific use case may reverse this and allow a receiver to reject tokens with claims it does not understand.
 A profile for a specific use case may specify that specific claims are prohibited.
 
-By default only the nonce claim is required by EAT.
 A profile for a specific use case may modify this and specify that some claims are required.
 
 A profile may constrain the definition of claims that are defined in this document or elsewhere.
@@ -1600,8 +1587,8 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | Detached EAT Bundle Usage | Detached EAT bundles may not be sent with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
-| Nonce | A new single unique nonce must be used for every token request |
-| Claims | No requirement is made on the presence or absence of claims. The general EAT rules apply. The nonce MUST be present and the receiver MUST not error out on any claims it doesn't understand. |
+| Nonce | A new single unique nonce MUST be used for every token request |
+| Claims | No requirement is made on the presence or absence of claims other than requiring an EAT nonce. As per general EAT rules, the receiver MUST not error out on claims it doesn't understand. |
 
 Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
 
@@ -1833,6 +1820,13 @@ security of a JWT leverages the JSON Web Encryption (JWE) and JSON Web
 Signature (JWS) specifications, it is still recommended to make use of
 the EAT nonce.
 
+## Freshness {#sec-con-freshness}
+
+All EAT use must provide a freshness mechanism to prevent replay and related attacks.
+The extensive discussions on freshness in {{RATS.Architecture}} including security considerations apply here.
+The EAT nonce claim, in {{nonce}}, is one option to provide freshness.
+
+
 ## Multiple EAT Consumers
 
 In many cases, more than one EAT consumer may be required to fully
@@ -1887,8 +1881,8 @@ All new EAT claims defined subsequently should be placed in both registries.
 
 This specification adds the following values to the "JSON Web Token
 Claims" registry established by {{RFC7519}} and the "CBOR Web Token Claims Registry"
-established by {{RFC8392}}. Each entry below is an addition to both registries (except
-for the nonce claim which is already registered for JWT, but not registered for CWT).
+established by {{RFC8392}}.
+Each entry below is an addition to both registries.
 
 The "Claim Description", "Change Controller" and "Specification Documents" are common and equivalent for the JWT and CWT registries.
 The "Claim Key" and "Claim Value Types(s)" are for the CWT registry only.
@@ -1912,11 +1906,11 @@ This early allocation will presumably complete correctly
 
 * Claim Name: Nonce
 * Claim Description: Nonce
-* JWT Claim Name: "nonce" (already registered for JWT)
+* JWT Claim Name: "eat_nonce"
 * Claim Key: TBD (requested value 10)
 * Claim Value Type(s): byte string
 * Change Controller: IESG
-* Specification Document(s): {{OpenIDConnectCore}}, __this document__
+* Specification Document(s): __this document__
 
 &nbsp;
 
@@ -2671,4 +2665,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Removed security level claim
 - Changed capitalization throughout the document for various terms
 - Eliminated use of DEB acronym for detached EAT bundles
-
+- Replicate claim optionality text from CWT and JWT
+- Several edits and clarifications for freshness and nonces
+- Correct eat_nonce registration for JSON-encoded tokens
+- Add security considerations for freshness
