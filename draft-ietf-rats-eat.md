@@ -1108,7 +1108,7 @@ security-oriented subsystems like a TEE and a Secure Element, and etc. The claim
 A submodule is defined as a map, where the map key identifies the submodule. The label for each submodule SHOULD be unique. Sibling submodules MUST NOT have the same label.
 The value of each entry in a submodule may be a Claims-Set, Nested-Token or Detached-Submodule-Digest.
 This allows for the submodule to serve as its own attester or not and allows for claims
-for each submodule to be represented directly or indirectly, i.e., detached. 
+for each submodule to be represented directly or indirectly, i.e., detached.
 
 A submodule may include a submodule, allowing for arbitrary levels of nesting.
 However, submodules do not inherit anything from the containing token and must explicitly include all claims.
@@ -1166,7 +1166,7 @@ The encoding of a submodule Claims-Set MUST be the same as the encoding as the s
 
 The Nested-Token type provides a means of representing claims from a submodule that has its own attesting environment,
 i.e., it has keys distinct from the attester producing the surrounding token. Claims are represented in a signed EAT token. Inclusion of a signed
-eat as a claim cryptographically binds the EAT to the surrounding token.
+EAT as a claim cryptographically binds the EAT to the surrounding token.
 If it was conveyed in parallel with the surrounding token, there would be no such binding and attackers could substitute a good attestation from another device for the attestation of an errant subsystem.
 
 A nested token need not use the same encoding as the enclosing token.
