@@ -1103,19 +1103,19 @@ The values for the results enumerated type are as follows:
 ### Submodules (submods) {#submods}
 
 Some devices are complex and have many subsystems.  A mobile phone is a good example. It may have subsystems for communications (e.g., Wi-Fi and cellular), low-power audio and video playback, multiple
-security-oriented subsystems like a TEE and a Secure Element, and etc. The submodule claim enables claims for each subsystem to be grouped together.
+security-oriented subsystems like a TEE and a Secure Element, and etc. The claims for a subsystem can be grouped together in a submodule.
 
-The submodule claim is defined as a map, where the map key identifies the submodule. The label for each submodule SHOULD be unique. Sibling submodules MUST NOT have the same label.
-The value of each entry in the submodule claim may be a Claims-Set, Nested-Token or Detached-Submodule-Digest.
+A submodule is defined as a map, where the map key identifies the submodule. The label for each submodule SHOULD be unique. Sibling submodules MUST NOT have the same label.
+The value of each entry in a submodule may be a Claims-Set, Nested-Token or Detached-Submodule-Digest.
 This allows for the submodule to serve as its own attester or not and allows for claims
 for each submodule to be represented directly or indirectly, i.e., detached. 
 
-A submodule may include a submodule claim, allowing for arbitrary levels of nesting.
+A submodule may include a submodule, allowing for arbitrary levels of nesting.
 However, submodules do not inherit anything from the containing token and must explicitly include all claims.
 Submodules may contain claims that are present in any surrounding token or submodule.
 For example, the top-level of the token may have a UEID, a submodule may have a different UEID and a further subordinate submodule may also have a UEID.
 
-The following sub-sections define the three types for representing submodule claims:
+The following sub-sections define the three types for representing submodules:
 
 * A submodule Claims-Set
 * A Nested-Token, which can be any EAT
@@ -1134,7 +1134,7 @@ The following sub-sections define the three types for representing submodule cla
 {::include nc-cddl/detached-digest.cddl}
 ~~~~
 
-When decoding a submodule claim in a CBOR-encoded EAT, the Claims-Set type will be encoded as a map, the Nested-Token type as a CBOR-tagged object and the Detached-Submodule-Digest type as an array.
+When decoding a submodule in a CBOR-encoded EAT, the Claims-Set type will be encoded as a map, the Nested-Token type as a CBOR-tagged object and the Detached-Submodule-Digest type as an array.
 
 When decoding a JSON-encoded EAT, a little more work is required because both the Nested-Token and Detached-Submodule-Digest types are arrays.
 To distinguish the nested token from the detached digest, the first element in the array is examined.
