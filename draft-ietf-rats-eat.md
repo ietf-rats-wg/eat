@@ -115,17 +115,6 @@ normative:
 
   CoSWID: I-D.ietf-sacm-coswid
 
-  OpenIDConnectCore:
-    target: https://openid.net/specs/openid-connect-core-1_0.html
-    title: OpenID Connect Core 1.0 incorporating errata set 1
-    date: November 8 2014
-    author:
-    - fullname: N. Sakimura
-    - fullname: J. Bradley
-    - fullname: M. Jones
-    - fullname: B. de Medeiros
-    - fullname: C. Mortimore
-
   DLOA:
     target: https://globalplatform.org/wp-content/uploads/2015/12/GPC_DigitalLetterOfApproval_v1.0.pdf
     title: Digital Letter of Approval
@@ -1549,7 +1538,7 @@ However note that endorsement identification is optional, where as key identific
 
 ### Freshness
 
-Security considerations {{sec-con-freshness}} very strongly recommends a mechanism to provide freshness.
+Security considerations {{sec-con-freshness}} requires a mechanism to provide freshness.
 This may be the EAT nonce claim in {{nonce}}, or some claim or mechanism defined outside this document.
 The section on freshness in {{RATS.Architecture}} describes several options.
 A profile should specify which freshness mechanism or mechanisms can be used.
@@ -1833,7 +1822,7 @@ the EAT nonce.
 
 ## Freshness {#sec-con-freshness}
 
-All EAT use MUST provide a freshness mechanism to prevent replay and related attacks.
+All EAT use must provide a freshness mechanism to prevent replay and related attacks.
 The extensive discussions on freshness in {{RATS.Architecture}} including security considerations apply here.
 The EAT nonce claim, in {{nonce}}, is one option to provide freshness.
 
