@@ -2670,3 +2670,9 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Several edits and clarifications for freshness and nonces
 - Correct eat_nonce registration for JSON-encoded tokens
 - Add security considerations for freshness
+
+Contributors
+================
+{: numbered="no"}
+
+Many thanks to the following contributors to draft versions of this document:  Henk Birkholz, Thomas Fossati, Miguel Ballesteros, Michael Richardson, Patrick Uiterwijk, Mathias Brossard, Hannes Tschofenig and Paul Crowley.
