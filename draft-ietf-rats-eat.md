@@ -1772,7 +1772,8 @@ source of randomness that would still meet the target system requirements for re
 # Security Considerations {#securitycons}
 
 The security considerations provided in Section 8 of {{RFC8392}} and Section 11
-of {{RFC7519}} apply to EAT in its CWT and JWT form, respectively.  In addition,
+of {{RFC7519}} apply to EAT in its CWT and JWT form, respectively.  Moreover, Chapter 12
+of {{RATS.Architecture}} is also applicable to implementations of EAT.  In addition,
 implementors should consider the following.
 
 ## Key Provisioning
