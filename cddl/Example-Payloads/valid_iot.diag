@@ -14,7 +14,7 @@
                             "OS" : {
         / secure-boot /        262: true,
         / debug-status /       263: 2, / disabled-since-boot /
-        / swevidence /         274: [
+        / measurements /       274: [
                                    [
                                        121, / CoAP Content ID. A     /
                                             / made up one until one  /
