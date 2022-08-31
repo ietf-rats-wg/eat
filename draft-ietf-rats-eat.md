@@ -45,6 +45,25 @@ author:
   phone: +44 1252 363189
   email: jodonogh@qti.qualcomm.com
 
+contributor:
+- name: Henk Birkholz
+  org: Fraunhofer SIT
+  abbrev: Fraunhofer SIT
+  email: henk.birkholz@sit.fraunhofer.de
+- name: Thomas Fossati
+  org: Arm Limited
+  email: thomas.fossati@arm.com
+- name: Miguel Ballesteros
+- name: Michael Richardson
+  org: Sandelman Software Works
+  email: mcr+ietf@sandelman.ca
+- name: Patrick Uiterwijk
+- name: Mathias Brossard
+- name: Hannes Tschofenig
+  org: Arm Limited
+  email: hannes.tschofenig@arm.com
+- name: Paul Crowley
+
 normative:
   RFC2119:
   RFC7159:
@@ -2672,8 +2691,9 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Correct eat_nonce registration for JSON-encoded tokens
 - Add security considerations for freshness
 
-Contributors
-================
-{: numbered="no"}
 
-Many thanks to the following contributors to draft versions of this document:  Henk Birkholz, Thomas Fossati, Miguel Ballesteros, Michael Richardson, Patrick Uiterwijk, Mathias Brossard, Hannes Tschofenig and Paul Crowley.
+--- contributor
+
+Many thanks to the following contributors to draft versions of this
+document:
+
