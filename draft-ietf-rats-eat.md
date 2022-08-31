@@ -1855,14 +1855,14 @@ downstream consumers is not strictly required.  Nevertheless,
 downstream consumers of a nested EAT should provide a nonce unique to
 the EAT they are consuming.
 
-## Detached EAT Bundle Security Considerations
+## Detached EAT Bundle Digest Security Considerations
 
 A detached EAT bundle is composed of a nested full token appended to
-an unsigned claims set as per {{DEB}} .  Althugh the attached claims set is vulnerable to
+an unsigned claims set as per {{DEB}} .  Although the attached claims set is vulnerable to
 modification in transit, any modification can be detected by the receiver through the associated
 digest, which is a claim fully contained within an EAT.  Moreover, the digest itself can only be derived using
 an appropriate COSE hash algorithm, implying that an attacker cannot induce false detection
-of a modifie detached claims sbecause the algorithms in the COSE registry are assumed to be
+of a modifie detached claims because the algorithms in the COSE registry are assumed to be
 of sufficient cryptographic strength.
 
 # IANA Considerations
