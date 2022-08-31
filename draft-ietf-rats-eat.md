@@ -323,6 +323,25 @@ An entity may have strong security like defenses against hardware invasive attac
 It may also have low security, having no special security defenses.
 There is no minimum security requirement to be an entity.
 
+## EAT As a Framework
+
+EAT can be viewed as a framework for defining attestation tokens for specific use cases more so than it is one specific token definition.
+This comes about because attestation use cases are so varied.
+Some will be very constrained devices and others capacious servers.
+Some will prefer JSON, others CBOR.
+Some will require specific cryptographic algorithms and be unable to use others.
+Different operating systems, system measurements schemes, types of devices, etc., need different claims.
+
+While EAT is based on CWT and JWT, it goes further and can be thought of in these terms:
+
+* An identification and type system for claims-sets
+* Definitions of common attestation-oriented claims
+* Serialization using CBOR and JSON
+* Security envelopes based on COSE and JOSE
+* Nesting of tokens to represent complex and compound devices.
+* A profile mechanism for specifying and identifying specific token formats for specific use cases
+
+
 ## CWT, JWT and Detached EAT Bundle
 
 An EAT is primarily a claims set about an entity based on one of the following:
