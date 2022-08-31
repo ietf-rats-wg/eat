@@ -1457,7 +1457,7 @@ A profile may define, and possibly register, one or more new claims if needed. A
 
 ## List of Profile Issues
 
-The following is a list of EAT, CWT, JWS, COSE, JOSE and CBOR options that a profile should address.
+The following is a list of EAT, CWT, JWT, COSE, JOSE and CBOR options that a profile should address.
 
 
 ### Use of JSON, CBOR or both
