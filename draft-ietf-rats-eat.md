@@ -333,7 +333,7 @@ An EAT is primarily a claims set about an entity based on one of the following:
 All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on from these carry over to EAT.
 
 This specification extends those specifications by defining additional claims for attestation.
-This specification also describes the notion of a "profile" that can narrow the definition of an EAT, ensure interoperability and fill in details for specific usage scenarios.
+This specification also describes the notion of a "eat_profile" that can narrow the definition of an EAT, ensure interoperability and fill in details for specific usage scenarios.
 This specification also adds some considerations for registration of future EAT-related claims.
 
 The identification of a protocol element as an EAT, whether CBOR or JSON encoded, follows the general conventions used by CWT, JWT.
@@ -515,7 +515,7 @@ JSON-encoded tokens MUST use only the text string for claim names.
 
 
 
-## EAT Nonce Claim (eat_nonce) {#nonce}
+## eat_nonce (EAT Nonce) Claim {#nonce}
 
 An EAT nonce is either a byte or text string or an array of byte or text strings.
 The array option supports multistage EAT verification and consumption.
@@ -523,7 +523,7 @@ The array option supports multistage EAT verification and consumption.
 A claim named "nonce" was defined and registered with IANA for JWT, but MUST NOT be used because it does not support multiple nonces.
 No previous "nonce" claim was defined for CWT.
 To distinguish from the previously defined JWT "nonce" claim, this claim is named "eat_nonce" in JSON-encoded EATs. The CWT nonce defined
-here is intended for general purpose use and thus retains the "nonce" claim name instead of the EAT-specific "eat_nonce" name.
+here is intended for general purpose use and retains the "Nonce" claim name instead of an EAT-specific name.
 
 An EAT nonce MUST have at least 64 bits of entropy.
 A maximum EAT nonce size is set to limit the memory required for an implementation.
@@ -549,9 +549,9 @@ They describe the entity whether they occur in evidence or occur in attestation 
 See {{relationship}} for discussion on how attestation results relate to evidence.
 
 
-### Universal Entity ID Claim (ueid) {#UEID}
+### ueid (Universal Entity ID) Claim {#UEID}
 
-A UEID identifies an individual manufactured entity like a
+The "ueid" claim conveys a UEID, which identifies an individual manufactured entity like a
 mobile phone, a water meter, a Bluetooth speaker or a networked
 security camera. It may identify the entire entity or a submodule.
 It does not identify types, models or classes of
@@ -624,9 +624,9 @@ A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 ~~~~
 
 
-### Semi-permanent UEIDs (SUEIDs)
+### sueids (Semi-permanent UEIDs) Claim (SUEIDs)
 
-An SUEID has the same format, characteristics and requirements as a UEID, but MAY change to a different value on entity life-cycle events.
+The "sueids" claim conveys one or more semi-permanent UEIDs (SUEIDs). An SUEID has the same format, characteristics and requirements as a UEID, but MAY change to a different value on entity life-cycle events.
 An entity MAY have both a UEID and SUEIDs, neither, one or the other.
 
 Examples of life-cycle events are change of ownership, factory reset and on-boarding into an IoT device management system.
@@ -653,9 +653,9 @@ A Device Indentifier URN is registered for SUEIDs. See {{registerueidurn}}.
 ~~~~
 
 
-### Hardware OEM Identification (oemid) {#oemid}
+### oemid (Hardware OEM Identification) Claim {#oemid}
 
-This claim identifies the Original Equipment Manufacturer (OEM) of the hardware.
+The "oemid" claim identifies the Original Equipment Manufacturer (OEM) of the hardware.
 Any of the three forms described below MAY be used at the convenience of the claim sender.
 The receiver of this claim MUST be able to handle all three forms.
 
@@ -717,9 +717,9 @@ In JSON, this value MUST be encoded as a number.
 ~~~~
 
 
-### Hardware Model Claim (hardware-model)
+### hwmodel (Hardware Model) Claim
 
-This claim differentiates hardware models, products and variants manufactured by a particular OEM, the one identified by OEM ID in {{oemid}}.
+The "hwmodel" claim differentiates hardware models, products and variants manufactured by a particular OEM, the one identified by OEM ID in {{oemid}}.
 
 This claim must be unique so as to differentiate the models and products for the OEM ID.
 This claim does not have to be globally unique, but it can be.
@@ -746,9 +746,9 @@ The OEM is free to alter the internal structure of these bytes as long as the cl
 ~~~~
 
 
-### Hardware Version Claims (hardware-version-claims)
+### hwversion (Hardware Version) Claim
 
-The hardware version is a text string the format of which is set by each manufacturer.
+The "hwversion" claim is a text string the format of which is set by each manufacturer.
 The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
 It is useful to know how to sort versions so the newer can be distinguished from the older.
 
@@ -762,9 +762,9 @@ An EAN-13 is also known as an International Article Number or most commonly as a
 ~~~~
 
 
-### Software Name Claim
+### swname (Software Name) Claim
 
-This is a very simple free-form text claim for naming the software used by the entity.
+The "swname" claim contains a very simple free-form text value for naming the software used by the entity.
 Intentionally, no general rules or structure are set.
 This will make it unsuitable for use cases that wish precise naming.
 
@@ -775,9 +775,9 @@ If precise and rigourous naming of the software for the entity is needed, the "m
 ~~~~
 
 
-### Software Version Claim
+### swversion (Software Version) Claim
 
-This makes use of the CoSWID version scheme data type to give a simple version for the software.
+The "swversion" claim makes use of the CoSWID version scheme data type to give a simple version for the software.
 A full CoSWID manifest or other type of manifest can be instead if this is too simple.
 
 ~~~~CDDL
@@ -785,9 +785,9 @@ A full CoSWID manifest or other type of manifest can be instead if this is too s
 ~~~~
 
 
-### Secure Boot Claim (secure-boot)
+### secboot (Secure Boot) Claim
 
-The value of true indicates secure boot is enabled. Secure boot is
+A "secboot" claim with value of true indicates secure boot is enabled. Secure boot is
 considered enabled when the firmware and operating
 system, are under control of the manufacturer of the entity identified in the
 "oemid" claim described in {{oemid}}.
@@ -797,9 +797,9 @@ Control by the manufacturer of the firmware and the operating system may be by i
 {::include nc-cddl/secure-boot.cddl}
 ~~~~
 
-### Debug Status Claim (debug-status)
+### dbgstat (Debug Status) Claim
 
-This applies to entity-wide or submodule-wide debug facilities of the
+The "dbgstat" claim applies to entity-wide or submodule-wide debug facilities of the
 entity like JTAG and diagnostic hardware built into
 chips. It applies to any software debug facilities related to root,
 operating system or privileged software that allow system-wide memory
@@ -879,7 +879,7 @@ This level indicates that all debug facilities for the entity are permanently di
 ~~~~
 
 
-### The Location Claim (location) {#location}
+### location (Location) Claim {#location}
 
 The "location" claim gives the location of the entity from which the attestation originates.
 It is derived from the W3C Geolocation API {{W3C.GeoLoc}}.
@@ -908,7 +908,7 @@ See location-related privacy considerations in {{locationprivacyconsiderations}}
 {::include nc-cddl/location.cddl}
 ~~~~
 
-### The Uptime Claim (uptime)
+### uptime (Uptime) Claim
 
 The "uptime" claim MUST contain a value that represents the number of
 seconds that have elapsed since the entity or submod was last booted.
@@ -917,9 +917,9 @@ seconds that have elapsed since the entity or submod was last booted.
 {::include nc-cddl/uptime.cddl}
 ~~~~
 
-### The Boot Count Claim (boot-count)
+### bootcount (Boot Count) Claim
 
-This claim contains a count of the number
+The "bootcount" claim contains a count of the number
 times the entity or submod has been booted. Support for this claim
 requires a persistent storage on the device.
 
@@ -927,10 +927,9 @@ requires a persistent storage on the device.
 {::include nc-cddl/boot-count.cddl}
 ~~~~
 
-### The Boot Seed Claim (boot-seed)
+### bootseed (Boot Seed) Claim
 
-
-The "boot-seed" claim contains a value created at system boot time that allows differentiation of attestation reports from different boot sessions of a particular entity (e.g., a certain UEID).
+The "bootseed" claim contains a value created at system boot time that allows differentiation of attestation reports from different boot sessions of a particular entity (e.g., a certain UEID).
 
 This value is usually public.
 It is not a secret and MUST NOT be used for any purpose that a secret seed is needed, such as seeding a random number generator.
@@ -942,9 +941,9 @@ There are privacy considerations for Boot Seed. See {{bootseedprivacyconsiderati
 ~~~~
 
 
-### The DLOA (Digital Letter of Approval) Claim (dloas) {#dloas}
+### dloas (Digital Letters of Approval) Claim {#dloas}
 
-A DLOA (Digital Letter of Approval) {{DLOA}} is a document that describes a certification that an entity has received.
+The "dloas" claim conveys one or more Digital Letters of Approval (DLOAs)). A DLOA {{DLOA}} is a document that describes a certification that an entity has received.
 Examples of certifications represented by a DLOA include those issued by Global Platform and those based on Common Criteria.
 The DLOA is unspecific to any particular certification type or those issued by any particular organization.
 
@@ -968,9 +967,9 @@ The method of constructing the registrar URI, platform label and possibly applic
 ~~~~
 
 
-### The Software Manifests Claim (manifests) {#manifests}
+### manifests (Software Manifests) Claim {#manifests}
 
-This claim contains descriptions of software present on the entity.
+The "manifests" claim contains descriptions of software present on the entity.
 These manifests are installed on the entity when the software is installed or are created as part of the installation process.
 Installation is anything that adds software to the entity, possibly factory installation, the user installing elective applications and so on.
 The defining characteristic is they are created by the software manufacturer.
@@ -1011,9 +1010,9 @@ For manifest interoperability, an EAT profile, {{profiles}}, should be used that
 {::include nc-cddl/manifests.cddl}
 ~~~~
 
-### The Measurements and Software Evidence Claim (swevidence) {#swevidence}
+### swevidence (Software Evidence) Claim {#swevidence}
 
-This claim contains descriptions, lists, evidence or measurements of the software that exists on the entity or any other measurable
+The "swevidence" claim contains descriptions, lists, evidence or measurements of the software that exists on the entity or any other measurable
 subsystem of the entity (e.g. hash of sections of a file system or non-volatile memory).
 The defining characteristic of this claim is that its contents are created by processes on the entity that inventory, measure or otherwise characterize the software on the entity.
 The contents of this claim do not originate from the manufacturer of the measurable subsystem (e.g. developer of a software library).
@@ -1028,9 +1027,9 @@ The identification of format is by CoAP Content Format, the same as the "manifes
 {::include nc-cddl/swevidence.cddl}
 ~~~~
 
-### The Measurement Results Claim (measurement-results) {#measurementresults}
+### measres (Software Measurement Results) Claim {#measurementresults}
 
-This claim is a general-purpose structure for reporting comparison of measurements to expected reference values.
+The "measres" claim is a general-purpose structure for reporting comparison of measurements to expected reference values.
 This claim provides a simple standard way to report the result of a comparison as success, failure, fail to run, ...
 
 It is the nature of measurement systems that they are specific to the operating system, software and hardware of the entity that is being measured.
@@ -1079,15 +1078,15 @@ The values for the results enumerated type are as follows:
 ~~~~
 
 
-### Submodules (submods) {#submods}
+### submods (Submodules) Claim {#submods}
+
+The "submods" claim is used to convey claims that have been grouped together for a subsystem.
 
 Some devices are complex, having many subsystems.  A
 mobile phone is a good example. It may have several connectivity
 subsystems for communications (e.g., Wi-Fi and cellular). It may have
 subsystems for low-power audio and video playback. It may have multiple
 security-oriented subsystems like a TEE and a Secure Element.
-
-The claims for a subsystem can be grouped together in a submodule or submod.
 
 The "submods" are in a single map/object, one entry per submodule.
 There is only one submods map/object in a token. It is
@@ -1246,7 +1245,7 @@ Note that since detached Claims-Sets are signed, protocols conveying them must m
 
 The subordinate modules do not inherit anything from the containing
 token.  The subordinate modules must explicitly include all of their
-claims. This is the case even for claims like EAT nonce ({{nonce}}).
+claims. This is the case even for claims like an EAT nonce ({{nonce}}).
 
 This rule is in place for simplicity. It avoids complex inheritance
 rules that might vary from one type of claim to another.
@@ -1280,14 +1279,14 @@ They may appear in evidence or attestation results.
 When these claims appear in evidence, they SHOULD not be passed through the verifier into attestation results.
 
 
-### Token ID Claim (cti and jti)
+### cti and jti (Token ID) Claims
 
 CWT defines the "cti" claim. JWT defines the "jti" claim. These are
 equivalent in EAT and carry a unique token identifier as
 they do in JWT and CWT.
 
 
-### Timestamp Claim (iat)
+### iat (Timestamp) Claim
 
 The "iat" claim defined in CWT and JWT is used to indicate the
 date-of-creation of the token, the time at which the claims are
@@ -1311,31 +1310,29 @@ billion years, so the only point of a floating-point timestamp is to
 have precession greater than one second. This is not needed for EAT.
 
 
-### The Profile Claim (profile) {#profile-claim}
+### eat_profile (EAT Profile) Claim {#profile-claim}
 
-See {{profiles}} for the detailed description of a profile.
+See {{profiles}} for the detailed description of an EAT profile.
 
-A profile is identified by either a URL or an OID.
+The "eat_profile" claim identifies an EAT profile by either a URL or an OID.
 Typically, the URI will reference a document describing the profile.
 An OID is just a unique identifier for the profile.
 It may exist anywhere in the OID tree.
 There is no requirement that the named document be publicly accessible.
-The primary purpose of the "profile" claim is to uniquely identify the profile even if it is a private profile.
+The primary purpose of the "eat_profile" claim is to uniquely identify the profile even if it is a private profile.
 
 The OID is always absolute and never relative.
 
 See {{common-types}} for OID and URI encoding.
-
-Note that this is named "eat_profile" for JWT and is distinct from the already registered "profile" claim in the JWT claims registry.
 
 ~~~~CDDL
 {::include nc-cddl/profile.cddl}
 ~~~~
 
 
-### The Intended Use Claim (intended-use)
+### intuse (Intended Use) Claim
 
-EAT's may be used in the context of several different applications.  The intended-use
+EAT's may be used in the context of several different applications.  The "intuse"
 claim provides an indication to an EAT consumer about  the intended usage
 of the token. This claim can be used as a way for an application using EAT to internally distinguish between different ways it uses EAT.
 
@@ -1346,7 +1343,7 @@ is expected that this is the most commonly-used application of EAT.
 
 2-- Registration:
 : Entities that are registering for a new service may be expected to
-provide an attestation as part of the registration process.  This intended-use
+provide an attestation as part of the registration process.  This "intuse"
 setting indicates that the attestation is not intended for any use but registration.
 
 3 -- Provisioning:
@@ -1442,7 +1439,7 @@ EAT chooses one general and explicit mechanism, the profile, to indicate the cho
 
 Below is a list of the various issues that should be addressed by a profile.
 
-The "profile" claim in {{profile-claim}} provides a unique identifier for the profile a particular token uses.
+The "eat_profile" claim in {{profile-claim}} provides a unique identifier for the profile a particular token uses.
 
 A profile can apply to evidence or to attestation results or both.
 
@@ -1768,7 +1765,7 @@ For example, many mobile phones prompt the user for permission when before sendi
 
 ## Boot Seed Privacy Considerations {#bootseedprivacyconsiderations}
 
-The "boot-seed" claim is effectively a stable entity identifier within a given boot epoch.  Therefore, it is not suitable for use in attestation schemes that are privacy-preserving.
+The "bootseed" claim is effectively a stable entity identifier within a given boot epoch.  Therefore, it is not suitable for use in attestation schemes that are privacy-preserving.
 
 ## Replay Protection and Privacy {#replayprivacyconsiderations}
 
@@ -2012,7 +2009,7 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: Profile
+* Claim Name: EAT Profile
 * Claim Description: Indicates the EAT profile followed
 * JWT Claim Name: "eat_profile"
 * Claim Key: TBD (requested value 265)
@@ -2022,8 +2019,8 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: Submodules Section
-* Claim Description: The section containing submodules
+* Claim Name: Submodules
+* Claim Description: Grouped claims for submodules
 * JWT Claim Name: "submods"
 * Claim Key: TBD (requested value 266)
 * Claim Value Type(s): map
@@ -2116,14 +2113,23 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: Software Measurment Results
+* Claim Name: Software Measurement Results
 * Claim Description: The results of comparing software measurements to reference values
-* JWT Claim Name: "swresults"
+* JWT Claim Name: "measres"
 * Claim Key: TBD
 * Claim Value Type(s): array
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
+&nbsp;
+
+* Claim Name: Boot Count
+* Claim Description: The number times the entity or submodule has been booted
+* JWT Claim Name: "bootcount"
+* Claim Key: TBD
+* Claim Value Type(s): uint
+* Change Controller: IESG
+* Specification Document(s): __this document__
 
 
 ### Version Schemes Registered by this Document {#registerversionscheme}
@@ -2249,7 +2255,7 @@ This is a JSON-format payload that might be the output of a verifier that evalua
 
 This particular verifier knows enough about the TEE attester to be able to pass claims like debug status directly through to the relying party.
 The verifier also knows the reference values for the measured software components and is able to check them.
-It informs the relying party that they were correct in the swresults claim.
+It informs the relying party that they were correct in the "measres" claim.
 "Trustus Verifications" is the name of the services that verifies the software component measurements.
 
 ~~~~
