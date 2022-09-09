@@ -1205,8 +1205,14 @@ It is conveyed to the verifier outside of the token.
 The submodule containing the digest is called a detached digest.
 The separately conveyed Claims-Set is called a detached claims set.
 
-The input to the digest is exactly the byte-string wrapped encoded form of the Claims-Set for the submodule.
-That Claims-Set can include other submodules including nested tokens and detached digests.
+For CBOR detached Claims-Sets, the input to the digest is the byte-string wrapped encoded form of the Claims-Set for the submodule.
+For JSON detached Claims-Sets, the input to the digest is JSON.
+It is not base 64 encoded.
+That detached Claims-Set can include other submodules including nested tokens and detached digests.
+
+The encoding type of the detached claims set is part of the carrying protocol and varies from protocol to protocol.
+For example, a detached EAT bundle uses mechanisms defined in this document.
+Other use cases may use a content/media type.
 
 The primary use for this is to facilitate the implementation of a small and secure attester, perhaps purely in hardware.
 This small, secure attester implements COSE signing and only a few claims, perhaps just UEID and hardware identification.
