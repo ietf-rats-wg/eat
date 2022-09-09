@@ -409,7 +409,7 @@ The verifier may also modify or transform claims it forwards.
 This may be to implement some privacy preservation functionality.
 
 It is also possible the verifier will put claims in the attestation results that give details about the entity that it has computed or looked up in a database.
-For example, the verifier may be able to put an "hwoemid" claim in the attestation results by performing a look up based on a UEID (serial number) it received in evidence.
+For example, the verifier may be able to put an "oemid" claim in the attestation results by performing a look up based on a UEID (serial number) it received in evidence.
 
 This specification does not establish any normative rules for the verifier to follow.
 They are a matter of configured policy.
@@ -601,7 +601,7 @@ The consumer of a UEID MUST treat a UEID as a
 completely opaque string of bytes and not make any use of its internal
 structure. For example, they should not use the OUI part of a type
 0x02 UEID to identify the manufacturer of the entity. Instead, they
-should use the "hwoemid" claim. See {{oemid}}. The reasons for
+should use the "oemid" claim. See {{oemid}}. The reasons for
 this are:
 
 * UEIDs types may vary freely from one manufacturer to the next.
@@ -653,9 +653,9 @@ A Device Indentifier URN is registered for SUEIDs. See {{registerueidurn}}.
 ~~~~
 
 
-### hwoemid (Hardware OEM Identification) Claim {#oemid}
+### oemid (Hardware OEM Identification) Claim {#oemid}
 
-The "hwoemid" claim identifies the Original Equipment Manufacturer (OEM) of the hardware.
+The "oemid" claim identifies the Original Equipment Manufacturer (OEM) of the hardware.
 Any of the three forms described below MAY be used at the convenience of the claim sender.
 The receiver of this claim MUST be able to handle all three forms.
 
@@ -790,7 +790,7 @@ A full CoSWID manifest or other type of manifest can be instead if this is too s
 A "secboot" claim with value of true indicates secure boot is enabled. Secure boot is
 considered enabled when the firmware and operating
 system, are under control of the manufacturer of the entity identified in the
-"hwoemid" claim described in {{oemid}}.
+"oemid" claim described in {{oemid}}.
 Control by the manufacturer of the firmware and the operating system may be by it being in ROM, being cryptographically authenticated, a combination of the two or similar.
 
 ~~~~CDDL
@@ -866,7 +866,7 @@ have been so since the entity booted/started.
 
 This level indicates all non-manufacturer facilities are permanently
 disabled such that no end user or developer can enable them. Only
-the manufacturer indicated in the "hwoemid" claim can enable them. This
+the manufacturer indicated in the "oemid" claim can enable them. This
 also indicates that all debug facilities are currently disabled and
 have been so since boot/start.
 
@@ -1951,7 +1951,7 @@ This early allocation will presumably complete correctly
 
 * Claim Name: Hardware OEMID
 * Claim Description: Hardware OEM ID
-* JWT Claim Name: "hwoemid"
+* JWT Claim Name: "oemid"
 * Claim Key: TBD (requeste value 258)
 * Claim Value Type(s): byte string or integer
 * Change Controller: IESG
