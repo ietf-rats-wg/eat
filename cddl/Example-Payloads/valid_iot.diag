@@ -5,16 +5,16 @@
 / the IoT OS and puts the measurements in the submodule.            /
 
 {
-    / nonce /           10: h'948f8860d13a463e',
-    / secure-boot /    262: true,
-    / debug-status /   263: 2, / disabled-since-boot /
-    / OEMID /          258: h'8945ad', / IEEE CID based /
-    / UEID /           256: h'0198f50a4ff6c05861c8860d13a638ea', 
-    / sumods /         266: {
+    / eat_nonce /       10: h'948f8860d13a463e',
+    / secboot /        262: true,
+    / dbgstat /        263: 2, / disabled-since-boot /
+    / oemid /          258: h'8945ad', / IEEE CID based /
+    / ueid /           256: h'0198f50a4ff6c05861c8860d13a638ea', 
+    / submods /        266: {
                             "OS" : {
-        / secure-boot /        262: true,
-        / debug-status /       263: 2, / disabled-since-boot /
-        / swevidence /         274: [
+        / secboot /            262: true,
+        / dbgstat /            263: 2, / disabled-since-boot /
+        / measres /            274: [
                                    [
                                        121, / CoAP Content ID. A     /
                                             / made up one until one  /
