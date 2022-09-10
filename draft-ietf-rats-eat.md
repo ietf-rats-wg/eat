@@ -290,22 +290,13 @@ In particular, it can be used for evidence and attestation results.
 
 ## Entity Overview
 
-The document uses the term "entity" to refer to the target of the attestation token.
-The claims defined in this document are claims about an entity.
-
-An entity is an implementation in hardware, software or both.
-
-An entity is the same as the attesting environment defined in RATS Architecture.
-
-An entity may be the whole device or it may be a subsystem, a subsystem of a subsystem and so on.
-EAT allows claims to be organized into submodules, nested EATs and so on. See {{submods}}.
+The document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
+Correspondingly, the EAT format allows claims to be organized using mechanisms like submodules and nested EATs (see {{submods}}).
 The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
 
-An entity also corresponds to a "system component" as defined in the Internet Security Glossary {{RFC4949}}.
+An entity also corresponds to a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
 That glossary also defines "entity" and "system entity" as something that may be a person or organization as well as a system component.
-Here "entity" never refers to a person or organization.
-
-The hardware and software that implement a server or service like a web site may be an entity, but the web site itself or the organization that runs the web site are not an entity.
+In the EAT context, "entity" never refers to a person or organization. The hardware and software that implement a server or service used by a web site may be an entity, but the organization that runs the web site is not an entity nor is the web site itself.
 
 Some examples of entities:
 
@@ -319,7 +310,7 @@ Some examples of entities:
 * A smartphone with many submodules for its many subsystems
 * A subsystem in a smartphone like the modem or the camera
 
-An entity may have strong security like defenses against hardware invasive attacks.
+An entity may have strong security defenses against hardware invasive attacks.
 It may also have low security, having no special security defenses.
 There is no minimum security requirement to be an entity.
 
