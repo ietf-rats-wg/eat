@@ -118,13 +118,6 @@ normative:
     - org: 3GPP
     date: 2019
 
-  FIDO.AROE:
-    title: FIDO Authenticator Allowed Restricted Operating Environments List
-    target: https://fidoalliance.org/specs/fido-security-requirements/fido-authenticator-allowed-restricted-operating-environments-list-v1.2-fd-20201102.html
-    author:
-    - org: The FIDO Alliance
-    date: November 2020
-
   CoSWID: I-D.ietf-sacm-coswid
 
   DLOA:
@@ -208,18 +201,6 @@ informative:
     title: IEEE Standard For Local And Metropolitan Area Networks Overview And Architecture
     target: https://webstore.ansi.org/standards/ieee/ieee8022001r2007
     date: 2007
-
-  FIPS-140:
-    title: Security Requirements for Cryptographic Modules
-    target: https://csrc.nist.gov/publications/detail/fips/140/2/final
-    author:
-    - org: National Institue of Standards
-    date: May 2001
-
-  Common.Criteria:
-    title: Common Criteria for Information Technology Security Evaluation
-    target: https://www.commoncriteriaportal.org/cc/
-    date: April 2017
 
   COSE.X509.Draft: I-D.ietf-cose-x509
 
