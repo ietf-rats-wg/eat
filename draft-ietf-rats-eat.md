@@ -125,13 +125,6 @@ normative:
     - org: The FIDO Alliance
     date: November 2020
 
-  EAN-13:
-    target: https://www.gs1.org/standards/barcodes/ean-upc
-    title: International Article Number - EAN/UPC barcodes
-    author:
-    - org: GS1
-    date: 2019
-
   CoSWID: I-D.ietf-sacm-coswid
 
   DLOA:
@@ -751,11 +744,6 @@ The OEM is free to alter the internal structure of these bytes as long as the cl
 The "hwversion" claim is a text string the format of which is set by each manufacturer.
 The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
 It is useful to know how to sort versions so the newer can be distinguished from the older.
-
-The hardware version can also be given by a 13-digit {{EAN-13}}.
-A new CoSWID version scheme is registered with IANA by this document in {{registerversionscheme}}.
-An EAN-13 is also known as an International Article Number or most commonly as a bar code.
-
 
 ~~~~CDDL
 {::include nc-cddl/hardware-version.cddl}
@@ -2132,20 +2120,6 @@ This early allocation will presumably complete correctly
 * Specification Document(s): __this document__
 
 
-### Version Schemes Registered by this Document {#registerversionscheme}
-
-IANA is requested to register a new value in the "Software Tag Version Scheme Values" established by {{CoSWID}}.
-
-The new value is a version scheme a 13-digit European Article Number {{EAN-13}}.
-An EAN-13 is also known as an International Article Number or most commonly as a bar code.
-This version scheme is the ASCII text representation of EAN-13 digits, the same ones often printed with a bar code.
-This version scheme must comply with the EAN allocation and assignment rules.
-For example, this requires the manufacturer to obtain a manufacture code from GS1.
-
-| Index | Version Scheme Name | Specification |
-| 5     | ean-13              | This document |
-
-
 ### UEID URN Registered by this Document {#registerueidurn}
 
 IANA is requested to register the following new subtypes in the "DEV URN Subtypes" registry under "Device Identification". See {{RFC9039}}.
@@ -2693,7 +2667,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Several edits and clarifications for freshness and nonces
 - Correct eat_nonce registration for JSON-encoded tokens
 - Add security considerations for freshness
-
+- Removed EAN-13 references and IANA registration
 
 --- contributor
 
