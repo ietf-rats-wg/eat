@@ -1204,11 +1204,10 @@ The Claims-Set is not included in the token.
 It is conveyed to the verifier outside of the token.
 The submodule containing the digest is called a detached digest.
 The separately conveyed Claims-Set is called a detached claims set.
+A detached Claims-Set can include other submodules including nested tokens and detached digests.
 
-For CBOR detached Claims-Sets, the input to the digest is the byte-string wrapped encoded form of the Claims-Set for the submodule.
-For JSON detached Claims-Sets, the input to the digest is JSON.
-It is not base 64 encoded.
-That detached Claims-Set can include other submodules including nested tokens and detached digests.
+The input to the digest algorithm is directly the CBOR or JSON-encoded Claims-Set of the submodule.
+There is no byte-string wrapping or base 64 encoding.
 
 The encoding type of the detached claims set is part of the carrying protocol and varies from protocol to protocol.
 For example, a detached EAT bundle uses mechanisms defined in this document.
@@ -2699,6 +2698,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Several edits and clarifications for freshness and nonces
 - Correct eat_nonce registration for JSON-encoded tokens
 - Add security considerations for freshness
+- Change/clarify the input to digest algorithm for detached claims sets
 
 
 --- contributor
