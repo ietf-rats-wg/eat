@@ -25,7 +25,7 @@ dloas-label            = JC< "dloas",      270 >
 sw-name-label          = JC< "swname",     271 >
 sw-version-label       = JC< "swversion",  272 >
 manifests-label        = JC< "manifests",  273 >
-swevidence-label       = JC< "measurements", 274 >
+measurements-label     = JC< "measurements", 274 >
 measurement-results-label = JC< "measres" , 275 >
 boot-count-label       = JC< "bootcount",  276 >
 

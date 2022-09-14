@@ -39,7 +39,7 @@
         / A submodule to hold claims about the overall device /
         "device" :  {
 	    / oemid /       258: 61234, / PEN Format OEM ID / 
-	    / hwversion /   260: ["4012345123456", 5] / EAN-13 format (barcode) /
+	    / hwversion /   260: ["4.0", 1] / Multipartnumeric version /
         }
     }
 }
