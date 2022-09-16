@@ -747,11 +747,8 @@ A full CoSWID manifest or other type of manifest can be instead if this is too s
 
 ### secboot (Secure Boot) Claim
 
-A "secboot" claim with value of true indicates secure boot is enabled. Secure boot is
-considered enabled when the firmware and operating
-system, are under control of the manufacturer of the entity identified in the
-"oemid" claim described in {{oemid}}.
-Control by the manufacturer of the firmware and the operating system may be by it being in ROM, being cryptographically authenticated, a combination of the two or similar.
+A "secboot" claim with value of true indicates secure boot is enabled. The exact semantics of what it means to 
+have secure boot enable depends on the given hardware and software of a device.
 
 ~~~~CDDL
 {::include nc-cddl/secure-boot.cddl}
