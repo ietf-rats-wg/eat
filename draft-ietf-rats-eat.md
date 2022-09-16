@@ -1337,14 +1337,7 @@ security state of the entity storing the private key used in a PoP application.
 
 ## Claims That Include Keys
 
-This document defines no claims that contain cryptographic keys.
-When claims are defined that include cryptographic keys, they SHOULD use COSE_Key {{RFC9052}} in CBOR-encoded tokens or JSON Web Key {{RFC7517}} in JSON-encoded tokens.
-
-{{RFC7800}} defines a proof-of-possion/confirmation claim named "cnf" that can hold a cryptographic key for JWTs.
-{{RFC8747}} does the same for CWTs with claim key 8.
-These particular claims are defined for authentication and authorization.
-Their semantics don't translate to attestation and they SHOULD NOT be used in an EAT.
-
+This document defines no claims that contain cryptographic keys. Future specifications may extend EAT to offer key attestation functionality. 
 
 # Detached EAT Bundles {#DEB}
 
