@@ -344,7 +344,7 @@ Unlike, but compatible with CWT and JWT, EAT defines claims using Concise Data D
 In most cases the same CDDL definition is used for both the CBOR/CWT serialization and the JSON/JWT serialization.
 
 Like CWT and JWT, EAT uses COSE and JOSE to provide authenticity, integrity and optionally privacy.
-EAT places new new restrictions on cryptographic algorithms and thus retains all the cryptographic flexibility of CWT, COSE, JWT and JOSE.
+EAT places no new restrictions on cryptographic algorithms and thus retains all the cryptographic flexibility of CWT, COSE, JWT and JOSE.
 This allows for either symmetric key or public key cryptography and a range of algorithm strengths to accommodate a wide variety of use cases.
 
 EAT goes further than CWT and JWT in allowing nesting of claims sets in several ways to accommodate composite entities that have many subsystems.
