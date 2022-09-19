@@ -327,7 +327,7 @@ There is no minimum security requirement to be an entity.
 ## EAT as a Framework
 
 EAT can be viewed as a framework for defining attestation tokens for specific use cases more so than it is one specific token definition.
-While EAT is based on and compatible with CWT and JWT, it goes further and can be thought of in these terms:
+While EAT is based on and compatible with CWT and JWT, it can be thought of in these terms:
 
 * An identification and type system for claims in claims-sets
 * Definitions of common attestation-oriented claims
@@ -343,29 +343,19 @@ As with CWT and JWT, no claims are mandatory and claims not recognized should be
 Unlike, but compatible with CWT and JWT, EAT defines claims using Concise Data Definition Language (CDDL) {{RFC8610}}.
 In most cases the same CDDL definition is used for both the CBOR/CWT serialization and the JSON/JWT serialization.
 
-Like CWT and JWT, EAT uses COSE and JOSE to provide authenticity, integrity and optionally privacy.
-EAT places no new restrictions on cryptographic algorithms and thus retains all the cryptographic flexibility of CWT, COSE, JWT and JOSE.
-This allows for either symmetric key or public key cryptography and a range of algorithm strengths to accommodate a wide variety of use cases.
+Like CWT and JWT, EAT uses COSE and JOSE to provide authenticity, integrity and optionally confidentiality.
+EAT places no new restrictions on cryptographic algorithms, retaining all the cryptographic flexibility of CWT, COSE, JWT and JOSE.
 
-EAT goes further than CWT and JWT in allowing nesting of claims sets in several ways to accommodate composite entities that have many subsystems.
-In more closely coupled use cases one claims set is simply nested in another.
-For these the encoding format may not be mixed.
-EAT also allows full tokens with security envelopes to be embedded in an enclosing token.
-This accommodates use cases where the final entity is composed of subordinate entities that produce full EAT tokens on their own.
-In this case the subordinate token may be encoded different than the enclosing token (e.g., a CWT may be enclosed in a JWT).
+EAT defines a means for nesting tokens and claims sets to accommodate composite devices that have multiple subsystems and multiple attesters.
+Full tokens with security envelopes may be embedded in an enclosing token.
+The nested token and the enclosing token do not have to use the same encoding (e.g., a CWT may be enclosed in a JWT).
 
 EAT adds the ability to detach claims sets and send them separately from a security enveloped EAT that contains a digest of the detached claims set.
-An example of this is a small and very secure attester, perhaps purely built with hardware, which attests to claims from outside of it.
-These detached claims sets may be sent with their enveloping EAT together in a message defined in this document called a detached EAT bundle.
-They may also be sent in any other way as the use of a detached EAT bundle is not required.
 
 This document registers no media or content types for the identification of the type of EAT, its serialization format or security envelope.
 That is left for a follow-on document.
 
-All the above options and variability (varying claims, encoding formats, cryptographic algorithms, and nesting) are necessary to accommodate the wide range of EAT use cases.
-
-Finally, because of this necessary variability, a profile mechanism is defined to manage the options selected for each use case.
-Future standards and documents can define EAT profiles that narrow the variation for the particular use case.
+Finally, the notion of an EAT profile is introduced that facilitates the creation of narrowed definitions of EAT tokens for specific use cases in follow-on documents.
 
 
 ## Operating Model and RATS Architecture
