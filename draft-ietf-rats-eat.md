@@ -1678,47 +1678,48 @@ Nested-Token is defined in the following sections.
 # Privacy Considerations {#privacyconsiderations}
 
 EAT is a building block that can be used in a variety of use cases. The details of the 
-use cases matter for the purpose of evaluating a possible privacy impact. While EAT
+use cases matter for evaluating the privacy impact. While EAT
 does not expose information about individuals but rather about device hardware, and low level
 software (like bootloaders and firmware), the information may be linked to individuals whenever
-there is an individual using the device. Of course, there are many use cases where there is 
-no link to an individual, for example in industrial use cases. 
+there is an individual using the device. There are, however, many use cases where there is 
+no link to an individual, for example in industrial use cases.
 
-The claims in Entity Attestation Tokens can reveal a lot of information about a device.
-Privacy threats fall into three categories, namely 
+The claims in Entity Attestation Tokens can reveal a lot of information about a device, the 
+software running on the device and other information (manufacturer, location). To evaluate
+the privacy implications at least three categories need to be investigated, namely 
 - threats that concern the transports of EATs from the attester to the relying party,
-- secondary use, and 
+- secondary use, 
 - identification and correlation. 
 
 Communication security is used to protect an EAT while in transit so that third parties cannot inspect the content.
 This can be accomplished using classical communication security techniques, such as TLS, but also by using object security, 
 such as COSE encryption. While the use of encryption at the object level is possible via techniques
-offered by COSE, no mechanisms are mandated in this document. Profiles of this specification have to offer
-additional guidance when such object security protection is needed. The use of TLS is, however, a frequently
-used technique and offers comparable properties.
+offered by COSE, no details are provided in this document. Profiles of this specification have to offer
+additional guidance when such object security protection is needed. The use of TLS is a frequently
+used technique and offers comparable properties to object security, at least with respect to the EAT usage.
 
 Secondary use refers to utilizing information by a relying party or a verifier beyond its originally stated purpose.
 Technologically, such secondary use can only be prevented through data minimization where attesters avoid including 
-claims that privacy sensitive in a given context.
+claims that are privacy sensitive in a given context.
 
 Privacy threats of identification and correlation refer to the combination of various pieces of information to single out 
-an individual or an instance of a device. Various claims described in this specification allow the identification of
+an individual or a specific device. Various claims described in this specification allow the identification of
 individual devices and, when this privacy threat is a concern, should not be used. For example, the following claims
 are particularly privacy sensitive:
 
+- UEID and SUEID: A relying party receiving an EAT with those claims will be able to identify and track such a device.
 - Location: Geographic location is almost always privacy sensitive. 
 - Boot Seed: The "bootseed" claim is effectively an identifier that is stable within a given boot epoch.
-- UEID and SUEID: A relying party receiving an EAT with those claims will be able to identify and track such a device.
 
 There are several strategies for improving privacy protection:
 
-* Consent of the user may be request prior to sharing information.
-This consent may be provided in many ways. 
+* Requesting the user's consent prior to information sharing.
+This consent may be provided in many ways, in real-time or  
 
-* Including (or excluding) certain claims in an EAT may be influenced
-by the context in which it is used. For example, certain claims may only be
+* Excluding certain claims in an EAT that do not meet the privacy requirements. Which claims to exclude may be influenced
+by the context in which they are used. For example, certain claims may only be
 included when used with certain relying parties. This can be accomplished
-using static policies at the attester or at the verifier.
+using policies at the attester or at the verifier.
 
 * Taloring information sharing depending on the context and the relying party. 
 For example, relying party A may receive a location claim in an EAT with precise
