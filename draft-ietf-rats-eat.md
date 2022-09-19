@@ -1784,24 +1784,6 @@ portable memory).  Moreover, the human should transport the key
 material directly from the secure enclave where it was created to a
 destination secure enclave where it can be provisioned.
 
-## Transport Security
-
-As stated in Section 8 of {{RFC8392}}, "The security of the CWT relies
-upon on the protections offered by COSE".  Similar considerations
-apply to EAT when sent as a CWT.  However, EAT introduces the concept
-of a nonce to protect against replay.  Since an EAT may be created by
-an entity that may not support the same type of transport security as
-the consumer of the EAT, intermediaries may be required to bridge
-communications between the entity and consumer.  As a result, it is
-RECOMMENDED that both the consumer create a nonce, and the entity
-leverage the nonce along with COSE mechanisms for encryption and/or
-signing to create the EAT.
-
-Similar considerations apply to the use of EAT as a JWT.  Although the
-security of a JWT leverages the JSON Web Encryption (JWE) and JSON Web
-Signature (JWS) specifications, it is still recommended to make use of
-the EAT nonce.
-
 ## Freshness {#sec-con-freshness}
 
 All EAT use must provide a freshness mechanism to prevent replay and related attacks.
