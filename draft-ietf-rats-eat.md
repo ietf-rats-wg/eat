@@ -355,7 +355,7 @@ This accommodates use cases where the final entity is composed of subordinate en
 In this case the subordinate token may be encoded different than the enclosing token (e.g., a CWT may be enclosed in a JWT).
 
 EAT adds the ability to detach claims sets and send them separately from a security enveloped EAT that contains a digest of the detached claims set.
-An example of this is a small and very security attester, perhaps purely built with hardware, attests to claims from outside of it.
+An example of this is a small and very secure attester, perhaps purely built with hardware, which attests to claims from outside of it.
 These detached claims sets may be sent with their enveloping EAT together in a message define in this document called a detached EAT bundle.
 They may also be sent in any other way as the use of a detached EAT bundle is not required.
 
