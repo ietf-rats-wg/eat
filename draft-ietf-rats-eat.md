@@ -533,7 +533,7 @@ universal in this way, then Relying Parties receiving them will have
 to track other characteristics of the entity to keep entities distinct
 between manufacturers).
 
-There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
+There are privacy considerations for UEIDs. See {{privacyconsiderations}}.
 
 The UEID is permanent. It MUST never change for a given entity.
 
@@ -609,7 +609,7 @@ If there is only one SUEID, the claim remains a map and there still MUST be a la
 
 An SUEID provides functionality similar to an IEEE LDevID {{IEEE.802.1AR}}.
 
-There are privacy considerations for SUEIDs. See {{ueidprivacyconsiderations}}.
+There are privacy considerations for SUEIDs. See {{privacyconsiderations}}.
 
 A Device Indentifier URN is registered for SUEIDs. See {{registerueidurn}}.
 
@@ -862,7 +862,7 @@ entity MUST still have a "ticker" that can measure a time
 interval. The age is the interval between acquisition of the location
 data and token creation.
 
-See location-related privacy considerations in {{locationprivacyconsiderations}}.
+See location-related privacy considerations in {{privacyconsiderations}}.
 
 ~~~~CDDL
 {::include nc-cddl/location.cddl}
@@ -894,7 +894,7 @@ The "bootseed" claim contains a value created at system boot time that allows di
 This value is usually public.
 It is not a secret and MUST NOT be used for any purpose that a secret seed is needed, such as seeding a random number generator.
 
-There are privacy considerations for Boot Seed. See {{bootseedprivacyconsiderations}}.
+There are privacy considerations for Boot Seed. See {{privacyconsiderations}}.
 
 ~~~~CDDL
 {::include nc-cddl/boot-seed.cddl}
@@ -1677,77 +1677,53 @@ Nested-Token is defined in the following sections.
 
 # Privacy Considerations {#privacyconsiderations}
 
-Certain EAT claims can be used to track the owner of an entity and
-therefore, implementations should consider providing privacy-preserving
-options dependent on the intended usage of the EAT.  Examples would
-include suppression of location claims for EAT's provided to
-unauthenticated consumers.
+EAT is a building block that can be used in a variety of use cases. The details of the 
+use cases matter for the purpose of evaluating a possible privacy impact. While EAT
+does not expose information about individuals but rather about device hardware, and low level
+software (like bootloaders and firmware), the information may be linked to individuals whenever
+there is an individual using the device. Of course, there are many use cases where there is 
+no link to an individual, for example in industrial use cases. 
 
-## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
+The claims in Entity Attestation Tokens can reveal a lot of information about a device.
+Privacy threats fall into three categories, namely 
+- threats that concern the transports of EATs from the attester to the relying party,
+- secondary use, and 
+- identification and correlation. 
 
-A UEID is usually not privacy-preserving. Any set of Relying Parties
-that receives tokens that happen to be from a particular entity will be
-able to know the tokens are all from the same entity and be able to
-track it.
+Communication security is used to protect an EAT while in transit so that third parties cannot inspect the content.
+This can be accomplished using classical communication security techniques, such as TLS, but also by using object security, 
+such as COSE encryption. While the use of encryption at the object level is possible via techniques
+offered by COSE, no mechanisms are mandated in this document. Profiles of this specification have to offer
+additional guidance when such object security protection is needed. The use of TLS is, however, a frequently
+used technique and offers comparable properties.
 
-Thus, in many usage situations UEID violates
-governmental privacy regulation. In other usage situations a UEID will
-not be allowed for certain products like browsers that give privacy
-for the end user. It will often be the case that tokens will not have
-a UEID for these reasons.
+Secondary use refers to utilizing information by a relying party or a verifier beyond its originally stated purpose.
+Technologically, such secondary use can only be prevented through data minimization where attesters avoid including 
+claims that privacy sensitive in a given context.
 
-An SUEID is also usually not privacy-preserving.  In some cases it may
-have fewer privacy issues than a UEID depending on when and how and
-when it is generated.
+Privacy threats of identification and correlation refer to the combination of various pieces of information to single out 
+an individual or an instance of a device. Various claims described in this specification allow the identification of
+individual devices and, when this privacy threat is a concern, should not be used. For example, the following claims
+are particularly privacy sensitive:
 
-There are several strategies that can be used to still be able to put
-UEIDs and SUEIDs in tokens:
+- Location: Geographic location is almost always privacy sensitive. 
+- Boot Seed: The "bootseed" claim is effectively an identifier that is stable within a given boot epoch.
+- UEID and SUEID: A relying party receiving an EAT with those claims will be able to identify and track such a device.
 
-* The entity obtains explicit permission from the user of the entity
-to use the UEID/SUEID. This may be through a prompt. It may also be through
-a license agreement.  For example, agreements for some online banking
-and brokerage services might already cover use of a UEID/SUEID.
+There are several strategies for improving privacy protection:
 
-* The UEID/SUEID is used only in a particular context or particular use
-case. It is used only by one relying party.
+* Consent of the user may be request prior to sharing information.
+This consent may be provided in many ways. 
 
-* The entity authenticates the relying party and generates a derived
-UEID/SUEID just for that particular relying party.  For example, the Relying
-Party could prove their identity cryptographically to the entity, then
-the entity generates a UEID just for that relying party by hashing a
-proofed relying party ID with the main entity UEID/SUEID.
+* Including (or excluding) certain claims in an EAT may be influenced
+by the context in which it is used. For example, certain claims may only be
+included when used with certain relying parties. This can be accomplished
+using static policies at the attester or at the verifier.
 
-Note that some of these privacy preservation strategies result in
-multiple UEIDs and SUEIDs per entity. Each UEID/SUEID is used in a
-different context, use case or system on the entity. However, from the
-view of the relying party, there is just one UEID and it is still
-globally universal across manufacturers.
-
-## Location Privacy Considerations {#locationprivacyconsiderations}
-
-Geographic location is most always considered personally identifiable information.
-Implementers should consider laws and regulations governing the transmission of location data from end user devices to servers and services.
-Implementers should consider using location management facilities offered by the operating system on the entity generating the attestation.
-For example, many mobile phones prompt the user for permission when before sending location data.
-
-## Boot Seed Privacy Considerations {#bootseedprivacyconsiderations}
-
-The "bootseed" claim is effectively a stable entity identifier within a given boot epoch.  Therefore, it is not suitable for use in attestation schemes that are privacy-preserving.
-
-## Replay Protection and Privacy {#replayprivacyconsiderations}
-
-EAT offers 2 primary mechanisms for token replay protection (also sometimes
-known as token "freshness"):  the "cti"/"jti" claim and the EAT nonce claim.  The "cti"/"jti" claim
-in a CWT/JWT is a field that may be optionally included in the EAT and is in general
-derived on the same device in which the entity is instantiated.  The EAT nonce claim is based
-on a value that is usually derived remotely (outside of the entity).  These claims can be used
-to extract and convey personally-identifying information either inadvertently or by intention.  For instance,
-an implementor may choose a cti that is equivalent to a username associated with the device (e.g., account
-login).  If the token is inspected by a 3rd-party then this information could be used to identify the source
-of the token or an account associated with the token (e.g., if the account name is used to derive the nonce).  In order
-to avoid the conveyance of privacy-related information in either the cti/jti or nonce claims, these fields
-should be derived using a salt that originates from a true and reliable random number generator or any other
-source of randomness that would still meet the target system requirements for replay protection.
+* Taloring information sharing depending on the context and the relying party. 
+For example, relying party A may receive a location claim in an EAT with precise
+location information while relying party B may receive an EAT with location information
+at country-level granularity only. 
 
 # Security Considerations {#securitycons}
 
@@ -1807,7 +1783,6 @@ the EAT nonce.
 All EAT use must provide a freshness mechanism to prevent replay and related attacks.
 The extensive discussions on freshness in {{RATS.Architecture}} including security considerations apply here.
 The EAT nonce claim, in {{nonce}}, is one option to provide freshness.
-
 
 ## Multiple EAT Consumers
 
