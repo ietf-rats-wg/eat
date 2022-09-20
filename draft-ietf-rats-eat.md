@@ -291,7 +291,7 @@ There is no minimum security requirement to be an entity.
 
 ## EAT as a Framework
 
-EAT can be viewed as a framework for defining attestation tokens for specific use cases more so than it is one specific token definition.
+EAT is a framework for defining attestation tokens for specific use cases and not a specific token definition.
 While EAT is based on and compatible with CWT and JWT, it can be thought of in these terms:
 
 * An identification and type system for claims in claims-sets
