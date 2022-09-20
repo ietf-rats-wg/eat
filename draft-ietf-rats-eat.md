@@ -1756,6 +1756,22 @@ of {{RFC7519}} apply to EAT in its CWT and JWT form, respectively.  Moreover, Ch
 of {{RATS.Architecture}} is also applicable to implementations of EAT.  In addition,
 implementors should consider the following.
 
+## Claim Trustworthiness
+
+This specification defines semantics for each claim.
+It does not require any particular level of security in the implementation of the claims or even the attester itself.
+Such specification is far beyond the scope of this document which is about a message format not an implementation.
+
+The receiver of an EAT comes to know the trustworthiness of the claims in it by understanding the implementation made by the attester vendor and/or understanding the checks and processing performed by the verifier.
+
+For example, this document says that a UEID is permanent and that it must not change, but it doesn't say what degree of attack to change it must be defended.
+
+The degree of security will vary from use case to use case as EAT.
+In some cases the receiver may only need to know something of the implementation such as that it was implemented in a TEE.
+In other cases the receiver may require the attester be certified.
+Or perhaps, the receiver is content with very little security.
+
+
 ## Key Provisioning
 
 Private key material can be used to sign and/or encrypt the EAT, or
