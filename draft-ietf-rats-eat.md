@@ -227,7 +227,7 @@ Some of the goals and fundamentals in the security model for attestation are not
 The security model for attestation is not described here.
 Instead see {{RATS.Architecture}}.
 
-EAT provides the definition of a base set of claims that can be made about an entity, a device, some software and/or some hardware.
+EAT provides the definition of a common set of claims that can be made about an entity, a device, some software and/or some hardware.
 This claims set is received by a relying party who uses it to decide if and how it will interact with the remote entity.
 It may choose to not trust the entity and not interact with it.
 It may choose to trust it.
@@ -288,54 +288,40 @@ An entity may have strong security defenses against hardware invasive attacks.
 It may also have low security, having no special security defenses.
 There is no minimum security requirement to be an entity.
 
-## CWT, JWT and Detached EAT Bundle
 
-An EAT is primarily a claims set about an entity based on one of the following:
+## EAT as a Framework
 
-* CBOR Web Token (CWT) {{RFC8392}}
-* JSON Web Token (JWT) {{RFC7519}}
+EAT is a framework for defining attestation tokens for specific use cases, not a specific token definition.
+While EAT is based on and compatible with CWT and JWT, it can also be described as:
 
-All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on from these carry over to EAT.
+* An identification and type system for claims in claims-sets
+* Definitions of common attestation-oriented claims
+* Claims are defined in CDDL and serialized using CBOR or JSON
+* Security envelopes based on COSE and JOSE
+* Nesting of claims sets and tokens to represent complex and compound devices
+* A profile mechanism for specifying and identifying specific token formats for specific use cases
 
-This specification extends those specifications by defining additional claims for attestation.
-This specification also describes the notion of a "eat_profile" that can narrow the definition of an EAT, ensure interoperability and fill in details for specific usage scenarios.
-This specification also adds some considerations for registration of future EAT-related claims.
+EAT uses the name/value pairs the same as CWT and JWT to identify individual claims.
+{{theclaims}} defines common attestation-oriented claims that are added to the CWT and JWT IANA registries.
+As with CWT and JWT, no claims are mandatory and claims not recognized should be ignored.
 
-The identification of a protocol element as an EAT, whether CBOR or JSON encoded, follows the general conventions used by CWT, JWT.
-Largely this depends on the protocol carrying the EAT.
-In some cases it may be by content type (e.g., MIME type).
-In other cases it may be through use of CBOR tags.
-There is no fixed mechanism across all use cases.
+Unlike, but compatible with CWT and JWT, EAT defines claims using Concise Data Definition Language (CDDL) {{RFC8610}}.
+In most cases the same CDDL definition is used for both the CBOR/CWT serialization and the JSON/JWT serialization.
 
-This specification adds one more top-level token type:
+Like CWT and JWT, EAT uses COSE and JOSE to provide authenticity, integrity and optionally confidentiality.
+EAT places no new restrictions on cryptographic algorithms, retaining all the cryptographic flexibility of CWT, COSE, JWT and JOSE.
 
-* Detached EAT Bundle, {{DEB}}
+EAT defines a means for nesting tokens and claims sets to accommodate composite devices that have multiple subsystems and multiple attesters.
+Full tokens with security envelopes may be embedded in an enclosing token.
+The nested token and the enclosing token do not have to use the same encoding (e.g., a CWT may be enclosed in a JWT).
 
-A detached EAT bundle is structure to hold a collection of detached claims sets and the EAT that separately provides integrity and authenticity protection for them.
-It can be either CBOR or JSON encoded.
+EAT adds the ability to detach claims sets and send them separately from a security enveloped EAT that contains a digest of the detached claims set.
 
-Last, the definition of other token types is allowed.
-Of particular use may be a token type that provides no authenticity or integrity protection at all for use with transports like TLS that do provide that.
+This document registers no media or content types for the identification of the type of EAT, its serialization format or security envelope.
+That is left for a follow-on document.
 
-## CDDL, CBOR and JSON
+Finally, the notion of an EAT profile is introduced that facilitates the creation of narrowed definitions of EAT tokens for specific use cases in follow-on documents.
 
-This document defines Concise Binary Object Representation (CBOR) {{RFC8949}} and Javascript Object Notation (JSON) {{RFC7159}} encoding for an EAT.
-All claims in an EAT MUST use the same encoding except where otherwise explicitly stated.
-It is explicitly allowed for a nested token to be of a different encoding.
-Some claims explicitly contain objects and messages that may use a different encoding than the enclosing EAT.
-
-This specification uses Concise Data Definition Language (CDDL) {{RFC8610}} for all definitions.
-The implementor interprets the CDDL to come to either the CBOR or JSON encoding.
-In the case of JSON, Appendix E of {{RFC8610}} is followed.
-Additional rules are given in {{jsoninterop}} where Appendix E is insufficient.
-
-In most cases where the CDDL for CBOR is different than JSON a CDDL Generic named "JC<>" is used.
-It is described in {{CDDL_for_CWT}}.
-
-The CWT and JWT specifications were authored before CDDL was available and did not use CDDL.
-This specification includes a CDDL definition of most of what is defined in {{RFC8392}}.
-Similarly, this specification includes CDDL for most of what is defined in {{RFC7519}}.
-These definitions are in {{CDDL_for_CWT}} and are not normative.
 
 ## Operating Model and RATS Architecture
 
@@ -460,9 +446,11 @@ When new token formats are defined, the means for identification in a nested tok
 ~~~~
 
 
-# The Claims
+# The Claims {#theclaims}
 
 This section describes new claims defined for attestation that are to be added to the CWT {{IANA.CWT.Claims}} and JWT {{IANA.JWT.Claims}} IANA registries.
+
+All definitions, requirements, creation and validation procedures, security considerations, IANA registrations and so on from CWT and JWT carry over to EAT.
 
 This section also describes how several extant CWT and JWT claims apply in EAT.
 
@@ -473,6 +461,12 @@ However, in the absence of such requirements, all claims that are not understood
 CDDL, along with a text description, is used to define each claim
 independent of encoding.  Each claim is defined as a CDDL group.
 In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
+
+All claims in an EAT MUST use the same encoding except where otherwise explicitly stated (e.g., in a CBOR-encoded token, all claims must be CBOR-encoded).
+
+This specification includes a CDDL definition of most of what is defined in {{RFC8392}}.
+Similarly, this specification includes CDDL for most of what is defined in {{RFC7519}}.
+These definitions are in {{CDDL_for_CWT}} and are not normative.
 
 Each claim described has a unique text string and integer that identifies it.
 CBOR-encoded tokens MUST use only the integer for claim keys.
