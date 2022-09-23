@@ -2664,6 +2664,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Add security considerations for freshness
 - Change/clarify the input to digest algorithm for detached claims sets
 - Removed EAN-13 references and IANA registration
+- Add section on Claim Trustworthiness to Security Considerations
 
 --- contributor
 
