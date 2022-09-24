@@ -157,10 +157,8 @@ normative:
 
 informative:
   RFC4122:
-  RFC4422:
   RFC4949:
   RFC7120:
-  RFC8446:
   RFC9039:
 
   RATS.Architecture: I-D.ietf-rats-architecture
@@ -223,32 +221,15 @@ CWT and JWT.
 
 # Introduction
 
-Some of the goals and fundamentals in the security model for attestation are not the same as other security standards such as those aimed at privacy (e.g., TLS) and authentication (e.g. FIDO).
-The security model for attestation is not described here.
-Instead see {{RATS.Architecture}}.
+The Entity Attestation Token (EAT) format enables entities to create EATs, which are attested claims sets
+that describe characteristics of the entity, i.e., a device, a software environment, a hardware environment or combination. The EAT format provides a common set of claims that can be used to represent evidence and attestation results. A relying party may use an EAT when determining the trustworthiness of the corresponding entity, and may choose to trust, not trust or partially trust the entity. An entity that verifies an EAT may create an EAT to convey attestation results for consumption by other entities.
 
-EAT provides the definition of a common set of claims that can be made about an entity, a device, some software and/or some hardware.
-This claims set is received by a relying party who uses it to decide if and how it will interact with the remote entity.
-It may choose to not trust the entity and not interact with it.
-It may choose to trust it.
-It may partially trust it, for example allowing monetary transactions only up to a limit.
+The EAT format defines the encoding of claims sets in both CBOR {{RFC8949}} and JSON {{RFC8259}} and defines EATs as extensions to the CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}} specifications. Authenticity and integrity protection MUST be provided and privacy (encryption) MAY additionally be provided for EATs. The CBOR Object Signing and Encryption (COSE) {{RFC9052}} and JSON Object Signing and Encryption (JOSE) {{RFC7515}} {{RFC7516}} SHOULD be used to provide these security services. Terminology, security models and operational models defined in [RATS.architecture] are used throughout.
 
-EAT defines the encoding of the claims set in CBOR {{RFC8949}} and JSON {{RFC7159}}.
-EAT is an extension to CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}}.
+The key material used to sign and encrypt SHOULD be created and provisioned exclusively for the purpose of attestation, as it is the use of this key material that makes the claims set "attested". [RATS.architecture] provides additional information related to provisioning key material used to sign and verify EATs.
 
-The claims set is secured in transit with the same mechanisms used by CWT and JWT, in particular CBOR Object Signing and Encryption (COSE) {{RFC9052}} and JSON Object Signing
-   and Encryption (JOSE) {{RFC7515}} {{RFC7516}}.
-Authenticity and integrity protection must always be provided.
-Privacy (encryption) may additionally be provided.
-The key material used to sign and encrypt is specifically created and provisioned for the purpose of attestation.
-It is the use of this key material that make the claims set "attested" rather than just some parameters sent to the relying party by the device.
-
-EAT is focused on authenticating, identifying and characterizing implementations where implementations are devices, chips, hardware, software and such.
-This is distinct from protocols like TLS {{RFC8446}} that authenticate and identify servers and services.
-It is equally distinct from protocols like SASL {{RFC4422}} that authenticate and identify persons.
-
-The notion of attestation is large, ranging over a broad variety of use cases and security levels.
-Here are a few examples of claims:
+An EAT asserts the validity of a set of attested claims. This is different than protocols that authenticate and identify servers and services or protocols that authenticate and identify persons. The notion of attestation is large, ranging over a broad variety of use cases and security levels.
+Here are a few examples of claims that may appear in an EAT:
 
 * Make and model of manufactured consumer device
 * Make and model of a chip or processor, particularly for a security-oriented chip
@@ -257,10 +238,9 @@ Here are a few examples of claims:
 * Environmental characteristics of a device like its GPS location
 * Formal certifications received
 
-EAT also supports nesting of sets of claims and EAT tokens for use with complex composite devices.
+The EAT format supports nesting claims sets and EATs as well as the use of detached claim sets to enable representation of claims from use cases featuring complex composite devices. Owing to the goal of supporting a broad range of use cases, and because {{RFC8392}} and {{RFC7519}} are very flexible, the profile concept (see {{profiles}}) is defined to enable the usage of the EAT format to be tailored to specific use cases to ensure interoperability.
 
-This document uses the terminology and main operational model defined in [RATS.architecture].
-In particular, it can be used for evidence and attestation results.
+This specification provides some considerations for creation and registration of future EAT-related claims.
 
 ## Entity Overview
 
@@ -296,7 +276,7 @@ While EAT is based on and compatible with CWT and JWT, it can also be described 
 
 * An identification and type system for claims in claims-sets
 * Definitions of common attestation-oriented claims
-* Claims are defined in CDDL and serialized using CBOR or JSON
+* Claims are defined using the Concise Data Description Language (CDDL) {{RFC8610}} {{RFC9165}} and serialized using CBOR or JSON
 * Security envelopes based on COSE and JOSE
 * Nesting of claims sets and tokens to represent complex and compound devices
 * A profile mechanism for specifying and identifying specific token formats for specific use cases
