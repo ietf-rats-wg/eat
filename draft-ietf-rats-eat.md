@@ -354,10 +354,7 @@ It is also possible that some claims in the Evidence will be forwarded unmodifie
 This forwarding is subject to the verifier's implementation and policy.
 The relying party should be aware of the verifier's policy to know what checks it has performed on claims it forwards.
 
-The verifier may modify claims it forwards, for example, to implement a privacy preservation functionality.
-The verifier MUST provide authenticity and integrity protection for attestation results.
-
-It is also possible the verifier will put claims in the attestation results that give details about the entity that it has computed or looked up in a database.
+The verifier may modify claims it forwards, for example, to implement a privacy preservation functionality. It is also possible the verifier will put claims in the attestation results that give details about the entity that it has computed or looked up in a database.
 For example, the verifier may be able to put an "oemid" claim in the attestation results by performing a look up based on a UEID (serial number) it received in evidence.
 
 This specification does not establish any normative rules for the verifier to follow, as these are a matter of local policy.
