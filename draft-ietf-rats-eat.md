@@ -1234,13 +1234,6 @@ They may appear in evidence or attestation results.
 When these claims appear in evidence, they SHOULD not be passed through the verifier into attestation results.
 
 
-### cti and jti (Token ID) Claims
-
-CWT defines the "cti" claim. JWT defines the "jti" claim. These are
-equivalent in EAT and carry a unique token identifier as
-they do in JWT and CWT.
-
-
 ### iat (Timestamp) Claim
 
 The "iat" claim defined in CWT and JWT is used to indicate the
@@ -1724,18 +1717,7 @@ The "bootseed" claim is effectively a stable entity identifier within a given bo
 
 ## Replay Protection and Privacy {#replayprivacyconsiderations}
 
-EAT offers 2 primary mechanisms for token replay protection (also sometimes
-known as token "freshness"):  the "cti"/"jti" claim and the EAT nonce claim.  The "cti"/"jti" claim
-in a CWT/JWT is a field that may be optionally included in the EAT and is in general
-derived on the same device in which the entity is instantiated.  The EAT nonce claim is based
-on a value that is usually derived remotely (outside of the entity).  These claims can be used
-to extract and convey personally-identifying information either inadvertently or by intention.  For instance,
-an implementor may choose a cti that is equivalent to a username associated with the device (e.g., account
-login).  If the token is inspected by a 3rd-party then this information could be used to identify the source
-of the token or an account associated with the token (e.g., if the account name is used to derive the nonce).  In order
-to avoid the conveyance of privacy-related information in either the cti/jti or nonce claims, these fields
-should be derived using a salt that originates from a true and reliable random number generator or any other
-source of randomness that would still meet the target system requirements for replay protection.
+EAT defines the nonce claim for token replay protection (also sometimes known as token "freshness"). The nonce claim is based on a value that is usually derived remotely (outside of the entity). This claim can be used to extract and convey personally-identifying information either inadvertently or by intention. For instance, an implementor may choose a nonce that is equivalent to a username associated with the device (e.g., account login). If the token is inspected by a 3rd-party then this information could be used to identify the source of the token or an account associated with the token. In order to avoid the conveyance of privacy-related information in the nonce claim, it should be derived using a salt that originates from a true and reliable random number generator or any other source of randomness that would still meet the target system requirements for replay protection.
 
 # Security Considerations {#securitycons}
 
