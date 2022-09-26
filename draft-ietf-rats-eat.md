@@ -206,6 +206,7 @@ informative:
 
   CBOR.Cert.Draft: I-D.ietf-cose-cbor-encoded-cert
 
+  UCCS: I-D.ietf-rats-uccs
 
 --- abstract
 
@@ -428,12 +429,12 @@ In some cases it may be by media type (e.g., in a HTTP Content-Type field).
 In other cases it may be through use of CBOR tags.
 There is no fixed mechanism across all use cases.
 
-This document also defines also defines a new top-level message, the detached EAT bundle (see {{DEB}}), which holds a collection of detached claims sets and an EAT that provides integrity and authenticity protection for them.
+This document also defines a new top-level message, the detached EAT bundle (see {{DEB}}), which holds a collection of detached claims sets and an EAT that provides integrity and authenticity protection for them.
 Detached EAT bundles can be either CBOR or JSON encoded.
 
 The following CDDL defines the top-level `$$EAT-CBOR-Tagged-Token`, `$$EAT-CBOR-Untagged-Token` and `$$EAT-JSON-Token-Formats` sockets, enabling future token formats to be defined.
 Any new format that plugs into one or more of these sockets MUST be defined by an IETF standards action.
-Of particular use may be a token type that provides no direct authenticity or integrity protection for use with transports mechanisms that do provide the necessary security services.
+Of particular use may be a token type that provides no direct authenticity or integrity protection for use with transports mechanisms that do provide the necessary security services {{UCCS}}.
 
 Nesting of EATs is allowed and defined in {{Nested-Token}}.
 This includes the nesting of an EAT that is a different format than the enclosing EAT.
