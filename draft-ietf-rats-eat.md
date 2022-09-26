@@ -325,23 +325,15 @@ Finally, the notion of an EAT profile is introduced that facilitates the creatio
 
 ## Operating Model and RATS Architecture
 
-While it is not required that EAT be used with the RATS operational model described in Figure 1 in {{RATS.Architecture}}, or even that it be used for attestation, this document is oriented around that model.
+The EAT format follows the operational model described in Figure 1 in {{RATS.Architecture}}. To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
+Evidence is usually signed by a key that proves the attester and the evidence it produces are authentic.
+The claims set includes a nonce or some other means to assure freshness.
 
-To summarize, an attester generates evidence.
-Evidence is a claims set describing various characteristics of an entity.
-Evidence also is usually signed by a key that proves the entity and the evidence it produces are authentic.
-The claims set includes a nonce or some other means to provide freshness.
-EAT is designed to carry evidence.
-The evidence goes to a verifier where the signature is verified.
-Some of the claims may also be checked against reference values.
-The verifier then produces attestation results which is also usually a claims set.
-
-EAT is also designed to carry attestation results.
-The attestation results go to the relying party which is the ultimate consumer of the Remote Attestation Procedure.
-The relying party uses the attestation results as needed for the use case, perhaps allowing an entity on the network, allowing a financial transaction or such.
-
-Note that sometimes the verifier and relying party are not separate and thus there is no need for a protocol to carry attestation results.
-
+A verifier confirms an EAT is valid by verifying the signature and may vet some claims using reference values.
+The verifier then produces attestation results, which may also be represented as an EAT.
+The attestation results are provided to the relying party, which is the ultimate consumer of the Remote Attestation Procedure.
+The relying party uses the attestation results as needed for its use case, perhaps allowing an entity to access a network, allowing a financial transaction or such.
+In some cases, the verifier and relying party are not distinct entities.
 
 ### Relationship between Evidence and Attestation Results {#relationship}
 
