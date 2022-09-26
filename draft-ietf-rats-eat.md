@@ -2370,7 +2370,7 @@ A particular level of defense against attack that should be achieved to be a Dev
 The intent is that IDevIDs and LDevIDs can be used with any network protocol or message format.
 In these protocols and message formats the DevID secret is used to sign a nonce or similar to prove the association of the DevID certificates with the device.
 
-By contrast, EAT defines a message format for proving trustworthiness to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
+By contrast, EAT standardize a message format that is sent to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
 Nor does EAT give details on how keys, data and such are stored protected and accessed.
 EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
 It does not define any particular level of defense against attack, instead providing a set of security considerations.
@@ -2379,14 +2379,14 @@ EAT and DevID can be viewed as complimentary when used together or as competing 
 
 ## DevID Used With EAT
 
-As just described, EAT defines a network protocol and {{IEEE.802.1AR}} doesn't.
+As just described, EAT standardizes a message format and {{IEEE.802.1AR}} doesn't.
 Vice versa, EAT doesn't define a an device implementation and DevID does.
 
-Hence, EAT can be the network protocol that a DevID is used with.
+Hence, EAT can be the message format that a DevID is used with.
 The DevID secret becomes the attestation key used to sign EATs.
 The DevID and its certificate chain become the endorsement sent to the verifier.
 
-In this case the EAT and the DevID are likely to both provide a device identifier (e.g. a serial number).
+In this case, the EAT and the DevID are likely to both provide a device identifier (e.g. a serial number).
 In the EAT it is the UEID (or SUEID).
 In the DevID (used as an endorsement), it is a device serial number included in the subject field of the DevID certificate.
 It is probably a good idea in this use for them to be the same serial number or for the UEID to be a hash of the DevID serial number.
