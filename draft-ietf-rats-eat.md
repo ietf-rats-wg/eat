@@ -345,9 +345,7 @@ Note that sometimes the verifier and relying party are not separate and thus the
 
 ### Relationship between Evidence and Attestation Results {#relationship}
 
-Any claim defined in this document or in the IANA CWT or JWT registry may be used in evidence or attestation results.
-
-The relationship of claims in attestation results to evidence is fundamentally governed by the verifier and the verifier's policy.
+Any claim defined in this document or in the IANA CWT or JWT registry may be used in evidence or attestation results. The relationship of claims in attestation results to evidence is fundamentally governed by the verifier and the verifier's policy.
 
 A common use case is for the verifier and its policy to perform checks, calculations and processing with evidence as the input to produce a summary result in attestation results that indicates the overall health and status of the entity.
 For example, measurements in evidence may be compared to reference values the results of which are represented as a simple pass/fail in attestation results.
@@ -356,14 +354,10 @@ It is also possible that some claims in the Evidence will be forwarded unmodifie
 This forwarding is subject to the verifier's implementation and policy.
 The relying party should be aware of the verifier's policy to know what checks it has performed on claims it forwards.
 
-The verifier may also modify or transform claims it forwards.
-This may be to implement some privacy preservation functionality.
-
-It is also possible the verifier will put claims in the attestation results that give details about the entity that it has computed or looked up in a database.
+The verifier may modify claims it forwards, for example, to implement a privacy preservation functionality. It is also possible the verifier will put claims in the attestation results that give details about the entity that it has computed or looked up in a database.
 For example, the verifier may be able to put an "oemid" claim in the attestation results by performing a look up based on a UEID (serial number) it received in evidence.
 
-This specification does not establish any normative rules for the verifier to follow.
-They are a matter of configured policy.
+This specification does not establish any normative rules for the verifier to follow, as these are a matter of local policy.
 It is up to each relying party to understand the processing rules of each verifier to know how to interpret claims in attestation results.
 
 
