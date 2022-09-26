@@ -417,9 +417,9 @@ Endorsement:
 
 # Top-Level Token Definition
 
-An EAT MUST contain a claims set about an entity packaged as a CWT {{RFC8392}} or JWT {{RFC7519}}. This specification extends {{RFC8392}} and {{RFC7519}} by defining additional claims for attestation. All definitions, requirements, creation and validation procedures, security considerations, IANA registrations, etc. from CWT and JWT apply to the EAT format.
+An EAT is a "message", a "token", or such whose content is a Claims-Set about an entity or some number of entities. An EAT MUST always contains a Claims-Set.
 
-Authenticity and integrity protection MUST be provided for EATs. This document defines the use of CWT or JWT for this purpose.
+Authenticity and integrity protection MUST be provided for EATs. This document relies on CWT or JWT for this purpose.
 Extensions to this specification MAY use other methods of protection.
 
 The identification of a protocol element as an EAT follows the general conventions used for CWTs and JWTs.
@@ -432,8 +432,8 @@ This document also defines also defines a new top-level message, the detached EA
 Detached EAT bundles can be either CBOR or JSON encoded.
 
 The following CDDL defines the top-level `$$EAT-CBOR-Tagged-Token`, `$$EAT-CBOR-Untagged-Token` and `$$EAT-JSON-Token-Formats` sockets, enabling future token formats to be defined.
-Any new format that plugs into one or more of these sockets MUST be defined in a IETF standards track document.
-Of particular use may be a token type that provides no direct authenticity or integrity protection for use with transports mechanisms that do provide the necessary security services {{UCCS}}.
+Any new format that plugs into one or more of these sockets MUST be defined by an IETF standards action.
+Of particular use may be a token type that provides no direct authenticity or integrity protection for use with transports mechanisms that do provide the necessary security services.
 
 Nesting of EATs is allowed and defined in {{Nested-Token}}.
 This includes the nesting of an EAT that is a different format than the enclosing EAT.
