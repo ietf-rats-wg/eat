@@ -76,6 +76,7 @@ normative:
   RFC7800:
   RFC8126:
   RFC8174:
+  RFC8259:
   RFC8392:
   RFC8610:
   RFC8747:
@@ -223,44 +224,42 @@ CWT and JWT.
 
 # Introduction
 
-Some of the goals and fundamentals in the security model for attestation are not the same as other security standards such as those aimed at privacy (e.g., TLS) and authentication (e.g. FIDO).
-The security model for attestation is not described here.
-Instead see {{RATS.Architecture}}.
+An Entity Attestation Token (EAT) is a message or token made up of claims about an entity.
+An entity may be a device, some hardware or some software.
+The claims are ultimately used by a relying party who decides if and how it will interact with the entity.
+The relying party may choose to trust, not trust or partially trust the entity.
+For example, partial trust may be allowing a monetary transaction only up to a limit.
 
-EAT provides the definition of a common set of claims that can be made about an entity, a device, some software and/or some hardware.
-This claims set is received by a relying party who uses it to decide if and how it will interact with the remote entity.
-It may choose to not trust the entity and not interact with it.
-It may choose to trust it.
-It may partially trust it, for example allowing monetary transactions only up to a limit.
+The security model and goal for attestation is unique and not the same as those for server authentication with confidentiality, for user authentication via passwords and biometrics or for secured messaging like signed and encrypted email.
+It is assumed here that the reader is familiar security model for attestation.
+It is described in [RATS.Architecture].¶
 
-EAT defines the encoding of the claims set in CBOR {{RFC8949}} and JSON {{RFC7159}}.
-EAT is an extension to CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}}.
+Attestation is potentially for broad use on the Internet.
+EAT is constructed to support a wide range of use cases.
 
-The claims set is secured in transit with the same mechanisms used by CWT and JWT, in particular CBOR Object Signing and Encryption (COSE) {{RFC9052}} and JSON Object Signing
-   and Encryption (JOSE) {{RFC7515}} {{RFC7516}}.
-Authenticity and integrity protection must always be provided.
-Privacy (encryption) may additionally be provided.
-The key material used to sign and encrypt is specifically created and provisioned for the purpose of attestation.
-It is the use of this key material that make the claims set "attested" rather than just some parameters sent to the relying party by the device.
+This document defines some common claims that are potentially of broad use.
+EAT also allows proprietary claims and allows further claims to be standardized.
+Here are some examples:
 
-EAT is focused on authenticating, identifying and characterizing implementations where implementations are devices, chips, hardware, software and such.
-This is distinct from protocols like TLS {{RFC8446}} that authenticate and identify servers and services.
-It is equally distinct from protocols like SASL {{RFC4422}} that authenticate and identify persons.
-
-The notion of attestation is large, ranging over a broad variety of use cases and security levels.
-Here are a few examples of claims:
-
-* Make and model of manufactured consumer device
-* Make and model of a chip or processor, particularly for a security-oriented chip
-* Identification and measurement of the software running on a device
-* Configuration and state of a device
-* Environmental characteristics of a device like its GPS location
+* Make and model of manufactured consumer device¶
+* Make and model of a chip or processor, particularly for a security-oriented chip¶
+* Identification and measurement of the software running on a device¶
+* Configuration and state of a device¶
+* Environmental characteristics of a device like its GPS location¶
 * Formal certifications received
 
-EAT also supports nesting of sets of claims and EAT tokens for use with complex composite devices.
+No single set of claims can accommodate all use cases so EAT is constructed as a framework for defining specific attestation tokens for specific use cases.
+In particular, EAT provides a profile mechanism to be able to clearly specify the claims needed, the cryptographic algorithms that should be used and other for a particular token for a particular use case.
 
-This document uses the terminology and main operational model defined in [RATS.architecture].
-In particular, it can be used for evidence and attestation results.
+The entity side of an EAT implementation is called the “attester”.
+Some attesters may be implemented using components with very high resistance to attack like TPMs or secure elements.
+Other attesters may rely solely on simple SW defenses.
+
+The nesting of tokens and claims sets for complex composite devices that have multiple subsystems and attesters is accommodated.
+
+An EAT may be encoded in either JSON {{RFC8259}} or CBOR {{RFC8949} as needed for each use case.
+EAT is built on CBOR Web Token (CWT) [RFC8392] and JSON Web Token (JWT) [RFC7519] and inherits all their characteristics and their security mechanisms.
+
 
 ## Entity Overview
 
