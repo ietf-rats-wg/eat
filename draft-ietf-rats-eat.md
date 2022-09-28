@@ -648,11 +648,10 @@ In JSON format tokens, this MUST be base64url encoded and always 4 bytes.
 
 #### IANA Private Enterprise Number Based OEMID
 
-IANA maintains a integer-based company registry called the Private Enterprise Number (PEN) {{PEN}}.
+IANA maintains a registry for Private Enterprise Numbers (PEN) {{PEN}}. A PEN is an integer that identifies an enterprise and may be
+used to construct an object identifier (OID) relative to the following OID arc that is managed by IANA:  iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1).
 
-PENs are often used to create an OID.
-That is not the case here.
-They are used only as an integer.
+For EAT purposes, only the integer value assigned by IANA as the PEN is relevant, not the full OID value.
 
 In CBOR this value MUST be encoded as a major type 0 integer and is typically 3 bytes.
 In JSON, this value MUST be encoded as a number.
