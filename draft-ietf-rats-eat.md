@@ -2595,6 +2595,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Removed EAN-13 references and IANA registration
 - Add section on Claim Trustworthiness to Security Considerations
 - Entirely remove section 4.4 that discussed including keys in claims
+- Largely rewrite the first paragraphs in section 1, the introduction
 
 --- contributor
 
