@@ -66,9 +66,7 @@ contributor:
 
 normative:
   RFC2119:
-  RFC7159:
   RFC7515:
-  RFC7516:
   RFC8949:
   RFC7252:
   RFC7519:
@@ -155,10 +153,8 @@ normative:
 
 informative:
   RFC4122:
-  RFC4422:
   RFC4949:
   RFC7120:
-  RFC8446:
   RFC9039:
 
   RATS.Architecture: I-D.ietf-rats-architecture
