@@ -2596,6 +2596,12 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Change/clarify the input to digest algorithm for detached claims sets
 - Removed EAN-13 references and IANA registration
 - Add section on Claim Trustworthiness to Security Considerations
+- Removed section discussing cti/jti and other mention of cti/jti
+- Some rework on section 3 including adding back in a __non-normative__ reference to UCCS
+- Improved wording in section 1.3
+- Improvements to abstract
+- Appendix C clarifications -- say "message" not "protocol"
+- Removed "transport security" section from security considerations
 - Entirely remove section 4.4 that discussed including keys in claims
 
 --- contributor
