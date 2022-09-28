@@ -206,6 +206,7 @@ informative:
 
   CBOR.Cert.Draft: I-D.ietf-cose-cbor-encoded-cert
 
+  UCCS: I-D.ietf-rats-uccs
 
 --- abstract
 
@@ -403,23 +404,26 @@ Endorsement:
 
 # Top-Level Token Definition
 
-An EAT is a "message", a "token", or such whose content is a Claims-Set about an entity or some number of entities.
-An EAT MUST always contains a Claims-Set.
+An EAT is a "message", a "token", or such whose content is a Claims-Set about an entity or some number of entities. An EAT MUST always contains a Claims-Set.
 
-An EAT may be encoded in CBOR or JSON as defined here.
-While not encouraged, other documents may define EAT encoding in other formats.
+Authenticity and integrity protection MUST be provided for EATs. This document relies on CWT or JWT for this purpose.
+Extensions to this specification MAY use other methods of protection.
 
-EAT as defined here is always integrity and authenticity protected through use of CWT or JWT.
-Other token formats using other methods of protection may be defined outside this document.
+The identification of a protocol element as an EAT follows the general conventions used for CWTs and JWTs.
+Identification depends on the protocol carrying the EAT.
+In some cases it may be by media type (e.g., in a HTTP Content-Type field).
+In other cases it may be through use of CBOR tags.
+There is no fixed mechanism across all use cases.
 
-This document also defines the detatched EAT bundle ({{DEB}}), a bundle of some detached Claims-Sets and CWTs or JWTs that provide protection for the detached Claims-Set.
+This document also defines a new top-level message, the detached EAT bundle (see {{DEB}}), which holds a collection of detached claims sets and an EAT that provides integrity and authenticity protection for them.
+Detached EAT bundles can be either CBOR or JSON encoded.
 
-The following CDDL defines the top-levels of an EAT token as a socket indicating future token formats may be defined.
-Any new format that plugs into this socket MUST be defined in a IETF standards track document.
-See {{CDDL_for_CWT}} for the CDDL definitions of a CWT and JWT.
+The following CDDL defines the top-level `$$EAT-CBOR-Tagged-Token`, `$$EAT-CBOR-Untagged-Token` and `$$EAT-JSON-Token-Formats` sockets, enabling future token formats to be defined.
+Any new format that plugs into one or more of these sockets MUST be defined by an IETF standards action.
+Of particular use may be a token type that provides no direct authenticity or integrity protection for use with transports mechanisms that do provide the necessary security services {{UCCS}}.
 
 Nesting of EATs is allowed and defined in {{Nested-Token}}.
-This nesting includes nesting of a token that is a different format than the enclosing token.
+This includes the nesting of an EAT that is a different format than the enclosing EAT.
 The definition of Nested-Token references the CDDL defined in this section.
 When new token formats are defined, the means for identification in a nested token MUST also be defined.
 
