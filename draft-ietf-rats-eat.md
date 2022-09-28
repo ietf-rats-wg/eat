@@ -230,35 +230,34 @@ The claims are ultimately used by a relying party who decides if and how it will
 The relying party may choose to trust, not trust or partially trust the entity.
 For example, partial trust may be allowing a monetary transaction only up to a limit.
 
-The security model and goal for attestation is unique and not the same as those for server authentication with confidentiality, for user authentication via passwords and biometrics or for secured messaging like signed and encrypted email.
-It is assumed here that the reader is familiar security model for attestation.
-It is described in [RATS.Architecture].¶
-
-Attestation is potentially for broad use on the Internet.
-EAT is constructed to support a wide range of use cases.
+The security model and goal for attestation are unique and are not the same as for other security standards like those for server authentication, user authentication and secured messaging.
+The reader is assumed to be familiar with the goals and security model for attestation as described in {{RATS.Architecture}}.
 
 This document defines some common claims that are potentially of broad use.
-EAT also allows proprietary claims and allows further claims to be standardized.
+EAT additionally allows proprietary claims and for further claims to be standardized.
 Here are some examples:
 
-* Make and model of manufactured consumer device¶
-* Make and model of a chip or processor, particularly for a security-oriented chip¶
-* Identification and measurement of the software running on a device¶
-* Configuration and state of a device¶
-* Environmental characteristics of a device like its GPS location¶
+* Make and model of manufactured consumer device
+* Make and model of a chip or processor, particularly for a security-oriented chip
+* Identification and measurement of the software running on a device
+* Configuration and state of a device
+* Environmental characteristics of a device like its GPS location
 * Formal certifications received
 
+EAT is constructed to support a wide range of use cases.
+
 No single set of claims can accommodate all use cases so EAT is constructed as a framework for defining specific attestation tokens for specific use cases.
-In particular, EAT provides a profile mechanism to be able to clearly specify the claims needed, the cryptographic algorithms that should be used and other for a particular token for a particular use case.
+In particular, EAT provides a profile mechanism to be able to clearly specify the claims needed, the cryptographic algorithms that should be used and other for a particular token and use case.
 
-The entity side of an EAT implementation is called the “attester”.
-Some attesters may be implemented using components with very high resistance to attack like TPMs or secure elements.
-Other attesters may rely solely on simple SW defenses.
+The entity side of an EAT implementation generates the claims and typically signs them with an attestation key.
+It is responsible for protecting the attestation key.
+Some EAT implementations will use components with very high resistance to attack like TPMs or secure elements.
+Other may rely solely on simple SW defenses.
 
-The nesting of tokens and claims sets for complex composite devices that have multiple subsystems and attesters is accommodated.
+Nesting of tokens and claims sets is accommodated for composite devices that have multiple subsystems.
 
-An EAT may be encoded in either JSON {{RFC8259}} or CBOR {{RFC8949} as needed for each use case.
-EAT is built on CBOR Web Token (CWT) [RFC8392] and JSON Web Token (JWT) [RFC7519] and inherits all their characteristics and their security mechanisms.
+An EAT may be encoded in either JSON {{RFC8259}} or CBOR {{RFC8949}} as needed for each use case.
+EAT is built on CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}} and inherits all their characteristics and their security mechanisms.
 
 
 ## Entity Overview
