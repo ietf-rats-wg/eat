@@ -71,14 +71,11 @@ normative:
   RFC7516:
   RFC8949:
   RFC7252:
-  RFC7517:
   RFC7519:
-  RFC7800:
   RFC8126:
   RFC8174:
   RFC8392:
   RFC8610:
-  RFC8747:
   RFC3986:
   RFC9052:
   RFC9090:
@@ -1309,17 +1306,6 @@ security state of the entity storing the private key used in a PoP application.
 ~~~~CDDL
 {::include nc-cddl/intended-use.cddl}
 ~~~~
-
-
-## Claims That Include Keys
-
-This document defines no claims that contain cryptographic keys.
-When claims are defined that include cryptographic keys, they SHOULD use COSE_Key {{RFC9052}} in CBOR-encoded tokens or JSON Web Key {{RFC7517}} in JSON-encoded tokens.
-
-{{RFC7800}} defines a proof-of-possion/confirmation claim named "cnf" that can hold a cryptographic key for JWTs.
-{{RFC8747}} does the same for CWTs with claim key 8.
-These particular claims are defined for authentication and authorization.
-Their semantics don't translate to attestation and they SHOULD NOT be used in an EAT.
 
 
 # Detached EAT Bundles {#DEB}
@@ -2612,6 +2598,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Change/clarify the input to digest algorithm for detached claims sets
 - Removed EAN-13 references and IANA registration
 - Add section on Claim Trustworthiness to Security Considerations
+- Entirely remove section 4.4 that discussed including keys in claims
 
 --- contributor
 
