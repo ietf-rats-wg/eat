@@ -44,6 +44,10 @@ author:
   country: United Kingdom
   phone: +44 1252 363189
   email: jodonogh@qti.qualcomm.com
+- ins: C. Wallace
+  name: Carl Wallace
+  org: Red Hound Software, Inc.
+  email: carl@redhoundsoftware.com
 
 contributor:
 - name: Henk Birkholz
@@ -2601,6 +2605,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Entirely remove section 4.4 that discussed including keys in claims
 - Largely rewrite the first paragraphs in section 1, the introduction
 - Mention $$Claims-Set-Claims in prose and require future claims be in CDDL
+- Add Carl Wallace as an author
 
 --- contributor
 
