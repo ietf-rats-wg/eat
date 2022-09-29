@@ -2600,6 +2600,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Removed "transport security" section from security considerations
 - Entirely remove section 4.4 that discussed including keys in claims
 - Largely rewrite the first paragraphs in section 1, the introduction
+- Mention $$Claims-Set-Claims in prose and require future claims be in CDDL
 
 --- contributor
 
