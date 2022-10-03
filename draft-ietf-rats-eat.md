@@ -71,17 +71,18 @@ contributor:
 normative:
   RFC2119:
   RFC7515:
-  RFC8949:
+  RFC8949: cbor
   RFC7252:
   RFC7519:
   RFC8126:
   RFC8174:
   RFC8259:
   RFC8392:
-  RFC8610:
+  RFC8610: cddl
   RFC3986:
   RFC9052:
   RFC9090:
+  RFC9165: cddlplus
 
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
@@ -349,13 +350,13 @@ It is up to each relying party to understand the processing rules of each verifi
 
 # Terminology
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-"OPTIONAL" in this document are to be interpreted as described in
-BCP 14 {{RFC2119}} {{RFC8174}} when, and only when, they appear in all
-capitals, as shown here.
+{::boilerplate bcp14-tagged}
+
+In this document, the structure of data is specified in CDDL {{-cddl}} {{-cddlplus}}.
 
 This document reuses terminology from JWT {{RFC7519}} and CWT {{RFC8392}}.
+
+The examples in {{examples}} use CBOR diagnostic notation defined in {{Section 8 of -cbor}} and {{Appendix G of -cddl}}.
 
 Claim:
 : A piece of information asserted about a subject. A claim is represented as pair with a value and either a name or key to identify it.
@@ -411,7 +412,7 @@ There is no fixed mechanism across all use cases.
 This document also defines a new top-level message, the detached EAT bundle (see {{DEB}}), which holds a collection of detached claims sets and an EAT that provides integrity and authenticity protection for them.
 Detached EAT bundles can be either CBOR or JSON encoded.
 
-The following CDDL defines the top-level `$$EAT-CBOR-Tagged-Token`, `$$EAT-CBOR-Untagged-Token` and `$$EAT-JSON-Token-Formats` sockets, enabling future token formats to be defined.
+The following CDDL defines the top-level `$$EAT-CBOR-Tagged-Token`, `$$EAT-CBOR-Untagged-Token` and `$$EAT-JSON-Token-Formats` sockets (see {{Section 3.9 of -cddl}}), enabling future token formats to be defined.
 Any new format that plugs into one or more of these sockets MUST be defined by an IETF standards action.
 Of particular use may be a token type that provides no direct authenticity or integrity protection for use with transports mechanisms that do provide the necessary security services {{UCCS}}.
 
