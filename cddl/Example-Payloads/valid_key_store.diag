@@ -33,7 +33,7 @@
                                     02'
                                  ]
                                  / Above is an encoded CoSWID     /
-				 / with the following data        /
+                                 / with the following data        /
                                  /   SW Name: "Carbonite"         /
                                  /   SW Vers: "1.2"               /
                                  /   SW Creator:                  /
@@ -70,7 +70,7 @@
                                   ]
                                   / Above is an encoded CoSWID /
                                   / with the following data:   /
-				  /   SW Name: "Droid OS"      /
+                                  /   SW Name: "Droid OS"      /
                                   /   SW Vers: "R2.D2"         /
                                   /   SW Creator:              /
                                   /     "Industrial Automation"/

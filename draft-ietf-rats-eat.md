@@ -79,6 +79,7 @@ normative:
   RFC8259:
   RFC8392:
   RFC8610:
+  RFC8792:
   RFC3986:
   RFC9052:
   RFC9090:
@@ -2165,8 +2166,10 @@ It informs the relying party that they were correct in the "measres" claim.
 
 ### JSON-encoded Token with Sumodules
 
+This example has its lines wrapper per {{RFC8792}}.
+
 ~~~~
-{::include cddl/Example-Payloads/submods.json}
+{::include cddl/Example-Payloads/submods.json_f}
 ~~~~
 
 
@@ -2206,8 +2209,10 @@ In this bundle there are two detached Claims-Sets, "CS1" and "CS2".
 The JWT at the start of the bundle has detached signature submodules with hashes of "CS1" and "CS2".
 TODO: make the JWT actually be correct verifiable JWT.
 
+This example has its lines wrapper per {{RFC8792}}.
+
 ~~~~
-{::include cddl/Example-Tokens/deb.json}
+{::include cddl/Example-Tokens/deb.json_f}
 ~~~~
 
 
@@ -2606,6 +2611,11 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Largely rewrite the first paragraphs in section 1, the introduction
 - Mention $$Claims-Set-Claims in prose and require future claims be in CDDL
 - Add Carl Wallace as an author
+
+## From draft-ietf-rats-eat-15
+- Repair all too-long lines
+- Remove tabs from examples
+
 
 --- contributor
 
