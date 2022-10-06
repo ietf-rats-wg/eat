@@ -2166,7 +2166,7 @@ It informs the relying party that they were correct in the "measres" claim.
 
 ### JSON-encoded Token with Sumodules
 
-This example has its lines wrapper per {{RFC8792}}.
+This example has its lines wrapped per {{RFC8792}}.
 
 ~~~~
 {::include cddl/Example-Payloads/submods.json_f}
