@@ -1,19 +1,22 @@
 {
-    "eat_nonce" : "jkd8KL-8=Qlzg4",
-    "secboot" :  true,
-    "dbgstat" :  "disabled-since-boot",
-    "oemid" :    "iUWt",
-    "ueid" :     "AZj1Ck_2wFhhyIYNE6Y4",
-    "swname" :   "Acme R-IoT-OS",
-    "swversion" : [
-            "3.1.4"
-        ],
-    "measres" : [
-        [
-            "Trustus Measurements",
+   "eat_nonce": "jkd8KL-8=Qlzg4",
+   "secboot": true,
+   "dbgstat": "disabled-since-boot",
+   "oemid": "iUWt",
+   "ueid": "AZj1Ck_2wFhhyIYNE6Y4",
+   "swname": "Acme R-IoT-OS",
+   "swversion": [
+      "3.1.4"
+   ],
+   "measres": [
+      [
+         "Trustus Measurements",
+         [
             [
-                [ "all" , "success" ]
+               "all",
+               "success"
             ]
-       ]
-    ]
+         ]
+      ]
+   ]
 }

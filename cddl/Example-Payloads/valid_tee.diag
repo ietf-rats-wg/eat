@@ -5,15 +5,15 @@
     / secboot /        262: true,
     / dbgstat /        263: 2, / disabled-since-boot /
     / manifests /      273: [
-                           [
+                              [
                                121, / CoAP Content ID. A     /
                                     / made up one until one  /
                                     / is assigned for CoSWID /
 
                                / This is byte-string wrapped      /
-			       / payload CoSWID. It gives the TEE /
-			       / software name, the version and   /
-			       / the  name of the file it is in.  /
+                               / payload CoSWID. It gives the TEE /
+                               / software name, the version and   /
+                               / the  name of the file it is in.  /
                                / {0: "3a24",                      /
                                /  12: 1,                          /
                                /   1: "Acme TEE OS",              /
@@ -32,8 +32,6 @@
                                   204f53182101a2181f6b41636d652054
                                   4545204f5318210206a111a118186e61
                                   636d655f7465655f332e657865'
+                              ]
                             ]
-			]
 }
-    
-
