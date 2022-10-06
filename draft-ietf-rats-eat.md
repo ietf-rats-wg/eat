@@ -2209,7 +2209,7 @@ In this bundle there are two detached Claims-Sets, "CS1" and "CS2".
 The JWT at the start of the bundle has detached signature submodules with hashes of "CS1" and "CS2".
 TODO: make the JWT actually be correct verifiable JWT.
 
-This example has its lines wrapper per {{RFC8792}}.
+This example has its lines wrapped per {{RFC8792}}.
 
 ~~~~
 {::include cddl/Example-Tokens/deb.json_f}
