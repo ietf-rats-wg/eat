@@ -1646,13 +1646,12 @@ unauthenticated consumers.
 
 ## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
 
-A UEID is usually not privacy-preserving. Any set of Relying Parties
-that receives tokens that happen to be from a particular entity will be
-able to know the tokens are all from the same entity and be able to
-track it.
+A UEID is usually not privacy-preserving. Relying Parties
+receiving tokens that happen to be from a particular entity will be
+able to know the tokens are  from the same entity and be able to
+identify the entity issuing those tokens.
 
-Thus, in many usage situations UEID violates
-governmental privacy regulation. In other usage situations a UEID will
+Thus the use of the claim may violate privacy policies. In other usage situations a UEID will
 not be allowed for certain products like browsers that give privacy
 for the end user. It will often be the case that tokens will not have
 a UEID for these reasons.
