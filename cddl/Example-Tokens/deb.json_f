@@ -1,0 +1,16 @@
+[
+   [
+      "JWT",
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJKLUF0dGVzdGVy\
+IiwiaWF0IjoxNjUxNzc0ODY4LCJleHAiOm51bGwsImF1ZCI6IiIsInN1YiI6IiJ9.gjw\
+4nFMhLpJUuPXvMPzK1GMjhyJq2vWXg1416XKszwQ"
+   ],
+   {
+      "Audio Subsystem Claims": "ewogICAgICAgICAgICAibm9uY2UiOiAgICA\
+gImxJK0lZTkU2Umo2TyIsCiAgICAgICAgICAgICJpYXQiOiAgICAgIDE1MjY1NDI4OTQ\
+KICAgICAgICAgfQo=",
+      "Graphics Subsystem Claims": "ewogICAgICAgICAgICAibm9uY2UiOiAg\
+ICJsSStJWU5FNlJqNk8iLAogICAgICAgICAgICAiaWF0IjogICAgIDE1MjY1NDI4OTQK\
+ICAgICAgICB9"
+   }
+]

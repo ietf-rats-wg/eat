@@ -79,6 +79,8 @@ normative:
   RFC8259:
   RFC8392:
   RFC8610: cddl
+  RFC8610:
+  RFC8792:
   RFC3986:
   RFC9052:
   RFC9090:
@@ -1646,13 +1648,12 @@ unauthenticated consumers.
 
 ## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
 
-A UEID is usually not privacy-preserving. Any set of Relying Parties
-that receives tokens that happen to be from a particular entity will be
-able to know the tokens are all from the same entity and be able to
-track it.
+A UEID is usually not privacy-preserving. Relying Parties
+receiving tokens that happen to be from a particular entity will be
+able to know the tokens are  from the same entity and be able to
+identify the entity issuing those tokens.
 
-Thus, in many usage situations UEID violates
-governmental privacy regulation. In other usage situations a UEID will
+Thus the use of the claim may violate privacy policies. In other usage situations a UEID will
 not be allowed for certain products like browsers that give privacy
 for the end user. It will often be the case that tokens will not have
 a UEID for these reasons.
@@ -2166,8 +2167,10 @@ It informs the relying party that they were correct in the "measres" claim.
 
 ### JSON-encoded Token with Sumodules
 
+This example has its lines wrapped per {{RFC8792}}.
+
 ~~~~
-{::include cddl/Example-Payloads/submods.json}
+{::include cddl/Example-Payloads/submods.json_f}
 ~~~~
 
 
@@ -2207,8 +2210,10 @@ In this bundle there are two detached Claims-Sets, "CS1" and "CS2".
 The JWT at the start of the bundle has detached signature submodules with hashes of "CS1" and "CS2".
 TODO: make the JWT actually be correct verifiable JWT.
 
+This example has its lines wrapped per {{RFC8792}}.
+
 ~~~~
-{::include cddl/Example-Tokens/deb.json}
+{::include cddl/Example-Tokens/deb.json_f}
 ~~~~
 
 
@@ -2607,6 +2612,11 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Largely rewrite the first paragraphs in section 1, the introduction
 - Mention $$Claims-Set-Claims in prose and require future claims be in CDDL
 - Add Carl Wallace as an author
+
+## From draft-ietf-rats-eat-15
+- Repair all too-long lines
+- Remove tabs from examples
+
 
 --- contributor
 
