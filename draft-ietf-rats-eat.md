@@ -272,8 +272,8 @@ Some examples of entities:
 
 * A Secure Element
 * A TEE
-* A card in a network router
-* A network router, perhaps with each card in the router a submodule
+* A network card in a router
+* A router, perhaps with each network card in the router a submodule
 * An IoT device
 * An individual process
 * An app on a smartphone
