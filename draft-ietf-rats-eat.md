@@ -79,7 +79,6 @@ normative:
   RFC8259:
   RFC8392:
   RFC8610: cddl
-  RFC8610:
   RFC8792:
   RFC3986:
   RFC9052:
@@ -2588,34 +2587,8 @@ non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
 
-## From draft-ietf-rats-eat-14
-
-- Reference to SUIT manifest
-- Clarifications about manifest extensibility
-- Removed security level claim
-- Changed capitalization throughout the document for various terms
-- Eliminated use of DEB acronym for detached EAT bundles
-- Replicate claim optionality text from CWT and JWT
-- Several edits and clarifications for freshness and nonces
-- Correct eat_nonce registration for JSON-encoded tokens
-- Add security considerations for freshness
-- Change/clarify the input to digest algorithm for detached claims sets
-- Removed EAN-13 references and IANA registration
-- Add section on Claim Trustworthiness to Security Considerations
-- Removed section discussing cti/jti and other mention of cti/jti
-- Some rework on section 3 including adding back in a __non-normative__ reference to UCCS
-- Improved wording in section 1.3
-- Improvements to abstract
-- Appendix C clarifications -- say "message" not "protocol"
-- Removed "transport security" section from security considerations
-- Entirely remove section 4.4 that discussed including keys in claims
-- Largely rewrite the first paragraphs in section 1, the introduction
-- Mention $$Claims-Set-Claims in prose and require future claims be in CDDL
-- Add Carl Wallace as an author
-
-## From draft-ietf-rats-eat-15
-- Repair all too-long lines
-- Remove tabs from examples
+## From draft-ietf-rats-eat-16
+- Add some references to CBOR and CDDL RFCs when introducing terms, examples, ...
 
 
 --- contributor
