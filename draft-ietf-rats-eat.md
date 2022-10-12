@@ -1315,14 +1315,14 @@ It is a top-level EAT message like a CWT or JWT.
 It can be occur any place that CWT or JWT messages occur.
 It may also be sent as a submodule.
 
-A detached EAT bundle has two main parts.
+A detached EAT bundle consists of two parts.
 
 The first part is a full top-level token.
 This top-level token MUST have at least one submodule that is a detached digest.
 This top-level token may be either CBOR or JSON-encoded.
 It MAY be a CWT, or JWT but NOT a detached EAT bundle.
 It MAY also be some future-defined token type.
-The same mechanism for distinguishing the type for nested token submodules is used here.
+The same mechanism for distinguishing the type for nested token submodules is employed here.
 
 The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the full token.
 When the detached EAT bundle is CBOR-encoded, each detached Claims-Set MUST be CBOR-encoded and wrapped in a byte string.
@@ -2589,7 +2589,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 
 ## From draft-ietf-rats-eat-16
 - Add some references to CBOR and CDDL RFCs when introducing terms, examples, ...
-
+- Clarifications on non-mixing of encoding formats in detached EAT bundles
 
 --- contributor
 
