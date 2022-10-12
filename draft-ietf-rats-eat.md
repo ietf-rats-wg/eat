@@ -1316,15 +1316,15 @@ It may also be sent as a submodule.
 A detached EAT bundle has two main parts.
 
 The first part is a full top-level token.
-This top-level token must have at least one submodule that is a detached digest.
+This top-level token MUST have at least one submodule that is a detached digest.
 This top-level token may be either CBOR or JSON-encoded.
-It may be a CWT, or JWT but not a detached EAT bundle.
-It may also be some future-defined token type.
+It MAY be a CWT, or JWT but NOT a detached EAT bundle.
+It MAY also be some future-defined token type.
 The same mechanism for distinguishing the type for nested token submodules is used here.
 
 The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the full token.
-When the detached EAT bundle is CBOR-encoded, each detached Claims-Set must be CBOR-encoded and wrapped in a byte string.
-When the detached EAT bundle is JSON-encoded, each detached Claims-Set must be JSON-encoded and base64url encoded.
+When the detached EAT bundle is CBOR-encoded, each detached Claims-Set MUST be CBOR-encoded and wrapped in a byte string.
+When the detached EAT bundle is JSON-encoded, each detached Claims-Set MUST be JSON-encoded and base64url encoded.
 All the detached Claims-Sets MUST be encoded in the same format as the detached EAT bundle.
 No mixing of encoding formats is allowed for the Claims-Sets in a detached EAT bundle.
 
