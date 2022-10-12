@@ -12,12 +12,12 @@
     / hwversion /      260: [ "3.1", 1 ], / multipartnumeric /
     / submods/         266: {
                                 "TEE": [ / detached digest submod /
-				    -16, / SHA-256 /
-			            h'e5cf95fd24fab7144674
-				      2dd58d43dae178e55fe2
-				      b94291a9291082ffc2635
-				      a0b'
-				]
-		            }
+                                           -16, / SHA-256 /
+                                           h'e5cf95fd24fab7144674
+                                             2dd58d43dae178e55fe2
+                                             b94291a9291082ffc263
+                                             5a0b'
+                                       ]
+                            }
 }
 

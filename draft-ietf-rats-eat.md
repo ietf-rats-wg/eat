@@ -71,17 +71,19 @@ contributor:
 normative:
   RFC2119:
   RFC7515:
-  RFC8949:
+  RFC8949: cbor
   RFC7252:
   RFC7519:
   RFC8126:
   RFC8174:
   RFC8259:
   RFC8392:
-  RFC8610:
+  RFC8610: cddl
+  RFC8792:
   RFC3986:
   RFC9052:
   RFC9090:
+  RFC9165: cddlplus
 
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
@@ -270,8 +272,8 @@ Some examples of entities:
 
 * A Secure Element
 * A TEE
-* A card in a network router
-* A network router, perhaps with each card in the router a submodule
+* A network card in a router
+* A router, perhaps with each network card in the router a submodule
 * An IoT device
 * An individual process
 * An app on a smartphone
@@ -349,13 +351,13 @@ It is up to each relying party to understand the processing rules of each verifi
 
 # Terminology
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-"OPTIONAL" in this document are to be interpreted as described in
-BCP 14 {{RFC2119}} {{RFC8174}} when, and only when, they appear in all
-capitals, as shown here.
+{::boilerplate bcp14-tagged}
+
+In this document, the structure of data is specified in CDDL {{-cddl}} {{-cddlplus}}.
 
 This document reuses terminology from JWT {{RFC7519}} and CWT {{RFC8392}}.
+
+The examples in {{examples}} use CBOR diagnostic notation defined in {{Section 8 of -cbor}} and {{Appendix G of -cddl}}.
 
 Claim:
 : A piece of information asserted about a subject. A claim is represented as pair with a value and either a name or key to identify it.
@@ -411,7 +413,7 @@ There is no fixed mechanism across all use cases.
 This document also defines a new top-level message, the detached EAT bundle (see {{DEB}}), which holds a collection of detached claims sets and an EAT that provides integrity and authenticity protection for them.
 Detached EAT bundles can be either CBOR or JSON encoded.
 
-The following CDDL defines the top-level `$$EAT-CBOR-Tagged-Token`, `$$EAT-CBOR-Untagged-Token` and `$$EAT-JSON-Token-Formats` sockets, enabling future token formats to be defined.
+The following CDDL defines the top-level `$$EAT-CBOR-Tagged-Token`, `$$EAT-CBOR-Untagged-Token` and `$$EAT-JSON-Token-Formats` sockets (see {{Section 3.9 of -cddl}}), enabling future token formats to be defined.
 Any new format that plugs into one or more of these sockets MUST be defined by an IETF standards action.
 Of particular use may be a token type that provides no direct authenticity or integrity protection for use with transports mechanisms that do provide the necessary security services {{UCCS}}.
 
@@ -1645,13 +1647,12 @@ unauthenticated consumers.
 
 ## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
 
-A UEID is usually not privacy-preserving. Any set of Relying Parties
-that receives tokens that happen to be from a particular entity will be
-able to know the tokens are all from the same entity and be able to
-track it.
+A UEID is usually not privacy-preserving. Relying Parties
+receiving tokens that happen to be from a particular entity will be
+able to know the tokens are  from the same entity and be able to
+identify the entity issuing those tokens.
 
-Thus, in many usage situations UEID violates
-governmental privacy regulation. In other usage situations a UEID will
+Thus the use of the claim may violate privacy policies. In other usage situations a UEID will
 not be allowed for certain products like browsers that give privacy
 for the end user. It will often be the case that tokens will not have
 a UEID for these reasons.
@@ -2165,8 +2166,10 @@ It informs the relying party that they were correct in the "measres" claim.
 
 ### JSON-encoded Token with Sumodules
 
+This example has its lines wrapped per {{RFC8792}}.
+
 ~~~~
-{::include cddl/Example-Payloads/submods.json}
+{::include cddl/Example-Payloads/submods.json_f}
 ~~~~
 
 
@@ -2206,8 +2209,10 @@ In this bundle there are two detached Claims-Sets, "CS1" and "CS2".
 The JWT at the start of the bundle has detached signature submodules with hashes of "CS1" and "CS2".
 TODO: make the JWT actually be correct verifiable JWT.
 
+This example has its lines wrapped per {{RFC8792}}.
+
 ~~~~
-{::include cddl/Example-Tokens/deb.json}
+{::include cddl/Example-Tokens/deb.json_f}
 ~~~~
 
 
@@ -2582,30 +2587,9 @@ non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
 
-## From draft-ietf-rats-eat-14
+## From draft-ietf-rats-eat-16
+- Add some references to CBOR and CDDL RFCs when introducing terms, examples, ...
 
-- Reference to SUIT manifest
-- Clarifications about manifest extensibility
-- Removed security level claim
-- Changed capitalization throughout the document for various terms
-- Eliminated use of DEB acronym for detached EAT bundles
-- Replicate claim optionality text from CWT and JWT
-- Several edits and clarifications for freshness and nonces
-- Correct eat_nonce registration for JSON-encoded tokens
-- Add security considerations for freshness
-- Change/clarify the input to digest algorithm for detached claims sets
-- Removed EAN-13 references and IANA registration
-- Add section on Claim Trustworthiness to Security Considerations
-- Removed section discussing cti/jti and other mention of cti/jti
-- Some rework on section 3 including adding back in a __non-normative__ reference to UCCS
-- Improved wording in section 1.3
-- Improvements to abstract
-- Appendix C clarifications -- say "message" not "protocol"
-- Removed "transport security" section from security considerations
-- Entirely remove section 4.4 that discussed including keys in claims
-- Largely rewrite the first paragraphs in section 1, the introduction
-- Mention $$Claims-Set-Claims in prose and require future claims be in CDDL
-- Add Carl Wallace as an author
 
 --- contributor
 
