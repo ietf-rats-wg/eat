@@ -1359,11 +1359,11 @@ Section 10 of {{RFC9052}} describes the profiling considerations for COSE.
 The use of encryption is optional for both CWT and JWT.
 Section 8 of {{RFC7519}} describes implementation requirement and recommendations for JWT.
 
-Similarly, CBOR provides indefinite length encoding which is not commonly used, but valuable for very constrained devices.
+Similarly, CBOR provides indefinite length encoding, which is not commonly used, but valuable for very constrained devices.
 For EAT itself, in a particular use case some claims will be used and others will not.
 Section 4 of {{RFC8949}} describes serialization considerations for CBOR.
 
-For example a mobile phone use case may require the device make and model, and prohibit UEID and location for privacy policy.
+For example a mobile phone use case may require the device make and model, and prohibit UEID and location for privacy reasons.
 The general EAT standard retains all this flexibility because it too is aimed to accommodate a broad range of use cases.
 
 It is necessary to explicitly narrow these implementation options to guarantee interoperability.
@@ -1429,7 +1429,7 @@ Note that RFC 8392 requires COSE tags be used in a CWT tag.
 Often a tag is unnecessary because the surrounding or carrying protocol identifies the object as an EAT.
 
 
-### COSE/JOSE Protection
+### COSE/JOSE Protection {#message-type}
 
 COSE and JOSE have several options for signed, MACed and encrypted messages.
 JWT may use the JOSE NULL protection option.
@@ -1447,12 +1447,15 @@ When both signing and encryption are allowed, a profile should specify which is 
 
 ### COSE/JOSE Algorithms
 
-See the section on "Application Profiling Considerations" in {{RFC9052}} for a discussion on selection of cryptgraphic algorithms and related issues.
+See the section on "Application Profiling Considerations" in {{RFC9052}} for a discussion on selection of cryptographic algorithms and related issues.
 
-The profile document should list the COSE algorithms that a verifier must implement.
-The attester will select one of them.
-Since there is no negotiation, the verifier should implement all algorithms listed in the profile.
-If detached submodule digests are used, the COSE algorithms allowed for their digests should also be in the profile.
+The profile MAY require the protocol or system using EAT provide an algorithm negotiation mechanism.
+
+If not, The profile document should list a set of algorithms for each COSE and JOSE message type allowed by the profile per {{message-type}}.
+The verifier should implement all of them.
+The attester may implement any of them it wishes, possibly just one for each message type.
+
+If detached submodule digests are used the profile should address the determination of the hash algorithm(s) for the digests.
 
 
 ### Detached EAT Bundle Support
