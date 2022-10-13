@@ -1136,12 +1136,17 @@ The following sub-sections define the three types for representing submodules:
 
 When decoding a submodule in a CBOR-encoded EAT, the Claims-Set type will be encoded as a map, the Detached-Submodule-Digest type as an array, and the Nested-Token type as a CBOR-tagged object.
 
-When decoding a JSON-encoded EAT, a little more work is required because both the Nested-Token and Detached-Submodule-Digest types are arrays.
-To distinguish the nested token from the detached digest, the first element in the array is examined.
-If it is "JWT" or "BUNDLE", then the submodule is a Nested-Token.
-Otherwise it will contain an algorithm identifier and is a Detached-Submodule-Digest.
+When decoding a JSON-encoded EAT submodule, the Claims-Set type is encoded in a map and all the other types an array.
+The first member of the array gives further info.
+If it is an algorithm identifier it is a detached digest.
+If it is "JWT", "CBOR" or "BUNDLE", it is a Nested-Token in the indicated form.
 
-Where Nested-Token is used, nested CBOR EATs MUST be tagged, i.e., a CBOR tag will be used to distinguish between CWT or BUNDLE. Nested JSON EATs will be encoded as an JSON-Nested-Token, with the type indicated in the type field, i.e., first element in the array. The string identifying the JSON-encoded token MUST be one of the following:
+When decoding a Nested-Token, if a byte string is encountered, the nested token is a CBOR-encoded token.
+The byte string wrapping is removed and the type of the token is determined by the CBOR tag.
+If a text string is encountered, the nested token is a JSON-encoded token and the two-item array is decoded to determine the type of the JSON-encoded token.
+Nested CBOR EATs MUST be a tag, i.e., a CBOR tag will be used to distinguish between CWT or BUNDLE.
+Nested JSON EATs will be encoded as an JSON-Nested-Token, with the type indicated in the type field, i.e., first element in the array.
+The string identifying the JSON-encoded token MUST be one of the following:
 
 "JWT":
 : The second array item MUST be a JWT formatted according to {{RFC7519}}
@@ -1151,8 +1156,6 @@ Where Nested-Token is used, nested CBOR EATs MUST be tagged, i.e., a CBOR tag wi
 
 "BUNDLE":
 : The second array item MUST be a JSON-encoded Detached EAT Bundle as defined in this document.
-
-Both the submodule Claims-Set and detached Claims-Set options use the same attesting environment as the surrounding token.
 
 As noted elsewhere, additional EAT types may be defined by a standards action. New type specifications MUST address the integration of the new type into the Nested-Token claim type for submodules.
 
@@ -1166,7 +1169,10 @@ The encoding of a submodule Claims-Set MUST be the same as the encoding as the s
 
 #### Detached Submodule Digest
 
-The Detached-Submodule-Digest type is similar to a submodule Claims-Set, except a digest of the Claims-Set is included in the claim with the Claims-Set contents conveyed separately. The separately conveyed Claims-Set is called a detached claims set. The input to the digest algorithm is directly the CBOR or JSON-form of the Claims-Set for the submodule. There is no byte-string wrapping or base 64 encoding.
+The Detached-Submodule-Digest type is similar to a submodule Claims-Set, except a digest of the Claims-Set is included in the claim with the Claims-Set contents conveyed separately.
+The separately-conveyed Claims-Set is called a detached claims set.
+The input to the digest algorithm is directly the CBOR or JSON-encoded Claims-Set for the submodule.
+There is no byte-string wrapping or base 64 encoding.
 
 The data type for this type of submodule is an array consisting of two data items: an algorithm identifier and a byte string containing the digest. The hash algorithm identifier is always from the COSE Algorithm registry, {{IANA.COSE.Algorithms}}. Either the integer or string identifier may be used. The hash algorithm identifier is never from the JOSE Algorithm registry.
 
