@@ -355,9 +355,9 @@ It is up to each relying party to understand the processing rules of each verifi
 
 In this document, the structure of data is specified in CDDL {{-cddl}} {{-cddlplus}}.
 
-This document reuses terminology from JWT {{RFC7519}} and CWT {{RFC8392}}.
-
 The examples in {{examples}} use CBOR diagnostic notation defined in {{Section 8 of -cbor}} and {{Appendix G of -cddl}}.
+
+This document reuses terminology from JWT {{RFC7519}} and CWT {{RFC8392}}:
 
 Claim:
 : A piece of information asserted about a subject. A claim is represented as pair with a value and either a name or key to identify it.
@@ -374,7 +374,7 @@ Claim Value:
 Claims Set:
 : The CBOR map or JSON object that contains the claims conveyed by the CWT or JWT.
 
-This document reuses terminology from RATS Architecure {{RATS.Architecture}}
+This document reuses terminology from RATS Architecure {{RATS.Architecture}}:
 
 Attester:
 : A role performed by an entity (typically a device) whose evidence must be appraised in order to infer the extent to which the attester is considered trustworthy, such as when deciding whether it is authorized to perform some operation.
