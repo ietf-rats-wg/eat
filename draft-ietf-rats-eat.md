@@ -1134,13 +1134,12 @@ The following sub-sections define the three types for representing submodules:
 {::include nc-cddl/nested-token-json.cddl}
 ~~~~
 
-When decoding a submodule in a CBOR-encoded EAT, the Claims-Set type will be encoded as a map, the Detached-Submodule-Digest type as an array, and the Nested-Token type as a CBOR-tagged object.
-
 When decoding a JSON-encoded EAT submodule, the Claims-Set type is encoded in a map and all the other types an array.
 The first member of the array gives further info.
 If it is an algorithm identifier it is a detached digest.
 If it is "JWT", "CBOR" or "BUNDLE", it is a Nested-Token in the indicated form.
 
+When decoding a submodule in a CBOR-encoded EAT, the Claims-Set type will be encoded as a map, the Detached-Submodule-Digest type as an array, and the Nested-Token type as a CBOR-tagged object.
 When decoding a Nested-Token, if a byte string is encountered, the nested token is a CBOR-encoded token.
 The byte string wrapping is removed and the type of the token is determined by the CBOR tag.
 If a text string is encountered, the nested token is a JSON-encoded token and the two-item array is decoded to determine the type of the JSON-encoded token.
