@@ -1035,7 +1035,7 @@ The claims for a subsystem can be grouped together in a submodule or submod.
 
 Submodules may be used in either evidence or attestation results.
 
-Because system architecture will vary greatly from use case to use case, there are no set requirements what a submodule represents either in evidence or in attestation results.
+Because system architecture will vary greatly from use case to use case, there are no set requirements for what a submodule represents either in evidence or in attestation results.
 Profiles, {{profiles}}, may wish to impose requirements.
 An attester that outputs attestation results with submodules should document the semantics it associates with particular submodules for the verifier.
 Likewise, verifier that outputs attestation results with submodules should document the semantics it associates with the submodules for the relying party.
@@ -2603,6 +2603,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 ## From draft-ietf-rats-eat-16
 - Add some references to CBOR and CDDL RFCs when introducing terms, examples, ...
 - Clarifications on non-mixing of encoding formats in detached EAT bundles
+- Say that submodules can be used in evidence or results + other guidance
 
 --- contributor
 
