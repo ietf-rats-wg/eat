@@ -1471,19 +1471,18 @@ If multiple methods of key identification may be sent, a profile should require 
 
 {{keyid}} describes a number of methods for identifying verification keys.
 When encryption is used, there are further considerations.
-In some cases key identification may be very simple and in others involve a multiple components.
+In some cases key identification may be very simple and in others involve multiple components.
 For example, it may be simple through use of COSE key ID or it may be complex through use of an X.509 certificate hierarchy.
 
-While not always possible, a profile should specify, or make reference to, a full end-end specification for key identification.
+While not always possible, a profile should specify or make reference to, a full end-end specification for key identification.
 For example, a profile should specify in full detail how COSE key IDs are to be created, their lifecycle and such rather than just specifying that a COSE key ID be used.
-For example, a profile should specify the full details of an X.509 hierarchy including extension processing, algorithms allowed and so on rather than just saying X.509 certificate are used.
-Though not always possible, ideally, a profile should be a complete specification for key identification for both the sender and the receiver such that interoperability is guaranteed.
+For example, a profile should specify the full details of an X.509 hierarchy including extension processing, algorithms allowed and so on rather than just saying X.509 certificates are used.
 
 
 ### Endorsement Identification
 
 Similar to, or perhaps the same as verification key identification, the profile may wish to specify how endorsements are to be identified.
-However note that endorsement identification is optional, where as key identification is not.
+However note that endorsement identification is optional, whereas key identification is not.
 
 ### Freshness
 
@@ -2595,6 +2594,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 
 ## From draft-ietf-rats-eat-16
 - Add some references to CBOR and CDDL RFCs when introducing terms, examples, ...
+- Minor wording improvements in section 6 on profiles.
 - Clarifications on non-mixing of encoding formats in detached EAT bundles
 
 --- contributor
