@@ -588,9 +588,9 @@ An EAT profile MAY provide this specification.
 There MAY be multiple SUEIDs.
 Each has a text string label the purpose of which is to distinguish it from others.
 The label MAY name the purpose, application or type of the SUEID.
-For example, the label for the SUEID used by FIDO Onboarding Protocol could be "FDO".
+For example, the label for the SUEID used by XYZ Onboarding Protocol could thus be "XYZ".
 It is beyond the scope of this document to specify any SUEID labeling schemes.
-They are use-case specific and MAY be specified in an EAT profile.
+They are use case specific and MAY be specified in an EAT profile.
 
 If there is only one SUEID, the claim remains a map and there still MUST be a label.
 
