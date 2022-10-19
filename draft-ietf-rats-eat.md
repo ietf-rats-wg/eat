@@ -372,7 +372,7 @@ Claim Name:
 : A unique text string that identifies the claim. It is used as the claim name for JSON encoding.
 
 Claim Key:
-: The CBOR map key used to identify a claim.
+: The CBOR map key used to identify a claim. (The term "Claim Key" comes from CWT. This document, like COSE, uses the term "label" to refer to CBOR map keys to avoid confusion with cryptographic keys.)  
 
 Claim Value:
 : The value portion of the claim. A claim value can be any CBOR data item or JSON value.
