@@ -1033,6 +1033,13 @@ security-oriented subsystems like a TEE and a Secure Element.
 
 The claims for a subsystem can be grouped together in a submodule or submod.
 
+Submodules may be used in either evidence or attestation results.
+
+Because system architecture will vary greatly from use case to use case, there are no set requirements for what a submodule represents either in evidence or in attestation results.
+Profiles, {{profiles}}, may wish to impose requirements.
+An attester that outputs attestation results with submodules should document the semantics it associates with particular submodules for the verifier.
+Likewise, verifier that outputs attestation results with submodules should document the semantics it associates with the submodules for the relying party.
+
 The submods are in a single map/object, one entry per submodule.
 There is only one submods map/object in a token. It is
 identified by its specific label. It is a peer to other claims, but it
@@ -2596,6 +2603,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Add some references to CBOR and CDDL RFCs when introducing terms, examples, ...
 - Minor wording improvements in section 6 on profiles.
 - Clarifications on non-mixing of encoding formats in detached EAT bundles
+- Say that submodules can be used in evidence or results + other guidance
 
 --- contributor
 
