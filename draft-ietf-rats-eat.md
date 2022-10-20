@@ -221,6 +221,7 @@ informative:
 
   CBOR.Cert.Draft: I-D.ietf-cose-cbor-encoded-cert
 
+  UCCS: I-D.ietf-rats-uccs
 
 --- abstract
 
