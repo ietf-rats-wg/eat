@@ -12,12 +12,6 @@
 ;- Some future token like a UCCS or UJCS
 
 
-; The main EAT CDDL references Nested-Token.  When this file is
-; included it is redirected to this. The JC < > generic doesn't work
-; here.
-;
-Nested-Token = JSON-Nested-Token
-
 ; This defines a nested token that occurs inside a JSON-encoded
 ; token. It only appears in JSON-encoded tokens, never in CBOR-encoded
 ; tokens.  It is always encoded in JSON.
@@ -26,11 +20,14 @@ Nested-Token = JSON-Nested-Token
 ; This array of two is a substitute for the CBOR tag mechanism that
 ; JSON does not have.
 ;
-JSON-Nested-Token = [
-   type : "JWT" / "CBOR" / "BUNDLE",
-   nested-token : JWT-Message /
-                  CBOR-Token-Inside-JSON-Token /
-                  Detached-EAT-Bundle 
+$JSON-Nested-Token-Or-Detached-Digest-Type = "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
+$JSON-Nested-Token-Or-Detached-Digest-Value = JWT-Message /
+                  CBOR-Token-Inside-JSON-Token / Detached-EAT-Bundle /
+                  Detached-Submodule-Digest
+
+JSON-Nested-Token-Or-Detached-Digest = [
+   type : $JSON-Nested-Token-Or-Detached-Digest-Type,
+   nested-token : $JSON-Nested-Token-Or-Detached-Digest-Value
 ]
 
 ; After the base64url encoding is removed, the contents of this are a

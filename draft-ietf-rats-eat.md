@@ -1052,29 +1052,45 @@ The following sub-sections define the three types for representing submodules:
 * The digest of a detached Claims-Set
 * A Nested-Token, which can be any EAT
 
+The Submodule type definition varies with the type of encoding. The Submodule definition for CBOR-encoded EATs is as follows:
+
 ~~~~CDDL
-{::include nc-cddl/submods.cddl}
+{::include nc-cddl/submods-cbor.cddl}
 ~~~~
+
+The Submodule definition for JSON-encoded EATs is as below. This difference in definitions vs. CBOR is needed in JSON because it has no tag mechanism and no byte string type to help indicate the nested token is CBOR.
+
+~~~~CDDL
+{::include nc-cddl/submods-json.cddl}
+~~~~
+
+The Detached-Submodule-Digest type is defined as follows:
+
 ~~~~CDDL
 {::include nc-cddl/detached-digest.cddl}
 ~~~~
+
+Nested tokens can be one of three types as defined in this document or types standardized in follow-on documents (e.g., {{UCCS}}).
+Nested tokens are the only mechanism by which JSON can be embedded in CBOR and vice versa. 
+
+For CBOR-encoded EATs, the addition of further types is accomplished by augmenting the $EAT-CBOR-Tagged-Token socket or the $JSON-Nested-Token-Type and $JSON-Nested-Token-Value sockets.
+
 ~~~~CDDL
 {::include nc-cddl/nested-token-cbor.cddl}
 ~~~~
+
+For JSON-encoded EATs, the addition of further types is accomplished by augmenting the $JSON-Nested-Token-Or-Detached-Digest-Type and $JSON-Nested-Token-Or-Detached-Digest-Value sockets.
+
 ~~~~CDDL
 {::include nc-cddl/nested-token-json.cddl}
 ~~~~
 
-Nested-Tokens can be one of three types as defined in this document and possibly further types standardized in follow-on documents (e.g., {{UCCS}}).
-Nested-Token is the only instance where JSON can be embedded in CBOR and vice versa. 
-For CBOR-encoded EATs, the addition of further types is accomplished by augmenting the $EAT-CBOR-Tagged-Token socket.
-For JSON-encoded EATs, the addition of further types is accomplished by augmenting the options for the JSON-Nested-Token.type field.
-
 When decoding a JSON-encoded EAT, the type of submodule is determined as follows.
 A JSON object indicates the submodule is a Claims-Set.
-In all other cases, an array of two elements is used to indicate whether the submodule is a JSON-Nested-Token or a Detached-Submodule-Digest with the first element in the array examined to determine which.
-If the value is “JWT”, “CBOR”, “BUNDLE” or a future-standardized token types, e.g., {{UCCS}}, the submodule is a JSON-Nested-Token.
-Any other value indicates the submodule is a Detached-Submodule-Digest.
+In all other cases, it is a JSON-Nested-Token-Or-Detached-Submodule-Digest, which is an array of two elements that indicates whether the submodule is a nested token or a Detached-Submodule-Digest.The first element in the array indicates the type present in the second element.
+If the value is “JWT”, “CBOR”, “BUNDLE” or a future-standardized token types, e.g., {{UCCS}}, the submodule is a nested token of the indicated type, i.e., JWT-Message, CBOR-Token-Inside-JSON-Token, Detached-EAT-Bundle, or a future type.
+If the value is "DIGEST", the submodule is a Detached-Submodule-Digest.
+Any other value indicates a standaridized extension to this specification.
 
 When decoding a CBOR-encoded EAT, the CBOR item type indicates the type of the submodule as follows.
 A map indicates a CBOR-encoded submodule Claims-Set.
@@ -1086,7 +1102,6 @@ The type of a CBOR-encoded Nested-Token is always determined by the CBOR tag enc
 
 The type of a JSON-encoded Nested-Token is always determined by the string name in JSON-Nested-Token and is always “JWT”, “BUNDLE” or a new name standardized outside this document for a further type (e.g., “UCCS”).
 This string name may also be “CBOR” to indicate the nested token is CBOR-encoded.
-(This extra complexity is needed in JSON because it has no tag mechanism and no byte string type to help indicate the nested token is CBOR).
 
 "JWT":
 : The second array item MUST be a JWT formatted according to {{RFC7519}}
@@ -1097,7 +1112,10 @@ This string name may also be “CBOR” to indicate the nested token is CBOR-enc
 "BUNDLE":
 : The second array item MUST be a JSON-encoded Detached EAT Bundle as defined in this document.
 
-As noted elsewhere, additional EAT types may be defined by a standards action. New type specifications MUST address the integration of the new type into the Nested-Token claim type for submodules.
+"DIGEST":
+: The second array item MUST be a JSON-encoded Detached-Submodule-Digest as defined in this document.
+
+As noted elsewhere, additional EAT types may be defined by a standards action. New type specifications MUST address the integration of the new type into the Submodule claim type for submodules.
 
 
 #### Submodule Claims-Set
