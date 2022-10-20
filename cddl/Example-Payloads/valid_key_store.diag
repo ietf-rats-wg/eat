@@ -19,10 +19,9 @@
 
 
 {
-    / nonce /           10: h'948f8860d13a463e',
-    / security-level / 261: 2, / restricted /
-    / secure-boot /    262: true,
-    / debug-status /   263: 2, / disabled-since-boot /
+    / eat_nonce /       10: h'948f8860d13a463e',
+    / secboot /        262: true,
+    / dbgstat /        263: 2, / disabled-since-boot /
     / manifests /      273: [
                                 [ 121, / CoAP Content ID. A      /
                                        / made up one until one   /
@@ -34,14 +33,14 @@
                                     02'
                                  ]
                                  / Above is an encoded CoSWID     /
-				 / with the following data        /
+                                 / with the following data        /
                                  /   SW Name: "Carbonite"         /
                                  /   SW Vers: "1.2"               /
                                  /   SW Creator:                  /
                                  /      "Industrial Automation"   /
                             ],
-    / expiration /       4: 1634324274, / 2021-10-15T18:57:54Z /
-    / creation time /    6: 1634317080, / 2021-10-15T16:58:00Z /
+    / exp /              4: 1634324274, / 2021-10-15T18:57:54Z /
+    / iat /              6: 1634317080, / 2021-10-15T16:58:00Z /
                    -80000 : "fingerprint",
                    -80001 : { / The key -- A COSE_Key  / 
                 / kty /       1: 2, / EC2, eliptic curve with x & y /
@@ -55,9 +54,8 @@
 
     / submods /        266 : { 
                            "HLOS" : { / submod for high-level OS /
-         / nonce /             10: h'948f8860d13a463e',
-           / security-level / 261: 1, / unrestricted /
-           / secure-boot /    262: true,
+         / eat_nonce /         10: h'948f8860d13a463e',
+           / secboot /        262: true,
            / manifests /      273: [ 
                                 [ 121, / CoAP Content ID. A      /
                                        / made up one until one   /
@@ -72,7 +70,7 @@
                                   ]
                                   / Above is an encoded CoSWID /
                                   / with the following data:   /
-				  /   SW Name: "Droid OS"      /
+                                  /   SW Name: "Droid OS"      /
                                   /   SW Vers: "R2.D2"         /
                                   /   SW Creator:              /
                                   /     "Industrial Automation"/

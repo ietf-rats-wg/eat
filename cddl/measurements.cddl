@@ -1,13 +1,13 @@
 $$Claims-Set-Claims //= (
-    swevidence-label => swevidence-type
+    measurements-label => measurements-type
 )
 
-swevidence-type = [+ swevidence-format]
+measurements-type = [+ measurements-format]
 
-swevidence-format = [
+measurements-format = [
     content-type:   coap-content-format,
-    content-format: JC< $$swevidence-body-json,
-                        $$swevidence-body-cbor > 
+    content-format: JC< $measurements-body-json,
+                        $measurements-body-cbor >
 ]
 
 ; The JSON and CBOR types for CoSWID. CoSWIDs are of course alwas in
@@ -16,7 +16,7 @@ swevidence-format = [
 ; untagged-coswid encoded in CBOR as usual, but then wrapped with B64
 ; encoding.
 ;
-$$swevidence-body-cbor /= bytes .cbor untagged-coswid
-$$swevidence-body-json /= base64-url-text
+$measurements-body-cbor /= bytes .cbor untagged-coswid
+$measurements-body-json /= base64-url-text
 
 

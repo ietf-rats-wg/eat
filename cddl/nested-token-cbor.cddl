@@ -1,7 +1,8 @@
 ; This is an EAT token that is nested inside a CBOR token.  When this
 ; occurs some means is needed to identify the type of token (signed,
-; unsigned or detached EAT bundle) and the encoding format (JSON or CBOR). This is the
-; only place in EAT where JSON can appear in a CBOR token.
+; unsigned or detached EAT bundle) and the encoding format (JSON or
+; CBOR). This is the only place in EAT where JSON can appear in a CBOR
+; token.
 ;
 ; The nested token may be one of these:
 ;- A CWT format token
@@ -23,7 +24,7 @@ CBOR-Nested-Token =
 
 ; The CBOR tag mechanism is used to select between the various types
 ; of CBOR encoded tokens.
-CBOR-Token-Inside-CBOR-Token = bstr .cbor $$EAT-CBOR-Tagged-Token
+CBOR-Token-Inside-CBOR-Token = bstr .cbor $EAT-CBOR-Tagged-Token
 
 ; The contents of this text string MUST be a JSON-encoded
 ; JSON-Nested-Token.  See the definition of JSON-Nested-Token.
