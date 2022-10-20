@@ -1086,7 +1086,7 @@ The type of a CBOR-encoded Nested-Token is always determined by the CBOR tag enc
 
 The type of a JSON-encoded Nested-Token is always determined by the string name in JSON-Nested-Token and is always “JWT”, “BUNDLE” or a new name standardized outside this document for a further type (e.g., “UCCS”).
 This string name may also be “CBOR” to indicate the nested token is CBOR-encoded.
-(This extra complexity is needed in JSON because it has no tag mechanism and because no byte string type to help indicate the nested token is CBOR).
+(This extra complexity is needed in JSON because it has no tag mechanism and no byte string type to help indicate the nested token is CBOR).
 
 "JWT":
 : The second array item MUST be a JWT formatted according to {{RFC7519}}
