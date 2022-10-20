@@ -20,8 +20,10 @@
 ; This array of two is a substitute for the CBOR tag mechanism that
 ; JSON does not have.
 ;
-$JSON-Nested-Token-Or-Detached-Digest-Type = "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
-$JSON-Nested-Token-Or-Detached-Digest-Value = JWT-Message /
+Nested-Token = JSON-Nested-Token-Or-Detached-Digest
+
+$JSON-Nested-Token-Or-Detached-Digest-Type /= "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
+$JSON-Nested-Token-Or-Detached-Digest-Value /= JWT-Message /
                   CBOR-Token-Inside-JSON-Token / Detached-EAT-Bundle /
                   Detached-Submodule-Digest
 

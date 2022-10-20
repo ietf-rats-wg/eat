@@ -1,4 +1,4 @@
-EAT-JSON-Token = $$EAT-JSON-Token-Formats
+EAT-JSON-Token = $EAT-JSON-Token-Formats
 
-$$EAT-JSON-Token-Formats /= JWT-Message
-$$EAT-JSON-Token-Formats /= BUNDLE-Untagged-Message
+$EAT-JSON-Token-Formats /= JWT-Message
+$EAT-JSON-Token-Formats /= BUNDLE-Untagged-Message

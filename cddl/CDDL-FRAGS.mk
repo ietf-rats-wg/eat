@@ -29,7 +29,6 @@ COMMON_CDDL_FRAGS += profile.cddl
 COMMON_CDDL_FRAGS += manifests.cddl
 COMMON_CDDL_FRAGS += measurements.cddl
 COMMON_CDDL_FRAGS += measurement-results.cddl
-COMMON_CDDL_FRAGS += submods.cddl
 COMMON_CDDL_FRAGS += detached-digest.cddl
 COMMON_CDDL_FRAGS += deb.cddl
 COMMON_CDDL_FRAGS += claim-labels.cddl

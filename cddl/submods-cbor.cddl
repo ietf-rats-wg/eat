@@ -14,4 +14,4 @@ $$Claims-Set-Claims //= (submods-label => { + text => Submodule })
 ; - The digest of a detached Claims-Set (encoded the same as
 ;   the enclosing token)
 ;
-Submodule = Claims-Set / CBOR-Nested-Token / Detached-Submodule-Digest
+Submodule = Claims-Set / Nested-Token / Detached-Submodule-Digest

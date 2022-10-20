@@ -12,6 +12,7 @@
 ;- Some future-defined token type or encoding
 ;  such as a UCCS or UJCS
 
+Nested-Token = CBOR-Nested-Token
 
 CBOR-Nested-Token =
     JSON-Token-Inside-CBOR-Token /
@@ -25,8 +26,8 @@ CBOR-Token-Inside-CBOR-Token = bstr .cbor $EAT-CBOR-Tagged-Token
 ; JSON-Nested-Token.  See the definition of JSON-Nested-Token.
 JSON-Token-Inside-CBOR-Token = tstr 
 
-$JSON-Nested-Token-Type = "JWT" / "CBOR" / "BUNDLE"
-$JSON-Nested-Token-Value = JWT-Message /
+$JSON-Nested-Token-Type /= "JWT" / "CBOR" / "BUNDLE"
+$JSON-Nested-Token-Value /= JWT-Message /
                   CBOR-Token-Inside-JSON-Token / Detached-EAT-Bundle
 
 JSON-Nested-Token = [
