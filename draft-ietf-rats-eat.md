@@ -1028,6 +1028,13 @@ The values for the results enumerated type are as follows:
 Some devices are complex and have many subsystems.  A mobile phone is a good example. It may have subsystems for communications (e.g., Wi-Fi and cellular), low-power audio and video playback, multiple
 security-oriented subsystems like a TEE and a Secure Element, and etc. The claims for a subsystem can be grouped together in a submodule.
 
+Submodules may be used in either evidence or attestation results.
+
+Because system architecture will vary greatly from use case to use case, there are no set requirements for what a submodule represents either in evidence or in attestation results.
+Profiles, {{profiles}}, may wish to impose requirements.
+An attester that outputs attestation results with submodules should document the semantics it associates with particular submodules for the verifier.
+Likewise, verifier that outputs attestation results with submodules should document the semantics it associates with the submodules for the relying party.
+
 A submodule claim is a map that holds some number of submodules.
 Each submodule is named by its label in the submodule claim map.
 The value of each entry in a submodule may be a Claims-Set, Nested-Token or Detached-Submodule-Digest.
