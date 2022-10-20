@@ -1060,7 +1060,7 @@ The following sub-sections define the three types for representing submodules:
 
 Nested-Tokens can be one of three types as defined in this document and possibly further types standardized in follow-on documents (e.g., {{UCCS}}).
 Nested-Token is the only instance where JSON can be embedded in CBOR and vice versa. 
-For CBOR-encoded EATs, the addition of further types is accomplished by augmenting the $$EAT-CBOR-Tagged-Token socket.
+For CBOR-encoded EATs, the addition of further types is accomplished by augmenting the $EAT-CBOR-Tagged-Token socket.
 For JSON-encoded EATs, the addition of further types is accomplished by augmenting the options for the JSON-Nested-Token.type field.
 
 When decoding a JSON-encoded EAT, the type of submodule is determined as follows.
