@@ -4,7 +4,7 @@ $$Claims-Set-Claims //= (
 
 measurement-results-group = [
     measurement-system: tstr,
-    measruement-results: [ + individual-result ]
+    measurement-results: [ + individual-result ]
 ]
 
 individual-result = [
