@@ -5,6 +5,6 @@
 ; test that the socket works and that we can
 ; make a few examples with it.
 
-$$EAT-CBOR-Tagged-Token /= #6.601(Claims-Set)
-$$EAT-CBOR-Untagged-Token /= Claims-Set
+$EAT-CBOR-Tagged-Token /= #6.601(Claims-Set)
+$EAT-CBOR-Untagged-Token /= Claims-Set
 

@@ -29,7 +29,6 @@ COMMON_CDDL_FRAGS += profile.cddl
 COMMON_CDDL_FRAGS += manifests.cddl
 COMMON_CDDL_FRAGS += measurements.cddl
 COMMON_CDDL_FRAGS += measurement-results.cddl
-COMMON_CDDL_FRAGS += submods.cddl
 COMMON_CDDL_FRAGS += detached-digest.cddl
 COMMON_CDDL_FRAGS += deb.cddl
 COMMON_CDDL_FRAGS += claim-labels.cddl
@@ -51,13 +50,13 @@ COMMON_EXTERNAL_CDDL_FRAGS = external/claims-set.cddl
 # This is normative CDDL defined by EAT that is CBOR-specific
 
 CBOR_SPECIFIC_CDDL_FRAGS += eat-cbor.cddl
-CBOR_SPECIFIC_CDDL_FRAGS += nested-token-cbor.cddl
+CBOR_SPECIFIC_CDDL_FRAGS += submods-cbor.cddl
 
 
 # This is normative CDDL defined by EAT that is JSON-specific
 
 JSON_SPECIFIC_CDDL_FRAGS += eat-json.cddl
-JSON_SPECIFIC_CDDL_FRAGS += nested-token-json.cddl
+JSON_SPECIFIC_CDDL_FRAGS += submods-json.cddl
 
 
 # CDDL that is CBOR-specific that is a reference or replication of
