@@ -1,3 +1,47 @@
+; This is a token that is nested inside another token.
+; When this occurs some means is needed to identify
+; the type of token (signed, unsigned or detached) and
+; the encoding format (JSON or CBOR). This is the only
+; place where CBOR can occur inside a JSON token.
+;
+;A JSON Encoded Token may contain
+;- A CWT format token
+;- A CBOR-encoded detached EAT bundle
+;- A JWT format token
+;- A JWT-encoded detached EAT bundle
+;- Some future token like a UCCS or UJCS
+
+
+; This defines a nested token that occurs inside a JSON-encoded
+; token. It only appears in JSON-encoded tokens, never in CBOR-encoded
+; tokens.  It is always encoded in JSON.
+;
+; It is an array made up of a type indicator and the actual token.
+; This array of two is a substitute for the CBOR tag mechanism that
+; JSON does not have.
+;
+; Nested-Token is used in the Detached-EAT-Bundle definition.
+Nested-Token = JSON-Selector
+
+$JSON-Selector-Type /= "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
+$JSON-Selector-Value /= JWT-Message /
+                  CBOR-Token-Inside-JSON-Token /
+                  Detached-EAT-Bundle /
+                  Detached-Submodule-Digest
+
+JSON-Selector = [
+   type : $JSON-Selector-Type,
+   nested-token : $JSON-Selector-Value
+]
+
+; After the base64url encoding is removed, the contents of this are a
+; $$EAT-CBOR-Tagged-Token (see eat-cbor.cddl) encoded in **CBOR**.
+; This is the only transition point in EAT from JSON to CBOR.  For
+; example, it is a CWT that is a COSE_Sign1 that is a CBOR tag that
+; has been base64url encoded.
+;
+CBOR-Token-Inside-JSON-Token = base64-url-text
+
 ; This is the part of a token that contains all the submodules.  It
 ; is a peer with the claims in the token, but not a claim, only a
 ; map/object to hold all the submodules.
@@ -14,4 +58,4 @@ $$Claims-Set-Claims //= (submods-label => { + text => Submodule })
 ; - The digest of a detached Claims-Set (encoded the same as
 ;   the enclosing token)
 ;
-Submodule = Claims-Set / Nested-Token
+Submodule = Claims-Set / JSON-Selector

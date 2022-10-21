@@ -50,14 +50,12 @@ COMMON_EXTERNAL_CDDL_FRAGS = external/claims-set.cddl
 # This is normative CDDL defined by EAT that is CBOR-specific
 
 CBOR_SPECIFIC_CDDL_FRAGS += eat-cbor.cddl
-CBOR_SPECIFIC_CDDL_FRAGS += nested-token-cbor.cddl
 CBOR_SPECIFIC_CDDL_FRAGS += submods-cbor.cddl
 
 
 # This is normative CDDL defined by EAT that is JSON-specific
 
 JSON_SPECIFIC_CDDL_FRAGS += eat-json.cddl
-JSON_SPECIFIC_CDDL_FRAGS += nested-token-json.cddl
 JSON_SPECIFIC_CDDL_FRAGS += submods-json.cddl
 
 

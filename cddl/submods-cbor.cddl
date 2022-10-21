@@ -1,3 +1,34 @@
+; This is an EAT token that is nested inside a CBOR token.  When this
+; occurs some means is needed to identify the type of token (signed,
+; unsigned or detached EAT bundle) and the encoding format (JSON or
+; CBOR). This is the only place in EAT where JSON can appear in a CBOR
+; token.
+;
+; The nested token may be one of these:
+;- A CWT format token
+;- A CBOR-format detached EAT bundle
+;- A JWT format token
+;- A JWT-encoded detached EAT bundle
+;- Some future-defined token type or encoding
+;  such as a UCCS or UJCS
+
+; Nested-Token is used in the Detached-EAT-Bundle definition.
+Nested-Token = CBOR-Nested-Token
+
+CBOR-Nested-Token =
+    JSON-Token-Inside-CBOR-Token /
+    CBOR-Token-Inside-CBOR-Token
+
+; The CBOR tag mechanism is used to select between the various types
+; of CBOR encoded tokens.
+CBOR-Token-Inside-CBOR-Token = bstr .cbor $EAT-CBOR-Tagged-Token
+
+; The contents of this text string MUST be a JSON-encoded
+; JSON-Selector.  See the definition of JSON-Selector. The
+; Detached-Submodule-Digest option MUST NOT be used when included
+; in a CBOR token
+JSON-Token-Inside-CBOR-Token = tstr 
+
 ; This is the part of a token that contains all the submodules.  It
 ; is a peer with the claims in the token, but not a claim, only a
 ; map/object to hold all the submodules.
@@ -14,4 +45,5 @@ $$Claims-Set-Claims //= (submods-label => { + text => Submodule })
 ; - The digest of a detached Claims-Set (encoded the same as
 ;   the enclosing token)
 ;
-Submodule = Claims-Set / Nested-Token / Detached-Submodule-Digest
+Submodule = Claims-Set / CBOR-Nested-Token / 
+            Detached-Submodule-Digest
