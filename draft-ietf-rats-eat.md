@@ -2523,6 +2523,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Clarifications on non-mixing of encoding formats in detached EAT bundles
 - Say that submodules can be used in evidence or results + other guidance
 - General edits to the submodules section
+- Change the way detached digests are identified in JSON-encoded tokens
 
 --- contributor
 
