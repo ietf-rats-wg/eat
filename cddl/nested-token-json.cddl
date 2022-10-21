@@ -20,16 +20,16 @@
 ; This array of two is a substitute for the CBOR tag mechanism that
 ; JSON does not have.
 ;
-Nested-Token = JSON-Nested-Token-Or-Detached-Digest
+Nested-Token = JSON-Selector
 
-$JSON-Nested-Token-Or-Detached-Digest-Type /= "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
-$JSON-Nested-Token-Or-Detached-Digest-Value /= JWT-Message /
+$JSON-Selector-Type /= "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
+$JSON-Selector-Value /= JWT-Message /
                   CBOR-Token-Inside-JSON-Token / Detached-EAT-Bundle /
                   Detached-Submodule-Digest
 
-JSON-Nested-Token-Or-Detached-Digest = [
-   type : $JSON-Nested-Token-Or-Detached-Digest-Type,
-   nested-token : $JSON-Nested-Token-Or-Detached-Digest-Value
+JSON-Selector = [
+   type : $JSON-Selector-Type,
+   nested-token : $JSON-Selector-Value
 ]
 
 ; After the base64url encoding is removed, the contents of this are a

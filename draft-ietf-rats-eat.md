@@ -404,7 +404,7 @@ Endorsement:
 : A secure statement that an Endorser vouches for the integrity of an attester's various capabilities such as claims collection and evidence signing.
 
 Socket Group:
-: refers to the mechanism by which a CDDL definition is extended, as described in [RFC8610] and [RFC]9165]
+: refers to the mechanism by which a CDDL definition is extended, as described in [RFC8610] and [RFC9165]
 
 # Top-Level Token Definition
 
@@ -1082,7 +1082,7 @@ For CBOR-encoded EATs, the addition of further types is accomplished by augmenti
 {::include nc-cddl/nested-token-cbor.cddl}
 ~~~~
 
-For JSON-encoded EATs, the addition of further types is accomplished by augmenting the $JSON-Nested-Token-Or-Detached-Digest-Type and $JSON-Nested-Token-Or-Detached-Digest-Value sockets. For JSON-encoded EATs, Nested-Token is defined as a JSON-Nested-Token.
+For JSON-encoded EATs, the addition of further types is accomplished by augmenting the $JSON-Selector-Type and $JSON-Selector-Value sockets. For JSON-encoded EATs, Nested-Token is defined as a JSON-Nested-Token.
 
 ~~~~CDDL
 {::include nc-cddl/nested-token-json.cddl}
@@ -1090,7 +1090,7 @@ For JSON-encoded EATs, the addition of further types is accomplished by augmenti
 
 When decoding a JSON-encoded EAT, the type of submodule is determined as follows.
 A JSON object indicates the submodule is a Claims-Set.
-In all other cases, it is a JSON-Nested-Token-Or-Detached-Submodule-Digest, which is an array of two elements that indicates whether the submodule is a nested token or a Detached-Submodule-Digest.The first element in the array indicates the type present in the second element.
+In all other cases, it is a JSON-Selector, which is an array of two elements that indicates whether the submodule is a nested token or a Detached-Submodule-Digest.The first element in the array indicates the type present in the second element.
 If the value is “JWT”, “CBOR”, “BUNDLE” or a future-standardized token types, e.g., {{UCCS}}, the submodule is a nested token of the indicated type, i.e., JWT-Message, CBOR-Token-Inside-JSON-Token, Detached-EAT-Bundle, or a future type.
 If the value is "DIGEST", the submodule is a Detached-Submodule-Digest.
 Any other value indicates a standaridized extension to this specification.
