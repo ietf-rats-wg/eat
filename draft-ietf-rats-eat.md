@@ -403,6 +403,9 @@ Reference Values:
 Endorsement:
 : A secure statement that an Endorser vouches for the integrity of an attester's various capabilities such as claims collection and evidence signing.
 
+Socket Group:
+: refers to the mechanism by which a CDDL definition is extended, as described in [RFC8610] and [RFC]9165]
+
 # Top-Level Token Definition
 
 An EAT is a "message", a "token", or such whose content is a Claims-Set about an entity or some number of entities. An EAT MUST always contains a Claims-Set.
@@ -453,7 +456,7 @@ CDDL, along with a text description, is used to define each claim
 independent of encoding.  Each claim is defined as a CDDL group.
 In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
 
-Each claim defined in this document is added to the `$$Claims-Set-Claims` socket group. Claims defined by other specifications MUST also be added to the `$$Claims-Set-Claims` socket group.
+Each claim defined in this document is added to the `$$Claims-Set-Claims` socket group. Claims defined by other specifications MUST also be added to the `$$Claims-Set-Claims` socket group. 
 
 All claims in an EAT MUST use the same encoding except where otherwise explicitly stated (e.g., in a CBOR-encoded token, all claims must be CBOR-encoded).
 
