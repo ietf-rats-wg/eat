@@ -213,6 +213,7 @@ informative:
     target: https://ieeexplore.ieee.org/document/5412866
     date: February 2010
 
+  EAT.media-types: I-D.ietf-rats-eat-media-type
 
 --- abstract
 
@@ -320,7 +321,7 @@ The nested token and the enclosing token do not have to use the same encoding (e
 EAT adds the ability to detach claims sets and send them separately from a security enveloped EAT that contains a digest of the detached claims set.
 
 This document registers no media or content types for the identification of the type of EAT, its serialization format or security envelope.
-That is left for a follow-on document.
+The definition and registration of EAT media types is addressed in {{EAT.media-types}}.
 
 Finally, the notion of an EAT profile is introduced that facilitates the creation of narrowed definitions of EAT tokens for specific use cases in follow-on documents.
 
