@@ -208,7 +208,7 @@ informative:
 
   UCCS: I-D.ietf-rats-uccs
 
-  JTAG: 
+  JTAG:
     title: IEEE Standard for Reduced-Pin and Enhanced-Functionality Test Access Port and Boundary-Scan Architecture
     target: https://ieeexplore.ieee.org/document/5412866
     date: February 2010
@@ -373,7 +373,7 @@ Claim Name:
 : A unique text string that identifies the claim. It is used as the claim name for JSON encoding.
 
 Claim Key:
-: The CBOR map key used to identify a claim. (The term "Claim Key" comes from CWT. This document, like COSE, uses the term "label" to refer to CBOR map keys to avoid confusion with cryptographic keys.)  
+: The CBOR map key used to identify a claim. (The term "Claim Key" comes from CWT. This document, like COSE, uses the term "label" to refer to CBOR map keys to avoid confusion with cryptographic keys.)
 
 Claim Value:
 : The value portion of the claim. A claim value can be any CBOR data item or JSON value.
@@ -457,7 +457,7 @@ CDDL, along with a text description, is used to define each claim
 independent of encoding.  Each claim is defined as a CDDL group.
 In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
 
-Each claim defined in this document is added to the `$$Claims-Set-Claims` socket group. Claims defined by other specifications MUST also be added to the `$$Claims-Set-Claims` socket group. 
+Each claim defined in this document is added to the `$$Claims-Set-Claims` socket group. Claims defined by other specifications MUST also be added to the `$$Claims-Set-Claims` socket group.
 
 All claims in an EAT MUST use the same encoding except where otherwise explicitly stated (e.g., in a CBOR-encoded token, all claims must be CBOR-encoded).
 
@@ -1075,9 +1075,9 @@ The Detached-Submodule-Digest type is defined as follows:
 ~~~~
 
 Nested tokens can be one of three types as defined in this document or types standardized in follow-on documents (e.g., {{UCCS}}).
-Nested tokens are the only mechanism by which JSON can be embedded in CBOR and vice versa. 
+Nested tokens are the only mechanism by which JSON can be embedded in CBOR and vice versa.
 
-The addition of further types is accomplished by augmenting the $EAT-CBOR-Tagged-Token socket or the $JSON-Selector-Type and $JSON-Selector-Value sockets. 
+The addition of further types is accomplished by augmenting the $EAT-CBOR-Tagged-Token socket or the $JSON-Selector-Type and $JSON-Selector-Value sockets.
 
 When decoding a JSON-encoded EAT, the type of submodule is determined as follows.
 A JSON object indicates the submodule is a Claims-Set.
@@ -1137,7 +1137,7 @@ Detached Claims-Sets must not be modified in transit, else validation will fail.
 #### Nested Tokens {#Nested-Token}
 
 The CBOR-Nested-Token and JSON-Selector types provide a means of representing claims from a submodule that has its own attesting environment,
-i.e., it has keys distinct from the attester producing the surrounding token. Claims are represented in a signed EAT token. 
+i.e., it has keys distinct from the attester producing the surrounding token. Claims are represented in a signed EAT token.
 
 Inclusion of a signed EAT as a claim cryptographically binds the EAT to the surrounding token.
 If it was conveyed in parallel with the surrounding token, there would be no such binding and attackers could substitute a good attestation from another device for the attestation of an errant subsystem.
@@ -1171,7 +1171,7 @@ indicate their age is older than the "iat" timestamp.
 CWT allows the use floating-point for this claim. EAT disallows
 the use of floating-point. An EAT token MUST NOT contain an "iat" claim in
 floating-point format. Any recipient of a token with a floating-point
-format "iat" claim MUST consider it an error. 
+format "iat" claim MUST consider it an error.
 
 A 64-bit integer representation of the CBOR epoch-based time
 {{RFC8949}} used by this claim can represent a range of +/- 500
@@ -1328,7 +1328,7 @@ A profile should specify that the receiver be able to accept all length encoding
 
 This applies to individual EAT claims, CWT and COSE parts of the implementation.
 
-For most use cases, specifying that only definite-length arrays/maps may be sent is suitable. 
+For most use cases, specifying that only definite-length arrays/maps may be sent is suitable.
 
 
 ### CBOR String Encoding
@@ -1466,7 +1466,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 
 Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
 
-A profile that is similar to this can be defined and/or standardized by making normative reference to this and adding other requirements. 
+A profile that is similar to this can be defined and/or standardized by making normative reference to this and adding other requirements.
 Such a definition MUST have a different profile identifier.
 
 
@@ -2358,7 +2358,7 @@ EAT's definition of permanence is in terms of operations and device lifecycle.
 
 {{RFC8392}} was published before CDDL was available and thus is specified in prose, not CDDL.
 Following is CDDL specifying CWT as it is needed to complete this specification.
-This CDDL also covers the Claims-Set for JWT. 
+This CDDL also covers the Claims-Set for JWT.
 
 The COSE-related types in this CDDL are defined in {{RFC9052}}.
 
@@ -2530,4 +2530,3 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 
 Many thanks to the following contributors to draft versions of this
 document:
-
