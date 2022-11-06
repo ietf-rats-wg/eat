@@ -14,39 +14,39 @@
                             },
     / evidence /            3: {
         / ...file /             17: [
-	                            {
+                                    {
             / ...fs-name /              24: "acme_r_iot_os.exe",
-	    / ...size    /              20: 4502345,
-	    / ...hash    /               7: [
-	                                     1, / SHA-256 /
-	                                     h'05f6b327c173b419
-					       2bd2c3ec248a2922
-					       15eab456611bf7a7
-					       83e25c1782479905'
-					 ]
-	                            },
-	                            {
+            / ...size    /              20: 4502345,
+            / ...hash    /               7: [
+                                             1, / SHA-256 /
+                                             h'05f6b327c173b419
+                                               2bd2c3ec248a2922
+                                               15eab456611bf7a7
+                                               83e25c1782479905'
+                                         ]
+                                    },
+                                    {
             / ...fs-name /              24: "resources.rsc",
-	    / ...size    /              20: 800945,
-	    / ...hash    /               7: [
-	                                      1, / SHA-256 /
-	                                     h'c142b9aba4280c4b
-					       b8c75f716a43c995
-					       26694caabe529571
-					       f5569bb7dc542f98'
-					 ]
-				    },
-	                            {
+            / ...size    /              20: 800945,
+            / ...hash    /               7: [
+                                              1, / SHA-256 /
+                                             h'c142b9aba4280c4b
+                                               b8c75f716a43c995
+                                               26694caabe529571
+                                               f5569bb7dc542f98'
+                                         ]
+                                    },
+                                    {
             / ...fs-name /              24: "common.lib",
-	    / ...size    /              20: 2309435,
-	    / ...hash    /               7: [
-	                                     1, / SHA-256 /
-	                                     h'a6a9dcdfb3884da5
-					       f884e4e1e8e86299
-					       58c2dbc702741443
-					       a913e34de9333be6'
-				         ]
-				    }
-		                ]
+            / ...size    /              20: 2309435,
+            / ...hash    /               7: [
+                                             1, / SHA-256 /
+                                             h'a6a9dcdfb3884da5
+                                               f884e4e1e8e86299
+                                               58c2dbc702741443
+                                               a913e34de9333be6'
+                                         ]
+                                    }
+                                ]
                             }
 })

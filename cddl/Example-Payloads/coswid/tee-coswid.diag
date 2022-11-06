@@ -16,10 +16,10 @@
         / entity-name /                31: "Acme TEE OS",
         / role        /                33: 2 / software-creator /
                                    }
-			       ],
+                               ],
     / payload /                6: {
         / ...file /                17: {
             / ...fs-name /             24: "acme_tee_3.exe"
-	                           }
+                                   }
                                }
 })
