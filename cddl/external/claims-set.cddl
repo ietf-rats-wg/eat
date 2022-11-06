@@ -26,6 +26,5 @@ cti-claim-label = CBOR-ONLY<7>  ; jti in JWT: different name and text
 JSON-ONLY<J> = J .feature "json"
 CBOR-ONLY<C> = C .feature "cbor"
 
-; Be sure to have cddl 0.8.29 or higher for this to work
 JC<J,C> = JSON-ONLY<J> / CBOR-ONLY<C>
 
