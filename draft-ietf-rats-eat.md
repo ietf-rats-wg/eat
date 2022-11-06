@@ -1,7 +1,9 @@
 ---
-stand_alone: true
-ipr: trust200902
+v: 3
+
 cat: std
+consensus: true
+stream: IETF
 
 docname: draft-ietf-rats-eat-latest
 
@@ -69,13 +71,11 @@ contributor:
 - name: Paul Crowley
 
 normative:
-  RFC2119:
   RFC7515:
   RFC8949: cbor
   RFC7252:
   RFC7519:
   RFC8126:
-  RFC8174:
   RFC8259:
   RFC8392:
   RFC8610: cddl
@@ -110,7 +110,7 @@ normative:
     target: https://www.iana.org/assignments/cose/
     title: "COSE Algorithms"
     author:
-    -org: IANA
+    - org: IANA
     date: false
 
   ThreeGPP.IMEI:
@@ -1152,7 +1152,7 @@ The claims in this section provide meta data about the token they occur in.
 They do not describe the entity.
 
 They may appear in evidence or attestation results.
-When these claims appear in evidence, they SHOULD not be passed through the verifier into attestation results.
+When these claims appear in evidence, they SHOULD NOT be passed through the verifier into attestation results.
 
 
 ### iat (Timestamp) Claim
