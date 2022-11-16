@@ -1628,7 +1628,12 @@ The "bootseed" claim is effectively a stable entity identifier within a given bo
 
 ## Replay Protection and Privacy {#replayprivacyconsiderations}
 
-EAT defines the nonce claim for token replay protection (also sometimes known as token "freshness"). The nonce claim is based on a value that is usually derived remotely (outside of the entity). This claim can be used to extract and convey personally-identifying information either inadvertently or by intention. For instance, an implementor may choose a nonce that is equivalent to a username associated with the device (e.g., account login). If the token is inspected by a 3rd-party then this information could be used to identify the source of the token or an account associated with the token. In order to avoid the conveyance of privacy-related information in the nonce claim, it should be derived using a salt that originates from a true and reliable random number generator or any other source of randomness that would still meet the target system requirements for replay protection.
+EAT defines the nonce claim for replay protection and token freshness.
+The nonce claim is based on a value usually derived remotely (outside of the entity).
+This claim might be used to extract and convey personally identifying information either inadvertently or by intention.
+For instance, an implementor may choose a nonce equivalent to a username associated with the device (e.g., account login).
+If the token is inspected by a 3rd-party then this information could be used to identify the source of the token or an account associated with the token.
+To avoid the conveyance of privacy-related information in the nonce claim, it should be derived using a salt that originates from a true and reliable random number generator or any other source of randomness that would still meet the target system requirements for replay protection and token freshness.
 
 # Security Considerations {#securitycons}
 
