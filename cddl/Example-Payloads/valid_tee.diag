@@ -2,7 +2,7 @@
 
 {
     / eat_nonce /       10: h'948f8860d13a463e',
-    / secboot /        262: true,
+    / oemboot /        262: true,
     / dbgstat /        263: 2, / disabled-since-boot /
     / manifests /      273: [
                               [

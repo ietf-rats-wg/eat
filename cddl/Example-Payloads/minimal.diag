@@ -1,4 +1,4 @@
 {
     / eat_nonce /        10: h'948f8860d13a463e8e',
-    / secboot /         262: true
+    / oemboot /         262: true
 }

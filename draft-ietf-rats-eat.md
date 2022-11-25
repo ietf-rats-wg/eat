@@ -732,17 +732,17 @@ A full CoSWID manifest or other type of manifest can be instead if this is too s
 ~~~~
 
 
-### secboot (Secure Boot) Claim
+### oemboot (OEM Authorized Boot) Claim
 
-A "secboot" claim with value of true indicates secure boot is enabled. Secure boot is
-considered enabled when the firmware and operating
-system, are under control of the manufacturer of the entity identified in the
-"oemid" claim described in {{oemid}}.
-Control by the manufacturer of the firmware and the operating system may be by it being in ROM, being cryptographically authenticated, a combination of the two or similar.
+An "oemboot" claim with value of true indicates the entity booted with software authorized by the manufacturer of the entity as indicated by the "oemid" claim described in {{oemid}}.
+It indicates the firmware and operating system are fully under control of the OEM and may not be replaced by the end user or even the enterprise that owns the device.
+The means of control may be by cryptographic authentication of the software, by the software being in ROM, a combination of the two or other.
+If this claim is present the "oemid" claim SHOULD always also be present.
 
 ~~~~CDDL
-{::include nc-cddl/secure-boot.cddl}
+{::include nc-cddl/oem-boot.cddl}
 ~~~~
+
 
 ### dbgstat (Debug Status) Claim
 
@@ -2525,6 +2525,9 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Say that submodules can be used in evidence or results + other guidance
 - General edits to the submodules section
 - Change the way detached digests are identified in JSON-encoded tokens
+
+## From draft-ietf-rats-eat-17
+- Rename secboot to oemboot and describe it as OEM Authorized Boot
 
 --- contributor
 
