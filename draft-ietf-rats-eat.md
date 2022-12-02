@@ -1221,9 +1221,8 @@ consumer.  Examples include key material or device management trees.  The consum
 may require an EAT to assess entity security state of the entity prior to provisioning.
 
 4 -- Certificate Issuance:
-: Certification Authorities (CA's) may require Attestation Results (which in a Background Check model might require receiving Evidence to be passed to a Verifier) to make 
-decisions about the issuance of certificates.  An
-EAT may be used as part of the certificate signing request (CSR).
+: Certificate authorities (CA's) may require attestation results (which in a background check model might require receiving evidence to be passed to a certifier) to make decisions about the issuance of certificates.
+An EAT may be used as part of the certificate signing request (CSR).
 
 5 -- Proof-of-Possession:
 : An EAT consumer may require an attestation as part of an accompanying
@@ -2522,17 +2521,10 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-
-## From draft-ietf-rats-eat-16
-- Add some references to CBOR and CDDL RFCs when introducing terms, examples, ...
-- Minor wording improvements in section 6 on profiles.
-- Clarifications on non-mixing of encoding formats in detached EAT bundles
-- Say that submodules can be used in evidence or results + other guidance
-- General edits to the submodules section
-- Change the way detached digests are identified in JSON-encoded tokens
-
 ## From draft-ietf-rats-eat-17
 - Rename secboot to oemboot and describe it as OEM Authorized Boot
+- Replace use of "attestations" in intended use claim
+- Be clear about nonce providing freshness and replay protection in privacy considerations section
 
 --- contributor
 
