@@ -1,6 +1,6 @@
 {
    "eat_nonce": "jkd8KL-8=Qlzg4",
-   "secboot": true,
+   "oemboot": true,
    "dbgstat": "disabled-since-boot",
    "oemid": "iUWt",
    "ueid": "AZj1Ck_2wFhhyIYNE6Y4",

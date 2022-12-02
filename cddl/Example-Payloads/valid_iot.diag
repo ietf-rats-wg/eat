@@ -6,13 +6,13 @@
 
 {
     / eat_nonce / 10: h'948f8860d13a463e',
-    / secboot /  262: true,
+    / oemboot /  262: true,
     / dbgstat /  263: 2, / disabled-since-boot /
     / oemid /    258: h'8945ad', / IEEE CID based /
     / ueid /     256: h'0198f50a4ff6c05861c8860d13a638ea', 
     / submods /  266: {
                         "OS" : {
-        / secboot /         262: true,
+        / oemboot /         262: true,
         / dbgstat /         263: 2, / disabled-since-boot /
         / measurements /    274: [
                                    [
