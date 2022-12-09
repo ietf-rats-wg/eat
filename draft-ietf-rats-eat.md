@@ -1516,14 +1516,14 @@ They are just text strings that contain a URI.
 
 ### JSON Interoperability {#jsoninterop}
 
-JSON should be encoded per {{RFC8610}} Appendix E. In addition, the
+JSON should be encoded per {{RFC8610}}, Appendix E. In addition, the
 following CDDL types are encoded in JSON as follows:
 
-* bstr -- must be base64url encoded
-* time -- must be encoded as NumericDate as described section 2 of {{RFC7519}}.
-* string-or-uri -- must be encoded as StringOrURI as described section 2 of {{RFC7519}}.
-* uri -- must be a URI {{RFC3986}}.
-* oid -- encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").
+* bstr -- MUST be base64url encoded
+* time -- MUST be encoded as NumericDate as described in Section 2 of {{RFC7519}}.
+* string-or-uri -- MUST be encoded as StringOrURI as described in Section 2 of {{RFC7519}}.
+* uri -- MUST be a URI {{RFC3986}}.
+* oid -- MUST be encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").
 
 The CDDL generic "JC< >" is used in most places where there is a variance between CBOR and JSON.
 The first argument is the CDDL for JSON and the second is CDDL for CBOR.
