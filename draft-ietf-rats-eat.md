@@ -1221,7 +1221,7 @@ consumer.  Examples include key material or device management trees.  The consum
 may require an EAT to assess entity security state of the entity prior to provisioning.
 
 4 -- Certificate Issuance:
-: Certificate authorities (CA's) may require attestation results (which in a background check model might require receiving evidence to be passed to a certifier) to make decisions about the issuance of certificates.
+: Certification Authorities (CA's) may require attestation results (which in a background check model might require receiving evidence to be passed to a verifier) to make decisions about the issuance of certificates.
 An EAT may be used as part of the certificate signing request (CSR).
 
 5 -- Proof-of-Possession:
