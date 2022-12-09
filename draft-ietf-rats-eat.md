@@ -1619,7 +1619,7 @@ globally universal across manufacturers.
 Geographic location is most always considered personally identifiable information.
 Implementers should consider laws and regulations governing the transmission of location data from end user devices to servers and services.
 Implementers should consider using location management facilities offered by the operating system on the entity generating the attestation.
-For example, many mobile phones prompt the user for permission when before sending location data.
+For example, many mobile phones prompt the user for permission before sending location data.
 
 ## Boot Seed Privacy Considerations {#bootseedprivacyconsiderations}
 
