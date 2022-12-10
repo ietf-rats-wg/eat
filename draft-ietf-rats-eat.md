@@ -1549,7 +1549,7 @@ When there is variation between CBOR and JSON, the JC<> CDDL generic defined in 
 
 This CDDL uses, but doesn't define Submodule or nested tokens because the definition for these types varies between CBOR and JSON and the JC<> generic can't be used to define it.
 The submodule claim is the one place that that a CBOR token can be nested inside a JSON token and vice versa.
-Encoding-specific defintiions are provided in the following sections.
+Encoding-specific definitions are provided in the following sections.
 
 ~~~~CDDL
 {::include nc-cddl/common.cddl}
