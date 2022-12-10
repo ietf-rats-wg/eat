@@ -554,7 +554,7 @@ UEIDs are not designed for direct use by humans (e.g., printing on
 the case of a device), so no textual representation is defined.
 
 The consumer of a UEID MUST treat a UEID as a
-completely opaque string of bytes and NOT make any use of its internal
+completely opaque string of bytes and MUST NOT make any use of its internal
 structure. For example, they should not use the OUI part of a type
 0x02 UEID to identify the manufacturer of the entity. Instead, they
 should use the "oemid" claim. See {{oemid}}. The reasons for
