@@ -154,7 +154,7 @@ normative:
     target: <https://www.iana.org/assignments/core-parameters>
 
 
-  SUIT.Manifest: I-D.draft-ietf-suit-manifest
+  SUIT.Manifest: I-D.ietf-suit-manifest
 
 
 informative:
@@ -1155,7 +1155,7 @@ They may appear in evidence or attestation results.
 When these claims appear in evidence, they SHOULD NOT be passed through the verifier into attestation results.
 
 
-### iat (Timestamp) Claim
+### iat (Timestamp) Claim {#iat-claim}
 
 The "iat" claim defined in CWT and JWT is used to indicate the
 date-of-creation of the token, the time at which the claims are
@@ -2364,6 +2364,8 @@ EAT's definition of permanence is in terms of operations and device lifecycle.
 Following is CDDL specifying CWT as it is needed to complete this specification.
 This CDDL also covers the Claims-Set for JWT.
 
+Note that {{iat-claim}} requires that the iat claim be the type ~time-int, not the type ~time when it is used in an EAT as floating-point values are not allowed for the "iat" claim in EAT.
+
 The COSE-related types in this CDDL are defined in {{RFC9052}}.
 
 This however is NOT a normative or standard definition of CWT or JWT in CDDL.
@@ -2521,10 +2523,8 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-17
-- Rename secboot to oemboot and describe it as OEM Authorized Boot
-- Replace use of "attestations" in intended use claim
-- Be clear about nonce providing freshness and replay protection in privacy considerations section
+## From draft-ietf-rats-eat-18
+- Add paragraph to appendix D noting that the "iat" claim is ~time-int
 
 --- contributor
 
