@@ -1458,15 +1458,15 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | COSE Protection | Only COSE_Sign1 format is used |
 | Algorithms | Receiver MUST accept ES256, ES384 and ES512; sender MUST send one of these |
 | Detached EAT Bundle Usage | Detached EAT bundles may not be sent with this profile |
-| Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verication key. If both are present, the kid takes precedence |
+| Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verification key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce MUST be used for every token request |
 | Claims | No requirement is made on the presence or absence of claims other than requiring an EAT nonce. As per general EAT rules, the receiver MUST NOT error out on claims it doesn't understand. |
 
-Strictly speaking, slight modifications such use of a different means of key identification are a divergence from this profile and MUST use a different profile identifier.
+Strictly speaking, even slight modifications, such as the use of a different means of key identification, are a divergence from this profile and require allocation of a different profile identifier.
 
-A profile that is similar to this can be defined and/or standardized by making normative reference to this and adding other requirements.
-Such a definition MUST have a different profile identifier.
+A profile that is similar to this can be defined and/or standardized by making normative reference to this section and adding requirements.
+Such a profile MUST have a different profile identifier.
 
 
 # Encoding and Collected CDDL {#encoding}
