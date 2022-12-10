@@ -520,7 +520,7 @@ as tokens are intended to be embedded in many different protocols and
 systems. No two products anywhere, even in completely different
 industries made by two different manufacturers in two different
 countries should have the same UEID (if they are not global and
-universal in this way, then Relying Parties receiving them will have
+universal in this way, then relying parties receiving them will have
 to track other characteristics of the entity to keep entities distinct
 between manufacturers).
 
@@ -1577,7 +1577,7 @@ unauthenticated consumers.
 
 ## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
 
-A UEID is usually not privacy-preserving. Relying Parties
+A UEID is usually not privacy-preserving. Relying parties
 receiving tokens that happen to be from a particular entity will be
 able to know the tokens are  from the same entity and be able to
 identify the entity issuing those tokens.
@@ -1603,8 +1603,8 @@ and brokerage services might already cover use of a UEID/SUEID.
 case. It is used only by one relying party.
 
 * The entity authenticates the relying party and generates a derived
-UEID/SUEID just for that particular relying party.  For example, the Relying
-Party could prove their identity cryptographically to the entity, then
+UEID/SUEID just for that particular relying party.  For example, the relying
+party could prove their identity cryptographically to the entity, then
 the entity generates a UEID just for that relying party by hashing a
 proofed relying party ID with the main entity UEID/SUEID.
 
@@ -2390,7 +2390,7 @@ Much of this guidance is generic and could also be considered when designing new
 
 ## Interoperability and Relying Party Orientation
 
-It is a broad goal that EATs can be processed by Relying Parties in a general way regardless of the type, manufacturer or technology of the device from which they originate.
+It is a broad goal that EATs can be processed by relying parties in a general way regardless of the type, manufacturer or technology of the device from which they originate.
 It is a goal that there be general-purpose verification implementations that can verify tokens for large numbers of use cases with special cases and configurations for different device types.
 This is a goal of interoperability of the semantics of claims themselves, not just of the signing, encoding and serialization formats.
 
