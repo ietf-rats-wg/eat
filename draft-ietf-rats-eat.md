@@ -1248,7 +1248,7 @@ A detached EAT bundle consists of two parts.
 The first part is a full top-level token.
 This top-level token MUST have at least one submodule that is a detached digest.
 This top-level token may be either CBOR or JSON-encoded.
-It MAY be a CWT, or JWT but NOT a detached EAT bundle.
+It MAY be a CWT, or JWT but MUST NOT a detached EAT bundle.
 It MAY also be some future-defined token type.
 The same mechanism for distinguishing the type for nested token submodules is employed here.
 
