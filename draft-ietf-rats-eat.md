@@ -1733,7 +1733,7 @@ of sufficient cryptographic strength.
 ## Reuse of CBOR and JSON Web Token (CWT and JWT) Claims Registries
 
 Claims defined for EAT are compatible with those of CWT and JWT
-so the CWT and JWT Claims Registries, {{IANA.CWT.Claims}} and {{IANA.JWT.Claims}}, are re used. No new IANA registry
+so the CWT and JWT Claims Registries, {{IANA.CWT.Claims}} and {{IANA.JWT.Claims}}, are re-used. No new IANA registry
 is created.
 
 All EAT claims defined in this document are placed in both registries.
