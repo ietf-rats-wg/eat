@@ -1221,7 +1221,7 @@ consumer.  Examples include key material or device management trees.  The consum
 may require an EAT to assess entity security state of the entity prior to provisioning.
 
 4 -- Certificate Issuance:
-: Certification Authorities (CA's) may require attestation results (which in a background check model might require receiving evidence to be passed to a verifier) to make decisions about the issuance of certificates.
+: Certification Authorities (CAs) may require attestation results (which in a background check model might require receiving evidence to be passed to a verifier) to make decisions about the issuance of certificates.
 An EAT may be used as part of the certificate signing request (CSR).
 
 5 -- Proof-of-Possession:
@@ -1248,7 +1248,7 @@ A detached EAT bundle consists of two parts.
 The first part is a full top-level token.
 This top-level token MUST have at least one submodule that is a detached digest.
 This top-level token may be either CBOR or JSON-encoded.
-It MAY be a CWT, or JWT but MUST NOT a detached EAT bundle.
+It MAY be a CWT, or JWT but MUST NOT be a detached EAT bundle.
 It MAY also be some future-defined token type.
 The same mechanism for distinguishing the type for nested token submodules is employed here.
 
