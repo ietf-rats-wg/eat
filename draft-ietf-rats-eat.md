@@ -1725,7 +1725,7 @@ an unsigned claims set as per {{DEB}} .  Although the attached claims set is vul
 modification in transit, any modification can be detected by the receiver through the associated
 digest, which is a claim fully contained within an EAT.  Moreover, the digest itself can only be derived using
 an appropriate COSE hash algorithm, implying that an attacker cannot induce false detection
-of a modifie detached claims because the algorithms in the COSE registry are assumed to be
+of a modified detached claims because the algorithms in the COSE registry are assumed to be
 of sufficient cryptographic strength.
 
 # IANA Considerations
