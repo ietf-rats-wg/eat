@@ -1708,12 +1708,12 @@ multiple claims.  A consumer may receive the EAT (denoted as the
 then pass specific subsets of claims to other consumers for evaluation
 ("downstream consumers").  Since any COSE encryption will be removed
 by the receiving consumer, the communication of claim subsets to any
-downstream consumer should leverage a secure protocol (e.g.one that
-uses transport-layer security, i.e. TLS),
+downstream consumer should leverage a communication security protocol
+(e.g. Transport Layer Security).
 
 However, assume the EAT of the previous example is hierarchical and
 each claim subset for a downstream consumer is created in the form of
-a nested EAT.  Then transport security between the receiving and
+a nested EAT.  Then, Transport Layer Security between the receiving and
 downstream consumers is not strictly required.  Nevertheless,
 downstream consumers of a nested EAT should provide a nonce unique to
 the EAT they are consuming.
