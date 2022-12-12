@@ -2364,7 +2364,7 @@ EAT's definition of permanence is in terms of operations and device lifecycle.
 Following is CDDL specifying CWT as it is needed to complete this specification.
 This CDDL also covers the Claims-Set for JWT.
 
-Note that {{iat-claim}} requires that the iat claim be the type ~time-int, not the type ~time when it is used in an EAT as floating-point values are not allowed for the "iat" claim in EAT.
+Note that {{iat-claim}} requires that the iat claim be the type ~time-int ({{common-types}}), not the type ~time when it is used in an EAT as floating-point values are not allowed for the "iat" claim in EAT.
 
 The COSE-related types in this CDDL are defined in {{RFC9052}}.
 
