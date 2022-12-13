@@ -1149,10 +1149,7 @@ Thus, a CBOR-encoded EAT can have a JSON-encoded EAT as a nested token and vice 
 ## Claims Describing the Token
 
 The claims in this section provide meta data about the token they occur in.
-They do not describe the entity.
-
-They may appear in evidence or attestation results.
-When these claims appear in evidence, they SHOULD NOT be passed through the verifier into attestation results.
+They do not describe the entity. They may appear in evidence or attestation results.
 
 
 ### iat (Timestamp) Claim
