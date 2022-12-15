@@ -1,15 +1,18 @@
 ---
 v: 3
 
+title: The Entity Attestation Token (EAT)
+abbrev: EAT
+docname: draft-ietf-rats-eat-latest
 cat: std
+
 consensus: true
 stream: IETF
+ipr: trust200902
+area: Security
+wg: RATS
+kw: signing attestation cbor
 
-docname: draft-ietf-rats-eat-latest
-
-wg: RATS Working Group
-# consensus: 'yes'
-# submissiontype: IETF
 pi:
   toc: 'yes'
   tocdepth: '4'
@@ -18,11 +21,9 @@ pi:
   compact: 'yes'
   subcompact: 'no'
   rfcedstyle: 'yes'
-title: The Entity Attestation Token (EAT)
-abbrev: EAT
-area: Internet
-kw: signing attestation cbor
-# date: 2013-10
+
+
+
 author:
 - ins: L. Lundblade
   name: Laurence Lundblade
