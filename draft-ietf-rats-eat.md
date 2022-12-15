@@ -169,7 +169,7 @@ informative:
     target: https://standards.ieee.org/products-services/regauth/index.html
     date: false
 
-  IEEE.802-2001: DOI.10.1109/IEEESTD.1990.122158
+  IEEE.802-2001: DOI.10.1109/IEEESTD.2014.6847097
 
   COSE.X509.Draft: I-D.ietf-cose-x509
 
