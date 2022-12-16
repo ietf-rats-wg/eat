@@ -1,15 +1,18 @@
 ---
 v: 3
 
+title: The Entity Attestation Token (EAT)
+abbrev: EAT
+docname: draft-ietf-rats-eat-latest
 cat: std
+
 consensus: true
 stream: IETF
+ipr: trust200902
+area: Security
+wg: RATS
+kw: signing attestation cbor
 
-docname: draft-ietf-rats-eat-latest
-
-wg: RATS Working Group
-# consensus: 'yes'
-# submissiontype: IETF
 pi:
   toc: 'yes'
   tocdepth: '4'
@@ -18,11 +21,9 @@ pi:
   compact: 'yes'
   subcompact: 'no'
   rfcedstyle: 'yes'
-title: The Entity Attestation Token (EAT)
-abbrev: EAT
-area: Internet
-kw: signing attestation cbor
-# date: 2013-10
+
+
+
 author:
 - ins: L. Lundblade
   name: Laurence Lundblade
@@ -92,26 +93,11 @@ normative:
     - org: National Geospatial-Intelligence Agency (NGA)
     date: 2014-07-08
 
-  IANA.CWT.Claims:
-    target: http://www.iana.org/assignments/cwt
-    title: CBOR Web Token (CWT) Claims
-    author:
-    - org: IANA
-    date: false
+  IANA.CWT.Claims: IANA.cwt
 
-  IANA.JWT.Claims:
-     target: https://www.iana.org/assignments/jwt
-     title: JSON Web Token (JWT) Claims
-     author:
-     - org: IANA
-     date: false
+  IANA.JWT.Claims: IANA.jwt
 
-  IANA.COSE.Algorithms:
-    target: https://www.iana.org/assignments/cose/
-    title: "COSE Algorithms"
-    author:
-    - org: IANA
-    date: false
+  IANA.COSE.Algorithms: IANA.cose
 
   ThreeGPP.IMEI:
     target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=729
@@ -134,9 +120,6 @@ normative:
 
 
   IANA.cbor-tags:
-    title: IANA CBOR Tags Registry
-    target: https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml
-
 
   SPDX:
     title: Software Package Data Exchange (SPDX)
@@ -150,11 +133,8 @@ normative:
 
 
   IANA.core-parameters:
-    title: IANA Constrained RESTful Environments (CoRE) Parameters
-    target: <https://www.iana.org/assignments/core-parameters>
 
-
-  SUIT.Manifest: I-D.draft-ietf-suit-manifest
+  SUIT.Manifest: I-D.ietf-suit-manifest
 
 
 informative:
@@ -170,17 +150,9 @@ informative:
     target: https://en.wikipedia.org/wiki/Birthday_attack.
     date: false
 
-  IEEE.802.1AR:
-    title: IEEE Standard, "IEEE 802.1AR Secure Device Identifier"
-    date: December 2009
-    target: http://standards.ieee.org/findstds/standard/802.1AR-2009.html
+  IEEE.802.1AR: DOI.10.1109/IEEESTD.2018.8423794
 
-  W3C.GeoLoc:
-    title: Geolocation API Specification 2nd Edition
-    date: January 2018
-    target: https://www.w3.org/TR/geolocation-API/#coordinates_interface
-    author:
-    - org: Worldwide Web Consortium
+  W3C.GeoLoc: W3C.REC-geolocation-API-20131024
 
   OUI.Guide:
     title: Guidelines for Use of Extended Unique Identifier (EUI), Organizationally Unique Identifier (OUI), and Company ID (CID)
@@ -192,15 +164,12 @@ informative:
     target: https://regauth.standards.ieee.org/standards-ra-web/pub/view.html#registries
     date: false
 
-  IEEE.RA:
+  IEEE-RA:
     title: IEEE Registration Authority
     target: https://standards.ieee.org/products-services/regauth/index.html
     date: false
 
-  IEEE.802-2001:
-    title: IEEE Standard For Local And Metropolitan Area Networks Overview And Architecture
-    target: https://webstore.ansi.org/standards/ieee/ieee8022001r2007
-    date: 2007
+  IEEE.802-2001: DOI.10.1109/IEEESTD.2014.6847097
 
   COSE.X509.Draft: I-D.ietf-cose-x509
 
@@ -635,7 +604,7 @@ In JSON format tokens this MUST be base64url encoded.
 The IEEE operates a global registry for MAC addresses and company IDs.
 This claim uses that database to identify OEMs. The contents of the
 claim may be either an IEEE MA-L, MA-M, MA-S or an IEEE CID
-{{IEEE.RA}}.  An MA-L, formerly known as an OUI, is a 24-bit value
+{{IEEE-RA}}.  An MA-L, formerly known as an OUI, is a 24-bit value
 used as the first half of a MAC address. MA-M similarly is a 28-bit
 value uses as the first part of a MAC address, and MA-S, formerly
 known as OUI-36, a 36-bit value.  Many companies already have purchased
@@ -1152,7 +1121,7 @@ The claims in this section provide meta data about the token they occur in.
 They do not describe the entity. They may appear in evidence or attestation results.
 
 
-### iat (Timestamp) Claim
+### iat (Timestamp) Claim {#iat-claim}
 
 The "iat" claim defined in CWT and JWT is used to indicate the
 date-of-creation of the token, the time at which the claims are
@@ -2361,6 +2330,8 @@ EAT's definition of permanence is in terms of operations and device lifecycle.
 Following is CDDL specifying CWT as it is needed to complete this specification.
 This CDDL also covers the Claims-Set for JWT.
 
+Note that {{iat-claim}} requires that the iat claim be the type ~time-int ({{common-types}}), not the type ~time when it is used in an EAT as floating-point values are not allowed for the "iat" claim in EAT.
+
 The COSE-related types in this CDDL are defined in {{RFC9052}}.
 
 This however is NOT a normative or standard definition of CWT or JWT in CDDL.
@@ -2520,6 +2491,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 
 ## From draft-ietf-rats-eat-18
 - Remove sentence discussing pass through of claims about the token in section 4.3
+- Add paragraph to appendix D noting that the "iat" claim is ~time-int
 
 --- contributor
 
