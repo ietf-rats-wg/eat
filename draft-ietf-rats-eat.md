@@ -1711,7 +1711,7 @@ All new EAT claims defined subsequently should be placed in both registries.
 {{Claim_Characteristics}} describes some considerations when defining new claims.
 
 
-## Claims Registered by This Document
+## CWT and JWT Claims Registered by This Document
 
 This specification adds the following values to the "JSON Web Token
 Claims" registry established by {{RFC7519}} and the "CBOR Web Token Claims Registry"
@@ -1723,25 +1723,19 @@ The "Claim Key" and "Claim Value Types(s)" are for the CWT registry only.
 The "Claim Name" is as defined for the CWT registry, not the JWT registry.
 The "JWT Claim Name" is equivalent to the "Claim Name" in the JWT registry.
 
-### Claims for Early Assignment
-RFC Editor: in the final publication this section should be combined with the following
-section as it will no longer be necessary to distinguish claims with early assignment.
-Also, the following paragraph should be removed.
+IANA is requested to register the following claims.
 
-The claims in this section have been (requested for / given) early assignment according to {{RFC7120}}.
-They have been assigned values and registered before final publication of this document.
-While their semantics is not expected to change in final publication, it is possible that they will.
-The JWT Claim Names and CWT Claim Keys are not expected to change.
-
-In draft -06 an early allocation was described.
-The processing of that early allocation was never correctly completed.
-This early allocation assigns different numbers for the CBOR claim labels.
-This early allocation will presumably complete correctly
+RFC Editor: Please make the following adjustments and remove this paragraph.
+Replace "__this document__" with this RFC number.
+In the following, the claims with "Claim Key: TBD" need to be assigned a value in the Specification Required Range, preferrably starting around 267.
+Those below already with a Claim Key number were given early assignment.
+No change is requested for them except for Claim Key 262.
+Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and it's description changed in both the CWT and JWT registries.
 
 * Claim Name: Nonce
 * Claim Description: Nonce
 * JWT Claim Name: "eat_nonce"
-* Claim Key: TBD (requested value 10)
+* Claim Key: 10
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1751,7 +1745,7 @@ This early allocation will presumably complete correctly
 * Claim Name: UEID
 * Claim Description: The Universal Entity ID
 * JWT Claim Name: "ueid"
-* CWT Claim Key: TBD (requested value 256)
+* CWT Claim Key: 256
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1761,7 +1755,7 @@ This early allocation will presumably complete correctly
 * Claim Name: SUEIDs
 * Claim Description: Semi-permanent UEIDs
 * JWT Claim Name: "sueids"
-* CWT Claim Key: TBD (requested value 257)
+* CWT Claim Key: 257
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1771,7 +1765,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Hardware OEMID
 * Claim Description: Hardware OEM ID
 * JWT Claim Name: "oemid"
-* Claim Key: TBD (requeste value 258)
+* Claim Key: 258
 * Claim Value Type(s): byte string or integer
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1781,7 +1775,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Hardware Model
 * Claim Description: Model identifier for hardware
 * JWT Claim Name: "hwmodel"
-* Claim Key: TBD (requested value 259)
+* Claim Key: 259
 * Claim Value Type(s): byte string
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1791,16 +1785,16 @@ This early allocation will presumably complete correctly
 * Claim Name: Hardware Version
 * Claim Description: Hardware Version Identifier
 * JWT Claim Name: "hwversion"
-* Claim Key: TBD (requested value 260)
+* Claim Key: TBD 260
 * Claim Value Type(s): array
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Secure Boot
-* Claim Description: Indicate whether the boot was secure
-* JWT Claim Name: "secboot"
+* Claim Name: OEM Authortised Boot
+* Claim Description: Indicate whether the software booted was OEM authorized
+* JWT Claim Name: "oemboot"
 * Claim Key: 262
 * Claim Value Type(s): Boolean
 * Change Controller: IESG
@@ -1821,7 +1815,7 @@ This early allocation will presumably complete correctly
 * Claim Name: Location
 * Claim Description: The geographic location
 * JWT Claim Name: "location"
-* Claim Key: TBD (requested value 264)
+* Claim Key: 264
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1831,7 +1825,7 @@ This early allocation will presumably complete correctly
 * Claim Name: EAT Profile
 * Claim Description: Indicates the EAT profile followed
 * JWT Claim Name: "eat_profile"
-* Claim Key: TBD (requested value 265)
+* Claim Key: 265
 * Claim Value Type(s): URI or OID
 * Change Controller: IESG
 * Specification Document(s): __this document__
@@ -1841,14 +1835,10 @@ This early allocation will presumably complete correctly
 * Claim Name: Submodules Section
 * Claim Description: The section containing submodules
 * JWT Claim Name: "submods"
-* Claim Key: TBD (requested value 266)
+* Claim Key: 266
 * Claim Value Type(s): map
 * Change Controller: IESG
 * Specification Document(s): __this document__
-
-### To be Assigned Claims
-
-(Early assignment is NOT requested for these claims. Implementers should be aware they may change)
 
 &nbsp;
 
@@ -1862,21 +1852,21 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: Boot Seed
-* Claim Description: Identifies a boot cycle
-* JWT Claim Name: "bootseed"
+* Claim Name: Boot Count
+* Claim Description: The number times the entity or submodule has been booted
+* JWT Claim Name: "bootcount"
 * Claim Key: TBD
-* Claim Value Type(s): bytes
+* Claim Value Type(s): uint
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
 &nbsp;
 
-* Claim Name: Intended Use
-* Claim Description: Indicates intended use of the EAT
-* JWT Claim Name: "intuse"
+* Claim Name: Boot Seed
+* Claim Description: Identifies a boot cycle
+* JWT Claim Name: "bootseed"
 * Claim Key: TBD
-* Claim Value Type(s): integer or string
+* Claim Value Type(s): bytes
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
@@ -1942,16 +1932,17 @@ This early allocation will presumably complete correctly
 
 &nbsp;
 
-* Claim Name: Boot Count
-* Claim Description: The number times the entity or submodule has been booted
-* JWT Claim Name: "bootcount"
+* Claim Name: Intended Use
+* Claim Description: Indicates intended use of the EAT
+* JWT Claim Name: "intuse"
 * Claim Key: TBD
-* Claim Value Type(s): uint
+* Claim Value Type(s): integer or string
 * Change Controller: IESG
 * Specification Document(s): __this document__
 
 
-### UEID URN Registered by this Document {#registerueidurn}
+
+## UEID URN Registered by this Document {#registerueidurn}
 
 IANA is requested to register the following new subtypes in the "DEV URN Subtypes" registry under "Device Identification". See {{RFC9039}}.
 
@@ -1960,7 +1951,7 @@ IANA is requested to register the following new subtypes in the "DEV URN Subtype
 | sueid   | Semi-permanent Universal Entity Identifier | This document |
 
 
-### Tag for Detached EAT Bundle
+## CBOR Tag for Detached EAT Bundle Registered by this Document
 
 In the registry {{IANA.cbor-tags}}, IANA is requested to allocate the
 following tag from the  FCFS space, with the present document as the
@@ -1970,7 +1961,7 @@ specification reference.
 | TBD602 | array          | Detached EAT Bundle {{DEB}} |
 
 
-### Media Types Registered by this Document
+## Media Types Registered by this Document
 
 It is requested that the CoAP Content-Format for SPDX and CycloneDX be been registered in the "CoAP Content-Formats" subregistry within the "Constrained RESTful Environments (CoRE) Parameters" registry [IANA.core-parameters]:
 
