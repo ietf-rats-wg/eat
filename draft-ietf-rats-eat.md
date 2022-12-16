@@ -2518,10 +2518,8 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-17
-- Rename secboot to oemboot and describe it as OEM Authorized Boot
-- Replace use of "attestations" in intended use claim
-- Be clear about nonce providing freshness and replay protection in privacy considerations section
+## From draft-ietf-rats-eat-18
+- Remove sentence discussing pass through of claims about the token in section 4.3
 
 --- contributor
 
