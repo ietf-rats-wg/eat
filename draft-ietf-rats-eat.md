@@ -1380,7 +1380,7 @@ However note that endorsement identification is optional, whereas key identifica
 
 ### Freshness
 
-Security considerations, see {{sec-con-freshness}}, requires a mechanism to provide freshness.
+Security considerations, see {{sec-con-freshness}}, require a mechanism to provide freshness.
 This may be the EAT nonce claim in {{nonce}}, or some claim or mechanism defined outside this document.
 The section on freshness in {{RATS.Architecture}} describes several options.
 A profile should specify which freshness mechanism or mechanisms can be used.
