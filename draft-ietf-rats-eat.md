@@ -1118,10 +1118,7 @@ Thus, a CBOR-encoded EAT can have a JSON-encoded EAT as a nested token and vice 
 ## Claims Describing the Token
 
 The claims in this section provide meta data about the token they occur in.
-They do not describe the entity.
-
-They may appear in evidence or attestation results.
-When these claims appear in evidence, they SHOULD NOT be passed through the verifier into attestation results.
+They do not describe the entity. They may appear in evidence or attestation results.
 
 
 ### iat (Timestamp) Claim {#iat-claim}
@@ -2493,6 +2490,7 @@ non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
 ## From draft-ietf-rats-eat-18
+- Remove sentence discussing pass through of claims about the token in section 4.3
 - Add paragraph to appendix D noting that the "iat" claim is ~time-int
 
 --- contributor
