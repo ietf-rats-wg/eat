@@ -1118,10 +1118,7 @@ Thus, a CBOR-encoded EAT can have a JSON-encoded EAT as a nested token and vice 
 ## Claims Describing the Token
 
 The claims in this section provide meta data about the token they occur in.
-They do not describe the entity.
-
-They may appear in evidence or attestation results.
-When these claims appear in evidence, they SHOULD NOT be passed through the verifier into attestation results.
+They do not describe the entity. They may appear in evidence or attestation results.
 
 
 ### iat (Timestamp) Claim {#iat-claim}
@@ -1380,7 +1377,7 @@ However note that endorsement identification is optional, whereas key identifica
 
 ### Freshness
 
-Security considerations, see {{sec-con-freshness}}, requires a mechanism to provide freshness.
+Security considerations, see {{sec-con-freshness}}, require a mechanism to provide freshness.
 This may be the EAT nonce claim in {{nonce}}, or some claim or mechanism defined outside this document.
 The section on freshness in {{RATS.Architecture}} describes several options.
 A profile should specify which freshness mechanism or mechanisms can be used.
@@ -2485,6 +2482,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 
 ## From draft-ietf-rats-eat-18
 - Update IANA section, particularly CWT and JWT claims to be registered
+- Remove sentence discussing pass through of claims about the token in section 4.3
 - Add paragraph to appendix D noting that the "iat" claim is ~time-int
 
 --- contributor
