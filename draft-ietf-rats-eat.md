@@ -1421,6 +1421,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | CBOR Encoding | Only definite length maps and arrays are allowed |
 | CBOR Encoding | Only definite length strings are allowed |
 | CBOR Serialization | Only preferred serialization is allowed |
+| CBOR Tags | Only CWT tags are allowed |
 | COSE Protection | Only COSE_Sign1 format is used |
 | Algorithms | Receiver MUST accept ES256, ES384 and ES512; sender MUST send one of these |
 | Detached EAT Bundle Usage | Detached EAT bundles may not be sent with this profile |
