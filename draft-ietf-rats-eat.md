@@ -1005,8 +1005,8 @@ Submodules may be used in either evidence or attestation results.
 
 Because system architecture will vary greatly from use case to use case, there are no set requirements for what a submodule represents either in evidence or in attestation results.
 Profiles, {{profiles}}, may wish to impose requirements.
-An attester that outputs attestation results with submodules should document the semantics it associates with particular submodules for the verifier.
-Likewise, verifier that outputs attestation results with submodules should document the semantics it associates with the submodules for the relying party.
+An attester that outputs evidence with submodules should document the semantics it associates with particular submodules for the verifier.
+Likewise, a verifier that outputs attestation results with submodules should document the semantics it associates with the submodules for the relying party.
 
 A submodule claim is a map that holds some number of submodules.
 Each submodule is named by its label in the submodule claim map.
@@ -2414,7 +2414,6 @@ The verification key itself may be a public key, a symmetric key or something co
 RATS Architecture {{RATS.Architecture}} describes what is called an endorsement.
 This is an input to the verifier that is usually the basis of the trust placed in an EAT and the attester that generated it.
 It may contain the public key for verification of the signature on the EAT.
-It may contain reference values to which EAT claims are compared as part of the verification process.
 It may contain implied claims, those that are passed on to the relying party in attestation results.
 
 There is not yet any standard format(s) for an endorsement.
