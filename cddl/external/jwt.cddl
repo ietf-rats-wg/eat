@@ -5,7 +5,7 @@
 ; a JWS or JWE since it is not possible to do more in CDDL.
 
 JWT-Message =
-   text .regexp "[A-Za-z0-9_=-]+\.[A-Za-z0-9_=-]+\.[A-Za-z0-9_=-]+"
+   text .regexp "[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+"
 
 
 ; Note that the payload of a JWT is defined in claims-set.cddl. That 

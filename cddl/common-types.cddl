@@ -6,7 +6,7 @@ time-int = #6.1(int)
 ; binary data that works for both JSON and CBOR. 
 binary-data = JC< base64-url-text, bstr>
 
-base64-url-text = tstr .regexp "[A-Za-z0-9_=-]+"
+base64-url-text = tstr .regexp "[A-Za-z0-9_-]+"
 
 
 ; OID for both JSON and CBOR
@@ -14,7 +14,7 @@ general-oid = JC< json-oid, ~oid >
 
 ; This is a normative definition for the encoding of an OID
 ; as a text string in JSON as used by EAT
-json-oid = tstr .regexp "([0-2])((\.0)|(\.[1-9][0-9]*))*"
+json-oid = tstr .regexp "([0-2])((\\.0)|(\\.[1-9][0-9]*))*"
 
 
 ; URI for both JSON and CBOR

@@ -85,6 +85,7 @@ normative:
   RFC9052:
   RFC9090:
   RFC9165: cddlplus
+  RFC4648:
 
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
@@ -334,6 +335,9 @@ In this document, the structure of data is specified in CDDL {{-cddl}} {{-cddlpl
 The examples in {{examples}} use CBOR diagnostic notation defined in {{Section 8 of -cbor}} and {{Appendix G of -cddl}}.
 
 This document reuses terminology from JWT {{RFC7519}} and CWT {{RFC8392}}:
+
+Base64url Encoding:
+: Base64url encoding is as described in {{RFC7515}}, i.e., using URL- and filename-safe character set {{RFC4648}} with all trailing '=' characters omitted and without the inclusion of any line breaks, whitespace, or other additional characters.
 
 Claim:
 : A piece of information asserted about a subject. A claim is represented as pair with a value and either a name or key to identify it.
