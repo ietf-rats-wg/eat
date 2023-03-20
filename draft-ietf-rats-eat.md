@@ -216,7 +216,6 @@ The reader is assumed to be familiar with the goals and security model for attes
 
 This document defines some common claims that are potentially of broad use.
 EAT additionally allows proprietary claims and for further claims to be standardized.
-
 Here are some examples:
 
 * Make and model of manufactured consumer device
