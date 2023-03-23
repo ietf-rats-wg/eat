@@ -328,7 +328,7 @@ It is up to each relying party to understand the processing rules of each verifi
 
 # Terminology
 
-{::boilerplate bcp14-tagged}
+{::boilerplate}
 
 In this document, the structure of data is specified in CDDL {{-cddl}} {{-cddlplus}}.
 
@@ -497,25 +497,24 @@ universal in this way, then relying parties receiving them will have
 to track other characteristics of the entity to keep entities distinct
 between manufacturers).
 
-There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
+#### Rules for Creating UEIDs
 
-The UEID is permanent. It MUST never change for a given entity.
+A UEID is constructed of a single type byte followed by the unique bytes for that type.
+The combination of the type and identifier is necessary for global uniqueness in the case that the unique bytes of different types are accidentally the same.
 
-A UEID is constructed of a single type byte followed by the bytes that are the identifier.
-Several types are allowed to accommodate different industries, different manufacturing processes
-and to have an alternative that doesn't require paying a registration fee.
-
-Creation of new types requires a Standards Action {{RFC8126}}.
-
-UEIDS are variable length to accommodate the types defined here and new types that may be defined in the future.
-
-All implementations MUST be able to receive UEIDs up to 33 bytes long.
-33 bytes is the longest defined in this document and gives necessary entropy for probabilistic uniqueness.
-See {{UEID-Design}}.
+UEIDS are variable length to accommodate the types defined here and future-defined types.
 
 UEIDs SHOULD NOT be longer than 33 bytes.
 If they are longer, there is no guarantee that a receiver will be able to accept them.
+See {{UEID-Design}}.
 
+A UEID is permanent. It MUST never change for a given entity.
+
+The different types of UEIDs 1) accommodate different manufacturing processes, 2) accommodate short and small UEIDs, 3) have an option that doesn't require registration fees and central administration.
+Creation of new types requires a Standards Action {{RFC8126}}.
+
+A manufacturer of entities may use different types for different products.
+They may also change from one type to another for a given product or use one type for some items of a given produce and another type for other.
 
 | Type Byte | Type Name | Specification |
 | 0x01 | RAND | This is a 128, 192 or 256-bit random number generated once and stored in the entity. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the entity and stored. It MUST NOT be smaller than 128 bits. See the length analysis in {{UEID-Design}}. |
@@ -523,28 +522,30 @@ If they are longer, there is no guarantee that a receiver will be able to accept
 | 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. See {{ThreeGPP.IMEI}}. |
 {: #ueid-types-table title="UEID Composition Types"}
 
-UEIDs are not designed for direct use by humans (e.g., printing on
-the case of a device), so no textual representation is defined.
+There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
 
-The consumer of a UEID MUST treat a UEID as a
-completely opaque string of bytes and MUST NOT make any use of its internal
-structure. For example, they should not use the OUI part of a type
-0x02 UEID to identify the manufacturer of the entity. Instead, they
-should use the "oemid" claim. See {{oemid}}. The reasons for
-this are:
+#### Rules for Consuming UEIDs
+
+For the consumer, UEIDs are simply an opaque identifier up to 33 bytes long.
+The type and internal structure are only of consequence when creating UEIDs.
+
+All implementations MUST be able to receive UEIDs up to 33 bytes long.
+33 bytes is the longest defined in this document and gives necessary entropy for probabilistic uniqueness.
+
+The consumer of a UEID MUST treat a UEID as a completely opaque string of bytes and MUST NOT make any use of its internal structure.
+The reasons for this are:
 
 * UEIDs types may vary freely from one manufacturer to the next.
 
-* New types of UEIDs may be created. For example, a type 0x07 UEID may
-  be created based on some other manufacturer registration scheme.
+* New types of UEIDs may be created. For example, a type 0x07 UEID may be created based on some other manufacturer registration scheme.
 
-* The manufacturing process for an entity is allowed to change from
-  using one type of UEID to another.  For example, a manufacturer
-  may find they can optimize their process by switching from type 0x01
-  to type 0x02 or vice versa.
+* The manufacturer of an entity is allowed to change from using one type of UEID to another any time they want.
 
-The type byte is needed to distinguish UEIDs of different types that by chance have the same identifier value, but do not identify the same entity.
-The type byte MUST be treated as part of the opaque UEID and MUST NOT be used to make use of the internal structure of the UEID.
+For example, when the consumer receives a type 0x02 UEID, they should not use the OUI part to identify the manufacturer of the device because not all UEIDs will be of type 0x02 and because that do use type 0x02 the manufacturer might switch to a different type.
+Instead, the consumer should use the "oemid" claim. 
+
+UEIDs are not designed for direct use by humans (e.g., printing on
+the case of a device), so no textual representation is defined.
 
 A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 
