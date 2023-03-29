@@ -328,7 +328,7 @@ It is up to each relying party to understand the processing rules of each verifi
 
 # Terminology
 
-{::boilerplate}
+{::boilerplate bcp14-tagged}
 
 In this document, the structure of data is specified in CDDL {{-cddl}} {{-cddlplus}}.
 
@@ -497,6 +497,12 @@ universal in this way, then relying parties receiving them will have
 to track other characteristics of the entity to keep entities distinct
 between manufacturers).
 
+A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
+
+~~~~CDDL
+{::include nc-cddl/ueid.cddl}
+~~~~
+
 #### Rules for Creating UEIDs
 
 A UEID is constructed of a single type byte followed by the unique bytes for that type.
@@ -510,7 +516,7 @@ See {{UEID-Design}}.
 
 A UEID is permanent. It MUST never change for a given entity.
 
-The different types of UEIDs 1) accommodate different manufacturing processes, 2) accommodate short and small UEIDs, 3) have an option that doesn't require registration fees and central administration.
+The different types of UEIDs 1) accommodate different manufacturing processes, 2) accommodate small UEIDs, 3) provide an option that doesn't require registration fees and central administration.
 Creation of new types requires a Standards Action {{RFC8126}}.
 
 A manufacturer of entities may use different types for different products.
@@ -527,7 +533,6 @@ There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
 #### Rules for Consuming UEIDs
 
 For the consumer, UEIDs are simply an opaque identifier up to 33 bytes long.
-The type and internal structure are only of consequence when creating UEIDs.
 
 All implementations MUST be able to receive UEIDs up to 33 bytes long.
 33 bytes is the longest defined in this document and gives necessary entropy for probabilistic uniqueness.
@@ -535,23 +540,19 @@ All implementations MUST be able to receive UEIDs up to 33 bytes long.
 The consumer of a UEID MUST treat a UEID as a completely opaque string of bytes and MUST NOT make any use of its internal structure.
 The reasons for this are:
 
-* UEIDs types may vary freely from one manufacturer to the next.
+* UEIDs types vary freely from one manufacturer to the next.
 
-* New types of UEIDs may be created. For example, a type 0x07 UEID may be created based on some other manufacturer registration scheme.
+* New types of UEIDs may be created.
 
-* The manufacturer of an entity is allowed to change from using one type of UEID to another any time they want.
+* The manufacturer of an entity is allowed to change from one type of UEID to another anytime they want.
 
-For example, when the consumer receives a type 0x02 UEID, they should not use the OUI part to identify the manufacturer of the device because not all UEIDs will be of type 0x02 and because that do use type 0x02 the manufacturer might switch to a different type.
-Instead, the consumer should use the "oemid" claim. 
+For example, when the consumer receives a type 0x02 UEID, they should not use the OUI part to identify the manufacturer of the device because there is no guarantee all UEIDs will be type 0x02.
+Different manufacturers may use different types.
+A manufacturer may make some of their product with one type and others with a different type or even change to a different type for newer versions of their product.
+Instead, the consumer should use the "oemid" claim.
 
 UEIDs are not designed for direct use by humans (e.g., printing on
 the case of a device), so no textual representation is defined.
-
-A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
-
-~~~~CDDL
-{::include nc-cddl/ueid.cddl}
-~~~~
 
 
 ### sueids (Semi-permanent UEIDs) Claim (SUEIDs)
