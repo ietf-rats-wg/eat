@@ -902,7 +902,7 @@ For example, the manifest might be a CoSWID signed by the software manufacturer,
 This claim allows multiple formats for the manifest.
 For example, the manifest may be a CBOR-format CoSWID, an XML-format SWID or other.
 Identification of the type of manifest is always by a CoAP Content-Format integer {{RFC7252}}.
-If there is no CoAP identifier registered for the manifest format, one should be registered, perhaps in the experimental or first-come-first-served range.
+If there is no CoAP identifier registered for the manifest format, one MUST be registered, perhaps in the experimental or first-come-first-served range.
 
 This claim MUST be an array of one or more manifests.
 Each manifest in the claim MUST be an array of two.
@@ -916,7 +916,8 @@ This claim allows for multiple manifests in one token since multiple software pa
 The multiple manifests MAY be of different formats.
 In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.
 
-When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
+CoSWID manifests MUST be a payload CoSWID, not an evidence CoSWID.
+These are defined in {{CoSWID}}.
 
 A {{SUIT.Manifest}} may be used as a manifest.
 
@@ -1964,24 +1965,24 @@ specification reference.
 
 ## Media Types Registered by this Document
 
-It is requested that the CoAP Content-Format for SPDX and CycloneDX be been registered in the "CoAP Content-Formats" subregistry within the "Constrained RESTful Environments (CoRE) Parameters" registry [IANA.core-parameters]:
+It is requested that the CoAP Content-Format for SPDX and CycloneDX be registered in the "CoAP Content-Formats" subregistry within the "Constrained RESTful Environments (CoRE) Parameters" registry [IANA.core-parameters]:
 
 * Media Type: application/spdx+json
-* Encoding: binary
+* Content-Coding: identity
 * ID: TBD
 * Reference: {{SPDX}}
 
 &nbsp;
 
 * Media Type: vendor/vnd.cyclonedx+xml
-* Encoding: binary
+* Content-Coding: identity
 * ID: TBD
 * Reference: {{CycloneDX}}
 
 &nbsp;
 
 * Media Type: vendor/vnd.cyclonedx+json
-* Encoding: binary
+* Content-Coding: identity
 * ID: TBD
 * Reference: {{CycloneDX}}
 
