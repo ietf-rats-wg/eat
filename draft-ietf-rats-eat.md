@@ -895,14 +895,14 @@ Installation is anything that adds software to the entity, possibly factory inst
 The defining characteristic is they are created by the software manufacturer.
 The purpose of these claims in an EAT is to relay them without modification to the verifier and possibly to the relying party.
 
-Some manifests may be signed by their software manufacturer before they are put into this EAT claim.
-When such manifests are put into this claim, the manufacturer's signature SHOULD be included.
-For example, the manifest might be a CoSWID signed by the software manufacturer, in which case the full signed CoSWID should be put in this claim.
+Some manifests are signed by their software manufacturer independent and some are not.
+For example, a CoSWID might be signed independently before it is added to an EAT.
+When such signed manifests are put into an EAT the manufacturer's signature SHOULD be included even though the EAT is signed.
 
 This claim allows multiple formats for the manifest.
 For example, the manifest may be a CBOR-format CoSWID, an XML-format SWID or other.
 Identification of the type of manifest is always by a CoAP Content-Format integer {{RFC7252}}.
-If there is no CoAP identifier registered for the manifest format, one MUST be registered, perhaps in the experimental or first-come-first-served range.
+If there is no CoAP identifier registered for the manifest format, one MUST be registered.
 
 This claim MUST be an array of one or more manifests.
 Each manifest in the claim MUST be an array of two.
@@ -916,7 +916,7 @@ This claim allows for multiple manifests in one token since multiple software pa
 The multiple manifests MAY be of different formats.
 In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.
 
-CoSWID manifests MUST be a payload CoSWID, not an evidence CoSWID.
+A CoSWID manifest MUST be a payload CoSWID, not an evidence CoSWID.
 These are defined in {{CoSWID}}.
 
 A {{SUIT.Manifest}} may be used as a manifest.
