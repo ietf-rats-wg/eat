@@ -831,7 +831,7 @@ See location-related privacy considerations in {{locationprivacyconsiderations}}
 ### uptime (Uptime) Claim
 
 The "uptime" claim MUST contain a value that represents the number of
-seconds that have elapsed since the entity or submod was last booted.
+seconds that have elapsed since the entity or submodule was last booted.
 
 ~~~~CDDL
 {::include nc-cddl/uptime.cddl}
@@ -840,7 +840,7 @@ seconds that have elapsed since the entity or submod was last booted.
 ### bootcount (Boot Count) Claim
 
 The "bootcount" claim contains a count of the number
-times the entity or submod has been booted. Support for this claim
+times the entity or submodule has been booted. Support for this claim
 requires a persistent storage on the device.
 
 ~~~~CDDL
