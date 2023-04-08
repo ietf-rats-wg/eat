@@ -802,20 +802,19 @@ This level indicates that all debug facilities for the entity are permanently di
 ### location (Location) Claim {#location}
 
 The "location" claim gives the location of the entity from which the attestation originates.
-It is derived from the W3C Geolocation API {{W3C.GeoLoc}}.
-The latitude, longitude, altitude and accuracy MUST conform to {{WGS84}}.
-The altitude is in meters above the {{WGS84}} ellipsoid.
-The two accuracy values are positive numbers in meters.
-The heading is in degrees relative to true north.
+Latitude, longitude, altitude, accuracy, altitude-accuracy, heading and speed MUST be as defined in the W3C Geolocation API {{W3C.GeoLoc}}
+(which in turn is based on {{WGS84}}).
 If the entity is stationary, the heading is NaN (floating-point not-a-number).
-The speed is the horizontal component of the entity velocity in meters per second.
+Latitude and longitude MUST always be provided.
+If any other of these values are not known, they are omitted.
 
 The location may have been cached for a period of time before token
 creation. For example, it might have been minutes or hours or more
 since the last contact with a GPS satellite. Either the timestamp or
 age data item can be used to quantify the cached period.  The timestamp
 data item is preferred as it a non-relative time.
-If the entity doesn't have a clock with the current time is, but has a means to measure the time interval between the acquisition of the location and the token creation the age may be reported instead.
+If the entity doesn't have a clock with the current time, but has a means to measure the time interval between the acquisition of the location and the token creation the age may be reported instead.
+The age is in seconds.
 
 See location-related privacy considerations in {{locationprivacyconsiderations}}.
 
