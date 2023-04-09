@@ -801,7 +801,7 @@ This level indicates that all debug facilities for the entity are permanently di
 
 ### location (Location) Claim {#location}
 
-The "location" claim gives the location of the entity from which the attestation originates.
+The "location" claim gives the geographic position of the entity from which the attestation originates.
 Latitude, longitude, altitude, accuracy, altitude-accuracy, heading and speed MUST be as defined in the W3C Geolocation API {{W3C.GeoLoc}}
 (which in turn is based on {{WGS84}}).
 If the entity is stationary, the heading is NaN (floating-point not-a-number).
