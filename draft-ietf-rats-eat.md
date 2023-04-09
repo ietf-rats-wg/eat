@@ -895,9 +895,9 @@ Installation is anything that adds software to the entity, possibly factory inst
 The defining characteristic is they are created by the software manufacturer.
 The purpose of these claims in an EAT is to relay them without modification to the verifier and possibly to the relying party.
 
-Some manifests are signed by their software manufacturer independent and some are not.
-For example, a CoSWID might be signed independently before it is added to an EAT.
-When such signed manifests are put into an EAT the manufacturer's signature SHOULD be included even though the EAT is signed.
+Some manifests are signed by their software manufacturer independently, and some are not either because they do not support signing or the manufacturer chose not to sign them.
+For example, a CoSWID might be signed independently before it is included in an EAT.
+When signed manifests are put into an EAT, the manufacturer's signature SHOULD be included even though an EAT's signature will also cover the manifest.
 
 This claim allows multiple formats for the manifest.
 For example, the manifest may be a CBOR-format CoSWID, an XML-format SWID or other.
