@@ -505,8 +505,11 @@ A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 
 #### Rules for Creating UEIDs
 
+These rules for the creation of UEIDs are to ensure they are globally unique.
+The consumer does not need to have any awareness of them.
+
 A UEID is constructed of a single type byte followed by the unique bytes for that type.
-The combination of the type and identifier is necessary for global uniqueness in the case that the unique bytes of different types are accidentally the same.
+The type byte assures global uniquness of the UEID even if the unique bytes for different types are accidentally the same.
 
 UEIDS are variable length to accommodate the types defined here and future-defined types.
 
@@ -532,7 +535,8 @@ There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
 
 #### Rules for Consuming UEIDs
 
-For the consumer, UEIDs are simply an opaque identifier up to 33 bytes long.
+For the consumer, a UEID is simply a globally unique opaque identifier.
+The consumer does not and should not have any awareness of the rules and structure used to achieve global uniqueness.
 
 All implementations MUST be able to receive UEIDs up to 33 bytes long.
 33 bytes is the longest defined in this document and gives necessary entropy for probabilistic uniqueness.
