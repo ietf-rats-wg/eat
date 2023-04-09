@@ -597,10 +597,6 @@ They would perform this only once in the life of the company to generate the sin
 They would use that same ID in every entity they make.
 This uniquely identifies the OEM on a statistical basis and is large enough should there be ten billion companies.
 
-The OEM MAY also use a hash function like SHA-256 and truncate the output to 128 bits.
-The input to the hash should be somethings that have at least 96 bits of entropy, but preferably 128 bits of entropy.
-The input to the hash MAY be something whose uniqueness is managed by a central registry like a domain name.
-
 In JSON format tokens this MUST be base64url encoded.
 
 #### IEEE Based OEMID
