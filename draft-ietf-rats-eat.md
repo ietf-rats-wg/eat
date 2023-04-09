@@ -736,7 +736,6 @@ not matter if authentication is by a global password or by per-entity
 public keys.
 
 As with all claims, the absence of the "dbgstat" claim means it is not reported.
-A conservative interpretation might assume the enabled state.
 
 This claim is not extensible so as to provide a common interoperable description of debug status.
 If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
