@@ -645,11 +645,12 @@ In JSON, this value MUST be encoded as a number.
 ~~~~
 
 
-### hwmodel (Hardware Model) Claim
+### hwmodel (Hardware Model) Claim {#hwmodel}
 
 The "hwmodel" claim differentiates hardware models, products and variants manufactured by a particular OEM, the one identified by OEM ID in {{oemid}}.
 It MUST be unique within a given OEM ID.
 The concatenation of the OEM ID and "hwmodel" give a global identifier of a particular product.
+The "hwmodel" claim MUST only be present if an "oemid" claim is present.
 
 The granularity of the model identification is for each OEM to decide.
 It may be very granular, perhaps including some version information.
@@ -676,13 +677,14 @@ The OEM is free to alter the internal structure of these bytes as long as the cl
 The "hwversion" claim is a text string the format of which is set by each manufacturer.
 The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
 It is useful to know how to sort versions so the newer can be distinguished from the older.
+A "hwversion" claims MUST only be present if a "hwmodel" claim is present {{hwmodel}}.
 
 ~~~~CDDL
 {::include nc-cddl/hardware-version.cddl}
 ~~~~
 
 
-### swname (Software Name) Claim
+### swname (Software Name) Claim {#swname}
 
 The "swname" claim contains a very simple free-form text value for naming the software used by the entity.
 Intentionally, no general rules or structure are set.
@@ -699,6 +701,7 @@ If precise and rigourous naming of the software for the entity is needed, the "m
 
 The "swversion" claim makes use of the CoSWID version scheme data type to give a simple version for the software.
 A full CoSWID manifest or other type of manifest can be instead if this is too simple.
+A "swversion" claim MUST only be present if a "swname" claim is present {{swname}}.
 
 ~~~~CDDL
 {::include nc-cddl/software-version.cddl}
