@@ -1415,28 +1415,32 @@ A profile that require the receiver to accept all variations that are allowed to
 ## The Constrained Device Standard Profile
 
 It is anticipated that there will be many profiles defined for EAT for many different use cases.
-This section standardizes one profile that is good for many constrained device use cases.
+This section gives a normative definition of one profile that is good for many constrained device use cases.
 
 The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 
-
 | Issue | Profile Definition |
-| CBOR/JSON | CBOR only |
-| CBOR Encoding | Only definite length maps and arrays are allowed |
-| CBOR Encoding | Only definite length strings are allowed |
-| CBOR Serialization | Only preferred serialization is allowed |
-| COSE Protection | Only COSE_Sign1 format is used |
-| Algorithms | Receiver MUST accept ES256, ES384 and ES512; sender MUST send one of these |
-| Detached EAT Bundle Usage | Detached EAT bundles may not be sent with this profile |
+| CBOR/JSON | CBOR MUST be used  |
+| CBOR Encoding | Definite length maps and arrays MUST be used |
+| CBOR Encoding | Definite length strings MUST be used |
+| CBOR Serialization | Preferred serialization MUST be used |
+| COSE Protection | COSE_Sign1 MUST be used |
+| Algorithms | The receiver MUST accept ES256, ES384 and ES512; the sender MUST send one of these |
+| Detached EAT Bundle Usage | Detached EAT bundles MUST not be sent with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verification key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce MUST be used for every token request |
 | Claims | No requirement is made on the presence or absence of claims other than requiring an EAT nonce. As per general EAT rules, the receiver MUST NOT error out on claims it doesn't understand. |
 
-Strictly speaking, even slight modifications, such as the use of a different means of key identification, are a divergence from this profile and require allocation of a different profile identifier.
+Any profile with different requirements than those above MUST have a different profile identifier.
 
-A profile that is similar to this can be defined and/or standardized by making normative reference to this section and adding requirements.
-Such a profile MUST have a different profile identifier.
+Note that many claims can be present for tokens conforming to this profile, even claims not defined in this document.
+Note also that even slight deviation from the above requirements is considered a different profile that MUST have a different identifier.
+For example, if a kid or UEID is not used for key identification, it is not in conformance with this profile.
+For another example, requiring the presence of some claim is also not in conformance and requires another profile.
+
+Derivations of this profile are encouraged.
+For example another profile may be simply defined as The Constrained Device Standard Profile plus the requirement for the presence claim xxxx and claim yyyy.
 
 
 # Encoding and Collected CDDL {#encoding}
