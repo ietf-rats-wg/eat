@@ -8,7 +8,7 @@ measurement-results-group = [
 ]
 
 individual-result = [
-    results-id: tstr / binary-data,
+    result-id:  tstr / binary-data,
     result:     result-type, 
 ]
 

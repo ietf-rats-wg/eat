@@ -104,7 +104,7 @@ normative:
     target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=729
     title: 3rd Generation Partnership Project; Technical Specification Group Core Network and Terminals; Numbering, addressing and identification
     author:
-    - org: 3GPP
+   - org: 3GPP
     date: 2019
 
   CoSWID: I-D.ietf-sacm-coswid
@@ -972,8 +972,9 @@ For example, it may be desirable to report the results for measurements of the f
 Note that this claim is not for reporting the overall result of a verifier.
 It is solely for reporting the result of comparison to reference values.
 
-An individual measurement result is an array of two, an identifier of the measurement and an enumerated type that is the result.
-The range and values of the measurement identifier varies from one measurement scheme to another.
+An individual measurement result (individual-result) is an array of two, an identifier of the measurement (result-id) and an enumerated type that is the result (result).
+Different measurement systems will measure different things and perhaps measure the same thing in different ways.
+It is up to each measurement system to define identifiers (result-id) for the measurements it reports.
 
 Each individual measurement result is part of a group that may contain many individual results.
 Each group has a text string that names it, typically the name of the measurement scheme or system.
