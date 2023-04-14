@@ -241,9 +241,13 @@ The document uses the term "entity" to refer to the target of an EAT. Many of th
 Correspondingly, the EAT format allows claims to be organized using mechanisms like submodules and nested EATs (see {{submods}}).
 The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
 
-An entity also corresponds to a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
+An entity is the same as a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
+
+Note however that the {{RFC4949}} definitions of the terms "entity" and "system entity" are not the same as the definition of entity here.
 That glossary also defines "entity" and "system entity" as something that may be a person or organization as well as a system component.
-In the EAT context, "entity" never refers to a person or organization. The hardware and software that implement a server or service used by a web site may be an entity, but the organization that runs the web site is not an entity nor is the web site itself. An entity is an implementation in hardware, software or both.
+In the EAT context, "entity" never refers to a person or organization.
+The hardware and software that implement a server or service used by a web site may be an entity in the EAT sense, but the organization that runs the web site is not an entity nor is the web site itself.
+An entity is an implementation in hardware, software or both.
 
 Some examples of entities:
 
