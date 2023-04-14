@@ -31,24 +31,5 @@ $manifest-body-cbor /= bytes .cbor SUIT_Envelope
 $manifest-body-json /= base64-url-text
 
 
-; Only the JSON SPDX format is supported since it is the only one for
-; which a content type is registered.
-
-$manifest-body-cbor /= spdx-json
-$manifest-body-json /= spdx-json
-
-spdx-json = text
-
-
-; CycloneDX in XML or JSON format
-
-$manifest-body-cbor /= cyclone-dx-json
-$manifest-body-cbor /= cyclone-dx-xml
-$manifest-body-json /= cyclone-dx-json
-$manifest-body-json /= cyclone-dx-xml
-cyclone-dx-json = text
-cyclone-dx-xml  = text
-
-
 ; TODO: remove this when SUIT CDDL gets fixed
 suit-directive-process-dependency = 19
