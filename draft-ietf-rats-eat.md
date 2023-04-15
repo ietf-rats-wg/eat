@@ -104,7 +104,7 @@ normative:
     target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=729
     title: 3rd Generation Partnership Project; Technical Specification Group Core Network and Terminals; Numbering, addressing and identification
     author:
-   - org: 3GPP
+    - org: 3GPP
     date: 2019
 
   CoSWID: I-D.ietf-sacm-coswid
