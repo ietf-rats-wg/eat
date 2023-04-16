@@ -281,7 +281,7 @@ While EAT is based on and compatible with CWT and JWT, it can also be described 
 
 EAT uses the name/value pairs the same as CWT and JWT to identify individual claims.
 {{theclaims}} defines common attestation-oriented claims that are added to the CWT and JWT IANA registries.
-The set of claims that a EAT must contain to be considered valid is context dependent and is outside the scope of this specification. Specific applications of EATs will require implementations to    understand and process some claims in particular ways.  However, in the absence of such requirements, all claims that are not understood by implementations MUST be ignored.
+As with CWT and JWT, no claims are mandatory and claims not recognized should be ignored.
 
 Unlike, but compatible with CWT and JWT, EAT defines claims using Concise Data Definition Language (CDDL) {{RFC8610}}.
 In most cases the same CDDL definition is used for both the CBOR/CWT serialization and the JSON/JWT serialization.
@@ -1604,7 +1604,7 @@ The "bootseed" claim is effectively a stable entity identifier within a given bo
 
 ## Replay Protection and Privacy {#replayprivacyconsiderations}
 
-EAT defines the eat_nonce claim for replay protection and token freshness.
+EAT defines the EAT nonce claim for replay protection and token freshness.
 The nonce claim is based on a value usually derived remotely (outside of the entity).
 This claim might be used to extract and convey personally identifying information either inadvertently or by intention.
 For instance, an implementor may choose a nonce equivalent to a username associated with the device (e.g., account login).
