@@ -1419,6 +1419,10 @@ This section standardizes one profile that is good for many constrained device u
 
 The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 
+[^to-be-removed]
+
+[^to-be-removed]: RFC Editor: please replace rfcTBD with this RFC number and remove this note.
+
 
 | Issue | Profile Definition |
 | CBOR/JSON | CBOR only |
@@ -1726,12 +1730,16 @@ The "JWT Claim Name" is equivalent to the "Claim Name" in the JWT registry.
 
 IANA is requested to register the following claims.
 
+[^remove]
+
+[^remove]: RFC editor: please see instructions in followg paragraph and remove for final publication
+
 RFC Editor: Please make the following adjustments and remove this paragraph.
 Replace "__this document__" with this RFC number.
 In the following, the claims with "Claim Key: TBD" need to be assigned a value in the Specification Required Range, preferrably starting around 267.
 Those below already with a Claim Key number were given early assignment.
 No change is requested for them except for Claim Key 262.
-Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and it's description changed in both the CWT and JWT registries.
+Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and its description changed in both the CWT and JWT registries.
 
 * Claim Name: Nonce
 * Claim Description: Nonce
@@ -2478,6 +2486,11 @@ This is in line with the requirements in section 6 on Key Identification in JSON
 
 
 # Changes from Previous Drafts
+
+[^remove]
+
+[^remove]: RFC editor: please remove this paragraph.
+
 
 The following is a list of known changes since the immediately previous drafts.  This list is
 non-authoritative.  It is meant to help reviewers see the significant
