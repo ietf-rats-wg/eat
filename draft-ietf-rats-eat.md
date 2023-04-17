@@ -1174,7 +1174,7 @@ See {{common-types}} for OID and URI encoding.
 EATs may be used in the context of several different applications.  The "intuse"
 claim provides an indication to an EAT consumer about  the intended usage
 of the token. This claim can be used as a way for an application using EAT to internally distinguish between different ways it uses EAT.
-5 possible values for "intuse" are currently defined indicated 5 different intended use indications, but additional values above 5 can
+5 possible values for "intuse" are currently defined indicated 5 different intended use indications, but additional values can
 be defined and registered pending IANA-administered expert review (see {{iana-cons}}).  This could involve the future creation of a registry
 for additional values.
 
