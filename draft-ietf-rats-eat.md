@@ -813,7 +813,7 @@ creation. For example, it might have been minutes or hours or more
 since the last contact with a GPS satellite. Either the timestamp or
 age data item can be used to quantify the cached period.  The timestamp
 data item is preferred as it a non-relative time.
-If the entity doesn't have a clock with the current time, but has a means to measure the time interval between the acquisition of the location and the token creation the age may be reported instead.
+If the entity has no clock or the clock is unset but has a means to measure the time interval between the acquisition of the location and the token creation the age may be reported instead.
 The age is in seconds.
 
 See location-related privacy considerations in {{locationprivacyconsiderations}}.
