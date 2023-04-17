@@ -207,8 +207,8 @@ For example, partial trust may be allowing a monetary transaction only up to a l
 
 The security model and goal for attestation are unique and are not the same as for other security standards like those for server authentication, user authentication and secured messaging.
 To give an example of one aspect of the difference, consider the association and life-cycle of key material.
-For authentication keys are associated with a user or service and set up by actions performed by a user or an operator of a service.
-For attestation the keys are associated with specific devices and are configured by device manufacturers.
+For authentication, keys are associated with a user or service and set up by actions performed by a user or an operator of a service.
+For attestation, the keys are associated with specific devices and are configured by device manufacturers.
 The reader is assumed to be familiar with the goals and security model for attestation as described in {{RATS.Architecture}} and are not repeated here.
 
 This document defines some common claims that are potentially of broad use.
