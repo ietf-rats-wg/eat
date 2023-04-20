@@ -246,7 +246,7 @@ An entity is the same as a "system component", as defined in the Internet Securi
 Note however that the {{RFC4949}} definitions of the terms "entity" and "system entity" are not the same as the definition of entity here.
 That glossary also defines "entity" and "system entity" as something that may be a person or organization as well as a system component.
 In the EAT context, "entity" never refers to a person or organization.
-The hardware and software that implement a server or service used by a web site may be an entity in the EAT sense, but the organization that runs the web site is not an entity nor is the web site itself.
+The hardware and software that implement a web site server or service may be an entity in the EAT sense, but the organization that operates, maintains or hosts the web site is not an entity.
 An entity is an implementation in hardware, software or both.
 
 Some examples of entities:
