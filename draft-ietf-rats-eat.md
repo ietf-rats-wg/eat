@@ -814,26 +814,20 @@ This level indicates that all debug facilities for the entity are permanently di
 
 ### location (Location) Claim {#location}
 
-The "location" claim gives the location of the entity from which the attestation originates.
-It is derived from the W3C Geolocation API {{W3C.GeoLoc}}.
-The latitude, longitude, altitude and accuracy MUST conform to {{WGS84}}.
-The altitude is in meters above the {{WGS84}} ellipsoid.
-The two accuracy values are positive numbers in meters.
-The heading is in degrees relative to true north.
+The "location" claim gives the geographic position of the entity from which the attestation originates.
+Latitude, longitude, altitude, accuracy, altitude-accuracy, heading and speed MUST be as defined in the W3C Geolocation API {{W3C.GeoLoc}}
+(which, in turn, is based on {{WGS84}}).
 If the entity is stationary, the heading is NaN (floating-point not-a-number).
-The speed is the horizontal component of the entity velocity in meters per second.
+Latitude and longitude MUST always be provided.
+If any other of these values are unknown, they are omitted.
 
 The location may have been cached for a period of time before token
 creation. For example, it might have been minutes or hours or more
 since the last contact with a GPS satellite. Either the timestamp or
 age data item can be used to quantify the cached period.  The timestamp
 data item is preferred as it a non-relative time.
-
-The age data item can be used when the entity doesn't know what time
-it is either because it doesn't have a clock or it isn't set. The
-entity MUST still have a "ticker" that can measure a time
-interval. The age is the interval between acquisition of the location
-data and token creation.
+If the entity has no clock or the clock is unset but has a means to measure the time interval between the acquisition of the location and the token creation the age may be reported instead.
+The age is in seconds.
 
 See location-related privacy considerations in {{locationprivacyconsiderations}}.
 
@@ -2499,6 +2493,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 ## From draft-ietf-rats-eat-19
 - Prefer the term "encoding" over "format" when referring to CBOR and JSON.
 - Separate sections for creating and consuming UEIDs
+- Base location on W3C reference directly and WGS84 indirectly
 
 
 --- contributor
