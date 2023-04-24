@@ -298,7 +298,7 @@ Finally, the notion of an EAT profile is introduced that facilitates the creatio
 
 ## Operating Model and RATS Architecture
 
-The EAT format follows the operational model described in Figure 1 in {{RATS.Architecture}}. To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
+EAT follows the operational model described in Figure 1 in {{RATS.Architecture}}. To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
 Evidence is usually signed by a key that proves the attester and the evidence it produces are authentic.
 The claims set includes a nonce or some other means to assure freshness.
 
@@ -1284,7 +1284,7 @@ The following is a list of EAT, CWT, JWT, COSE, JOSE and CBOR options that a pro
 ### Use of JSON, CBOR or both
 
 A profile should specify whether CBOR, JSON or both may be sent.
-A profile should specify that the receiver can accept all encoding formats that the sender is allowed to send.
+A profile should specify that the receiver can accept all encodings that the sender is allowed to send.
 
 This should be specified for the top-level and all nested tokens.
 For example, a profile might require all nested tokens to be of the same encoding of the top level token.
@@ -2483,10 +2483,9 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-18
-- Update IANA section, particularly CWT and JWT claims to be registered
-- Remove sentence discussing pass through of claims about the token in section 4.3
-- Add paragraph to appendix D noting that the "iat" claim is ~time-int
+## From draft-ietf-rats-eat-19
+- Prefer the term "encoding" over "format" when referring to CBOR and JSON.
+
 
 --- contributor
 
