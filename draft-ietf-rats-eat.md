@@ -86,6 +86,7 @@ normative:
   RFC9090:
   RFC9165: cddlplus
   RFC4648:
+  RFC2252:
 
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
@@ -129,13 +130,18 @@ normative:
 
   CycloneDX:
      title: CycloneDX
-     target: https://cyclonedx.org/specification/overview/
+     target: https://cyclonedx.org/docs/1.4/json/
      date: false
 
 
   IANA.core-parameters:
 
   SUIT.Manifest: I-D.ietf-suit-manifest
+
+  SHS:
+    title: Secure Hash Standard (SHS)
+    target: https://csrc.nist.gov/publications/detail/fips/180/4/final
+    date: August 2015
 
 
 informative:
@@ -222,18 +228,19 @@ Here are some examples:
 EAT is constructed to support a wide range of use cases.
 
 No single set of claims can accommodate all use cases so EAT is constructed as a framework for defining specific attestation tokens for specific use cases.
-In particular, EAT provides a profile mechanism to be able to clearly specify the claims needed, the cryptographic algorithms that should be used and other for a particular token and use case.
+In particular, EAT provides a profile mechanism to be able to clearly specify the claims needed, the cryptographic algorithms that should be used, and other characteristics for a particular token and use case.
+{{profiles}} describes profile contents and provides a profile that is suitable for constrained device use cases.
 
-The entity side of an EAT implementation generates the claims and typically signs them with an attestation key.
+The entity's EAT implementation generates the claims and typically signs them with an attestation key.
 It is responsible for protecting the attestation key.
 Some EAT implementations will use components with very high resistance to attack like TPMs or secure elements.
-Other may rely solely on simple SW defenses.
+Others may rely solely on simple software defenses.
 
 Nesting of tokens and claims sets is accommodated for composite devices that have multiple subsystems.
 
 An EAT may be encoded in either JSON {{RFC8259}} or CBOR {{RFC8949}} as needed for each use case.
 EAT is built on CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}} and inherits all their characteristics and their security mechanisms.
-
+Like CWT and JWT, EAT does not imply any message flow.
 
 ## Entity Overview
 
@@ -241,9 +248,7 @@ The document uses the term "entity" to refer to the target of an EAT. Many of th
 Correspondingly, EAT allows claims to be organized using mechanisms like submodules and nested EATs (see {{submods}}).
 The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
 
-An entity also corresponds to a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
-That glossary also defines "entity" and "system entity" as something that may be a person or organization as well as a system component.
-In the EAT context, "entity" never refers to a person or organization. The hardware and software that implement a server or service used by a web site may be an entity, but the organization that runs the web site is not an entity nor is the web site itself. An entity is an implementation in hardware, software or both.
+An entity also corresponds to a "system component", as defined in the Internet Security Glossary {{RFC4949}}, except that in the EAT context an "entity" never refers to a person or organization.
 
 Some examples of entities:
 
@@ -269,7 +274,7 @@ While EAT is based on and compatible with CWT and JWT, it can also be described 
 
 * An identification and type system for claims in claims-sets
 * Definitions of common attestation-oriented claims
-* Claims are defined in CDDL and serialized using CBOR or JSON
+* Claims defined in CDDL and serialized using CBOR or JSON
 * Security envelopes based on COSE and JOSE
 * Nesting of claims sets and tokens to represent complex and compound devices
 * A profile mechanism for specifying and identifying specific tokens for specific use cases
@@ -377,7 +382,9 @@ Reference Values:
 Endorsement:
 : A secure statement that an Endorser vouches for the integrity of an attester's various capabilities such as claims collection and evidence signing.
 
-Socket Group:
+This document reuses terminology from CDDL {{RFC8610}}:
+
+Group Socket:
 : refers to the mechanism by which a CDDL definition is extended, as described in [RFC8610] and [RFC9165]
 
 # Top-Level Token Definition
@@ -401,7 +408,7 @@ Any new format that plugs into one or more of these sockets MUST be defined by a
 Of particular use may be a token type that provides no direct authenticity or integrity protection for use with transports mechanisms that do provide the necessary security services {{UCCS}}.
 
 Nesting of EATs is allowed and defined in {{Nested-Token}}.
-This includes the nesting of an EAT that is a different format than the enclosing EAT.
+This includes the nesting of an EAT that is a different format than the enclosing EAT, i.e., the nested EAT may be encoded using CBOR and the enclosing EAT encoded using JSON or vice versa.
 The definition of Nested-Token references the CDDL defined in this section.
 When new token formats are defined, the means for identification in a nested token MUST also be defined.
 
@@ -430,7 +437,7 @@ CDDL, along with a text description, is used to define each claim
 independent of encoding.  Each claim is defined as a CDDL group.
 In {{encoding}} on encoding, the CDDL groups turn into CBOR map entries and JSON name/value pairs.
 
-Each claim defined in this document is added to the `$$Claims-Set-Claims` socket group. Claims defined by other specifications MUST also be added to the `$$Claims-Set-Claims` socket group.
+Each claim defined in this document is added to the `$$Claims-Set-Claims` group socket. Claims defined by other specifications MUST also be added to the `$$Claims-Set-Claims` group socket.
 
 All claims in an EAT MUST use the same encoding except where otherwise explicitly stated (e.g., in a CBOR-encoded token, all claims must be CBOR-encoded).
 
@@ -581,7 +588,7 @@ An SUEID provides functionality similar to an IEEE LDevID {{IEEE.802.1AR}}.
 
 There are privacy considerations for SUEIDs. See {{ueidprivacyconsiderations}}.
 
-A Device Indentifier URN is registered for SUEIDs. See {{registerueidurn}}.
+A Device Identifier URN is registered for SUEIDs. See {{registerueidurn}}.
 
 ~~~~CDDL
 {::include nc-cddl/sueids.cddl}
@@ -603,11 +610,12 @@ They would perform this only once in the life of the company to generate the sin
 They would use that same ID in every entity they make.
 This uniquely identifies the OEM on a statistical basis and is large enough should there be ten billion companies.
 
-The OEM MAY also use a hash function like SHA-256 and truncate the output to 128 bits.
+The OEM MAY also use a hash function like SHA-256 {{SHS}} and truncate the output to 128 bits.
 The input to the hash should be somethings that have at least 96 bits of entropy, but preferably 128 bits of entropy.
 The input to the hash MAY be something whose uniqueness is managed by a central registry like a domain name.
 
-In JSON-encoded tokens this MUST be base64url encoded.
+In JSON-encoded tokens this MUST be base64url encoded {{RFC4648}}.
+
 
 #### IEEE Based OEMID
 
@@ -703,7 +711,7 @@ If precise and rigourous naming of the software for the entity is needed, the "m
 
 ### swversion (Software Version) Claim
 
-The "swversion" claim makes use of the CoSWID version scheme data type to give a simple version for the software.
+The "swversion" claim makes use of the CoSWID version-scheme item to give a simple version for the software.
 A full CoSWID manifest or other type of manifest can be instead if this is too simple.
 
 ~~~~CDDL
@@ -1062,7 +1070,7 @@ A JSON object indicates the submodule is a Claims-Set.
 In all other cases, it is a JSON-Selector, which is an array of two elements that indicates whether the submodule is a nested token or a Detached-Submodule-Digest.The first element in the array indicates the type present in the second element.
 If the value is “JWT”, “CBOR”, “BUNDLE” or a future-standardized token types, e.g., {{UCCS}}, the submodule is a nested token of the indicated type, i.e., JWT-Message, CBOR-Token-Inside-JSON-Token, Detached-EAT-Bundle, or a future type.
 If the value is "DIGEST", the submodule is a Detached-Submodule-Digest.
-Any other value indicates a standaridized extension to this specification.
+Any other value indicates a standardized extension to this specification.
 
 When decoding a CBOR-encoded EAT, the CBOR item type indicates the type of the submodule as follows.
 A map indicates a CBOR-encoded submodule Claims-Set.
@@ -1079,7 +1087,7 @@ This string name may also be “CBOR” to indicate the nested token is CBOR-enc
 : The second array item MUST be a JWT formatted according to {{RFC7519}}
 
 "CBOR":
-: The second array item must be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded detached EAT bundle
+: The second array item MUST be some base64url-encoded CBOR that is a tag, typically a CWT or CBOR-encoded detached EAT bundle
 
 "BUNDLE":
 : The second array item MUST be a JSON-encoded Detached EAT Bundle as defined in this document.
@@ -1483,7 +1491,7 @@ The OID encoding from {{RFC9090}} is used without the tag number in CBOR-encoded
 In JSON tokens OIDs are a text string in the common form of "nn.nn.nn...".
 
 Unless expliclity indicated, URIs are not the URI tag defined in {{RFC8949}}.
-They are just text strings that contain a URI.
+They are just text strings that contain a URI conforming to the format defined in {{RFC3986}}.
 
 ~~~~CDDL
 {::include nc-cddl/common-types.cddl}
@@ -1498,7 +1506,7 @@ following CDDL types are encoded in JSON as follows:
 * time -- MUST be encoded as NumericDate as described in Section 2 of {{RFC7519}}.
 * string-or-uri -- MUST be encoded as StringOrURI as described in Section 2 of {{RFC7519}}.
 * uri -- MUST be a URI {{RFC3986}}.
-* oid -- MUST be encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1").
+* oid -- MUST be encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1") {{RFC2252}}.
 
 The CDDL generic "JC< >" is used in most places where there is a variance between CBOR and JSON.
 The first argument is the CDDL for JSON and the second is CDDL for CBOR.
@@ -1602,7 +1610,7 @@ The "bootseed" claim is effectively a stable entity identifier within a given bo
 
 ## Replay Protection and Privacy {#replayprivacyconsiderations}
 
-EAT defines the nonce claim for replay protection and token freshness.
+EAT defines the EAT nonce claim for replay protection and token freshness.
 The nonce claim is based on a value usually derived remotely (outside of the entity).
 This claim might be used to extract and convey personally identifying information either inadvertently or by intention.
 For instance, an implementor may choose a nonce equivalent to a username associated with the device (e.g., account login).
@@ -1733,7 +1741,7 @@ IANA is requested to register the following claims.
 
 RFC Editor: Please make the following adjustments and remove this paragraph.
 Replace "__this document__" with this RFC number.
-In the following, the claims with "Claim Key: TBD" need to be assigned a value in the Specification Required Range, preferrably starting around 267.
+In the following, the claims with "Claim Key: TBD" need to be assigned a value in the Specification Required Range, preferably starting around 267.
 Those below already with a Claim Key number were given early assignment.
 No change is requested for them except for Claim Key 262.
 Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and it's description changed in both the CWT and JWT registries.
@@ -2137,7 +2145,7 @@ that handle more than a trillion records exist today.
 The trillion-record database size models an easy-to-imagine reality
 over the next decades. The quadrillion-record database is roughly at
 the limit of what is imaginable and should probably be accommodated.
-The 100 quadrillion datadbase is highly speculative perhaps involving
+The 100 quadrillion database is highly speculative perhaps involving
 nanorobots for every person, livestock animal and domesticated
 bird. It is included to round out the analysis.
 
@@ -2451,7 +2459,7 @@ The profile document should specify what the key ID's semantics are.
 
 ### JWS and COSE X.509 Header Parameters
 
-COSE X.509 {{COSE.X509.Draft}} and JSON Web Siganture {{RFC7515}} define several header parameters (x5t, x5u,...) for referencing or carrying X.509 certificates any of which may be used.
+COSE X.509 {{COSE.X509.Draft}} and JSON Web Signature {{RFC7515}} define several header parameters (x5t, x5u,...) for referencing or carrying X.509 certificates any of which may be used.
 
 The X.509 certificate may be an endorsement and thus carrying additional input to the verifier. It may be just an X.509 certificate, not an endorsement. The same header parameters are used in both cases. It is up to the attestation system design and the verifier to determine which.
 
