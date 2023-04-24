@@ -803,10 +803,10 @@ This level indicates that all debug facilities for the entity are permanently di
 
 The "location" claim gives the geographic position of the entity from which the attestation originates.
 Latitude, longitude, altitude, accuracy, altitude-accuracy, heading and speed MUST be as defined in the W3C Geolocation API {{W3C.GeoLoc}}
-(which in turn is based on {{WGS84}}).
+(which, in turn, is based on {{WGS84}}).
 If the entity is stationary, the heading is NaN (floating-point not-a-number).
 Latitude and longitude MUST always be provided.
-If any other of these values are not known, they are omitted.
+If any other of these values are unknown, they are omitted.
 
 The location may have been cached for a period of time before token
 creation. For example, it might have been minutes or hours or more
