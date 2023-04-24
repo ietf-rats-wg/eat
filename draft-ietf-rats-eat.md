@@ -497,6 +497,11 @@ universal in this way, then relying parties receiving them will have
 to track other characteristics of the entity to keep entities distinct
 between manufacturers).
 
+UEIDs are not designed for direct use by humans (e.g., printing on
+the case of a device), so no textual representation is defined.
+
+There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
+
 A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 
 ~~~~CDDL
@@ -505,11 +510,11 @@ A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 
 #### Rules for Creating UEIDs
 
-These rules for the creation of UEIDs are to ensure they are globally unique.
-The consumer does not need to have any awareness of them.
+These rules are solely for the creation of UEIDs.
+The consumer need not have any awareness of them.
 
 A UEID is constructed of a single type byte followed by the unique bytes for that type.
-The type byte assures global uniquness of the UEID even if the unique bytes for different types are accidentally the same.
+The type byte assures global uniquness of a UEID even if the unique bytes for different types are accidentally the same.
 
 UEIDS are variable length to accommodate the types defined here and future-defined types.
 
@@ -522,16 +527,14 @@ A UEID is permanent. It MUST never change for a given entity.
 The different types of UEIDs 1) accommodate different manufacturing processes, 2) accommodate small UEIDs, 3) provide an option that doesn't require registration fees and central administration.
 Creation of new types requires a Standards Action {{RFC8126}}.
 
-A manufacturer of entities may use different types for different products.
-They may also change from one type to another for a given product or use one type for some items of a given produce and another type for other.
+A manufacturer of entities MAY use different types for different products.
+They MAY also change from one type to another for a given product or use one type for some items of a given produce and another type for other.
 
 | Type Byte | Type Name | Specification |
 | 0x01 | RAND | This is a 128, 192 or 256-bit random number generated once and stored in the entity. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the entity and stored. It MUST NOT be smaller than 128 bits. See the length analysis in {{UEID-Design}}. |
 | 0x02 | IEEE EUI | This uses the IEEE company identification registry. An EUI is either an EUI-48, EUI-60 or EUI-64 and made up of an OUI, OUI-36 or a CID, different registered company identifiers, and some unique per-entity identifier. EUIs are often the same as or similar to MAC addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while entities with multiple network interfaces may have multiple MAC addresses, there is only one UEID for an entity) {{IEEE.802-2001}}, {{OUI.Guide}}. |
 | 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. See {{ThreeGPP.IMEI}}. |
 {: #ueid-types-table title="UEID Composition Types"}
-
-There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
 
 #### Rules for Consuming UEIDs
 
@@ -554,9 +557,6 @@ For example, when the consumer receives a type 0x02 UEID, they should not use th
 Different manufacturers may use different types.
 A manufacturer may make some of their product with one type and others with a different type or even change to a different type for newer versions of their product.
 Instead, the consumer should use the "oemid" claim.
-
-UEIDs are not designed for direct use by humans (e.g., printing on
-the case of a device), so no textual representation is defined.
 
 
 ### sueids (Semi-permanent UEIDs) Claim (SUEIDs)
