@@ -238,7 +238,7 @@ EAT is built on CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7
 ## Entity Overview
 
 The document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
-Correspondingly, the EAT format allows claims to be organized using mechanisms like submodules and nested EATs (see {{submods}}).
+Correspondingly, EAT allows claims to be organized using mechanisms like submodules and nested EATs (see {{submods}}).
 The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
 
 An entity also corresponds to a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
@@ -272,7 +272,7 @@ While EAT is based on and compatible with CWT and JWT, it can also be described 
 * Claims are defined in CDDL and serialized using CBOR or JSON
 * Security envelopes based on COSE and JOSE
 * Nesting of claims sets and tokens to represent complex and compound devices
-* A profile mechanism for specifying and identifying specific token formats for specific use cases
+* A profile mechanism for specifying and identifying specific tokens for specific use cases
 
 EAT uses the name/value pairs the same as CWT and JWT to identify individual claims.
 {{theclaims}} defines common attestation-oriented claims that are added to the CWT and JWT IANA registries.
@@ -290,7 +290,7 @@ The nested token and the enclosing token do not have to use the same encoding (e
 
 EAT adds the ability to detach claims sets and send them separately from a security enveloped EAT that contains a digest of the detached claims set.
 
-This document registers no media or content types for the identification of the type of EAT, its serialization format or security envelope.
+This document registers no media or content types for the identification of the type of EAT, its serialization encoding or security envelope.
 The definition and registration of EAT media types is addressed in {{EAT.media-types}}.
 
 Finally, the notion of an EAT profile is introduced that facilitates the creation of narrowed definitions of EAT tokens for specific use cases in follow-on documents.
@@ -298,7 +298,7 @@ Finally, the notion of an EAT profile is introduced that facilitates the creatio
 
 ## Operating Model and RATS Architecture
 
-The EAT format follows the operational model described in Figure 1 in {{RATS.Architecture}}. To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
+EAT follows the operational model described in Figure 1 in {{RATS.Architecture}}. To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
 Evidence is usually signed by a key that proves the attester and the evidence it produces are authentic.
 The claims set includes a nonce or some other means to assure freshness.
 
@@ -607,7 +607,7 @@ The OEM MAY also use a hash function like SHA-256 and truncate the output to 128
 The input to the hash should be somethings that have at least 96 bits of entropy, but preferably 128 bits of entropy.
 The input to the hash MAY be something whose uniqueness is managed by a central registry like a domain name.
 
-In JSON format tokens this MUST be base64url encoded.
+In JSON-encoded tokens this MUST be base64url encoded.
 
 #### IEEE Based OEMID
 
@@ -634,7 +634,7 @@ be encoded in 3 bytes with values 0xAC, 0xDE, 0x48.
 
 This format is always 3 bytes in size in CBOR.
 
-In JSON format tokens, this MUST be base64url encoded and always 4 bytes.
+In JSON-encoded tokens, this MUST be base64url encoded and always 4 bytes.
 
 #### IANA Private Enterprise Number Based OEMID
 
@@ -742,7 +742,6 @@ not matter if authentication is by a global password or by per-entity
 public keys.
 
 As with all claims, the absence of the "dbgstat" claim means it is not reported.
-A conservative interpretation might assume the enabled state.
 
 This claim is not extensible so as to provide a common interoperable description of debug status.
 If a particular implementation considers this claim to be inadequate, it can define its own proprietary claim.
@@ -837,7 +836,7 @@ See location-related privacy considerations in {{locationprivacyconsiderations}}
 ### uptime (Uptime) Claim
 
 The "uptime" claim MUST contain a value that represents the number of
-seconds that have elapsed since the entity or submod was last booted.
+seconds that have elapsed since the entity or submodule was last booted.
 
 ~~~~CDDL
 {::include nc-cddl/uptime.cddl}
@@ -846,7 +845,7 @@ seconds that have elapsed since the entity or submod was last booted.
 ### bootcount (Boot Count) Claim
 
 The "bootcount" claim contains a count of the number
-times the entity or submod has been booted. Support for this claim
+times the entity or submodule has been booted. Support for this claim
 requires a persistent storage on the device.
 
 ~~~~CDDL
@@ -906,20 +905,20 @@ When such manifests are put into this claim, the manufacturer's signature SHOULD
 For example, the manifest might be a CoSWID signed by the software manufacturer, in which case the full signed CoSWID should be put in this claim.
 
 This claim allows multiple formats for the manifest.
-For example, the manifest may be a CBOR-format CoSWID, an XML-format SWID or other.
+For example, the manifest may be a CBOR-encoded CoSWID, an XML-encoded SWID or other.
 Identification of the type of manifest is always by a CoAP Content-Format integer {{RFC7252}}.
-If there is no CoAP identifier registered for the manifest format, one should be registered, perhaps in the experimental or first-come-first-served range.
+If there is no CoAP identifier registered for the manifest encoding, one should be registered, perhaps in the experimental or first-come-first-served range.
 
 This claim MUST be an array of one or more manifests.
 Each manifest in the claim MUST be an array of two.
 The first item in the array of two MUST be an integer CoAP Content-Format identifier.
 The second item is MUST be the actual manifest.
 
-In JSON-format tokens the manifest, whatever format it is, MUST be placed in a text string.
-When a non-text format manifest like a CBOR-encoded CoSWID is put in a JSON-encoded token, the manifest MUST be base-64 encoded.
+In JSON-encoded tokens the manifest, whatever encoding it is, MUST be placed in a text string.
+When a non-text encoded manifest like a CBOR-encoded CoSWID is put in a JSON-encoded token, the manifest MUST be base-64 encoded.
 
 This claim allows for multiple manifests in one token since multiple software packages are likely to be present.
-The multiple manifests MAY be of different formats.
+The multiple manifests MAY be of different encodings.
 In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.
 
 When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
@@ -1109,7 +1108,7 @@ There is no byte-string wrapping or base 64 encoding.
 The data type for this type of submodule is an array consisting of two data items: an algorithm identifier and a byte string containing the digest. The hash algorithm identifier is always from the COSE Algorithm registry, {{IANA.COSE.Algorithms}}. Either the integer or string identifier may be used. The hash algorithm identifier is never from the JOSE Algorithm registry.
 
 A detached EAT bundle, described in {{DEB}}, may be used to convey detached claims sets and the EAT containing the corresponding detached digests.
-The EAT format, however, doesn't require use of a detached EAT bundle.
+EAT, however, doesn't require use of a detached EAT bundle.
 Any other protocols may be used to convey detached claims sets and the EAT containing the corresponding detached digests.
 Detached Claims-Sets must not be modified in transit, else validation will fail.
 
@@ -1231,8 +1230,8 @@ The same mechanism for distinguishing the type for nested token submodules is em
 The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the full token.
 When the detached EAT bundle is CBOR-encoded, each detached Claims-Set MUST be CBOR-encoded and wrapped in a byte string.
 When the detached EAT bundle is JSON-encoded, each detached Claims-Set MUST be JSON-encoded and base64url encoded.
-All the detached Claims-Sets MUST be encoded in the same format as the detached EAT bundle.
-No mixing of encoding formats is allowed for the Claims-Sets in a detached EAT bundle.
+All the detached Claims-Sets MUST be encoded in the same encoding as the detached EAT bundle.
+No mixing of encodings is allowed for the Claims-Sets in a detached EAT bundle.
 
 For CBOR-encoded detached EAT bundles, tag TBD602 can be used to identify it.
 The normal rules apply for use or non-use of a tag.
@@ -1290,7 +1289,7 @@ The following is a list of EAT, CWT, JWT, COSE, JOSE and CBOR options that a pro
 ### Use of JSON, CBOR or both
 
 A profile should specify whether CBOR, JSON or both may be sent.
-A profile should specify that the receiver can accept all encoding formats that the sender is allowed to send.
+A profile should specify that the receiver can accept all encodings that the sender is allowed to send.
 
 This should be specified for the top-level and all nested tokens.
 For example, a profile might require all nested tokens to be of the same encoding of the top level token.
@@ -1431,7 +1430,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | CBOR Encoding | Only definite length maps and arrays are allowed |
 | CBOR Encoding | Only definite length strings are allowed |
 | CBOR Serialization | Only preferred serialization is allowed |
-| COSE Protection | Only COSE_Sign1 format is used |
+| COSE Protection | Only COSE_Sign1 is used |
 | Algorithms | Receiver MUST accept ES256, ES384 and ES512; sender MUST send one of these |
 | Detached EAT Bundle Usage | Detached EAT bundles may not be sent with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verification key. If both are present, the kid takes precedence |
@@ -1449,7 +1448,7 @@ Such a profile MUST have a different profile identifier.
 
 An EAT is fundamentally defined using CDDL.
 This document specifies how to encode the CDDL in CBOR or JSON.
-Since CBOR can express some things that JSON can't (e.g., tags) or that are expressed differently (e.g., labels) there is some CDDL that is specific to the encoding format.
+Since CBOR can express some things that JSON can't (e.g., tags) or that are expressed differently (e.g., labels) there is some CDDL that is specific to the encoding.
 
 ## Claims-Set and CDDL for CWT and JWT
 
@@ -2052,9 +2051,9 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
 ~~~~
 
 
-### Attestation Results in JSON format
+### Attestation Results in JSON
 
-This is a JSON-format payload that might be the output of a verifier that evaluated the IoT Attestation example immediately above.
+This is a JSON-encoded payload that might be the output of a verifier that evaluated the IoT Attestation example immediately above.
 
 This particular verifier knows enough about the TEE attester to be able to pass claims like debug status directly through to the relying party.
 The verifier also knows the reference values for the measured software components and is able to check them.
@@ -2396,7 +2395,7 @@ Where possible, claims should use already standardized data items, identifiers a
 This takes advantage of the expertise put into creating those formats and improves interoperability.
 
 Often extant claims will not be defined in an encoding or serialization format used by EAT.
-It is preferred to define a CBOR and JSON format for them so that EAT implementations do not require a plethora of encoders and decoders for serialization formats.
+It is preferred to define a CBOR and JSON encoding for them so that EAT implementations do not require a plethora of encoders and decoders for serialization formats.
 
 In some cases, it may be better to use the encoding and serialization as is.
 For example, signed X.509 certificates and CRLs can be carried as-is in a byte string.
@@ -2489,10 +2488,9 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-18
-- Update IANA section, particularly CWT and JWT claims to be registered
-- Remove sentence discussing pass through of claims about the token in section 4.3
-- Add paragraph to appendix D noting that the "iat" claim is ~time-int
+## From draft-ietf-rats-eat-19
+- Prefer the term "encoding" over "format" when referring to CBOR and JSON.
+
 
 --- contributor
 
