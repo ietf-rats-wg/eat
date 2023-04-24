@@ -2493,6 +2493,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 ## From draft-ietf-rats-eat-19
 - Prefer the term "encoding" over "format" when referring to CBOR and JSON.
 - Separate sections for creating and consuming UEIDs
+- Base location on W3C reference directly and WGS84 indirectly
 
 
 --- contributor
