@@ -2349,11 +2349,15 @@ The prose in CWT and JWT remain the normative definition.
 ~~~~
 
 
-# Claim Characteristics {#Claim_Characteristics}
+# New Claim Design Considerations {#Claim_Characteristics}
 
-The following is design guidance for creating new EAT claims, particularly those to be registered with IANA.
+The following are design considerations that may be helpful to take into account when creating new EAT claims.
+It is the product of discussion in the working group.
 
-Much of this guidance is generic and could also be considered when designing new CWT or JWT claims.
+EAT reuses the CWT and JWT claims registries.
+There is no registriy exclusively for EAT claims.
+This is not an update to the expert review criteria for the JWT and CWT claims registries as that would be an overreach for this document.
+
 
 ## Interoperability and Relying Party Orientation
 
@@ -2403,7 +2407,7 @@ This retains interoperability with the extensive infrastructure for creating and
 
 ## Proprietary Claims
 
-EAT allows the definition and use of proprietary claims.
+It is not always possible or convenient to achieve the above goals, so the definition and use of proprietary claims is an option.
 
 For example, a device manufacturer may generate a token with proprietary claims intended only for verification by a service offered by that device manufacturer.
 This is a supported use case.
@@ -2492,6 +2496,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Separate sections for creating and consuming UEIDs
 - Base location on W3C reference directly and WGS84 indirectly
 - The option for a hash-based OEMID is removed
+- Rename Appendix E and clarify its purpose
 - Require presence of oemid claim if hwmodel is present; same for swversion and swname
 - Use normative language to describe the constrained device profile
 
