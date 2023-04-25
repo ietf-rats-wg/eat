@@ -138,11 +138,6 @@ normative:
 
   SUIT.Manifest: I-D.ietf-suit-manifest
 
-  SHS:
-    title: Secure Hash Standard (SHS)
-    target: https://csrc.nist.gov/publications/detail/fips/180/4/final
-    date: August 2015
-
 
 informative:
   RFC4122:
@@ -610,12 +605,7 @@ They would perform this only once in the life of the company to generate the sin
 They would use that same ID in every entity they make.
 This uniquely identifies the OEM on a statistical basis and is large enough should there be ten billion companies.
 
-The OEM MAY also use a hash function like SHA-256 {{SHS}} and truncate the output to 128 bits.
-The input to the hash should be somethings that have at least 96 bits of entropy, but preferably 128 bits of entropy.
-The input to the hash MAY be something whose uniqueness is managed by a central registry like a domain name.
-
 In JSON-encoded tokens this MUST be base64url encoded {{RFC4648}}.
-
 
 #### IEEE Based OEMID
 
@@ -2494,6 +2484,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Prefer the term "encoding" over "format" when referring to CBOR and JSON.
 - Separate sections for creating and consuming UEIDs
 - Base location on W3C reference directly and WGS84 indirectly
+- The option for a hash-based OEMID is removed
 
 
 --- contributor
