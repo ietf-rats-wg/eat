@@ -649,11 +649,12 @@ In JSON, this value MUST be encoded as a number.
 ~~~~
 
 
-### hwmodel (Hardware Model) Claim
+### hwmodel (Hardware Model) Claim {#hwmodel}
 
 The "hwmodel" claim differentiates hardware models, products and variants manufactured by a particular OEM, the one identified by OEM ID in {{oemid}}.
 It MUST be unique within a given OEM ID.
 The concatenation of the OEM ID and "hwmodel" give a global identifier of a particular product.
+The "hwmodel" claim MUST only be present if an "oemid" claim described in {{oemid}} is present.
 
 The granularity of the model identification is for each OEM to decide.
 It may be very granular, perhaps including some version information.
@@ -680,19 +681,20 @@ The OEM is free to alter the internal structure of these bytes as long as the cl
 The "hwversion" claim is a text string the format of which is set by each manufacturer.
 The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
 It is useful to know how to sort versions so the newer can be distinguished from the older.
+A "hwversion" claim MUST only be present if a "hwmodel" claim described in {{hwmodel}} is present.
 
 ~~~~CDDL
 {::include nc-cddl/hardware-version.cddl}
 ~~~~
 
 
-### swname (Software Name) Claim
+### swname (Software Name) Claim {#swname}
 
 The "swname" claim contains a very simple free-form text value for naming the software used by the entity.
 Intentionally, no general rules or structure are set.
 This will make it unsuitable for use cases that wish precise naming.
 
-If precise and rigourous naming of the software for the entity is needed, the "manifests" claim {{manifests}} may be used instead.
+If precise and rigourous naming of the software for the entity is needed, the "manifests" claim described in {{manifests}} may be used instead.
 
 ~~~~CDDL
 {::include nc-cddl/software-name.cddl}
@@ -703,6 +705,7 @@ If precise and rigourous naming of the software for the entity is needed, the "m
 
 The "swversion" claim makes use of the CoSWID version-scheme item to give a simple version for the software.
 A full CoSWID manifest or other type of manifest can be instead if this is too simple.
+A "swversion" claim MUST only be present if a "swname" claim described in {{swname}} is present.
 
 ~~~~CDDL
 {::include nc-cddl/software-version.cddl}
@@ -2485,6 +2488,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Separate sections for creating and consuming UEIDs
 - Base location on W3C reference directly and WGS84 indirectly
 - The option for a hash-based OEMID is removed
+- Require presence of oemid claim if hwmodel is present; same for swversion and swname
 
 
 --- contributor
