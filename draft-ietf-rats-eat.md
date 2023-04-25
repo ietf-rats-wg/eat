@@ -2489,6 +2489,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Separate sections for creating and consuming UEIDs
 - Base location on W3C reference directly and WGS84 indirectly
 - The option for a hash-based OEMID is removed
+- Rename Appendix E and clarify its purpose
 
 
 --- contributor
