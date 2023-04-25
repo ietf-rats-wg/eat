@@ -138,11 +138,6 @@ normative:
 
   SUIT.Manifest: I-D.ietf-suit-manifest
 
-  SHS:
-    title: Secure Hash Standard (SHS)
-    target: https://csrc.nist.gov/publications/detail/fips/180/4/final
-    date: August 2015
-
 
 informative:
   RFC4122:
@@ -2489,6 +2484,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Prefer the term "encoding" over "format" when referring to CBOR and JSON.
 - Separate sections for creating and consuming UEIDs
 - Base location on W3C reference directly and WGS84 indirectly
+- The option for a hash-based OEMID is removed
 
 
 --- contributor
