@@ -1436,7 +1436,7 @@ Any profile with different requirements than those above MUST have a different p
 
 Note that many claims can be present for tokens conforming to this profile, even claims not defined in this document.
 Note also that even slight deviation from the above requirements is considered a different profile that MUST have a different identifier.
-For example, if a kid or UEID is not used for key identification, it is not in conformance with this profile.
+For example, if a kid (key identifier) or UEID is not used for key identification, it is not in conformance with this profile.
 For another example, requiring the presence of some claim is also not in conformance and requires another profile.
 
 Derivations of this profile are encouraged.
