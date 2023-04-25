@@ -1440,7 +1440,7 @@ For example, if a kid (key identifier) or UEID is not used for key identificatio
 For another example, requiring the presence of some claim is also not in conformance and requires another profile.
 
 Derivations of this profile are encouraged.
-For example another profile may be simply defined as The Constrained Device Standard Profile plus the requirement for the presence claim xxxx and claim yyyy.
+For example another profile may be simply defined as The Constrained Device Standard Profile plus the requirement for the presence of claim xxxx and claim yyyy.
 
 
 # Encoding and Collected CDDL {#encoding}
@@ -2493,6 +2493,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Base location on W3C reference directly and WGS84 indirectly
 - The option for a hash-based OEMID is removed
 - Require presence of oemid claim if hwmodel is present; same for swversion and swname
+- Use normative language to describe the constrained device profile
 
 
 --- contributor
