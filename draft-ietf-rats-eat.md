@@ -649,11 +649,12 @@ In JSON, this value MUST be encoded as a number.
 ~~~~
 
 
-### hwmodel (Hardware Model) Claim
+### hwmodel (Hardware Model) Claim {#hwmodel}
 
 The "hwmodel" claim differentiates hardware models, products and variants manufactured by a particular OEM, the one identified by OEM ID in {{oemid}}.
 It MUST be unique within a given OEM ID.
 The concatenation of the OEM ID and "hwmodel" give a global identifier of a particular product.
+The "hwmodel" claim MUST only be present if an "oemid" claim described in {{oemid}} is present.
 
 The granularity of the model identification is for each OEM to decide.
 It may be very granular, perhaps including some version information.
@@ -680,19 +681,20 @@ The OEM is free to alter the internal structure of these bytes as long as the cl
 The "hwversion" claim is a text string the format of which is set by each manufacturer.
 The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
 It is useful to know how to sort versions so the newer can be distinguished from the older.
+A "hwversion" claim MUST only be present if a "hwmodel" claim described in {{hwmodel}} is present.
 
 ~~~~CDDL
 {::include nc-cddl/hardware-version.cddl}
 ~~~~
 
 
-### swname (Software Name) Claim
+### swname (Software Name) Claim {#swname}
 
 The "swname" claim contains a very simple free-form text value for naming the software used by the entity.
 Intentionally, no general rules or structure are set.
 This will make it unsuitable for use cases that wish precise naming.
 
-If precise and rigourous naming of the software for the entity is needed, the "manifests" claim {{manifests}} may be used instead.
+If precise and rigourous naming of the software for the entity is needed, the "manifests" claim described in {{manifests}} may be used instead.
 
 ~~~~CDDL
 {::include nc-cddl/software-name.cddl}
@@ -703,6 +705,7 @@ If precise and rigourous naming of the software for the entity is needed, the "m
 
 The "swversion" claim makes use of the CoSWID version-scheme item to give a simple version for the software.
 A full CoSWID manifest or other type of manifest can be instead if this is too simple.
+A "swversion" claim MUST only be present if a "swname" claim described in {{swname}} is present.
 
 ~~~~CDDL
 {::include nc-cddl/software-version.cddl}
@@ -1412,28 +1415,32 @@ A profile that require the receiver to accept all variations that are allowed to
 ## The Constrained Device Standard Profile
 
 It is anticipated that there will be many profiles defined for EAT for many different use cases.
-This section standardizes one profile that is good for many constrained device use cases.
+This section gives a normative definition of one profile that is good for many constrained device use cases.
 
 The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 
-
 | Issue | Profile Definition |
-| CBOR/JSON | CBOR only |
-| CBOR Encoding | Only definite length maps and arrays are allowed |
-| CBOR Encoding | Only definite length strings are allowed |
-| CBOR Serialization | Only preferred serialization is allowed |
-| COSE Protection | Only COSE_Sign1 is used |
-| Algorithms | Receiver MUST accept ES256, ES384 and ES512; sender MUST send one of these |
-| Detached EAT Bundle Usage | Detached EAT bundles may not be sent with this profile |
+| CBOR/JSON | CBOR MUST be used  |
+| CBOR Encoding | Definite length maps and arrays MUST be used |
+| CBOR Encoding | Definite length strings MUST be used |
+| CBOR Serialization | Preferred serialization MUST be used |
+| COSE Protection | COSE_Sign1 MUST be used |
+| Algorithms | The receiver MUST accept ES256, ES384 and ES512; the sender MUST send one of these |
+| Detached EAT Bundle Usage | Detached EAT bundles MUST not be sent with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verification key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce MUST be used for every token request |
 | Claims | No requirement is made on the presence or absence of claims other than requiring an EAT nonce. As per general EAT rules, the receiver MUST NOT error out on claims it doesn't understand. |
 
-Strictly speaking, even slight modifications, such as the use of a different means of key identification, are a divergence from this profile and require allocation of a different profile identifier.
+Any profile with different requirements than those above MUST have a different profile identifier.
 
-A profile that is similar to this can be defined and/or standardized by making normative reference to this section and adding requirements.
-Such a profile MUST have a different profile identifier.
+Note that many claims can be present for tokens conforming to this profile, even claims not defined in this document.
+Note also that even slight deviation from the above requirements is considered a different profile that MUST have a different identifier.
+For example, if a kid (key identifier) or UEID is not used for key identification, it is not in conformance with this profile.
+For another example, requiring the presence of some claim is also not in conformance and requires another profile.
+
+Derivations of this profile are encouraged.
+For example another profile may be simply defined as The Constrained Device Standard Profile plus the requirement for the presence of claim xxxx and claim yyyy.
 
 
 # Encoding and Collected CDDL {#encoding}
@@ -2490,6 +2497,8 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Base location on W3C reference directly and WGS84 indirectly
 - The option for a hash-based OEMID is removed
 - Rename Appendix E and clarify its purpose
+- Require presence of oemid claim if hwmodel is present; same for swversion and swname
+- Use normative language to describe the constrained device profile
 
 
 --- contributor
