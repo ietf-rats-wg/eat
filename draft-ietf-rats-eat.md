@@ -1216,7 +1216,7 @@ security state of the entity storing the private key used in a PoP application.
 
 A detached EAT bundle is a structure to convey an EAT plus detached claims sets secured by that EAT.
 It is a top-level message like a CWT or JWT.
-It can be occur any place that a CWT or JWT occurs.
+It can occur any place that a CWT or JWT occurs.
 It may be sent as a submodule.
 
 A detached EAT bundle consists of two parts.
