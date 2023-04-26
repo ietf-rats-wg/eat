@@ -1225,20 +1225,20 @@ A detached EAT bundle may be either CBOR or JSON-encoded.
 
 A detached EAT bundle consists of two parts.
 
-The first part is an encoded EAT.
-This EAT MUST have at least one submodule that is a detached submodule digest as defined in {{Detached-Submodule-Digest}}.
-This EAT may be either CBOR or JSON-encoded.
-The encoding of the EAT does not have to be the same as the encoding of the bundle.
-It MAY be a CWT, or JWT but MUST NOT be a detached EAT bundle.
-It MAY also be some future-defined token type.
-It MUST have authenticity and integrity protection.
+The first part is an encoded EAT as follows:
+
+* MUST have at least one submodule that is a detached submodule digest as defined in {{Detached-Submodule-Digest}}
+* MAY be either CBOR or JSON-encoded and doesn't have to the the same as the encoding of the bundle
+* MAY be a CWT, or JWT or some future-defined token type, but MUST NOT be a detached EAT bundle
+* MUST be authenticity and integrity protected
+
 The same mechanism for distinguishing the type for nested token submodules is employed here.
 
-The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the EAT.
-When the detached EAT bundle is CBOR-encoded, each detached Claims-Set MUST be CBOR-encoded and wrapped in a byte string.
-When the detached EAT bundle is JSON-encoded, each detached Claims-Set MUST be JSON-encoded and base64url encoded.
-All the detached Claims-Sets MUST be encoded in the same encoding as the detached EAT bundle.
-No mixing of encodings is allowed for the Claims-Sets in a detached EAT bundle.
+The second part is a map/object as follows:
+
+* MUST be a Claims-Set
+* MUST use the same encoding as the bundle
+* MUST be wrapped in a byte string when the encoding is CBOR and be base64url encoded when the encoding is JSON
 
 For CBOR-encoded detached EAT bundles, tag TBD602 can be used to identify it.
 The standard rules apply for use or non-use of a tag.
