@@ -1102,7 +1102,7 @@ mechanism as the enclosing token (e.g., it is signed by the same attestation key
 
 The encoding of a submodule Claims-Set MUST be the same as the encoding as the surrounding EAT, e.g., all submodule Claims-Sets in a CBOR-encoded token must be CBOR-encoded.
 
-#### Detached Submodule Digest
+#### Detached Submodule Digest {#Detached-Submodule-Digest}
 
 The Detached-Submodule-Digest type is similar to a submodule Claims-Set, except a digest of the Claims-Set is included in the claim with the Claims-Set contents conveyed separately.
 The separately-conveyed Claims-Set is called a detached claims set.
@@ -1217,16 +1217,18 @@ security state of the entity storing the private key used in a PoP application.
 
 # Detached EAT Bundles {#DEB}
 
-A detached EAT bundle is a structure to convey an EAT plus detached claims sets secured by that EAT.
+A detached EAT bundle is a message to convey an EAT plus detached claims sets secured by that EAT.
 It is a top-level message like a CWT or JWT.
-It can occur any place that a CWT or JWT occurs.
-It may be sent as a submodule.
+It can occur in any place that a CWT or JWT occurs, for example as a submodule nested token as defined in {{Nested-Token}}.
+
+A detached EAT bundle may be either CBOR or JSON-encoded.
 
 A detached EAT bundle consists of two parts.
 
 The first part is an encoded EAT.
-This EAT MUST have at least one submodule that is a detached digest.
+This EAT MUST have at least one submodule that is a detached submodule digest as defined in {{Detached-Submodule-Digest}}.
 This EAT may be either CBOR or JSON-encoded.
+The encoding of the EAT does not have to be the same as the encoding of the bundle.
 It MAY be a CWT, or JWT but MUST NOT be a detached EAT bundle.
 It MAY also be some future-defined token type.
 It MUST have authenticity and integrity protection.
@@ -1239,7 +1241,7 @@ All the detached Claims-Sets MUST be encoded in the same encoding as the detache
 No mixing of encodings is allowed for the Claims-Sets in a detached EAT bundle.
 
 For CBOR-encoded detached EAT bundles, tag TBD602 can be used to identify it.
-The normal rules apply for use or non-use of a tag.
+The standard rules apply for use or non-use of a tag.
 When it is sent as a submodule, it is always sent as a tag to distinguish it from the other types of nested tokens.
 
 The digests of the detached claims sets are associated with detached Claims-Sets by label/name.
