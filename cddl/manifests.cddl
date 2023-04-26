@@ -30,6 +30,3 @@ $manifest-body-json /= base64-url-text
 $manifest-body-cbor /= bytes .cbor SUIT_Envelope
 $manifest-body-json /= base64-url-text
 
-
-; TODO: remove this when SUIT CDDL gets fixed
-suit-directive-process-dependency = 19
