@@ -972,7 +972,7 @@ For example, it may be desirable to report the results for measurements of the f
 Note that this claim is not for reporting the overall result of a verifier.
 It is solely for reporting the result of comparison to reference values.
 
-An individual measurement result (individual-result) is an array of two, an identifier of the measurement (result-id) and an enumerated type that is the result (result).
+An individual measurement result (individual-result) is an array consisting of two elements, an identifier of the measurement (result-id) and an enumerated type of the result (result).
 Different measurement systems will measure different things and perhaps measure the same thing in different ways.
 It is up to each measurement system to define identifiers (result-id) for the measurements it reports.
 
