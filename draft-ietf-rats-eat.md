@@ -1707,7 +1707,7 @@ For example, the verifier may be configured with a root certificate or a master 
 
 Often an X.509 certificate or an endorsement carries more than just the verification key.
 For example, an X.509 certificate might have key usage constraints and an endorsement might have reference values.
-When this is the case, the key identifier must be either a protected header or in the payload such that it is cryptographically bound to the EAT.
+When this is the case, the key identifier must be either a protected header or in the payload, such that it is cryptographically bound to the EAT.
 This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
 
 
