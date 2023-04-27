@@ -237,13 +237,13 @@ EAT is built on CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7
 
 ## Entity Overview
 
-The document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
-Correspondingly, the EAT format allows claims to be organized using mechanisms like submodules and nested EATs (see {{submods}}).
+This document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
+Correspondingly, EAT allows claims to be organized using mechanisms like submodules and nesting (see {{submods}}).
 The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
 
 An entity is the same as a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
 
-Note that {{RFC4949}} defines  "entity" and "system entity" as synonyms, and may be a person or organization in addition to being a system component.
+Note that {{RFC4949}} defines  "entity" and "system entity" as synonyms, and that they may be a person or organization in addition to being a system component.
 In the EAT context, "entity" never refers to a person or organization.
 The hardware and software that implement a web site server or service may be an entity in the EAT sense, but the organization that operates, maintains or hosts the web site is not an entity.
 An entity is an implementation in hardware, software or both.
