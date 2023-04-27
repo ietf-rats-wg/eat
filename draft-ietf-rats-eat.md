@@ -123,17 +123,6 @@ normative:
 
   IANA.cbor-tags:
 
-  SPDX:
-    title: Software Package Data Exchange (SPDX)
-    target: https://spdx.dev/wp-content/uploads/sites/41/2020/08/SPDX-specification-2-2.pdf
-    date: 2020
-
-  CycloneDX:
-     title: CycloneDX
-     target: https://cyclonedx.org/docs/1.4/json/
-     date: false
-
-
   IANA.core-parameters:
 
   SUIT.Manifest: I-D.ietf-suit-manifest
@@ -207,7 +196,10 @@ The relying party may choose to trust, not trust or partially trust the entity.
 For example, partial trust may be allowing a monetary transaction only up to a limit.
 
 The security model and goal for attestation are unique and are not the same as for other security standards like those for server authentication, user authentication and secured messaging.
-The reader is assumed to be familiar with the goals and security model for attestation as described in {{RATS.Architecture}}.
+To give an example of one aspect of the difference, consider the association and life-cycle of key material.
+For authentication, keys are associated with a user or service and set up by actions performed by a user or an operator of a service.
+For attestation, the keys are associated with specific devices and are configured by device manufacturers.
+The reader is assumed to be familiar with the goals and security model for attestation as described in {{RATS.Architecture}} and are not repeated here.
 
 This document defines some common claims that are potentially of broad use.
 EAT additionally allows proprietary claims and for further claims to be standardized.
@@ -920,8 +912,6 @@ A CoSWID manifest MUST be a payload CoSWID, not an evidence CoSWID.
 These are defined in {{CoSWID}}.
 
 A {{SUIT.Manifest}} may be used as a manifest.
-
-This document registers CoAP Content Formats for CycloneDX {{CycloneDX}} and SPDX {{SPDX}} so they can be used as a manifest.
 
 This claim is extensible for use of manifest formats beyond those mentioned in this document.
 No particular manifest format is preferred.
@@ -1974,29 +1964,6 @@ specification reference.
 | Tag    | Data Items     | Semantics                   |
 | TBD602 | array          | Detached EAT Bundle {{DEB}} |
 
-
-## Media Types Registered by this Document
-
-It is requested that the CoAP Content-Format for SPDX and CycloneDX be registered in the "CoAP Content-Formats" subregistry within the "Constrained RESTful Environments (CoRE) Parameters" registry [IANA.core-parameters]:
-
-* Media Type: application/spdx+json
-* Content-Coding: identity
-* ID: TBD
-* Reference: {{SPDX}}
-
-&nbsp;
-
-* Media Type: vendor/vnd.cyclonedx+xml
-* Content-Coding: identity
-* ID: TBD
-* Reference: {{CycloneDX}}
-
-&nbsp;
-
-* Media Type: vendor/vnd.cyclonedx+json
-* Content-Coding: identity
-* ID: TBD
-* Reference: {{CycloneDX}}
 
 --- back
 
