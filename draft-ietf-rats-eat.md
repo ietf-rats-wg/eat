@@ -243,7 +243,7 @@ The entity to which a claim applies is the submodule in which it appears, or to 
 
 An entity is the same as a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
 
-Note however that the {{RFC4949}} definitions of the terms "entity" and "system entity" are not the same as the definition of entity here.
+Note that {{RFC4949}} defines  "entity" and "system entity" as synonyms, and may be a person or organization in addition to being a system component.
 In the EAT context, "entity" never refers to a person or organization.
 The hardware and software that implement a web site server or service may be an entity in the EAT sense, but the organization that operates, maintains or hosts the web site is not an entity.
 An entity is an implementation in hardware, software or both.
