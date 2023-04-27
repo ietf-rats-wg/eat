@@ -1704,7 +1704,7 @@ This will always be by some out-of-band mechanism that is not described here.
 For example, the verifier may be configured with a root certificate or a master key by the verifier system administrator.
 
 Often an X.509 certificate or an endorsement carries more than just the verification key.
-For example, an X.509 certificate might have key usage constraints and an endorsement might have reference values.
+For example, an X.509 certificate might have key usage constraints, and an endorsement might have reference values.
 When this is the case, the key identifier must be either a protected header or in the payload, such that it is cryptographically bound to the EAT.
 This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
 
@@ -2482,6 +2482,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Rename Appendix E and clarify its purpose
 - Require presence of oemid claim if hwmodel is present; same for swversion and swname
 - Use normative language to describe the constrained device profile
+- Move discussion of verification keys out of appendix into security considerations
 
 
 --- contributor
