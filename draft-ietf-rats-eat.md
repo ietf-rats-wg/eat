@@ -915,7 +915,7 @@ A {{SUIT.Manifest}} may be used as a manifest.
 
 This claim is extensible for use of manifest formats beyond those mentioned in this document.
 No particular manifest format is preferred.
-For manifest interoperability, an EAT profile, {{profiles}}, should be used that specifies what manifest format(s) are allowed.
+For manifest interoperability, an EAT profile as defined in {{profiles}}, should be used to specify which manifest format(s) are allowed.
 
 ~~~~CDDL
 {::include nc-cddl/manifests.cddl}
@@ -2480,7 +2480,8 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Rename Appendix E and clarify its purpose
 - Require presence of oemid claim if hwmodel is present; same for swversion and swname
 - Use normative language to describe the constrained device profile
-
+- Require a CoAP id for manifest formats
+- Clarifications for manifests claim
 
 --- contributor
 
