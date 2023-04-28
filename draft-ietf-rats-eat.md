@@ -2487,6 +2487,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Rename Appendix E and clarify its purpose
 - Require presence of oemid claim if hwmodel is present; same for swversion and swname
 - Use normative language to describe the constrained device profile
+- Clarifications around the terms "token", "message" and "claims-set"
 
 
 --- contributor
