@@ -1161,9 +1161,10 @@ See {{common-types}} for OID and URI encoding.
 
 ### intuse (Intended Use) Claim
 
-EAT's may be used in the context of several different applications.  The "intuse"
+EATs may be employed in the context of several different applications.  The "intuse"
 claim provides an indication to an EAT consumer about  the intended usage
-of the token. This claim can be used as a way for an application using EAT to internally distinguish between different ways it uses EAT.
+of the token. This claim can be used as a way for an application using EAT to internally distinguish between different ways it utilizes EAT.
+5 possible values for "intuse" are currently defined, but an IANA registry can be created in the future to extend these values  based on new use cases of EAT.
 
 1 -- Generic:
 : Generic attestation describes an application where the EAT consumer
@@ -1696,7 +1697,7 @@ an appropriate COSE hash algorithm, implying that an attacker cannot induce fals
 of a modified detached claims because the algorithms in the COSE registry are assumed to be
 of sufficient cryptographic strength.
 
-# IANA Considerations
+# IANA Considerations {#iana-cons}
 
 ## Reuse of CBOR and JSON Web Token (CWT and JWT) Claims Registries
 
