@@ -1683,7 +1683,7 @@ downstream consumer should leverage a communication security protocol
 
 However, assume the EAT of the previous example is hierarchical and
 each claim subset for a downstream consumer is created in the form of
-a nested EAT.  Then the nested EAT is itself cryptographically-verifiable (due to its
+a nested EAT.  Then the nested EAT is itself encrypted and cryptographically verifiable (due to its
 COSE envelope)
 by a downstream consumer (unlike the previous example where a claims set
 without a COSE envelope is sent to a downstream consumer).  Therefore, Transport Layer Security between the receiving and
