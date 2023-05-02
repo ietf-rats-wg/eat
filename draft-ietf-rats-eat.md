@@ -874,6 +874,9 @@ The second element MUST be a platform label indicating which platform was certif
 If the DLOA applies to an application, then the third element is added which MUST be an application label.
 The method of constructing the registrar URI, platform label and possibly application label is specified in {{DLOA}}.
 
+The retriever of a DLOA SHOULD follow the recommendation in {{DLOA}} and use TLS to be sure the DLOA registrar they are accessing is authentic.
+The platform and application labels in the claim indicate the correct DLOA for the entity.
+
 ~~~~CDDL
 {::include nc-cddl/dloas.cddl}
 ~~~~
