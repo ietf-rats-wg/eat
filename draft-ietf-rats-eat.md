@@ -231,11 +231,15 @@ Like CWT and JWT, EAT does not imply any message flow.
 
 ## Entity Overview
 
-The document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
-Correspondingly, EAT allows claims to be organized using mechanisms like submodules and nested EATs (see {{submods}}).
+This document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
+Correspondingly, EAT allows claims to be organized using mechanisms like submodules and nesting (see {{submods}}).
 The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
 
-An entity also corresponds to a "system component", as defined in the Internet Security Glossary {{RFC4949}}, except that in the EAT context an "entity" never refers to a person or organization.
+An entity is the same as a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
+
+Note that {{RFC4949}} defines  "entity" and "system entity" as synonyms, and that they may be a person or organization in addition to being a system component.
+In the EAT context, "entity" never refers to a person or organization.
+The hardware and software that implement a web site server or service may be an entity in the EAT sense, but the organization that operates, maintains or hosts the web site is not an entity.
 
 Some examples of entities:
 
@@ -874,6 +878,9 @@ The second element MUST be a platform label indicating which platform was certif
 If the DLOA applies to an application, then the third element is added which MUST be an application label.
 The method of constructing the registrar URI, platform label and possibly application label is specified in {{DLOA}}.
 
+The retriever of a DLOA SHOULD follow the recommendation in {{DLOA}} and use TLS to be sure the DLOA registrar they are accessing is authentic.
+The platform and application labels in the claim indicate the correct DLOA for the entity.
+
 ~~~~CDDL
 {::include nc-cddl/dloas.cddl}
 ~~~~
@@ -1162,9 +1169,10 @@ See {{common-types}} for OID and URI encoding.
 
 ### intuse (Intended Use) Claim
 
-EAT's may be used in the context of several different applications.  The "intuse"
+EATs may be employed in the context of several different applications.  The "intuse"
 claim provides an indication to an EAT consumer about  the intended usage
-of the token. This claim can be used as a way for an application using EAT to internally distinguish between different ways it uses EAT.
+of the token. This claim can be used as a way for an application using EAT to internally distinguish between different ways it utilizes EAT.
+5 possible values for "intuse" are currently defined, but an IANA registry can be created in the future to extend these values  based on new use cases of EAT.
 
 1 -- Generic:
 : Generic attestation describes an application where the EAT consumer
@@ -1697,7 +1705,7 @@ an appropriate COSE hash algorithm, implying that an attacker cannot induce fals
 of a modified detached claims because the algorithms in the COSE registry are assumed to be
 of sufficient cryptographic strength.
 
-# IANA Considerations
+# IANA Considerations {#iana-cons}
 
 ## Reuse of CBOR and JSON Web Token (CWT and JWT) Claims Registries
 
@@ -2481,6 +2489,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Require presence of oemid claim if hwmodel is present; same for swversion and swname
 - Use normative language to describe the constrained device profile
 - Improve definitions in measurement results claim
+- Lots of rewording of paragraphs describing "entity"
 
 
 --- contributor
