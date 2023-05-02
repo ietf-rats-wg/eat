@@ -874,6 +874,9 @@ The second element MUST be a platform label indicating which platform was certif
 If the DLOA applies to an application, then the third element is added which MUST be an application label.
 The method of constructing the registrar URI, platform label and possibly application label is specified in {{DLOA}}.
 
+The retriever of a DLOA SHOULD follow the recommendation in {{DLOA}} and use TLS to be sure the DLOA registrar they are accessing is authentic.
+The platform and application labels in the claim indicate the correct DLOA for the entity.
+
 ~~~~CDDL
 {::include nc-cddl/dloas.cddl}
 ~~~~
@@ -1161,9 +1164,10 @@ See {{common-types}} for OID and URI encoding.
 
 ### intuse (Intended Use) Claim
 
-EAT's may be used in the context of several different applications.  The "intuse"
+EATs may be employed in the context of several different applications.  The "intuse"
 claim provides an indication to an EAT consumer about  the intended usage
-of the token. This claim can be used as a way for an application using EAT to internally distinguish between different ways it uses EAT.
+of the token. This claim can be used as a way for an application using EAT to internally distinguish between different ways it utilizes EAT.
+5 possible values for "intuse" are currently defined, but an IANA registry can be created in the future to extend these values  based on new use cases of EAT.
 
 1 -- Generic:
 : Generic attestation describes an application where the EAT consumer
@@ -1709,7 +1713,7 @@ When this is the case, the key identifier must be either a protected header or i
 This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
 
 
-# IANA Considerations
+# IANA Considerations {#iana-cons}
 
 ## Reuse of CBOR and JSON Web Token (CWT and JWT) Claims Registries
 
