@@ -231,11 +231,15 @@ Like CWT and JWT, EAT does not imply any message flow.
 
 ## Entity Overview
 
-The document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
-Correspondingly, EAT allows claims to be organized using mechanisms like submodules and nested EATs (see {{submods}}).
+This document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
+Correspondingly, EAT allows claims to be organized using mechanisms like submodules and nesting (see {{submods}}).
 The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
 
-An entity also corresponds to a "system component", as defined in the Internet Security Glossary {{RFC4949}}, except that in the EAT context an "entity" never refers to a person or organization.
+An entity is the same as a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
+
+Note that {{RFC4949}} defines  "entity" and "system entity" as synonyms, and that they may be a person or organization in addition to being a system component.
+In the EAT context, "entity" never refers to a person or organization.
+The hardware and software that implement a web site server or service may be an entity in the EAT sense, but the organization that operates, maintains or hosts the web site is not an entity.
 
 Some examples of entities:
 
@@ -2483,6 +2487,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Rename Appendix E and clarify its purpose
 - Require presence of oemid claim if hwmodel is present; same for swversion and swname
 - Use normative language to describe the constrained device profile
+- Lots of rewording of paragraphs describing "entity"
 
 
 --- contributor
