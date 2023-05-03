@@ -1712,6 +1712,19 @@ an appropriate COSE hash algorithm, implying that an attacker cannot induce fals
 of a modified detached claims because the algorithms in the COSE registry are assumed to be
 of sufficient cryptographic strength.
 
+## Verification Keys {#verfication-key-sc}
+
+In all cases there must be some way that the verification key is itself verified or determined to be trustworthy.
+The key identification itself is never enough.
+This will always be by some out-of-band mechanism that is not described here.
+For example, the verifier may be configured with a root certificate or a master key by the verifier system administrator.
+
+Often an X.509 certificate or an endorsement carries more than just the verification key.
+For example, an X.509 certificate might have key usage constraints, and an endorsement might have reference values.
+When this is the case, the key identifier must be either a protected header or in the payload, such that it is cryptographically bound to the EAT.
+This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
+
+
 # IANA Considerations {#iana-cons}
 
 ## Reuse of CBOR and JSON Web Token (CWT and JWT) Claims Registries
@@ -2429,6 +2442,8 @@ The verification key identification and establishment of trust in the EAT and th
 For the components (attester, verifier, relying party,...) of a particular end-end attestation system to reliably interoperate, its definition should specify how the verification key is identified.
 Usually, this will be in the profile document for a particular attestation system.
 
+See also security consideration in {{verfication-key-sc}}.
+
 ## Identification Methods
 
 Following is a list of possible methods of key identification. A specific attestation system may employ any one of these or one not listed here.
@@ -2463,18 +2478,6 @@ This has the advantage that key identification requires no additional bytes in t
 
 This has the disadvantage that the unverified EAT must be substantially decoded to obtain the identifier since the identifier is in the COSE/JOSE payload, not in the headers.
 
-## Other Considerations
-
-In all cases there must be some way that the verification key is itself verified or determined to be trustworthy.
-The key identification itself is never enough.
-This will always be by some out-of-band mechanism that is not described here.
-For example, the verifier may be configured with a root certificate or a master key by the verifier system administrator.
-
-Often an X.509 certificate or an endorsement carries more than just the verification key.
-For example, an X.509 certificate might have key usage constraints and an endorsement might have reference values.
-When this is the case, the key identifier must be either a protected header or in the payload such that it is cryptographically bound to the EAT.
-This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
-
 
 # Changes from Previous Drafts
 
@@ -2495,6 +2498,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Rename Appendix E and clarify its purpose
 - Require presence of oemid claim if hwmodel is present; same for swversion and swname
 - Use normative language to describe the constrained device profile
+- Move discussion of verification keys out of appendix into security considerations
 - Improve definitions in measurement results claim
 - Require a CoAP id for manifest formats
 - Clarifications for manifests claim
