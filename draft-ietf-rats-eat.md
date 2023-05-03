@@ -231,9 +231,12 @@ Like CWT and JWT, EAT does not imply any message flow.
 
 ## Entity Overview
 
-This document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
-Correspondingly, EAT allows claims to be organized using mechanisms like submodules and nesting (see {{submods}}).
-The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
+This document uses the term "entity" to refer to the target of an EAT.
+Most of the claims defined in this document are claims about an entity.
+An entity is equivalent to a target environment in an attester as defined in [RATS.architecture].
+
+Layered attestation and composite devices, as described in [RATS.architecture], are supported by a submodule mechanism (see {{submods}}).
+Submodules allow nesting of EATs and of claims-sets so that such hierarchies can be modeled.
 
 An entity is the same as a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
 
@@ -1700,7 +1703,10 @@ downstream consumer should leverage a communication security protocol
 
 However, assume the EAT of the previous example is hierarchical and
 each claim subset for a downstream consumer is created in the form of
-a nested EAT.  Then, Transport Layer Security between the receiving and
+a nested EAT.  Then the nested EAT is itself encrypted and cryptographically verifiable (due to its
+COSE envelope)
+by a downstream consumer (unlike the previous example where a claims set
+without a COSE envelope is sent to a downstream consumer).  Therefore, Transport Layer Security between the receiving and
 downstream consumers is not strictly required.  Nevertheless,
 downstream consumers of a nested EAT should provide a nonce unique to
 the EAT they are consuming.
@@ -1714,6 +1720,19 @@ digest, which is a claim fully contained within an EAT.  Moreover, the digest it
 an appropriate COSE hash algorithm, implying that an attacker cannot induce false detection
 of a modified detached claims because the algorithms in the COSE registry are assumed to be
 of sufficient cryptographic strength.
+
+## Verification Keys {#verfication-key-sc}
+
+In all cases there must be some way that the verification key is itself verified or determined to be trustworthy.
+The key identification itself is never enough.
+This will always be by some out-of-band mechanism that is not described here.
+For example, the verifier may be configured with a root certificate or a master key by the verifier system administrator.
+
+Often an X.509 certificate or an endorsement carries more than just the verification key.
+For example, an X.509 certificate might have key usage constraints, and an endorsement might have reference values.
+When this is the case, the key identifier must be either a protected header or in the payload, such that it is cryptographically bound to the EAT.
+This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
+
 
 # IANA Considerations {#iana-cons}
 
@@ -2431,6 +2450,8 @@ The verification key identification and establishment of trust in the EAT and th
 For the components (attester, verifier, relying party,...) of a particular end-end attestation system to reliably interoperate, its definition should specify how the verification key is identified.
 Usually, this will be in the profile document for a particular attestation system.
 
+See also security consideration in {{verfication-key-sc}}.
+
 ## Identification Methods
 
 Following is a list of possible methods of key identification. A specific attestation system may employ any one of these or one not listed here.
@@ -2465,18 +2486,6 @@ This has the advantage that key identification requires no additional bytes in t
 
 This has the disadvantage that the unverified EAT must be substantially decoded to obtain the identifier since the identifier is in the COSE/JOSE payload, not in the headers.
 
-## Other Considerations
-
-In all cases there must be some way that the verification key is itself verified or determined to be trustworthy.
-The key identification itself is never enough.
-This will always be by some out-of-band mechanism that is not described here.
-For example, the verifier may be configured with a root certificate or a master key by the verifier system administrator.
-
-Often an X.509 certificate or an endorsement carries more than just the verification key.
-For example, an X.509 certificate might have key usage constraints and an endorsement might have reference values.
-When this is the case, the key identifier must be either a protected header or in the payload such that it is cryptographically bound to the EAT.
-This is in line with the requirements in section 6 on Key Identification in JSON Web Signature {{RFC7515}}.
-
 
 # Changes from Previous Drafts
 
@@ -2498,6 +2507,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Require presence of oemid claim if hwmodel is present; same for swversion and swname
 - Use normative language to describe the constrained device profile
 - Clarifications around the terms "token", "message" and "claims-set"
+- Move discussion of verification keys out of appendix into security considerations
 - Improve definitions in measurement results claim
 - Require a CoAP id for manifest formats
 - Clarifications for manifests claim
