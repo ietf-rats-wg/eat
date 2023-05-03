@@ -231,9 +231,12 @@ Like CWT and JWT, EAT does not imply any message flow.
 
 ## Entity Overview
 
-This document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
-Correspondingly, EAT allows claims to be organized using mechanisms like submodules and nesting (see {{submods}}).
-The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
+This document uses the term "entity" to refer to the target of an EAT.
+Most of the claims defined in this document are claims about an entity.
+An entity is equivalent to a target environment in an attester as defined in [RATS.architecture].
+
+Layered attestation and composite devices, as described in [RATS.architecture], are supported by a submodule mechanism (see {{submods}}).
+Submodules allow nesting of EATs and of claims-sets so that such hierarchies can be modeled.
 
 An entity is the same as a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
 
