@@ -236,8 +236,7 @@ Most of the claims defined in this document are claims about an entity.
 An entity is equivalent to a target environment in an attester as defined in [RATS.architecture].
 
 Layered attestation and composite devices, as described in [RATS.architecture], are supported by a submodule mechanism (see {{submods}}).
-This mechanism allows nesting of EATs and claims-sets to model a hierarchy of components.
-Claims apply exclusively to the target environment for the submodule in which they appear.
+Submodules allow nesting of EATs and of claims-sets so that such hierarchies can be modeled.
 
 An entity is the same as a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
 
