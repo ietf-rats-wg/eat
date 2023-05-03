@@ -123,8 +123,6 @@ normative:
 
   IANA.cbor-tags:
 
-  IANA.core-parameters:
-
   SUIT.Manifest: I-D.ietf-suit-manifest
 
 
@@ -189,7 +187,7 @@ claims.
 
 # Introduction
 
-An Entity Attestation Token (EAT) is a message or token made up of claims about an entity.
+An Entity Attestation Token (EAT) is a message made up of claims about an entity.
 An entity may be a device, some hardware or some software.
 The claims are ultimately used by a relying party who decides if and how it will interact with the entity.
 The relying party may choose to trust, not trust or partially trust the entity.
@@ -284,15 +282,16 @@ Like CWT and JWT, EAT uses COSE and JOSE to provide authenticity, integrity and 
 EAT places no new restrictions on cryptographic algorithms, retaining all the cryptographic flexibility of CWT, COSE, JWT and JOSE.
 
 EAT defines a means for nesting tokens and claims sets to accommodate composite devices that have multiple subsystems and multiple attesters.
-Full tokens with security envelopes may be embedded in an enclosing token.
+Tokens with security envelopes or bare claims sets may be embedded in an enclosing token.
 The nested token and the enclosing token do not have to use the same encoding (e.g., a CWT may be enclosed in a JWT).
 
-EAT adds the ability to detach claims sets and send them separately from a security enveloped EAT that contains a digest of the detached claims set.
+EAT adds the ability to detach claims sets and send them separately from a security-enveloped EAT that contains a digest of the detached claims set.
 
 This document registers no media or content types for the identification of the type of EAT, its serialization encoding or security envelope.
 The definition and registration of EAT media types is addressed in {{EAT.media-types}}.
 
-Finally, the notion of an EAT profile is introduced that facilitates the creation of narrowed definitions of EAT tokens for specific use cases in follow-on documents.
+Finally, the notion of an EAT profile is introduced that facilitates the creation of narrowed definitions of EATs for specific use cases in follow-on documents.
+One basic profile for constrained devices is normatively defined.
 
 
 ## Operating Model and RATS Architecture
@@ -383,10 +382,14 @@ Group Socket:
 
 # Top-Level Token Definition
 
-An EAT is a "message", a "token", or such whose content is a Claims-Set about an entity or some number of entities. An EAT MUST always contains a Claims-Set.
+An "EAT" is an encoded (serialized) message the purpose of which is to transfer a Claims-Set between two parties.
+An EAT MUST always contain a Claims-Set.
+In this document an EAT is always a CWT or JWT.
 
-Authenticity and integrity protection MUST be provided for EATs. This document relies on CWT or JWT for this purpose.
-Extensions to this specification MAY use other methods of protection.
+An EAT MUST have authenticity and integrity protection.
+CWT and JWT provide that in this document.
+
+Further documents may define other encodings and security mechanims for EAT.
 
 The identification of a protocol element as an EAT follows the general conventions used for CWTs and JWTs.
 Identification depends on the protocol carrying the EAT.
@@ -394,7 +397,7 @@ In some cases it may be by media type (e.g., in a HTTP Content-Type field).
 In other cases it may be through use of CBOR tags.
 There is no fixed mechanism across all use cases.
 
-This document also defines a new top-level message, the detached EAT bundle (see {{DEB}}), which holds a collection of detached claims sets and an EAT that provides integrity and authenticity protection for them.
+This document also defines another message, the detached EAT bundle (see {{DEB}}), which holds a collection of detached claims sets and an EAT that provides integrity and authenticity protection for them.
 Detached EAT bundles can be either CBOR or JSON encoded.
 
 The following CDDL defines the top-level `$EAT-CBOR-Tagged-Token`, `$EAT-CBOR-Untagged-Token` and `$EAT-JSON-Token-Formats` sockets (see {{Section 3.9 of -cddl}}), enabling future token formats to be defined.
@@ -405,6 +408,8 @@ Nesting of EATs is allowed and defined in {{Nested-Token}}.
 This includes the nesting of an EAT that is a different format than the enclosing EAT, i.e., the nested EAT may be encoded using CBOR and the enclosing EAT encoded using JSON or vice versa.
 The definition of Nested-Token references the CDDL defined in this section.
 When new token formats are defined, the means for identification in a nested token MUST also be defined.
+
+The top-level CDDL type for CBOR-encoded EATs is EAT-CBOR-Token and for JSON is EAT-JSON-Token (while CDDL and CDDL tools provide enough support for shared definitions of most items in this document, they don’t provide enough support for this sharing at the top level).
 
 ~~~~CDDL
 {::include cddl/eat-cbor.cddl}
@@ -1095,7 +1100,7 @@ mechanism as the enclosing token (e.g., it is signed by the same attestation key
 
 The encoding of a submodule Claims-Set MUST be the same as the encoding as the surrounding EAT, e.g., all submodule Claims-Sets in a CBOR-encoded token must be CBOR-encoded.
 
-#### Detached Submodule Digest
+#### Detached Submodule Digest {#Detached-Submodule-Digest}
 
 The Detached-Submodule-Digest type is similar to a submodule Claims-Set, except a digest of the Claims-Set is included in the claim with the Claims-Set contents conveyed separately.
 The separately-conveyed Claims-Set is called a detached claims set.
@@ -1211,28 +1216,31 @@ security state of the entity storing the private key used in a PoP application.
 
 # Detached EAT Bundles {#DEB}
 
-A detached EAT bundle is a structure to convey a fully-formed and signed token plus detached claims set that relate to that token.
-It is a top-level EAT message like a CWT or JWT.
-It can be occur any place that CWT or JWT messages occur.
-It may also be sent as a submodule.
+A detached EAT bundle is a message to convey an EAT plus detached claims sets secured by that EAT.
+It is a top-level message like a CWT or JWT.
+It can occur in any place that a CWT or JWT occurs, for example as a submodule nested token as defined in {{Nested-Token}}.
+
+A detached EAT bundle may be either CBOR or JSON-encoded.
 
 A detached EAT bundle consists of two parts.
 
-The first part is a full top-level token.
-This top-level token MUST have at least one submodule that is a detached digest.
-This top-level token may be either CBOR or JSON-encoded.
-It MAY be a CWT, or JWT but MUST NOT be a detached EAT bundle.
-It MAY also be some future-defined token type.
+The first part is an encoded EAT as follows:
+
+* MUST have at least one submodule that is a detached submodule digest as defined in {{Detached-Submodule-Digest}}
+* MAY be either CBOR or JSON-encoded and doesn't have to the the same as the encoding of the bundle
+* MAY be a CWT, or JWT or some future-defined token type, but MUST NOT be a detached EAT bundle
+* MUST be authenticity and integrity protected
+
 The same mechanism for distinguishing the type for nested token submodules is employed here.
 
-The second part is a map/object containing the detached Claims-Sets corresponding to the detached digests in the full token.
-When the detached EAT bundle is CBOR-encoded, each detached Claims-Set MUST be CBOR-encoded and wrapped in a byte string.
-When the detached EAT bundle is JSON-encoded, each detached Claims-Set MUST be JSON-encoded and base64url encoded.
-All the detached Claims-Sets MUST be encoded in the same encoding as the detached EAT bundle.
-No mixing of encodings is allowed for the Claims-Sets in a detached EAT bundle.
+The second part is a map/object as follows:
+
+* MUST be a Claims-Set
+* MUST use the same encoding as the bundle
+* MUST be wrapped in a byte string when the encoding is CBOR and be base64url encoded when the encoding is JSON
 
 For CBOR-encoded detached EAT bundles, tag TBD602 can be used to identify it.
-The normal rules apply for use or non-use of a tag.
+The standard rules apply for use or non-use of a tag.
 When it is sent as a submodule, it is always sent as a tag to distinguish it from the other types of nested tokens.
 
 The digests of the detached claims sets are associated with detached Claims-Sets by label/name.
@@ -1704,7 +1712,7 @@ the EAT they are consuming.
 
 ## Detached EAT Bundle Digest Security Considerations
 
-A detached EAT bundle is composed of a nested full token appended to
+A detached EAT bundle is composed of a nested EAT and
 an unsigned claims set as per {{DEB}} .  Although the attached claims set is vulnerable to
 modification in transit, any modification can be detected by the receiver through the associated
 digest, which is a claim fully contained within an EAT.  Moreover, the digest itself can only be derived using
@@ -1998,14 +2006,13 @@ specification reference.
 # Examples {#examples}
 
 Most examples are shown as just a Claims-Set that would be a payload for a CWT, JWT, detached EAT bundle or future token types.
-It is shown this way because the payload is all the claims, the most interesting part and showing full tokens makes it harder to show the claims.
-
-Some examples of full tokens are also given.
+The signing is left off so the Claims-Set is easier to see.
+Some examples of signed tokens are also given.
 
 WARNING: These examples use tag and label numbers not yet assigned by IANA.
 
 
-## Payload Examples
+## Claims Set Examples
 
 ### Simple TEE Attestation
 
@@ -2077,7 +2084,7 @@ This example has its lines wrapped per {{RFC8792}}.
 ~~~~
 
 
-## Full Token Examples
+## Signed Token Examples
 
 ### Basic CWT Example
 
@@ -2498,6 +2505,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Rename Appendix E and clarify its purpose
 - Require presence of oemid claim if hwmodel is present; same for swversion and swname
 - Use normative language to describe the constrained device profile
+- Clarifications around the terms "token", "message" and "claims-set"
 - Move discussion of verification keys out of appendix into security considerations
 - Improve definitions in measurement results claim
 - Require a CoAP id for manifest formats
