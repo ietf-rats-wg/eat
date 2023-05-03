@@ -231,11 +231,15 @@ Like CWT and JWT, EAT does not imply any message flow.
 
 ## Entity Overview
 
-The document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
-Correspondingly, EAT allows claims to be organized using mechanisms like submodules and nested EATs (see {{submods}}).
+This document uses the term "entity" to refer to the target of an EAT. Many of the claims defined in this document are claims about an entity, which is equivalent to an attesting environment as defined in [RATS.architecture]. An entity may be the whole device, a subsystem, a subsystem of a subsystem, etc.
+Correspondingly, EAT allows claims to be organized using mechanisms like submodules and nesting (see {{submods}}).
 The entity to which a claim applies is the submodule in which it appears, or to the top-level entity if it doesn't appear in a submodule.
 
-An entity also corresponds to a "system component", as defined in the Internet Security Glossary {{RFC4949}}, except that in the EAT context an "entity" never refers to a person or organization.
+An entity is the same as a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
+
+Note that {{RFC4949}} defines  "entity" and "system entity" as synonyms, and that they may be a person or organization in addition to being a system component.
+In the EAT context, "entity" never refers to a person or organization.
+The hardware and software that implement a web site server or service may be an entity in the EAT sense, but the organization that operates, maintains or hosts the web site is not an entity.
 
 Some examples of entities:
 
@@ -890,14 +894,14 @@ Installation is anything that adds software to the entity, possibly factory inst
 The defining characteristic is they are created by the software manufacturer.
 The purpose of these claims in an EAT is to relay them without modification to the verifier and possibly to the relying party.
 
-Some manifests may be signed by their software manufacturer before they are put into this EAT claim.
-When such manifests are put into this claim, the manufacturer's signature SHOULD be included.
-For example, the manifest might be a CoSWID signed by the software manufacturer, in which case the full signed CoSWID should be put in this claim.
+Some manifests are signed by their software manufacturer independently, and some are not either because they do not support signing or the manufacturer chose not to sign them.
+For example, a CoSWID might be signed independently before it is included in an EAT.
+When signed manifests are put into an EAT, the manufacturer's signature SHOULD be included even though an EAT's signature will also cover the manifest.
 
 This claim allows multiple formats for the manifest.
 For example, the manifest may be a CBOR-encoded CoSWID, an XML-encoded SWID or other.
 Identification of the type of manifest is always by a CoAP Content-Format integer {{RFC7252}}.
-If there is no CoAP identifier registered for the manifest encoding, one should be registered, perhaps in the experimental or first-come-first-served range.
+If there is no CoAP identifier registered for the manifest format, one MUST be registered.
 
 This claim MUST be an array of one or more manifests.
 Each manifest in the claim MUST be an array of two.
@@ -911,13 +915,14 @@ This claim allows for multiple manifests in one token since multiple software pa
 The multiple manifests MAY be of different encodings.
 In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.
 
-When the {{CoSWID}} format is used, it MUST be a payload CoSWID, not an evidence CoSWID.
+A CoSWID manifest MUST be a payload CoSWID, not an evidence CoSWID.
+These are defined in {{CoSWID}}.
 
 A {{SUIT.Manifest}} may be used as a manifest.
 
 This claim is extensible for use of manifest formats beyond those mentioned in this document.
 No particular manifest format is preferred.
-For manifest interoperability, an EAT profile, {{profiles}}, should be used that specifies what manifest format(s) are allowed.
+For manifest interoperability, an EAT profile as defined in {{profiles}}, should be used to specify which manifest format(s) are allowed.
 
 ~~~~CDDL
 {::include nc-cddl/manifests.cddl}
@@ -965,8 +970,9 @@ For example, it may be desirable to report the results for measurements of the f
 Note that this claim is not for reporting the overall result of a verifier.
 It is solely for reporting the result of comparison to reference values.
 
-An individual measurement result is an array of two, an identifier of the measurement and an enumerated type that is the result.
-The range and values of the measurement identifier varies from one measurement scheme to another.
+An individual measurement result (individual-result) is an array consisting of two elements, an identifier of the measurement (result-id) and an enumerated type of the result (result).
+Different measurement systems will measure different things and perhaps measure the same thing in different ways.
+It is up to each measurement system to define identifiers (result-id) for the measurements it reports.
 
 Each individual measurement result is part of a group that may contain many individual results.
 Each group has a text string that names it, typically the name of the measurement scheme or system.
@@ -2487,7 +2493,10 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Require presence of oemid claim if hwmodel is present; same for swversion and swname
 - Use normative language to describe the constrained device profile
 - Move discussion of verification keys out of appendix into security considerations
-
+- Improve definitions in measurement results claim
+- Require a CoAP id for manifest formats
+- Clarifications for manifests claim
+- Lots of rewording of paragraphs describing "entity"
 
 --- contributor
 
