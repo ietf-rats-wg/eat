@@ -123,8 +123,6 @@ normative:
 
   IANA.cbor-tags:
 
-  IANA.core-parameters:
-
   SUIT.Manifest: I-D.ietf-suit-manifest
 
 
@@ -293,6 +291,7 @@ This document registers no media or content types for the identification of the 
 The definition and registration of EAT media types is addressed in {{EAT.media-types}}.
 
 Finally, the notion of an EAT profile is introduced that facilitates the creation of narrowed definitions of EATs for specific use cases in follow-on documents.
+One basic profile for constrained devices is normatively defined.
 
 
 ## Operating Model and RATS Architecture
