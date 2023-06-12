@@ -76,7 +76,6 @@ normative:
   RFC8949: cbor
   RFC7252:
   RFC7519:
-  RFC8126:
   RFC8259:
   RFC8392:
   RFC8610: cddl
@@ -530,8 +529,9 @@ See {{UEID-Design}}.
 
 A UEID is permanent. It MUST never change for a given entity.
 
-The different types of UEIDs 1) accommodate different manufacturing processes, 2) accommodate small UEIDs, 3) provide an option that doesn't require registration fees and central administration.
-Creation of new types requires a Standards Action {{RFC8126}}.
+The different types of UEIDs accommodate different manufacturing processes, accommodate small UEIDs, provide an option that doesn't require registration fees and central administration.
+
+In the unlikely event that a new UEID type is needed, it MUST be defined in a standards-track update to this document.
 
 A manufacturer of entities MAY use different types for different products.
 They MAY also change from one type to another for a given product or use one type for some items of a given produce and another type for other.
