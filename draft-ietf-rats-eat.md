@@ -529,7 +529,7 @@ See {{UEID-Design}}.
 
 A UEID is permanent. It MUST never change for a given entity.
 
-The different types of UEIDs accommodate different manufacturing processes, accommodate small UEIDs, provide an option that doesn't require registration fees and central administration.
+The different types of UEIDs 1) accommodate different manufacturing processes, 2) accommodate small UEIDs, 3) provide an option that doesn't require registration fees and central administration.
 
 In the unlikely event that a new UEID type is needed, it MUST be defined in a standards-track update to this document.
 
