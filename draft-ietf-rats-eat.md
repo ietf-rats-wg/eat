@@ -886,7 +886,7 @@ The second element MUST be a platform label indicating which platform was certif
 If the DLOA applies to an application, then the third element is added which MUST be an application label.
 The method of constructing the registrar URI, platform label and possibly application label is specified in {{DLOA}}.
 
-The retriever of a DLOA SHOULD follow the recommendation in {{DLOA}} and use TLS to be sure the DLOA registrar they are accessing is authentic.
+The retriever of a DLOA MUST follow the recommendation in {{DLOA}} and use TLS or some other means to be sure the DLOA registrar they are accessing is authentic.
 The platform and application labels in the claim indicate the correct DLOA for the entity.
 
 ~~~~CDDL
@@ -2497,20 +2497,9 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-19
-- Prefer the term "encoding" over "format" when referring to CBOR and JSON.
-- Separate sections for creating and consuming UEIDs
-- Base location on W3C reference directly and WGS84 indirectly
-- The option for a hash-based OEMID is removed
-- Rename Appendix E and clarify its purpose
-- Require presence of oemid claim if hwmodel is present; same for swversion and swname
-- Use normative language to describe the constrained device profile
-- Clarifications around the terms "token", "message" and "claims-set"
-- Move discussion of verification keys out of appendix into security considerations
-- Improve definitions in measurement results claim
-- Require a CoAP id for manifest formats
-- Clarifications for manifests claim
-- Lots of rewording of paragraphs describing "entity"
+## From draft-ietf-rats-eat-20
+- Clarity that DLOAs must be authentic
+
 
 --- contributor
 
