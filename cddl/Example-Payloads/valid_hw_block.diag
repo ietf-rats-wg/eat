@@ -6,7 +6,7 @@
 / UEID). /
 
 {
-    / eat_nonce /       10: h'948f8860d13a463e',
+    / eat_nonce /       10: h'd79b964ddd5471c1393c8888',
     / ueid /           256: h'0198f50a4ff6c05861c8860d13a638ea',
     / oemid /          258: 64242, / Private Enterprise Number /
     / oemboot /        262: true,

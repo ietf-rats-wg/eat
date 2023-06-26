@@ -1,7 +1,7 @@
 / This is an EAT payload that describes a simple TEE. /
 
 {
-    / eat_nonce /       10: h'948f8860d13a463e',
+    / eat_nonce /       10: h'48df7b172d70b5a18935d0460a73dd71',
     / oemboot /        262: true,
     / dbgstat /        263: 2, / disabled-since-boot /
     / manifests /      273: [

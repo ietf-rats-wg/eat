@@ -5,7 +5,7 @@
 / the IoT OS and puts the measurements in the submodule.            /
 
 {
-    / eat_nonce / 10: h'948f8860d13a463e',
+    / eat_nonce / 10: h'5e19fba4483c7896'
     / oemboot /  262: true,
     / dbgstat /  263: 2, / disabled-since-boot /
     / oemid /    258: h'8945ad', / IEEE CID based /
