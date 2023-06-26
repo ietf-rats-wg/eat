@@ -1676,7 +1676,7 @@ destination secure enclave where it can be provisioned.
 
 ## Freshness {#sec-con-freshness}
 
-All EAT use must provide a freshness mechanism to prevent replay and related attacks.
+All EAT use MUST provide a freshness mechanism to prevent replay and related attacks.
 The extensive discussions on freshness in {{RATS.Architecture}} including security considerations apply here.
 The EAT nonce claim, in {{nonce}}, is one option to provide freshness.
 
@@ -2497,20 +2497,8 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-19
-- Prefer the term "encoding" over "format" when referring to CBOR and JSON.
-- Separate sections for creating and consuming UEIDs
-- Base location on W3C reference directly and WGS84 indirectly
-- The option for a hash-based OEMID is removed
-- Rename Appendix E and clarify its purpose
-- Require presence of oemid claim if hwmodel is present; same for swversion and swname
-- Use normative language to describe the constrained device profile
-- Clarifications around the terms "token", "message" and "claims-set"
-- Move discussion of verification keys out of appendix into security considerations
-- Improve definitions in measurement results claim
-- Require a CoAP id for manifest formats
-- Clarifications for manifests claim
-- Lots of rewording of paragraphs describing "entity"
+## From draft-ietf-rats-eat-20
+- "MUST" instead of "must" for freshness security considerations.
 
 --- contributor
 
