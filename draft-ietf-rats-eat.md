@@ -1697,7 +1697,7 @@ multiple claims.  A consumer may receive the EAT (denoted as the
 then pass specific subsets of claims to other consumers for evaluation
 ("downstream consumers").  Since any COSE encryption will be removed
 by the receiving consumer, the communication of claim subsets to any
-downstream consumer should leverage a communication security protocol
+downstream consumer MUST leverage an equivalent communication security protocol
 (e.g. Transport Layer Security).
 
 However, assume the EAT of the previous example is hierarchical and
@@ -2497,20 +2497,8 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-19
-- Prefer the term "encoding" over "format" when referring to CBOR and JSON.
-- Separate sections for creating and consuming UEIDs
-- Base location on W3C reference directly and WGS84 indirectly
-- The option for a hash-based OEMID is removed
-- Rename Appendix E and clarify its purpose
-- Require presence of oemid claim if hwmodel is present; same for swversion and swname
-- Use normative language to describe the constrained device profile
-- Clarifications around the terms "token", "message" and "claims-set"
-- Move discussion of verification keys out of appendix into security considerations
-- Improve definitions in measurement results claim
-- Require a CoAP id for manifest formats
-- Clarifications for manifests claim
-- Lots of rewording of paragraphs describing "entity"
+## From draft-ietf-rats-eat-20
+- Require equivalent encryption when relaying between multiple EAT consumers
 
 --- contributor
 
