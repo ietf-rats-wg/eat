@@ -333,8 +333,8 @@ The examples in {{examples}} use CBOR diagnostic notation defined in {{Section 8
 
 This document reuses terminology from JWT {{RFC7519}} and CWT {{RFC8392}}:
 
-Base64url Encoding:
-: Base64url encoding is as described in {{RFC7515}}, i.e., using URL- and filename-safe character set {{RFC4648}} with all trailing '=' characters omitted and without the inclusion of any line breaks, whitespace, or other additional characters.
+base64url-encoded:
+: base64url-encoded is as described in {{RFC7515}}, i.e., using URL- and filename-safe character set {{RFC4648}} with all trailing '=' characters omitted and without the inclusion of any line breaks, whitespace, or other additional characters.
 
 Claim:
 : A piece of information asserted about a subject. A claim is represented as pair with a value and either a name or key to identify it.
@@ -609,7 +609,7 @@ They would perform this only once in the life of the company to generate the sin
 They would use that same ID in every entity they make.
 This uniquely identifies the OEM on a statistical basis and is large enough should there be ten billion companies.
 
-In JSON-encoded tokens this MUST be base64url encoded {{RFC4648}}.
+In JSON-encoded tokens this MUST be base64url-encoded.
 
 #### IEEE Based OEMID
 
@@ -636,7 +636,7 @@ be encoded in 3 bytes with values 0xAC, 0xDE, 0x48.
 
 This format is always 3 bytes in size in CBOR.
 
-In JSON-encoded tokens, this MUST be base64url encoded and always 4 bytes.
+In JSON-encoded tokens, this MUST be base64url-encoded and always 4 bytes.
 
 #### IANA Private Enterprise Number Based OEMID
 
@@ -1237,7 +1237,7 @@ The second part is a map/object as follows:
 
 * MUST be a Claims-Set
 * MUST use the same encoding as the bundle
-* MUST be wrapped in a byte string when the encoding is CBOR and be base64url encoded when the encoding is JSON
+* MUST be wrapped in a byte string when the encoding is CBOR and be base64url-encoded when the encoding is JSON
 
 For CBOR-encoded detached EAT bundles, tag TBD602 can be used to identify it.
 The standard rules apply for use or non-use of a tag.
@@ -1508,7 +1508,7 @@ They are just text strings that contain a URI conforming to the format defined i
 JSON should be encoded per {{RFC8610}}, Appendix E. In addition, the
 following CDDL types are encoded in JSON as follows:
 
-* bstr -- MUST be base64url encoded
+* bstr -- MUST be base64url-encoded
 * time -- MUST be encoded as NumericDate as described in Section 2 of {{RFC7519}}.
 * string-or-uri -- MUST be encoded as StringOrURI as described in Section 2 of {{RFC7519}}.
 * uri -- MUST be a URI {{RFC3986}}.
@@ -2497,20 +2497,8 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-19
-- Prefer the term "encoding" over "format" when referring to CBOR and JSON.
-- Separate sections for creating and consuming UEIDs
-- Base location on W3C reference directly and WGS84 indirectly
-- The option for a hash-based OEMID is removed
-- Rename Appendix E and clarify its purpose
-- Require presence of oemid claim if hwmodel is present; same for swversion and swname
-- Use normative language to describe the constrained device profile
-- Clarifications around the terms "token", "message" and "claims-set"
-- Move discussion of verification keys out of appendix into security considerations
-- Improve definitions in measurement results claim
-- Require a CoAP id for manifest formats
-- Clarifications for manifests claim
-- Lots of rewording of paragraphs describing "entity"
+## From draft-ietf-rats-eat-20
+- Uniformly use term "base64url-encoded"
 
 --- contributor
 
