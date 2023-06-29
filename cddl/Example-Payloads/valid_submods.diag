@@ -16,7 +16,7 @@
 / document, but they are a valid use of submodules.         /
 
 {
-    / eat_nonce /       10: h'948f8860d13a463e8e',
+    / eat_nonce /       10: h'e253cabedc9eec24ac4e25bcbeaf7765'
     / ueid /           256: h'0198f50a4ff6c05861c8860d13a638ea',
     / oemid /          258: h'894823', / IEEE OUI format OEM ID /
     / hwmodel /        259: h'549dcecc8b987c737b44e40f7c635ce8'
