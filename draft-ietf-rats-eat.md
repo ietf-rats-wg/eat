@@ -886,7 +886,7 @@ The second element MUST be a platform label indicating which platform was certif
 If the DLOA applies to an application, then the third element is added which MUST be an application label.
 The method of constructing the registrar URI, platform label and possibly application label is specified in {{DLOA}}.
 
-The retriever of a DLOA SHOULD follow the recommendation in {{DLOA}} and use TLS to be sure the DLOA registrar they are accessing is authentic.
+The retriever of a DLOA MUST follow the recommendation in {{DLOA}} and use TLS or some other means to be sure the DLOA registrar they are accessing is authentic.
 The platform and application labels in the claim indicate the correct DLOA for the entity.
 
 ~~~~CDDL
@@ -2498,6 +2498,7 @@ non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
 ## From draft-ietf-rats-eat-20
+- Clarify that DLOAs must be authentic
 - Require equivalent encryption when relaying between multiple EAT consumers
 - "MUST" instead of "must" for freshness security considerations.
 - Spelling and grammar fixes
