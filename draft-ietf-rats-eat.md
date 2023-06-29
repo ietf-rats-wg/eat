@@ -1697,7 +1697,7 @@ multiple claims.  A consumer may receive the EAT (denoted as the
 then pass specific subsets of claims to other consumers for evaluation
 ("downstream consumers").  Since any COSE encryption will be removed
 by the receiving consumer, the communication of claim subsets to any
-downstream consumer should leverage a communication security protocol
+downstream consumer MUST leverage an equivalent communication security protocol
 (e.g. Transport Layer Security).
 
 However, assume the EAT of the previous example is hierarchical and
@@ -2498,6 +2498,7 @@ non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
 ## From draft-ietf-rats-eat-20
+- Require equivalent encryption when relaying between multiple EAT consumers
 - "MUST" instead of "must" for freshness security considerations.
 - Spelling and grammar fixes
 
