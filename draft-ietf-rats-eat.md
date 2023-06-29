@@ -1676,7 +1676,7 @@ destination secure enclave where it can be provisioned.
 
 ## Freshness {#sec-con-freshness}
 
-All EAT use must provide a freshness mechanism to prevent replay and related attacks.
+All EAT use MUST provide a freshness mechanism to prevent replay and related attacks.
 The extensive discussions on freshness in {{RATS.Architecture}} including security considerations apply here.
 The EAT nonce claim, in {{nonce}}, is one option to provide freshness.
 
@@ -2498,6 +2498,7 @@ non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
 ## From draft-ietf-rats-eat-20
+- "MUST" instead of "must" for freshness security considerations.
 - Spelling and grammar fixes
 
 --- contributor
