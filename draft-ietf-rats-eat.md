@@ -886,7 +886,7 @@ The second element MUST be a platform label indicating which platform was certif
 If the DLOA applies to an application, then the third element is added which MUST be an application label.
 The method of constructing the registrar URI, platform label and possibly application label is specified in {{DLOA}}.
 
-The retriever of a DLOA SHOULD follow the recommendation in {{DLOA}} and use TLS to be sure the DLOA registrar they are accessing is authentic.
+The retriever of a DLOA MUST follow the recommendation in {{DLOA}} and use TLS or some other means to be sure the DLOA registrar they are accessing is authentic.
 The platform and application labels in the claim indicate the correct DLOA for the entity.
 
 ~~~~CDDL
@@ -1676,7 +1676,7 @@ destination secure enclave where it can be provisioned.
 
 ## Freshness {#sec-con-freshness}
 
-All EAT use must provide a freshness mechanism to prevent replay and related attacks.
+All EAT use MUST provide a freshness mechanism to prevent replay and related attacks.
 The extensive discussions on freshness in {{RATS.Architecture}} including security considerations apply here.
 The EAT nonce claim, in {{nonce}}, is one option to provide freshness.
 
@@ -1697,7 +1697,7 @@ multiple claims.  A consumer may receive the EAT (denoted as the
 then pass specific subsets of claims to other consumers for evaluation
 ("downstream consumers").  Since any COSE encryption will be removed
 by the receiving consumer, the communication of claim subsets to any
-downstream consumer should leverage a communication security protocol
+downstream consumer MUST leverage an equivalent communication security protocol
 (e.g. Transport Layer Security).
 
 However, assume the EAT of the previous example is hierarchical and
@@ -2254,6 +2254,8 @@ The design of UUID accommodates the construction of a unique identifier by combi
 UEID takes the view that this construction is no longer needed, in particular because cryptographic-quality random number generators are readily available.
 It takes the view that hardware, software and/or manufacturing process implement UEID in a simple and direct way.
 
+Note also that that a type 2 UEID (EUI/MAC) is only 7 bytes compared to 16 for a UUID.
+
 
 # EAT Relation to IEEE.802.1AR Secure Device Identity (DevID)
 
@@ -2265,7 +2267,7 @@ A particular level of defense against attack that should be achieved to be a Dev
 The intent is that IDevIDs and LDevIDs can be used with any network protocol or message format.
 In these protocols and message formats the DevID secret is used to sign a nonce or similar to prove the association of the DevID certificates with the device.
 
-By contrast, EAT standardize a message format that is sent to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
+By contrast, EAT standardizes a message format that is sent to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
 Nor does EAT give details on how keys, data and such are stored protected and accessed.
 EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
 It does not define any particular level of defense against attack, instead providing a set of security considerations.
@@ -2499,6 +2501,11 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 
 ## From draft-ietf-rats-eat-20
 - Uniformly use term "base64url-encoded"
+- Add comment that MAC-based UEIDs are shorter than UUIDs
+- Clarify that DLOAs must be authentic
+- Require equivalent encryption when relaying between multiple EAT consumers
+- "MUST" instead of "must" for freshness security considerations.
+- Spelling and grammar fixes
 
 --- contributor
 
