@@ -1676,7 +1676,7 @@ destination secure enclave where it can be provisioned.
 
 ## Freshness {#sec-con-freshness}
 
-All EAT use must provide a freshness mechanism to prevent replay and related attacks.
+All EAT use MUST provide a freshness mechanism to prevent replay and related attacks.
 The extensive discussions on freshness in {{RATS.Architecture}} including security considerations apply here.
 The EAT nonce claim, in {{nonce}}, is one option to provide freshness.
 
@@ -2265,7 +2265,7 @@ A particular level of defense against attack that should be achieved to be a Dev
 The intent is that IDevIDs and LDevIDs can be used with any network protocol or message format.
 In these protocols and message formats the DevID secret is used to sign a nonce or similar to prove the association of the DevID certificates with the device.
 
-By contrast, EAT standardize a message format that is sent to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
+By contrast, EAT standardizes a message format that is sent to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
 Nor does EAT give details on how keys, data and such are stored protected and accessed.
 EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
 It does not define any particular level of defense against attack, instead providing a set of security considerations.
@@ -2499,6 +2499,8 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 
 ## From draft-ietf-rats-eat-20
 - Require equivalent encryption when relaying between multiple EAT consumers
+- "MUST" instead of "must" for freshness security considerations.
+- Spelling and grammar fixes
 
 --- contributor
 
