@@ -2265,7 +2265,7 @@ A particular level of defense against attack that should be achieved to be a Dev
 The intent is that IDevIDs and LDevIDs can be used with any network protocol or message format.
 In these protocols and message formats the DevID secret is used to sign a nonce or similar to prove the association of the DevID certificates with the device.
 
-By contrast, EAT standardize a message format that is sent to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
+By contrast, EAT standardizes a message format that is sent to a relying party, the very thing that is not defined in {{IEEE.802.1AR}}.
 Nor does EAT give details on how keys, data and such are stored protected and accessed.
 EAT is intended to work with a variety of different on-device implementations ranging from minimal protection of assets to the highest levels of asset protection.
 It does not define any particular level of defense against attack, instead providing a set of security considerations.
@@ -2497,20 +2497,8 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-19
-- Prefer the term "encoding" over "format" when referring to CBOR and JSON.
-- Separate sections for creating and consuming UEIDs
-- Base location on W3C reference directly and WGS84 indirectly
-- The option for a hash-based OEMID is removed
-- Rename Appendix E and clarify its purpose
-- Require presence of oemid claim if hwmodel is present; same for swversion and swname
-- Use normative language to describe the constrained device profile
-- Clarifications around the terms "token", "message" and "claims-set"
-- Move discussion of verification keys out of appendix into security considerations
-- Improve definitions in measurement results claim
-- Require a CoAP id for manifest formats
-- Clarifications for manifests claim
-- Lots of rewording of paragraphs describing "entity"
+## From draft-ietf-rats-eat-20
+- Spelling and grammar fixes
 
 --- contributor
 
