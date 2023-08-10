@@ -1832,7 +1832,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 
 &nbsp;
 
-* Claim Name: OEM Authortised Boot
+* Claim Name: OEM Authorised Boot
 * Claim Description: Indicates whether the software booted was OEM authorized
 * JWT Claim Name: "oemboot"
 * Claim Key: 262
