@@ -1833,7 +1833,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 &nbsp;
 
 * Claim Name: OEM Authortised Boot
-* Claim Description: Indicate whether the software booted was OEM authorized
+* Claim Description: Indicates whether the software booted was OEM authorized
 * JWT Claim Name: "oemboot"
 * Claim Key: 262
 * Claim Value Type(s): Boolean
@@ -1843,7 +1843,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 &nbsp;
 
 * Claim Name: Debug Status
-* Claim Description: Indicate status of debug facilities
+* Claim Description: Indicates status of debug facilities
 * JWT Claim Name: "dbgstat"
 * Claim Key: 263
 * Claim Value Type(s): integer or string
@@ -2501,6 +2501,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 
 ## From draft-ietf-rats-eat-21
 - IETF is change controller rather than IESG for IANA registrations
+- Change "Indicate" to "Indcates"
 
 --- contributor
 
