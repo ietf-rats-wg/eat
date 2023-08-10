@@ -1777,7 +1777,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "eat_nonce"
 * Claim Key: 10
 * Claim Value Type(s): byte string
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1787,7 +1787,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "ueid"
 * CWT Claim Key: 256
 * Claim Value Type(s): byte string
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1797,7 +1797,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "sueids"
 * CWT Claim Key: 257
 * Claim Value Type(s): map
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1807,7 +1807,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "oemid"
 * Claim Key: 258
 * Claim Value Type(s): byte string or integer
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1817,7 +1817,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "hwmodel"
 * Claim Key: 259
 * Claim Value Type(s): byte string
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1827,7 +1827,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "hwversion"
 * Claim Key: TBD 260
 * Claim Value Type(s): array
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1837,7 +1837,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "oemboot"
 * Claim Key: 262
 * Claim Value Type(s): Boolean
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1847,7 +1847,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "dbgstat"
 * Claim Key: 263
 * Claim Value Type(s): integer or string
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1857,7 +1857,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "location"
 * Claim Key: 264
 * Claim Value Type(s): map
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1867,7 +1867,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "eat_profile"
 * Claim Key: 265
 * Claim Value Type(s): URI or OID
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1877,7 +1877,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "submods"
 * Claim Key: 266
 * Claim Value Type(s): map
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1887,7 +1887,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "uptime"
 * Claim Key: TBD
 * Claim Value Type(s): unsigned integer
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1897,7 +1897,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "bootcount"
 * Claim Key: TBD
 * Claim Value Type(s): uint
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1907,7 +1907,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "bootseed"
 * Claim Key: TBD
 * Claim Value Type(s): bytes
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1917,7 +1917,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "dloas"
 * Claim Key: TBD
 * Claim Value Type(s): array
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1927,7 +1927,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "swname"
 * Claim Key: TBD
 * Claim Value Type(s): map
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1937,7 +1937,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "swversion"
 * Claim Key: TBD
 * Claim Value Type(s): map
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1947,7 +1947,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "manifests"
 * Claim Key: TBD
 * Claim Value Type(s): array
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1957,7 +1957,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "measurements"
 * Claim Key: TBD
 * Claim Value Type(s): array
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1967,7 +1967,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "measres"
 * Claim Key: TBD
 * Claim Value Type(s): array
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 &nbsp;
@@ -1977,7 +1977,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * JWT Claim Name: "intuse"
 * Claim Key: TBD
 * Claim Value Type(s): integer or string
-* Change Controller: IESG
+* Change Controller: IETF
 * Specification Document(s): __this document__
 
 
@@ -2499,13 +2499,8 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-20
-- Uniformly use term "base64url-encoded"
-- Add comment that MAC-based UEIDs are shorter than UUIDs
-- Clarify that DLOAs must be authentic
-- Require equivalent encryption when relaying between multiple EAT consumers
-- "MUST" instead of "must" for freshness security considerations.
-- Spelling and grammar fixes
+## From draft-ietf-rats-eat-21
+- IETF is change controller rather than IESG for IANA registrations
 
 --- contributor
 
