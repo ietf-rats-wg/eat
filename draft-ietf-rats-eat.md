@@ -2506,6 +2506,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Add titles to tables
 - Fix some nits
 - Clarification in 6.1.12 that "receiver accepts token with claims it does not understand"
+- Abstract wording improvement
 
 --- contributor
 
