@@ -176,8 +176,8 @@ informative:
 
 An Entity Attestation Token (EAT) provides an attested claims set
 that describes state and characteristics of an entity,
-a device like a smartphone, IoT device, network equipment or such.  This claims set is used by a
-relying party, server or service to determine how much it wishes to trust the entity.
+a device like a smartphone, IoT device, network equipment or such.
+This claims set is used by a relying party, server or service to determine the type and degree of trust placed in the entity.
 
 An EAT is either a CBOR Web Token (CWT) or JSON Web Token (JWT) with attestation-oriented
 claims.
