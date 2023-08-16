@@ -176,8 +176,8 @@ informative:
 
 An Entity Attestation Token (EAT) provides an attested claims set
 that describes state and characteristics of an entity,
-a device like a smartphone, IoT device, network equipment or such.  This claims set is used by a
-relying party, server or service to determine how much it wishes to trust the entity.
+a device like a smartphone, IoT device, network equipment or such.
+This claims set is used by a relying party, server or service to determine the type and degree of trust placed in the entity.
 
 An EAT is either a CBOR Web Token (CWT) or JSON Web Token (JWT) with attestation-oriented
 claims.
@@ -867,7 +867,7 @@ There are privacy considerations for this claim. See {{bootseedprivacyconsiderat
 
 ### dloas (Digital Letters of Approval) Claim {#dloas}
 
-The "dloas" claim conveys one or more Digital Letters of Approval (DLOAs)). A DLOA {{DLOA}} is a document that describes a certification that an entity has received.
+The "dloas" claim conveys one or more Digital Letters of Approval (DLOAs). A DLOA {{DLOA}} is a document that describes a certification that an entity has received.
 Examples of certifications represented by a DLOA include those issued by Global Platform and those based on Common Criteria.
 The DLOA is unspecific to any particular certification type or those issued by any particular organization.
 
@@ -957,7 +957,7 @@ The identification of format is by CoAP Content Format, the same as the "manifes
 ### measres (Software Measurement Results) Claim {#measurementresults}
 
 The "measres" claim is a general-purpose structure for reporting comparison of measurements to expected reference values.
-This claim provides a simple standard way to report the result of a comparison as success, failure, fail to run, ...
+This claim provides a simple standard way to report the result of a comparison as success, failure, fail to run, and absence.
 
 It is the nature of measurement systems that they are specific to the operating system, software and hardware of the entity that is being measured.
 It is not possible to standardize what is measured and how it is measured across platforms, OS's, software and hardware.
@@ -1404,7 +1404,7 @@ If a profile allows multiple nonces to be sent, it should require the receiver t
 
 A profile may define new claims that are not defined in this document.
 
-This document requires an EAT receiver must accept all claims it does not understand.
+This document requires an EAT receiver must accept tokens with claims it does not understand.
 A profile for a specific use case may reverse this and allow a receiver to reject tokens with claims it does not understand.
 A profile for a specific use case may specify that specific claims are prohibited.
 
@@ -1414,7 +1414,7 @@ A profile may constrain the definition of claims that are defined in this docume
 For example, a profile may require the EAT nonce be a certain length or the "location" claim always include the altitude.
 
 Some claims are "pluggable" in that they allow different formats for their content.
-The "manifests" claim ({{manifests}}) along with the measurement and "measurements" ({{measurements}})) claims are examples of this, allowing the use of CoSWID, TEEP Manifests and other formats.
+The "manifests" claim ({{manifests}}) along with the measurement and "measurements" ({{measurements}}) claims are examples of this, allowing the use of CoSWID, TEEP Manifests and other formats.
 A profile should specify which formats are allowed to be sent, with the assumption that the corresponding COAP content types have been registered.
 A profile should require the receiver to accept all formats that are allowed to be sent.
 
@@ -1446,6 +1446,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce MUST be used for every token request |
 | Claims | No requirement is made on the presence or absence of claims other than requiring an EAT nonce. As per general EAT rules, the receiver MUST NOT error out on claims it doesn't understand. |
+{: #constrained-profile title="Constrained Device Profile Definition"}
 
 Any profile with different requirements than those above MUST have a different profile identifier.
 
@@ -1537,7 +1538,7 @@ This is for both CBOR and JSON.
 When there is variation between CBOR and JSON, the JC<> CDDL generic defined in {{CDDL_for_CWT}}.
 
 This CDDL uses, but doesn't define Submodule or nested tokens because the definition for these types varies between CBOR and JSON and the JC<> generic can't be used to define it.
-The submodule claim is the one place that that a CBOR token can be nested inside a JSON token and vice versa.
+The submodule claim is the one place where a CBOR token can be nested inside a JSON token and vice versa.
 Encoding-specific definitions are provided in the following sections.
 
 ~~~~CDDL
@@ -1989,7 +1990,7 @@ IANA is requested to register the following new subtypes in the "DEV URN Subtype
 | Subtype | Description                                | Reference     |
 | ueid    | Universal Entity Identifier                | This document |
 | sueid   | Semi-permanent Universal Entity Identifier | This document |
-
+{: #ueid-urn-reg title="UEID URN Registration"}
 
 ## CBOR Tag for Detached EAT Bundle Registered by this Document
 
@@ -1999,7 +2000,7 @@ specification reference.
 
 | Tag    | Data Items     | Semantics                   |
 | TBD602 | array          | Detached EAT Bundle {{DEB}} |
-
+{: #deb-tag-reg title="Detached EAT Bundle Tag Registration"}
 
 --- back
 
@@ -2161,7 +2162,7 @@ not the same problem as sizing IP addresses.
 | 10 billion | 100              | 10                  | 10%              | trillion (10^12)        |
 | 10 billion | 100,000          | 10                  | 10%              | quadrillion (10^15)     |
 |100 billion | 1,000,000        | 10                  | 10%              | 100 quadrillion (10^17) |
-
+{: #database-size-examples title="Entity Database Size Examples"}
 
 This is conceptually similar to the Birthday Problem where m is the
 number of possible birthdays, always 365, and k is the number of
@@ -2193,6 +2194,7 @@ For this calculation:
 | trillion (10^12)        | 2 * 10^-15   | 8 * 10^-35   | 5 * 10^-55   |
 | quadrillion (10^15)     | 2 * 10^-09   | 8 * 10^-29   | 5 * 10^-49   |
 | 100 quadrillion (10^17) | 2 * 10^-05   | 8 * 10^-25   | 5 * 10^-45   |
+{: #ueid-size-options title="UEID Size Options"}
 
 Next, to calculate the probability of a collision occurring in one year's
 operation of a database, it is assumed that the database size is in
@@ -2220,6 +2222,7 @@ as the number of records in the database.
 | trillion (10^12)        | 60,000 years   | 10^24 years  | 10^44 years  |
 | quadrillion (10^15)     | 8 seconds      | 10^14 years  | 10^34 years  |
 | 100 quadrillion (10^17) | 8 microseconds | 10^11 years  | 10^31 years  |
+{: #ueid-collision-probability title="UEID Collision Probability"}
 
 Clearly, 128 bits is enough for the near future thus the requirement that UEIDs
 be a minimum of 128 bits.
@@ -2277,7 +2280,7 @@ EAT and DevID can be viewed as complimentary when used together or as competing 
 ## DevID Used With EAT
 
 As just described, EAT standardizes a message format and {{IEEE.802.1AR}} doesn't.
-Vice versa, EAT doesn't define a an device implementation and DevID does.
+Vice versa, EAT doesn't define a an device implementation, but DevID does.
 
 Hence, EAT can be the message format that a DevID is used with.
 The DevID secret becomes the attestation key used to sign EATs.
@@ -2500,6 +2503,10 @@ non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
 ## From draft-ietf-rats-eat-21
+- Add titles to tables
+- Fix some nits
+- Clarification in 6.1.12 that "receiver accepts token with claims it does not understand"
+- Abstract wording improvement
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
 
