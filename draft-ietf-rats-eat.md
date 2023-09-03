@@ -1995,7 +1995,7 @@ IANA is requested to register the following new subtypes in the "DEV URN Subtype
 ## CBOR Tag for Detached EAT Bundle Registered by this Document
 
 In the registry {{IANA.cbor-tags}}, IANA is requested to allocate the
-following tag from the  FCFS space, with the present document as the
+following tag from the Specification Required space, with the present document as the
 specification reference.
 
 | Tag    | Data Items     | Semantics                   |
