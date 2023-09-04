@@ -1287,6 +1287,31 @@ A profile document doesn't have to be in any particular format. It may be simple
 
 A profile may define, and possibly register, one or more new claims if needed. A profile may also reuse one or more already defined claims, either as-is or with values constrained to a subset or subrange.
 
+
+## Full and Partial Profiles
+
+A "full" profile is one that fully guarantees interoperability when a sender and receiver both adhere to it.
+A "partial" profile doesn't provide that guarantee.
+
+For example, a profile that allows the use of signing algorithms by the sender that the receiver is not required to support is a partial profile.
+The sender might choose a signing algorithm that some receivers don't support.
+A full profile requires the receiver to support every signing algorithm a sender can choose.
+
+A full profile doesn't require that the receiver be able to process absolutely everything that might be sent, but it should guarantee the essentials will operate.
+For example, signing and freshness are critical and should be guaranteed.
+Many claims are not and do not have to be guaranteed.
+
+Partial profiles are discouraged.
+It is better to define several full profiles perhaps derived from each other.
+That way each profile is actually usable.
+It is relatively easy and inexpensive to define profiles as they don't have to be standards track and don't have to be registered anywhere.
+For example, rather than leaving the signing algorithms unspecified perhaps to accommodate post-quantum algorithms, a profile can specify the NIST signing algorithms.
+When the post-quantum algorithms are selected, a derived profile that adds the new algorithms can be specified.
+The derived profiles can be as simple as stating "the 'Xxx PQ' profile is the same as the 'Xxx' profile with the addition that the receiver must implement the 'yyy' post-quantum algorithm."
+
+A "eat_profile" claim SHOULD NOT be used to identify partial profiles.
+
+
 ## List of Profile Issues
 
 The following is a list of EAT, CWT, JWT, COSE, JOSE and CBOR options that a profile should address.
