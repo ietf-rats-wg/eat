@@ -206,7 +206,7 @@ Here are some examples:
 * Make and model of a chip or processor, particularly for a security-oriented chip
 * Identification and measurement of the software running on a device
 * Configuration and state of a device
-* Environmental characteristics of a device like its GPS location
+* Environmental characteristics of a device like its Global Positioning Sytem (GPS) location
 * Formal certifications received
 
 EAT is constructed to support a wide range of use cases.
@@ -222,7 +222,7 @@ Others may rely solely on simple software defenses.
 
 Nesting of tokens and claims sets is accommodated for composite devices that have multiple subsystems.
 
-An EAT may be encoded in either JSON {{RFC8259}} or CBOR {{RFC8949}} as needed for each use case.
+An EAT may be encoded in either JavaScript Object Notation (JSON) {{RFC8259}} or Concise Binary Object Representation (CBOR) {{RFC8949}} as needed for each use case.
 EAT is built on CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}} and inherits all their characteristics and their security mechanisms.
 Like CWT and JWT, EAT does not imply any message flow.
 
@@ -244,10 +244,10 @@ The hardware and software that implement a web site server or service may be an 
 Some examples of entities:
 
 * A Secure Element
-* A TEE
+* A Trusted Execution Environment (TEE)
 * A network card in a router
 * A router, perhaps with each network card in the router a submodule
-* An IoT device
+* An Internet of Things (IoT) device
 * An individual process
 * An app on a smartphone
 * A smartphone with many submodules for its many subsystems
@@ -266,7 +266,7 @@ While EAT is based on and compatible with CWT and JWT, it can also be described 
 * An identification and type system for claims in claims-sets
 * Definitions of common attestation-oriented claims
 * Claims defined in CDDL and serialized using CBOR or JSON
-* Security envelopes based on COSE and JOSE
+* Security envelopes based on CBOR Object Signing and Encryption (COSE) and Javascript Object Signing and Encryption (JOSE)
 * Nesting of claims sets and tokens to represent complex and compound devices
 * A profile mechanism for specifying and identifying specific tokens for specific use cases
 
@@ -317,7 +317,7 @@ This forwarding is subject to the verifier's implementation and policy.
 The relying party should be aware of the verifier's policy to know what checks it has performed on claims it forwards.
 
 The verifier may modify claims it forwards, for example, to implement a privacy preservation functionality. It is also possible the verifier will put claims in the attestation results that give details about the entity that it has computed or looked up in a database.
-For example, the verifier may be able to put an "oemid" claim in the attestation results by performing a look up based on a UEID (serial number) it received in evidence.
+For example, the verifier may be able to put an "oemid" claim in the attestation results by performing a look up based on a "ueid" claim (e.g., serial number) it received in evidence.
 
 This specification does not establish any normative rules for the verifier to follow, as these are a matter of local policy.
 It is up to each relying party to understand the processing rules of each verifier to know how to interpret claims in attestation results.
@@ -539,7 +539,7 @@ They MAY also change from one type to another for a given product or use one typ
 | Type Byte | Type Name | Specification |
 | 0x01 | RAND | This is a 128, 192 or 256-bit random number generated once and stored in the entity. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the entity and stored. It MUST NOT be smaller than 128 bits. See the length analysis in {{UEID-Design}}. |
 | 0x02 | IEEE EUI | This uses the IEEE company identification registry. An EUI is either an EUI-48, EUI-60 or EUI-64 and made up of an OUI, OUI-36 or a CID, different registered company identifiers, and some unique per-entity identifier. EUIs are often the same as or similar to MAC addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while entities with multiple network interfaces may have multiple MAC addresses, there is only one UEID for an entity) {{IEEE.802-2001}}, {{OUI.Guide}}. |
-| 0x03 | IMEI | This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. See {{ThreeGPP.IMEI}}. |
+| 0x03 | IMEI | (International Mobile Equipment Identity) This is a 14-digit identifier consisting of an 8-digit Type Allocation Code and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. See {{ThreeGPP.IMEI}}. |
 {: #ueid-types-table title="UEID Composition Types"}
 
 #### Rules for Consuming UEIDs
@@ -707,9 +707,10 @@ If precise and rigourous naming of the software for the entity is needed, the "m
 
 ### swversion (Software Version) Claim
 
-The "swversion" claim makes use of the CoSWID version-scheme item to give a simple version for the software.
-A full CoSWID manifest or other type of manifest can be instead if this is too simple.
+The "swversion" claim makes use of the CoSWID version-scheme defined in {{CoSWID}} to give a simple version for the software.
 A "swversion" claim MUST only be present if a "swname" claim described in {{swname}} is present.
+
+The "manifests" claim {{manifests}} may be instead if this is too simple.
 
 ~~~~CDDL
 {::include nc-cddl/software-version.cddl}
@@ -720,7 +721,7 @@ A "swversion" claim MUST only be present if a "swname" claim described in {{swna
 
 An "oemboot" claim with value of true indicates the entity booted with software authorized by the manufacturer of the entity as indicated by the "oemid" claim described in {{oemid}}.
 It indicates the firmware and operating system are fully under control of the OEM and may not be replaced by the end user or even the enterprise that owns the device.
-The means of control may be by cryptographic authentication of the software, by the software being in ROM, a combination of the two or other.
+The means of control may be by cryptographic authentication of the software, by the software being in Read-Only Memory (ROM), a combination of the two or other.
 If this claim is present the "oemid" claim SHOULD always also be present.
 
 ~~~~CDDL
@@ -878,13 +879,13 @@ This claim MAY contain more than one DLOA.
 If multiple DLOAs are present, verifiers MUST NOT issue this claim unless the entity has received all of the certifications.
 
 DLOA documents are always fetched from a registrar that stores them.
-This claim contains several data items used to construct a URL for fetching the DLOA from the particular registrar.
+This claim contains several data items used to construct a Uniform Resource Locator (URL) for fetching the DLOA from the particular registrar.
 
 This claim MUST be encoded as an array with either two or three elements.
-The first element MUST be the URI for the registrar.
+The first element MUST be the URL for the registrar.
 The second element MUST be a platform label indicating which platform was certified.
 If the DLOA applies to an application, then the third element is added which MUST be an application label.
-The method of constructing the registrar URI, platform label and possibly application label is specified in {{DLOA}}.
+The method of constructing the registrar URL, platform label and possibly application label is specified in {{DLOA}}.
 
 The retriever of a DLOA MUST follow the recommendation in {{DLOA}} and use TLS or some other means to be sure the DLOA registrar they are accessing is authentic.
 The platform and application labels in the claim indicate the correct DLOA for the entity.
@@ -908,7 +909,7 @@ When signed manifests are put into an EAT, the manufacturer's signature SHOULD b
 
 This claim allows multiple formats for the manifest.
 For example, the manifest may be a CBOR-encoded CoSWID, an XML-encoded SWID or other.
-Identification of the type of manifest is always by a CoAP Content-Format integer {{RFC7252}}.
+Identification of the type of manifest is always by a Constrained Application Protocol (CoAP) Content-Format integer {{RFC7252}}.
 If there is no CoAP identifier registered for the manifest format, one MUST be registered.
 
 This claim MUST be an array of one or more manifests.
@@ -926,7 +927,7 @@ In some cases EAT submodules may be used instead of the array structure in this 
 A CoSWID manifest MUST be a payload CoSWID, not an evidence CoSWID.
 These are defined in {{CoSWID}}.
 
-A {{SUIT.Manifest}} may be used as a manifest.
+A Software Updates for Internet of Things (SUIT) Manifest {{SUIT.Manifest}} may be used.
 
 This claim is extensible for use of manifest formats beyond those mentioned in this document.
 No particular manifest format is preferred.
@@ -1160,7 +1161,7 @@ have precession greater than one second. This is not needed for EAT.
 
 See {{profiles}} for the detailed description of an EAT profile.
 
-The "eat_profile" claim identifies an EAT profile by either a URL or an OID.
+The "eat_profile" claim identifies an EAT profile by either a Uniform Resource Identifier (URI) or an Object Identifier (OID).
 Typically, the URI will reference a document describing the profile.
 An OID is just a unique identifier for the profile.
 It may exist anywhere in the OID tree.
@@ -1414,8 +1415,8 @@ A profile may constrain the definition of claims that are defined in this docume
 For example, a profile may require the EAT nonce be a certain length or the "location" claim always include the altitude.
 
 Some claims are "pluggable" in that they allow different formats for their content.
-The "manifests" claim ({{manifests}}) along with the measurement and "measurements" ({{measurements}}) claims are examples of this, allowing the use of CoSWID, TEEP Manifests and other formats.
-A profile should specify which formats are allowed to be sent, with the assumption that the corresponding COAP content types have been registered.
+The "manifests" claim ({{manifests}}) along with the measurement and "measurements" ({{measurements}}) claims are examples of this, allowing the use of CoSWID, SUIT Manifest and other formats.
+A profile should specify which formats are allowed to be sent, with the assumption that the corresponding CoAP content types have been registered.
 A profile should require the receiver to accept all formats that are allowed to be sent.
 
 Further, if there is variation within a format that is allowed, the profile should specify which variations can be sent.
@@ -2089,7 +2090,7 @@ This example has its lines wrapped per {{RFC8792}}.
 
 ### Basic CWT Example
 
-This is a simple ECDSA signed CWT-format token.
+This is a simple CWT-format token signed with the ECDSA algorithm.
 
 ~~~~
 {::include cddl/Example-Tokens/valid_cwt.diag}
@@ -2235,8 +2236,7 @@ implementations be able to receive 256-bit UEIDs.
 
 ## No Use of UUID
 
-A UEID is not a UUID {{RFC4122}} by conscious choice for the following
-reasons.
+A UEID is not a Universally Unique Identifier (UUID) {{RFC4122}} by conscious choice for the following reasons.
 
 UUIDs are limited to 128 bits which may not be enough for some future
 use cases.
@@ -2467,7 +2467,7 @@ The following assumes endorsements are X.509 certificates or equivalent and thus
 The COSE standard header parameter for Key ID (kid) may be used. See {{RFC9052}} and {{RFC7515}}
 
 COSE leaves the semantics of the key ID open-ended.
-It could be a record locator in a database, a hash of a public key, an input to a KDF, an authority key identifier (AKI) for an X.509 certificate or other.
+It could be a record locator in a database, a hash of a public key, an input to a Key Derivation Function (KDF), an Authority Key Identifier (AKI) for an X.509 certificate or other.
 The profile document should specify what the key ID's semantics are.
 
 ### JWS and COSE X.509 Header Parameters
