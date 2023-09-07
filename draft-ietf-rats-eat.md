@@ -600,6 +600,13 @@ The "oemid" claim identifies the Original Equipment Manufacturer (OEM) of the ha
 Any of the three forms described below MAY be used at the convenience of the claim sender.
 The receiver of this claim MUST be able to handle all three forms.
 
+Note that the "hwmodel" {{hwmodel}}, "oemboot" {(oemboot}} and "dbgstat" {{dbgstat}} claims depend on this claim.
+
+Sometimes one manufacturer will acquire or merge with another.
+Depending on the situation and use case newly manfactured devices may continue to use the old OEM ID or switch to the new one.
+This is left to the discretion of the manufacturers, but they should consider how it affects the above-mentioned claims and the attestation eco-system for their devices.
+The considerations are the same for all three forms of OEMID.
+
 #### Random Number Based OEMID
 
 The random number based OEMID MUST always be 16 bytes (128 bits) long.
@@ -716,7 +723,7 @@ A "swversion" claim MUST only be present if a "swname" claim described in {{swna
 ~~~~
 
 
-### oemboot (OEM Authorized Boot) Claim
+### oemboot (OEM Authorized Boot) Claim {#oemboot}
 
 An "oemboot" claim with value of true indicates the entity booted with software authorized by the manufacturer of the entity as indicated by the "oemid" claim described in {{oemid}}.
 It indicates the firmware and operating system are fully under control of the OEM and may not be replaced by the end user or even the enterprise that owns the device.
@@ -728,7 +735,7 @@ If this claim is present the "oemid" claim SHOULD always also be present.
 ~~~~
 
 
-### dbgstat (Debug Status) Claim
+### dbgstat (Debug Status) Claim {#debstat}
 
 The "dbgstat" claim applies to entity-wide or submodule-wide debug facilities of the
 entity like {{JTAG}} and diagnostic hardware built into
