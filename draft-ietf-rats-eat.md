@@ -721,7 +721,7 @@ A "swversion" claim MUST only be present if a "swname" claim described in {{swna
 An "oemboot" claim with value of true indicates the entity booted with software authorized by the manufacturer of the entity as indicated by the "oemid" claim described in {{oemid}}.
 It indicates the firmware and operating system are fully under control of the OEM and may not be replaced by the end user or even the enterprise that owns the device.
 The means of control may be by cryptographic authentication of the software, by the software being in ROM, a combination of the two or other.
-If this claim is present the "oemid" claim SHOULD always also be present.
+If this claim is present the "oemid" claim MUST be present.
 
 ~~~~CDDL
 {::include nc-cddl/oem-boot.cddl}
