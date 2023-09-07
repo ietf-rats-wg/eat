@@ -834,8 +834,7 @@ See location-related privacy considerations in {{locationprivacyconsiderations}}
 
 ### uptime (Uptime) Claim
 
-The "uptime" claim MUST contain a value that represents the number of
-seconds that have elapsed since the entity or submodule was last booted.
+The "uptime" claim contains the number of seconds that have elapsed since the entity or submodule was last booted.
 
 ~~~~CDDL
 {::include nc-cddl/uptime.cddl}
