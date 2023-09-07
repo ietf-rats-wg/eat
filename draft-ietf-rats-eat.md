@@ -600,18 +600,18 @@ The "oemid" claim identifies the Original Equipment Manufacturer (OEM) of the ha
 Any of the three forms described below MAY be used at the convenience of the claim sender.
 The receiver of this claim MUST be able to handle all three forms.
 
-Note that the "hwmodel" {{hwmodel}}, "oemboot" {(oemboot}} and "dbgstat" {{dbgstat}} claims depend on this claim.
+Note that the "hwmodel" claim in {{hwmodel}}, the "oemboot" claim in {{oemboot}} and "dbgstat" claim in {{dbgstat}} depend on this claim.
 
 Sometimes one manufacturer will acquire or merge with another.
-Depending on the situation and use case newly manfactured devices may continue to use the old OEM ID or switch to the new one.
+Depending on the situation and use case newly manfactured devices may continue to use the old OEM ID or switch to a new one.
 This is left to the discretion of the manufacturers, but they should consider how it affects the above-mentioned claims and the attestation eco-system for their devices.
-The considerations are the same for all three forms of OEMID.
+The considerations are the same for all three forms of this claim.
 
 #### Random Number Based OEMID
 
 The random number based OEMID MUST always be 16 bytes (128 bits) long.
 
-The OEM MAY create their own ID by using a cryptographic-quality random number generator.
+The OEM may create their own ID by using a cryptographic-quality random number generator.
 They would perform this only once in the life of the company to generate the single ID for said company.
 They would use that same ID in every entity they make.
 This uniquely identifies the OEM on a statistical basis and is large enough should there be ten billion companies.
@@ -735,7 +735,7 @@ If this claim is present the "oemid" claim SHOULD always also be present.
 ~~~~
 
 
-### dbgstat (Debug Status) Claim {#debstat}
+### dbgstat (Debug Status) Claim {#dbgstat}
 
 The "dbgstat" claim applies to entity-wide or submodule-wide debug facilities of the
 entity like {{JTAG}} and diagnostic hardware built into
