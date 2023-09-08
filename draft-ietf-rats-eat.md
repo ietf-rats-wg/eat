@@ -1444,7 +1444,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | Detached EAT Bundle Usage | Detached EAT bundles MUST not be sent with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verification key. If both are present, the kid takes precedence |
 | Endorsements | This profile contains no endorsement identifier |
-| Nonce | A new single unique nonce MUST be used for every token request |
+| Freshness | A new single unique nonce MUST be used for every token request |
 | Claims | No requirement is made on the presence or absence of claims other than requiring an EAT nonce. As per general EAT rules, the receiver MUST NOT error out on claims it doesn't understand. |
 
 Any profile with different requirements than those above MUST have a different profile identifier.
