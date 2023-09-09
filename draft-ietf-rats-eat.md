@@ -1559,11 +1559,11 @@ Encoding-specific definitions are provided in the following sections.
 
 # Privacy Considerations {#privacyconsiderations}
 
-Certain EAT claims can be used to track the owner of an entity and
-therefore, implementations should consider providing privacy-preserving
-options dependent on the intended usage of the EAT.  Examples would
-include suppression of location claims for EAT's provided to
-unauthenticated consumers.
+Certain EAT claims can be used to track the owner of an entity;
+therefore, implementations should consider privacy-preserving
+options dependent on the usage of the EAT.
+For example, the location claim might be suppressed in EATs sent to unauthenticated consumers.
+
 
 ## UEID and SUEID Privacy Considerations {#ueidprivacyconsiderations}
 
