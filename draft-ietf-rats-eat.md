@@ -905,6 +905,7 @@ The purpose of these claims in an EAT is to relay them without modification to t
 Some manifests are signed by their software manufacturer independently, and some are not either because they do not support signing or the manufacturer chose not to sign them.
 For example, a CoSWID might be signed independently before it is included in an EAT.
 When signed manifests are put into an EAT, the manufacturer's signature SHOULD be included even though an EAT's signature will also cover the manifest.
+This allows the receiver to verify the manifest directly with the manufacturer if they wish.
 
 This claim allows multiple formats for the manifest.
 For example, the manifest may be a CBOR-encoded CoSWID, an XML-encoded SWID or other.
