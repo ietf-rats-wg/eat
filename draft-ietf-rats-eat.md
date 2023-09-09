@@ -503,7 +503,7 @@ to track other characteristics of the entity to keep entities distinct
 between manufacturers).
 
 UEIDs are not designed for direct use by humans (e.g., printing on
-the case of a device), so no textual representation is defined.
+the case of a device), so no such representation is defined.
 
 There are privacy considerations for UEIDs. See {{ueidprivacyconsiderations}}.
 
@@ -1991,6 +1991,13 @@ IANA is requested to register the following new subtypes in the "DEV URN Subtype
 | ueid    | Universal Entity Identifier                | This document |
 | sueid   | Semi-permanent Universal Entity Identifier | This document |
 {: #ueid-urn-reg title="UEID URN Registration"}
+
+ABNF for these two URNs is as follows where b64ueid is the base64url-encoded binary byte-string for the UEID or SUEID:
+
+~~~~
+body =/ ueidbody
+ueidbody = %s”ueid:” b64ueid
+~~~~
 
 ## CBOR Tag for Detached EAT Bundle Registered by this Document
 
