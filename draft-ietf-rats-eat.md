@@ -799,6 +799,7 @@ disabled such that no end user or developer can enable them. Only
 the manufacturer indicated in the "oemid" claim can enable them. This
 also indicates that all debug facilities are currently disabled and
 have been so since boot/start.
+If this debug state is reported, the "oemid" claim  MUST be present.
 
 #### Disabled Fully and Permanently
 
@@ -2509,6 +2510,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Abstract wording improvement
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
+- Require "oemid" claim for "oemboot" claim and debug state of permanently disabled.
 
 --- contributor
 
