@@ -1301,15 +1301,15 @@ A full profile doesn't require that the receiver be able to process absolutely e
 For example, signing and freshness are critical and should be guaranteed.
 Many claims are not and do not have to be guaranteed.
 
-Partial profiles are discouraged.
-It is better to define several full profiles perhaps derived from each other.
+Partial profiles are allowed, but discouraged.
+It is better to define several full profiles, perhaps derived from each other.
 That way each profile is actually usable.
 It is relatively easy and inexpensive to define profiles as they don't have to be standards track and don't have to be registered anywhere.
-For example, rather than leaving the signing algorithms unspecified perhaps to accommodate post-quantum algorithms, a profile can specify the NIST signing algorithms.
+For example, rather than leaving the signing algorithms unspecified perhaps to accommodate post-quantum algorithms, a profile could specify a small set of algorithms
 When the post-quantum algorithms are selected, a derived profile that adds the new algorithms can be specified.
 The derived profiles can be as simple as stating "the 'Xxx PQ' profile is the same as the 'Xxx' profile with the addition that the receiver must implement the 'yyy' post-quantum algorithm."
 
-A "eat_profile" claim SHOULD NOT be used to identify partial profiles.
+A "eat_profile" claim MUST NOT be used to identify partial profiles.
 
 
 ## List of Profile Issues
