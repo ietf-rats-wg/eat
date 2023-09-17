@@ -607,9 +607,9 @@ Depending on the situation and use case newly manfactured devices may continue t
 This is left to the discretion of the manufacturers, but they should consider how it affects the above-mentioned claims and the attestation eco-system for their devices.
 The considerations are the same for all three forms of this claim.
 
-#### Random Number Based OEMID
+#### Random Number Based OEM ID
 
-The random number based OEMID MUST always be 16 bytes (128 bits) long.
+The random number based OEM ID MUST always be 16 bytes (128 bits) long.
 
 The OEM may create their own ID by using a cryptographic-quality random number generator.
 They would perform this only once in the life of the company to generate the single ID for said company.
@@ -618,7 +618,7 @@ This uniquely identifies the OEM on a statistical basis and is large enough shou
 
 In JSON-encoded tokens this MUST be base64url-encoded.
 
-#### IEEE Based OEMID
+#### IEEE Based OEM ID
 
 The IEEE operates a global registry for MAC addresses and company IDs.
 This claim uses that database to identify OEMs. The contents of the
@@ -645,7 +645,7 @@ This format is always 3 bytes in size in CBOR.
 
 In JSON-encoded tokens, this MUST be base64url-encoded and always 4 bytes.
 
-#### IANA Private Enterprise Number Based OEMID
+#### IANA Private Enterprise Number Based OEM ID
 
 IANA maintains a registry for Private Enterprise Numbers (PEN) {{PEN}}. A PEN is an integer that identifies an enterprise and may be
 used to construct an object identifier (OID) relative to the following OID arc that is managed by IANA:  iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1).
@@ -1812,7 +1812,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 
 &nbsp;
 
-* Claim Name: Hardware OEMID
+* Claim Name: Hardware OEM ID
 * Claim Description: Hardware OEM ID
 * JWT Claim Name: "oemid"
 * Claim Key: 258
@@ -2518,6 +2518,8 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
 - Require "oemid" claim for "oemboot" claim and debug state of permanently disabled.
+- Clarify what happens to OEM ID when companies merge
+- "OEMID" -> "OEM ID"
 
 --- contributor
 
