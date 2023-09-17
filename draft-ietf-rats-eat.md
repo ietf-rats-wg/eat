@@ -2142,7 +2142,7 @@ This example has its lines wrapped per {{RFC8792}}.
 ## Collision Probability
 
 This calculation is to determine the probability of a collision of
-UEIDs given the total possible entity population and the number of
+type 0x01 UEIDs given the total possible entity population and the number of
 entities in a particular entity management database.
 
 Three different sized databases are considered. The number of devices
@@ -2233,8 +2233,8 @@ as the number of records in the database.
 | 100 quadrillion (10^17) | 8 microseconds | 10^11 years  | 10^31 years  |
 {: #ueid-collision-probability title="UEID Collision Probability"}
 
-Clearly, 128 bits is enough for the near future thus the requirement that UEIDs
-be a minimum of 128 bits.
+Clearly, 128 bits is enough for the near future thus the requirement
+that type 0x01 UEIDs be a minimum of 128 bits.
 
 There is no requirement for 256 bits today as quadrillion-record databases
 are not expected in the near future and because this time-to-collision
