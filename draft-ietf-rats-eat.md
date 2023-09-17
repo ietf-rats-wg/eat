@@ -86,6 +86,7 @@ normative:
   RFC9165: cddlplus
   RFC4648:
   RFC2252:
+  RFC9334:
 
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
@@ -130,8 +131,6 @@ informative:
   RFC4949:
   RFC7120:
   RFC9039:
-
-  RATS.Architecture: I-D.ietf-rats-architecture
 
   BirthdayAttack:
     title: Birthday attack
@@ -196,7 +195,7 @@ The security model and goal for attestation are unique and are not the same as f
 To give an example of one aspect of the difference, consider the association and life-cycle of key material.
 For authentication, keys are associated with a user or service and set up by actions performed by a user or an operator of a service.
 For attestation, the keys are associated with specific devices and are configured by device manufacturers.
-The reader is assumed to be familiar with the goals and security model for attestation as described in {{RATS.Architecture}} and are not repeated here.
+The reader is assumed to be familiar with the goals and security model for attestation as described in RATS Architecture {{RFC9334}} and are not repeated here.
 
 This document defines some common claims that are potentially of broad use.
 EAT additionally allows proprietary claims and for further claims to be standardized.
@@ -230,9 +229,9 @@ Like CWT and JWT, EAT does not imply any message flow.
 
 This document uses the term "entity" to refer to the target of an EAT.
 Most of the claims defined in this document are claims about an entity.
-An entity is equivalent to a target environment in an attester as defined in [RATS.architecture].
+An entity is equivalent to a target environment in an attester as defined in [RFC9334].
 
-Layered attestation and composite devices, as described in [RATS.architecture], are supported by a submodule mechanism (see {{submods}}).
+Layered attestation and composite devices, as described in [RFC9334], are supported by a submodule mechanism (see {{submods}}).
 Submodules allow nesting of EATs and of claims-sets so that such hierarchies can be modeled.
 
 An entity is the same as a "system component", as defined in the Internet Security Glossary {{RFC4949}}.
@@ -295,7 +294,7 @@ One basic profile for constrained devices is normatively defined.
 
 ## Operating Model and RATS Architecture
 
-EAT follows the operational model described in Figure 1 in {{RATS.Architecture}}. To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
+EAT follows the operational model described in Figure 1 in RATS Architecture {{RFC9334}}. To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
 Evidence is usually signed by a key that proves the attester and the evidence it produces are authentic.
 The claims set includes a nonce or some other means to assure freshness.
 
@@ -351,7 +350,7 @@ Claim Value:
 Claims Set:
 : The CBOR map or JSON object that contains the claims conveyed by the CWT or JWT.
 
-This document reuses terminology from RATS Architecure {{RATS.Architecture}}:
+This document reuses terminology from RATS Architecure {{RFC9334}}:
 
 Attester:
 : A role performed by an entity (typically a device) whose evidence must be appraised in order to infer the extent to which the attester is considered trustworthy, such as when deciding whether it is authorized to perform some operation.
@@ -1402,7 +1401,7 @@ However note that endorsement identification is optional, whereas key identifica
 
 Security considerations, see {{sec-con-freshness}}, require a mechanism to provide freshness.
 This may be the EAT nonce claim in {{nonce}}, or some claim or mechanism defined outside this document.
-The section on freshness in {{RATS.Architecture}} describes several options.
+The section on freshness in {{RFC9334}} describes several options.
 A profile should specify which freshness mechanism or mechanisms can be used.
 
 If the EAT nonce claim is used, a profile should specify whether multiple nonces may be sent.
@@ -1636,7 +1635,7 @@ To avoid the conveyance of privacy-related information in the nonce claim, it sh
 
 The security considerations provided in Section 8 of {{RFC8392}} and Section 11
 of {{RFC7519}} apply to EAT in its CWT and JWT form, respectively.  Moreover, Chapter 12
-of {{RATS.Architecture}} is also applicable to implementations of EAT.  In addition,
+of {{RFC9334}} is also applicable to implementations of EAT.  In addition,
 implementors should consider the following.
 
 ## Claim Trustworthiness
@@ -1686,7 +1685,7 @@ destination secure enclave where it can be provisioned.
 ## Freshness {#sec-con-freshness}
 
 All EAT use MUST provide a freshness mechanism to prevent replay and related attacks.
-The extensive discussions on freshness in {{RATS.Architecture}} including security considerations apply here.
+The extensive discussions on freshness in {{RFC9334}} including security considerations apply here.
 The EAT nonce claim, in {{nonce}}, is one option to provide freshness.
 
 
@@ -2446,7 +2445,7 @@ There is not one standard method.
 
 The verification key itself may be a public key, a symmetric key or something complicated in the case of a scheme like Direct Anonymous Attestation (DAA).
 
-RATS Architecture {{RATS.Architecture}} describes what is called an endorsement.
+RATS Architecture {{RFC9334}} describes what is called an endorsement.
 This is an input to the verifier that is usually the basis of the trust placed in an EAT and the attester that generated it.
 It may contain the public key for verification of the signature on the EAT.
 It may contain implied claims, those that are passed on to the relying party in attestation results.
@@ -2516,6 +2515,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Abstract wording improvement
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
+- Refer to RFC 9334 instead of RATS.Arch and make ref normative
 - Require "oemid" claim for "oemboot" claim and debug state of permanently disabled.
 - Clarify what happens to OEM ID when companies merge
 - "OEMID" -> "OEM ID"
