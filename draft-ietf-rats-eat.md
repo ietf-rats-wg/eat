@@ -2508,7 +2508,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Abstract wording improvement
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
-
+- Refer to RFC 9334 instead of RATS.Arch and make ref normative
 --- contributor
 
 Many thanks to the following contributors to draft versions of this
