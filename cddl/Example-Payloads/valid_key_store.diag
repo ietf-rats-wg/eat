@@ -1,8 +1,9 @@
 / This is an attestation of a public key and the key store     /
 / implementation that protects and manages it. The key store   /
 / implementation is in a security-oriented execution           /
-/ environment separate from the high-level OS, for example a   /
-/ TEE. The key store is the Attester.                          /
+/ environment separate from the high-level OS (HLOS), for      /
+/ example a Trusted Execution Environment (TEE). The key store /
+/ is the Attester.                                             /
 /                                                              /
 / There is some attestation of the high-level OS, just version /
 / and boot & debug status. It is a Claims-Set submodule because/
