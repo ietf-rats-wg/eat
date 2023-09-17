@@ -722,7 +722,7 @@ The "manifests" claim {{manifests}} may be instead if this is too simple.
 An "oemboot" claim with value of true indicates the entity booted with software authorized by the manufacturer of the entity as indicated by the "oemid" claim described in {{oemid}}.
 It indicates the firmware and operating system are fully under control of the OEM and may not be replaced by the end user or even the enterprise that owns the device.
 The means of control may be by cryptographic authentication of the software, by the software being in Read-Only Memory (ROM), a combination of the two or other.
-If this claim is present the "oemid" claim SHOULD always also be present.
+If this claim is present the "oemid" claim MUST be present.
 
 ~~~~CDDL
 {::include nc-cddl/oem-boot.cddl}
@@ -800,6 +800,7 @@ disabled such that no end user or developer can enable them. Only
 the manufacturer indicated in the "oemid" claim can enable them. This
 also indicates that all debug facilities are currently disabled and
 have been so since boot/start.
+If this debug state is reported, the "oemid" claim  MUST be present.
 
 #### Disabled Fully and Permanently
 
@@ -2509,6 +2510,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Abstract wording improvement
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
+- Require "oemid" claim for "oemboot" claim and debug state of permanently disabled.
 
 --- contributor
 
