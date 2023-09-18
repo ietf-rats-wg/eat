@@ -906,18 +906,18 @@ The platform and application labels in the claim indicate the correct DLOA for t
 The "manifests" claim contains descriptions of software present on the entity.
 These manifests are installed on the entity when the software is installed or are created as part of the installation process.
 Installation is anything that adds software to the entity, possibly factory installation, the user installing elective applications and so on.
-The defining characteristic is they are created by the software manufacturer.
-The purpose of these claims in an EAT is to relay them without modification to the verifier and possibly to the relying party.
+The defining characteristic of a manifest is that it is created by the software manufacturer.
+The purpose of this claim is to relay unmodified manifests to the verifier and possibly to the relying party.
 
 Some manifests are signed by their software manufacturer independently, and some are not either because they do not support signing or the manufacturer chose not to sign them.
 For example, a CoSWID might be signed independently before it is included in an EAT.
 When signed manifests are put into an EAT, the manufacturer's signature SHOULD be included even though an EAT's signature will also cover the manifest.
 This allows the receiver to directly verify the manufacturer-originated manifest.
 
-This claim allows multiple formats for the manifest.
+This claim allows multiple manifest formats.
 For example, the manifest may be a CBOR-encoded CoSWID, an XML-encoded SWID or other.
 Identification of the type of manifest is always by a Constrained Application Protocol (CoAP) Content-Format integer {{RFC7252}}.
-If there is no CoAP identifier registered for the manifest format, one MUST be registered.
+If there is no CoAP identifier registered for a manifest format, one MUST be registered.
 
 This claim MUST be an array of one or more manifests.
 Each manifest in the claim MUST be an array of two.
@@ -1153,7 +1153,7 @@ position fix taken the last time a satellite signal was received.
 There are individual timestamps associated with these claims to
 indicate their age is older than the "iat" timestamp.
 
-CWT allows the use floating-point for this claim. EAT disallows
+CWT allows the use of floating-point for this claim. EAT disallows
 the use of floating-point. An EAT token MUST NOT contain an "iat" claim in
 floating-point format. Any recipient of a token with a floating-point
 format "iat" claim MUST consider it an error.
@@ -1722,11 +1722,11 @@ the EAT they are consuming.
 ## Detached EAT Bundle Digest Security Considerations
 
 A detached EAT bundle is composed of a nested EAT and
-an unsigned claims set as per {{DEB}} .  Although the attached claims set is vulnerable to
+an claims set as per {{DEB}}.  Although the attached claims set is vulnerable to
 modification in transit, any modification can be detected by the receiver through the associated
 digest, which is a claim fully contained within an EAT.  Moreover, the digest itself can only be derived using
 an appropriate COSE hash algorithm, implying that an attacker cannot induce false detection
-of a modified detached claims because the algorithms in the COSE registry are assumed to be
+of modified detached claims because the algorithms in the COSE registry are assumed to be
 of sufficient cryptographic strength.
 
 ## Verification Keys {#verfication-key-sc}
@@ -2516,6 +2516,8 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Abstract wording improvement
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
+- Wording improvements for manifests claim
+- Wording improvements for detached EAT bundle
 - Clarify purpose of including manufacturer manifest signatures
 - Refer to RFC 9334 instead of RATS.Arch and make ref normative
 - Require "oemid" claim for "oemboot" claim and debug state of permanently disabled.
