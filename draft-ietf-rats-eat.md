@@ -2511,6 +2511,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 
 ## From draft-ietf-rats-eat-21
 - Add titles to tables
+- Add ABNF to define format of device ID URN
 - Fix some nits
 - Clarification in 6.1.12 that "receiver accepts token with claims it does not understand"
 - Abstract wording improvement
