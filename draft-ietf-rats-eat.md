@@ -1442,7 +1442,7 @@ The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
 | COSE Protection | COSE_Sign1 MUST be used |
 | Algorithms | The receiver MUST accept ES256, ES384 and ES512; the sender MUST send one of these |
 | Detached EAT Bundle Usage | Detached EAT bundles MUST not be sent with this profile |
-| Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verification key. If both are present, the kid takes precedence. (It is assumed the receiver has access to a database of trusted verification which allows lookup of the verification key ID; the key format and means of distribution are beyond the scope of this profile) |
+| Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verification key. If both are present, the kid takes precedence. (It is assumed the receiver has access to a database of trusted verification keys which allows lookup of the verification key ID; the key format and means of distribution are beyond the scope of this profile) |
 | Endorsements | This profile contains no endorsement identifier |
 | Nonce | A new single unique nonce MUST be used for every token request |
 | Claims | No requirement is made on the presence or absence of claims other than requiring an EAT nonce. As per general EAT rules, the receiver MUST NOT error out on claims it doesn't understand. |
@@ -2507,6 +2507,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Fix some nits
 - Clarification in 6.1.12 that "receiver accepts token with claims it does not understand"
 - Abstract wording improvement
+- Clarification of source of verification keys for constrained profile
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
 
