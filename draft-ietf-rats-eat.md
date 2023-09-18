@@ -2509,6 +2509,8 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Abstract wording improvement
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
+- Wording improvements for manifests claim
+- Wording improvements for detached EAT bundle
 
 --- contributor
 
