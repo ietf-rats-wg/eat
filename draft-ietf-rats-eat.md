@@ -1436,7 +1436,7 @@ A profile that require the receiver to accept all variations that are allowed to
 It is anticipated that there will be many profiles defined for EAT for many different use cases.
 This section gives a normative definition of one profile that is good for many constrained device use cases.
 
-The identifier for this profile is "https://www.rfc-editor.org/rfc/rfcTBD".
+The identifier for this profile is "urn:ietf:rfc:rfcTBD".
 
 [^to-be-removed]
 
@@ -2532,6 +2532,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Require "oemid" claim for "oemboot" claim and debug state of permanently disabled.
 - Clarify what happens to OEM ID when companies merge
 - "OEMID" -> "OEM ID"
+- Use "urn:ietf..." for constrained device profile ID
 
 --- contributor
 
