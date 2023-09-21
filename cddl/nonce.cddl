@@ -1,5 +1,5 @@
 $$Claims-Set-Claims //= 
     (nonce-label => nonce-type / [ 2* nonce-type ])
 
-nonce-type = JC< tstr .size (10..74), bstr .size (8..64)>
+nonce-type = JC< tstr .size (8..88), bstr .size (8..64)>
 

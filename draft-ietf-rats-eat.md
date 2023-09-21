@@ -467,9 +467,8 @@ The minimum size is 8 bytes.
 The maximum size is 64 bytes.
 
 In JSON, an EAT nonce is a text string.
-It is assumed that only characters represented by the lower 7 bits of each byte will be used, so the text string must be one-seventh longer because the 8th bit doesn't contribute to entropy.
-The minimum size for JSON-encoded EATs is 10 bytes and the maximum size is 74 bytes.
-
+The maximum size is 88 bytes which is the size of a base 64 encoding of 64 bytes with padding.
+The minimum size is 8 bytes to allow use of any/every UTF-8 byte pattern for the most compact representation of 8 random bytes.
 
 ~~~~CDDL
 {::include nc-cddl/nonce.cddl}
@@ -2530,6 +2529,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Clarify purpose of including manufacturer manifest signatures
 - Refer to RFC 9334 instead of RATS.Arch and make ref normative
 - Require "oemid" claim for "oemboot" claim and debug state of permanently disabled.
+- Improve min and max size of JSON UTF-8 nonce
 - Clarify what happens to OEM ID when companies merge
 - "OEMID" -> "OEM ID"
 
