@@ -468,7 +468,7 @@ The maximum size is 64 bytes.
 
 In JSON, an EAT nonce is a text string.
 The maximum size is 88 bytes which is the size of a base 64 encoding of 64 bytes with padding.
-The minimum size is 8 bytes to allow use of any/every UTF-8 byte pattern for the most compact representation of 8 random bytes.
+The minimum size is 8 bytes to allow use of any/every UTF-8 byte pattern for the most compact representation of 64 random bits.
 
 ~~~~CDDL
 {::include nc-cddl/nonce.cddl}
