@@ -2525,6 +2525,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
 - Better into wording for type 2 and 3 UEIDs
+- Correct the JSON detached eat bundle example
 - Wording improvements for manifests claim
 - Wording improvements for detached EAT bundle
 - Clarify purpose of including manufacturer manifest signatures
