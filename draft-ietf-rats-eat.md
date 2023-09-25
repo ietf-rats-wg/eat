@@ -238,7 +238,7 @@ This nonce is the base64 encoding of a 12 byte random binary byte string.
 The ueid is effectively a serial number uniquely identifying the device.
 This ueid is the base64 encoding of a 48-bit MAC address.
 The oemid identifies the manufacturer using a Private Enterprise Number {{PEN}}.
-The SW is identified by a simple string name and version.
+The software is identified by a simple string name and version.
 It could be identified by a full manifest, but this is a minimal example.
 
 
