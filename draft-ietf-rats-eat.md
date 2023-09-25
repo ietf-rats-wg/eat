@@ -225,6 +225,23 @@ An EAT may be encoded in either JavaScript Object Notation (JSON) {{RFC8259}} or
 EAT is built on CBOR Web Token (CWT) {{RFC8392}} and JSON Web Token (JWT) {{RFC7519}} and inherits all their characteristics and their security mechanisms.
 Like CWT and JWT, EAT does not imply any message flow.
 
+Following is a very simple example.
+It is JSON format for easy reading, but could also be CBOR.
+Only the Claims-Set, the payload for the JWT, is shown.
+
+~~~~
+{::include cddl/Example-Payloads/simple.json}
+~~~~
+
+This example has a nonce for freshness.
+This nonce is the base64 encoding of a 12 byte random binary byte string.
+The ueid is effectively a serial number uniquely identifying the device.
+This ueid is the base64 encoding of a 48-bit MAC address.
+The oemid identifies the manufacturer using a Private Enterprise Number {{PEN}}.
+The SW is identified by a simple string name and version.
+It could be identified by a full manifest, but this is a minimal example.
+
+
 ## Entity Overview
 
 This document uses the term "entity" to refer to the target of an EAT.
