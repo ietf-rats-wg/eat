@@ -216,7 +216,7 @@ In particular, EAT provides a profile mechanism to be able to clearly specify th
 
 The entity's EAT implementation generates the claims and typically signs them with an attestation key.
 It is responsible for protecting the attestation key.
-Some EAT implementations will use components with very high resistance to attack like TPMs or secure elements.
+Some EAT implementations will use components with very high resistance to attack like Trusted Platform Modules (TPMs) or secure elements.
 Others may rely solely on simple software defenses.
 
 Nesting of tokens and claims sets is accommodated for composite devices that have multiple subsystems.
@@ -492,7 +492,9 @@ entities. It is akin to a serial number, though it does not have to be
 sequential.
 
 UEIDs MUST be universally and globally unique across manufacturers
-and countries. UEIDs MUST also be unique across protocols and systems,
+and countries. See {{ueidrulesforcreating}}.
+
+UEIDs MUST also be unique across protocols and systems,
 as tokens are intended to be embedded in many different protocols and
 systems. No two products anywhere, even in completely different
 industries made by two different manufacturers in two different
@@ -512,10 +514,10 @@ A Device Identifier URN is registered for UEIDs. See {{registerueidurn}}.
 {::include nc-cddl/ueid.cddl}
 ~~~~
 
-#### Rules for Creating UEIDs
+#### Rules for Creating UEIDs {#ueidrulesforcreating}
 
 These rules are solely for the creation of UEIDs.
-The consumer need not have any awareness of them.
+The EAT consumer need not have any awareness of them.
 
 A UEID is constructed of a single type byte followed by the unique bytes for that type.
 The type byte assures global uniqueness of a UEID even if the unique bytes for different types are accidentally the same.
@@ -739,8 +741,7 @@ If this claim is present the "oemid" claim MUST be present.
 
 The "dbgstat" claim applies to entity-wide or submodule-wide debug facilities of the
 entity like {{JTAG}} and diagnostic hardware built into
-chips. It applies to any software debug facilities related to root,
-operating system or privileged software that allow system-wide memory
+chips. It applies to any software debug facilities related to privileged software that allows system-wide memory
 inspection, tracing or modification of non-system software like user
 mode applications.
 
@@ -828,7 +829,7 @@ If any other of these values are unknown, they are omitted.
 
 The location may have been cached for a period of time before token
 creation. For example, it might have been minutes or hours or more
-since the last contact with a GPS satellite. Either the timestamp or
+since the last contact with a GNSS satellite. Either the timestamp or
 age data item can be used to quantify the cached period.  The timestamp
 data item is preferred as it a non-relative time.
 If the entity has no clock or the clock is unset but has a means to measure the time interval between the acquisition of the location and the token creation the age may be reported instead.
