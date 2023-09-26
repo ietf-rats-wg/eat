@@ -1313,9 +1313,10 @@ The "eat_profile" claim MUST NOT be used to identify partial profiles.
 While fewer profiles are preferrable, sometimes several may be needed for a use case.
 One approach to handling variation in devices might be to define several full profiles that are variants of each other.
 It is relatively easy and inexpensive to define profiles as they don't have to be standards track and don't have to be registered anywhere.
-For example, flexibility for post-quantum algorithms can be handled as follows.
-First, define a full profile for a set of non-post-quantum algorithms for current use.
-Then, when post-quantum algorithms are settled, define another full profile derived from the first.
+For example, there exist a number of different instantiations of Trusted Execution Environments, including IETF TEEP, Intel SGX and GlobalPlatform. Flexibility for handling Trusted Execution Environments of different types can be handled as follows.
+First define a partial profile which defines a set of claims applicable to all Trusted Execution Environments.
+The define a full profile for GlobalPlatform compliant Trusted Execution Environments which includes any necessary mandatory claims along with a mandatory and interoperable crypto suite for signing tokens representing GlobalPlatform compliant Trusted Execution Environments.
+Define similar full profiles for TEEP, Intel SGX and so on. 
 
 
 ## List of Profile Issues
