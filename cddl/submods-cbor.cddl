@@ -27,7 +27,7 @@ CBOR-Token-Inside-CBOR-Token = bstr .cbor $EAT-CBOR-Tagged-Token
 ; JSON-Selector.  See the definition of JSON-Selector. The
 ; Detached-Submodule-Digest option MUST NOT be used when included
 ; in a CBOR token
-JSON-Token-Inside-CBOR-Token = tstr 
+JSON-Token-Inside-CBOR-Token = tstr .json $EAT-JSON-Token
 
 ; This is the part of a token that contains all the submodules.  It
 ; is a peer with the claims in the token, but not a claim, only a

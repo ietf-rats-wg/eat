@@ -1508,6 +1508,14 @@ In JSON tokens OIDs are a text string in the common form of "nn.nn.nn...".
 Unless expliclity indicated, URIs are not the URI tag defined in {{RFC8949}}.
 They are just text strings that contain a URI conforming to the format defined in {{RFC3986}}.
 
+## Operators {#cddl-operators}
+
+The `.json` operator constrains the content of the preceeding element to be JSON matching the following element. In the example below, json-claims is a CBOR tstr containing JSON that matches claims.
+
+~~~~CDDL
+json-claims = tstr .json claims
+~~~~
+
 ~~~~CDDL
 {::include nc-cddl/common-types.cddl}
 ~~~~
