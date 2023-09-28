@@ -2091,7 +2091,7 @@ It informs the relying party that they were correct in the "measres" claim.
 ~~~~
 
 
-### JSON-encoded Token with Sumodules
+### JSON-encoded Token with Submodules
 
 This example has its lines wrapped per {{RFC8792}}.
 
@@ -2110,7 +2110,7 @@ This is a simple CWT-format token signed with the ECDSA algorithm.
 {::include cddl/Example-Tokens/valid_cwt.diag}
 ~~~~
 
-### Detached EAT Bundle
+### CBOR-encoded Detached EAT Bundle
 
 In this detached EAT bundle, the main token is produced by a HW attestation block.
 The detached Claims-Set is produced by a TEE and is largely identical to the Simple TEE examples above.
