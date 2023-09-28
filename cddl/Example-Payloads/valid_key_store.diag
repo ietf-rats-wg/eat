@@ -15,8 +15,6 @@
 / allow access to the key is given. The labels for these are   /
 / in the private space since this is just a hypothetical       /
 / example, not part of a standard protocol.                    /
-/                                                              /
-/ This is similar to Android Key Attestation.                  /
 
 
 {
