@@ -2064,7 +2064,7 @@ This is a simple attestation of a TEE that includes a manifest that is a payload
 
 ### Software Measurements of an IoT Device
 
-This is a simple token that might be for and IoT device.
+This is a simple token that might be for an IoT device.
 It includes CoSWID format measurments of the SW.
 The CoSWID is in byte-string wrapped in the token and also shown in diagnostic form.
 
