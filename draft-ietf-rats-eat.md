@@ -462,16 +462,8 @@ An EAT nonce MUST have at least 64 bits of entropy.
 A maximum EAT nonce size is set to limit the memory required for an implementation.
 All receivers MUST be able to accommodate the maximum size.
 
-In CBOR, an EAT nonce is a byte string.
-The minimum size is 8 bytes.
-The maximum size is 64 bytes.
-
-In JSON, an EAT nonce is a text string.
-The minimum size is 8 bytes to allow use of any/every UTF-8 byte pattern for the most compact representation of 64 random bits.
-The maximum size is 88 bytes which is the size of a base 64 encoding of 64 bytes with padding.
-Note that the UTF-8 string is the nonce itself and MUST be used directly as the nonce.
-If base64 encoding was used to create the nonce, it was just a convenient way to create a random text string from a binary random number source.
-The base64 encoding MUST NOT be removed.
+In CBOR, an EAT nonce is a byte string between 8 and 64 bytes in length.
+In JSON, an EAT nonce is a text string between 8 and 88 bytes in length.
 
 ~~~~CDDL
 {::include nc-cddl/nonce.cddl}
