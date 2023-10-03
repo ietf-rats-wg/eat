@@ -1,8 +1,7 @@
 {
     "eat_nonce": "yu76NN8IuV6e",
     "submods" : {
-        "Audio Subsystem" :   [ "DIGEST", [ "SHA-256", "awntBdqaIjIIh9WDMLuAJzgkNHoM2KJKg_vPzlOeQ5Q" ] ], 
-        "Graphics Subsystem": [ "DIGEST", [ "SHA-256", "ZtXIXySYneQeqIV1cP4qijZ0MQva2x0HMNbcjoRW3qM" ] ]
+        "Audio Subsystem" :   [ "DIGEST", [ "SHA-256", "FREn2VTwi99qcMEQsblmMQg3b5ofXPnN3PIanB0NQOs" ] ], 
+        "Graphics Subsystem": [ "DIGEST", [ "SHA-256", "Nv3sjQU7CVtDTdkDSRXVpVC5CLTPBZePYhS-HhVVV1s" ] ]
     }
 }
-
