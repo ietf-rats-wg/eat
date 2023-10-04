@@ -1,3 +1,3 @@
 $$Claims-Set-Claims //= (ueid-label => ueid-type)
 
-ueid-type = JC<base64-url-text .size (12..44) , bstr .size (7..33)>
+ueid-type = JC<base64-url-text .size (10..44) , bstr .size (7..33)>
