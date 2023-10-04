@@ -2148,9 +2148,9 @@ The detached EAT bundle itself can be assembled by untrusted software.
 
 ### JSON-encoded Detached EAT Bundle
 
-In this bundle there are two detached Claims-Sets, "CS1" and "CS2".
-The JWT at the start of the bundle has detached signature submodules with hashes of "CS1" and "CS2".
-TODO: make the JWT actually be correct verifiable JWT.
+In this bundle there are two detached Claims-Sets, "Audio Subsystem" and "Graphics Subsystem".
+The JWT at the start of the bundle has detached signature submodules with hashes that cover these two Claims-Sets.
+The JWT itself is protected using HMAC with a key of "xxxxxx".
 
 This example has its lines wrapped per {{RFC8792}}.
 
@@ -2541,6 +2541,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
 - Better into wording for type 2 and 3 UEIDs
+- Correct the JSON detached eat bundle example
 - Wording improvements for manifests claim
 - Wording improvements for detached EAT bundle
 - Clarify purpose of including manufacturer manifest signatures
