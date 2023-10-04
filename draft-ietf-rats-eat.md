@@ -1306,7 +1306,7 @@ The sender might choose a signing algorithm that some receivers don't support.
 
 Full profiles MUST be complete such that a complying receiver can decode, verify and check for freshness every EAT created by a complying sender.
 A full profile MAY or MAY NOT require the receiver to fully handle every claim in an EAT from a complying sender.
-Profile specifications may assume the receiver has access the necessary verification keys or may go into detail on the means to access verification keys.
+Profile specifications may assume the receiver has access to the necessary verification keys or may go into specific detail on the means to access verification keys.
 
 The "eat_profile" claim MUST NOT be used to identify partial profiles.
 
