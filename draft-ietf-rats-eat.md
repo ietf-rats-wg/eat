@@ -1311,6 +1311,29 @@ A profile document doesn't have to be in any particular format. It may be simple
 
 A profile may define, and possibly register, one or more new claims if needed. A profile may also reuse one or more already defined claims, either as-is or with values constrained to a subset or subrange.
 
+
+## Full and Partial Profiles
+
+For a "full" profile, the receiver will be able to decode and verify every possible EAT sent when a sender and receiver both adhere to it.
+For a "partial" profile, there are still some protocol options left undecided.
+
+For example, a profile that allows the use of signing algorithms by the sender that the receiver is not required to support is a partial profile.
+The sender might choose a signing algorithm that some receivers don't support.
+
+Full profiles MUST be complete such that a complying receiver can decode, verify and check for freshness every EAT created by a complying sender.
+A full profile MAY or MAY NOT require the receiver to fully handle every claim in an EAT from a complying sender.
+Profile specifications may assume the receiver has access to the necessary verification keys or may go into specific detail on the means to access verification keys.
+
+The "eat_profile" claim MUST NOT be used to identify partial profiles.
+
+While fewer profiles are preferrable, sometimes several may be needed for a use case.
+One approach to handling variation in devices might be to define several full profiles that are variants of each other.
+It is relatively easy and inexpensive to define profiles as they don't have to be standards track and don't have to be registered anywhere.
+For example, flexibility for post-quantum algorithms can be handled as follows.
+First, define a full profile for a set of non-post-quantum algorithms for current use.
+Then, when post-quantum algorithms are settled, define another full profile derived from the first.
+
+
 ## List of Profile Issues
 
 The following is a list of EAT, CWT, JWT, COSE, JOSE and CBOR options that a profile should address.
@@ -2540,6 +2563,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Abstract wording improvement
 - IETF is change controller rather than IESG for IANA registrations
 - Change "Indicate" to "Indcates"
+- Define "partial" and "full" profiles
 - Better into wording for type 2 and 3 UEIDs
 - Correct the JSON detached eat bundle example
 - Wording improvements for manifests claim
