@@ -2575,6 +2575,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Clarify what happens to OEM ID when companies merge
 - "OEMID" -> "OEM ID"
 - Use "urn:ietf..." for constrained device profile ID
+- Clarify that varying MAC addresses can be used as UEIDs
 
 --- contributor
 
