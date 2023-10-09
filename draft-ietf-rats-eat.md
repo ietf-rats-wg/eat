@@ -479,14 +479,8 @@ An EAT nonce MUST have at least 64 bits of entropy.
 A maximum EAT nonce size is set to limit the memory required for an implementation.
 All receivers MUST be able to accommodate the maximum size.
 
-In CBOR, an EAT nonce is a byte string.
-The minimum size is 8 bytes.
-The maximum size is 64 bytes.
-
-In JSON, an EAT nonce is a text string.
-It is assumed that only characters represented by the lower 7 bits of each byte will be used, so the text string must be one-seventh longer because the 8th bit doesn't contribute to entropy.
-The minimum size for JSON-encoded EATs is 10 bytes and the maximum size is 74 bytes.
-
+In CBOR, an EAT nonce is a byte string between 8 and 64 bytes in length.
+In JSON, an EAT nonce is a text string between 8 and 88 bytes in length.
 
 ~~~~CDDL
 {::include nc-cddl/nonce.cddl}
@@ -2572,6 +2566,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 - Clarify purpose of including manufacturer manifest signatures
 - Refer to RFC 9334 instead of RATS.Arch and make ref normative
 - Require "oemid" claim for "oemboot" claim and debug state of permanently disabled.
+- Improve min and max size of JSON UTF-8 nonce
 - Clarify what happens to OEM ID when companies merge
 - "OEMID" -> "OEM ID"
 - Use "urn:ietf..." for constrained device profile ID
