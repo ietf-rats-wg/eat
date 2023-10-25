@@ -1366,16 +1366,6 @@ A profile should specify whether or not CBOR preferred serialization must be sen
 A profile should specify the receiver be able to accept preferred and/or non-preferred serialization so it will be able to accept anything sent by the sender.
 
 
-### CBOR Tags
-
-The profile should specify whether the token should be a CWT Tag or not.
-
-When COSE protection is used, the profile should specify whether COSE tags are used or not.
-Note that RFC 8392 requires COSE tags be used in a CWT tag.
-
-Often a tag is unnecessary because the surrounding or carrying protocol identifies the object as an EAT.
-
-
 ### COSE/JOSE Protection {#message-type}
 
 COSE and JOSE have several options for signed, MACed and encrypted messages.
@@ -1463,6 +1453,17 @@ Further, if there is variation within a format that is allowed, the profile shou
 For example, there are variations in the CoSWID format.
 A profile that require the receiver to accept all variations that are allowed to be sent.
 
+### Message Type Identification
+
+EAT defines only a message format that is carried as a field in some other protocol.
+The identification of the message as an EAT is dependent on the carrying protocol and its type system.
+Identification may be implicit, by media type, by CBOR tag number or other.
+
+EAT profiles therefore do not need to specify how an EAT message is identified as that is less a characteristic of EAT and more a characteristic of the carrying protocol.
+
+That said, there is no prohibition against EAT profiles requiring use of CBOR tags, media types, or even against defining new message type identifiers.
+
+Note also, there are CBOR tag requirements imposed by CWT and COSE that must be adhered to.
 
 ## The Constrained Device Standard Profile
 
