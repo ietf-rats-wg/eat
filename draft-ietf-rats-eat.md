@@ -2058,8 +2058,7 @@ Most examples are shown as just a Claims-Set that would be a payload for a CWT, 
 The signing is left off so the Claims-Set is easier to see.
 Some examples of signed tokens are also given.
 
-WARNING: These examples use tag and label numbers not yet assigned by IANA.
-
+[^to-be-removed]: RFC Editor: When the IANA values are permanently assigned, please contact the authors so the examples can be regenerated. Regeneration is required because IANA-assigned values are inside hex and based-64 encoded data and some of these are signed.
 
 ## Claims Set Examples
 
