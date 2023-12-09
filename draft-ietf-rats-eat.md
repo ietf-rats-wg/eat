@@ -86,6 +86,7 @@ normative:
   RFC9165: cddlplus
   RFC4648:
   RFC2252:
+  RFC9393:
   RFC9334:
 
   WGS84:
@@ -107,8 +108,6 @@ normative:
     author:
     - org: 3GPP
     date: 2019
-
-  CoSWID: I-D.ietf-sacm-coswid
 
   DLOA:
     target: https://globalplatform.org/wp-content/uploads/2015/12/GPC_DigitalLetterOfApproval_v1.0.pdf
@@ -700,7 +699,7 @@ The OEM is free to alter the internal structure of these bytes as long as the cl
 ### hwversion (Hardware Version) Claim
 
 The "hwversion" claim is a text string the format of which is set by each manufacturer.
-The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{CoSWID}}.
+The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID {{RFC9393}}.
 It is useful to know how to sort versions so the newer can be distinguished from the older.
 A "hwversion" claim MUST only be present if a "hwmodel" claim described in {{hwmodel}} is present.
 
