@@ -87,6 +87,7 @@ normative:
   RFC4648:
   RFC2252:
   RFC9334:
+  RFC9165:
 
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
@@ -1535,8 +1536,9 @@ This makes use of the types defined in {{RFC8610}} Appendix D, Standard Prelude.
 time-int is identical to the epoch-based time, but disallows
 floating-point representation.
 
-The OID encoding from {{RFC9090}} is used without the tag number in CBOR-encoded tokens.
-In JSON tokens OIDs are a text string in the common form of "nn.nn.nn...".
+For CBOR-encoded tokens, OIDs are specified by "oid" in {{RFC9090}}.
+They are encoded without the tag number.
+For CBOR-encoded tokens, OIDs are a text string in the common form of "nn.nn.nn...".
 
 Unless expliclity indicated, URIs are not the URI tag defined in {{RFC8949}}.
 They are just text strings that contain a URI conforming to the format defined in {{RFC3986}}.
@@ -1556,13 +1558,13 @@ following CDDL types are encoded in JSON as follows:
 * uri -- MUST be a URI {{RFC3986}}.
 * oid -- MUST be encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1") {{RFC2252}}.
 
-The CDDL generic "JC< >" is used in most places where there is a variance between CBOR and JSON.
+The CDDL generic "JC<>" is used in most places where there is a variance between CBOR and JSON.
 The first argument is the CDDL for JSON and the second is CDDL for CBOR.
 
 ### Labels
 
 Most map labels, Claims-Keys, Claim-Names and enumerated-type values are integers for CBOR-encoded tokens and strings for JSON-encoded tokens.
-When this is the case the "JC < >" CDDL construct is used to give both the integer and string values.
+When this is the case the "JC<>" CDDL construct is used to give both the integer and string values.
 
 ### CBOR Interoperability
 
@@ -1577,6 +1579,7 @@ This CDDL defines all the EAT Claims that are added to the main definition of a 
 Claims-Set is the payload for CWT, JWT and potentially other token types.
 This is for both CBOR and JSON.
 When there is variation between CBOR and JSON, the JC<> CDDL generic defined in {{CDDL_for_CWT}}.
+Note that the JC<> generic uses the CDDL ".feature" control operator defined in {{RFC9165}}.
 
 This CDDL uses, but doesn't define Submodule or nested tokens because the definition for these types varies between CBOR and JSON and the JC<> generic can't be used to define it.
 The submodule claim is the one place where a CBOR token can be nested inside a JSON token and vice versa.
