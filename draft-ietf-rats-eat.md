@@ -87,7 +87,6 @@ normative:
   RFC4648:
   RFC2252:
   RFC9334:
-  RFC9165:
 
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
