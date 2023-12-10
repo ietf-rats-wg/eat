@@ -2075,8 +2075,10 @@ Table of Contents
    The identifier for this profile is "urn:ietf:rfc:rfcTBD".
 
 
-   // RFC Editor: please replace rfcTBD with this RFC number and remove
-   // this note.
+   // RFC Editor: When the IANA values are permanently assigned, please
+   // contact the authors so the examples can be regenerated.
+   // Regeneration is required because IANA-assigned values are inside
+   // hex and based-64 encoded data and some of these are signed.
 
      +================+=============================================+
      | Issue          | Profile Definition                          |
@@ -3393,9 +3395,6 @@ Appendix A.  Examples
    for a CWT, JWT, detached EAT bundle or future token types.  The
    signing is left off so the Claims-Set is easier to see.  Some
    examples of signed tokens are also given.
-
-   WARNING: These examples use tag and label numbers not yet assigned by
-   IANA.
 
 A.1.  Claims Set Examples
 
