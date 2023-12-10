@@ -723,7 +723,7 @@ If precise and rigourous naming of the software for the entity is needed, the "m
 
 ### swversion (Software Version) Claim
 
-The "swversion" claim makes use of the CoSWID version-scheme defined in {{CoSWID}} to give a simple version for the software.
+The "swversion" claim makes use of the CoSWID version-scheme defined in {{RFC9393}} to give a simple version for the software.
 A "swversion" claim MUST only be present if a "swname" claim described in {{swname}} is present.
 
 The "manifests" claim {{manifests}} may be instead if this is too simple.
@@ -941,7 +941,7 @@ The multiple manifests MAY be of different encodings.
 In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.
 
 A CoSWID manifest MUST be a payload CoSWID, not an evidence CoSWID.
-These are defined in {{CoSWID}}.
+These are defined in {{RFC9393}}.
 
 A Software Updates for Internet of Things (SUIT) Manifest {{SUIT.Manifest}} may be used.
 
@@ -961,7 +961,7 @@ subsystem of the entity (e.g. hash of sections of a file system or non-volatile 
 The defining characteristic of this claim is that its contents are created by processes on the entity that inventory, measure or otherwise characterize the software on the entity.
 The contents of this claim do not originate from the manufacturer of the measurable subsystem (e.g. developer of a software library).
 
-This claim can be a {{CoSWID}}.
+This claim can be a {{RFC9393}}.
 When the CoSWID format is used, it MUST be an evidence CoSWID, not a payload CoSWID.
 
 Formats other than CoSWID MAY be used.
