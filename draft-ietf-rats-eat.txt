@@ -5,11 +5,11 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 14 April 2024                                     J. O'Donoghue
+Expires: 12 June 2024                                      J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                         12 October 2023
+                                                        10 December 2023
 
 
                    The Entity Attestation Token (EAT)
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 April 2024.
+   This Internet-Draft will expire on 12 June 2024.
 
 Copyright Notice
 
@@ -565,7 +565,7 @@ Table of Contents
    The top-level CDDL type for CBOR-encoded EATs is EAT-CBOR-Token and
    for JSON is EAT-JSON-Token (while CDDL and CDDL tools provide enough
    support for shared definitions of most items in this document, they
-   don't provide enough support for this sharing at the top level).
+   don’t provide enough support for this sharing at the top level).
 
    EAT-CBOR-Token = $EAT-CBOR-Tagged-Token / $EAT-CBOR-Untagged-Token
 
@@ -1507,16 +1507,12 @@ Table of Contents
 
    Nested-Token = JSON-Selector
 
-   $JSON-Selector-Type /= "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
-   $JSON-Selector-Value /= JWT-Message /
-                     CBOR-Token-Inside-JSON-Token /
-                     Detached-EAT-Bundle /
-                     Detached-Submodule-Digest
+   JSON-Selector = $JSON-Selector
 
-   JSON-Selector = [
-      type : $JSON-Selector-Type,
-      nested-token : $JSON-Selector-Value
-   ]
+   $JSON-Selector /= [type: "JWT", nested-token: JWT-Message]
+   $JSON-Selector /= [type: "CBOR", nested-token: CBOR-Token-Inside-JSON-Token]
+   $JSON-Selector /= [type: "BUNDLE", nested-token: Detached-EAT-Bundle]
+   $JSON-Selector /= [type: "DIGEST", nested-token: Detached-Submodule-Digest]
 
    CBOR-Token-Inside-JSON-Token = base64-url-text
 
@@ -1537,16 +1533,15 @@ Table of Contents
    and vice versa.
 
    The addition of further types is accomplished by augmenting the $EAT-
-   CBOR-Tagged-Token socket or the $JSON-Selector-Type and $JSON-
-   Selector-Value sockets.
+   CBOR-Tagged-Token socket or the $JSON-Selector socket.
 
    When decoding a JSON-encoded EAT, the type of submodule is determined
    as follows.  A JSON object indicates the submodule is a Claims-Set.
    In all other cases, it is a JSON-Selector, which is an array of two
    elements that indicates whether the submodule is a nested token or a
    Detached-Submodule-Digest.The first element in the array indicates
-   the type present in the second element.  If the value is "JWT",
-   "CBOR", "BUNDLE" or a future-standardized token types, e.g., [UCCS],
+   the type present in the second element.  If the value is “JWT”,
+   “CBOR”, “BUNDLE” or a future-standardized token types, e.g., [UCCS],
    the submodule is a nested token of the indicated type, i.e., JWT-
    Message, CBOR-Token-Inside-JSON-Token, Detached-EAT-Bundle, or a
    future type.  If the value is "DIGEST", the submodule is a Detached-
@@ -1567,9 +1562,9 @@ Table of Contents
    in JSON-encoded enclosing token.
 
    The type of a JSON-encoded nested token is always determined by the
-   string name in JSON-Selector and is always "JWT", "BUNDLE" or a new
+   string name in JSON-Selector and is always “JWT”, “BUNDLE” or a new
    name standardized outside this document for a further type (e.g.,
-   "UCCS").  This string name may also be "CBOR" to indicate the nested
+   “UCCS”).  This string name may also be “CBOR” to indicate the nested
    token is CBOR-encoded.
 
    "JWT":  The second array item MUST be a JWT formatted according to
@@ -2548,16 +2543,12 @@ Table of Contents
 
    Nested-Token = JSON-Selector
 
-   $JSON-Selector-Type /= "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
-   $JSON-Selector-Value /= JWT-Message /
-                     CBOR-Token-Inside-JSON-Token /
-                     Detached-EAT-Bundle /
-                     Detached-Submodule-Digest
+   JSON-Selector = $JSON-Selector
 
-   JSON-Selector = [
-      type : $JSON-Selector-Type,
-      nested-token : $JSON-Selector-Value
-   ]
+   $JSON-Selector /= [type: "JWT", nested-token: JWT-Message]
+   $JSON-Selector /= [type: "CBOR", nested-token: CBOR-Token-Inside-JSON-Token]
+   $JSON-Selector /= [type: "BUNDLE", nested-token: Detached-EAT-Bundle]
+   $JSON-Selector /= [type: "DIGEST", nested-token: Detached-Submodule-Digest]
 
    CBOR-Token-Inside-JSON-Token = base64-url-text
 
@@ -3186,19 +3177,19 @@ Table of Contents
 
    [IANA.cbor-tags]
               IANA, "Concise Binary Object Representation (CBOR) Tags",
-              <https://www.iana.org/assignments/cbor-tags>.
+              <http://www.iana.org/assignments/cbor-tags>.
 
    [IANA.COSE.Algorithms]
               IANA, "CBOR Object Signing and Encryption (COSE)",
-              <https://www.iana.org/assignments/cose>.
+              <http://www.iana.org/assignments/cose>.
 
    [IANA.CWT.Claims]
               IANA, "CBOR Web Token (CWT) Claims",
-              <https://www.iana.org/assignments/cwt>.
+              <http://www.iana.org/assignments/cwt>.
 
    [IANA.JWT.Claims]
               IANA, "JSON Web Token (JWT)",
-              <https://www.iana.org/assignments/jwt>.
+              <http://www.iana.org/assignments/jwt>.
 
    [PEN]      "Private Enterprise Number (PEN) Request", n.d.,
               <https://pen.iana.org/pen/PenApplication.page>.
@@ -3289,9 +3280,9 @@ Table of Contents
               O. Rønningstad, "A Concise Binary Object Representation
               (CBOR)-based Serialization Format for the Software Updates
               for Internet of Things (SUIT) Manifest", Work in Progress,
-              Internet-Draft, draft-ietf-suit-manifest-23, 10 September
+              Internet-Draft, draft-ietf-suit-manifest-24, 23 October
               2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              suit-manifest-23>.
+              suit-manifest-24>.
 
    [ThreeGPP.IMEI]
               3GPP, "3rd Generation Partnership Project; Technical
@@ -3315,9 +3306,9 @@ Table of Contents
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-06, 7 July 2023,
+              ietf-cose-cbor-encoded-cert-07, 20 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-06>.
+              cbor-encoded-cert-07>.
 
    [COSE.X509.Draft]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
@@ -3330,25 +3321,25 @@ Table of Contents
    [EAT.media-types]
               Lundblade, L., Birkholz, H., and T. Fossati, "EAT Media
               Types", Work in Progress, Internet-Draft, draft-ietf-rats-
-              eat-media-type-04, 23 July 2023,
+              eat-media-type-05, 7 November 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              eat-media-type-04>.
+              eat-media-type-05>.
 
    [IEEE-RA]  "IEEE Registration Authority",
               <https://standards.ieee.org/products-services/regauth/
               index.html>.
 
    [IEEE.802-2001]
-              IEEE, "IEEE Standard for Local and Metropolitan Area
-              Networks: Overview and Architecture",
-              DOI 10.1109/ieeestd.2014.6847097, 2 July 2014,
-              <https://doi.org/10.1109/ieeestd.2014.6847097>.
+              "IEEE Standard for Local and Metropolitan Area Networks:
+              Overview and Architecture", IEEE,
+              DOI 10.1109/ieeestd.2014.6847097, ISBN ["9780738192192"],
+              July 2014, <https://doi.org/10.1109/ieeestd.2014.6847097>.
 
    [IEEE.802.1AR]
-              IEEE, "IEEE Standard for Local and Metropolitan Area
-              Networks - Secure Device Identity",
-              DOI 10.1109/ieeestd.2018.8423794, 31 July 2018,
-              <https://doi.org/10.1109/ieeestd.2018.8423794>.
+              "IEEE Standard for Local and Metropolitan Area Networks -
+              Secure Device Identity", IEEE,
+              DOI 10.1109/ieeestd.2018.8423794, ISBN ["9781504450195"],
+              July 2018, <https://doi.org/10.1109/ieeestd.2018.8423794>.
 
    [JTAG]     "IEEE Standard for Reduced-Pin and Enhanced-Functionality
               Test Access Port and Boundary-Scan Architecture", February
@@ -3386,9 +3377,9 @@ Table of Contents
 
    [UCCS]     Birkholz, H., O'Donoghue, J., Cam-Winget, N., and C.
               Bormann, "A CBOR Tag for Unprotected CWT Claims Sets",
-              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-06,
-              2 August 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-uccs-06>.
+              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-07,
+              27 November 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-uccs-07>.
 
    [W3C.GeoLoc]
               Popescu, A., Ed., "Geolocation API Specification", W3C
