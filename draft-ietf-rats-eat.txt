@@ -5,11 +5,11 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 12 June 2024                                      J. O'Donoghue
+Expires: 14 June 2024                                      J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                        10 December 2023
+                                                        12 December 2023
 
 
                    The Entity Attestation Token (EAT)
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 June 2024.
+   This Internet-Draft will expire on 14 June 2024.
 
 Copyright Notice
 
@@ -965,9 +965,10 @@ Table of Contents
    The "hwversion" claim is a text string the format of which is set by
    each manufacturer.  The structure and sorting order of this text
    string can be specified using the version-scheme item from CoSWID
-   [CoSWID].  It is useful to know how to sort versions so the newer can
-   be distinguished from the older.  A "hwversion" claim MUST only be
-   present if a "hwmodel" claim described in Section 4.2.4 is present.
+   [RFC9393].  It is useful to know how to sort versions so the newer
+   can be distinguished from the older.  A "hwversion" claim MUST only
+   be present if a "hwmodel" claim described in Section 4.2.4 is
+   present.
 
    $$Claims-Set-Claims //=  (
        hardware-version-label => hardware-version-type
@@ -994,9 +995,9 @@ Table of Contents
 4.2.7.  swversion (Software Version) Claim
 
    The "swversion" claim makes use of the CoSWID version-scheme defined
-   in [CoSWID] to give a simple version for the software.  A "swversion"
-   claim MUST only be present if a "swname" claim described in
-   Section 4.2.6 is present.
+   in [RFC9393] to give a simple version for the software.  A
+   "swversion" claim MUST only be present if a "swname" claim described
+   in Section 4.2.6 is present.
 
    The "manifests" claim Section 4.2.15 may be instead if this is too
    simple.
@@ -1284,7 +1285,7 @@ Table of Contents
    manifests.
 
    A CoSWID manifest MUST be a payload CoSWID, not an evidence CoSWID.
-   These are defined in [CoSWID].
+   These are defined in [RFC9393].
 
    A Software Updates for Internet of Things (SUIT) Manifest
    [SUIT.Manifest] may be used.
@@ -1325,7 +1326,7 @@ Table of Contents
    manufacturer of the measurable subsystem (e.g. developer of a
    software library).
 
-   This claim can be a [CoSWID].  When the CoSWID format is used, it
+   This claim can be a [RFC9393].  When the CoSWID format is used, it
    MUST be an evidence CoSWID, not a payload CoSWID.
 
    Formats other than CoSWID MAY be used.  The identification of format
@@ -3167,12 +3168,6 @@ Table of Contents
 
 11.1.  Normative References
 
-   [CoSWID]   Birkholz, H., Fitzgerald-McKay, J., Schmidt, C., and D.
-              Waltermire, "Concise Software Identification Tags", Work
-              in Progress, Internet-Draft, draft-ietf-sacm-coswid-24, 24
-              February 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-sacm-coswid-24>.
-
    [DLOA]     "Digital Letter of Approval", November 2015,
               <https://globalplatform.org/wp-content/uploads/2015/12/
               GPC_DigitalLetterOfApproval_v1.0.pdf>.
@@ -3276,6 +3271,11 @@ Table of Contents
               W. Pan, "Remote ATtestation procedureS (RATS)
               Architecture", RFC 9334, DOI 10.17487/RFC9334, January
               2023, <https://www.rfc-editor.org/rfc/rfc9334>.
+
+   [RFC9393]  Birkholz, H., Fitzgerald-McKay, J., Schmidt, C., and D.
+              Waltermire, "Concise Software Identification Tags",
+              RFC 9393, DOI 10.17487/RFC9393, June 2023,
+              <https://www.rfc-editor.org/rfc/rfc9393>.
 
    [SUIT.Manifest]
               Moran, B., Tschofenig, H., Birkholz, H., Zandberg, K., and
