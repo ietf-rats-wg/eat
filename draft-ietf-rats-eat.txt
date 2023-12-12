@@ -2184,9 +2184,9 @@ Table of Contents
    time-int is identical to the epoch-based time, but disallows
    floating-point representation.
 
-   The OID encoding from [RFC9090] is used without the tag number in
-   CBOR-encoded tokens.  In JSON tokens OIDs are a text string in the
-   common form of "nn.nn.nn...".
+   For CBOR-encoded tokens, OIDs are specified by "oid" in [RFC9090].
+   They are encoded without the tag number.  For CBOR-encoded tokens,
+   OIDs are a text string in the common form of "nn.nn.nn...".
 
    Unless expliclity indicated, URIs are not the URI tag defined in
    [RFC8949].  They are just text strings that contain a URI conforming
@@ -2224,7 +2224,7 @@ Table of Contents
    *  oid -- MUST be encoded as a string using the well established
       dotted-decimal notation (e.g., the text "1.2.250.1") [RFC2252].
 
-   The CDDL generic "JC< >" is used in most places where there is a
+   The CDDL generic "JC<>" is used in most places where there is a
    variance between CBOR and JSON.  The first argument is the CDDL for
    JSON and the second is CDDL for CBOR.
 
@@ -2232,7 +2232,7 @@ Table of Contents
 
    Most map labels, Claims-Keys, Claim-Names and enumerated-type values
    are integers for CBOR-encoded tokens and strings for JSON-encoded
-   tokens.  When this is the case the "JC < >" CDDL construct is used to
+   tokens.  When this is the case the "JC<>" CDDL construct is used to
    give both the integer and string values.
 
 7.2.4.  CBOR Interoperability
@@ -2248,7 +2248,8 @@ Table of Contents
    definition of a Claim-Set in Appendix D.  Claims-Set is the payload
    for CWT, JWT and potentially other token types.  This is for both
    CBOR and JSON.  When there is variation between CBOR and JSON, the
-   JC<> CDDL generic defined in Appendix D.
+   JC<> CDDL generic defined in Appendix D.  Note that the JC<> generic
+   uses the CDDL ".feature" control operator defined in [RFC9165].
 
    This CDDL uses, but doesn't define Submodule or nested tokens because
    the definition for these types varies between CBOR and JSON and the

@@ -3414,8 +3414,9 @@ The CDDL definition of Claims-Set here is applicable to EAT, CWT and JWT.<a href
           </h4>
 <p id="section-7.2.1-1">time-int is identical to the epoch-based time, but disallows
 floating-point representation.<a href="#section-7.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.2.1-2">The OID encoding from <span>[<a href="#RFC9090" class="cite xref">RFC9090</a>]</span> is used without the tag number in CBOR-encoded tokens.
-In JSON tokens OIDs are a text string in the common form of "nn.nn.nn...".<a href="#section-7.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.2.1-2">For CBOR-encoded tokens, OIDs are specified by "oid" in <span>[<a href="#RFC9090" class="cite xref">RFC9090</a>]</span>.
+They are encoded without the tag number.
+For CBOR-encoded tokens, OIDs are a text string in the common form of "nn.nn.nn...".<a href="#section-7.2.1-2" class="pilcrow">¶</a></p>
 <p id="section-7.2.1-3">Unless expliclity indicated, URIs are not the URI tag defined in <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>.
 They are just text strings that contain a URI conforming to the format defined in <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>.<a href="#section-7.2.1-3" class="pilcrow">¶</a></p>
 <div class="lang-CDDL sourcecode" id="section-7.2.1-4">
@@ -3462,7 +3463,7 @@ following CDDL types are encoded in JSON as follows:<a href="#section-7.2.2-1" c
               <p id="section-7.2.2-2.5.1">oid -- <span class="bcp14">MUST</span> be encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1") <span>[<a href="#RFC2252" class="cite xref">RFC2252</a>]</span>.<a href="#section-7.2.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-7.2.2-3">The CDDL generic "JC&lt; &gt;" is used in most places where there is a variance between CBOR and JSON.
+<p id="section-7.2.2-3">The CDDL generic "JC&lt;&gt;" is used in most places where there is a variance between CBOR and JSON.
 The first argument is the CDDL for JSON and the second is CDDL for CBOR.<a href="#section-7.2.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -3472,7 +3473,7 @@ The first argument is the CDDL for JSON and the second is CDDL for CBOR.<a href=
 <a href="#section-7.2.3" class="section-number selfRef">7.2.3. </a><a href="#name-labels" class="section-name selfRef">Labels</a>
           </h4>
 <p id="section-7.2.3-1">Most map labels, Claims-Keys, Claim-Names and enumerated-type values are integers for CBOR-encoded tokens and strings for JSON-encoded tokens.
-When this is the case the "JC &lt; &gt;" CDDL construct is used to give both the integer and string values.<a href="#section-7.2.3-1" class="pilcrow">¶</a></p>
+When this is the case the "JC&lt;&gt;" CDDL construct is used to give both the integer and string values.<a href="#section-7.2.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="cbor-interoperability">
@@ -3499,7 +3500,8 @@ This is addressed in <a href="#profiles" class="auto internal xref">Section 6</a
 <p id="section-7.3.1-1">This CDDL defines all the EAT Claims that are added to the main definition of a Claim-Set in <a href="#CDDL_for_CWT" class="auto internal xref">Appendix D</a>.
 Claims-Set is the payload for CWT, JWT and potentially other token types.
 This is for both CBOR and JSON.
-When there is variation between CBOR and JSON, the JC&lt;&gt; CDDL generic defined in <a href="#CDDL_for_CWT" class="auto internal xref">Appendix D</a>.<a href="#section-7.3.1-1" class="pilcrow">¶</a></p>
+When there is variation between CBOR and JSON, the JC&lt;&gt; CDDL generic defined in <a href="#CDDL_for_CWT" class="auto internal xref">Appendix D</a>.
+Note that the JC&lt;&gt; generic uses the CDDL ".feature" control operator defined in <span>[<a href="#RFC9165" class="cite xref">RFC9165</a>]</span>.<a href="#section-7.3.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.3.1-2">This CDDL uses, but doesn't define Submodule or nested tokens because the definition for these types varies between CBOR and JSON and the JC&lt;&gt; generic can't be used to define it.
 The submodule claim is the one place where a CBOR token can be nested inside a JSON token and vice versa.
 Encoding-specific definitions are provided in the following sections.<a href="#section-7.3.1-2" class="pilcrow">¶</a></p>
