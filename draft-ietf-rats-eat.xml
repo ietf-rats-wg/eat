@@ -4266,78 +4266,27 @@ The profile document should specify what the key ID's semantics are.</t>
       <t>The following is a list of known changes since the immediately previous drafts.  This list is
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.</t>
-      <section anchor="from-draft-ietf-rats-eat-21">
-        <name>From draft-ietf-rats-eat-21</name>
+      <section anchor="from-draft-ietf-rats-eat-22">
+        <name>From draft-ietf-rats-eat-22</name>
         <ul spacing="normal">
           <li>
-            <t>Add titles to tables</t>
+            <t>Reference RFC 9393 instead of CoSWID draft</t>
           </li>
           <li>
-            <t>Add ABNF to define format of device ID URN</t>
+            <t>Wording improvement for "oid" CDDL tag</t>
           </li>
           <li>
-            <t>Fix some nits</t>
+            <t>Fix RFC Editor/IANA instructions for examples</t>
           </li>
           <li>
-            <t>Clarification in 6.1.12 that "receiver accepts token with claims it does not understand"</t>
-          </li>
-          <li>
-            <t>Abstract wording improvement</t>
-          </li>
-          <li>
-            <t>Clarification of source of verification keys for constrained profile</t>
-          </li>
-          <li>
-            <t>IETF is change controller rather than IESG for IANA registrations</t>
-          </li>
-          <li>
-            <t>Change "Indicate" to "Indcates"</t>
-          </li>
-          <li>
-            <t>Define "partial" and "full" profiles</t>
-          </li>
-          <li>
-            <t>Better into wording for type 2 and 3 UEIDs</t>
-          </li>
-          <li>
-            <t>Correct the JSON detached eat bundle example</t>
-          </li>
-          <li>
-            <t>Wording improvements for manifests claim</t>
-          </li>
-          <li>
-            <t>Wording improvements for detached EAT bundle</t>
-          </li>
-          <li>
-            <t>Clarify purpose of including manufacturer manifest signatures</t>
-          </li>
-          <li>
-            <t>Refer to RFC 9334 instead of RATS.Arch and make ref normative</t>
-          </li>
-          <li>
-            <t>Require "oemid" claim for "oemboot" claim and debug state of permanently disabled.</t>
-          </li>
-          <li>
-            <t>Improve min and max size of JSON UTF-8 nonce</t>
-          </li>
-          <li>
-            <t>Clarify what happens to OEM ID when companies merge</t>
-          </li>
-          <li>
-            <t>"OEMID" -&gt; "OEM ID"</t>
-          </li>
-          <li>
-            <t>Use "urn:ietf..." for constrained device profile ID</t>
-          </li>
-          <li>
-            <t>Clarify that varying MAC addresses can be used as UEIDs</t>
+            <t>Improve CDDL for JSON-selector</t>
           </li>
         </ul>
       </section>
     </section>
     <section anchor="contributors" numbered="false" toc="include" removeInRFC="false">
       <name>Contributors</name>
-      <?line 3614?>
+      <?line 3597?>
 
 <t>Many thanks to the following contributors to draft versions of this
 document:</t>
@@ -5495,17 +5444,10 @@ kKNp2M0DgCIZaKnDWneqy+JYD2M9TyORik9ARTIy0ltxOBEPTAnHIBPIS5UL
 iMAdbtQvf19EUwDBD9avu+TWEMEOJYtdVIeheMjvmBdDGCRhGkfIchoZ/geL
 Ts5MPIhZklVCU2cnIj+7VKV3pC4ox+OsGgqxEp8LQUHIANOtQpu9mLDxVqSR
 FU2Chz9bOsq2QClNe3SXF9GVKLdgOFgosZ/GuxRzUZJf8sHZIalpl4tw+Dla
-PEgVhS4zcMP9OyzzGQSupOp7TtXtjUacRIYjWyk1kjzu7R0fWkpN4YW0UzBy
-Decnx/DxYfyFbzCw19gYbrxtSZ65rZpX83yGyC3Jb7KgWN75Mi0pDxRbgbOr
-GUIOskdbOC+AWfaVhxXT8bLyl1LU5EcmuxEmyMDf8sw9c24c88GV54V5gG5o
-j5HpY3dwiqNO8MK5sHk6s97Rwelj6oSqIYkfgqTxqAqUu1tHsxEh9y3cSvyL
-MD2uZZ/3dYtEhHAiCeQxuG1LzQU72tNKrkSvmo6acyBgo4CTxOCoongiZwnk
-PnROeThxlWtecCR8flHcRd4XoDPxmMp30ZHc9WlJ+Sh9EhhjyM4FZLjHcDTs
-I6fD5KGM/gIXcoJ8Dm4Z3nxU3uhQaOgJdTw11PFo1Ih8kfF1ovasPZeSp0JF
-cL66eqo8yxvxLBdzDDpU5SdqCBe8dgwQl5G/cJI4aEO7fX52WO1wXIi1Bzds
-5OPQLFiSxGqy9w5S8RnSpGm0uMRWW/D6aH/Lrf5Ev8KXCCyY92drtZjt4h0G
-6rpVAF+5lYoFBvHCzECH/uHuY95/nYc2zyIwIDnVapXBPh6sABeJhRHB/rMO
-gTc41vqSM4IjtnGlMoc2BToKL+06/xcGHPjZMH0CAA==
+PEgVhS4zcMP9OyzzGQSupOr7TtU90eIRbnE36AY65hS9RLjCO7WGjy9gGNpT
+1rhqNncLK8+x6wr6alTdw/gL9XdAR/aQygXFJnNBaueVTeH7I+7QOOeSc1Ua
+TUCETxaOU61WOZo5HqzoARk8UNb4rCNyzZFbX3KCYpy+K4UCtGXCUdu06/xf
+NM3dx795AgA=
 
 -->
 
