@@ -2549,28 +2549,11 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-21
-- Add titles to tables
-- Add ABNF to define format of device ID URN
-- Fix some nits
-- Clarification in 6.1.12 that "receiver accepts token with claims it does not understand"
-- Abstract wording improvement
-- Clarification of source of verification keys for constrained profile
-- IETF is change controller rather than IESG for IANA registrations
-- Change "Indicate" to "Indcates"
-- Define "partial" and "full" profiles
-- Better into wording for type 2 and 3 UEIDs
-- Correct the JSON detached eat bundle example
-- Wording improvements for manifests claim
-- Wording improvements for detached EAT bundle
-- Clarify purpose of including manufacturer manifest signatures
-- Refer to RFC 9334 instead of RATS.Arch and make ref normative
-- Require "oemid" claim for "oemboot" claim and debug state of permanently disabled.
-- Improve min and max size of JSON UTF-8 nonce
-- Clarify what happens to OEM ID when companies merge
-- "OEMID" -> "OEM ID"
-- Use "urn:ietf..." for constrained device profile ID
-- Clarify that varying MAC addresses can be used as UEIDs
+## From draft-ietf-rats-eat-22
+- Reference RFC 9393 instead of CoSWID draft
+- Wording improvement for "oid" CDDL tag
+- Fix RFC Editor/IANA instructions for examples
+- Improve CDDL for JSON-selector
 
 --- contributor
 
