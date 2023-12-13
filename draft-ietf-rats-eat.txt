@@ -5,11 +5,11 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 14 June 2024                                      J. O'Donoghue
+Expires: 15 June 2024                                      J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                        12 December 2023
+                                                        13 December 2023
 
 
                    The Entity Attestation Token (EAT)
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 June 2024.
+   This Internet-Draft will expire on 15 June 2024.
 
 Copyright Notice
 
@@ -3368,10 +3368,6 @@ Table of Contents
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
               <https://www.rfc-editor.org/rfc/rfc4949>.
-
-   [RFC7120]  Cotton, M., "Early IANA Allocation of Standards Track Code
-              Points", BCP 100, RFC 7120, DOI 10.17487/RFC7120, January
-              2014, <https://www.rfc-editor.org/rfc/rfc7120>.
 
    [RFC9039]  Arkko, J., Jennings, C., and Z. Shelby, "Uniform Resource
               Names for Device Identifiers", RFC 9039,
