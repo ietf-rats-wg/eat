@@ -128,7 +128,6 @@ normative:
 informative:
   RFC4122:
   RFC4949:
-  RFC7120:
   RFC9039:
 
   BirthdayAttack:
