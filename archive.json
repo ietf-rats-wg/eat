@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-12T00:48:25.335726+00:00",
+  "timestamp": "2023-12-13T14:22:04.626903+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -23115,28 +23115,44 @@
     {
       "number": 433,
       "id": "PR_kwDOCEWCXc5hl7Qo",
-      "title": "Add missing ref to 9165; minor OID clarifications",
+      "title": "Minor OID use clarification",
       "url": "https://github.com/ietf-rats-wg/eat/pull/433",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "laurencelundblade",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The RFC 9165 reference is needed for the CDDL .feature control operator.",
       "createdAt": "2023-12-09T17:45:48Z",
-      "updatedAt": "2023-12-10T17:42:54Z",
+      "updatedAt": "2023-12-12T01:30:46Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "3b40ad889e554c15e232f1650b485457fb428909",
       "headRepository": "ietf-rats-wg/eat",
       "headRefName": "oid-ref",
       "headRefOid": "950e9f9db0d4be6d45fb1e63a47f72cce89f0de9",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-12-12T01:30:46Z",
+      "mergedAt": "2023-12-12T01:30:46Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "51cbad0d49642a5ae076edd2afdf26b9de764308"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc5p4iCg",
+          "commit": {
+            "abbreviatedOid": "950e9f9"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "All these changes are improvements IMO.",
+          "createdAt": "2023-12-12T01:08:10Z",
+          "updatedAt": "2023-12-12T01:08:10Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 434,
@@ -23162,6 +23178,34 @@
       "mergedBy": "laurencelundblade",
       "mergeCommit": {
         "oid": "e9b3638a10d3735034cb3aa8fbd287ca425ef377"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 435,
+      "id": "PR_kwDOCEWCXc5hvv5d",
+      "title": "Update the updates-since section",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/435",
+      "state": "MERGED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-12T02:36:14Z",
+      "updatedAt": "2023-12-12T02:36:42Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "51cbad0d49642a5ae076edd2afdf26b9de764308",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "23-updates",
+      "headRefOid": "8363e240b637def5652afdb928f445e2cd8b6b2a",
+      "closedAt": "2023-12-12T02:36:37Z",
+      "mergedAt": "2023-12-12T02:36:37Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "5a945a689efb854d09a14dda30883912497a9e8e"
       },
       "comments": [],
       "reviews": []
