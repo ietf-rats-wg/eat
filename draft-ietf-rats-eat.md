@@ -1469,9 +1469,9 @@ This section gives a normative definition of one profile that is good for many c
 
 The identifier for this profile is "urn:ietf:rfc:rfcTBD".
 
-[^to-be-removed]
+[^to-be-removed-1]
 
-[^to-be-removed]: RFC Editor: please replace rfcTBD with this RFC number and remove this note.
+[^to-be-removed-1]: RFC Editor: please replace rfcTBD with this RFC number and remove this note.
 
 | Issue | Profile Definition |
 | CBOR/JSON | CBOR MUST be used  |
@@ -2058,7 +2058,9 @@ Most examples are shown as just a Claims-Set that would be a payload for a CWT, 
 The signing is left off so the Claims-Set is easier to see.
 Some examples of signed tokens are also given.
 
-[^to-be-removed]: RFC Editor: When the IANA values are permanently assigned, please contact the authors so the examples can be regenerated. Regeneration is required because IANA-assigned values are inside hex and based-64 encoded data and some of these are signed.
+[^to-be-removed-2]
+
+[^to-be-removed-2]: RFC Editor: When the IANA values are permanently assigned, please contact the authors so the examples can be regenerated. Regeneration is required because IANA-assigned values are inside hex and based-64 encoded data and some of these are signed.
 
 ## Claims Set Examples
 
