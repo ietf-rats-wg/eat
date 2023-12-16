@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-16T02:48:31.854707+00:00",
+  "timestamp": "2023-12-16T16:11:38.968730+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -22894,7 +22894,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-09-28T18:19:07Z",
-      "updatedAt": "2023-09-28T18:20:43Z",
+      "updatedAt": "2023-12-16T03:20:20Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "7fdb9a2c1a798efc7f8e4db3464651e302a7431c",
@@ -23082,7 +23082,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-12-08T18:52:08Z",
-      "updatedAt": "2023-12-10T18:00:00Z",
+      "updatedAt": "2023-12-16T03:20:25Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "3b40ad889e554c15e232f1650b485457fb428909",
@@ -23166,7 +23166,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-12-09T18:03:59Z",
-      "updatedAt": "2023-12-12T00:47:25Z",
+      "updatedAt": "2023-12-16T03:19:54Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "3b40ad889e554c15e232f1650b485457fb428909",
@@ -23243,26 +23243,89 @@
       "id": "PR_kwDOCEWCXc5iJ_iA",
       "title": "Fix mistake in and clarify OID specification",
       "url": "https://github.com/ietf-rats-wg/eat/pull/437",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "laurencelundblade",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-12-16T02:48:15Z",
-      "updatedAt": "2023-12-16T02:48:15Z",
+      "updatedAt": "2023-12-16T02:52:35Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "fd4b772b78484d82f082106ac4eb9d8906acf976",
       "headRepository": "ietf-rats-wg/eat",
       "headRefName": "oid-again",
       "headRefOid": "a6f8bb5f4dd9f23c98c92cd29abcc4f3a714a08f",
-      "closedAt": null,
+      "closedAt": "2023-12-16T02:48:59Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Not from right base",
+          "createdAt": "2023-12-16T02:48:59Z",
+          "updatedAt": "2023-12-16T02:48:59Z"
+        }
+      ],
       "reviews": []
+    },
+    {
+      "number": 438,
+      "id": "PR_kwDOCEWCXc5iKBAQ",
+      "title": "Fix and clarify OID definition",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/438",
+      "state": "MERGED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-16T03:18:39Z",
+      "updatedAt": "2023-12-16T16:10:42Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "fd4b772b78484d82f082106ac4eb9d8906acf976",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "oid-again3",
+      "headRefOid": "37c8726f6e90e81386f4a7364ba035bbba749a6b",
+      "closedAt": "2023-12-16T16:10:42Z",
+      "mergedAt": "2023-12-16T16:10:42Z",
+      "mergedBy": "gmandyam",
+      "mergeCommit": {
+        "oid": "1492d28c1cd445fe55f95936a0113da726ceb066"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc5qZ24X",
+          "commit": {
+            "abbreviatedOid": "37c8726"
+          },
+          "author": "carl-wallace",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-12-16T10:53:34Z",
+          "updatedAt": "2023-12-16T10:53:34Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOCEWCXc5qaHbn",
+          "commit": {
+            "abbreviatedOid": "37c8726"
+          },
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-12-16T16:09:22Z",
+          "updatedAt": "2023-12-16T16:09:22Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
