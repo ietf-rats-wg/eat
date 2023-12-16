@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-14T09:21:14.332405+00:00",
+  "timestamp": "2023-12-16T02:48:31.854707+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -23207,6 +23207,60 @@
       "mergeCommit": {
         "oid": "5a945a689efb854d09a14dda30883912497a9e8e"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 436,
+      "id": "PR_kwDOCEWCXc5h-tSC",
+      "title": "Correct to-be-removed foot notes",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/436",
+      "state": "MERGED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-14T09:21:48Z",
+      "updatedAt": "2023-12-14T09:22:23Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "fc9f6ff66c6e586b20b9e7a48060fcb0e0bc06d3",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "t-b-r",
+      "headRefOid": "a6f8bb5f4dd9f23c98c92cd29abcc4f3a714a08f",
+      "closedAt": "2023-12-14T09:22:19Z",
+      "mergedAt": "2023-12-14T09:22:19Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "fd4b772b78484d82f082106ac4eb9d8906acf976"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 437,
+      "id": "PR_kwDOCEWCXc5iJ_iA",
+      "title": "Fix mistake in and clarify OID specification",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/437",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-16T02:48:15Z",
+      "updatedAt": "2023-12-16T02:48:15Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "fd4b772b78484d82f082106ac4eb9d8906acf976",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "oid-again",
+      "headRefOid": "a6f8bb5f4dd9f23c98c92cd29abcc4f3a714a08f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
