@@ -1533,9 +1533,9 @@ This makes use of the types defined in {{RFC8610}} Appendix D, Standard Prelude.
 time-int is identical to the epoch-based time, but disallows
 floating-point representation.
 
-For CBOR-encoded tokens, OIDs are specified by "oid" in {{RFC9090}}.
+For CBOR-encoded tokens, OIDs are specified using the CDDL type name "oid" from {{RFC9090}}.
 They are encoded without the tag number.
-For CBOR-encoded tokens, OIDs are a text string in the common form of "nn.nn.nn...".
+For JSON-encoded tokens, OIDs are a text string in the common form of "nn.nn.nn...".
 
 Unless expliclity indicated, URIs are not the URI tag defined in {{RFC8949}}.
 They are just text strings that contain a URI conforming to the format defined in {{RFC3986}}.
