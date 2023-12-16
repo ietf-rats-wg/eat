@@ -5,11 +5,11 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 16 June 2024                                      J. O'Donoghue
+Expires: 18 June 2024                                      J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                        14 December 2023
+                                                        16 December 2023
 
 
                    The Entity Attestation Token (EAT)
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 June 2024.
+   This Internet-Draft will expire on 18 June 2024.
 
 Copyright Notice
 
@@ -2182,9 +2182,10 @@ Table of Contents
    time-int is identical to the epoch-based time, but disallows
    floating-point representation.
 
-   For CBOR-encoded tokens, OIDs are specified by "oid" in [RFC9090].
-   They are encoded without the tag number.  For CBOR-encoded tokens,
-   OIDs are a text string in the common form of "nn.nn.nn...".
+   For CBOR-encoded tokens, OIDs are specified using the CDDL type name
+   "oid" from [RFC9090].  They are encoded without the tag number.  For
+   JSON-encoded tokens, OIDs are a text string in the common form of
+   "nn.nn.nn...".
 
    Unless expliclity indicated, URIs are not the URI tag defined in
    [RFC8949].  They are just text strings that contain a URI conforming
