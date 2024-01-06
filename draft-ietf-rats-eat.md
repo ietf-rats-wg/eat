@@ -1802,6 +1802,7 @@ The "Claim Name" is as defined for the CWT registry, not the JWT registry.
 The "JWT Claim Name" is equivalent to the "Claim Name" in the JWT registry.
 
 IANA is requested to register the following claims.
+The "Claim Value Type(s)" here all name CDDL definitions and are only for the CWT registry.
 
 [^remove]
 
@@ -1818,7 +1819,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Description: Nonce
 * JWT Claim Name: "eat_nonce"
 * Claim Key: 10
-* Claim Value Type(s): byte string
+* Claim Value Type(s): bstr or array
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
@@ -1848,7 +1849,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Description: Hardware OEM ID
 * JWT Claim Name: "oemid"
 * Claim Key: 258
-* Claim Value Type(s): byte string or integer
+* Claim Value Type(s): bstr or int
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
@@ -1874,11 +1875,11 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 
 &nbsp;
 
-* Claim Name: OEM Authorised Boot
+* Claim Name: OEM Authorized Boot
 * Claim Description: Indicates whether the software booted was OEM authorized
 * JWT Claim Name: "oemboot"
 * Claim Key: 262
-* Claim Value Type(s): Boolean
+* Claim Value Type(s): bool
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
@@ -1888,7 +1889,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Description: Indicates status of debug facilities
 * JWT Claim Name: "dbgstat"
 * Claim Key: 263
-* Claim Value Type(s): integer or string
+* Claim Value Type(s): uint
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
@@ -1908,7 +1909,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Description: Indicates the EAT profile followed
 * JWT Claim Name: "eat_profile"
 * Claim Key: 265
-* Claim Value Type(s): URI or OID
+* Claim Value Type(s): uri or oid
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
@@ -1928,7 +1929,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Description: Uptime
 * JWT Claim Name: "uptime"
 * Claim Key: TBD
-* Claim Value Type(s): unsigned integer
+* Claim Value Type(s): uint
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
@@ -1948,7 +1949,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Description: Identifies a boot cycle
 * JWT Claim Name: "bootseed"
 * Claim Key: TBD
-* Claim Value Type(s): bytes
+* Claim Value Type(s): bstr
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
@@ -1968,7 +1969,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Description: The name of the software running in the entity
 * JWT Claim Name: "swname"
 * Claim Key: TBD
-* Claim Value Type(s): map
+* Claim Value Type(s): tstr
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
@@ -1978,7 +1979,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Description: The version of software running in the entity
 * JWT Claim Name: "swversion"
 * Claim Key: TBD
-* Claim Value Type(s): map
+* Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
@@ -2018,7 +2019,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Description: Indicates intended use of the EAT
 * JWT Claim Name: "intuse"
 * Claim Key: TBD
-* Claim Value Type(s): integer or string
+* Claim Value Type(s): uint
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
@@ -2550,11 +2551,9 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-22
-- Reference RFC 9393 instead of CoSWID draft
-- Wording improvement for "oid" CDDL tag
-- Fix RFC Editor/IANA instructions for examples
-- Improve CDDL for JSON-selector
+## From draft-ietf-rats-eat-24
+- Use only CDDL definition names for "Claim Value Type" column in CWT claim registry
+- Correct the "Claim Value Type" for some claims
 
 --- contributor
 
