@@ -1804,9 +1804,9 @@ The "JWT Claim Name" is equivalent to the "Claim Name" in the JWT registry.
 IANA is requested to register the following claims.
 The "Claim Value Type(s)" here all name CDDL definitions and are only for the CWT registry.
 
-[^remove]
+[^to-be-removed-3]
 
-[^remove]: RFC editor: please see instructions in followg paragraph and remove for final publication
+[^to-be-removed-3]: RFC editor: please see instructions in followg paragraph and remove for final publication
 
 RFC Editor: Please make the following adjustments and remove this paragraph.
 Replace "__this document__" with this RFC number.
