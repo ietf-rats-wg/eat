@@ -2798,7 +2798,8 @@ Table of Contents
    registry.
 
 
-   // RFC editor: please remove this paragraph.
+   // RFC editor: please see instructions in followg paragraph and
+   // remove for final publication
 
    RFC Editor: Please make the following adjustments and remove this
    paragraph.  Replace "*this document*" with this RFC number.  In the
