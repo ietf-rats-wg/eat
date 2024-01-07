@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-06T18:04:13.722176+00:00",
+  "timestamp": "2024-01-07T20:00:49.283322+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -23326,6 +23326,73 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 439,
+      "id": "PR_kwDOCEWCXc5jYxfZ",
+      "title": "Types in CWT registry are all CDDL definitions",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/439",
+      "state": "CLOSED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See https://mailarchive.ietf.org/arch/msg/cbor/qMs19DfPFSOrQ-e0tRHk-3Zaer4/\r\n\r\nThe \"Claim Value Type(s)\" column is now all CDDL definitions.\r\n\r\nSome of the types were in error and corrected.\r\n\r\nThis only affected the IANA section and only parts of it that aren't really normative.",
+      "createdAt": "2024-01-06T18:06:34Z",
+      "updatedAt": "2024-01-07T19:53:53Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "1492d28c1cd445fe55f95936a0113da726ceb066",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "iana-cddl",
+      "headRefOid": "40219a38b2a5ca123066757ca506c8a876332ef3",
+      "closedAt": "2024-01-07T19:53:52Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "body": "FAIL with GitHub and other stuff. Will try again.",
+          "createdAt": "2024-01-06T18:29:13Z",
+          "updatedAt": "2024-01-06T18:29:13Z"
+        },
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Still messed up...",
+          "createdAt": "2024-01-07T19:53:52Z",
+          "updatedAt": "2024-01-07T19:53:52Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 440,
+      "id": "PR_kwDOCEWCXc5jaXxA",
+      "title": "Make Types in CWT registry CDDL definitions",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/440",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See https://mailarchive.ietf.org/arch/msg/cbor/qMs19DfPFSOrQ-e0tRHk-3Zaer4/",
+      "createdAt": "2024-01-07T20:00:47Z",
+      "updatedAt": "2024-01-07T20:00:47Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "1492d28c1cd445fe55f95936a0113da726ceb066",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "iana-cddl-2",
+      "headRefOid": "a403cad295a01e0970b74af81ea12d0ae62c6d42",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
