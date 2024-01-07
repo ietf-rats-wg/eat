@@ -5,11 +5,11 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 10 June 2024                                      J. O'Donoghue
+Expires: 10 July 2024                                      J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                         8 December 2023
+                                                          7 January 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -41,11 +41,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 June 2024.
+   This Internet-Draft will expire on 10 July 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -192,7 +192,7 @@ Table of Contents
        F.1.3.  CBOR Certificate COSE Header Parameters
        F.1.4.  Claim-Based Key Identification
    Appendix G.  Changes from Previous Drafts
-     G.1.  From draft-ietf-rats-eat-21
+     G.1.  From draft-ietf-rats-eat-24
    Contributors
    Authors' Addresses
 
@@ -965,9 +965,10 @@ Table of Contents
    The "hwversion" claim is a text string the format of which is set by
    each manufacturer.  The structure and sorting order of this text
    string can be specified using the version-scheme item from CoSWID
-   [CoSWID].  It is useful to know how to sort versions so the newer can
-   be distinguished from the older.  A "hwversion" claim MUST only be
-   present if a "hwmodel" claim described in Section 4.2.4 is present.
+   [RFC9393].  It is useful to know how to sort versions so the newer
+   can be distinguished from the older.  A "hwversion" claim MUST only
+   be present if a "hwmodel" claim described in Section 4.2.4 is
+   present.
 
    $$Claims-Set-Claims //=  (
        hardware-version-label => hardware-version-type
@@ -994,9 +995,9 @@ Table of Contents
 4.2.7.  swversion (Software Version) Claim
 
    The "swversion" claim makes use of the CoSWID version-scheme defined
-   in [CoSWID] to give a simple version for the software.  A "swversion"
-   claim MUST only be present if a "swname" claim described in
-   Section 4.2.6 is present.
+   in [RFC9393] to give a simple version for the software.  A
+   "swversion" claim MUST only be present if a "swname" claim described
+   in Section 4.2.6 is present.
 
    The "manifests" claim Section 4.2.15 may be instead if this is too
    simple.
@@ -1284,7 +1285,7 @@ Table of Contents
    manifests.
 
    A CoSWID manifest MUST be a payload CoSWID, not an evidence CoSWID.
-   These are defined in [CoSWID].
+   These are defined in [RFC9393].
 
    A Software Updates for Internet of Things (SUIT) Manifest
    [SUIT.Manifest] may be used.
@@ -1325,7 +1326,7 @@ Table of Contents
    manufacturer of the measurable subsystem (e.g. developer of a
    software library).
 
-   This claim can be a [CoSWID].  When the CoSWID format is used, it
+   This claim can be a [RFC9393].  When the CoSWID format is used, it
    MUST be an evidence CoSWID, not a payload CoSWID.
 
    Formats other than CoSWID MAY be used.  The identification of format
@@ -1507,16 +1508,12 @@ Table of Contents
 
    Nested-Token = JSON-Selector
 
-   $JSON-Selector-Type /= "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
-   $JSON-Selector-Value /= JWT-Message /
-                     CBOR-Token-Inside-JSON-Token /
-                     Detached-EAT-Bundle /
-                     Detached-Submodule-Digest
+   JSON-Selector = $JSON-Selector
 
-   JSON-Selector = [
-      type : $JSON-Selector-Type,
-      nested-token : $JSON-Selector-Value
-   ]
+   $JSON-Selector /= [type: "JWT", nested-token: JWT-Message]
+   $JSON-Selector /= [type: "CBOR", nested-token: CBOR-Token-Inside-JSON-Token]
+   $JSON-Selector /= [type: "BUNDLE", nested-token: Detached-EAT-Bundle]
+   $JSON-Selector /= [type: "DIGEST", nested-token: Detached-Submodule-Digest]
 
    CBOR-Token-Inside-JSON-Token = base64-url-text
 
@@ -1537,8 +1534,7 @@ Table of Contents
    and vice versa.
 
    The addition of further types is accomplished by augmenting the $EAT-
-   CBOR-Tagged-Token socket or the $JSON-Selector-Type and $JSON-
-   Selector-Value sockets.
+   CBOR-Tagged-Token socket or the $JSON-Selector socket.
 
    When decoding a JSON-encoded EAT, the type of submodule is determined
    as follows.  A JSON object indicates the submodule is a Claims-Set.
@@ -2080,10 +2076,8 @@ Table of Contents
    The identifier for this profile is "urn:ietf:rfc:rfcTBD".
 
 
-   // RFC Editor: When the IANA values are permanently assigned, please
-   // contact the authors so the examples can be regenerated.
-   // Regeneration is required because IANA-assigned values are inside
-   // hex and based-64 encoded data and some of these are signed.
+   // RFC Editor: please replace rfcTBD with this RFC number and remove
+   // this note.
 
      +================+=============================================+
      | Issue          | Profile Definition                          |
@@ -2188,9 +2182,10 @@ Table of Contents
    time-int is identical to the epoch-based time, but disallows
    floating-point representation.
 
-   The OID encoding from [RFC9090] is used without the tag number in
-   CBOR-encoded tokens.  In JSON tokens OIDs are a text string in the
-   common form of "nn.nn.nn...".
+   For CBOR-encoded tokens, OIDs are specified using the CDDL type name
+   "oid" from [RFC9090].  They are encoded without the tag number.  For
+   JSON-encoded tokens, OIDs are a text string in the common form of
+   "nn.nn.nn...".
 
    Unless expliclity indicated, URIs are not the URI tag defined in
    [RFC8949].  They are just text strings that contain a URI conforming
@@ -2228,7 +2223,7 @@ Table of Contents
    *  oid -- MUST be encoded as a string using the well established
       dotted-decimal notation (e.g., the text "1.2.250.1") [RFC2252].
 
-   The CDDL generic "JC< >" is used in most places where there is a
+   The CDDL generic "JC<>" is used in most places where there is a
    variance between CBOR and JSON.  The first argument is the CDDL for
    JSON and the second is CDDL for CBOR.
 
@@ -2236,7 +2231,7 @@ Table of Contents
 
    Most map labels, Claims-Keys, Claim-Names and enumerated-type values
    are integers for CBOR-encoded tokens and strings for JSON-encoded
-   tokens.  When this is the case the "JC < >" CDDL construct is used to
+   tokens.  When this is the case the "JC<>" CDDL construct is used to
    give both the integer and string values.
 
 7.2.4.  CBOR Interoperability
@@ -2252,7 +2247,8 @@ Table of Contents
    definition of a Claim-Set in Appendix D.  Claims-Set is the payload
    for CWT, JWT and potentially other token types.  This is for both
    CBOR and JSON.  When there is variation between CBOR and JSON, the
-   JC<> CDDL generic defined in Appendix D.
+   JC<> CDDL generic defined in Appendix D.  Note that the JC<> generic
+   uses the CDDL ".feature" control operator defined in [RFC9165].
 
    This CDDL uses, but doesn't define Submodule or nested tokens because
    the definition for these types varies between CBOR and JSON and the
@@ -2550,16 +2546,12 @@ Table of Contents
 
    Nested-Token = JSON-Selector
 
-   $JSON-Selector-Type /= "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
-   $JSON-Selector-Value /= JWT-Message /
-                     CBOR-Token-Inside-JSON-Token /
-                     Detached-EAT-Bundle /
-                     Detached-Submodule-Digest
+   JSON-Selector = $JSON-Selector
 
-   JSON-Selector = [
-      type : $JSON-Selector-Type,
-      nested-token : $JSON-Selector-Value
-   ]
+   $JSON-Selector /= [type: "JWT", nested-token: JWT-Message]
+   $JSON-Selector /= [type: "CBOR", nested-token: CBOR-Token-Inside-JSON-Token]
+   $JSON-Selector /= [type: "BUNDLE", nested-token: Detached-EAT-Bundle]
+   $JSON-Selector /= [type: "DIGEST", nested-token: Detached-Submodule-Digest]
 
    CBOR-Token-Inside-JSON-Token = base64-url-text
 
@@ -2801,10 +2793,13 @@ Table of Contents
    JWT registry.  The "JWT Claim Name" is equivalent to the "Claim Name"
    in the JWT registry.
 
-   IANA is requested to register the following claims.
+   IANA is requested to register the following claims.  The "Claim Value
+   Type(s)" here all name CDDL definitions and are only for the CWT
+   registry.
 
 
-   // RFC editor: please remove this paragraph.
+   // RFC editor: please see instructions in followg paragraph and
+   // remove for final publication
 
    RFC Editor: Please make the following adjustments and remove this
    paragraph.  Replace "*this document*" with this RFC number.  In the
@@ -2824,7 +2819,7 @@ Table of Contents
 
    *  Claim Key: 10
 
-   *  Claim Value Type(s): byte string
+   *  Claim Value Type(s): bstr or array
 
    *  Change Controller: IETF
 
@@ -2869,7 +2864,7 @@ Table of Contents
 
    *  Claim Key: 258
 
-   *  Claim Value Type(s): byte string or integer
+   *  Claim Value Type(s): bstr or int
 
    *  Change Controller: IETF
 
@@ -2906,7 +2901,7 @@ Table of Contents
    *  Specification Document(s): *this document*
 
 
-   *  Claim Name: OEM Authorised Boot
+   *  Claim Name: OEM Authorized Boot
 
    *  Claim Description: Indicates whether the software booted was OEM
       authorized
@@ -2915,7 +2910,7 @@ Table of Contents
 
    *  Claim Key: 262
 
-   *  Claim Value Type(s): Boolean
+   *  Claim Value Type(s): bool
 
    *  Change Controller: IETF
 
@@ -2930,7 +2925,7 @@ Table of Contents
 
    *  Claim Key: 263
 
-   *  Claim Value Type(s): integer or string
+   *  Claim Value Type(s): uint
 
    *  Change Controller: IETF
 
@@ -2960,7 +2955,7 @@ Table of Contents
 
    *  Claim Key: 265
 
-   *  Claim Value Type(s): URI or OID
+   *  Claim Value Type(s): uri or oid
 
    *  Change Controller: IETF
 
@@ -2990,7 +2985,7 @@ Table of Contents
 
    *  Claim Key: TBD
 
-   *  Claim Value Type(s): unsigned integer
+   *  Claim Value Type(s): uint
 
    *  Change Controller: IETF
 
@@ -3021,7 +3016,7 @@ Table of Contents
 
    *  Claim Key: TBD
 
-   *  Claim Value Type(s): bytes
+   *  Claim Value Type(s): bstr
 
    *  Change Controller: IETF
 
@@ -3052,7 +3047,7 @@ Table of Contents
 
    *  Claim Key: TBD
 
-   *  Claim Value Type(s): map
+   *  Claim Value Type(s): tstr
 
    *  Change Controller: IETF
 
@@ -3067,7 +3062,7 @@ Table of Contents
 
    *  Claim Key: TBD
 
-   *  Claim Value Type(s): map
+   *  Claim Value Type(s): array
 
    *  Change Controller: IETF
 
@@ -3130,7 +3125,7 @@ Table of Contents
 
    *  Claim Key: TBD
 
-   *  Claim Value Type(s): integer or string
+   *  Claim Value Type(s): uint
 
    *  Change Controller: IETF
 
@@ -3175,12 +3170,6 @@ Table of Contents
 11.  References
 
 11.1.  Normative References
-
-   [CoSWID]   Birkholz, H., Fitzgerald-McKay, J., Schmidt, C., and D.
-              Waltermire, "Concise Software Identification Tags", Work
-              in Progress, Internet-Draft, draft-ietf-sacm-coswid-24, 24
-              February 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-sacm-coswid-24>.
 
    [DLOA]     "Digital Letter of Approval", November 2015,
               <https://globalplatform.org/wp-content/uploads/2015/12/
@@ -3286,6 +3275,11 @@ Table of Contents
               Architecture", RFC 9334, DOI 10.17487/RFC9334, January
               2023, <https://www.rfc-editor.org/rfc/rfc9334>.
 
+   [RFC9393]  Birkholz, H., Fitzgerald-McKay, J., Schmidt, C., and D.
+              Waltermire, "Concise Software Identification Tags",
+              RFC 9393, DOI 10.17487/RFC9393, June 2023,
+              <https://www.rfc-editor.org/rfc/rfc9393>.
+
    [SUIT.Manifest]
               Moran, B., Tschofenig, H., Birkholz, H., Zandberg, K., and
               O. Rønningstad, "A Concise Binary Object Representation
@@ -3377,10 +3371,6 @@ Table of Contents
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
               <https://www.rfc-editor.org/rfc/rfc4949>.
 
-   [RFC7120]  Cotton, M., "Early IANA Allocation of Standards Track Code
-              Points", BCP 100, RFC 7120, DOI 10.17487/RFC7120, January
-              2014, <https://www.rfc-editor.org/rfc/rfc7120>.
-
    [RFC9039]  Arkko, J., Jennings, C., and Z. Shelby, "Uniform Resource
               Names for Device Identifiers", RFC 9039,
               DOI 10.17487/RFC9039, June 2021,
@@ -3404,6 +3394,12 @@ Appendix A.  Examples
    for a CWT, JWT, detached EAT bundle or future token types.  The
    signing is left off so the Claims-Set is easier to see.  Some
    examples of signed tokens are also given.
+
+
+   // RFC Editor: When the IANA values are permanently assigned, please
+   // contact the authors so the examples can be regenerated.
+   // Regeneration is required because IANA-assigned values are inside
+   // hex and based-64 encoded data and some of these are signed.
 
 A.1.  Claims Set Examples
 
@@ -4477,52 +4473,12 @@ Appendix G.  Changes from Previous Drafts
    history is available via the IETF Datatracker's record for this
    document.
 
-G.1.  From draft-ietf-rats-eat-21
+G.1.  From draft-ietf-rats-eat-24
 
-   *  Add titles to tables
+   *  Use only CDDL definition names for "Claim Value Type" column in
+      CWT claim registry
 
-   *  Add ABNF to define format of device ID URN
-
-   *  Fix some nits
-
-   *  Clarification in 6.1.12 that "receiver accepts token with claims
-      it does not understand"
-
-   *  Abstract wording improvement
-
-   *  Clarification of source of verification keys for constrained
-      profile
-
-   *  IETF is change controller rather than IESG for IANA registrations
-
-   *  Change "Indicate" to "Indcates"
-
-   *  Define "partial" and "full" profiles
-
-   *  Better into wording for type 2 and 3 UEIDs
-
-   *  Correct the JSON detached eat bundle example
-
-   *  Wording improvements for manifests claim
-
-   *  Wording improvements for detached EAT bundle
-
-   *  Clarify purpose of including manufacturer manifest signatures
-
-   *  Refer to RFC 9334 instead of RATS.Arch and make ref normative
-
-   *  Require "oemid" claim for "oemboot" claim and debug state of
-      permanently disabled.
-
-   *  Improve min and max size of JSON UTF-8 nonce
-
-   *  Clarify what happens to OEM ID when companies merge
-
-   *  "OEMID" -> "OEM ID"
-
-   *  Use "urn:ietf..." for constrained device profile ID
-
-   *  Clarify that varying MAC addresses can be used as UEIDs
+   *  Correct the "Claim Value Type" for some claims
 
 Contributors
 

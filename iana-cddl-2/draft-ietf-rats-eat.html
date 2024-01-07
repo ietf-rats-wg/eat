@@ -17,22 +17,22 @@ This claims set is used by a relying party, server or service to determine the t
        An EAT is either a CBOR Web Token (CWT) or JSON Web Token (JWT) with attestation-oriented
 claims. 
     " name="description">
-<meta content="xml2rfc 3.18.2" name="generator">
+<meta content="xml2rfc 3.19.0" name="generator">
 <meta content="signing attestation cbor" name="keyword">
 <meta content="draft-ietf-rats-eat-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.2
+  xml2rfc 3.19.0
     Python 3.11.6
-    ConfigArgParse 1.5.3
+    ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 4.0.0
+    platformdirs 4.1.0
     pycountry 22.3.5
-    PyYAML 6.0
+    PyYAML 6.0.1
     requests 2.31.0
-    setuptools 67.7.2
+    setuptools 68.2.2
     six 1.16.0
     wcwidth 0.2.12
 -->
@@ -1033,11 +1033,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">EAT</td>
-<td class="right">December 2023</td>
+<td class="right">January 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lundblade, et al.</td>
-<td class="center">Expires 10 June 2024</td>
+<td class="center">Expires 10 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-rats-eat-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-12-08" class="published">8 December 2023</time>
+<time datetime="2024-01-07" class="published">7 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-06-10">10 June 2024</time></dd>
+<dd class="expires"><time datetime="2024-07-10">10 July 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1106,7 +1106,7 @@ claims.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 10 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 10 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1115,7 +1115,7 @@ claims.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2023 IETF Trust and the persons identified as the
+            Copyright (c) 2024 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1580,7 +1580,7 @@ claims.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
             <p id="section-toc.1-1.18.1"><a href="#appendix-G" class="auto internal xref">Appendix G</a>.  <a href="#name-changes-from-previous-draft" class="internal xref">Changes from Previous Drafts</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.1">
-                <p id="section-toc.1-1.18.2.1.1"><a href="#appendix-G.1" class="auto internal xref">G.1</a>.  <a href="#name-from-draft-ietf-rats-eat-21" class="internal xref">From draft-ietf-rats-eat-21</a></p>
+                <p id="section-toc.1-1.18.2.1.1"><a href="#appendix-G.1" class="auto internal xref">G.1</a>.  <a href="#name-from-draft-ietf-rats-eat-24" class="internal xref">From draft-ietf-rats-eat-24</a></p>
 </li>
             </ul>
 </li>
@@ -2255,7 +2255,7 @@ hardware-model-type = JC&lt;base64-url-text .size (4..44),
 <a href="#section-4.2.5" class="section-number selfRef">4.2.5. </a><a href="#name-hwversion-hardware-version-" class="section-name selfRef">hwversion (Hardware Version) Claim</a>
           </h4>
 <p id="section-4.2.5-1">The "hwversion" claim is a text string the format of which is set by each manufacturer.
-The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID <span>[<a href="#CoSWID" class="cite xref">CoSWID</a>]</span>.
+The structure and sorting order of this text string can be specified using the version-scheme item from CoSWID <span>[<a href="#RFC9393" class="cite xref">RFC9393</a>]</span>.
 It is useful to know how to sort versions so the newer can be distinguished from the older.
 A "hwversion" claim <span class="bcp14">MUST</span> only be present if a "hwmodel" claim described in <a href="#hwmodel" class="auto internal xref">Section 4.2.4</a> is present.<a href="#section-4.2.5-1" class="pilcrow">¶</a></p>
 <div class="lang-CDDL sourcecode" id="section-4.2.5-2">
@@ -2293,7 +2293,7 @@ $$Claims-Set-Claims //= ( sw-name-label =&gt; tstr )
           <h4 id="name-swversion-software-version-">
 <a href="#section-4.2.7" class="section-number selfRef">4.2.7. </a><a href="#name-swversion-software-version-" class="section-name selfRef">swversion (Software Version) Claim</a>
           </h4>
-<p id="section-4.2.7-1">The "swversion" claim makes use of the CoSWID version-scheme defined in <span>[<a href="#CoSWID" class="cite xref">CoSWID</a>]</span> to give a simple version for the software.
+<p id="section-4.2.7-1">The "swversion" claim makes use of the CoSWID version-scheme defined in <span>[<a href="#RFC9393" class="cite xref">RFC9393</a>]</span> to give a simple version for the software.
 A "swversion" claim <span class="bcp14">MUST</span> only be present if a "swname" claim described in <a href="#swname" class="auto internal xref">Section 4.2.6</a> is present.<a href="#section-4.2.7-1" class="pilcrow">¶</a></p>
 <p id="section-4.2.7-2">The "manifests" claim <a href="#manifests" class="auto internal xref">Section 4.2.15</a> may be instead if this is too simple.<a href="#section-4.2.7-2" class="pilcrow">¶</a></p>
 <div class="lang-CDDL sourcecode" id="section-4.2.7-3">
@@ -2591,7 +2591,7 @@ When a non-text encoded manifest like a CBOR-encoded CoSWID is put in a JSON-enc
 The multiple manifests <span class="bcp14">MAY</span> be of different encodings.
 In some cases EAT submodules may be used instead of the array structure in this claim for multiple manifests.<a href="#section-4.2.15-6" class="pilcrow">¶</a></p>
 <p id="section-4.2.15-7">A CoSWID manifest <span class="bcp14">MUST</span> be a payload CoSWID, not an evidence CoSWID.
-These are defined in <span>[<a href="#CoSWID" class="cite xref">CoSWID</a>]</span>.<a href="#section-4.2.15-7" class="pilcrow">¶</a></p>
+These are defined in <span>[<a href="#RFC9393" class="cite xref">RFC9393</a>]</span>.<a href="#section-4.2.15-7" class="pilcrow">¶</a></p>
 <p id="section-4.2.15-8">A Software Updates for Internet of Things (SUIT) Manifest <span>[<a href="#SUIT.Manifest" class="cite xref">SUIT.Manifest</a>]</span> may be used.<a href="#section-4.2.15-8" class="pilcrow">¶</a></p>
 <p id="section-4.2.15-9">This claim is extensible for use of manifest formats beyond those mentioned in this document.
 No particular manifest format is preferred.
@@ -2629,7 +2629,7 @@ $manifest-body-json /= base64-url-text
 subsystem of the entity (e.g. hash of sections of a file system or non-volatile memory).
 The defining characteristic of this claim is that its contents are created by processes on the entity that inventory, measure or otherwise characterize the software on the entity.
 The contents of this claim do not originate from the manufacturer of the measurable subsystem (e.g. developer of a software library).<a href="#section-4.2.16-1" class="pilcrow">¶</a></p>
-<p id="section-4.2.16-2">This claim can be a <span>[<a href="#CoSWID" class="cite xref">CoSWID</a>]</span>.
+<p id="section-4.2.16-2">This claim can be a <span>[<a href="#RFC9393" class="cite xref">RFC9393</a>]</span>.
 When the CoSWID format is used, it <span class="bcp14">MUST</span> be an evidence CoSWID, not a payload CoSWID.<a href="#section-4.2.16-2" class="pilcrow">¶</a></p>
 <p id="section-4.2.16-3">Formats other than CoSWID <span class="bcp14">MAY</span> be used.
 The identification of format is by CoAP Content Format, the same as the "manifests" claim in <a href="#manifests" class="auto internal xref">Section 4.2.15</a>.<a href="#section-4.2.16-3" class="pilcrow">¶</a></p>
@@ -2790,16 +2790,12 @@ Submodule = Claims-Set / CBOR-Nested-Token /
 <pre>
 Nested-Token = JSON-Selector
 
-$JSON-Selector-Type /= "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
-$JSON-Selector-Value /= JWT-Message /
-                  CBOR-Token-Inside-JSON-Token /
-                  Detached-EAT-Bundle /
-                  Detached-Submodule-Digest
+JSON-Selector = $JSON-Selector
 
-JSON-Selector = [
-   type : $JSON-Selector-Type,
-   nested-token : $JSON-Selector-Value
-]
+$JSON-Selector /= [type: "JWT", nested-token: JWT-Message]
+$JSON-Selector /= [type: "CBOR", nested-token: CBOR-Token-Inside-JSON-Token]
+$JSON-Selector /= [type: "BUNDLE", nested-token: Detached-EAT-Bundle]
+$JSON-Selector /= [type: "DIGEST", nested-token: Detached-Submodule-Digest]
 
 CBOR-Token-Inside-JSON-Token = base64-url-text
 
@@ -2819,7 +2815,7 @@ Detached-Submodule-Digest = [
 </div>
 <p id="section-4.2.18-14">Nested tokens can be one of three types as defined in this document or types standardized in follow-on documents (e.g., <span>[<a href="#UCCS" class="cite xref">UCCS</a>]</span>).
 Nested tokens are the only mechanism by which JSON can be embedded in CBOR and vice versa.<a href="#section-4.2.18-14" class="pilcrow">¶</a></p>
-<p id="section-4.2.18-15">The addition of further types is accomplished by augmenting the $EAT-CBOR-Tagged-Token socket or the $JSON-Selector-Type and $JSON-Selector-Value sockets.<a href="#section-4.2.18-15" class="pilcrow">¶</a></p>
+<p id="section-4.2.18-15">The addition of further types is accomplished by augmenting the $EAT-CBOR-Tagged-Token socket or the $JSON-Selector socket.<a href="#section-4.2.18-15" class="pilcrow">¶</a></p>
 <p id="section-4.2.18-16">When decoding a JSON-encoded EAT, the type of submodule is determined as follows.
 A JSON object indicates the submodule is a Claims-Set.
 In all other cases, it is a JSON-Selector, which is an array of two elements that indicates whether the submodule is a nested token or a Detached-Submodule-Digest.The first element in the array indicates the type present in the second element.
@@ -3307,7 +3303,7 @@ A profile that require the receiver to accept all variations that are allowed to
 <p id="section-6.4-1">It is anticipated that there will be many profiles defined for EAT for many different use cases.
 This section gives a normative definition of one profile that is good for many constrained device use cases.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
 <p id="section-6.4-2">The identifier for this profile is "urn:ietf:rfc:rfcTBD".<a href="#section-6.4-2" class="pilcrow">¶</a></p>
-<p id="section-6.4-3"><span class="cref" id="to-be-removed">RFC Editor: When the IANA values are permanently assigned, please contact the authors so the examples can be regenerated. Regeneration is required because IANA-assigned values are inside hex and based-64 encoded data and some of these are signed.</span><a href="#section-6.4-3" class="pilcrow">¶</a></p>
+<p id="section-6.4-3"><span class="cref" id="to-be-removed-1">RFC Editor: please replace rfcTBD with this RFC number and remove this note.</span><a href="#section-6.4-3" class="pilcrow">¶</a></p>
 <span id="name-constrained-device-profile-"></span><div id="constrained-profile">
 <table class="center" id="table-2">
           <caption>
@@ -3418,8 +3414,9 @@ The CDDL definition of Claims-Set here is applicable to EAT, CWT and JWT.<a href
           </h4>
 <p id="section-7.2.1-1">time-int is identical to the epoch-based time, but disallows
 floating-point representation.<a href="#section-7.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.2.1-2">The OID encoding from <span>[<a href="#RFC9090" class="cite xref">RFC9090</a>]</span> is used without the tag number in CBOR-encoded tokens.
-In JSON tokens OIDs are a text string in the common form of "nn.nn.nn...".<a href="#section-7.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.2.1-2">For CBOR-encoded tokens, OIDs are specified using the CDDL type name "oid" from <span>[<a href="#RFC9090" class="cite xref">RFC9090</a>]</span>.
+They are encoded without the tag number.
+For JSON-encoded tokens, OIDs are a text string in the common form of "nn.nn.nn...".<a href="#section-7.2.1-2" class="pilcrow">¶</a></p>
 <p id="section-7.2.1-3">Unless expliclity indicated, URIs are not the URI tag defined in <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>.
 They are just text strings that contain a URI conforming to the format defined in <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>.<a href="#section-7.2.1-3" class="pilcrow">¶</a></p>
 <div class="lang-CDDL sourcecode" id="section-7.2.1-4">
@@ -3466,7 +3463,7 @@ following CDDL types are encoded in JSON as follows:<a href="#section-7.2.2-1" c
               <p id="section-7.2.2-2.5.1">oid -- <span class="bcp14">MUST</span> be encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1") <span>[<a href="#RFC2252" class="cite xref">RFC2252</a>]</span>.<a href="#section-7.2.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-7.2.2-3">The CDDL generic "JC&lt; &gt;" is used in most places where there is a variance between CBOR and JSON.
+<p id="section-7.2.2-3">The CDDL generic "JC&lt;&gt;" is used in most places where there is a variance between CBOR and JSON.
 The first argument is the CDDL for JSON and the second is CDDL for CBOR.<a href="#section-7.2.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -3476,7 +3473,7 @@ The first argument is the CDDL for JSON and the second is CDDL for CBOR.<a href=
 <a href="#section-7.2.3" class="section-number selfRef">7.2.3. </a><a href="#name-labels" class="section-name selfRef">Labels</a>
           </h4>
 <p id="section-7.2.3-1">Most map labels, Claims-Keys, Claim-Names and enumerated-type values are integers for CBOR-encoded tokens and strings for JSON-encoded tokens.
-When this is the case the "JC &lt; &gt;" CDDL construct is used to give both the integer and string values.<a href="#section-7.2.3-1" class="pilcrow">¶</a></p>
+When this is the case the "JC&lt;&gt;" CDDL construct is used to give both the integer and string values.<a href="#section-7.2.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="cbor-interoperability">
@@ -3503,7 +3500,8 @@ This is addressed in <a href="#profiles" class="auto internal xref">Section 6</a
 <p id="section-7.3.1-1">This CDDL defines all the EAT Claims that are added to the main definition of a Claim-Set in <a href="#CDDL_for_CWT" class="auto internal xref">Appendix D</a>.
 Claims-Set is the payload for CWT, JWT and potentially other token types.
 This is for both CBOR and JSON.
-When there is variation between CBOR and JSON, the JC&lt;&gt; CDDL generic defined in <a href="#CDDL_for_CWT" class="auto internal xref">Appendix D</a>.<a href="#section-7.3.1-1" class="pilcrow">¶</a></p>
+When there is variation between CBOR and JSON, the JC&lt;&gt; CDDL generic defined in <a href="#CDDL_for_CWT" class="auto internal xref">Appendix D</a>.
+Note that the JC&lt;&gt; generic uses the CDDL ".feature" control operator defined in <span>[<a href="#RFC9165" class="cite xref">RFC9165</a>]</span>.<a href="#section-7.3.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.3.1-2">This CDDL uses, but doesn't define Submodule or nested tokens because the definition for these types varies between CBOR and JSON and the JC&lt;&gt; generic can't be used to define it.
 The submodule claim is the one place where a CBOR token can be nested inside a JSON token and vice versa.
 Encoding-specific definitions are provided in the following sections.<a href="#section-7.3.1-2" class="pilcrow">¶</a></p>
@@ -3817,16 +3815,12 @@ $EAT-JSON-Token-Formats /= BUNDLE-Untagged-Message
 
 Nested-Token = JSON-Selector
 
-$JSON-Selector-Type /= "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
-$JSON-Selector-Value /= JWT-Message /
-                  CBOR-Token-Inside-JSON-Token /
-                  Detached-EAT-Bundle /
-                  Detached-Submodule-Digest
+JSON-Selector = $JSON-Selector
 
-JSON-Selector = [
-   type : $JSON-Selector-Type,
-   nested-token : $JSON-Selector-Value
-]
+$JSON-Selector /= [type: "JWT", nested-token: JWT-Message]
+$JSON-Selector /= [type: "CBOR", nested-token: CBOR-Token-Inside-JSON-Token]
+$JSON-Selector /= [type: "BUNDLE", nested-token: Detached-EAT-Bundle]
+$JSON-Selector /= [type: "DIGEST", nested-token: Detached-Submodule-Digest]
 
 CBOR-Token-Inside-JSON-Token = base64-url-text
 
@@ -4093,8 +4087,9 @@ Each entry below is an addition to both registries.<a href="#section-10.2-1" cla
 The "Claim Key" and "Claim Value Types(s)" are for the CWT registry only.
 The "Claim Name" is as defined for the CWT registry, not the JWT registry.
 The "JWT Claim Name" is equivalent to the "Claim Name" in the JWT registry.<a href="#section-10.2-2" class="pilcrow">¶</a></p>
-<p id="section-10.2-3">IANA is requested to register the following claims.<a href="#section-10.2-3" class="pilcrow">¶</a></p>
-<p id="section-10.2-4"><span class="cref" id="remove">RFC editor: please remove this paragraph.</span><a href="#section-10.2-4" class="pilcrow">¶</a></p>
+<p id="section-10.2-3">IANA is requested to register the following claims.
+The "Claim Value Type(s)" here all name CDDL definitions and are only for the CWT registry.<a href="#section-10.2-3" class="pilcrow">¶</a></p>
+<p id="section-10.2-4"><span class="cref" id="to-be-removed-3">RFC editor: please see instructions in followg paragraph and remove for final publication</span><a href="#section-10.2-4" class="pilcrow">¶</a></p>
 <p id="section-10.2-5">RFC Editor: Please make the following adjustments and remove this paragraph.
 Replace "<strong>this document</strong>" with this RFC number.
 In the following, the claims with "Claim Key: TBD" need to be assigned a value in the Specification Required Range, preferably starting around 267.
@@ -4115,7 +4110,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-6.4.1">Claim Key: 10<a href="#section-10.2-6.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-6.5">
-            <p id="section-10.2-6.5.1">Claim Value Type(s): byte string<a href="#section-10.2-6.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-6.5.1">Claim Value Type(s): bstr or array<a href="#section-10.2-6.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-6.6">
             <p id="section-10.2-6.6.1">Change Controller: IETF<a href="#section-10.2-6.6.1" class="pilcrow">¶</a></p>
@@ -4187,7 +4182,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-12.4.1">Claim Key: 258<a href="#section-10.2-12.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-12.5">
-            <p id="section-10.2-12.5.1">Claim Value Type(s): byte string or integer<a href="#section-10.2-12.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-12.5.1">Claim Value Type(s): bstr or int<a href="#section-10.2-12.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-12.6">
             <p id="section-10.2-12.6.1">Change Controller: IETF<a href="#section-10.2-12.6.1" class="pilcrow">¶</a></p>
@@ -4247,7 +4242,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 <p id="section-10.2-17"></p>
 <ul class="normal">
 <li class="normal" id="section-10.2-18.1">
-            <p id="section-10.2-18.1.1">Claim Name: OEM Authorised Boot<a href="#section-10.2-18.1.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-18.1.1">Claim Name: OEM Authorized Boot<a href="#section-10.2-18.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-18.2">
             <p id="section-10.2-18.2.1">Claim Description: Indicates whether the software booted was OEM authorized<a href="#section-10.2-18.2.1" class="pilcrow">¶</a></p>
@@ -4259,7 +4254,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-18.4.1">Claim Key: 262<a href="#section-10.2-18.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-18.5">
-            <p id="section-10.2-18.5.1">Claim Value Type(s): Boolean<a href="#section-10.2-18.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-18.5.1">Claim Value Type(s): bool<a href="#section-10.2-18.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-18.6">
             <p id="section-10.2-18.6.1">Change Controller: IETF<a href="#section-10.2-18.6.1" class="pilcrow">¶</a></p>
@@ -4283,7 +4278,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-20.4.1">Claim Key: 263<a href="#section-10.2-20.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-20.5">
-            <p id="section-10.2-20.5.1">Claim Value Type(s): integer or string<a href="#section-10.2-20.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-20.5.1">Claim Value Type(s): uint<a href="#section-10.2-20.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-20.6">
             <p id="section-10.2-20.6.1">Change Controller: IETF<a href="#section-10.2-20.6.1" class="pilcrow">¶</a></p>
@@ -4331,7 +4326,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-24.4.1">Claim Key: 265<a href="#section-10.2-24.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-24.5">
-            <p id="section-10.2-24.5.1">Claim Value Type(s): URI or OID<a href="#section-10.2-24.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-24.5.1">Claim Value Type(s): uri or oid<a href="#section-10.2-24.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-24.6">
             <p id="section-10.2-24.6.1">Change Controller: IETF<a href="#section-10.2-24.6.1" class="pilcrow">¶</a></p>
@@ -4379,7 +4374,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-28.4.1">Claim Key: TBD<a href="#section-10.2-28.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-28.5">
-            <p id="section-10.2-28.5.1">Claim Value Type(s): unsigned integer<a href="#section-10.2-28.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-28.5.1">Claim Value Type(s): uint<a href="#section-10.2-28.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-28.6">
             <p id="section-10.2-28.6.1">Change Controller: IETF<a href="#section-10.2-28.6.1" class="pilcrow">¶</a></p>
@@ -4427,7 +4422,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-32.4.1">Claim Key: TBD<a href="#section-10.2-32.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-32.5">
-            <p id="section-10.2-32.5.1">Claim Value Type(s): bytes<a href="#section-10.2-32.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-32.5.1">Claim Value Type(s): bstr<a href="#section-10.2-32.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-32.6">
             <p id="section-10.2-32.6.1">Change Controller: IETF<a href="#section-10.2-32.6.1" class="pilcrow">¶</a></p>
@@ -4475,7 +4470,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-36.4.1">Claim Key: TBD<a href="#section-10.2-36.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-36.5">
-            <p id="section-10.2-36.5.1">Claim Value Type(s): map<a href="#section-10.2-36.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-36.5.1">Claim Value Type(s): tstr<a href="#section-10.2-36.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-36.6">
             <p id="section-10.2-36.6.1">Change Controller: IETF<a href="#section-10.2-36.6.1" class="pilcrow">¶</a></p>
@@ -4499,7 +4494,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-38.4.1">Claim Key: TBD<a href="#section-10.2-38.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-38.5">
-            <p id="section-10.2-38.5.1">Claim Value Type(s): map<a href="#section-10.2-38.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-38.5.1">Claim Value Type(s): array<a href="#section-10.2-38.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-38.6">
             <p id="section-10.2-38.6.1">Change Controller: IETF<a href="#section-10.2-38.6.1" class="pilcrow">¶</a></p>
@@ -4595,7 +4590,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-46.4.1">Claim Key: TBD<a href="#section-10.2-46.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-46.5">
-            <p id="section-10.2-46.5.1">Claim Value Type(s): integer or string<a href="#section-10.2-46.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-46.5.1">Claim Value Type(s): uint<a href="#section-10.2-46.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-46.6">
             <p id="section-10.2-46.6.1">Change Controller: IETF<a href="#section-10.2-46.6.1" class="pilcrow">¶</a></p>
@@ -4693,10 +4688,6 @@ specification reference.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
 <a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="CoSWID">[CoSWID]</dt>
-        <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fitzgerald-McKay, J.</span>, <span class="refAuthor">Schmidt, C.</span>, and <span class="refAuthor">D. Waltermire</span>, <span class="refTitle">"Concise Software Identification Tags"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-sacm-coswid-24</span>, <time datetime="2023-02-24" class="refDate">24 February 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-sacm-coswid-24">https://datatracker.ietf.org/doc/html/draft-ietf-sacm-coswid-24</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="DLOA">[DLOA]</dt>
         <dd>
 <span class="refTitle">"Digital Letter of Approval"</span>, <time datetime="2015-11" class="refDate">November 2015</time>, <span>&lt;<a href="https://globalplatform.org/wp-content/uploads/2015/12/GPC_DigitalLetterOfApproval_v1.0.pdf">https://globalplatform.org/wp-content/uploads/2015/12/GPC_DigitalLetterOfApproval_v1.0.pdf</a>&gt;</span>. </dd>
@@ -4789,6 +4780,10 @@ specification reference.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Thaler, D.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Remote ATtestation procedureS (RATS) Architecture"</span>, <span class="seriesInfo">RFC 9334</span>, <span class="seriesInfo">DOI 10.17487/RFC9334</span>, <time datetime="2023-01" class="refDate">January 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9334">https://www.rfc-editor.org/rfc/rfc9334</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC9393">[RFC9393]</dt>
+        <dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fitzgerald-McKay, J.</span>, <span class="refAuthor">Schmidt, C.</span>, and <span class="refAuthor">D. Waltermire</span>, <span class="refTitle">"Concise Software Identification Tags"</span>, <span class="seriesInfo">RFC 9393</span>, <span class="seriesInfo">DOI 10.17487/RFC9393</span>, <time datetime="2023-06" class="refDate">June 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9393">https://www.rfc-editor.org/rfc/rfc9393</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="SUIT.Manifest">[SUIT.Manifest]</dt>
         <dd>
 <span class="refAuthor">Moran, B.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Zandberg, K.</span>, and <span class="refAuthor">O. Rønningstad</span>, <span class="refTitle">"A Concise Binary Object Representation (CBOR)-based Serialization Format for the Software Updates for Internet of Things (SUIT) Manifest"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-suit-manifest-24</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-suit-manifest-24">https://datatracker.ietf.org/doc/html/draft-ietf-suit-manifest-24</a>&gt;</span>. </dd>
@@ -4858,10 +4853,6 @@ specification reference.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Shirey, R.</span>, <span class="refTitle">"Internet Security Glossary, Version 2"</span>, <span class="seriesInfo">FYI 36</span>, <span class="seriesInfo">RFC 4949</span>, <span class="seriesInfo">DOI 10.17487/RFC4949</span>, <time datetime="2007-08" class="refDate">August 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4949">https://www.rfc-editor.org/rfc/rfc4949</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC7120">[RFC7120]</dt>
-        <dd>
-<span class="refAuthor">Cotton, M.</span>, <span class="refTitle">"Early IANA Allocation of Standards Track Code Points"</span>, <span class="seriesInfo">BCP 100</span>, <span class="seriesInfo">RFC 7120</span>, <span class="seriesInfo">DOI 10.17487/RFC7120</span>, <time datetime="2014-01" class="refDate">January 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7120">https://www.rfc-editor.org/rfc/rfc7120</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC9039">[RFC9039]</dt>
         <dd>
 <span class="refAuthor">Arkko, J.</span>, <span class="refAuthor">Jennings, C.</span>, and <span class="refAuthor">Z. Shelby</span>, <span class="refTitle">"Uniform Resource Names for Device Identifiers"</span>, <span class="seriesInfo">RFC 9039</span>, <span class="seriesInfo">DOI 10.17487/RFC9039</span>, <time datetime="2021-06" class="refDate">June 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9039">https://www.rfc-editor.org/rfc/rfc9039</a>&gt;</span>. </dd>
@@ -4886,6 +4877,7 @@ specification reference.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
 <p id="appendix-A-1">Most examples are shown as just a Claims-Set that would be a payload for a CWT, JWT, detached EAT bundle or future token types.
 The signing is left off so the Claims-Set is easier to see.
 Some examples of signed tokens are also given.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-2"><span class="cref" id="to-be-removed-2">RFC Editor: When the IANA values are permanently assigned, please contact the authors so the examples can be regenerated. Regeneration is required because IANA-assigned values are inside hex and based-64 encoded data and some of these are signed.</span><a href="#appendix-A-2" class="pilcrow">¶</a></p>
 <div id="claims-set-examples">
 <section id="appendix-A.1">
         <h3 id="name-claims-set-examples">
@@ -6050,78 +6042,21 @@ The profile document should specify what the key ID's semantics are.<a href="#ap
       <h2 id="name-changes-from-previous-draft">
 <a href="#appendix-G" class="section-number selfRef">Appendix G. </a><a href="#name-changes-from-previous-draft" class="section-name selfRef">Changes from Previous Drafts</a>
       </h2>
-<p id="appendix-G-1"><span class="cref" id="remove_1">RFC editor: please remove this paragraph.</span><a href="#appendix-G-1" class="pilcrow">¶</a></p>
+<p id="appendix-G-1"><span class="cref" id="remove">RFC editor: please remove this paragraph.</span><a href="#appendix-G-1" class="pilcrow">¶</a></p>
 <p id="appendix-G-2">The following is a list of known changes since the immediately previous drafts.  This list is
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.<a href="#appendix-G-2" class="pilcrow">¶</a></p>
-<div id="from-draft-ietf-rats-eat-21">
+<div id="from-draft-ietf-rats-eat-24">
 <section id="appendix-G.1">
-        <h3 id="name-from-draft-ietf-rats-eat-21">
-<a href="#appendix-G.1" class="section-number selfRef">G.1. </a><a href="#name-from-draft-ietf-rats-eat-21" class="section-name selfRef">From draft-ietf-rats-eat-21</a>
+        <h3 id="name-from-draft-ietf-rats-eat-24">
+<a href="#appendix-G.1" class="section-number selfRef">G.1. </a><a href="#name-from-draft-ietf-rats-eat-24" class="section-name selfRef">From draft-ietf-rats-eat-24</a>
         </h3>
 <ul class="normal">
 <li class="normal" id="appendix-G.1-1.1">
-            <p id="appendix-G.1-1.1.1">Add titles to tables<a href="#appendix-G.1-1.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.1.1">Use only CDDL definition names for "Claim Value Type" column in CWT claim registry<a href="#appendix-G.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-G.1-1.2">
-            <p id="appendix-G.1-1.2.1">Add ABNF to define format of device ID URN<a href="#appendix-G.1-1.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.3">
-            <p id="appendix-G.1-1.3.1">Fix some nits<a href="#appendix-G.1-1.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.4">
-            <p id="appendix-G.1-1.4.1">Clarification in 6.1.12 that "receiver accepts token with claims it does not understand"<a href="#appendix-G.1-1.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.5">
-            <p id="appendix-G.1-1.5.1">Abstract wording improvement<a href="#appendix-G.1-1.5.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.6">
-            <p id="appendix-G.1-1.6.1">Clarification of source of verification keys for constrained profile<a href="#appendix-G.1-1.6.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.7">
-            <p id="appendix-G.1-1.7.1">IETF is change controller rather than IESG for IANA registrations<a href="#appendix-G.1-1.7.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.8">
-            <p id="appendix-G.1-1.8.1">Change "Indicate" to "Indcates"<a href="#appendix-G.1-1.8.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.9">
-            <p id="appendix-G.1-1.9.1">Define "partial" and "full" profiles<a href="#appendix-G.1-1.9.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.10">
-            <p id="appendix-G.1-1.10.1">Better into wording for type 2 and 3 UEIDs<a href="#appendix-G.1-1.10.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.11">
-            <p id="appendix-G.1-1.11.1">Correct the JSON detached eat bundle example<a href="#appendix-G.1-1.11.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.12">
-            <p id="appendix-G.1-1.12.1">Wording improvements for manifests claim<a href="#appendix-G.1-1.12.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.13">
-            <p id="appendix-G.1-1.13.1">Wording improvements for detached EAT bundle<a href="#appendix-G.1-1.13.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.14">
-            <p id="appendix-G.1-1.14.1">Clarify purpose of including manufacturer manifest signatures<a href="#appendix-G.1-1.14.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.15">
-            <p id="appendix-G.1-1.15.1">Refer to RFC 9334 instead of RATS.Arch and make ref normative<a href="#appendix-G.1-1.15.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.16">
-            <p id="appendix-G.1-1.16.1">Require "oemid" claim for "oemboot" claim and debug state of permanently disabled.<a href="#appendix-G.1-1.16.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.17">
-            <p id="appendix-G.1-1.17.1">Improve min and max size of JSON UTF-8 nonce<a href="#appendix-G.1-1.17.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.18">
-            <p id="appendix-G.1-1.18.1">Clarify what happens to OEM ID when companies merge<a href="#appendix-G.1-1.18.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.19">
-            <p id="appendix-G.1-1.19.1">"OEMID" -&gt; "OEM ID"<a href="#appendix-G.1-1.19.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.20">
-            <p id="appendix-G.1-1.20.1">Use "urn:ietf..." for constrained device profile ID<a href="#appendix-G.1-1.20.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.21">
-            <p id="appendix-G.1-1.21.1">Clarify that varying MAC addresses can be used as UEIDs<a href="#appendix-G.1-1.21.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.2.1">Correct the "Claim Value Type" for some claims<a href="#appendix-G.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
