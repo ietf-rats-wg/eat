@@ -5,11 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 18 June 2024                                      J. O'Donoghue
+Expires: 15 July 2024                                                   
+                                                           J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                        16 December 2023
+                                                         12 January 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -41,11 +42,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 June 2024.
+   This Internet-Draft will expire on 15 July 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -2898,7 +2899,7 @@ Table of Contents
    *  Specification Document(s): *this document*
 
 
-   *  Claim Name: OEM Authorised Boot
+   *  Claim Name: OEM Authorized Boot
 
    *  Claim Description: Indicates whether the software booted was OEM
       authorized
@@ -4525,12 +4526,7 @@ Authors' Addresses
 
 
    Giridhar Mandyam
-   Qualcomm Technologies Inc.
-   5775 Morehouse Drive
-   San Diego, California
-   United States of America
-   Phone: +1 858 651 7200
-   Email: mandyam@qti.qualcomm.com
+   Email: giridhar.mandyam@gmail.com
 
 
    Jeremy O'Donoghue
