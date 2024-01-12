@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-07T20:00:49.283322+00:00",
+  "timestamp": "2024-01-12T17:42:18.250473+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -23373,24 +23373,54 @@
       "id": "PR_kwDOCEWCXc5jaXxA",
       "title": "Make Types in CWT registry CDDL definitions",
       "url": "https://github.com/ietf-rats-wg/eat/pull/440",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "laurencelundblade",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "See https://mailarchive.ietf.org/arch/msg/cbor/qMs19DfPFSOrQ-e0tRHk-3Zaer4/",
       "createdAt": "2024-01-07T20:00:47Z",
-      "updatedAt": "2024-01-07T20:00:47Z",
+      "updatedAt": "2024-01-12T17:41:35Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "1492d28c1cd445fe55f95936a0113da726ceb066",
       "headRepository": "ietf-rats-wg/eat",
       "headRefName": "iana-cddl-2",
       "headRefOid": "a403cad295a01e0970b74af81ea12d0ae62c6d42",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-01-12T17:41:31Z",
+      "mergedAt": "2024-01-12T17:41:31Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "079942494c781cf08df84cc87c52bf929a867ade"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 441,
+      "id": "PR_kwDOCEWCXc5j3T3y",
+      "title": "Resolve 'authorised' versus 'authorized'",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/441",
+      "state": "MERGED",
+      "author": "gmandyam",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Will go with 'authorized\" to be consistent with other IETF specifications such as RFC 6749.",
+      "createdAt": "2024-01-11T22:19:19Z",
+      "updatedAt": "2024-01-12T17:40:52Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "1492d28c1cd445fe55f95936a0113da726ceb066",
+      "headRepository": "gmandyam/eat",
+      "headRefName": "branch_OEMAuthBoot",
+      "headRefOid": "9fa45910eafdec9f9a35be8b9c866686fd73d77a",
+      "closedAt": "2024-01-12T17:40:52Z",
+      "mergedAt": "2024-01-12T17:40:52Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "74c6080c5f9570998018488f9cfbdf5a5c7b0adc"
+      },
       "comments": [],
       "reviews": []
     }
