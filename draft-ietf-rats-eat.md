@@ -31,13 +31,7 @@ author:
   email: lgl@securitytheory.com
 - ins: G. Mandyam
   name: Giridhar Mandyam
-  org: Qualcomm Technologies Inc.
-  street: 5775 Morehouse Drive
-  city: San Diego
-  region: California
-  country: USA
-  phone: "+1 858 651 7200"
-  email: mandyam@qti.qualcomm.com
+  email: giridhar.mandyam@gmail.com
 - ins: J. O'Donoghue
   name: Jeremy O'Donoghue
   org: Qualcomm Technologies Inc.
@@ -1874,7 +1868,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 
 &nbsp;
 
-* Claim Name: OEM Authorised Boot
+* Claim Name: OEM Authorized Boot
 * Claim Description: Indicates whether the software booted was OEM authorized
 * JWT Claim Name: "oemboot"
 * Claim Key: 262
