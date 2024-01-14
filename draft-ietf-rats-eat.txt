@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 15 July 2024                                                   
+Expires: 17 July 2024                                                   
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                         12 January 2024
+                                                         14 January 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 July 2024.
+   This Internet-Draft will expire on 17 July 2024.
 
 Copyright Notice
 
@@ -3281,15 +3281,6 @@ Table of Contents
               RFC 9393, DOI 10.17487/RFC9393, June 2023,
               <https://www.rfc-editor.org/rfc/rfc9393>.
 
-   [SUIT.Manifest]
-              Moran, B., Tschofenig, H., Birkholz, H., Zandberg, K., and
-              O. Rønningstad, "A Concise Binary Object Representation
-              (CBOR)-based Serialization Format for the Software Updates
-              for Internet of Things (SUIT) Manifest", Work in Progress,
-              Internet-Draft, draft-ietf-suit-manifest-24, 23 October
-              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              suit-manifest-24>.
-
    [ThreeGPP.IMEI]
               3GPP, "3rd Generation Partnership Project; Technical
               Specification Group Core Network and Terminals; Numbering,
@@ -3376,6 +3367,15 @@ Table of Contents
               Names for Device Identifiers", RFC 9039,
               DOI 10.17487/RFC9039, June 2021,
               <https://www.rfc-editor.org/rfc/rfc9039>.
+
+   [SUIT.Manifest]
+              Moran, B., Tschofenig, H., Birkholz, H., Zandberg, K., and
+              O. Rønningstad, "A Concise Binary Object Representation
+              (CBOR)-based Serialization Format for the Software Updates
+              for Internet of Things (SUIT) Manifest", Work in Progress,
+              Internet-Draft, draft-ietf-suit-manifest-24, 23 October
+              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              suit-manifest-24>.
 
    [UCCS]     Birkholz, H., O'Donoghue, J., Cam-Winget, N., and C.
               Bormann, "A CBOR Tag for Unprotected CWT Claims Sets",
@@ -4480,6 +4480,9 @@ G.1.  From draft-ietf-rats-eat-24
       CWT claim registry
 
    *  Correct the "Claim Value Type" for some claims
+
+   *  Make SUIT reference informative (it use is optional in an optional
+      claim)
 
 Contributors
 
