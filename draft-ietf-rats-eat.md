@@ -1823,7 +1823,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Description: The Universal Entity ID
 * JWT Claim Name: "ueid"
 * CWT Claim Key: 256
-* Claim Value Type(s): byte string
+* Claim Value Type(s): bstr
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
@@ -1853,7 +1853,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Description: Model identifier for hardware
 * JWT Claim Name: "hwmodel"
 * Claim Key: 259
-* Claim Value Type(s): byte string
+* Claim Value Type(s): bstr
 * Change Controller: IETF
 * Specification Document(s): __this document__
 
