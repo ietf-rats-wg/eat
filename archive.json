@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-12T17:42:18.250473+00:00",
+  "timestamp": "2024-01-14T00:17:39.958768+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -23423,6 +23423,48 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 442,
+      "id": "PR_kwDOCEWCXc5j9ErE",
+      "title": "Make SUIT reference non-normative",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/442",
+      "state": "MERGED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "It is an optional part of an optional claim.",
+      "createdAt": "2024-01-12T17:50:04Z",
+      "updatedAt": "2024-01-14T00:16:48Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "079942494c781cf08df84cc87c52bf929a867ade",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "suit-non-norm",
+      "headRefOid": "0b9a74fd4ae944b8d0a4c7eea6dcf444a87682d5",
+      "closedAt": "2024-01-14T00:16:44Z",
+      "mergedAt": "2024-01-14T00:16:44Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "4817fb02f35f037def51216c7202b1387e69ba53"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc5se-MA",
+          "commit": {
+            "abbreviatedOid": "0b9a74f"
+          },
+          "author": "carl-wallace",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-01-13T16:42:36Z",
+          "updatedAt": "2024-01-13T16:42:36Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
