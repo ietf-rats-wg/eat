@@ -2835,7 +2835,7 @@ Table of Contents
 
    *  CWT Claim Key: 256
 
-   *  Claim Value Type(s): byte string
+   *  Claim Value Type(s): bstr
 
    *  Change Controller: IETF
 
@@ -2880,7 +2880,7 @@ Table of Contents
 
    *  Claim Key: 259
 
-   *  Claim Value Type(s): byte string
+   *  Claim Value Type(s): bstr
 
    *  Change Controller: IETF
 
