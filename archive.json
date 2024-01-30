@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-14T18:25:34.621218+00:00",
+  "timestamp": "2024-01-30T18:15:12.020350+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -23465,6 +23465,68 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 443,
+      "id": "PR_kwDOCEWCXc5kB2IR",
+      "title": "Fix two \"byte string\" occurrences in IANA section",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/443",
+      "state": "CLOSED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-01-14T18:26:08Z",
+      "updatedAt": "2024-01-14T18:27:06Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "4817fb02f35f037def51216c7202b1387e69ba53",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "bstr-again",
+      "headRefOid": "9a0f6adf6cc850df5c9c76d25b61099448145f12",
+      "closedAt": "2024-01-14T18:27:06Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Github problems; PR didn't come out right",
+          "createdAt": "2024-01-14T18:27:06Z",
+          "updatedAt": "2024-01-14T18:27:06Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 444,
+      "id": "PR_kwDOCEWCXc5kB22D",
+      "title": "'byte-string' -> 'bstr' in IANA section",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/444",
+      "state": "MERGED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-01-14T18:33:32Z",
+      "updatedAt": "2024-01-14T18:34:45Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "4817fb02f35f037def51216c7202b1387e69ba53",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "bstr-iana",
+      "headRefOid": "d402ab6cc938371d86c0c363e08859ddfd048724",
+      "closedAt": "2024-01-14T18:34:41Z",
+      "mergedAt": "2024-01-14T18:34:41Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "a0f5db72bd1a7b3d93435f2a8e806f97e8ee0849"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
