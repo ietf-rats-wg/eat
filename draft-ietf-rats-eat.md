@@ -154,8 +154,6 @@ informative:
 
   UCCS: I-D.ietf-rats-uccs
 
-  SUIT.Manifest: I-D.ietf-suit-manifest
-
   JTAG:
     title: IEEE Standard for Reduced-Pin and Enhanced-Functionality Test Access Port and Boundary-Scan Architecture
     target: https://ieeexplore.ieee.org/document/5412866
@@ -936,8 +934,6 @@ In some cases EAT submodules may be used instead of the array structure in this 
 A CoSWID manifest MUST be a payload CoSWID, not an evidence CoSWID.
 These are defined in {{RFC9393}}.
 
-A Software Updates for Internet of Things (SUIT) Manifest {{SUIT.Manifest}} may be used.
-
 This claim is extensible for use of manifest formats beyond those mentioned in this document.
 No particular manifest format is preferred.
 For manifest interoperability, an EAT profile as defined in {{profiles}}, should be used to specify which manifest format(s) are allowed.
@@ -1447,7 +1443,7 @@ A profile may constrain the definition of claims that are defined in this docume
 For example, a profile may require the EAT nonce be a certain length or the "location" claim always include the altitude.
 
 Some claims are "pluggable" in that they allow different formats for their content.
-The "manifests" claim ({{manifests}}) along with the measurement and "measurements" ({{measurements}}) claims are examples of this, allowing the use of CoSWID, SUIT Manifest and other formats.
+The "manifests" claim ({{manifests}}) along with the measurement and "measurements" ({{measurements}}) claims are examples of this, allowing the use of CoSWID and other formats.
 A profile should specify which formats are allowed to be sent, with the assumption that the corresponding CoAP content types have been registered.
 A profile should require the receiver to accept all formats that are allowed to be sent.
 
@@ -2545,10 +2541,9 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-24
-- Use only CDDL definition names for "Claim Value Type" column in CWT claim registry
-- Correct the "Claim Value Type" for some claims
-- Make SUIT reference informative (it use is optional in an optional claim)
+## From draft-ietf-rats-eat-25
+- Remove reference to SUIT Manifest entirely to break dependency (SUIT manifest can reference EAT).
+
 
 --- contributor
 
