@@ -113,6 +113,7 @@ normative:
     target: https://pen.iana.org/pen/PenApplication.page
     title: Private Enterprise Number (PEN) Request
 
+  SUIT.Manifest: I-D.ietf-suit-manifest
 
   IANA.cbor-tags:
 
@@ -153,8 +154,6 @@ informative:
   CBOR.Cert.Draft: I-D.ietf-cose-cbor-encoded-cert
 
   UCCS: I-D.ietf-rats-uccs
-
-  SUIT.Manifest: I-D.ietf-suit-manifest
 
   JTAG:
     title: IEEE Standard for Reduced-Pin and Enhanced-Functionality Test Access Port and Boundary-Scan Architecture
@@ -2548,7 +2547,6 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 ## From draft-ietf-rats-eat-24
 - Use only CDDL definition names for "Claim Value Type" column in CWT claim registry
 - Correct the "Claim Value Type" for some claims
-- Make SUIT reference informative (it use is optional in an optional claim)
 
 --- contributor
 
