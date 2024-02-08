@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-30T18:15:12.020350+00:00",
+  "timestamp": "2024-02-08T18:03:47.152670+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -23526,6 +23526,40 @@
         "oid": "a0f5db72bd1a7b3d93435f2a8e806f97e8ee0849"
       },
       "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 445,
+      "id": "PR_kwDOCEWCXc5lfCcp",
+      "title": "Remove SUIT reference entirely to break dependency",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/445",
+      "state": "CLOSED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The suit reference was through a pluggable socket part of the manifests claim. It was in EAT as a convenience. SUIT manifest can still be used and it is obvious how it should work even without any text so there is no big loss here.\r\n",
+      "createdAt": "2024-01-30T18:17:00Z",
+      "updatedAt": "2024-02-08T01:11:05Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "a0f5db72bd1a7b3d93435f2a8e806f97e8ee0849",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "no-suit",
+      "headRefOid": "5a159d3b5571402618a83695cdd3e3c71b175676",
+      "closedAt": "2024-02-08T01:11:05Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Decided not to do this.",
+          "createdAt": "2024-02-08T01:11:05Z",
+          "updatedAt": "2024-02-08T01:11:05Z"
+        }
+      ],
       "reviews": []
     }
   ]
