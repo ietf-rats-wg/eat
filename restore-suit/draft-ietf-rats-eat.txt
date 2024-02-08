@@ -5,11 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 10 July 2024                                      J. O'Donoghue
+Expires: 11 August 2024                                                 
+                                                           J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                          7 January 2024
+                                                         8 February 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -41,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 July 2024.
+   This Internet-Draft will expire on 11 August 2024.
 
 Copyright Notice
 
@@ -2834,7 +2835,7 @@ Table of Contents
 
    *  CWT Claim Key: 256
 
-   *  Claim Value Type(s): byte string
+   *  Claim Value Type(s): bstr
 
    *  Change Controller: IETF
 
@@ -2879,7 +2880,7 @@ Table of Contents
 
    *  Claim Key: 259
 
-   *  Claim Value Type(s): byte string
+   *  Claim Value Type(s): bstr
 
    *  Change Controller: IETF
 
@@ -3285,9 +3286,9 @@ Table of Contents
               O. Rønningstad, "A Concise Binary Object Representation
               (CBOR)-based Serialization Format for the Software Updates
               for Internet of Things (SUIT) Manifest", Work in Progress,
-              Internet-Draft, draft-ietf-suit-manifest-24, 23 October
-              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              suit-manifest-24>.
+              Internet-Draft, draft-ietf-suit-manifest-25, 5 February
+              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              suit-manifest-25>.
 
    [ThreeGPP.IMEI]
               3GPP, "3rd Generation Partnership Project; Technical
@@ -3378,9 +3379,9 @@ Table of Contents
 
    [UCCS]     Birkholz, H., O'Donoghue, J., Cam-Winget, N., and C.
               Bormann, "A CBOR Tag for Unprotected CWT Claims Sets",
-              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-07,
-              27 November 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-uccs-07>.
+              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-08,
+              16 January 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-uccs-08>.
 
    [W3C.GeoLoc]
               Popescu, A., Ed., "Geolocation API Specification", W3C
@@ -4525,12 +4526,7 @@ Authors' Addresses
 
 
    Giridhar Mandyam
-   Qualcomm Technologies Inc.
-   5775 Morehouse Drive
-   San Diego, California
-   United States of America
-   Phone: +1 858 651 7200
-   Email: mandyam@qti.qualcomm.com
+   Email: giridhar.mandyam@gmail.com
 
 
    Jeremy O'Donoghue
