@@ -193,7 +193,7 @@ Table of Contents
        F.1.3.  CBOR Certificate COSE Header Parameters
        F.1.4.  Claim-Based Key Identification
    Appendix G.  Changes from Previous Drafts
-     G.1.  From draft-ietf-rats-eat-24
+     G.1.  From draft-ietf-rats-eat-25
    Contributors
    Authors' Addresses
 
@@ -4474,12 +4474,9 @@ Appendix G.  Changes from Previous Drafts
    history is available via the IETF Datatracker's record for this
    document.
 
-G.1.  From draft-ietf-rats-eat-24
+G.1.  From draft-ietf-rats-eat-25
 
-   *  Use only CDDL definition names for "Claim Value Type" column in
-      CWT claim registry
-
-   *  Correct the "Claim Value Type" for some claims
+   *  Change SUIT Manifest reference back to normative
 
 Contributors
 
