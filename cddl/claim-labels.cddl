@@ -18,14 +18,14 @@ submods-label          = JC< "submods",    266 >
 ; These are intentionally above 24 so as to not use up
 ; single-byte labels.
 
-uptime-label           = JC< "uptime",     267 >
+uptime-label           = JC< "uptime",     261 >
 boot-seed-label        = JC< "bootseed",   268 >
-intended-use-label     = JC< "intuse",     269 >
-dloas-label            = JC< "dloas",      270 >
-sw-name-label          = JC< "swname",     271 >
-sw-version-label       = JC< "swversion",  272 >
-manifests-label        = JC< "manifests",  273 >
-measurements-label     = JC< "measurements", 274 >
-measurement-results-label = JC< "measres" , 275 >
-boot-count-label       = JC< "bootcount",  276 >
+intended-use-label     = JC< "intuse",     275 >
+dloas-label            = JC< "dloas",      269 >
+sw-name-label          = JC< "swname",     270 >
+sw-version-label       = JC< "swversion",  271 >
+manifests-label        = JC< "manifests",  272 >
+measurements-label     = JC< "measurements", 273 >
+measurement-results-label = JC< "measres" , 274 >
+boot-count-label       = JC< "bootcount",  267 >
 
