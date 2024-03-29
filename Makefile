@@ -43,8 +43,8 @@ draft-ietf-rats-eat.md: $(NC_COMMON_CDDL_FRAGS) \
 nc-cddl/%.cddl: cddl/%.cddl
 	mkdir -p nc-cddl
 	sed 's/;.*//' $< | \
-           sed -e 's/267/TBD/;s/268/TBD/;s/269/TBD/;s/270/TBD/;s/271/TBD/' | \
-           sed -e 's/272/TBD/;s/273/TBD/;s/274/TBD/;s/275/TBD/;s/276/TBD/;s/602/TBD602/' | \
+#          sed -e 's/267/TBD/;s/268/TBD/;s/269/TBD/;s/270/TBD/;s/271/TBD/' | \
+#          sed -e 's/272/TBD/;s/273/TBD/;s/274/TBD/;s/275/TBD/;s/276/TBD/;s/602/TBD602/' | \
            cat -s > $@
 
 $(NC_COMMON_CDDL_FOR_DOCUMENT): $(NC_COMMON_CDDL_FRAGS)
