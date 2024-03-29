@@ -2,9 +2,6 @@
 
 BUNDLE-Messages = BUNDLE-Tagged-Message / BUNDLE-Untagged-Message
 
-; Note that tag number 602 is not yet assigned by IANA
-; Also, 602 is replaced with "<TBD>" for the document by a
-; sed substituion performed in the document Makefile
 BUNDLE-Tagged-Message   = #6.602(BUNDLE-Untagged-Message)
 BUNDLE-Untagged-Message = Detached-EAT-Bundle
 
