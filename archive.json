@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-08T18:03:47.152670+00:00",
+  "timestamp": "2024-03-31T19:49:46.786846+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -4718,6 +4718,81 @@
           "body": "Fixed in #420",
           "createdAt": "2023-09-28T17:53:40Z",
           "updatedAt": "2023-09-28T17:53:40Z"
+        }
+      ]
+    },
+    {
+      "number": 447,
+      "id": "I_kwDOCEWCXc6AjTUv",
+      "title": "small typos in examples",
+      "url": "https://github.com/ietf-rats-wg/eat/issues/447",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "A couple of small typos in the examples (A.1):\r\n\r\n* `/ manifests / 273` should be `/ measurements / 273`\r\n* the made-up CoAP C-F for CoSWID should be replaced by `258` (the assigned C-F)\r\n\r\n",
+      "createdAt": "2024-02-27T14:26:39Z",
+      "updatedAt": "2024-02-27T14:26:39Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 448,
+      "id": "I_kwDOCEWCXc6AjWTN",
+      "title": "Measurements encoding clarifications",
+      "url": "https://github.com/ietf-rats-wg/eat/issues/448",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://www.ietf.org/archive/id/draft-ietf-rats-eat-25.html#section-4.2.16 should have something like this to make sure the right encoding is picked up:\r\n\r\n```\r\n$fmt-cbor = bstr .cbor $FMT\r\n$fmt-json = tstr .json $FMT\r\n```\r\n\r\n### EAT CBOR (`.feature \"cbor\"`)\r\n\r\n```\r\n$measurements-body-cbor /= $fmt-cbor            ; native\r\n$measurements-body-cbor /= tstr .b64u $fmt-json ; tunnel\r\n\r\n```\r\n\r\n### EAT JSON (`.feature \"json\"`)\r\n\r\n```\r\n$measurements-body-json /= $fmt-json            ; native\r\n$measurements-body-json /= tstr .b64u $fmt-cbor ; tunnel\r\n```\r\n\r\n### CWT\r\n\r\n| `content-type` (CoAP C-F equivalent) | `content-format` |\r\n|--|--|\r\n| `application/measured-component+cbor` | `$fmt-cbor` |\r\n| `application/measured-component+json` | `tstr .b64u $fmt-json` |\r\n\r\n### JWT\r\n\r\n| `content-type` (CoAP C-F equivalent) | `content-format` |\r\n|--|--|\r\n| `application/measured-component+json` | `$fmt-json` |\r\n| `application/measured-component+cbor` | `tstr .b64u $fmt-cbor` |\r\n\r\n",
+      "createdAt": "2024-02-27T14:32:04Z",
+      "updatedAt": "2024-03-26T19:57:51Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I see where you are going, but it makes my head hurt, especially when validating with the cddl tool. An MC can be either CBOR or JSON itself and then can inserted into either a CBOR or JSON EAT. CDDL for MC is neutral.\r\n\r\nHave you tried to construct the four combos and validate with the cddl tool? I'm not sure it's possible.\r\n\r\nDo you mean $fmt-cbor and $FMT to be sockets?\r\n\r\nIf we do this for measurements, we have to do the same for manifests and maybe bundles.\r\n\r\n\r\n",
+          "createdAt": "2024-03-26T05:09:16Z",
+          "updatedAt": "2024-03-26T05:09:16Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I've tried to plug in `untagged-coswid` and it works:\r\n\r\n```cddl\r\n$FMT /= untagged-coswid\r\n$fmt-cbor = bstr .cbor $FMT\r\n$measurements-body-cbor /= $fmt-cbor            ; native\r\n$measurements-body-json /= tstr .b64u $fmt-cbor ; tunnel\r\n```\r\n\r\nSince `untagged-coswid` does not have a native JSON serialisation, I had to drop `$fmt-json = tstr .json $FMT` & friends.\r\n",
+          "createdAt": "2024-03-26T15:34:51Z",
+          "updatedAt": "2024-03-26T15:34:51Z"
+        },
+        {
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "body": ">If we do this for measurements, we have to do the same for manifests and maybe bundles.\r\n\r\nAgreed.  There was no such request during WGLC, so this may have to be taken back to WG as well.  Current definition is passing validation so I don't see a reason to change them.\r\n\r\n>I see where you are going, but it makes my head hurt, especially when validating with the cddl tool. An MC can be either CBOR or JSON itself and then can inserted into either a CBOR or JSON EAT. CDDL for MC is neutral.\r\n\r\nAlso I am not sure what is being proposed is the only suitable alternative to what is already in the spec.  For instance, a switch could be used (e.g. Figure 9 and associated description of tool requirements in https://datatracker.ietf.org/doc/html/rfc9165 for sensor measurements).  If the validation tool cannot support a switch within a claim that seems to be a problem with the tool, because I could not find a prohibition in the CDDL specification.\r\n\r\n",
+          "createdAt": "2024-03-26T16:01:54Z",
+          "updatedAt": "2024-03-26T16:01:54Z"
+        },
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I wouldn't do anything here that requires recycle with the WG, but I don't think this would have to go back to the WG. It's not a change to semantics, just a change to the CDDL to do better validation and take advantage of tool improvements. We were on the bleeding edge of the tool with the CBOR/JSON stuff.\r\n\r\nThe point of this would be to make the cddl validation of EATs work better. In particular to be able to validate that an MC in an EAT is a valid MC, and then on for all measurements and manifests in CBOR or JSON.\r\n\r\nI don't think there's anything wrong with what's there now, but it is crude and it doesn't easily accommodate the full validation and might be a little confusing for some. @thomas-fossati, does that seem right to you?\r\n\r\nI could see doing a substantial rework of the EAT CDDL at some point when things like import/include and stuff are standard and in the tool. We could even start on it now to understand what all is possible. Maybe it isn't published with the RFC and just stays in GitHub. It might also be part of reword of the CDDL for COSE and CWT and JOSE and JWT.",
+          "createdAt": "2024-03-26T18:00:15Z",
+          "updatedAt": "2024-03-26T18:00:15Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> I don't think there's anything wrong with what's there now, but it is crude and it doesn't easily accommodate the full validation and might be a little confusing for some. @thomas-fossati, does that seem right to you?\r\n\r\nYes, that'd be my assessment too.  With the description in draft-25 one has to work a bit harder than usual to figure out the details.  I had to do the exercise twice to get it right, also because the first time I missed the fact that Measurements reuse the mechanics from Manifests (so there's maybe a missing ref that can be added without going through the WG.)\r\n\r\n> I could see doing a substantial rework of the EAT CDDL at some point when things like import/include and stuff are standard and in the tool. We could even start on it now to understand what all is possible. Maybe it isn't published with the RFC and just stays in GitHub. It might also be part of reword of the CDDL for COSE and CWT and JOSE and JWT.\r\n\r\nThat seems like a very good idea and I'd be happy to work with you on that.",
+          "createdAt": "2024-03-26T18:42:27Z",
+          "updatedAt": "2024-03-26T18:42:27Z"
+        },
+        {
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> wouldn't do anything here that requires recycle with the WG, but I don't think this would have to go back to the WG. It's not a change to semantics, just a change to the CDDL to do better validation and take advantage of tool improvements. We were on the bleeding edge of the tool with the CBOR/JSON stuff.\r\n\r\nOK - just saw the revised proposal with untagged-coswid re-introduction.   So I agree that semantics are not changing.\r\n\r\n>With the description in draft-25 one has to work a bit harder than usual to figure out the details. I had to do the exercise twice to get it right, also because the first time I missed the fact that Measurements reuse the mechanics from Manifests (so there's maybe a missing ref that can be added without going through the WG.)\r\n\r\nIs this the reason new measurement claims were defined for CCA - see Section III.D of https://ieeexplore.ieee.org/document/10373038  If so, as an alternative  I would've just overloaded the result-id subclaim in https://www.ietf.org/archive/id/draft-ietf-rats-eat-25.html#name-measres-software-measuremen.\r\n",
+          "createdAt": "2024-03-26T19:57:50Z",
+          "updatedAt": "2024-03-26T19:57:50Z"
         }
       ]
     }
@@ -23561,6 +23636,151 @@
         }
       ],
       "reviews": []
+    },
+    {
+      "number": 446,
+      "id": "PR_kwDOCEWCXc5maN9F",
+      "title": "Change SUIT Manifest reference back to normative",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/446",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-08T18:07:25Z",
+      "updatedAt": "2024-02-08T18:07:25Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "a0f5db72bd1a7b3d93435f2a8e806f97e8ee0849",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "restore-suit",
+      "headRefOid": "f7d245e93fff65669a9e6b5f81062828f941fccc",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 449,
+      "id": "PR_kwDOCEWCXc5rM3-t",
+      "title": "Tbd based on iana",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/449",
+      "state": "OPEN",
+      "author": "gmandyam",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-29T20:52:36Z",
+      "updatedAt": "2024-03-31T19:12:15Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "a0f5db72bd1a7b3d93435f2a8e806f97e8ee0849",
+      "headRepository": "gmandyam/eat",
+      "headRefName": "TBD_based_on_IANA",
+      "headRefOid": "2b31e1e178291ca87bcdf065bf4930d0f0bfba1b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc51Zg0T",
+          "commit": {
+            "abbreviatedOid": "ee908ff"
+          },
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Changes to deb.cddl are needed in the comments.\r\n\r\nChanges to the Makefile are needed where substitution is done for TBDs.\r\n\r\nBasically, search the rendered document and all the document source for \"TBD\" to make sure you got them all (except for the ones that are for the RFC editor to fix).\r\n\r\nGetting close to done with the whole thing :-)\r\n",
+          "createdAt": "2024-03-29T21:28:11Z",
+          "updatedAt": "2024-03-29T21:49:00Z",
+          "comments": [
+            {
+              "originalPosition": 1,
+              "body": "Should remove this comment since it isn't true any more.",
+              "createdAt": "2024-03-29T21:28:11Z",
+              "updatedAt": "2024-03-29T21:49:00Z"
+            },
+            {
+              "originalPosition": 5,
+              "body": "Would be good to put these in numeric order.",
+              "createdAt": "2024-03-29T21:28:52Z",
+              "updatedAt": "2024-03-29T21:49:00Z"
+            },
+            {
+              "originalPosition": 21,
+              "body": "Maybe re-indent all the other lines to be the same as this line.",
+              "createdAt": "2024-03-29T21:29:22Z",
+              "updatedAt": "2024-03-29T21:49:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOCEWCXc51bIUW",
+          "commit": {
+            "abbreviatedOid": "a2f2bb2"
+          },
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "There's still a TBD602 in the .md document.  Plus the Makefile doesn't build for me.",
+          "createdAt": "2024-03-30T19:23:38Z",
+          "updatedAt": "2024-03-30T19:25:32Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "For my build env, these lines have to be completely removed.",
+              "createdAt": "2024-03-30T19:23:38Z",
+              "updatedAt": "2024-03-30T19:25:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOCEWCXc51bRTz",
+          "commit": {
+            "abbreviatedOid": "a2f2bb2"
+          },
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-31T02:50:15Z",
+          "updatedAt": "2024-03-31T02:50:15Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "I have commented them out,  but I don't see how the nc-cddl directory gets created by doing so.  I am still debugging other parts of my env to get the Makefile running, but leaving in those lines allowed for the nc-cddl directory to be created.",
+              "createdAt": "2024-03-31T02:50:15Z",
+              "updatedAt": "2024-03-31T02:50:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOCEWCXc51cdVI",
+          "commit": {
+            "abbreviatedOid": "2b31e1e"
+          },
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-03-31T19:12:08Z",
+          "updatedAt": "2024-03-31T19:12:15Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Just remove the two sed lines that do the \"TBD\" substitutions.",
+              "createdAt": "2024-03-31T19:12:08Z",
+              "updatedAt": "2024-03-31T19:12:15Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
