@@ -40,7 +40,7 @@ draft-ietf-rats-eat.md: $(NC_COMMON_CDDL_FRAGS) \
 # Rule to build CDDL files without CDDL comments
 # This also turns the unassigned integer labels in to "TBD"
 # Remove these substitutions when they are no longer TBD.
-#nc-cddl/%.cddl: cddl/%.cddl
+nc-cddl/%.cddl: cddl/%.cddl
 	mkdir -p nc-cddl
 	sed 's/;.*//' $< | \
            cat -s > $@
