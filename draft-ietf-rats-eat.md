@@ -2043,7 +2043,7 @@ following tag from the Specification Required space, with the present document a
 specification reference.
 
 | Tag    | Data Items     | Semantics                   |
-| TBD602 | array          | Detached EAT Bundle {{DEB}} |
+| 602 | array          | Detached EAT Bundle {{DEB}} |
 {: #deb-tag-reg title="Detached EAT Bundle Tag Registration"}
 
 --- back
