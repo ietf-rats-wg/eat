@@ -1,10 +1,13 @@
-/ This is a full CWT-format token with a very simple payloal. / 
-/ The main structure visible here is that of the COSE_Sign1.  /
+/ This is a full CWT-format token. The payload is the    /
+/ attestation hardware block above. The main structure   /
+/ visible is that of the COSE_Sign1.                     /
 
 61( 18( [
     h'A10126',                           / protected headers  /
     {},                           / empty unprotected headers / 
-    h'A20B46024A6B0978DE0A49000102030405060708',    / payload /
+    h'A60A4CD79B964DDD5471C1393C88881901005001
+      98F50A4FF6C05861C8860D13A638EA19010219FA
+      F2190106F5190107031901048263332E3101',        / payload /
     h'9B9B2F5E470000F6A20C8A4157B5763FC45BE759
       9A5334028517768C21AFFB845A56AB557E0C8973
       A07417391243A79C478562D285612E292C622162
