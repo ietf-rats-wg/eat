@@ -1033,11 +1033,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">EAT</td>
-<td class="right">January 2024</td>
+<td class="right">March 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lundblade, et al.</td>
-<td class="center">Expires 15 July 2024</td>
+<td class="center">Expires 2 October 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-rats-eat-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-01-12" class="published">12 January 2024</time>
+<time datetime="2024-03-31" class="published">31 March 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-07-15">15 July 2024</time></dd>
+<dd class="expires"><time datetime="2024-10-02">2 October 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1105,7 +1105,7 @@ claims.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -3073,8 +3073,8 @@ BUNDLE-Untagged-Message = Detached-EAT-Bundle
 Detached-EAT-Bundle = [
     main-token : Nested-Token,
     detached-claims-sets: {
-        + tstr =&gt; JC&lt;json-wrapped-claims-set,
-                     cbor-wrapped-claims-set&gt;
+        + tstr =&gt; JC-NEST-SAFE&lt;json-wrapped-claims-set,
+                               cbor-wrapped-claims-set&gt;
     }
 ]
 
@@ -3725,8 +3725,8 @@ BUNDLE-Untagged-Message = Detached-EAT-Bundle
 Detached-EAT-Bundle = [
     main-token : Nested-Token,
     detached-claims-sets: {
-        + tstr =&gt; JC&lt;json-wrapped-claims-set,
-                     cbor-wrapped-claims-set&gt;
+        + tstr =&gt; JC-NEST-SAFE&lt;json-wrapped-claims-set,
+                               cbor-wrapped-claims-set&gt;
     }
 ]
 
@@ -4133,7 +4133,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-8.4.1">CWT Claim Key: 256<a href="#section-10.2-8.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-8.5">
-            <p id="section-10.2-8.5.1">Claim Value Type(s): byte string<a href="#section-10.2-8.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-8.5.1">Claim Value Type(s): bstr<a href="#section-10.2-8.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-8.6">
             <p id="section-10.2-8.6.1">Change Controller: IETF<a href="#section-10.2-8.6.1" class="pilcrow">¶</a></p>
@@ -4205,7 +4205,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
             <p id="section-10.2-14.4.1">Claim Key: 259<a href="#section-10.2-14.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-14.5">
-            <p id="section-10.2-14.5.1">Claim Value Type(s): byte string<a href="#section-10.2-14.5.1" class="pilcrow">¶</a></p>
+            <p id="section-10.2-14.5.1">Claim Value Type(s): bstr<a href="#section-10.2-14.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.2-14.6">
             <p id="section-10.2-14.6.1">Change Controller: IETF<a href="#section-10.2-14.6.1" class="pilcrow">¶</a></p>
@@ -4806,7 +4806,7 @@ specification reference.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="CBOR.Cert.Draft">[CBOR.Cert.Draft]</dt>
         <dd>
-<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, and <span class="refAuthor">M. Furuhed</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-07</span>, <time datetime="2023-10-20" class="refDate">20 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-07">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-07</a>&gt;</span>. </dd>
+<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, and <span class="refAuthor">M. Furuhed</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-09</span>, <time datetime="2024-03-04" class="refDate">4 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-09">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="COSE.X509.Draft">[COSE.X509.Draft]</dt>
         <dd>
@@ -4854,11 +4854,11 @@ specification reference.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="SUIT.Manifest">[SUIT.Manifest]</dt>
         <dd>
-<span class="refAuthor">Moran, B.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Zandberg, K.</span>, and <span class="refAuthor">O. Rønningstad</span>, <span class="refTitle">"A Concise Binary Object Representation (CBOR)-based Serialization Format for the Software Updates for Internet of Things (SUIT) Manifest"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-suit-manifest-24</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-suit-manifest-24">https://datatracker.ietf.org/doc/html/draft-ietf-suit-manifest-24</a>&gt;</span>. </dd>
+<span class="refAuthor">Moran, B.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Zandberg, K.</span>, and <span class="refAuthor">O. Rønningstad</span>, <span class="refTitle">"A Concise Binary Object Representation (CBOR)-based Serialization Format for the Software Updates for Internet of Things (SUIT) Manifest"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-suit-manifest-25</span>, <time datetime="2024-02-05" class="refDate">5 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-suit-manifest-25">https://datatracker.ietf.org/doc/html/draft-ietf-suit-manifest-25</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="UCCS">[UCCS]</dt>
         <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">O'Donoghue, J.</span>, <span class="refAuthor">Cam-Winget, N.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"A CBOR Tag for Unprotected CWT Claims Sets"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-uccs-07</span>, <time datetime="2023-11-27" class="refDate">27 November 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-uccs-07">https://datatracker.ietf.org/doc/html/draft-ietf-rats-uccs-07</a>&gt;</span>. </dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">O'Donoghue, J.</span>, <span class="refAuthor">Cam-Winget, N.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"A CBOR Tag for Unprotected CWT Claims Sets"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-uccs-09</span>, <time datetime="2024-03-04" class="refDate">4 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-uccs-09">https://datatracker.ietf.org/doc/html/draft-ietf-rats-uccs-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="W3C.GeoLoc">[W3C.GeoLoc]</dt>
       <dd>
@@ -4896,11 +4896,9 @@ Some examples of signed tokens are also given.<a href="#appendix-A-1" class="pil
     / eat_nonce /       10: h'48df7b172d70b5a18935d0460a73dd71',
     / oemboot /        262: true,
     / dbgstat /        263: 2, / disabled-since-boot /
-    / manifests /      273: [
+    / manifests /      272: [
                               [
-                               121, / CoAP Content ID. A     /
-                                    / made up one until one  /
-                                    / is assigned for CoSWID /
+                               258, / CoAP Content ID.           /
 
                                / This is byte-string wrapped      /
                                / payload CoSWID. It gives the TEE /
@@ -4985,14 +4983,14 @@ Some examples of signed tokens are also given.<a href="#appendix-A-1" class="pil
 / document, but they are a valid use of submodules.         /
 
 {
-    / eat_nonce /       10: h'e253cabedc9eec24ac4e25bcbeaf7765'
+    / eat_nonce /       10: h'e253cabedc9eec24ac4e25bcbeaf7765',
     / ueid /           256: h'0198f50a4ff6c05861c8860d13a638ea',
     / oemid /          258: h'894823', / IEEE OUI format OEM ID /
     / hwmodel /        259: h'549dcecc8b987c737b44e40f7c635ce8'
                               / Hash of chip model name /,
     / hwversion /      260: ["1.3.4", 1], / Multipartnumeric  /
-    / swname /         271: "Acme OS",
-    / swversion /      272: ["3.5.5", 1],
+    / swname /         270: "Acme OS",
+    / swversion /      271: ["3.5.5", 1],
     / oemboot /        262: true,
     / dbgstat /        263: 3, / permanent-disable  /
     / timestamp (iat) /  6: 1526542894,
@@ -5025,7 +5023,7 @@ Some examples of signed tokens are also given.<a href="#appendix-A-1" class="pil
 <pre>
 / This is an example of a token produced by a HW block            /
 / purpose-built for attestation.  Only the nonce claim changes    /
-/ from one attestation to the next as the rest  either come       /
+/ from one attestation to the next as the rest either come        /
 / directly from the hardware or from one-time-programmable memory /
 / (e.g. a fuse). 47 bytes encoded in CBOR (8 byte nonce, 16 byte  /
 / UEID). /
@@ -5071,13 +5069,11 @@ Some examples of signed tokens are also given.<a href="#appendix-A-1" class="pil
 
 {
     / eat_nonce /       10: h'99b67438dba40743266f70bf75feb1026d5134
-                              97a229bfe8'
+                              97a229bfe8',
     / oemboot /        262: true,
     / dbgstat /        263: 2, / disabled-since-boot /
-    / manifests /      273: [
-                                [ 121, / CoAP Content ID. A      /
-                                       / made up one until one   /
-                                       / is assigned for CoSWID  /
+    / manifests /      272: [
+                                [ 258, / CoAP Content ID. /
                                   h'a600683762623334383766
                                     0c000169436172626f6e6974650d6331
                                     2e320e0102a2181f75496e6475737472
@@ -5108,10 +5104,8 @@ Some examples of signed tokens are also given.<a href="#appendix-A-1" class="pil
                            "HLOS" : { / submod for high-level OS /
          / eat_nonce /         10: h'8b0b28782a23d3f6',
            / oemboot /        262: true,
-           / manifests /      273: [
-                                [ 121, / CoAP Content ID. A      /
-                                       / made up one until one   /
-                                       / is assigned for CoSWID  /
+           / manifests /      272: [
+                                [ 258, / CoAP Content ID. /
                                     h'a600687337
                                       6537346b78380c000168
                                       44726f6964204f530d65
@@ -5153,7 +5147,7 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
 / the IoT OS and puts the measurements in the submodule.            /
 
 {
-    / eat_nonce / 10: h'5e19fba4483c7896'
+    / eat_nonce / 10: h'5e19fba4483c7896',
     / oemboot /  262: true,
     / dbgstat /  263: 2, / disabled-since-boot /
     / oemid /    258: h'8945ad', / IEEE CID based /
@@ -5162,11 +5156,9 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
                         "OS" : {
         / oemboot /         262: true,
         / dbgstat /         263: 2, / disabled-since-boot /
-        / measurements /    274: [
+        / measurements /    273: [
                                    [
-                                     121, / CoAP Content ID. A     /
-                                          / made up one until one  /
-                                          / is assigned for CoSWID /
+                                     258, / CoAP Content ID         /
 
                                     / This is a byte-string wrapped /
                                     / evidence CoSWID. It has       /
@@ -5377,9 +5369,7 @@ Since the signature covers the digest from the TEE that Claims-Set is also secur
 <p id="appendix-A.2.2-3">The detached EAT bundle itself can be assembled by untrusted software.<a href="#appendix-A.2.2-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-A.2.2-4">
 <pre>
-/ This is a detached EAT bundle tag.  Note that 602, the tag /
-/ identifying a detached EAT bundle is not yet registered /
-/ with IANA /
+/ This is a detached EAT bundle tag. /
 
 602([
 
@@ -5852,6 +5842,9 @@ CBOR-ONLY&lt;C&gt; = C .feature "cbor"
 
 JC&lt;J,C&gt; = JSON-ONLY&lt;J&gt; / CBOR-ONLY&lt;C&gt;
 
+; Same as JC&lt;&gt; but with unwound generic nesting as it seems to cause
+; problems. Perhaps this is the nesting problem described in RFC 8610.
+JC-NEST-SAFE&lt;J,C&gt; = J .feature "json" / C .feature "cbor"
 </pre><a href="#appendix-D-5" class="pilcrow">¶</a>
 </div>
 <div class="lang-CDDL sourcecode" id="appendix-D-6">

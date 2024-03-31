@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 15 July 2024                                                   
+Expires: 2 October 2024                                                 
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                         12 January 2024
+                                                           31 March 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 July 2024.
+   This Internet-Draft will expire on 2 October 2024.
 
 Copyright Notice
 
@@ -1796,8 +1796,8 @@ Table of Contents
    Detached-EAT-Bundle = [
        main-token : Nested-Token,
        detached-claims-sets: {
-           + tstr => JC<json-wrapped-claims-set,
-                        cbor-wrapped-claims-set>
+           + tstr => JC-NEST-SAFE<json-wrapped-claims-set,
+                                  cbor-wrapped-claims-set>
        }
    ]
 
@@ -2477,8 +2477,8 @@ Table of Contents
    Detached-EAT-Bundle = [
        main-token : Nested-Token,
        detached-claims-sets: {
-           + tstr => JC<json-wrapped-claims-set,
-                        cbor-wrapped-claims-set>
+           + tstr => JC-NEST-SAFE<json-wrapped-claims-set,
+                                  cbor-wrapped-claims-set>
        }
    ]
 
@@ -2835,7 +2835,7 @@ Table of Contents
 
    *  CWT Claim Key: 256
 
-   *  Claim Value Type(s): byte string
+   *  Claim Value Type(s): bstr
 
    *  Change Controller: IETF
 
@@ -2880,7 +2880,7 @@ Table of Contents
 
    *  Claim Key: 259
 
-   *  Claim Value Type(s): byte string
+   *  Claim Value Type(s): bstr
 
    *  Change Controller: IETF
 
@@ -3303,9 +3303,9 @@ Table of Contents
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-07, 20 October 2023,
+              ietf-cose-cbor-encoded-cert-09, 4 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-07>.
+              cbor-encoded-cert-09>.
 
    [COSE.X509.Draft]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
@@ -3373,15 +3373,15 @@ Table of Contents
               O. Rønningstad, "A Concise Binary Object Representation
               (CBOR)-based Serialization Format for the Software Updates
               for Internet of Things (SUIT) Manifest", Work in Progress,
-              Internet-Draft, draft-ietf-suit-manifest-24, 23 October
-              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              suit-manifest-24>.
+              Internet-Draft, draft-ietf-suit-manifest-25, 5 February
+              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              suit-manifest-25>.
 
    [UCCS]     Birkholz, H., O'Donoghue, J., Cam-Winget, N., and C.
               Bormann, "A CBOR Tag for Unprotected CWT Claims Sets",
-              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-07,
-              27 November 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-uccs-07>.
+              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-09,
+              4 March 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-uccs-09>.
 
    [W3C.GeoLoc]
               Popescu, A., Ed., "Geolocation API Specification", W3C
@@ -3415,11 +3415,9 @@ A.1.1.  Simple TEE Attestation
        / eat_nonce /       10: h'48df7b172d70b5a18935d0460a73dd71',
        / oemboot /        262: true,
        / dbgstat /        263: 2, / disabled-since-boot /
-       / manifests /      273: [
+       / manifests /      272: [
                                  [
-                                  121, / CoAP Content ID. A     /
-                                       / made up one until one  /
-                                       / is assigned for CoSWID /
+                                  258, / CoAP Content ID.           /
 
                                   / This is byte-string wrapped      /
                                   / payload CoSWID. It gives the TEE /
@@ -3493,14 +3491,14 @@ A.1.2.  Submodules for Board and Device
    / document, but they are a valid use of submodules.         /
 
    {
-       / eat_nonce /       10: h'e253cabedc9eec24ac4e25bcbeaf7765'
+       / eat_nonce /       10: h'e253cabedc9eec24ac4e25bcbeaf7765',
        / ueid /           256: h'0198f50a4ff6c05861c8860d13a638ea',
        / oemid /          258: h'894823', / IEEE OUI format OEM ID /
        / hwmodel /        259: h'549dcecc8b987c737b44e40f7c635ce8'
                                  / Hash of chip model name /,
        / hwversion /      260: ["1.3.4", 1], / Multipartnumeric  /
-       / swname /         271: "Acme OS",
-       / swversion /      272: ["3.5.5", 1],
+       / swname /         270: "Acme OS",
+       / swversion /      271: ["3.5.5", 1],
        / oemboot /        262: true,
        / dbgstat /        263: 3, / permanent-disable  /
        / timestamp (iat) /  6: 1526542894,
@@ -3525,7 +3523,7 @@ A.1.3.  EAT Produced by Attestation Hardware Block
 
    / This is an example of a token produced by a HW block            /
    / purpose-built for attestation.  Only the nonce claim changes    /
-   / from one attestation to the next as the rest  either come       /
+   / from one attestation to the next as the rest either come        /
    / directly from the hardware or from one-time-programmable memory /
    / (e.g. a fuse). 47 bytes encoded in CBOR (8 byte nonce, 16 byte  /
    / UEID). /
@@ -3562,13 +3560,11 @@ A.1.4.  Key / Key Store Attestation
 
    {
        / eat_nonce /       10: h'99b67438dba40743266f70bf75feb1026d5134
-                                 97a229bfe8'
+                                 97a229bfe8',
        / oemboot /        262: true,
        / dbgstat /        263: 2, / disabled-since-boot /
-       / manifests /      273: [
-                                   [ 121, / CoAP Content ID. A      /
-                                          / made up one until one   /
-                                          / is assigned for CoSWID  /
+       / manifests /      272: [
+                                   [ 258, / CoAP Content ID. /
                                      h'a600683762623334383766
                                        0c000169436172626f6e6974650d6331
                                        2e320e0102a2181f75496e6475737472
@@ -3599,10 +3595,8 @@ A.1.4.  Key / Key Store Attestation
                               "HLOS" : { / submod for high-level OS /
             / eat_nonce /         10: h'8b0b28782a23d3f6',
               / oemboot /        262: true,
-              / manifests /      273: [
-                                   [ 121, / CoAP Content ID. A      /
-                                          / made up one until one   /
-                                          / is assigned for CoSWID  /
+              / manifests /      272: [
+                                   [ 258, / CoAP Content ID. /
                                        h'a600687337
                                          6537346b78380c000168
                                          44726f6964204f530d65
@@ -3636,7 +3630,7 @@ A.1.5.  Software Measurements of an IoT Device
    / the IoT OS and puts the measurements in the submodule.            /
 
    {
-       / eat_nonce / 10: h'5e19fba4483c7896'
+       / eat_nonce / 10: h'5e19fba4483c7896',
        / oemboot /  262: true,
        / dbgstat /  263: 2, / disabled-since-boot /
        / oemid /    258: h'8945ad', / IEEE CID based /
@@ -3645,11 +3639,9 @@ A.1.5.  Software Measurements of an IoT Device
                            "OS" : {
            / oemboot /         262: true,
            / dbgstat /         263: 2, / disabled-since-boot /
-           / measurements /    274: [
+           / measurements /    273: [
                                       [
-                                        121, / CoAP Content ID. A     /
-                                             / made up one until one  /
-                                             / is assigned for CoSWID /
+                                        258, / CoAP Content ID         /
 
                                        / This is a byte-string wrapped /
                                        / evidence CoSWID. It has       /
@@ -3834,9 +3826,7 @@ A.2.2.  CBOR-encoded Detached EAT Bundle
    The detached EAT bundle itself can be assembled by untrusted
    software.
 
-   / This is a detached EAT bundle tag.  Note that 602, the tag /
-   / identifying a detached EAT bundle is not yet registered /
-   / with IANA /
+   / This is a detached EAT bundle tag. /
 
    602([
 
@@ -4251,6 +4241,10 @@ Appendix D.  CDDL for CWT and JWT
    CBOR-ONLY<C> = C .feature "cbor"
 
    JC<J,C> = JSON-ONLY<J> / CBOR-ONLY<C>
+
+   ; Same as JC<> but with unwound generic nesting as it seems to cause
+   ; problems. Perhaps this is the nesting problem described in RFC 8610.
+   JC-NEST-SAFE<J,C> = J .feature "json" / C .feature "cbor"
 
    ; A JWT message is either a JWS or JWE in compact serialization form
    ; with the payload a Claims-Set. Compact serialization is the
