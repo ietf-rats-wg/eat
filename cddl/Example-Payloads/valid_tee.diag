@@ -4,11 +4,9 @@
     / eat_nonce /       10: h'48df7b172d70b5a18935d0460a73dd71',
     / oemboot /        262: true,
     / dbgstat /        263: 2, / disabled-since-boot /
-    / manifests /      273: [
+    / manifests /      272: [
                               [
-                               121, / CoAP Content ID. A     /
-                                    / made up one until one  /
-                                    / is assigned for CoSWID /
+                               258, / CoAP Content ID.           /
 
                                / This is byte-string wrapped      /
                                / payload CoSWID. It gives the TEE /
