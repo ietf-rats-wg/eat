@@ -4,28 +4,26 @@
     / eat_nonce /       10: h'48df7b172d70b5a18935d0460a73dd71',
     / oemboot /        262: true,
     / dbgstat /        263: 2, / disabled-since-boot /
-    / manifests /      273: [
+    / manifests /      272: [
                               [
-                               121, / CoAP Content ID. A     /
-                                    / made up one until one  /
-                                    / is assigned for CoSWID /
+                               258, / CoAP Content ID for CoSWID    /
 
-                               / This is byte-string wrapped      /
-                               / payload CoSWID. It gives the TEE /
-                               / software name, the version and   /
-                               / the  name of the file it is in.  /
-                               / {0: "3a24",                      /
-                               /  12: 1,                          /
-                               /   1: "Acme TEE OS",              /
-                               /  13: "3.1.4",                    /
-                               /   2: [{31: "Acme TEE OS", 33: 1}, /
+                               / This is byte-string wrapped        /
+                               / payload CoSWID. It gives the TEE   /
+                               / software name, the version and     /
+                               / the  name of the file it is in.    /
+                               / {0: "3a24",                        /
+                               /  12: 1,                            /
+                               /   1: "Acme TEE OS",                /
+                               /  13: "3.1.4",                      /
+                               /   2: [{31: "Acme TEE OS", 33: 1},  /
                                /       {31: "Acme TEE OS", 33: 2}], /
-                               /   6: {                           /
-                               /       17: {                      /
-                               /           24: "acme_tee_3.exe"   /
-                               /       }                          /
-                               /    }                             /
-                               /  }                               /
+                               /   6: {                             /
+                               /       17: {                        /
+                               /           24: "acme_tee_3.exe"     /
+                               /       }                            /
+                               /    }                               /
+                               /  }                                 /
                                h' a60064336132340c01016b
                                   41636d6520544545204f530d65332e31
                                   2e340282a2181f6b41636d6520544545

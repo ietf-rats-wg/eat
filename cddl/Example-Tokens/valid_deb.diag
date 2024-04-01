@@ -1,6 +1,4 @@
-/ This is a detached EAT bundle tag.  Note that 602, the tag /
-/ identifying a detached EAT bundle is not yet registered /
-/ with IANA /
+/ This is a detached EAT bundle tag. /
 
 602([
 
@@ -33,7 +31,7 @@
       C0997122EA867F07B8D5EB',
     {
        / A CBOR-encoded byte-string wrapped EAT claims-set. It /
-       / contains claims suitable for a TEE                    /
+       / contains claims suitable for a TEE.                   /
        "TEE" : h'a40a48948f8860d13a463e190106f519010702
                  190111818218795858a60064336132340c0101
                  6b41636d6520544545204f530d65332e312e34

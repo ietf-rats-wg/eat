@@ -16,14 +16,14 @@
 / document, but they are a valid use of submodules.         /
 
 {
-    / eat_nonce /       10: h'e253cabedc9eec24ac4e25bcbeaf7765'
+    / eat_nonce /       10: h'e253cabedc9eec24ac4e25bcbeaf7765',
     / ueid /           256: h'0198f50a4ff6c05861c8860d13a638ea',
     / oemid /          258: h'894823', / IEEE OUI format OEM ID /
     / hwmodel /        259: h'549dcecc8b987c737b44e40f7c635ce8'
                               / Hash of chip model name /,
     / hwversion /      260: ["1.3.4", 1], / Multipartnumeric  /
-    / swname /         271: "Acme OS",
-    / swversion /      272: ["3.5.5", 1],
+    / swname /         270: "Acme OS",
+    / swversion /      271: ["3.5.5", 1],
     / oemboot /        262: true,
     / dbgstat /        263: 3, / permanent-disable  /
     / timestamp (iat) /  6: 1526542894,
