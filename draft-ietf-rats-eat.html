@@ -3074,8 +3074,8 @@ BUNDLE-Untagged-Message = Detached-EAT-Bundle
 Detached-EAT-Bundle = [
     main-token : Nested-Token,
     detached-claims-sets: {
-        + tstr =&gt; JC&lt;json-wrapped-claims-set,
-                     cbor-wrapped-claims-set&gt;
+        + tstr =&gt; JC-NEST-SAFE&lt;json-wrapped-claims-set,
+                               cbor-wrapped-claims-set&gt;
     }
 ]
 
@@ -3726,8 +3726,8 @@ BUNDLE-Untagged-Message = Detached-EAT-Bundle
 Detached-EAT-Bundle = [
     main-token : Nested-Token,
     detached-claims-sets: {
-        + tstr =&gt; JC&lt;json-wrapped-claims-set,
-                     cbor-wrapped-claims-set&gt;
+        + tstr =&gt; JC-NEST-SAFE&lt;json-wrapped-claims-set,
+                               cbor-wrapped-claims-set&gt;
     }
 ]
 
@@ -4896,28 +4896,26 @@ Some examples of signed tokens are also given.<a href="#appendix-A-1" class="pil
     / eat_nonce /       10: h'48df7b172d70b5a18935d0460a73dd71',
     / oemboot /        262: true,
     / dbgstat /        263: 2, / disabled-since-boot /
-    / manifests /      273: [
+    / manifests /      272: [
                               [
-                               121, / CoAP Content ID. A     /
-                                    / made up one until one  /
-                                    / is assigned for CoSWID /
+                               258, / CoAP Content ID for CoSWID    /
 
-                               / This is byte-string wrapped      /
-                               / payload CoSWID. It gives the TEE /
-                               / software name, the version and   /
-                               / the  name of the file it is in.  /
-                               / {0: "3a24",                      /
-                               /  12: 1,                          /
-                               /   1: "Acme TEE OS",              /
-                               /  13: "3.1.4",                    /
-                               /   2: [{31: "Acme TEE OS", 33: 1}, /
+                               / This is byte-string wrapped        /
+                               / payload CoSWID. It gives the TEE   /
+                               / software name, the version and     /
+                               / the  name of the file it is in.    /
+                               / {0: "3a24",                        /
+                               /  12: 1,                            /
+                               /   1: "Acme TEE OS",                /
+                               /  13: "3.1.4",                      /
+                               /   2: [{31: "Acme TEE OS", 33: 1},  /
                                /       {31: "Acme TEE OS", 33: 2}], /
-                               /   6: {                           /
-                               /       17: {                      /
-                               /           24: "acme_tee_3.exe"   /
-                               /       }                          /
-                               /    }                             /
-                               /  }                               /
+                               /   6: {                             /
+                               /       17: {                        /
+                               /           24: "acme_tee_3.exe"     /
+                               /       }                            /
+                               /    }                               /
+                               /  }                                 /
                                h' a60064336132340c01016b
                                   41636d6520544545204f530d65332e31
                                   2e340282a2181f6b41636d6520544545
@@ -4985,14 +4983,14 @@ Some examples of signed tokens are also given.<a href="#appendix-A-1" class="pil
 / document, but they are a valid use of submodules.         /
 
 {
-    / eat_nonce /       10: h'e253cabedc9eec24ac4e25bcbeaf7765'
+    / eat_nonce /       10: h'e253cabedc9eec24ac4e25bcbeaf7765',
     / ueid /           256: h'0198f50a4ff6c05861c8860d13a638ea',
     / oemid /          258: h'894823', / IEEE OUI format OEM ID /
     / hwmodel /        259: h'549dcecc8b987c737b44e40f7c635ce8'
                               / Hash of chip model name /,
     / hwversion /      260: ["1.3.4", 1], / Multipartnumeric  /
-    / swname /         271: "Acme OS",
-    / swversion /      272: ["3.5.5", 1],
+    / swname /         270: "Acme OS",
+    / swversion /      271: ["3.5.5", 1],
     / oemboot /        262: true,
     / dbgstat /        263: 3, / permanent-disable  /
     / timestamp (iat) /  6: 1526542894,
@@ -5025,7 +5023,7 @@ Some examples of signed tokens are also given.<a href="#appendix-A-1" class="pil
 <pre>
 / This is an example of a token produced by a HW block            /
 / purpose-built for attestation.  Only the nonce claim changes    /
-/ from one attestation to the next as the rest  either come       /
+/ from one attestation to the next as the rest either come        /
 / directly from the hardware or from one-time-programmable memory /
 / (e.g. a fuse). 47 bytes encoded in CBOR (8 byte nonce, 16 byte  /
 / UEID). /
@@ -5071,13 +5069,11 @@ Some examples of signed tokens are also given.<a href="#appendix-A-1" class="pil
 
 {
     / eat_nonce /       10: h'99b67438dba40743266f70bf75feb1026d5134
-                              97a229bfe8'
+                              97a229bfe8',
     / oemboot /        262: true,
     / dbgstat /        263: 2, / disabled-since-boot /
-    / manifests /      273: [
-                                [ 121, / CoAP Content ID. A      /
-                                       / made up one until one   /
-                                       / is assigned for CoSWID  /
+    / manifests /      272: [
+                                [ 258, / CoAP Content ID. /
                                   h'a600683762623334383766
                                     0c000169436172626f6e6974650d6331
                                     2e320e0102a2181f75496e6475737472
@@ -5108,10 +5104,8 @@ Some examples of signed tokens are also given.<a href="#appendix-A-1" class="pil
                            "HLOS" : { / submod for high-level OS /
          / eat_nonce /         10: h'8b0b28782a23d3f6',
            / oemboot /        262: true,
-           / manifests /      273: [
-                                [ 121, / CoAP Content ID. A      /
-                                       / made up one until one   /
-                                       / is assigned for CoSWID  /
+           / manifests /      272: [
+                                [ 258, / CoAP Content ID. /
                                     h'a600687337
                                       6537346b78380c000168
                                       44726f6964204f530d65
@@ -5153,7 +5147,7 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
 / the IoT OS and puts the measurements in the submodule.            /
 
 {
-    / eat_nonce / 10: h'5e19fba4483c7896'
+    / eat_nonce / 10: h'5e19fba4483c7896',
     / oemboot /  262: true,
     / dbgstat /  263: 2, / disabled-since-boot /
     / oemid /    258: h'8945ad', / IEEE CID based /
@@ -5162,11 +5156,9 @@ The CoSWID is in byte-string wrapped in the token and also shown in diagnostic f
                         "OS" : {
         / oemboot /         262: true,
         / dbgstat /         263: 2, / disabled-since-boot /
-        / measurements /    274: [
+        / measurements /    273: [
                                    [
-                                     121, / CoAP Content ID. A     /
-                                          / made up one until one  /
-                                          / is assigned for CoSWID /
+                                     258, / CoAP Content ID         /
 
                                     / This is a byte-string wrapped /
                                     / evidence CoSWID. It has       /
@@ -5348,13 +5340,16 @@ gjw4nFMhLpJUuPXvMPzK1GMjhyJq2vWXg1416XKszwQ"
 <p id="appendix-A.2.1-1">This is a simple CWT-format token signed with the ECDSA algorithm.<a href="#appendix-A.2.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-A.2.1-2">
 <pre>
-/ This is a full CWT-format token with a very simple payloal. /
-/ The main structure visible here is that of the COSE_Sign1.  /
+/ This is a full CWT-format token. The payload is the    /
+/ attestation hardware block above. The main structure   /
+/ visible is that of the COSE_Sign1.                     /
 
 61( 18( [
     h'A10126',                           / protected headers  /
     {},                           / empty unprotected headers /
-    h'A20B46024A6B0978DE0A49000102030405060708',    / payload /
+    h'A60A4CD79B964DDD5471C1393C88881901005001
+      98F50A4FF6C05861C8860D13A638EA19010219FA
+      F2190106F5190107031901048263332E3101',        / payload /
     h'9B9B2F5E470000F6A20C8A4157B5763FC45BE759
       9A5334028517768C21AFFB845A56AB557E0C8973
       A07417391243A79C478562D285612E292C622162
@@ -5377,9 +5372,7 @@ Since the signature covers the digest from the TEE that Claims-Set is also secur
 <p id="appendix-A.2.2-3">The detached EAT bundle itself can be assembled by untrusted software.<a href="#appendix-A.2.2-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-A.2.2-4">
 <pre>
-/ This is a detached EAT bundle tag.  Note that 602, the tag /
-/ identifying a detached EAT bundle is not yet registered /
-/ with IANA /
+/ This is a detached EAT bundle tag. /
 
 602([
 
@@ -5412,7 +5405,7 @@ Since the signature covers the digest from the TEE that Claims-Set is also secur
       C0997122EA867F07B8D5EB',
     {
        / A CBOR-encoded byte-string wrapped EAT claims-set. It /
-       / contains claims suitable for a TEE                    /
+       / contains claims suitable for a TEE.                   /
        "TEE" : h'a40a48948f8860d13a463e190106f519010702
                  190111818218795858a60064336132340c0101
                  6b41636d6520544545204f530d65332e312e34
@@ -5430,7 +5423,7 @@ Since the signature covers the digest from the TEE that Claims-Set is also secur
 / This example contains submodule that is a detached digest,   /
 / which is the hash of a Claims-Set convey outside this token. /
 / Other than that is is the other example of a token from an   /
-/ attestation HW block                                         /
+/ attestation HW block.                                        /
 
 {
     / eat_nonce /       10: h'3515744961254b41a6cf9c02',
@@ -5852,6 +5845,9 @@ CBOR-ONLY&lt;C&gt; = C .feature "cbor"
 
 JC&lt;J,C&gt; = JSON-ONLY&lt;J&gt; / CBOR-ONLY&lt;C&gt;
 
+; Same as JC&lt;&gt; but with unwound generic nesting as it seems to cause
+; problems. Perhaps this is the nesting problem described in RFC 8610.
+JC-NEST-SAFE&lt;J,C&gt; = J .feature "json" / C .feature "cbor"
 </pre><a href="#appendix-D-5" class="pilcrow">¶</a>
 </div>
 <div class="lang-CDDL sourcecode" id="appendix-D-6">
