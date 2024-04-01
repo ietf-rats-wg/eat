@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-31T19:49:46.786846+00:00",
+  "timestamp": "2024-04-01T17:24:54.106931+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -4726,16 +4726,24 @@
       "id": "I_kwDOCEWCXc6AjTUv",
       "title": "small typos in examples",
       "url": "https://github.com/ietf-rats-wg/eat/issues/447",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "thomas-fossati",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "A couple of small typos in the examples (A.1):\r\n\r\n* `/ manifests / 273` should be `/ measurements / 273`\r\n* the made-up CoAP C-F for CoSWID should be replaced by `258` (the assigned C-F)\r\n\r\n",
       "createdAt": "2024-02-27T14:26:39Z",
-      "updatedAt": "2024-02-27T14:26:39Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2024-04-01T03:55:42Z",
+      "closedAt": "2024-04-01T03:55:42Z",
+      "comments": [
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixed by #450 \r\n\r\nIn this example, the CoSWID is a payload CoSWID, so a manifest, not a measurement. The label is wrong though.",
+          "createdAt": "2024-04-01T03:55:42Z",
+          "updatedAt": "2024-04-01T03:55:42Z"
+        }
+      ]
     },
     {
       "number": 448,
@@ -23668,25 +23676,35 @@
       "id": "PR_kwDOCEWCXc5rM3-t",
       "title": "Tbd based on iana",
       "url": "https://github.com/ietf-rats-wg/eat/pull/449",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "gmandyam",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-03-29T20:52:36Z",
-      "updatedAt": "2024-03-31T19:12:15Z",
+      "updatedAt": "2024-04-01T17:23:58Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "a0f5db72bd1a7b3d93435f2a8e806f97e8ee0849",
       "headRepository": "gmandyam/eat",
       "headRefName": "TBD_based_on_IANA",
-      "headRefOid": "2b31e1e178291ca87bcdf065bf4930d0f0bfba1b",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "a74d6e90e689849f0420876b5c2accd16561bdd1",
+      "closedAt": "2024-04-01T17:23:58Z",
+      "mergedAt": "2024-04-01T17:23:57Z",
+      "mergedBy": "gmandyam",
+      "mergeCommit": {
+        "oid": "15c32518235951957d1c998f2430df05788cb3a4"
+      },
+      "comments": [
+        {
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@laurencelundblade \r\n\r\nMakefile now runs on my end and rendered test has no TBD's.  Please re-run on your end, and if there are no further changes required then merge.  Thanks.",
+          "createdAt": "2024-03-31T20:17:39Z",
+          "updatedAt": "2024-03-31T20:17:39Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOCEWCXc51Zg0T",
@@ -23781,6 +23799,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": 450,
+      "id": "PR_kwDOCEWCXc5rQh8n",
+      "title": "Fix/update examples and CDDL validation",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/450",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This updates the examples with the IANA-assigned labels and tags.\r\n\r\nThis fixes some errors in the examples, mostly missing commas.\r\n\r\nThere is a change to the normative CDDL to compensate for a bug in the cddl tool. RFC 8610 says that there is a problem with generics nesting in the cddl tool. This is presumed to be the cause of the problem. The solution is to provide a non-nested version of the JC<> generic for use in contexts where the cddl validation gets confused. (It didn't produce an error, it just didn't validate correct input; the solution was found by extensive trial and error).",
+      "createdAt": "2024-03-31T19:53:08Z",
+      "updatedAt": "2024-03-31T23:07:10Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "a0f5db72bd1a7b3d93435f2a8e806f97e8ee0849",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "examples-update",
+      "headRefOid": "ec107df5a4372d830d1e0396557ccc1af9ec6ea5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
