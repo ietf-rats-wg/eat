@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 17 July 2024                                                   
+Expires: 3 October 2024                                     Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                         14 January 2024
+                                                            1 April 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 July 2024.
+   This Internet-Draft will expire on 3 October 2024.
 
 Copyright Notice
 
@@ -1777,7 +1777,7 @@ Table of Contents
    *  MUST be wrapped in a byte string when the encoding is CBOR and be
       base64url-encoded when the encoding is JSON
 
-   For CBOR-encoded detached EAT bundles, tag TBD602 can be used to
+   For CBOR-encoded detached EAT bundles, tag 602 can be used to
    identify it.  The standard rules apply for use or non-use of a tag.
    When it is sent as a submodule, it is always sent as a tag to
    distinguish it from the other types of nested tokens.
@@ -1790,7 +1790,7 @@ Table of Contents
 
    BUNDLE-Messages = BUNDLE-Tagged-Message / BUNDLE-Untagged-Message
 
-   BUNDLE-Tagged-Message   = #6.TBD602(BUNDLE-Untagged-Message)
+   BUNDLE-Tagged-Message   = #6.602(BUNDLE-Untagged-Message)
    BUNDLE-Untagged-Message = Detached-EAT-Bundle
 
    Detached-EAT-Bundle = [
@@ -2471,7 +2471,7 @@ Table of Contents
 
    BUNDLE-Messages = BUNDLE-Tagged-Message / BUNDLE-Untagged-Message
 
-   BUNDLE-Tagged-Message   = #6.TBD602(BUNDLE-Untagged-Message)
+   BUNDLE-Tagged-Message   = #6.602(BUNDLE-Untagged-Message)
    BUNDLE-Untagged-Message = Detached-EAT-Bundle
 
    Detached-EAT-Bundle = [
@@ -2488,28 +2488,27 @@ Table of Contents
 
 
 
-   nonce-label            = JC< "eat_nonce",  10 >
-   ueid-label             = JC< "ueid",       256 >
-   sueids-label           = JC< "sueids",     257 >
-   oemid-label            = JC< "oemid",      258 >
-   hardware-model-label   = JC< "hwmodel",    259 >
-   hardware-version-label = JC< "hwversion",  260 >
-   oem-boot-label         = JC< "oemboot",    262 >
-   debug-status-label     = JC< "dbgstat",    263 >
-   location-label         = JC< "location",   264 >
-   profile-label          = JC< "eat_profile",265 >
-   submods-label          = JC< "submods",    266 >
-
-   uptime-label           = JC< "uptime",     TBD >
-   boot-seed-label        = JC< "bootseed",   TBD >
-   intended-use-label     = JC< "intuse",     TBD >
-   dloas-label            = JC< "dloas",      TBD >
-   sw-name-label          = JC< "swname",     TBD >
-   sw-version-label       = JC< "swversion",  TBD >
-   manifests-label        = JC< "manifests",  TBD >
-   measurements-label     = JC< "measurements", TBD >
-   measurement-results-label = JC< "measres" , TBD >
-   boot-count-label       = JC< "bootcount",  TBD >
+   nonce-label                = JC< "eat_nonce",    10 >
+   ueid-label                 = JC< "ueid",         256 >
+   sueids-label               = JC< "sueids",       257 >
+   oemid-label                = JC< "oemid",        258 >
+   hardware-model-label       = JC< "hwmodel",      259 >
+   hardware-version-label     = JC< "hwversion",    260 >
+   uptime-label               = JC< "uptime",       261 >
+   oem-boot-label             = JC< "oemboot",      262 >
+   debug-status-label         = JC< "dbgstat",      263 >
+   location-label             = JC< "location",     264 >
+   profile-label              = JC< "eat_profile",  265 >
+   submods-label              = JC< "submods",      266 >
+   boot-count-label           = JC< "bootcount",    267 >
+   boot-seed-label            = JC< "bootseed",     268 >
+   dloas-label                = JC< "dloas",        269 >
+   sw-name-label              = JC< "swname",       270 >
+   sw-version-label           = JC< "swversion",    271 >
+   manifests-label            = JC< "manifests",    272 >
+   measurements-label         = JC< "measurements", 273 >
+   measurement-results-label  = JC< "measres" ,     274 >
+   intended-use-label         = JC< "intuse",       275 >
 
 7.3.2.  CBOR-Specific CDDL
 
@@ -2893,7 +2892,7 @@ Table of Contents
 
    *  JWT Claim Name: "hwversion"
 
-   *  Claim Key: TBD 260
+   *  Claim Key: 260
 
    *  Claim Value Type(s): array
 
@@ -2984,7 +2983,7 @@ Table of Contents
 
    *  JWT Claim Name: "uptime"
 
-   *  Claim Key: TBD
+   *  Claim Key: 261
 
    *  Claim Value Type(s): uint
 
@@ -3000,7 +2999,7 @@ Table of Contents
 
    *  JWT Claim Name: "bootcount"
 
-   *  Claim Key: TBD
+   *  Claim Key: 267
 
    *  Claim Value Type(s): uint
 
@@ -3015,7 +3014,7 @@ Table of Contents
 
    *  JWT Claim Name: "bootseed"
 
-   *  Claim Key: TBD
+   *  Claim Key: 268
 
    *  Claim Value Type(s): bstr
 
@@ -3031,7 +3030,7 @@ Table of Contents
 
    *  JWT Claim Name: "dloas"
 
-   *  Claim Key: TBD
+   *  Claim Key: 269
 
    *  Claim Value Type(s): array
 
@@ -3046,7 +3045,7 @@ Table of Contents
 
    *  JWT Claim Name: "swname"
 
-   *  Claim Key: TBD
+   *  Claim Key: 270
 
    *  Claim Value Type(s): tstr
 
@@ -3061,7 +3060,7 @@ Table of Contents
 
    *  JWT Claim Name: "swversion"
 
-   *  Claim Key: TBD
+   *  Claim Key: 271
 
    *  Claim Value Type(s): array
 
@@ -3077,7 +3076,7 @@ Table of Contents
 
    *  JWT Claim Name: "manifests"
 
-   *  Claim Key: TBD
+   *  Claim Key: 272
 
    *  Claim Value Type(s): array
 
@@ -3093,7 +3092,7 @@ Table of Contents
 
    *  JWT Claim Name: "measurements"
 
-   *  Claim Key: TBD
+   *  Claim Key: 273
 
    *  Claim Value Type(s): array
 
@@ -3109,7 +3108,7 @@ Table of Contents
 
    *  JWT Claim Name: "measres"
 
-   *  Claim Key: TBD
+   *  Claim Key: 274
 
    *  Claim Value Type(s): array
 
@@ -3124,7 +3123,7 @@ Table of Contents
 
    *  JWT Claim Name: "intuse"
 
-   *  Claim Key: TBD
+   *  Claim Key: 275
 
    *  Claim Value Type(s): uint
 
@@ -3160,13 +3159,13 @@ Table of Contents
    following tag from the Specification Required space, with the present
    document as the specification reference.
 
-          +========+============+===============================+
-          | Tag    | Data Items | Semantics                     |
-          +========+============+===============================+
-          | TBD602 | array      | Detached EAT Bundle Section 5 |
-          +--------+------------+-------------------------------+
+           +=====+============+===============================+
+           | Tag | Data Items | Semantics                     |
+           +=====+============+===============================+
+           | 602 | array      | Detached EAT Bundle Section 5 |
+           +-----+------------+-------------------------------+
 
-               Table 4: Detached EAT Bundle Tag Registration
+              Table 4: Detached EAT Bundle Tag Registration
 
 11.  References
 
@@ -3303,9 +3302,9 @@ Table of Contents
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-07, 20 October 2023,
+              ietf-cose-cbor-encoded-cert-09, 4 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-07>.
+              cbor-encoded-cert-09>.
 
    [COSE.X509.Draft]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
@@ -3373,15 +3372,15 @@ Table of Contents
               O. Rønningstad, "A Concise Binary Object Representation
               (CBOR)-based Serialization Format for the Software Updates
               for Internet of Things (SUIT) Manifest", Work in Progress,
-              Internet-Draft, draft-ietf-suit-manifest-24, 23 October
-              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              suit-manifest-24>.
+              Internet-Draft, draft-ietf-suit-manifest-25, 5 February
+              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              suit-manifest-25>.
 
    [UCCS]     Birkholz, H., O'Donoghue, J., Cam-Winget, N., and C.
               Bormann, "A CBOR Tag for Unprotected CWT Claims Sets",
-              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-07,
-              27 November 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-uccs-07>.
+              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-09,
+              4 March 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-uccs-09>.
 
    [W3C.GeoLoc]
               Popescu, A., Ed., "Geolocation API Specification", W3C
@@ -4529,6 +4528,7 @@ Authors' Addresses
 
 
    Giridhar Mandyam
+   Mediatek USA
    Email: giridhar.mandyam@gmail.com
 
 
