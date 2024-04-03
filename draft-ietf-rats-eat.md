@@ -31,6 +31,7 @@ author:
   email: lgl@securitytheory.com
 - ins: G. Mandyam
   name: Giridhar Mandyam
+  org: Mediatek USA
   email: giridhar.mandyam@gmail.com
 - ins: J. O'Donoghue
   name: Jeremy O'Donoghue
@@ -113,6 +114,7 @@ normative:
     target: https://pen.iana.org/pen/PenApplication.page
     title: Private Enterprise Number (PEN) Request
 
+  SUIT.Manifest: I-D.ietf-suit-manifest
 
   IANA.cbor-tags:
 
@@ -153,8 +155,6 @@ informative:
   CBOR.Cert.Draft: I-D.ietf-cose-cbor-encoded-cert
 
   UCCS: I-D.ietf-rats-uccs
-
-  SUIT.Manifest: I-D.ietf-suit-manifest
 
   JTAG:
     title: IEEE Standard for Reduced-Pin and Enhanced-Functionality Test Access Port and Boundary-Scan Architecture
@@ -1249,7 +1249,7 @@ The second part is a map/object as follows:
 * MUST use the same encoding as the bundle
 * MUST be wrapped in a byte string when the encoding is CBOR and be base64url-encoded when the encoding is JSON
 
-For CBOR-encoded detached EAT bundles, tag TBD602 can be used to identify it.
+For CBOR-encoded detached EAT bundles, tag 602 can be used to identify it.
 The standard rules apply for use or non-use of a tag.
 When it is sent as a submodule, it is always sent as a tag to distinguish it from the other types of nested tokens.
 
@@ -1862,7 +1862,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Hardware Version
 * Claim Description: Hardware Version Identifier
 * JWT Claim Name: "hwversion"
-* Claim Key: TBD 260
+* Claim Key: 260
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1922,7 +1922,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Uptime
 * Claim Description: Uptime
 * JWT Claim Name: "uptime"
-* Claim Key: TBD
+* Claim Key: 261
 * Claim Value Type(s): uint
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1932,7 +1932,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Boot Count
 * Claim Description: The number times the entity or submodule has been booted
 * JWT Claim Name: "bootcount"
-* Claim Key: TBD
+* Claim Key: 267
 * Claim Value Type(s): uint
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1942,7 +1942,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Boot Seed
 * Claim Description: Identifies a boot cycle
 * JWT Claim Name: "bootseed"
-* Claim Key: TBD
+* Claim Key: 268
 * Claim Value Type(s): bstr
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1952,7 +1952,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: DLOAs
 * Claim Description: Certifications received as Digital Letters of Approval
 * JWT Claim Name: "dloas"
-* Claim Key: TBD
+* Claim Key: 269
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1962,7 +1962,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Software Name
 * Claim Description: The name of the software running in the entity
 * JWT Claim Name: "swname"
-* Claim Key: TBD
+* Claim Key: 270
 * Claim Value Type(s): tstr
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1972,7 +1972,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Software Version
 * Claim Description: The version of software running in the entity
 * JWT Claim Name: "swversion"
-* Claim Key: TBD
+* Claim Key: 271
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1982,7 +1982,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Software Manifests
 * Claim Description: Manifests describing the software installed on the entity
 * JWT Claim Name: "manifests"
-* Claim Key: TBD
+* Claim Key: 272
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1992,7 +1992,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Measurements
 * Claim Description: Measurements of the software, memory configuration and such on the entity
 * JWT Claim Name: "measurements"
-* Claim Key: TBD
+* Claim Key: 273
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -2002,7 +2002,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Software Measurement Results
 * Claim Description: The results of comparing software measurements to reference values
 * JWT Claim Name: "measres"
-* Claim Key: TBD
+* Claim Key: 274
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -2012,7 +2012,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Intended Use
 * Claim Description: Indicates intended use of the EAT
 * JWT Claim Name: "intuse"
-* Claim Key: TBD
+* Claim Key: 275
 * Claim Value Type(s): uint
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -2042,7 +2042,7 @@ following tag from the Specification Required space, with the present document a
 specification reference.
 
 | Tag    | Data Items     | Semantics                   |
-| TBD602 | array          | Detached EAT Bundle {{DEB}} |
+| 602 | array          | Detached EAT Bundle {{DEB}} |
 {: #deb-tag-reg title="Detached EAT Bundle Tag Registration"}
 
 --- back
@@ -2545,10 +2545,8 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-24
-- Use only CDDL definition names for "Claim Value Type" column in CWT claim registry
-- Correct the "Claim Value Type" for some claims
-- Make SUIT reference informative (it use is optional in an optional claim)
+## From draft-ietf-rats-eat-25
+- Change SUIT Manifest reference back to normative
 
 --- contributor
 

@@ -8,8 +8,8 @@ BUNDLE-Untagged-Message = Detached-EAT-Bundle
 Detached-EAT-Bundle = [
     main-token : Nested-Token,
     detached-claims-sets: {
-        + tstr => JC<json-wrapped-claims-set,
-                     cbor-wrapped-claims-set>
+        + tstr => JC-NEST-SAFE<json-wrapped-claims-set,
+                               cbor-wrapped-claims-set>
     }
 ]
 
