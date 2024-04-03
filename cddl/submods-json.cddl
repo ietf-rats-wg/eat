@@ -26,9 +26,11 @@ Nested-Token = JSON-Selector
 JSON-Selector = $JSON-Selector
 
 $JSON-Selector /= [type: "JWT", nested-token: JWT-Message]
-$JSON-Selector /= [type: "CBOR", nested-token: CBOR-Token-Inside-JSON-Token]
+$JSON-Selector /= [type: "CBOR", nested-token: 
+  CBOR-Token-Inside-JSON-Token]
 $JSON-Selector /= [type: "BUNDLE", nested-token: Detached-EAT-Bundle]
-$JSON-Selector /= [type: "DIGEST", nested-token: Detached-Submodule-Digest]
+$JSON-Selector /= [type: "DIGEST", nested-token: 
+  Detached-Submodule-Digest]
 
 ; After the base64url encoding is removed, the contents of this are a
 ; $$EAT-CBOR-Tagged-Token (see eat-cbor.cddl) encoded in **CBOR**.
