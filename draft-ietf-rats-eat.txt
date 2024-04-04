@@ -1512,9 +1512,11 @@ Table of Contents
    JSON-Selector = $JSON-Selector
 
    $JSON-Selector /= [type: "JWT", nested-token: JWT-Message]
-   $JSON-Selector /= [type: "CBOR", nested-token: CBOR-Token-Inside-JSON-Token]
+   $JSON-Selector /= [type: "CBOR", nested-token:
+     CBOR-Token-Inside-JSON-Token]
    $JSON-Selector /= [type: "BUNDLE", nested-token: Detached-EAT-Bundle]
-   $JSON-Selector /= [type: "DIGEST", nested-token: Detached-Submodule-Digest]
+   $JSON-Selector /= [type: "DIGEST", nested-token:
+     Detached-Submodule-Digest]
 
    CBOR-Token-Inside-JSON-Token = base64-url-text
 
@@ -2549,9 +2551,11 @@ Table of Contents
    JSON-Selector = $JSON-Selector
 
    $JSON-Selector /= [type: "JWT", nested-token: JWT-Message]
-   $JSON-Selector /= [type: "CBOR", nested-token: CBOR-Token-Inside-JSON-Token]
+   $JSON-Selector /= [type: "CBOR", nested-token:
+     CBOR-Token-Inside-JSON-Token]
    $JSON-Selector /= [type: "BUNDLE", nested-token: Detached-EAT-Bundle]
-   $JSON-Selector /= [type: "DIGEST", nested-token: Detached-Submodule-Digest]
+   $JSON-Selector /= [type: "DIGEST", nested-token:
+     Detached-Submodule-Digest]
 
    CBOR-Token-Inside-JSON-Token = base64-url-text
 
@@ -4245,7 +4249,8 @@ Appendix D.  CDDL for CWT and JWT
    JC<J,C> = JSON-ONLY<J> / CBOR-ONLY<C>
 
    ; Same as JC<> but with unwound generic nesting as it seems to cause
-   ; problems. Perhaps this is the nesting problem described in RFC 8610.
+   ; problems. Perhaps this is the nesting problem described in RFC
+   ; 8610.
    JC-NEST-SAFE<J,C> = J .feature "json" / C .feature "cbor"
 
    ; A JWT message is either a JWS or JWE in compact serialization form
