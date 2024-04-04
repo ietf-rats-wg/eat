@@ -29,5 +29,6 @@ CBOR-ONLY<C> = C .feature "cbor"
 JC<J,C> = JSON-ONLY<J> / CBOR-ONLY<C>
 
 ; Same as JC<> but with unwound generic nesting as it seems to cause
-; problems. Perhaps this is the nesting problem described in RFC 8610.
+; problems. Perhaps this is the nesting problem described in RFC 
+; 8610.
 JC-NEST-SAFE<J,C> = J .feature "json" / C .feature "cbor"
