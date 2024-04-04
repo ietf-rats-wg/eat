@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 3 October 2024                                     Mediatek USA
+Expires: 6 October 2024                                     Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                            1 April 2024
+                                                            4 April 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 October 2024.
+   This Internet-Draft will expire on 6 October 2024.
 
 Copyright Notice
 
@@ -1542,8 +1542,8 @@ Table of Contents
    In all other cases, it is a JSON-Selector, which is an array of two
    elements that indicates whether the submodule is a nested token or a
    Detached-Submodule-Digest.The first element in the array indicates
-   the type present in the second element.  If the value is “JWT”,
-   “CBOR”, “BUNDLE” or a future-standardized token types, e.g., [UCCS],
+   the type present in the second element.  If the value is "JWT",
+   "CBOR", "BUNDLE" or a future-standardized token types, e.g., [UCCS],
    the submodule is a nested token of the indicated type, i.e., JWT-
    Message, CBOR-Token-Inside-JSON-Token, Detached-EAT-Bundle, or a
    future type.  If the value is "DIGEST", the submodule is a Detached-
@@ -1564,9 +1564,9 @@ Table of Contents
    in JSON-encoded enclosing token.
 
    The type of a JSON-encoded nested token is always determined by the
-   string name in JSON-Selector and is always “JWT”, “BUNDLE” or a new
+   string name in JSON-Selector and is always "JWT", "BUNDLE" or a new
    name standardized outside this document for a further type (e.g.,
-   “UCCS”).  This string name may also be “CBOR” to indicate the nested
+   "UCCS").  This string name may also be "CBOR" to indicate the nested
    token is CBOR-encoded.
 
    "JWT":  The second array item MUST be a JWT formatted according to
@@ -3326,9 +3326,9 @@ Table of Contents
    [EAT.media-types]
               Lundblade, L., Birkholz, H., and T. Fossati, "EAT Media
               Types", Work in Progress, Internet-Draft, draft-ietf-rats-
-              eat-media-type-05, 7 November 2023,
+              eat-media-type-07, 2 April 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              eat-media-type-05>.
+              eat-media-type-07>.
 
    [IEEE-RA]  "IEEE Registration Authority",
               <https://standards.ieee.org/products-services/regauth/
