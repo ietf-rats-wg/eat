@@ -1072,7 +1072,7 @@ The addition of further types is accomplished by augmenting the $EAT-CBOR-Tagged
 When decoding a JSON-encoded EAT, the type of submodule is determined as follows.
 A JSON object indicates the submodule is a Claims-Set.
 In all other cases, it is a JSON-Selector, which is an array of two elements that indicates whether the submodule is a nested token or a Detached-Submodule-Digest.The first element in the array indicates the type present in the second element.
-If the value is “JWT”, “CBOR”, “BUNDLE” or a future-standardized token types, e.g., {{UCCS}}, the submodule is a nested token of the indicated type, i.e., JWT-Message, CBOR-Token-Inside-JSON-Token, Detached-EAT-Bundle, or a future type.
+If the value is "JWT", "CBOR", "BUNDLE" or a future-standardized token types, e.g., {{UCCS}}, the submodule is a nested token of the indicated type, i.e., JWT-Message, CBOR-Token-Inside-JSON-Token, Detached-EAT-Bundle, or a future type.
 If the value is "DIGEST", the submodule is a Detached-Submodule-Digest.
 Any other value indicates a standardized extension to this specification.
 
@@ -1084,8 +1084,8 @@ A text string indicates a JSON-encoded JSON-Selector. Where JSON-Selector is use
 
 The type of a CBOR-encoded nested token is always determined by the CBOR tag encountered after the byte string wrapping is removed in a CBOR-encoded enclosing token or after the base64 wrapping is removed in JSON-encoded enclosing token.
 
-The type of a JSON-encoded nested token is always determined by the string name in JSON-Selector and is always “JWT”, “BUNDLE” or a new name standardized outside this document for a further type (e.g., “UCCS”).
-This string name may also be “CBOR” to indicate the nested token is CBOR-encoded.
+The type of a JSON-encoded nested token is always determined by the string name in JSON-Selector and is always "JWT", "BUNDLE" or a new name standardized outside this document for a further type (e.g., "UCCS").
+This string name may also be "CBOR" to indicate the nested token is CBOR-encoded.
 
 "JWT":
 : The second array item MUST be a JWT formatted according to {{RFC7519}}
