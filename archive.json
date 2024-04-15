@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-15T05:28:41.723690+00:00",
+  "timestamp": "2024-04-15T17:59:47.122363+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -23910,6 +23910,34 @@
       "mergedBy": "laurencelundblade",
       "mergeCommit": {
         "oid": "0f036c0dce08ca2b3be5e15799d97a7b469de25b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 453,
+      "id": "PR_kwDOCEWCXc5soFY_",
+      "title": "JSON-format example fixes",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/453",
+      "state": "MERGED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Using latest cddl tool that can validate into b64 and json some issues with the JSON examples and b64 encoding were found.",
+      "createdAt": "2024-04-15T05:29:33Z",
+      "updatedAt": "2024-04-15T17:59:01Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "b615298360e36493002e4558d06b7bbc1c3e9b33",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "b64fixes",
+      "headRefOid": "3e526bce0e7732638a56da10a41b5ae5d9649e02",
+      "closedAt": "2024-04-15T17:58:57Z",
+      "mergedAt": "2024-04-15T17:58:57Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "45891cbc221f76ee84501b06d95fdb1e98fac28d"
       },
       "comments": [],
       "reviews": []
