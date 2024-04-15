@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 6 October 2024                                     Mediatek USA
+Expires: 17 October 2024                                    Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                            4 April 2024
+                                                           15 April 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 October 2024.
+   This Internet-Draft will expire on 17 October 2024.
 
 Copyright Notice
 
@@ -3740,7 +3740,7 @@ A.1.6.  Attestation Results in JSON
    software component measurements.
 
    {
-      "eat_nonce": "jkd8KL-8=Qlzg4",
+      "eat_nonce": "jkd8KL-8xQk",
       "oemboot": true,
       "dbgstat": "disabled-since-boot",
       "oemid": "iUWt",
