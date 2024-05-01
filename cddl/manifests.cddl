@@ -23,10 +23,3 @@ manifest-format = [
 $manifest-body-cbor /= bytes .cbor untagged-coswid
 $manifest-body-json /= base64-url-text
 
-
-; A SUIT manifest is always CBOR, so the same is done for it as is
-; done for a CoSWID.
-
-$manifest-body-cbor /= bytes .cbor SUIT_Envelope
-$manifest-body-json /= base64-url-text
-
