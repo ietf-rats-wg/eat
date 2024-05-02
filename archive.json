@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-15T17:59:47.122363+00:00",
+  "timestamp": "2024-05-02T00:01:21.657672+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -23939,6 +23939,32 @@
       "mergeCommit": {
         "oid": "45891cbc221f76ee84501b06d95fdb1e98fac28d"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 454,
+      "id": "PR_kwDOCEWCXc5uTBWC",
+      "title": "Remove suit manifests; get ready to publish draft 26",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/454",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-02T00:00:40Z",
+      "updatedAt": "2024-05-02T00:00:40Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "45891cbc221f76ee84501b06d95fdb1e98fac28d",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "unsuit",
+      "headRefOid": "642ddfe403b85ab69b33ac759db000807faa3df6",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
