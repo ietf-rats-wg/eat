@@ -2544,7 +2544,7 @@ differences. A comprehensive history is available via the IETF Datatracker's rec
 ## From draft-ietf-rats-eat-24
 The changes from draft-24, not draft 25, are listed here as draft-24 is what was accepted after IETF last call and draft-25 was kind of a false start.
 
-- Address some small claim data type naming issues that came to light when IANA completed the registrations requestsed by this document. In particular, the CDDL type names are used.
+- Address some small claim data type naming issues that came to light when IANA completed the registrations requested by this document. In particular, the CDDL type names are used.
 
 - Remove all dependence on SUIT Manifest to break schedule interlock with RFC Editor. Use of SUIT-Manifest is peripheral to the core of EAT. It was mostly a content type pre-registration. The modification consisted of the removal of one sentence, a few more words and two lines of CDDL.
 
