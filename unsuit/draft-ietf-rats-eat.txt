@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 3 November 2024                                    Mediatek USA
+Expires: 4 November 2024                                    Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                              2 May 2024
+                                                              3 May 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 November 2024.
+   This Internet-Draft will expire on 4 November 2024.
 
 Copyright Notice
 
@@ -4464,7 +4464,7 @@ G.1.  From draft-ietf-rats-eat-24
    false start.
 
    *  Address some small claim data type naming issues that came to
-      light when IANA completed the registrations requestsed by this
+      light when IANA completed the registrations requested by this
       document.  In particular, the CDDL type names are used.
 
    *  Remove all dependence on SUIT Manifest to break schedule interlock
