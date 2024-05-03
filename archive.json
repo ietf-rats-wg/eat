@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-02T00:01:21.657672+00:00",
+  "timestamp": "2024-05-03T17:59:38.357801+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -23954,19 +23954,33 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-05-02T00:00:40Z",
-      "updatedAt": "2024-05-02T00:00:40Z",
+      "updatedAt": "2024-05-03T17:58:44Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "45891cbc221f76ee84501b06d95fdb1e98fac28d",
       "headRepository": "ietf-rats-wg/eat",
       "headRefName": "unsuit",
-      "headRefOid": "642ddfe403b85ab69b33ac759db000807faa3df6",
+      "headRefOid": "aa22f36fc400b5c8e3e683579ed23b07e5eceb80",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc55fvn5",
+          "commit": {
+            "abbreviatedOid": "642ddfe"
+          },
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-03T15:05:03Z",
+          "updatedAt": "2024-05-03T15:05:03Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
