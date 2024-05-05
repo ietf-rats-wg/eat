@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 17 October 2024                                    Mediatek USA
+Expires: 6 November 2024                                    Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                           15 April 2024
+                                                              5 May 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 October 2024.
+   This Internet-Draft will expire on 6 November 2024.
 
 Copyright Notice
 
@@ -193,7 +193,7 @@ Table of Contents
        F.1.3.  CBOR Certificate COSE Header Parameters
        F.1.4.  Claim-Based Key Identification
    Appendix G.  Changes from Previous Drafts
-     G.1.  From draft-ietf-rats-eat-25
+     G.1.  From draft-ietf-rats-eat-24
    Contributors
    Authors' Addresses
 
@@ -1288,9 +1288,6 @@ Table of Contents
    A CoSWID manifest MUST be a payload CoSWID, not an evidence CoSWID.
    These are defined in [RFC9393].
 
-   A Software Updates for Internet of Things (SUIT) Manifest
-   [SUIT.Manifest] may be used.
-
    This claim is extensible for use of manifest formats beyond those
    mentioned in this document.  No particular manifest format is
    preferred.  For manifest interoperability, an EAT profile as defined
@@ -1310,9 +1307,6 @@ Table of Contents
    ]
 
    $manifest-body-cbor /= bytes .cbor untagged-coswid
-   $manifest-body-json /= base64-url-text
-
-   $manifest-body-cbor /= bytes .cbor SUIT_Envelope
    $manifest-body-json /= base64-url-text
 
 4.2.16.  measurements (Measurements) Claim
@@ -2058,9 +2052,9 @@ Table of Contents
    Some claims are "pluggable" in that they allow different formats for
    their content.  The "manifests" claim (Section 4.2.15) along with the
    measurement and "measurements" (Section 4.2.16) claims are examples
-   of this, allowing the use of CoSWID, SUIT Manifest and other formats.
-   A profile should specify which formats are allowed to be sent, with
-   the assumption that the corresponding CoAP content types have been
+   of this, allowing the use of CoSWID and other formats.  A profile
+   should specify which formats are allowed to be sent, with the
+   assumption that the corresponding CoAP content types have been
    registered.  A profile should require the receiver to accept all
    formats that are allowed to be sent.
 
@@ -2417,9 +2411,6 @@ Table of Contents
    ]
 
    $manifest-body-cbor /= bytes .cbor untagged-coswid
-   $manifest-body-json /= base64-url-text
-
-   $manifest-body-cbor /= bytes .cbor SUIT_Envelope
    $manifest-body-json /= base64-url-text
 
 
@@ -3283,15 +3274,6 @@ Table of Contents
               Waltermire, "Concise Software Identification Tags",
               RFC 9393, DOI 10.17487/RFC9393, June 2023,
               <https://www.rfc-editor.org/rfc/rfc9393>.
-
-   [SUIT.Manifest]
-              Moran, B., Tschofenig, H., Birkholz, H., Zandberg, K., and
-              O. Rønningstad, "A Concise Binary Object Representation
-              (CBOR)-based Serialization Format for the Software Updates
-              for Internet of Things (SUIT) Manifest", Work in Progress,
-              Internet-Draft, draft-ietf-suit-manifest-25, 5 February
-              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              suit-manifest-25>.
 
    [ThreeGPP.IMEI]
               3GPP, "3rd Generation Partnership Project; Technical
@@ -4475,9 +4457,21 @@ Appendix G.  Changes from Previous Drafts
    history is available via the IETF Datatracker's record for this
    document.
 
-G.1.  From draft-ietf-rats-eat-25
+G.1.  From draft-ietf-rats-eat-24
 
-   *  Change SUIT Manifest reference back to normative
+   The changes from draft-24, not draft 25, are listed here as draft-24
+   is what was accepted after IETF last call and draft-25 was kind of a
+   false start.
+
+   *  Address some small claim data type naming issues that came to
+      light when IANA completed the registrations requested by this
+      document.  In particular, the CDDL type names are used.
+
+   *  Remove all dependence on SUIT Manifest to break schedule interlock
+      with RFC Editor.  Use of SUIT-Manifest is peripheral to the core
+      of EAT.  It was mostly a content type pre-registration.  The
+      modification consisted of the removal of one sentence, a few more
+      words and two lines of CDDL.
 
 Contributors
 
