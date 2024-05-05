@@ -105,8 +105,3 @@ external/concise-swid-tag.cddl: ; (cd external ; $(curl) -O $(COSWID_REPO_URL)/c
 CLEANFILES += external/concise-swid-tag.cddl
 
 
-# ---- Pull in the SUIT Manifest CDDL
-SUIT_REPO := suit-wg/manifest-spec/master
-SUIT_REPO_URL := $(join $(GITHUB), $(SUIT_REPO))
-external/draft-ietf-suit-manifest.cddl: ; (cd external; $(curl) -O $(SUIT_REPO_URL)/draft-ietf-suit-manifest.cddl )
-CLEANFILES += external/draft-ietf-suit-manifest.cddl

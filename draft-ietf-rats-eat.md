@@ -114,8 +114,6 @@ normative:
     target: https://pen.iana.org/pen/PenApplication.page
     title: Private Enterprise Number (PEN) Request
 
-  SUIT.Manifest: I-D.ietf-suit-manifest
-
   IANA.cbor-tags:
 
 
@@ -936,8 +934,6 @@ In some cases EAT submodules may be used instead of the array structure in this 
 A CoSWID manifest MUST be a payload CoSWID, not an evidence CoSWID.
 These are defined in {{RFC9393}}.
 
-A Software Updates for Internet of Things (SUIT) Manifest {{SUIT.Manifest}} may be used.
-
 This claim is extensible for use of manifest formats beyond those mentioned in this document.
 No particular manifest format is preferred.
 For manifest interoperability, an EAT profile as defined in {{profiles}}, should be used to specify which manifest format(s) are allowed.
@@ -1447,7 +1443,7 @@ A profile may constrain the definition of claims that are defined in this docume
 For example, a profile may require the EAT nonce be a certain length or the "location" claim always include the altitude.
 
 Some claims are "pluggable" in that they allow different formats for their content.
-The "manifests" claim ({{manifests}}) along with the measurement and "measurements" ({{measurements}}) claims are examples of this, allowing the use of CoSWID, SUIT Manifest and other formats.
+The "manifests" claim ({{manifests}}) along with the measurement and "measurements" ({{measurements}}) claims are examples of this, allowing the use of CoSWID and other formats.
 A profile should specify which formats are allowed to be sent, with the assumption that the corresponding CoAP content types have been registered.
 A profile should require the receiver to accept all formats that are allowed to be sent.
 
@@ -2545,8 +2541,12 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-25
-- Change SUIT Manifest reference back to normative
+## From draft-ietf-rats-eat-24
+The changes from draft-24, not draft 25, are listed here as draft-24 is what was accepted after IETF last call and draft-25 was kind of a false start.
+
+- Address some small claim data type naming issues that came to light when IANA completed the registrations requested by this document. In particular, the CDDL type names are used.
+
+- Remove all dependence on SUIT Manifest to break schedule interlock with RFC Editor. Use of SUIT-Manifest is peripheral to the core of EAT. It was mostly a content type pre-registration. The modification consisted of the removal of one sentence, a few more words and two lines of CDDL.
 
 --- contributor
 
