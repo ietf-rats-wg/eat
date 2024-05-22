@@ -343,7 +343,7 @@ base64url-encoded:
 : base64url-encoded is as described in {{RFC7515}}, i.e., using URL- and filename-safe character set {{RFC4648}} with all trailing '=' characters omitted and without the inclusion of any line breaks, whitespace, or other additional characters.
 
 Claim:
-: A piece of information asserted about a subject. A claim is represented as pair with a value and either a name or key to identify it.
+: A piece of information asserted about a subject. A claim is represented as a value and either a name or key to identify it.
 
 Claim Name:
 : A unique text string that identifies the claim. It is used as the claim name for JSON encoding.
@@ -1384,9 +1384,9 @@ When both signing and encryption are allowed, a profile should specify which is 
 
 See the section on "Application Profiling Considerations" in {{RFC9052}} for a discussion on selection of cryptographic algorithms and related issues.
 
-The profile MAY require the protocol or system using EAT provide an algorithm negotiation mechanism.
+The profile MAY require the protocol or system using EAT to provide an algorithm negotiation mechanism.
 
-If not, The profile document should list a set of algorithms for each COSE and JOSE message type allowed by the profile per {{message-type}}.
+If not, the profile document should list a set of algorithms for each COSE and JOSE message type allowed by the profile per {{message-type}}.
 The verifier should implement all of them.
 The attester may implement any of them it wishes, possibly just one for each message type.
 
@@ -1745,7 +1745,7 @@ the EAT they are consuming.
 ## Detached EAT Bundle Digest Security Considerations
 
 A detached EAT bundle is composed of a nested EAT and
-an claims set as per {{DEB}}.  Although the attached claims set is vulnerable to
+a claims set as per {{DEB}}.  Although the attached claims set is vulnerable to
 modification in transit, any modification can be detected by the receiver through the associated
 digest, which is a claim fully contained within an EAT.  Moreover, the digest itself can only be derived using
 an appropriate COSE hash algorithm, implying that an attacker cannot induce false detection
