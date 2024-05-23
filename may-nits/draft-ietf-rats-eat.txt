@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 17 October 2024                                    Mediatek USA
+Expires: 24 November 2024                                   Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                           15 April 2024
+                                                             23 May 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 October 2024.
+   This Internet-Draft will expire on 24 November 2024.
 
 Copyright Notice
 
@@ -193,7 +193,7 @@ Table of Contents
        F.1.3.  CBOR Certificate COSE Header Parameters
        F.1.4.  Claim-Based Key Identification
    Appendix G.  Changes from Previous Drafts
-     G.1.  From draft-ietf-rats-eat-25
+     G.1.  From draft-ietf-rats-eat-24
    Contributors
    Authors' Addresses
 
@@ -566,7 +566,7 @@ Table of Contents
    The top-level CDDL type for CBOR-encoded EATs is EAT-CBOR-Token and
    for JSON is EAT-JSON-Token (while CDDL and CDDL tools provide enough
    support for shared definitions of most items in this document, they
-   don’t provide enough support for this sharing at the top level).
+   don't provide enough support for this sharing at the top level).
 
    EAT-CBOR-Token = $EAT-CBOR-Tagged-Token / $EAT-CBOR-Untagged-Token
 
@@ -1288,9 +1288,6 @@ Table of Contents
    A CoSWID manifest MUST be a payload CoSWID, not an evidence CoSWID.
    These are defined in [RFC9393].
 
-   A Software Updates for Internet of Things (SUIT) Manifest
-   [SUIT.Manifest] may be used.
-
    This claim is extensible for use of manifest formats beyond those
    mentioned in this document.  No particular manifest format is
    preferred.  For manifest interoperability, an EAT profile as defined
@@ -1310,9 +1307,6 @@ Table of Contents
    ]
 
    $manifest-body-cbor /= bytes .cbor untagged-coswid
-   $manifest-body-json /= base64-url-text
-
-   $manifest-body-cbor /= bytes .cbor SUIT_Envelope
    $manifest-body-json /= base64-url-text
 
 4.2.16.  measurements (Measurements) Claim
@@ -1870,11 +1864,11 @@ Table of Contents
 
    Full profiles MUST be complete such that a complying receiver can
    decode, verify and check for freshness every EAT created by a
-   complying sender.  A full profile MAY or MAY NOT require the receiver
-   to fully handle every claim in an EAT from a complying sender.
-   Profile specifications may assume the receiver has access to the
-   necessary verification keys or may go into specific detail on the
-   means to access verification keys.
+   complying sender.  Full profiles do not need to require the receiver
+   fully handle every claim in an EAT from a complying sender.  Profile
+   specifications may assume the receiver has access to the necessary
+   verification keys or may go into specific detail on the means to
+   access verification keys.
 
    The "eat_profile" claim MUST NOT be used to identify partial
    profiles.
@@ -2058,9 +2052,9 @@ Table of Contents
    Some claims are "pluggable" in that they allow different formats for
    their content.  The "manifests" claim (Section 4.2.15) along with the
    measurement and "measurements" (Section 4.2.16) claims are examples
-   of this, allowing the use of CoSWID, SUIT Manifest and other formats.
-   A profile should specify which formats are allowed to be sent, with
-   the assumption that the corresponding CoAP content types have been
+   of this, allowing the use of CoSWID and other formats.  A profile
+   should specify which formats are allowed to be sent, with the
+   assumption that the corresponding CoAP content types have been
    registered.  A profile should require the receiver to accept all
    formats that are allowed to be sent.
 
@@ -2101,7 +2095,7 @@ Table of Contents
      | Algorithms     | The receiver MUST accept ES256, ES384 and   |
      |                | ES512; the sender MUST send one of these    |
      +----------------+---------------------------------------------+
-     | Detached EAT   | Detached EAT bundles MUST not be sent with  |
+     | Detached EAT   | Detached EAT bundles MUST NOT be sent with  |
      | Bundle Usage   | this profile                                |
      +----------------+---------------------------------------------+
      | Verification   | Either the COSE kid or the UEID MUST be     |
@@ -2224,7 +2218,7 @@ Table of Contents
    *  uri -- MUST be a URI [RFC3986].
 
    *  oid -- MUST be encoded as a string using the well established
-      dotted-decimal notation (e.g., the text "1.2.250.1") [RFC2252].
+      dotted-decimal notation (e.g., the text "1.2.250.1") [RFC4517].
 
    The CDDL generic "JC<>" is used in most places where there is a
    variance between CBOR and JSON.  The first argument is the CDDL for
@@ -2417,9 +2411,6 @@ Table of Contents
    ]
 
    $manifest-body-cbor /= bytes .cbor untagged-coswid
-   $manifest-body-json /= base64-url-text
-
-   $manifest-body-cbor /= bytes .cbor SUIT_Envelope
    $manifest-body-json /= base64-url-text
 
 
@@ -3155,7 +3146,7 @@ Table of Contents
    encoded binary byte-string for the UEID or SUEID:
 
    body =/ ueidbody
-   ueidbody = %s”ueid:” b64ueid
+   ueidbody = %s"ueid:" b64ueid
 
 10.4.  CBOR Tag for Detached EAT Bundle Registered by this Document
 
@@ -3203,15 +3194,15 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-   [RFC2252]  Wahl, M., Coulbeck, A., Howes, T., and S. Kille,
-              "Lightweight Directory Access Protocol (v3): Attribute
-              Syntax Definitions", RFC 2252, DOI 10.17487/RFC2252,
-              December 1997, <https://www.rfc-editor.org/rfc/rfc2252>.
-
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/rfc/rfc3986>.
+
+   [RFC4517]  Legg, S., Ed., "Lightweight Directory Access Protocol
+              (LDAP): Syntaxes and Matching Rules", RFC 4517,
+              DOI 10.17487/RFC4517, June 2006,
+              <https://www.rfc-editor.org/rfc/rfc4517>.
 
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
@@ -3249,11 +3240,6 @@ Table of Contents
               JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
               June 2019, <https://www.rfc-editor.org/rfc/rfc8610>.
 
-   [RFC8792]  Watsen, K., Auerswald, E., Farrel, A., and Q. Wu,
-              "Handling Long Lines in Content of Internet-Drafts and
-              RFCs", RFC 8792, DOI 10.17487/RFC8792, June 2020,
-              <https://www.rfc-editor.org/rfc/rfc8792>.
-
    [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", STD 94, RFC 8949,
               DOI 10.17487/RFC8949, December 2020,
@@ -3274,24 +3260,10 @@ Table of Contents
               DOI 10.17487/RFC9165, December 2021,
               <https://www.rfc-editor.org/rfc/rfc9165>.
 
-   [RFC9334]  Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
-              W. Pan, "Remote ATtestation procedureS (RATS)
-              Architecture", RFC 9334, DOI 10.17487/RFC9334, January
-              2023, <https://www.rfc-editor.org/rfc/rfc9334>.
-
    [RFC9393]  Birkholz, H., Fitzgerald-McKay, J., Schmidt, C., and D.
               Waltermire, "Concise Software Identification Tags",
               RFC 9393, DOI 10.17487/RFC9393, June 2023,
               <https://www.rfc-editor.org/rfc/rfc9393>.
-
-   [SUIT.Manifest]
-              Moran, B., Tschofenig, H., Birkholz, H., Zandberg, K., and
-              O. Rønningstad, "A Concise Binary Object Representation
-              (CBOR)-based Serialization Format for the Software Updates
-              for Internet of Things (SUIT) Manifest", Work in Progress,
-              Internet-Draft, draft-ietf-suit-manifest-25, 5 February
-              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              suit-manifest-25>.
 
    [ThreeGPP.IMEI]
               3GPP, "3rd Generation Partnership Project; Technical
@@ -3366,19 +3338,28 @@ Table of Contents
               <https://regauth.standards.ieee.org/standards-ra-web/pub/
               view.html#registries>.
 
-   [RFC4122]  Leach, P., Mealling, M., and R. Salz, "A Universally
-              Unique IDentifier (UUID) URN Namespace", RFC 4122,
-              DOI 10.17487/RFC4122, July 2005,
-              <https://www.rfc-editor.org/rfc/rfc4122>.
-
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
               <https://www.rfc-editor.org/rfc/rfc4949>.
+
+   [RFC8792]  Watsen, K., Auerswald, E., Farrel, A., and Q. Wu,
+              "Handling Long Lines in Content of Internet-Drafts and
+              RFCs", RFC 8792, DOI 10.17487/RFC8792, June 2020,
+              <https://www.rfc-editor.org/rfc/rfc8792>.
 
    [RFC9039]  Arkko, J., Jennings, C., and Z. Shelby, "Uniform Resource
               Names for Device Identifiers", RFC 9039,
               DOI 10.17487/RFC9039, June 2021,
               <https://www.rfc-editor.org/rfc/rfc9039>.
+
+   [RFC9334]  Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
+              W. Pan, "Remote ATtestation procedureS (RATS)
+              Architecture", RFC 9334, DOI 10.17487/RFC9334, January
+              2023, <https://www.rfc-editor.org/rfc/rfc9334>.
+
+   [RFC9562]  Davis, K., Peabody, B., and P. Leach, "Universally Unique
+              IDentifiers (UUIDs)", RFC 9562, DOI 10.17487/RFC9562, May
+              2024, <https://www.rfc-editor.org/rfc/rfc9562>.
 
    [UCCS]     Birkholz, H., O'Donoghue, J., Cam-Winget, N., and C.
               Bormann, "A CBOR Tag for Unprotected CWT Claims Sets",
@@ -4061,7 +4042,7 @@ B.1.  Collision Probability
 
 B.2.  No Use of UUID
 
-   A UEID is not a Universally Unique Identifier (UUID) [RFC4122] by
+   A UEID is not a Universally Unique Identifier (UUID) [RFC9562] by
    conscious choice for the following reasons.
 
    UUIDs are limited to 128 bits which may not be enough for some future
@@ -4475,9 +4456,36 @@ Appendix G.  Changes from Previous Drafts
    history is available via the IETF Datatracker's record for this
    document.
 
-G.1.  From draft-ietf-rats-eat-25
+G.1.  From draft-ietf-rats-eat-24
 
-   *  Change SUIT Manifest reference back to normative
+   The changes from draft-24, not draft 25, are listed here as draft-24
+   is what was accepted after IETF last call and draft-25 was kind of a
+   false start.
+
+   *  Address some small claim data type naming issues that came to
+      light when IANA completed the registrations requested by this
+      document.  In particular, the CDDL type names are used.
+
+   *  Remove all dependence on SUIT Manifest to break schedule interlock
+      with RFC Editor.  Use of SUIT-Manifest is peripheral to the core
+      of EAT.  It was mostly a content type pre-registration.  The
+      modification consisted of the removal of one sentence, a few more
+      words and two lines of CDDL.
+
+   *  Reference to RATS Architecture, RFC 9334, is made informative
+      since the document is informational.
+
+   *  Reference to Long Lines in Draft, RFC 8792, is made informative
+      since the document is informational.
+
+   *  Reworded full profiles description to convey intent without using
+      "may not"
+
+   *  Upated references for UUIDs and LDAP to non-obsolete documents.
+
+   *  Removed some non-ascii quote marks
+
+   *  "MAY not" -> "MAY NOT"
 
 Contributors
 
