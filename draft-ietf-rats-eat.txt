@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 6 November 2024                                    Mediatek USA
+Expires: 25 November 2024                                   Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                              5 May 2024
+                                                             24 May 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 November 2024.
+   This Internet-Draft will expire on 25 November 2024.
 
 Copyright Notice
 
@@ -465,8 +465,7 @@ Table of Contents
       any line breaks, whitespace, or other additional characters.
 
    Claim:  A piece of information asserted about a subject.  A claim is
-      represented as pair with a value and either a name or key to
-      identify it.
+      represented as a value and either a name or key to identify it.
 
    Claim Name:  A unique text string that identifies the claim.  It is
       used as the claim name for JSON encoding.
@@ -1968,10 +1967,10 @@ Table of Contents
    [RFC9052] for a discussion on selection of cryptographic algorithms
    and related issues.
 
-   The profile MAY require the protocol or system using EAT provide an
-   algorithm negotiation mechanism.
+   The profile MAY require the protocol or system using EAT to provide
+   an algorithm negotiation mechanism.
 
-   If not, The profile document should list a set of algorithms for each
+   If not, the profile document should list a set of algorithms for each
    COSE and JOSE message type allowed by the profile per Section 6.3.6.
    The verifier should implement all of them.  The attester may
    implement any of them it wishes, possibly just one for each message
@@ -2733,8 +2732,8 @@ Table of Contents
 
 9.5.  Detached EAT Bundle Digest Security Considerations
 
-   A detached EAT bundle is composed of a nested EAT and an claims set
-   as per Section 5.  Although the attached claims set is vulnerable to
+   A detached EAT bundle is composed of a nested EAT and a claims set as
+   per Section 5.  Although the attached claims set is vulnerable to
    modification in transit, any modification can be detected by the
    receiver through the associated digest, which is a claim fully
    contained within an EAT.  Moreover, the digest itself can only be
