@@ -74,6 +74,7 @@ normative:
   RFC8259:
   RFC8392:
   RFC8610: cddl
+  RFC8792:
   RFC3986:
   RFC9052:
   RFC9090:
@@ -81,6 +82,7 @@ normative:
   RFC4648:
   RFC4517:
   RFC9393:
+  RFC9334:
 
   WGS84:
     target: "https://earth-info.nga.mil/php/download.php?file=coord-wgs84"
@@ -119,8 +121,6 @@ informative:
   RFC9562:
   RFC4949:
   RFC9039:
-  RFC8792:
-  RFC9334:
 
   BirthdayAttack:
     title: Birthday attack
@@ -2547,10 +2547,6 @@ The changes from draft-24, not draft 25, are listed here as draft-24 is what was
 - Address some small claim data type naming issues that came to light when IANA completed the registrations requested by this document. In particular, the CDDL type names are used.
 
 - Remove all dependence on SUIT Manifest to break schedule interlock with RFC Editor. Use of SUIT-Manifest is peripheral to the core of EAT. It was mostly a content type pre-registration. The modification consisted of the removal of one sentence, a few more words and two lines of CDDL.
-
-- Reference to RATS Architecture, RFC 9334, is made informative since the document is informational.
-
-- Reference to Long Lines in Draft, RFC 8792, is made informative since the document is informational.
 
 - Reworded full profiles description to convey intent without using "may not"
 
