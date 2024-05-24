@@ -11,7 +11,7 @@
                                / This is byte-string wrapped        /
                                / payload CoSWID. It gives the TEE   /
                                / software name, the version and     /
-                               / the  name of the file it is in.    /
+                               / the name of the file it is in.     /
                                / {0: "3a24",                        /
                                /  12: 1,                            /
                                /   1: "Acme TEE OS",                /
