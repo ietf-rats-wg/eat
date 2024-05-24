@@ -80,7 +80,7 @@ normative:
   RFC9090:
   RFC9165: cddlplus
   RFC4648:
-  RFC2252:
+  RFC4517:
   RFC9393:
   RFC9334:
 
@@ -118,7 +118,7 @@ normative:
 
 
 informative:
-  RFC4122:
+  RFC9562:
   RFC4949:
   RFC9039:
 
@@ -414,7 +414,7 @@ This includes the nesting of an EAT that is a different format than the enclosin
 The definition of Nested-Token references the CDDL defined in this section.
 When new token formats are defined, the means for identification in a nested token MUST also be defined.
 
-The top-level CDDL type for CBOR-encoded EATs is EAT-CBOR-Token and for JSON is EAT-JSON-Token (while CDDL and CDDL tools provide enough support for shared definitions of most items in this document, they don’t provide enough support for this sharing at the top level).
+The top-level CDDL type for CBOR-encoded EATs is EAT-CBOR-Token and for JSON is EAT-JSON-Token (while CDDL and CDDL tools provide enough support for shared definitions of most items in this document, they don't provide enough support for this sharing at the top level).
 
 ~~~~CDDL
 {::include cddl/eat-cbor.cddl}
@@ -1303,7 +1303,7 @@ For example, a profile that allows the use of signing algorithms by the sender t
 The sender might choose a signing algorithm that some receivers don't support.
 
 Full profiles MUST be complete such that a complying receiver can decode, verify and check for freshness every EAT created by a complying sender.
-A full profile MAY or MAY NOT require the receiver to fully handle every claim in an EAT from a complying sender.
+Full profiles do not need to require the receiver fully handle every claim in an EAT from a complying sender.
 Profile specifications may assume the receiver has access to the necessary verification keys or may go into specific detail on the means to access verification keys.
 
 The "eat_profile" claim MUST NOT be used to identify partial profiles.
@@ -1470,7 +1470,7 @@ The identifier for this profile is "urn:ietf:rfc:rfcTBD".
 | CBOR Serialization | Preferred serialization MUST be used |
 | COSE Protection | COSE_Sign1 MUST be used |
 | Algorithms | The receiver MUST accept ES256, ES384 and ES512; the sender MUST send one of these |
-| Detached EAT Bundle Usage | Detached EAT bundles MUST not be sent with this profile |
+| Detached EAT Bundle Usage | Detached EAT bundles MUST NOT be sent with this profile |
 | Verification Key Identification | Either the COSE kid or the UEID MUST be used to identify the verification key. If both are present, the kid takes precedence. (It is assumed the receiver has access to a database of trusted verification keys which allows lookup of the verification key ID; the key format and means of distribution are beyond the scope of this profile) |
 | Endorsements | This profile contains no endorsement identifier |
 | Freshness | A new single unique nonce MUST be used for every token request |
@@ -1543,7 +1543,7 @@ following CDDL types are encoded in JSON as follows:
 * time -- MUST be encoded as NumericDate as described in Section 2 of {{RFC7519}}.
 * string-or-uri -- MUST be encoded as StringOrURI as described in Section 2 of {{RFC7519}}.
 * uri -- MUST be a URI {{RFC3986}}.
-* oid -- MUST be encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1") {{RFC2252}}.
+* oid -- MUST be encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1") {{RFC4517}}.
 
 The CDDL generic "JC<>" is used in most places where there is a variance between CBOR and JSON.
 The first argument is the CDDL for JSON and the second is CDDL for CBOR.
@@ -2028,7 +2028,7 @@ ABNF for these two URNs is as follows where b64ueid is the base64url-encoded bin
 
 ~~~~
 body =/ ueidbody
-ueidbody = %s”ueid:” b64ueid
+ueidbody = %s"ueid:" b64ueid
 ~~~~
 
 ## CBOR Tag for Detached EAT Bundle Registered by this Document
@@ -2275,7 +2275,7 @@ implementations be able to receive 256-bit UEIDs.
 
 ## No Use of UUID
 
-A UEID is not a Universally Unique Identifier (UUID) {{RFC4122}} by conscious choice for the following reasons.
+A UEID is not a Universally Unique Identifier (UUID) {{RFC9562}} by conscious choice for the following reasons.
 
 UUIDs are limited to 128 bits which may not be enough for some future
 use cases.
@@ -2547,6 +2547,14 @@ The changes from draft-24, not draft 25, are listed here as draft-24 is what was
 - Address some small claim data type naming issues that came to light when IANA completed the registrations requested by this document. In particular, the CDDL type names are used.
 
 - Remove all dependence on SUIT Manifest to break schedule interlock with RFC Editor. Use of SUIT-Manifest is peripheral to the core of EAT. It was mostly a content type pre-registration. The modification consisted of the removal of one sentence, a few more words and two lines of CDDL.
+
+- Reworded full profiles description to convey intent without using "may not"
+
+- Upated references for UUIDs and LDAP to non-obsolete documents.
+
+- Removed some non-ascii quote marks
+
+- "MAY not" -> "MAY NOT"
 
 --- contributor
 
