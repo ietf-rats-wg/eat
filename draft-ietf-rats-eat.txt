@@ -565,7 +565,7 @@ Table of Contents
    The top-level CDDL type for CBOR-encoded EATs is EAT-CBOR-Token and
    for JSON is EAT-JSON-Token (while CDDL and CDDL tools provide enough
    support for shared definitions of most items in this document, they
-   don’t provide enough support for this sharing at the top level).
+   don't provide enough support for this sharing at the top level).
 
    EAT-CBOR-Token = $EAT-CBOR-Tagged-Token / $EAT-CBOR-Untagged-Token
 
@@ -1863,11 +1863,11 @@ Table of Contents
 
    Full profiles MUST be complete such that a complying receiver can
    decode, verify and check for freshness every EAT created by a
-   complying sender.  A full profile MAY or MAY NOT require the receiver
-   to fully handle every claim in an EAT from a complying sender.
-   Profile specifications may assume the receiver has access to the
-   necessary verification keys or may go into specific detail on the
-   means to access verification keys.
+   complying sender.  Full profiles do not need to require the receiver
+   fully handle every claim in an EAT from a complying sender.  Profile
+   specifications may assume the receiver has access to the necessary
+   verification keys or may go into specific detail on the means to
+   access verification keys.
 
    The "eat_profile" claim MUST NOT be used to identify partial
    profiles.
@@ -2094,7 +2094,7 @@ Table of Contents
      | Algorithms     | The receiver MUST accept ES256, ES384 and   |
      |                | ES512; the sender MUST send one of these    |
      +----------------+---------------------------------------------+
-     | Detached EAT   | Detached EAT bundles MUST not be sent with  |
+     | Detached EAT   | Detached EAT bundles MUST NOT be sent with  |
      | Bundle Usage   | this profile                                |
      +----------------+---------------------------------------------+
      | Verification   | Either the COSE kid or the UEID MUST be     |
@@ -2217,7 +2217,7 @@ Table of Contents
    *  uri -- MUST be a URI [RFC3986].
 
    *  oid -- MUST be encoded as a string using the well established
-      dotted-decimal notation (e.g., the text "1.2.250.1") [RFC2252].
+      dotted-decimal notation (e.g., the text "1.2.250.1") [RFC4517].
 
    The CDDL generic "JC<>" is used in most places where there is a
    variance between CBOR and JSON.  The first argument is the CDDL for
@@ -3145,7 +3145,7 @@ Table of Contents
    encoded binary byte-string for the UEID or SUEID:
 
    body =/ ueidbody
-   ueidbody = %s”ueid:” b64ueid
+   ueidbody = %s"ueid:" b64ueid
 
 10.4.  CBOR Tag for Detached EAT Bundle Registered by this Document
 
@@ -3193,15 +3193,15 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-   [RFC2252]  Wahl, M., Coulbeck, A., Howes, T., and S. Kille,
-              "Lightweight Directory Access Protocol (v3): Attribute
-              Syntax Definitions", RFC 2252, DOI 10.17487/RFC2252,
-              December 1997, <https://www.rfc-editor.org/rfc/rfc2252>.
-
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/rfc/rfc3986>.
+
+   [RFC4517]  Legg, S., Ed., "Lightweight Directory Access Protocol
+              (LDAP): Syntaxes and Matching Rules", RFC 4517,
+              DOI 10.17487/RFC4517, June 2006,
+              <https://www.rfc-editor.org/rfc/rfc4517>.
 
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
@@ -3347,11 +3347,6 @@ Table of Contents
               <https://regauth.standards.ieee.org/standards-ra-web/pub/
               view.html#registries>.
 
-   [RFC4122]  Leach, P., Mealling, M., and R. Salz, "A Universally
-              Unique IDentifier (UUID) URN Namespace", RFC 4122,
-              DOI 10.17487/RFC4122, July 2005,
-              <https://www.rfc-editor.org/rfc/rfc4122>.
-
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
               <https://www.rfc-editor.org/rfc/rfc4949>.
@@ -3360,6 +3355,10 @@ Table of Contents
               Names for Device Identifiers", RFC 9039,
               DOI 10.17487/RFC9039, June 2021,
               <https://www.rfc-editor.org/rfc/rfc9039>.
+
+   [RFC9562]  Davis, K., Peabody, B., and P. Leach, "Universally Unique
+              IDentifiers (UUIDs)", RFC 9562, DOI 10.17487/RFC9562, May
+              2024, <https://www.rfc-editor.org/rfc/rfc9562>.
 
    [UCCS]     Birkholz, H., O'Donoghue, J., Cam-Winget, N., and C.
               Bormann, "A CBOR Tag for Unprotected CWT Claims Sets",
@@ -3406,7 +3405,7 @@ A.1.1.  Simple TEE Attestation
                                   / This is byte-string wrapped        /
                                   / payload CoSWID. It gives the TEE   /
                                   / software name, the version and     /
-                                  / the  name of the file it is in.    /
+                                  / the name of the file it is in.     /
                                   / {0: "3a24",                        /
                                   /  12: 1,                            /
                                   /   1: "Acme TEE OS",                /
@@ -4042,7 +4041,7 @@ B.1.  Collision Probability
 
 B.2.  No Use of UUID
 
-   A UEID is not a Universally Unique Identifier (UUID) [RFC4122] by
+   A UEID is not a Universally Unique Identifier (UUID) [RFC9562] by
    conscious choice for the following reasons.
 
    UUIDs are limited to 128 bits which may not be enough for some future
@@ -4471,6 +4470,15 @@ G.1.  From draft-ietf-rats-eat-24
       of EAT.  It was mostly a content type pre-registration.  The
       modification consisted of the removal of one sentence, a few more
       words and two lines of CDDL.
+
+   *  Reworded full profiles description to convey intent without using
+      "may not"
+
+   *  Upated references for UUIDs and LDAP to non-obsolete documents.
+
+   *  Removed some non-ascii quote marks
+
+   *  "MAY not" -> "MAY NOT"
 
 Contributors
 
