@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-24T14:21:05.202998+00:00",
+  "timestamp": "2024-06-21T18:12:06.646762+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -4754,10 +4754,12 @@
       "author": "thomas-fossati",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "wontfix"
+      ],
       "body": "https://www.ietf.org/archive/id/draft-ietf-rats-eat-25.html#section-4.2.16 should have something like this to make sure the right encoding is picked up:\r\n\r\n```\r\n$fmt-cbor = bstr .cbor $FMT\r\n$fmt-json = tstr .json $FMT\r\n```\r\n\r\n### EAT CBOR (`.feature \"cbor\"`)\r\n\r\n```\r\n$measurements-body-cbor /= $fmt-cbor            ; native\r\n$measurements-body-cbor /= tstr .b64u $fmt-json ; tunnel\r\n\r\n```\r\n\r\n### EAT JSON (`.feature \"json\"`)\r\n\r\n```\r\n$measurements-body-json /= $fmt-json            ; native\r\n$measurements-body-json /= tstr .b64u $fmt-cbor ; tunnel\r\n```\r\n\r\n### CWT\r\n\r\n| `content-type` (CoAP C-F equivalent) | `content-format` |\r\n|--|--|\r\n| `application/measured-component+cbor` | `$fmt-cbor` |\r\n| `application/measured-component+json` | `tstr .b64u $fmt-json` |\r\n\r\n### JWT\r\n\r\n| `content-type` (CoAP C-F equivalent) | `content-format` |\r\n|--|--|\r\n| `application/measured-component+json` | `$fmt-json` |\r\n| `application/measured-component+cbor` | `tstr .b64u $fmt-cbor` |\r\n\r\n",
       "createdAt": "2024-02-27T14:32:04Z",
-      "updatedAt": "2024-04-02T15:26:19Z",
+      "updatedAt": "2024-05-24T19:43:11Z",
       "closedAt": null,
       "comments": [
         {
@@ -24009,7 +24011,7 @@
       "labels": [],
       "body": "Signed-off-by: Steven Bellock <sbellock@nvidia.com>",
       "createdAt": "2024-05-22T15:17:30Z",
-      "updatedAt": "2024-05-24T14:20:14Z",
+      "updatedAt": "2024-05-24T14:27:01Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "d7be8b15b42dcae4e6765219d5c1bec1a5241334",
@@ -24057,26 +24059,55 @@
       "id": "PR_kwDOCEWCXc5wXl3M",
       "title": "Address Roman's May 2024 comments",
       "url": "https://github.com/ietf-rats-wg/eat/pull/456",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "laurencelundblade",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "I believe the idnits complaint about  \"/    the    name\" is about comments in the CBOR diagnostic notation in the examples.\r\n\r\n\r\n- Reference to RATS Architecture, RFC 9334, is made informative since the document is informational.\r\n\r\n- Reference to Long Lines in Draft, RFC 8792, is made informative since the document is informational.\r\n\r\n- Reworded full profiles description to convey intent without using \"may not\"\r\n\r\n- Upated references for UUIDs and LDAP to non-obsolete documents.\r\n\r\n- Removed some non-ascii quote marks\r\n\r\n- \"MAY not\" -> \"MAY NOT\"",
+      "body": "I believe the idnits complaint about  \"/    the    name\" is about comments in the CBOR diagnostic notation in the examples.\r\n\r\n- Reworded full profiles description to convey intent without using \"may not\"\r\n\r\n- Upated references for UUIDs and LDAP to non-obsolete documents.\r\n\r\n- Removed some non-ascii quote marks\r\n\r\n- \"MAY not\" -> \"MAY NOT\"",
       "createdAt": "2024-05-23T18:46:08Z",
-      "updatedAt": "2024-05-23T18:46:08Z",
+      "updatedAt": "2024-05-24T19:42:48Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "d7be8b15b42dcae4e6765219d5c1bec1a5241334",
       "headRepository": "ietf-rats-wg/eat",
       "headRefName": "may-nits",
-      "headRefOid": "cf6c775ba34150781f8ecce4ec2007405ae00fa4",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "ab8484db5f6e3075fa626be233cc082d27ba3884",
+      "closedAt": "2024-05-24T19:42:48Z",
+      "mergedAt": "2024-05-24T19:42:48Z",
+      "mergedBy": "gmandyam",
+      "mergeCommit": {
+        "oid": "5f5c0b1a4714139cd72cffdee28d922502194a3a"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc57zZS8",
+          "commit": {
+            "abbreviatedOid": "cf6c775"
+          },
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Return RFC 9334 to normative reference",
+          "createdAt": "2024-05-24T14:21:24Z",
+          "updatedAt": "2024-05-24T14:21:24Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOCEWCXc572CGe",
+          "commit": {
+            "abbreviatedOid": "ab8484d"
+          },
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-24T19:42:18Z",
+          "updatedAt": "2024-05-24T19:42:18Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
