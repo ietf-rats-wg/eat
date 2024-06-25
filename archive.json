@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-21T18:12:06.646762+00:00",
+  "timestamp": "2024-06-25T16:16:59.082377+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -24105,6 +24105,56 @@
           "body": "",
           "createdAt": "2024-05-24T19:42:18Z",
           "updatedAt": "2024-05-24T19:42:18Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 457,
+      "id": "PR_kwDOCEWCXc5zNiRr",
+      "title": "Address June 2024 AD comments",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/457",
+      "state": "MERGED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Address comments from Paul Wouters and Deb Cooley.\r\n\r\nRandom sources clarifications in Appendix B\u00b6\r\n\r\nMinor wording fixes\u00b6\r\n\r\nAdd certification examples for DLOAs\u00b6\r\n\r\nClarify nonce source in section 1.3\u00b6\r\n",
+      "createdAt": "2024-06-21T18:14:22Z",
+      "updatedAt": "2024-06-25T16:15:59Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "5f5c0b1a4714139cd72cffdee28d922502194a3a",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "ad2",
+      "headRefOid": "bea4a257b6ca3274c9c95dfc6fa447de9c33a405",
+      "closedAt": "2024-06-25T16:15:59Z",
+      "mergedAt": "2024-06-25T16:15:59Z",
+      "mergedBy": "gmandyam",
+      "mergeCommit": {
+        "oid": "2150b4704fc7bcd5031f8f1f2a40d8de5df20f91"
+      },
+      "comments": [
+        {
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Will merge and correct typo.",
+          "createdAt": "2024-06-25T16:15:55Z",
+          "updatedAt": "2024-06-25T16:15:55Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc5_W9Z8",
+          "commit": {
+            "abbreviatedOid": "bea4a25"
+          },
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": ">In particular, hardware randomness sources where introduced in CPUs between 2010 and 2015.\r\n\r\n'were introduced'?",
+          "createdAt": "2024-06-24T20:53:19Z",
+          "updatedAt": "2024-06-24T20:53:19Z",
           "comments": []
         }
       ]
