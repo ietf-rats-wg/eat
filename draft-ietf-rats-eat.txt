@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 25 November 2024                                   Mediatek USA
+Expires: 27 December 2024                                   Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                             24 May 2024
+                                                            25 June 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 November 2024.
+   This Internet-Draft will expire on 27 December 2024.
 
 Copyright Notice
 
@@ -193,7 +193,7 @@ Table of Contents
        F.1.3.  CBOR Certificate COSE Header Parameters
        F.1.4.  Claim-Based Key Identification
    Appendix G.  Changes from Previous Drafts
-     G.1.  From draft-ietf-rats-eat-24
+     G.1.  From draft-ietf-rats-eat-27
    Contributors
    Authors' Addresses
 
@@ -396,8 +396,9 @@ Table of Contents
    Architecture [RFC9334].  To summarize, an attester generates evidence
    in the form of a claims set describing various characteristics of an
    entity.  Evidence is usually signed by a key that proves the attester
-   and the evidence it produces are authentic.  The claims set includes
-   a nonce or some other means to assure freshness.
+   and the evidence it produces are authentic.  The claims set either
+   includes a received nonce or uses some other means to assure
+   freshness.
 
    A verifier confirms an EAT is valid by verifying the signature and
    may vet some claims using reference values.  The verifier then
@@ -716,7 +717,7 @@ Table of Contents
 
    A manufacturer of entities MAY use different types for different
    products.  They MAY also change from one type to another for a given
-   product or use one type for some items of a given produce and another
+   product or use one type for some items of a given product and another
    type for other.
 
    +======+======+=====================================================+
@@ -1200,9 +1201,10 @@ Table of Contents
    The "dloas" claim conveys one or more Digital Letters of Approval
    (DLOAs).  A DLOA [DLOA] is a document that describes a certification
    that an entity has received.  Examples of certifications represented
-   by a DLOA include those issued by Global Platform and those based on
-   Common Criteria.  The DLOA is unspecific to any particular
-   certification type or those issued by any particular organization.
+   by a DLOA include those issued by Global Platform [GP-Example] and
+   those based on Common Criteria [CC-Example].  The DLOA is unspecific
+   to any particular certification type or those issued by any
+   particular organization.
 
    This claim is typically issued by a verifier, not an attester.
    Verifiers MUST NOT issue this claim unless the entity has received
@@ -3300,6 +3302,12 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
               cbor-encoded-cert-09>.
 
+   [CC-Example]
+              "Secure Sub-System in System-on-Chip (3S in SoC)
+              Protection Profile",
+              <https://commoncriteriaportal.org/nfs/ccpfiles/files/
+              ppfiles/pp0117V2b_pdf.pdf>.
+
    [COSE.X509.Draft]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Header Parameters for Carrying and Referencing X.509
@@ -3314,6 +3322,11 @@ Table of Contents
               eat-media-type-07, 2 April 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
               eat-media-type-07>.
+
+   [GP-Example]
+              "GlobalPlatform Technology TEE Certification Process",
+              <https://globalplatform.org/wp-content/uploads/2021/01/
+              GP_TEECertificationProcess_v2.0_PublicRelease.pdf>.
 
    [IEEE-RA]  "IEEE Registration Authority",
               <https://standards.ieee.org/products-services/regauth/
@@ -4048,11 +4061,11 @@ B.2.  No Use of UUID
    use cases.
 
    Today, cryptographic-quality random numbers are available from common
-   CPUs and hardware.  This hardware was introduced between 2010 and
-   2015.  Operating systems and cryptographic libraries give access to
-   this hardware.  Consequently, there is little need for
-   implementations to construct such random values from multiple sources
-   on their own.
+   computing platforms.  In particular, hardware randomness sources
+   where introduced in CPUs between 2010 and 2015.  Operating systems
+   and cryptographic libraries make use of this hardware.  Consequently,
+   there is little need for protocols to construct random numbers from
+   multiple sources on their own.
 
    Version 4 UUIDs do allow for use of such cryptographic-quality random
    numbers, but do so by mapping into the overall UUID structure of time
@@ -4455,30 +4468,15 @@ Appendix G.  Changes from Previous Drafts
    history is available via the IETF Datatracker's record for this
    document.
 
-G.1.  From draft-ietf-rats-eat-24
+G.1.  From draft-ietf-rats-eat-27
 
-   The changes from draft-24, not draft 25, are listed here as draft-24
-   is what was accepted after IETF last call and draft-25 was kind of a
-   false start.
+   *  Random sources clarifications in Appendix B
 
-   *  Address some small claim data type naming issues that came to
-      light when IANA completed the registrations requested by this
-      document.  In particular, the CDDL type names are used.
+   *  Minor wording fixes
 
-   *  Remove all dependence on SUIT Manifest to break schedule interlock
-      with RFC Editor.  Use of SUIT-Manifest is peripheral to the core
-      of EAT.  It was mostly a content type pre-registration.  The
-      modification consisted of the removal of one sentence, a few more
-      words and two lines of CDDL.
+   *  Add certification examples for DLOAs
 
-   *  Reworded full profiles description to convey intent without using
-      "may not"
-
-   *  Upated references for UUIDs and LDAP to non-obsolete documents.
-
-   *  Removed some non-ascii quote marks
-
-   *  "MAY not" -> "MAY NOT"
+   *  Clarify nonce source in section 1.3
 
 Contributors
 

@@ -17,24 +17,24 @@ This claims set is used by a relying party, server or service to determine the t
        An EAT is either a CBOR Web Token (CWT) or JSON Web Token (JWT) with attestation-oriented
 claims. 
     " name="description">
-<meta content="xml2rfc 3.19.0" name="generator">
+<meta content="xml2rfc 3.21.0" name="generator">
 <meta content="signing attestation cbor" name="keyword">
 <meta content="draft-ietf-rats-eat-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.19.0
-    Python 3.11.6
+  xml2rfc 3.21.0
+    Python 3.12.3
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
-    Jinja2 3.1.2
-    lxml 4.9.3
-    platformdirs 4.1.0
+    Jinja2 3.1.4
+    lxml 4.9.4
+    platformdirs 4.2.2
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.31.0
-    setuptools 68.2.2
+    setuptools 69.5.1
     six 1.16.0
-    wcwidth 0.2.12
+    wcwidth 0.2.13
 -->
 <link href="draft-ietf-rats-eat.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1033,11 +1033,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">EAT</td>
-<td class="right">May 2024</td>
+<td class="right">June 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lundblade, et al.</td>
-<td class="center">Expires 25 November 2024</td>
+<td class="center">Expires 27 December 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-rats-eat-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-05-24" class="published">24 May 2024</time>
+<time datetime="2024-06-25" class="published">25 June 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-11-25">25 November 2024</time></dd>
+<dd class="expires"><time datetime="2024-12-27">27 December 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1106,7 +1106,7 @@ claims.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 25 November 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 27 December 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1580,7 +1580,7 @@ claims.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
             <p id="section-toc.1-1.18.1"><a href="#appendix-G" class="auto internal xref">Appendix G</a>.  <a href="#name-changes-from-previous-draft" class="internal xref">Changes from Previous Drafts</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.1">
-                <p id="section-toc.1-1.18.2.1.1"><a href="#appendix-G.1" class="auto internal xref">G.1</a>.  <a href="#name-from-draft-ietf-rats-eat-24" class="internal xref">From draft-ietf-rats-eat-24</a></p>
+                <p id="section-toc.1-1.18.2.1.1"><a href="#appendix-G.1" class="auto internal xref">G.1</a>.  <a href="#name-from-draft-ietf-rats-eat-27" class="internal xref">From draft-ietf-rats-eat-27</a></p>
 </li>
             </ul>
 </li>
@@ -1763,9 +1763,10 @@ One basic profile for constrained devices is normatively defined.<a href="#secti
         <h3 id="name-operating-model-and-rats-ar">
 <a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-operating-model-and-rats-ar" class="section-name selfRef">Operating Model and RATS Architecture</a>
         </h3>
-<p id="section-1.3-1">EAT follows the operational model described in Figure 1 in RATS Architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>. To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
+<p id="section-1.3-1">EAT follows the operational model described in Figure 1 in RATS Architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>.
+To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
 Evidence is usually signed by a key that proves the attester and the evidence it produces are authentic.
-The claims set includes a nonce or some other means to assure freshness.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
+The claims set either includes a received nonce or uses some other means to assure freshness.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
 <p id="section-1.3-2">A verifier confirms an EAT is valid by verifying the signature and may vet some claims using reference values.
 The verifier then produces attestation results, which may also be represented as an EAT.
 The attestation results are provided to the relying party, which is the ultimate consumer of the Remote Attestation Procedure.
@@ -2036,7 +2037,7 @@ See <a href="#UEID-Design" class="auto internal xref">Appendix B</a>.<a href="#s
 <p id="section-4.2.1.1-6">The different types of UEIDs 1) accommodate different manufacturing processes, 2) accommodate small UEIDs, 3) provide an option that doesn't require registration fees and central administration.<a href="#section-4.2.1.1-6" class="pilcrow">¶</a></p>
 <p id="section-4.2.1.1-7">In the unlikely event that a new UEID type is needed, it <span class="bcp14">MUST</span> be defined in a standards-track update to this document.<a href="#section-4.2.1.1-7" class="pilcrow">¶</a></p>
 <p id="section-4.2.1.1-8">A manufacturer of entities <span class="bcp14">MAY</span> use different types for different products.
-They <span class="bcp14">MAY</span> also change from one type to another for a given product or use one type for some items of a given produce and another type for other.<a href="#section-4.2.1.1-8" class="pilcrow">¶</a></p>
+They <span class="bcp14">MAY</span> also change from one type to another for a given product or use one type for some items of a given product and another type for other.<a href="#section-4.2.1.1-8" class="pilcrow">¶</a></p>
 <span id="name-ueid-composition-types"></span><div id="ueid-types-table">
 <table class="center" id="table-1">
               <caption>
@@ -2533,7 +2534,7 @@ $$Claims-Set-Claims //=  (boot-seed-label =&gt; binary-data)
 <a href="#section-4.2.14" class="section-number selfRef">4.2.14. </a><a href="#name-dloas-digital-letters-of-ap" class="section-name selfRef">dloas (Digital Letters of Approval) Claim</a>
           </h4>
 <p id="section-4.2.14-1">The "dloas" claim conveys one or more Digital Letters of Approval (DLOAs). A DLOA <span>[<a href="#DLOA" class="cite xref">DLOA</a>]</span> is a document that describes a certification that an entity has received.
-Examples of certifications represented by a DLOA include those issued by Global Platform and those based on Common Criteria.
+Examples of certifications represented by a DLOA include those issued by Global Platform <span>[<a href="#GP-Example" class="cite xref">GP-Example</a>]</span> and those based on Common Criteria <span>[<a href="#CC-Example" class="cite xref">CC-Example</a>]</span>.
 The DLOA is unspecific to any particular certification type or those issued by any particular organization.<a href="#section-4.2.14-1" class="pilcrow">¶</a></p>
 <p id="section-4.2.14-2">This claim is typically issued by a verifier, not an attester.
 Verifiers <span class="bcp14">MUST NOT</span> issue this claim unless the entity has received the certification indicated by the DLOA.<a href="#section-4.2.14-2" class="pilcrow">¶</a></p>
@@ -4805,6 +4806,10 @@ specification reference.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, and <span class="refAuthor">M. Furuhed</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-09</span>, <time datetime="2024-03-04" class="refDate">4 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-09">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="CC-Example">[CC-Example]</dt>
+        <dd>
+<span class="refTitle">"Secure Sub-System in System-on-Chip (3S in SoC) Protection Profile"</span>, <span>&lt;<a href="https://commoncriteriaportal.org/nfs/ccpfiles/files/ppfiles/pp0117V2b_pdf.pdf">https://commoncriteriaportal.org/nfs/ccpfiles/files/ppfiles/pp0117V2b_pdf.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="COSE.X509.Draft">[COSE.X509.Draft]</dt>
         <dd>
 <span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Header Parameters for Carrying and Referencing X.509 Certificates"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-x509-09</span>, <time datetime="2022-10-13" class="refDate">13 October 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-x509-09">https://datatracker.ietf.org/doc/html/draft-ietf-cose-x509-09</a>&gt;</span>. </dd>
@@ -4812,6 +4817,10 @@ specification reference.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
 <dt id="EAT.media-types">[EAT.media-types]</dt>
         <dd>
 <span class="refAuthor">Lundblade, L.</span>, <span class="refAuthor">Birkholz, H.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"EAT Media Types"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-eat-media-type-07</span>, <time datetime="2024-04-02" class="refDate">2 April 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-media-type-07">https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-media-type-07</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="GP-Example">[GP-Example]</dt>
+        <dd>
+<span class="refTitle">"GlobalPlatform Technology TEE Certification Process"</span>, <span>&lt;<a href="https://globalplatform.org/wp-content/uploads/2021/01/GP_TEECertificationProcess_v2.0_PublicRelease.pdf">https://globalplatform.org/wp-content/uploads/2021/01/GP_TEECertificationProcess_v2.0_PublicRelease.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE-RA">[IEEE-RA]</dt>
         <dd>
@@ -5692,11 +5701,10 @@ implementations be able to receive 256-bit UEIDs.<a href="#appendix-B.1-20" clas
 <p id="appendix-B.2-1">A UEID is not a Universally Unique Identifier (UUID) <span>[<a href="#RFC9562" class="cite xref">RFC9562</a>]</span> by conscious choice for the following reasons.<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
 <p id="appendix-B.2-2">UUIDs are limited to 128 bits which may not be enough for some future
 use cases.<a href="#appendix-B.2-2" class="pilcrow">¶</a></p>
-<p id="appendix-B.2-3">Today, cryptographic-quality random numbers are available from common
-CPUs and hardware. This hardware was introduced between 2010 and 2015.
-Operating systems and cryptographic libraries give access to this
-hardware. Consequently, there is little need for implementations
-to construct such random values from multiple sources on their own.<a href="#appendix-B.2-3" class="pilcrow">¶</a></p>
+<p id="appendix-B.2-3">Today, cryptographic-quality random numbers are available from common computing platforms.
+In particular, hardware randomness sources where introduced in CPUs between 2010 and 2015.
+Operating systems and cryptographic libraries make use of this hardware.
+Consequently, there is little need for protocols to construct random numbers from multiple sources on their own.<a href="#appendix-B.2-3" class="pilcrow">¶</a></p>
 <p id="appendix-B.2-4">Version 4 UUIDs do allow for use of such cryptographic-quality
 random numbers, but do so by mapping into the overall UUID
 structure of time and clock values. This structure is of no
@@ -6035,30 +6043,23 @@ The profile document should specify what the key ID's semantics are.<a href="#ap
 <p id="appendix-G-2">The following is a list of known changes since the immediately previous drafts.  This list is
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.<a href="#appendix-G-2" class="pilcrow">¶</a></p>
-<div id="from-draft-ietf-rats-eat-24">
+<div id="from-draft-ietf-rats-eat-27">
 <section id="appendix-G.1">
-        <h3 id="name-from-draft-ietf-rats-eat-24">
-<a href="#appendix-G.1" class="section-number selfRef">G.1. </a><a href="#name-from-draft-ietf-rats-eat-24" class="section-name selfRef">From draft-ietf-rats-eat-24</a>
+        <h3 id="name-from-draft-ietf-rats-eat-27">
+<a href="#appendix-G.1" class="section-number selfRef">G.1. </a><a href="#name-from-draft-ietf-rats-eat-27" class="section-name selfRef">From draft-ietf-rats-eat-27</a>
         </h3>
-<p id="appendix-G.1-1">The changes from draft-24, not draft 25, are listed here as draft-24 is what was accepted after IETF last call and draft-25 was kind of a false start.<a href="#appendix-G.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-G.1-2.1">
-            <p id="appendix-G.1-2.1.1">Address some small claim data type naming issues that came to light when IANA completed the registrations requested by this document. In particular, the CDDL type names are used.<a href="#appendix-G.1-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-G.1-1.1">
+            <p id="appendix-G.1-1.1.1">Random sources clarifications in Appendix B<a href="#appendix-G.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.1-2.2">
-            <p id="appendix-G.1-2.2.1">Remove all dependence on SUIT Manifest to break schedule interlock with RFC Editor. Use of SUIT-Manifest is peripheral to the core of EAT. It was mostly a content type pre-registration. The modification consisted of the removal of one sentence, a few more words and two lines of CDDL.<a href="#appendix-G.1-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.1-1.2">
+            <p id="appendix-G.1-1.2.1">Minor wording fixes<a href="#appendix-G.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.1-2.3">
-            <p id="appendix-G.1-2.3.1">Reworded full profiles description to convey intent without using "may not"<a href="#appendix-G.1-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.1-1.3">
+            <p id="appendix-G.1-1.3.1">Add certification examples for DLOAs<a href="#appendix-G.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-G.1-2.4">
-            <p id="appendix-G.1-2.4.1">Upated references for UUIDs and LDAP to non-obsolete documents.<a href="#appendix-G.1-2.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-2.5">
-            <p id="appendix-G.1-2.5.1">Removed some non-ascii quote marks<a href="#appendix-G.1-2.5.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-2.6">
-            <p id="appendix-G.1-2.6.1">"<span class="bcp14">MAY</span> not" -&gt; "<span class="bcp14">MAY</span> NOT"<a href="#appendix-G.1-2.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-G.1-1.4">
+            <p id="appendix-G.1-1.4.1">Clarify nonce source in section 1.3<a href="#appendix-G.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
