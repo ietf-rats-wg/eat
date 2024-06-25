@@ -2292,7 +2292,7 @@ UUIDs are limited to 128 bits which may not be enough for some future
 use cases.
 
 Today, cryptographic-quality random numbers are available from common computing platforms.
-In particular, hardware randomness sources where introduced in CPUs between 2010 and 2015.
+In particular, hardware randomness sources were introduced in CPUs between 2010 and 2015.
 Operating systems and cryptographic libraries make use of this hardware.
 Consequently, there is little need for protocols to construct random numbers from multiple sources on their own.
 
