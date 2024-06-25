@@ -161,6 +161,16 @@ informative:
 
   EAT.media-types: I-D.ietf-rats-eat-media-type
 
+  CC-Example:
+     title: Secure Sub-System in System-on-Chip (3S in SoC) Protection Profile
+     target: https://commoncriteriaportal.org/nfs/ccpfiles/files/ppfiles/pp0117V2b_pdf.pdf
+     date: false
+
+  GP-Example:
+     title: GlobalPlatform Technology TEE Certification Process
+     target: https://globalplatform.org/wp-content/uploads/2021/01/GP_TEECertificationProcess_v2.0_PublicRelease.pdf
+     date: false
+
 --- abstract
 
 An Entity Attestation Token (EAT) provides an attested claims set
@@ -301,9 +311,10 @@ One basic profile for constrained devices is normatively defined.
 
 ## Operating Model and RATS Architecture
 
-EAT follows the operational model described in Figure 1 in RATS Architecture {{RFC9334}}. To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
+EAT follows the operational model described in Figure 1 in RATS Architecture {{RFC9334}}.
+To summarize, an attester generates evidence in the form of a claims set describing various characteristics of an entity.
 Evidence is usually signed by a key that proves the attester and the evidence it produces are authentic.
-The claims set includes a nonce or some other means to assure freshness.
+The claims set either includes a received nonce or uses some other means to assure freshness.
 
 A verifier confirms an EAT is valid by verifying the signature and may vet some claims using reference values.
 The verifier then produces attestation results, which may also be represented as an EAT.
@@ -534,7 +545,7 @@ The different types of UEIDs 1) accommodate different manufacturing processes, 2
 In the unlikely event that a new UEID type is needed, it MUST be defined in a standards-track update to this document.
 
 A manufacturer of entities MAY use different types for different products.
-They MAY also change from one type to another for a given product or use one type for some items of a given produce and another type for other.
+They MAY also change from one type to another for a given product or use one type for some items of a given product and another type for other.
 
 | Type Byte | Type Name | Specification |
 | 0x01 | RAND | This is a 128, 192 or 256-bit random number generated once and stored in the entity. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the entity and stored. It MUST NOT be smaller than 128 bits. See the length analysis in {{UEID-Design}}. |
@@ -875,7 +886,7 @@ There are privacy considerations for this claim. See {{bootseedprivacyconsiderat
 ### dloas (Digital Letters of Approval) Claim {#dloas}
 
 The "dloas" claim conveys one or more Digital Letters of Approval (DLOAs). A DLOA {{DLOA}} is a document that describes a certification that an entity has received.
-Examples of certifications represented by a DLOA include those issued by Global Platform and those based on Common Criteria.
+Examples of certifications represented by a DLOA include those issued by Global Platform {{GP-Example}} and those based on Common Criteria {{CC-Example}}.
 The DLOA is unspecific to any particular certification type or those issued by any particular organization.
 
 This claim is typically issued by a verifier, not an attester.
@@ -2280,11 +2291,10 @@ A UEID is not a Universally Unique Identifier (UUID) {{RFC9562}} by conscious ch
 UUIDs are limited to 128 bits which may not be enough for some future
 use cases.
 
-Today, cryptographic-quality random numbers are available from common
-CPUs and hardware. This hardware was introduced between 2010 and 2015.
-Operating systems and cryptographic libraries give access to this
-hardware. Consequently, there is little need for implementations
-to construct such random values from multiple sources on their own.
+Today, cryptographic-quality random numbers are available from common computing platforms.
+In particular, hardware randomness sources where introduced in CPUs between 2010 and 2015.
+Operating systems and cryptographic libraries make use of this hardware.
+Consequently, there is little need for protocols to construct random numbers from multiple sources on their own.
 
 Version 4 UUIDs do allow for use of such cryptographic-quality
 random numbers, but do so by mapping into the overall UUID
@@ -2541,20 +2551,16 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-24
-The changes from draft-24, not draft 25, are listed here as draft-24 is what was accepted after IETF last call and draft-25 was kind of a false start.
+## From draft-ietf-rats-eat-27
 
-- Address some small claim data type naming issues that came to light when IANA completed the registrations requested by this document. In particular, the CDDL type names are used.
+- Random sources clarifications in Appendix B
 
-- Remove all dependence on SUIT Manifest to break schedule interlock with RFC Editor. Use of SUIT-Manifest is peripheral to the core of EAT. It was mostly a content type pre-registration. The modification consisted of the removal of one sentence, a few more words and two lines of CDDL.
+- Minor wording fixes
 
-- Reworded full profiles description to convey intent without using "may not"
+- Add certification examples for DLOAs
 
-- Upated references for UUIDs and LDAP to non-obsolete documents.
+- Clarify nonce source in section 1.3
 
-- Removed some non-ascii quote marks
-
-- "MAY not" -> "MAY NOT"
 
 --- contributor
 
