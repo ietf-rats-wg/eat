@@ -118,6 +118,7 @@ normative:
 
 
 informative:
+  RFC8126:
   RFC9562:
   RFC4949:
   RFC9039:
@@ -1195,36 +1196,10 @@ See {{common-types}} for OID and URI encoding.
 
 ### intuse (Intended Use) Claim
 
-EATs may be employed in the context of several different applications.  The "intuse"
-claim provides an indication to an EAT consumer about  the intended usage
-of the token. This claim can be used as a way for an application using EAT to internally distinguish between different ways it utilizes EAT.
-5 possible values for "intuse" are currently defined, but an IANA registry can be created in the future to extend these values  based on new use cases of EAT.
-
-1 -- Generic:
-: Generic attestation describes an application where the EAT consumer
-requires the most up-to-date security assessment of the attesting entity. It
-is expected that this is the most commonly-used application of EAT.
-
-2-- Registration:
-: Entities that are registering for a new service may be expected to
-provide an attestation as part of the registration process.  This "intuse"
-setting indicates that the attestation is not intended for any use but registration.
-
-3 -- Provisioning:
-: Entities may be provisioned with different values or settings by an EAT
-consumer.  Examples include key material or device management trees.  The consumer
-may require an EAT to assess entity security state of the entity prior to provisioning.
-
-4 -- Certificate Issuance:
-: Certification Authorities (CAs) may require attestation results (which in a background check model might require receiving evidence to be passed to a verifier) to make decisions about the issuance of certificates.
-An EAT may be used as part of the certificate signing request (CSR).
-
-5 -- Proof-of-Possession:
-: An EAT consumer may require an attestation as part of an accompanying
-proof-of-possession (PoP) application. More precisely, a PoP transaction is intended
-to provide to the recipient cryptographically-verifiable proof that the sender has possession
-of a key.  This kind of attestation may be necessary to verify the
-security state of the entity storing the private key used in a PoP application.
+EATs may be employed in the context of several different applications.
+The "intuse" claim provides an indication to an EAT consumer about the intended usage of the token.
+This claim can be used as a way for an application using EAT to internally distinguish between different ways it utilizes EAT.
+The possible values are in the EAT Intended Use Registry defined in {{int-use-registry}}.
 
 ~~~~CDDL
 {::include nc-cddl/intended-use.cddl}
@@ -2051,6 +2026,59 @@ specification reference.
 | Tag    | Data Items     | Semantics                   |
 | 602 | array          | Detached EAT Bundle {{DEB}} |
 {: #deb-tag-reg title="Detached EAT Bundle Tag Registration"}
+
+## Intended Use Registry {#int-use-registry}
+
+IANA is requested to create a new registry titled "EAT Intended Uses".
+The registry uses the "Expert Review Required" registration procedure {{RFC8126}}.
+
+Some guidelines for experts:
+
+* Each intended use should be clearly described so a user of can know what it means.
+
+* Each intended user should be distinct from others that are registered.
+
+* Point squatting id discouraged.
+
+The three columns for the registry are:
+
+Integer:
+: This is a unique integer used to identify the intended use in CBOR-encoded tokens.
+
+Name:
+: This is unique short descriptive string that is used to identify the use in JSON-encoded tokens.
+
+Description:
+: This is a text paragraph or more that sufficiently defines what the intended use means. It may also be a reference to another document.
+
+
+These 5 values are the initial content of the registry:
+
+1 -- Generic:
+: Generic attestation describes an application where the EAT consumer
+requires the most up-to-date security assessment of the attesting entity. It
+is expected that this is the most commonly-used application of EAT.
+
+2-- Registration:
+: Entities that are registering for a new service may be expected to
+provide an attestation as part of the registration process.  This "intuse"
+setting indicates that the attestation is not intended for any use but registration.
+
+3 -- Provisioning:
+: Entities may be provisioned with different values or settings by an EAT
+consumer.  Examples include key material or device management trees.  The consumer
+may require an EAT to assess entity security state of the entity prior to provisioning.
+
+4 -- Certificate Issuance:
+: Certification Authorities (CAs) may require attestation results (which in a background check model might require receiving evidence to be passed to a verifier) to make decisions about the issuance of certificates.
+An EAT may be used as part of the certificate signing request (CSR).
+
+5 -- Proof-of-Possession:
+: An EAT consumer may require an attestation as part of an accompanying
+proof-of-possession (PoP) application. More precisely, a PoP transaction is intended
+to provide to the recipient cryptographically-verifiable proof that the sender has possession
+of a key.  This kind of attestation may be necessary to verify the
+security state of the entity storing the private key used in a PoP application.
 
 --- back
 

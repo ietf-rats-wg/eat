@@ -1,13 +1,3 @@
 $$Claims-Set-Claims //= ( intended-use-label => intended-use-type )
 
-intended-use-type = generic /
-                    registration / 
-                    provisioning / 
-                    csr /
-                    pop
-
-generic      = JC< "generic",      1 >
-registration = JC< "registration", 2 >
-provisioning = JC< "provisioning", 3 >
-csr          = JC< "csr",          4 >
-pop          = JC< "pop",          5 >
+intended-use-type = JC< text, int>
