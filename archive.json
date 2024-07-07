@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-07T07:43:50.549502+00:00",
+  "timestamp": "2024-07-07T17:03:23.657455+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -24158,6 +24158,34 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 458,
+      "id": "PR_kwDOCEWCXc50m3Mz",
+      "title": "Intended Use Registry",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/458",
+      "state": "MERGED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Create a registry for the intended use claim.\r\n\r\nThis is a bit rough, but it is something we can talk about.\r\n\r\nThe author of this PR does not see a need for this because I don't think intended use will be used very much. It's an optional claim that is probably not very much at the center of EAT. This is why we didn't create a registry for it when it was discussed a year ago..\r\n\r\n",
+      "createdAt": "2024-07-07T07:46:00Z",
+      "updatedAt": "2024-07-07T17:02:26Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "8ff8d7ac8d06d3a0d9d97da3ef34bc6414e47d51",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "intuse-reg",
+      "headRefOid": "f36e3de4f232f9ab7c8c18ebaa202011d49659bd",
+      "closedAt": "2024-07-07T17:02:26Z",
+      "mergedAt": "2024-07-07T17:02:26Z",
+      "mergedBy": "gmandyam",
+      "mergeCommit": {
+        "oid": "45d2e4f280956d6e78284412aa806d59b500a728"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
