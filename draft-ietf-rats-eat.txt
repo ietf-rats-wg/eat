@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 27 December 2024                                   Mediatek USA
+Expires: 8 January 2025                                     Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                            25 June 2024
+                                                             7 July 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 December 2024.
+   This Internet-Draft will expire on 8 January 2025.
 
 Copyright Notice
 
@@ -154,6 +154,7 @@ Table of Contents
      10.3.  UEID URN Registered by this Document
      10.4.  CBOR Tag for Detached EAT Bundle Registered by this
             Document
+     10.5.  Intended Use Registry
    11. References
      11.1.  Normative References
      11.2.  Informative References
@@ -1691,52 +1692,12 @@ Table of Contents
    applications.  The "intuse" claim provides an indication to an EAT
    consumer about the intended usage of the token.  This claim can be
    used as a way for an application using EAT to internally distinguish
-   between different ways it utilizes EAT. 5 possible values for
-   "intuse" are currently defined, but an IANA registry can be created
-   in the future to extend these values based on new use cases of EAT.
-
-   1 -- Generic:  Generic attestation describes an application where the
-      EAT consumer requires the most up-to-date security assessment of
-      the attesting entity.  It is expected that this is the most
-      commonly-used application of EAT.
-
-   2-- Registration:  Entities that are registering for a new service
-      may be expected to provide an attestation as part of the
-      registration process.  This "intuse" setting indicates that the
-      attestation is not intended for any use but registration.
-
-   3 -- Provisioning:  Entities may be provisioned with different values
-      or settings by an EAT consumer.  Examples include key material or
-      device management trees.  The consumer may require an EAT to
-      assess entity security state of the entity prior to provisioning.
-
-   4 -- Certificate Issuance:  Certification Authorities (CAs) may
-      require attestation results (which in a background check model
-      might require receiving evidence to be passed to a verifier) to
-      make decisions about the issuance of certificates.  An EAT may be
-      used as part of the certificate signing request (CSR).
-
-   5 -- Proof-of-Possession:  An EAT consumer may require an attestation
-      as part of an accompanying proof-of-possession (PoP) application.
-      More precisely, a PoP transaction is intended to provide to the
-      recipient cryptographically-verifiable proof that the sender has
-      possession of a key.  This kind of attestation may be necessary to
-      verify the security state of the entity storing the private key
-      used in a PoP application.
+   between different ways it utilizes EAT.  The possible values are in
+   the EAT Intended Use Registry defined in Section 10.5.
 
    $$Claims-Set-Claims //= ( intended-use-label => intended-use-type )
 
-   intended-use-type = generic /
-                       registration /
-                       provisioning /
-                       csr /
-                       pop
-
-   generic      = JC< "generic",      1 >
-   registration = JC< "registration", 2 >
-   provisioning = JC< "provisioning", 3 >
-   csr          = JC< "csr",          4 >
-   pop          = JC< "pop",          5 >
+   intended-use-type = JC< text, int>
 
 5.  Detached EAT Bundles
 
@@ -2375,17 +2336,7 @@ Table of Contents
 
    $$Claims-Set-Claims //= ( intended-use-label => intended-use-type )
 
-   intended-use-type = generic /
-                       registration /
-                       provisioning /
-                       csr /
-                       pop
-
-   generic      = JC< "generic",      1 >
-   registration = JC< "registration", 2 >
-   provisioning = JC< "provisioning", 3 >
-   csr          = JC< "csr",          4 >
-   pop          = JC< "pop",          5 >
+   intended-use-type = JC< text, int>
 
    $$Claims-Set-Claims //= (
        dloas-label => [ + dloa-type ]
@@ -3163,6 +3114,65 @@ Table of Contents
 
               Table 4: Detached EAT Bundle Tag Registration
 
+10.5.  Intended Use Registry
+
+   IANA is requested to create a new registry titled "EAT Intended
+   Uses".  The registry uses the "Expert Review Required" registration
+   procedure [RFC8126].
+
+   Some guidelines for experts:
+
+   *  Each intended use should be clearly described so a user of can
+      know what it means.
+
+   *  Each intended user should be distinct from others that are
+      registered.
+
+   *  Point squatting id discouraged.
+
+   The three columns for the registry are:
+
+   Integer:  This is a unique integer used to identify the intended use
+      in CBOR-encoded tokens.
+
+   Name:  This is unique short descriptive string that is used to
+      identify the use in JSON-encoded tokens.
+
+   Description:  This is a text paragraph or more that sufficiently
+      defines what the intended use means.  It may also be a reference
+      to another document.
+
+   These 5 values are the initial content of the registry:
+
+   1 -- Generic:  Generic attestation describes an application where the
+      EAT consumer requires the most up-to-date security assessment of
+      the attesting entity.  It is expected that this is the most
+      commonly-used application of EAT.
+
+   2-- Registration:  Entities that are registering for a new service
+      may be expected to provide an attestation as part of the
+      registration process.  This "intuse" setting indicates that the
+      attestation is not intended for any use but registration.
+
+   3 -- Provisioning:  Entities may be provisioned with different values
+      or settings by an EAT consumer.  Examples include key material or
+      device management trees.  The consumer may require an EAT to
+      assess entity security state of the entity prior to provisioning.
+
+   4 -- Certificate Issuance:  Certification Authorities (CAs) may
+      require attestation results (which in a background check model
+      might require receiving evidence to be passed to a verifier) to
+      make decisions about the issuance of certificates.  An EAT may be
+      used as part of the certificate signing request (CSR).
+
+   5 -- Proof-of-Possession:  An EAT consumer may require an attestation
+      as part of an accompanying proof-of-possession (PoP) application.
+      More precisely, a PoP transaction is intended to provide to the
+      recipient cryptographically-verifiable proof that the sender has
+      possession of a key.  This kind of attestation may be necessary to
+      verify the security state of the entity storing the private key
+      used in a PoP application.
+
 11.  References
 
 11.1.  Normative References
@@ -3319,9 +3329,9 @@ Table of Contents
    [EAT.media-types]
               Lundblade, L., Birkholz, H., and T. Fossati, "EAT Media
               Types", Work in Progress, Internet-Draft, draft-ietf-rats-
-              eat-media-type-07, 2 April 2024,
+              eat-media-type-08, 4 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              eat-media-type-07>.
+              eat-media-type-08>.
 
    [GP-Example]
               "GlobalPlatform Technology TEE Certification Process",
@@ -3364,6 +3374,11 @@ Table of Contents
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
               <https://www.rfc-editor.org/rfc/rfc4949>.
 
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/rfc/rfc8126>.
+
    [RFC9039]  Arkko, J., Jennings, C., and Z. Shelby, "Uniform Resource
               Names for Device Identifiers", RFC 9039,
               DOI 10.17487/RFC9039, June 2021,
@@ -3375,9 +3390,9 @@ Table of Contents
 
    [UCCS]     Birkholz, H., O'Donoghue, J., Cam-Winget, N., and C.
               Bormann, "A CBOR Tag for Unprotected CWT Claims Sets",
-              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-09,
-              4 March 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-uccs-09>.
+              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-10,
+              4 July 2024, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-rats-uccs-10>.
 
    [W3C.GeoLoc]
               Popescu, A., Ed., "Geolocation API Specification", W3C
