@@ -2029,10 +2029,11 @@ specification reference.
 
 ## Intended Use Registry {#int-use-registry}
 
-IANA is requested to create a new registry titled "EAT Intended Uses".
+IANA is requested to create a new registry titled "EAT Intended Uses".  This registry
+will be under a registry group called "Remote Attestation Procedures Registries".
 The registry uses the "Expert Review Required" registration procedure {{RFC8126}}.
 
-Some guidelines for experts:
+Guidelines for experts:
 
 * Each intended use should be clearly described so a user of can know what it means.
 
@@ -2052,7 +2053,7 @@ Description:
 : This is a text paragraph or more that sufficiently defines what the intended use means. It may also be a reference to another document.
 
 
-These 5 values are the initial content of the registry:
+These 5 values are the initial content of the registry are listed below.  Note that 0 will not be assigned for the CBOR value, and the maximum CBOR value for assignment is 255.  
 
 1 -- Generic:
 : Generic attestation describes an application where the EAT consumer
