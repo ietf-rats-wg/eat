@@ -2035,7 +2035,7 @@ The registry uses the "Expert Review Required" registration procedure {{RFC8126}
 
 Guidelines for experts:
 
-* Each intended use should be clearly described so a user of can know what it means.
+* Each intended use should be clearly described so a user of it can know what it means.
 
 * Each intended user should be distinct from others that are registered.
 
