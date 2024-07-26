@@ -2029,8 +2029,8 @@ specification reference.
 
 ## Intended Use Registry {#int-use-registry}
 
-IANA is requested to create a new registry titled "EAT Intended Uses" in a new registry group c
-alled "Remote Attestation Procedures (RATS)."
+IANA is requested to create a new registry titled "EAT Intended Uses" in a new registry group 
+called "Remote Attestation Procedures (RATS)."
 The registry uses the "Expert Review Required" registration procedure {{RFC8126}}.
 
 Guidelines for experts:
