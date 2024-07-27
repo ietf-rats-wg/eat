@@ -2029,9 +2029,9 @@ specification reference.
 
 ## Intended Use Registry {#int-use-registry}
 
-IANA is requested to create a new registry titled "EAT Intended Uses" in a new registry group 
+IANA is requested to create a new registry titled "Entity Attestation Token (EAT) Intended Uses" in a new registry group 
 called "Remote Attestation Procedures (RATS)."
-The registry uses the "Expert Review Required" registration procedure {{RFC8126}}.
+The registry uses the "Expert Review" registration procedure {{RFC8126}}.
 
 Guidelines for experts:
 
