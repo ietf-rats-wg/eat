@@ -2029,12 +2029,13 @@ specification reference.
 
 ## Intended Use Registry {#int-use-registry}
 
-IANA is requested to create a new registry titled "EAT Intended Uses".
-The registry uses the "Expert Review Required" registration procedure {{RFC8126}}.
+IANA is requested to create a new registry titled "Entity Attestation Token (EAT) Intended Uses" in a new registry group 
+called "Remote Attestation Procedures (RATS)."
+The registry uses the "Expert Review" registration procedure {{RFC8126}}.
 
-Some guidelines for experts:
+Guidelines for experts:
 
-* Each intended use should be clearly described so a user of can know what it means.
+* Each intended use should be clearly described so a user of it can know what it means.
 
 * Each intended user should be distinct from others that are registered.
 
@@ -2052,7 +2053,7 @@ Description:
 : This is a text paragraph or more that sufficiently defines what the intended use means. It may also be a reference to another document.
 
 
-These 5 values are the initial content of the registry:
+The following 5 values represent the initial content of the registry.  Note that 0 will be marked as "reserved" for the CBOR value, and the maximum CBOR value for assignment is 255.  
 
 1 -- Generic:
 : Generic attestation describes an application where the EAT consumer
@@ -2579,15 +2580,9 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-27
+## From draft-ietf-rats-eat-29
 
-- Random sources clarifications in Appendix B
-
-- Minor wording fixes
-
-- Add certification examples for DLOAs
-
-- Clarify nonce source in section 1.3
+- Address IANA comments on intuse registry
 
 
 --- contributor
