@@ -2037,9 +2037,9 @@ Guidelines for experts:
 
 * Each intended use should be clearly described so a user of it can know what it means.
 
-* Each intended user should be distinct from others that are registered.
+* Each intended use should be distinct from others that are registered.
 
-* Point squatting id discouraged.
+* Point squatting is discouraged.
 
 The three columns for the registry are:
 
