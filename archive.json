@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-07T17:03:23.657455+00:00",
+  "timestamp": "2024-07-31T13:29:45.089630+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -24183,6 +24183,182 @@
       "mergedBy": "gmandyam",
       "mergeCommit": {
         "oid": "45d2e4f280956d6e78284412aa806d59b500a728"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 459,
+      "id": "PR_kwDOCEWCXc52mBJF",
+      "title": "Update intuse registry text",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/459",
+      "state": "MERGED",
+      "author": "gmandyam",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "bug"
+      ],
+      "body": "",
+      "createdAt": "2024-07-26T15:33:59Z",
+      "updatedAt": "2024-07-29T19:51:55Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "45d2e4f280956d6e78284412aa806d59b500a728",
+      "headRepository": "gmandyam/eat",
+      "headRefName": "IANA-registry",
+      "headRefOid": "eb1fac85077b9c0012038bc5c1adfac6da2f8896",
+      "closedAt": "2024-07-29T19:51:38Z",
+      "mergedAt": "2024-07-29T19:51:38Z",
+      "mergedBy": "gmandyam",
+      "mergeCommit": {
+        "oid": "33558ce032c6b184bd286dfb70fa495367ef2e4d"
+      },
+      "comments": [
+        {
+          "author": "ababer",
+          "authorAssociation": "NONE",
+          "body": "IANA has a strong preference for not including the word \"Registries\" (or, although it was once common, \"Parameters\") in the name of a registry or group of registries, unless it would be confusing in that particular case to leave it out. The reasoning is that all registries and groups could include the word \"Registry\" or \"Registries\" in the title, but most of them don't. \r\n\r\nWould you want to use \"Remote Attestation Procedures (RATS)\" for the registry group name? That would get the acronym \"RATS\" into the list at https://www.iana.org/protocols, which could be useful for find-in-page searchability.\r\n\r\nOne other note: in the next line, \"Expert Review Required\" should be changed to \"Expert Review\" (the RFC 8126 term). ",
+          "createdAt": "2024-07-26T16:53:31Z",
+          "updatedAt": "2024-07-26T16:53:31Z"
+        },
+        {
+          "author": "ababer",
+          "authorAssociation": "NONE",
+          "body": "Just one IANA request left: please change \"Expert Review Required\" to \"Expert Review.\" \r\n\r\nOne additional question: should \"EAT Intended Uses\" be changed to \"Entity Attestation Token (EAT) Intended Uses\"? (I don't have a recommendation here.)",
+          "createdAt": "2024-07-27T05:11:25Z",
+          "updatedAt": "2024-07-27T05:25:27Z"
+        },
+        {
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Just one IANA request left: please change \"Expert Review Required\" to \"Expert Review.\"\r\n> \r\n> One additional question: should \"EAT Intended Uses\" be changed to \"Entity Attestation Token (EAT) Intended Uses\"? (I don't have a recommendation here.)\r\n\r\nAdded clarifications.  Please review.",
+          "createdAt": "2024-07-27T14:54:26Z",
+          "updatedAt": "2024-07-27T14:54:26Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc6DQmMn",
+          "commit": {
+            "abbreviatedOid": "4d5a96d"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-26T15:40:41Z",
+          "updatedAt": "2024-07-26T15:40:41Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\nThe following 5 values represent the initial content of the registry.  Note that 0 will not be assigned for the CBOR value, and the maximum CBOR value for assignment is 255.  \r\n```",
+              "createdAt": "2024-07-26T15:40:41Z",
+              "updatedAt": "2024-07-26T15:40:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOCEWCXc6DSXNX",
+          "commit": {
+            "abbreviatedOid": "7694a40"
+          },
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-26T19:45:59Z",
+          "updatedAt": "2024-07-26T19:47:18Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "typo (mine)\r\n\r\nNeed to add \"it\"... \"as user of it can know\"",
+              "createdAt": "2024-07-26T19:45:59Z",
+              "updatedAt": "2024-07-26T19:47:18Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 460,
+      "id": "PR_kwDOCEWCXc522vtS",
+      "title": "fix two typos",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/460",
+      "state": "MERGED",
+      "author": "carl-wallace",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-30T10:05:43Z",
+      "updatedAt": "2024-07-31T13:06:56Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "33558ce032c6b184bd286dfb70fa495367ef2e4d",
+      "headRepository": "carl-wallace/eat",
+      "headRefName": "intuse",
+      "headRefOid": "eafa2965498252cd0d839369d9cbb9d267f3fdf4",
+      "closedAt": "2024-07-31T13:06:56Z",
+      "mergedAt": "2024-07-31T13:06:56Z",
+      "mergedBy": "gmandyam",
+      "mergeCommit": {
+        "oid": "ce8409db91cad287890488c40867c3f37f78685f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc6DmYwb",
+          "commit": {
+            "abbreviatedOid": "eafa296"
+          },
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-30T14:31:35Z",
+          "updatedAt": "2024-07-30T14:31:35Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOCEWCXc6Dn20H",
+          "commit": {
+            "abbreviatedOid": "eafa296"
+          },
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-30T17:17:25Z",
+          "updatedAt": "2024-07-30T17:17:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 461,
+      "id": "PR_kwDOCEWCXc52_wmJ",
+      "title": "Update draft-ietf-rats-eat.md",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/461",
+      "state": "MERGED",
+      "author": "gmandyam",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-31T13:28:44Z",
+      "updatedAt": "2024-07-31T13:28:55Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "ce8409db91cad287890488c40867c3f37f78685f",
+      "headRepository": "gmandyam/eat",
+      "headRefName": "IANA-registry",
+      "headRefOid": "da1a11501c21e0dc6831653d3f1ed1f36fe8d9a4",
+      "closedAt": "2024-07-31T13:28:55Z",
+      "mergedAt": "2024-07-31T13:28:55Z",
+      "mergedBy": "gmandyam",
+      "mergeCommit": {
+        "oid": "f7ffb946503f4f11aeb7e91506a663e7368541b9"
       },
       "comments": [],
       "reviews": []
