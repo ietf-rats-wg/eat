@@ -1037,7 +1037,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lundblade, et al.</td>
-<td class="center">Expires 8 January 2025</td>
+<td class="center">Expires 1 February 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-rats-eat-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-07" class="published">7 July 2024</time>
+<time datetime="2024-07-31" class="published">31 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-08">8 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-02-01">1 February 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1106,7 +1106,7 @@ claims.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 February 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1583,7 +1583,7 @@ claims.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
             <p id="section-toc.1-1.18.1"><a href="#appendix-G" class="auto internal xref">Appendix G</a>.  <a href="#name-changes-from-previous-draft" class="internal xref">Changes from Previous Drafts</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18.2.1">
-                <p id="section-toc.1-1.18.2.1.1"><a href="#appendix-G.1" class="auto internal xref">G.1</a>.  <a href="#name-from-draft-ietf-rats-eat-27" class="internal xref">From draft-ietf-rats-eat-27</a></p>
+                <p id="section-toc.1-1.18.2.1.1"><a href="#appendix-G.1" class="auto internal xref">G.1</a>.  <a href="#name-from-draft-ietf-rats-eat-29" class="internal xref">From draft-ietf-rats-eat-29</a></p>
 </li>
             </ul>
 </li>
@@ -4623,18 +4623,18 @@ specification reference.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
         <h3 id="name-intended-use-registry">
 <a href="#section-10.5" class="section-number selfRef">10.5. </a><a href="#name-intended-use-registry" class="section-name selfRef">Intended Use Registry</a>
         </h3>
-<p id="section-10.5-1">IANA is requested to create a new registry titled "EAT Intended Uses".
-The registry uses the "Expert Review Required" registration procedure <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>.<a href="#section-10.5-1" class="pilcrow">¶</a></p>
-<p id="section-10.5-2">Some guidelines for experts:<a href="#section-10.5-2" class="pilcrow">¶</a></p>
+<p id="section-10.5-1">IANA is requested to create a new registry titled "Entity Attestation Token (EAT) Intended Uses" in a new registry group called "Remote Attestation Procedures (RATS)."
+The registry uses the "Expert Review" registration procedure <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>.<a href="#section-10.5-1" class="pilcrow">¶</a></p>
+<p id="section-10.5-2">Guidelines for experts:<a href="#section-10.5-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10.5-3.1">
-            <p id="section-10.5-3.1.1">Each intended use should be clearly described so a user of can know what it means.<a href="#section-10.5-3.1.1" class="pilcrow">¶</a></p>
+            <p id="section-10.5-3.1.1">Each intended use should be clearly described so a user of it can know what it means.<a href="#section-10.5-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.5-3.2">
-            <p id="section-10.5-3.2.1">Each intended user should be distinct from others that are registered.<a href="#section-10.5-3.2.1" class="pilcrow">¶</a></p>
+            <p id="section-10.5-3.2.1">Each intended use should be distinct from others that are registered.<a href="#section-10.5-3.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-10.5-3.3">
-            <p id="section-10.5-3.3.1">Point squatting id discouraged.<a href="#section-10.5-3.3.1" class="pilcrow">¶</a></p>
+            <p id="section-10.5-3.3.1">Point squatting is discouraged.<a href="#section-10.5-3.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-10.5-4">The three columns for the registry are:<a href="#section-10.5-4" class="pilcrow">¶</a></p>
@@ -4655,7 +4655,7 @@ The registry uses the "Expert Review Required" registration procedure <span>[<a 
 </dd>
         <dd class="break"></dd>
 </dl>
-<p id="section-10.5-6">These 5 values are the initial content of the registry:<a href="#section-10.5-6" class="pilcrow">¶</a></p>
+<p id="section-10.5-6">The following 5 values represent the initial content of the registry.  Note that 0 will be marked as "reserved" for the CBOR value, and the maximum CBOR value for assignment is 255.<a href="#section-10.5-6" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-10.5-7">
           <dt id="section-10.5-7.1">1 -- Generic:</dt>
           <dd style="margin-left: 1.5em" id="section-10.5-7.2">
@@ -4714,19 +4714,19 @@ security state of the entity storing the private key used in a PoP application.<
 <dd class="break"></dd>
 <dt id="IANA.cbor-tags">[IANA.cbor-tags]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR) Tags"</span>, <span>&lt;<a href="http://www.iana.org/assignments/cbor-tags">http://www.iana.org/assignments/cbor-tags</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR) Tags"</span>, <span>&lt;<a href="https://www.iana.org/assignments/cbor-tags">https://www.iana.org/assignments/cbor-tags</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA.COSE.Algorithms">[IANA.COSE.Algorithms]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE)"</span>, <span>&lt;<a href="http://www.iana.org/assignments/cose">http://www.iana.org/assignments/cose</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE)"</span>, <span>&lt;<a href="https://www.iana.org/assignments/cose">https://www.iana.org/assignments/cose</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA.CWT.Claims">[IANA.CWT.Claims]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"CBOR Web Token (CWT) Claims"</span>, <span>&lt;<a href="http://www.iana.org/assignments/cwt">http://www.iana.org/assignments/cwt</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"CBOR Web Token (CWT) Claims"</span>, <span>&lt;<a href="https://www.iana.org/assignments/cwt">https://www.iana.org/assignments/cwt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA.JWT.Claims">[IANA.JWT.Claims]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"JSON Web Token (JWT)"</span>, <span>&lt;<a href="http://www.iana.org/assignments/jwt">http://www.iana.org/assignments/jwt</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"JSON Web Token (JWT)"</span>, <span>&lt;<a href="https://www.iana.org/assignments/jwt">https://www.iana.org/assignments/jwt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="PEN">[PEN]</dt>
         <dd>
@@ -4827,7 +4827,7 @@ security state of the entity storing the private key used in a PoP application.<
 <dd class="break"></dd>
 <dt id="CBOR.Cert.Draft">[CBOR.Cert.Draft]</dt>
         <dd>
-<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, and <span class="refAuthor">M. Furuhed</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-09</span>, <time datetime="2024-03-04" class="refDate">4 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-09">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-09</a>&gt;</span>. </dd>
+<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, and <span class="refAuthor">M. Furuhed</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-11</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-11">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-11</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="CC-Example">[CC-Example]</dt>
         <dd>
@@ -6070,23 +6070,14 @@ The profile document should specify what the key ID's semantics are.<a href="#ap
 <p id="appendix-G-2">The following is a list of known changes since the immediately previous drafts.  This list is
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.<a href="#appendix-G-2" class="pilcrow">¶</a></p>
-<div id="from-draft-ietf-rats-eat-27">
+<div id="from-draft-ietf-rats-eat-29">
 <section id="appendix-G.1">
-        <h3 id="name-from-draft-ietf-rats-eat-27">
-<a href="#appendix-G.1" class="section-number selfRef">G.1. </a><a href="#name-from-draft-ietf-rats-eat-27" class="section-name selfRef">From draft-ietf-rats-eat-27</a>
+        <h3 id="name-from-draft-ietf-rats-eat-29">
+<a href="#appendix-G.1" class="section-number selfRef">G.1. </a><a href="#name-from-draft-ietf-rats-eat-29" class="section-name selfRef">From draft-ietf-rats-eat-29</a>
         </h3>
 <ul class="normal">
 <li class="normal" id="appendix-G.1-1.1">
-            <p id="appendix-G.1-1.1.1">Random sources clarifications in Appendix B<a href="#appendix-G.1-1.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.2">
-            <p id="appendix-G.1-1.2.1">Minor wording fixes<a href="#appendix-G.1-1.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.3">
-            <p id="appendix-G.1-1.3.1">Add certification examples for DLOAs<a href="#appendix-G.1-1.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-G.1-1.4">
-            <p id="appendix-G.1-1.4.1">Clarify nonce source in section 1.3<a href="#appendix-G.1-1.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-G.1-1.1.1">Address IANA comments on intuse registry<a href="#appendix-G.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
