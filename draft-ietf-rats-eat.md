@@ -1130,7 +1130,7 @@ The data type for this type of submodule is an array consisting of two data item
 A detached EAT bundle, described in {{DEB}}, may be used to convey detached claims sets and the EAT containing the corresponding detached digests.
 EAT, however, doesn't require use of a detached EAT bundle.
 Any other protocols may be used to convey detached claims sets and the EAT containing the corresponding detached digests.
-Detached Claims-Sets must not be modified in transit, else validation will fail.
+If detached Claims-Sets are modified in transit then validation can fail.
 
 #### Nested Tokens {#Nested-Token}
 
