@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-31T13:29:45.089630+00:00",
+  "timestamp": "2024-09-06T15:09:35.271817+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -4831,6 +4831,37 @@
           "body": ">[laurencelundblade](https://github.com/laurencelundblade) commented [10 hours ago](https://github.com/ietf-rats-wg/eat/issues/448#issuecomment-2031075880)\r\nAlso, the measurement results claim is not for measurements. It's for reporting whether the measurements compared correctly, not for carrying the measurements themselves.\r\n\r\nThe CoSWID payload can allow for carriage of hashes (see https://www.rfc-editor.org/rfc/rfc9393.html#name-the-hash-entry-array), but there is no JSON equivalent.  That is why I suggested overloading the ID field in swmeasres as a workaround, but I can see why extending the measurement claim would be desirable.",
           "createdAt": "2024-04-02T15:26:18Z",
           "updatedAt": "2024-04-02T15:26:18Z"
+        }
+      ]
+    },
+    {
+      "number": 462,
+      "id": "I_kwDOCEWCXc6SjlMl",
+      "title": "Modification of detached Claim-Sets",
+      "url": "https://github.com/ietf-rats-wg/eat/issues/462",
+      "state": "CLOSED",
+      "author": "steven-bellock",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": ">Detached Claims-Sets must not be modified in transit, else validation will fail.\r\n\r\nShould that `must not` be a `MUST NOT`? If not can it be re-worded to avoid (somewhat) normative language. Maybe something like\r\n>If detached Claims-Sets are modified in transit then validation _(will / can)_ fail.",
+      "createdAt": "2024-08-09T23:49:19Z",
+      "updatedAt": "2024-09-06T15:08:39Z",
+      "closedAt": "2024-09-06T15:08:39Z",
+      "comments": [
+        {
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Good point. I like the rewording.  Probably wait until other editorial stuff hits before publishing a new draft.\r\n\r\nThx.",
+          "createdAt": "2024-08-10T20:11:55Z",
+          "updatedAt": "2024-08-10T20:11:55Z"
+        },
+        {
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The text as it stands is in-line with RFC 2119 requirements on 'MUST NOT' (https://datatracker.ietf.org/doc/html/rfc2119#section-2), given the additional recommendation to use such prohibitions sparingly (https://datatracker.ietf.org/doc/html/rfc2119#section-6), particularly related to the guidance \"they MUST only be used where it is actually required for interoperation or to limit behavior which has potential for causing harm\".  \r\n\r\nRather, guidance in the Security Considerations section of EAT (https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-30#name-detached-eat-bundle-dige) currently covers the issue of modification of the claims set in transit.    Given that the verifier should be able to detect a modification of the claims set when in transit, it is unclear whether a MUST NOT provision is actually required to allow for \"interoperation\" or to prevent \"causing harm\".\r\n\r\nWe can go with the re-wording as proposed with little-case 'can' fail.  Whether it 'will' fail is up to the verifier's appraisal policy.",
+          "createdAt": "2024-08-11T00:09:09Z",
+          "updatedAt": "2024-08-11T00:09:09Z"
         }
       ]
     }
@@ -24362,6 +24393,118 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 463,
+      "id": "PR_kwDOCEWCXc54CwoE",
+      "title": "Fix editorial issues",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/463",
+      "state": "MERGED",
+      "author": "steven-bellock",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "gmandyam"
+      ],
+      "labels": [],
+      "body": "- Expand contractions.\r\n- Remove double spaces.\r\n- Remove redundant \"always\" from \"MUST always\".\r\n- \"MUST never\" to \"MUST NOT\".\r\n- Various spelling and grammar fixes.\r\n\r\nSigned-off-by: Steven Bellock <sbellock@nvidia.com>",
+      "createdAt": "2024-08-11T23:00:37Z",
+      "updatedAt": "2024-09-06T15:08:55Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "f7ffb946503f4f11aeb7e91506a663e7368541b9",
+      "headRepository": "steven-bellock/eat",
+      "headRefName": "fix-up",
+      "headRefOid": "646fbbdab1d0597112a4615793fc38c1b1ae8930",
+      "closedAt": "2024-09-06T15:08:55Z",
+      "mergedAt": "2024-09-06T15:08:55Z",
+      "mergedBy": "gmandyam",
+      "mergeCommit": {
+        "oid": "a8ad736af7f6ae909472e81b50fb4aa4bfa1fe89"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc6FsFCb",
+          "commit": {
+            "abbreviatedOid": "646fbbd"
+          },
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looked through proposed changes and they are all acceptable.",
+          "createdAt": "2024-08-16T15:00:41Z",
+          "updatedAt": "2024-08-16T15:00:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOCEWCXc6FtD5i",
+          "commit": {
+            "abbreviatedOid": "646fbbd"
+          },
+          "author": "laurencelundblade",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks very much!",
+          "createdAt": "2024-08-16T17:30:51Z",
+          "updatedAt": "2024-08-16T17:30:51Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOCEWCXc6Furmr",
+          "commit": {
+            "abbreviatedOid": "646fbbd"
+          },
+          "author": "carl-wallace",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-08-16T21:56:57Z",
+          "updatedAt": "2024-08-16T21:56:57Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 464,
+      "id": "PR_kwDOCEWCXc54Cx3J",
+      "title": "Modification of detached Claim-Sets",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/464",
+      "state": "MERGED",
+      "author": "steven-bellock",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fix #462.\r\n\r\nSigned-off-by: Steven Bellock <sbellock@nvidia.com>",
+      "createdAt": "2024-08-11T23:19:19Z",
+      "updatedAt": "2024-09-06T15:08:38Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "f7ffb946503f4f11aeb7e91506a663e7368541b9",
+      "headRepository": "steven-bellock/eat",
+      "headRefName": "fix-462",
+      "headRefOid": "10ed27f9b19a1cfead9d69e0760fcb8ebc23bea8",
+      "closedAt": "2024-09-06T15:08:38Z",
+      "mergedAt": "2024-09-06T15:08:38Z",
+      "mergedBy": "gmandyam",
+      "mergeCommit": {
+        "oid": "fcb6c43d4eba31ea88579218141fd0d9e7fd152a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc6FGywe",
+          "commit": {
+            "abbreviatedOid": "10ed27f"
+          },
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-08-12T14:08:44Z",
+          "updatedAt": "2024-08-12T14:08:44Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
