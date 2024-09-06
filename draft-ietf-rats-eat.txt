@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 1 February 2025                                    Mediatek USA
+Expires: 10 March 2025                                      Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                            31 July 2024
+                                                        6 September 2024
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 February 2025.
+   This Internet-Draft will expire on 10 March 2025.
 
 Copyright Notice
 
@@ -526,8 +526,8 @@ Table of Contents
 3.  Top-Level Token Definition
 
    An "EAT" is an encoded (serialized) message the purpose of which is
-   to transfer a Claims-Set between two parties.  An EAT MUST always
-   contain a Claims-Set. In this document an EAT is always a CWT or JWT.
+   to transfer a Claims-Set between two parties.  An EAT MUST contain a
+   Claims-Set. In this document an EAT is always a CWT or JWT.
 
    An EAT MUST have authenticity and integrity protection.  CWT and JWT
    provide that in this document.
@@ -567,7 +567,7 @@ Table of Contents
    The top-level CDDL type for CBOR-encoded EATs is EAT-CBOR-Token and
    for JSON is EAT-JSON-Token (while CDDL and CDDL tools provide enough
    support for shared definitions of most items in this document, they
-   don't provide enough support for this sharing at the top level).
+   do not provide enough support for this sharing at the top level).
 
    EAT-CBOR-Token = $EAT-CBOR-Tagged-Token / $EAT-CBOR-Untagged-Token
 
@@ -707,11 +707,11 @@ Table of Contents
    is no guarantee that a receiver will be able to accept them.  See
    Appendix B.
 
-   A UEID is permanent.  It MUST never change for a given entity.
+   A UEID is permanent.  It MUST NOT change for a given entity.
 
    The different types of UEIDs 1) accommodate different manufacturing
-   processes, 2) accommodate small UEIDs, 3) provide an option that
-   doesn't require registration fees and central administration.
+   processes, 2) accommodate small UEIDs, 3) provide an option that does
+   not require registration fees and central administration.
 
    In the unlikely event that a new UEID type is needed, it MUST be
    defined in a standards-track update to this document.
@@ -748,7 +748,7 @@ Table of Contents
    |      |      | while entities with multiple network interfaces     |
    |      |      | may have multiple MAC addresses, there is only      |
    |      |      | one UEID for an entity; changeable MAC addresses    |
-   |      |      | that don't meet the permanence requirements in      |
+   |      |      | that do not meet the permanence requirements in     |
    |      |      | this document MUST NOT be used for the UEID or      |
    |      |      | SUEID) [IEEE.802-2001], [OUI.Guide].                |
    +------+------+-----------------------------------------------------+
@@ -856,8 +856,7 @@ Table of Contents
 
 4.2.3.1.  Random Number Based OEM ID
 
-   The random number based OEM ID MUST always be 16 bytes (128 bits)
-   long.
+   The random number based OEM ID MUST be 16 bytes (128 bits) long.
 
    The OEM may create their own ID by using a cryptographic-quality
    random number generator.  They would perform this only once in the
@@ -1129,8 +1128,8 @@ Table of Contents
    accuracy, altitude-accuracy, heading and speed MUST be as defined in
    the W3C Geolocation API [W3C.GeoLoc] (which, in turn, is based on
    [WGS84]).  If the entity is stationary, the heading is NaN (floating-
-   point not-a-number).  Latitude and longitude MUST always be provided.
-   If any other of these values are unknown, they are omitted.
+   point not-a-number).  Latitude and longitude MUST be provided.  If
+   any other of these values are unknown, they are omitted.
 
    The location may have been cached for a period of time before token
    creation.  For example, it might have been minutes or hours or more
@@ -1439,10 +1438,9 @@ Table of Contents
 
    Some devices are complex and have many subsystems.  A mobile phone is
    a good example.  It may have subsystems for communications (e.g., Wi-
-   Fi and cellular), low-power audio and video playback, multiple
-   security-oriented subsystems like a TEE and a Secure Element, and
-   etc.  The claims for a subsystem can be grouped together in a
-   submodule.
+   Fi and cellular), low-power audio and video playback, and multiple
+   security-oriented subsystems like a TEE and a Secure Element.  The
+   claims for a subsystem can be grouped together in a submodule.
 
    Submodules may be used in either evidence or attestation results.
 
@@ -1499,7 +1497,7 @@ Table of Contents
                Detached-Submodule-Digest
 
    The Submodule and Nested-Token definitions for JSON-encoded EATs is
-   as below.  This difference in definitions vs. CBOR is necessary
+   as below.  This difference in definitions versus CBOR is necessary
    because JSON has no tag mechanism and no byte string type to help
    indicate the nested token is CBOR.
 
@@ -1615,11 +1613,11 @@ Table of Contents
 
    A detached EAT bundle, described in Section 5, may be used to convey
    detached claims sets and the EAT containing the corresponding
-   detached digests.  EAT, however, doesn't require use of a detached
+   detached digests.  EAT, however, does not require use of a detached
    EAT bundle.  Any other protocols may be used to convey detached
    claims sets and the EAT containing the corresponding detached
-   digests.  Detached Claims-Sets must not be modified in transit, else
-   validation will fail.
+   digests.  If detached Claims-Sets are modified in transit then
+   validation can fail.
 
 4.2.18.3.  Nested Tokens
 
@@ -1641,7 +1639,7 @@ Table of Contents
 
 4.3.  Claims Describing the Token
 
-   The claims in this section provide meta data about the token they
+   The claims in this section provide metadata about the token they
    occur in.  They do not describe the entity.  They may appear in
    evidence or attestation results.
 
@@ -1715,7 +1713,7 @@ Table of Contents
    *  MUST have at least one submodule that is a detached submodule
       digest as defined in Section 4.2.18.2
 
-   *  MAY be either CBOR or JSON-encoded and doesn't have to the the
+   *  MAY be either CBOR or JSON-encoded and does not have to the the
       same as the encoding of the bundle
 
    *  MAY be a CWT, or JWT or some future-defined token type, but MUST
@@ -1769,7 +1767,7 @@ Table of Contents
    of these have implementation options to accommodate a range of use
    cases.
 
-   For example, COSE doesn't require a particular set of cryptographic
+   For example, COSE does not require a particular set of cryptographic
    algorithms so as to accommodate different usage scenarios and
    evolution of algorithms over time.  Section 10 of [RFC9052] describes
    the profiling considerations for COSE.
@@ -1804,7 +1802,7 @@ Table of Contents
 
 6.1.  Format of a Profile Document
 
-   A profile document doesn't have to be in any particular format.  It
+   A profile document does not have to be in any particular format.  It
    may be simple text, something more formal or a combination.
 
    A profile may define, and possibly register, one or more new claims
@@ -1822,7 +1820,7 @@ Table of Contents
    For example, a profile that allows the use of signing algorithms by
    the sender that the receiver is not required to support is a partial
    profile.  The sender might choose a signing algorithm that some
-   receivers don't support.
+   receivers do not support.
 
    Full profiles MUST be complete such that a complying receiver can
    decode, verify and check for freshness every EAT created by a
@@ -1838,8 +1836,8 @@ Table of Contents
    While fewer profiles are preferrable, sometimes several may be needed
    for a use case.  One approach to handling variation in devices might
    be to define several full profiles that are variants of each other.
-   It is relatively easy and inexpensive to define profiles as they
-   don't have to be standards track and don't have to be registered
+   It is relatively easy and inexpensive to define profiles as they do
+   not have to be standards track and do not have to be registered
    anywhere.  For example, flexibility for post-quantum algorithms can
    be handled as follows.  First, define a full profile for a set of
    non-post-quantum algorithms for current use.  Then, when post-quantum
@@ -2079,7 +2077,7 @@ Table of Contents
      |                | absence of claims other than requiring an   |
      |                | EAT nonce.  As per general EAT rules, the   |
      |                | receiver MUST NOT error out on claims it    |
-     |                | doesn't understand.                         |
+     |                | does not understand.                        |
      +----------------+---------------------------------------------+
 
               Table 2: Constrained Device Profile Definition
@@ -2105,8 +2103,9 @@ Table of Contents
 
    An EAT is fundamentally defined using CDDL.  This document specifies
    how to encode the CDDL in CBOR or JSON.  Since CBOR can express some
-   things that JSON can't (e.g., tags) or that are expressed differently
-   (e.g., labels) there is some CDDL that is specific to the encoding.
+   things that JSON cannot (e.g., tags) or that are expressed
+   differently (e.g., labels) there is some CDDL that is specific to the
+   encoding.
 
 7.1.  Claims-Set and CDDL for CWT and JWT
 
@@ -2125,7 +2124,7 @@ Table of Contents
    This document specifies how to encode a Claims-Set in CBOR or JSON.
 
    With the exception of nested tokens and some other externally defined
-   structures (e.g., SWIDs) an entire Claims-Set must be in encoded in
+   structures (e.g., SWIDs) an entire Claims-Set must be encoded in
    either CBOR or JSON, never a mixture.
 
    CDDL for the seven claims defined by [RFC8392] and [RFC7519] is
@@ -2209,12 +2208,12 @@ Table of Contents
    JC<> CDDL generic defined in Appendix D.  Note that the JC<> generic
    uses the CDDL ".feature" control operator defined in [RFC9165].
 
-   This CDDL uses, but doesn't define Submodule or nested tokens because
-   the definition for these types varies between CBOR and JSON and the
-   JC<> generic can't be used to define it.  The submodule claim is the
-   one place where a CBOR token can be nested inside a JSON token and
-   vice versa.  Encoding-specific definitions are provided in the
-   following sections.
+   This CDDL uses, but does not define Submodule or nested tokens
+   because the definition for these types varies between CBOR and JSON
+   and the JC<> generic cannot be used to define it.  The submodule
+   claim is the one place where a CBOR token can be nested inside a JSON
+   token and vice versa.  Encoding-specific definitions are provided in
+   the following sections.
 
    time-int = #6.1(int)
 
@@ -2516,9 +2515,9 @@ Table of Contents
 8.1.  UEID and SUEID Privacy Considerations
 
    A UEID is usually not privacy-preserving.  Relying parties receiving
-   tokens that happen to be from a particular entity will be able to
-   know the tokens are from the same entity and be able to identify the
-   entity issuing those tokens.
+   tokens from a particular entity will be able to know the tokens are
+   from the same entity and be able to identify the entity issuing those
+   tokens.
 
    Thus the use of the claim may violate privacy policies.  In other
    usage situations a UEID will not be allowed for certain products like
@@ -2608,7 +2607,7 @@ Table of Contents
    the verifier.
 
    For example, this document says that a UEID is permanent and that it
-   must not change, but it doesn't say what degree of attack to change
+   must not change, but it does not say what degree of attack to change
    it must be defended.
 
    The degree of security will vary from use case to use case.  In some
@@ -3332,9 +3331,9 @@ Table of Contents
    [EAT.media-types]
               Lundblade, L., Birkholz, H., and T. Fossati, "EAT Media
               Types", Work in Progress, Internet-Draft, draft-ietf-rats-
-              eat-media-type-08, 4 July 2024,
+              eat-media-type-09, 21 August 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              eat-media-type-08>.
+              eat-media-type-09>.
 
    [GP-Example]
               "GlobalPlatform Technology TEE Certification Process",
@@ -4118,7 +4117,7 @@ Appendix C.  EAT Relation to IEEE.802.1AR Secure Device Identity (DevID)
 
    By contrast, EAT standardizes a message format that is sent to a
    relying party, the very thing that is not defined in [IEEE.802.1AR].
-   Nor does EAT give details on how keys, data and such are stored
+   Nor does EAT give details on how keys, data and such are stored,
    protected and accessed.  EAT is intended to work with a variety of
    different on-device implementations ranging from minimal protection
    of assets to the highest levels of asset protection.  It does not
@@ -4131,7 +4130,7 @@ Appendix C.  EAT Relation to IEEE.802.1AR Secure Device Identity (DevID)
 C.1.  DevID Used With EAT
 
    As just described, EAT standardizes a message format and
-   [IEEE.802.1AR] doesn't.  Vice versa, EAT doesn't define a an device
+   [IEEE.802.1AR] does not.  Vice versa, EAT does not define a device
    implementation, but DevID does.
 
    Hence, EAT can be the message format that a DevID is used with.  The
@@ -4161,9 +4160,9 @@ C.2.  How EAT Provides an Equivalent Secure Device Identity
    that vary over time like GPS location.
 
    DevID secures the device identity fields by having them signed by the
-   manufacturer of the device sign them into a certificate.  That
-   certificate is created once during the manufacturing of the device
-   and never changes so the fields cannot change.
+   manufacturer of the device into a certificate.  That certificate is
+   created once during the manufacturing of the device and never changes
+   so the fields cannot change.
 
    So in one case the signing of the identity happens on the device and
    the other in a manufacturing facility, but in both cases the signing
@@ -4189,7 +4188,7 @@ C.3.  An X.509 Format EAT
 
    Note that the DevID must still be used with an authentication
    protocol that has a nonce or equivalent.  The EAT here is not being
-   used as the protocol to interact with the rely party.
+   used as the protocol to interact with the relying party.
 
 C.4.  Device Identifier Permanence
 
@@ -4208,7 +4207,7 @@ C.4.  Device Identifier Permanence
 
    EAT is not defined around a particular implementation and must work
    on a range of devices that have a range of defenses against attack.
-   EAT thus can't be defined permanence in terms of defense against
+   EAT thus cannot be defined permanence in terms of defense against
    attack.  EAT's definition of permanence is in terms of operations and
    device lifecycle.
 
@@ -4296,7 +4295,7 @@ Appendix E.  New Claim Design Considerations
    into account when creating new EAT claims.  It is the product of
    discussion in the working group.
 
-   EAT reuses the CWT and JWT claims registries.  There is no registriy
+   EAT reuses the CWT and JWT claims registries.  There is no registry
    exclusively for EAT claims.  This is not an update to the expert
    review criteria for the JWT and CWT claims registries as that would
    be an overreach for this document.
@@ -4313,7 +4312,7 @@ E.1.  Interoperability and Relying Party Orientation
    and serialization formats.
 
    This is a lofty goal and difficult to achieve broadly requiring
-   careful definition of claims in a technology neutral way.  Sometimes
+   careful definition of claims in a technology-neutral way.  Sometimes
    it will be difficult to design a claim that can represent the
    semantics of data from very different device types.  However, the
    goal remains even when difficult.
@@ -4411,8 +4410,8 @@ Appendix F.  Endorsements and Verification Keys
    endorsement.
 
    For the components (attester, verifier, relying party,...) of a
-   particular end-end attestation system to reliably interoperate, its
-   definition should specify how the verification key is identified.
+   particular end-to-end attestation system to reliably interoperate,
+   its definition should specify how the verification key is identified.
    Usually, this will be in the profile document for a particular
    attestation system.
 
