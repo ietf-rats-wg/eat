@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-06T15:09:35.271817+00:00",
+  "timestamp": "2024-09-06T15:09:49.075388+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -24408,7 +24408,7 @@
       "labels": [],
       "body": "- Expand contractions.\r\n- Remove double spaces.\r\n- Remove redundant \"always\" from \"MUST always\".\r\n- \"MUST never\" to \"MUST NOT\".\r\n- Various spelling and grammar fixes.\r\n\r\nSigned-off-by: Steven Bellock <sbellock@nvidia.com>",
       "createdAt": "2024-08-11T23:00:37Z",
-      "updatedAt": "2024-09-06T15:08:55Z",
+      "updatedAt": "2024-09-06T15:09:50Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "f7ffb946503f4f11aeb7e91506a663e7368541b9",
