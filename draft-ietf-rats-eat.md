@@ -2579,9 +2579,9 @@ The following is a list of known changes since the immediately previous drafts. 
 non-authoritative.  It is meant to help reviewers see the significant
 differences. A comprehensive history is available via the IETF Datatracker's record for this document.
 
-## From draft-ietf-rats-eat-29
+## From draft-ietf-rats-eat-30
 
-- Address IANA comments on intuse registry
+- Minor typo fixes
 
 
 --- contributor
