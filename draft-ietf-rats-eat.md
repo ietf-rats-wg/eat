@@ -934,10 +934,10 @@ If there is no CoAP identifier registered for a manifest format, one MUST be reg
 This claim MUST be an array of one or more manifests.
 Each manifest in the claim MUST be an array of two.
 The first item in the array of two MUST be an integer CoAP Content-Format identifier.
-The second item is MUST be the actual manifest.
+The second item MUST be the manifest.
 
 In JSON-encoded tokens the manifest, whatever encoding it is, MUST be placed in a text string.
-When a non-text encoded manifest like a CBOR-encoded CoSWID is put in a JSON-encoded token, the manifest MUST be base-64 encoded.
+When a non-text encoded manifest like a CBOR-encoded CoSWID is put in a JSON-encoded token, the manifest MUST be base64 encoded.
 
 This claim allows for multiple manifests in one token since multiple software packages are likely to be present.
 The multiple manifests MAY be of different encodings.
@@ -1123,7 +1123,7 @@ The encoding of a submodule Claims-Set MUST be the same as the encoding as the s
 The Detached-Submodule-Digest type is similar to a submodule Claims-Set, except a digest of the Claims-Set is included in the claim with the Claims-Set contents conveyed separately.
 The separately-conveyed Claims-Set is called a detached claims set.
 The input to the digest algorithm is directly the CBOR or JSON-encoded Claims-Set for the submodule.
-There is no byte-string wrapping or base 64 encoding.
+There is no byte-string wrapping or base64 encoding.
 
 The data type for this type of submodule is an array consisting of two data items: an algorithm identifier and a byte string containing the digest. The hash algorithm identifier is always from the COSE Algorithm registry, {{IANA.COSE.Algorithms}}. Either the integer or string identifier may be used. The hash algorithm identifier is never from the JOSE Algorithm registry.
 
