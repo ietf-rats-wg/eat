@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-06T15:09:49.075388+00:00",
+  "timestamp": "2024-10-09T19:05:54.680466+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -4862,6 +4862,44 @@
           "body": "The text as it stands is in-line with RFC 2119 requirements on 'MUST NOT' (https://datatracker.ietf.org/doc/html/rfc2119#section-2), given the additional recommendation to use such prohibitions sparingly (https://datatracker.ietf.org/doc/html/rfc2119#section-6), particularly related to the guidance \"they MUST only be used where it is actually required for interoperation or to limit behavior which has potential for causing harm\".  \r\n\r\nRather, guidance in the Security Considerations section of EAT (https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-30#name-detached-eat-bundle-dige) currently covers the issue of modification of the claims set in transit.    Given that the verifier should be able to detect a modification of the claims set when in transit, it is unclear whether a MUST NOT provision is actually required to allow for \"interoperation\" or to prevent \"causing harm\".\r\n\r\nWe can go with the re-wording as proposed with little-case 'can' fail.  Whether it 'will' fail is up to the verifier's appraisal policy.",
           "createdAt": "2024-08-11T00:09:09Z",
           "updatedAt": "2024-08-11T00:09:09Z"
+        }
+      ]
+    },
+    {
+      "number": 466,
+      "id": "I_kwDOCEWCXc6YOKM_",
+      "title": "Unnecessary `dbgstat` reinforcement",
+      "url": "https://github.com/ietf-rats-wg/eat/issues/466",
+      "state": "OPEN",
+      "author": "steven-bellock",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": ">As with all claims, the absence of the \"dbgstat\" claim means it is not reported.\r\n\r\nAny reason this exists only for `dbgstat`? If not let's delete it.",
+      "createdAt": "2024-09-27T22:49:22Z",
+      "updatedAt": "2024-09-30T15:06:33Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "body": "EAT is past WGLC and is in Editor's queue.  Changes to the standards specification at this point would need WG consensus.  I suggest that this topic be raised in the WG if the person who raised this issue feels it is critical.",
+          "createdAt": "2024-09-29T19:33:32Z",
+          "updatedAt": "2024-09-29T19:33:32Z"
+        },
+        {
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@steven-bellock \r\n\r\nApologies - I may have mis-read the original issue.  Can you clarify?  Do you mean to delete the 'dbgstat' claim, or delete the advisory sentence starting with 'As with all claims, ... \".  Because if you meant the latter then we may be able to sweep this change in along with final edits, as it does not affect the normative aspects of the specification.",
+          "createdAt": "2024-09-30T14:41:03Z",
+          "updatedAt": "2024-09-30T14:41:03Z"
+        },
+        {
+          "author": "steven-bellock",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": ">delete the advisory sentence starting with 'As with all claims, ... \".\r\n \r\n That one, unless there's a good reason it needs to be in `dbgstat`. Could also move it to the top of the document and make it more general\r\n \r\n >The absence of a claim within an EAT means it is not reported.",
+          "createdAt": "2024-09-30T14:49:12Z",
+          "updatedAt": "2024-09-30T15:06:33Z"
         }
       ]
     }
@@ -24505,6 +24543,58 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 465,
+      "id": "PR_kwDOCEWCXc587nBt",
+      "title": "Convert IEEE 802 words to lower case",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/465",
+      "state": "OPEN",
+      "author": "steven-bellock",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "None of the words are proper nouns in the referenced document. Also update document year from 2001 to 2014.\r\n\r\nSigned-off-by: Steven Bellock <sbellock@nvidia.com>",
+      "createdAt": "2024-09-27T14:35:18Z",
+      "updatedAt": "2024-09-27T14:35:18Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "4372bf1567ae77932b6ffda4dfb7fcbadc41baef",
+      "headRepository": "steven-bellock/eat",
+      "headRefName": "ieee802",
+      "headRefOid": "5fd31daaf6c6d8d30ebc46f5af9a10c3fe2dce3e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 467,
+      "id": "PR_kwDOCEWCXc58-TjM",
+      "title": "Minor fixups",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/467",
+      "state": "OPEN",
+      "author": "steven-bellock",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Signed-off-by: Steven Bellock <sbellock@nvidia.com>",
+      "createdAt": "2024-09-27T23:48:32Z",
+      "updatedAt": "2024-09-27T23:48:32Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "4372bf1567ae77932b6ffda4dfb7fcbadc41baef",
+      "headRepository": "steven-bellock/eat",
+      "headRefName": "fixup",
+      "headRefOid": "f8e7f50a9a719b039e2bb36e422d0a0508bdff67",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
