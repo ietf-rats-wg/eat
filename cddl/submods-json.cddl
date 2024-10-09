@@ -33,7 +33,7 @@ $JSON-Selector /= [type: "DIGEST", nested-token:
   Detached-Submodule-Digest]
 
 ; After the base64url encoding is removed, the contents of this are a
-; $$EAT-CBOR-Tagged-Token (see eat-cbor.cddl) encoded in **CBOR**.
+; $CBOR-Tagged-Token (see eat-cbor.cddl) encoded in **CBOR**.
 ; This is the only transition point in EAT from JSON to CBOR.  For
 ; example, it is a CWT that is a COSE_Sign1 that is a CBOR tag that
 ; has been base64url encoded.
