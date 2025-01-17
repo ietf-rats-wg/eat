@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-09T19:05:54.680466+00:00",
+  "timestamp": "2025-01-17T19:48:04.882533+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -23913,7 +23913,7 @@
       "labels": [],
       "body": "This updates the examples with the IANA-assigned labels and tags.\r\n\r\nThis fixes some errors in the examples, mostly missing commas.\r\n\r\nThere is a change to the normative CDDL to compensate for a bug in the cddl tool. RFC 8610 says that there is a problem with generics nesting in the cddl tool. This is presumed to be the cause of the problem. The solution is to provide a non-nested version of the JC<> generic for use in contexts where the cddl validation gets confused. (It didn't produce an error, it just didn't validate correct input; the solution was found by extensive trial and error).",
       "createdAt": "2024-03-31T19:53:08Z",
-      "updatedAt": "2024-04-01T18:35:35Z",
+      "updatedAt": "2024-12-04T10:19:23Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "a0f5db72bd1a7b3d93435f2a8e806f97e8ee0849",
@@ -23926,7 +23926,15 @@
       "mergeCommit": {
         "oid": "62d256c424f1a17f7bda0f4ba302d0d112cc0f5e"
       },
-      "comments": [],
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Can we fix this now?\r\n\r\nI believe the putative workaround for an undocumented problem and the explanation\r\n\r\n```\r\n; Same as JC<> but with unwound generic nesting as it seems to cause\r\n; problems. Perhaps this is the nesting problem described in RFC\r\n; 8610.\r\nJC-NEST-SAFE<J,C> = J .feature \"json\" / C .feature \"cbor\"\r\n```\r\n\r\ndemonstrates an incredible level of incompetence in handling tool bugs; this should not be in an RFC.\r\n",
+          "createdAt": "2024-12-04T10:19:21Z",
+          "updatedAt": "2024-12-04T10:19:21Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -24514,7 +24522,7 @@
       "labels": [],
       "body": "Fix #462.\r\n\r\nSigned-off-by: Steven Bellock <sbellock@nvidia.com>",
       "createdAt": "2024-08-11T23:19:19Z",
-      "updatedAt": "2024-09-06T15:08:38Z",
+      "updatedAt": "2025-01-13T03:37:02Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "f7ffb946503f4f11aeb7e91506a663e7368541b9",
@@ -24595,6 +24603,46 @@
       "mergeCommit": null,
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 468,
+      "id": "PR_kwDOCEWCXc5-HvQT",
+      "title": "Rename EAT-CBOR-Tagged-Token to CBOR-Tagged-Token",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/468",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This is renamed because the tagged token contained might not be EAT format. For example it could be from draft-ietf-rats-msg-wrap.\r\n\r\nThere is no need to change anything else to accommodate draft-ietf-rats-msg-wrap. The socket name was just misleading.",
+      "createdAt": "2024-10-09T19:07:29Z",
+      "updatedAt": "2024-10-10T10:12:19Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "4372bf1567ae77932b6ffda4dfb7fcbadc41baef",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "socket-name",
+      "headRefOid": "07bd17d1626192e0a6cf2e51fc302b8d8809cf95",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc6MpvWY",
+          "commit": {
+            "abbreviatedOid": "07bd17d"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "thanks!",
+          "createdAt": "2024-10-10T10:12:19Z",
+          "updatedAt": "2024-10-10T10:12:19Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
