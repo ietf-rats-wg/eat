@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-17T19:48:04.882533+00:00",
+  "timestamp": "2025-01-18T21:58:26.792294+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -24643,6 +24643,58 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 469,
+      "id": "PR_kwDOCEWCXc6IMcWI",
+      "title": "Change from NaN to NULL for heading in location claim",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/469",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This changes the heading value from NaN to NULL to represent the heading when stationary.\r\n\r\nThis aligns with a change in the W3C specification.\r\n\r\nAlso, JSON can't represent a NaN and the convention in JSON is to use NULL.\r\n\r\n(NaN is IEEE 754 representation of \"not a number\" typically used to represent divide by 0 in local calculations).\r\n\r\nThis is somewhat of a protocol change, but\r\n- The protocol was unimplementable in JSON\r\n- Backwards compatibility in CBOR is easy to provide by checking for both NaN and NULL",
+      "createdAt": "2025-01-17T19:52:09Z",
+      "updatedAt": "2025-01-17T19:52:09Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "4372bf1567ae77932b6ffda4dfb7fcbadc41baef",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "loc-null",
+      "headRefOid": "614f3a4c4987108bc4dfad33ed8b360f5e3c570e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 470,
+      "id": "PR_kwDOCEWCXc6IP5LF",
+      "title": "Fix errors in detached eat bundle example",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/470",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-18T21:58:25Z",
+      "updatedAt": "2025-01-18T21:58:25Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "4372bf1567ae77932b6ffda4dfb7fcbadc41baef",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "deb_ex_fix",
+      "headRefOid": "00d9b32e2d8592aeb537e21829fb586501fb45a6",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
