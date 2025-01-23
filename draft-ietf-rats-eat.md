@@ -417,7 +417,7 @@ There is no fixed mechanism across all use cases.
 This document also defines another message, the detached EAT bundle (see {{DEB}}), which holds a collection of detached claims sets and an EAT that provides integrity and authenticity protection for them.
 Detached EAT bundles can be either CBOR or JSON encoded.
 
-The following CDDL defines the top-level `$EAT-CBOR-Tagged-Token`, `$EAT-CBOR-Untagged-Token` and `$EAT-JSON-Token-Formats` sockets (see {{Section 3.9 of -cddl}}), enabling future token formats to be defined.
+The following CDDL defines the top-level `$CBOR-Tagged-Token`, `$EAT-CBOR-Untagged-Token` and `$EAT-JSON-Token-Formats` sockets (see {{Section 3.9 of -cddl}}), enabling future token formats to be defined.
 Any new format that plugs into one or more of these sockets MUST be defined by an IETF standards action.
 Of particular use may be a token type that provides no direct authenticity or integrity protection for use with transports mechanisms that do provide the necessary security services {{UCCS}}.
 
@@ -1075,7 +1075,7 @@ The Detached-Submodule-Digest type is defined as follows:
 Nested tokens can be one of three types as defined in this document or types standardized in follow-on documents (e.g., {{UCCS}}).
 Nested tokens are the only mechanism by which JSON can be embedded in CBOR and vice versa.
 
-The addition of further types is accomplished by augmenting the $EAT-CBOR-Tagged-Token socket or the $JSON-Selector socket.
+The addition of further types is accomplished by augmenting the $CBOR-Tagged-Token socket or the $JSON-Selector socket.
 
 When decoding a JSON-encoded EAT, the type of submodule is determined as follows.
 A JSON object indicates the submodule is a Claims-Set.
