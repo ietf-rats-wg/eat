@@ -1,7 +1,7 @@
-/ This example contains submodule that is a detached digest,   /
-/ which is the hash of a Claims-Set convey outside this token. /
-/ Other than that is is the other example of a token from an   /
-/ attestation HW block.                                        /
+/ This example contains submodule that is a detached digest,    /
+/ which is the hash of a Claims-Set conveyed outside this token./
+/ Other than that is is the other example of a token from an    /
+/ attestation HW block.                                         /
 
 {
     / eat_nonce /       10: h'3515744961254b41a6cf9c02',
@@ -13,10 +13,10 @@
     / submods/         266: {
                                 "TEE": [ / detached digest submod /
                                            -16, / SHA-256 /
-                                           h'e5cf95fd24fab7144674
-                                             2dd58d43dae178e55fe2
-                                             b94291a9291082ffc263
-                                             5a0b'
+                                           h'ab86f765643aabfd09c8
+                                             4eebe150b7f61bc24804
+                                             cee75e90c5f99cb850fe
+                                             808f'
                                        ]
                             }
 }
