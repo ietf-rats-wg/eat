@@ -4229,7 +4229,7 @@ Appendix D.  CDDL for CWT and JWT
    This however is NOT a normative or standard definition of CWT or JWT
    in CDDL.  The prose in CWT and JWT remain the normative definition.
 
-   ; This is replicated from draft-ietf-rats-uccs
+   ; See also draft-ietf-rats-uccs
 
    Claims-Set = {
        * $$Claims-Set-Claims
