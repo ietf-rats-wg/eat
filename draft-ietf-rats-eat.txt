@@ -1752,8 +1752,8 @@ Table of Contents
    Detached-EAT-Bundle = [
        main-token : Nested-Token,
        detached-claims-sets: {
-           + tstr => JC-NEST-SAFE<json-wrapped-claims-set,
-                                  cbor-wrapped-claims-set>
+           + tstr => JC<json-wrapped-claims-set,
+                        cbor-wrapped-claims-set>
        }
    ]
 
@@ -2421,8 +2421,8 @@ Table of Contents
    Detached-EAT-Bundle = [
        main-token : Nested-Token,
        detached-claims-sets: {
-           + tstr => JC-NEST-SAFE<json-wrapped-claims-set,
-                                  cbor-wrapped-claims-set>
+           + tstr => JC<json-wrapped-claims-set,
+                        cbor-wrapped-claims-set>
        }
    ]
 
@@ -4258,11 +4258,6 @@ Appendix D.  CDDL for CWT and JWT
    CBOR-ONLY<C> = C .feature "cbor"
 
    JC<J,C> = JSON-ONLY<J> / CBOR-ONLY<C>
-
-   ; Same as JC<> but with unwound generic nesting as it seems to cause
-   ; problems. Perhaps this is the nesting problem described in RFC
-   ; 8610.
-   JC-NEST-SAFE<J,C> = J .feature "json" / C .feature "cbor"
 
    ; A JWT message is either a JWS or JWE in compact serialization form
    ; with the payload a Claims-Set. Compact serialization is the

@@ -3047,8 +3047,8 @@ BUNDLE-Untagged-Message = Detached-EAT-Bundle
 Detached-EAT-Bundle = [
     main-token : Nested-Token,
     detached-claims-sets: {
-        + tstr =&gt; JC-NEST-SAFE&lt;json-wrapped-claims-set,
-                               cbor-wrapped-claims-set&gt;
+        + tstr =&gt; JC&lt;json-wrapped-claims-set,
+                     cbor-wrapped-claims-set&gt;
     }
 ]
 
@@ -3686,8 +3686,8 @@ BUNDLE-Untagged-Message = Detached-EAT-Bundle
 Detached-EAT-Bundle = [
     main-token : Nested-Token,
     detached-claims-sets: {
-        + tstr =&gt; JC-NEST-SAFE&lt;json-wrapped-claims-set,
-                               cbor-wrapped-claims-set&gt;
+        + tstr =&gt; JC&lt;json-wrapped-claims-set,
+                     cbor-wrapped-claims-set&gt;
     }
 ]
 
@@ -5895,10 +5895,6 @@ CBOR-ONLY&lt;C&gt; = C .feature "cbor"
 
 JC&lt;J,C&gt; = JSON-ONLY&lt;J&gt; / CBOR-ONLY&lt;C&gt;
 
-; Same as JC&lt;&gt; but with unwound generic nesting as it seems to cause
-; problems. Perhaps this is the nesting problem described in RFC
-; 8610.
-JC-NEST-SAFE&lt;J,C&gt; = J .feature "json" / C .feature "cbor"
 </pre><a href="#appendix-D-5" class="pilcrow">¶</a>
 </div>
 <div class="lang-CDDL sourcecode" id="appendix-D-6">
