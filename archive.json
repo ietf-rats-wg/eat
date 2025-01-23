@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-18T21:58:26.792294+00:00",
+  "timestamp": "2025-01-23T00:55:23.055205+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -24675,24 +24675,26 @@
       "id": "PR_kwDOCEWCXc6IP5LF",
       "title": "Fix errors in detached eat bundle example",
       "url": "https://github.com/ietf-rats-wg/eat/pull/470",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "laurencelundblade",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-01-18T21:58:25Z",
-      "updatedAt": "2025-01-18T21:58:25Z",
+      "updatedAt": "2025-01-23T00:54:25Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "4372bf1567ae77932b6ffda4dfb7fcbadc41baef",
       "headRepository": "ietf-rats-wg/eat",
       "headRefName": "deb_ex_fix",
       "headRefOid": "00d9b32e2d8592aeb537e21829fb586501fb45a6",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-01-23T00:54:21Z",
+      "mergedAt": "2025-01-23T00:54:21Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "9c8fe9d9d7a502be1baeb1bc716ff45c55a2043c"
+      },
       "comments": [],
       "reviews": []
     }
