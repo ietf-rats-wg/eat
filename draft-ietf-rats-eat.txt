@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 10 March 2025                                      Mediatek USA
+Expires: 27 July 2025                                       Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                        6 September 2024
+                                                         23 January 2025
 
 
                    The Entity Attestation Token (EAT)
@@ -42,11 +42,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 March 2025.
+   This Internet-Draft will expire on 27 July 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -3310,9 +3310,9 @@ Table of Contents
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-11, 8 July 2024,
+              ietf-cose-cbor-encoded-cert-12, 8 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-11>.
+              cbor-encoded-cert-12>.
 
    [CC-Example]
               "Secure Sub-System in System-on-Chip (3S in SoC)
@@ -3331,9 +3331,9 @@ Table of Contents
    [EAT.media-types]
               Lundblade, L., Birkholz, H., and T. Fossati, "EAT Media
               Types", Work in Progress, Internet-Draft, draft-ietf-rats-
-              eat-media-type-09, 21 August 2024,
+              eat-media-type-12, 3 November 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              eat-media-type-09>.
+              eat-media-type-12>.
 
    [GP-Example]
               "GlobalPlatform Technology TEE Certification Process",
@@ -3392,9 +3392,9 @@ Table of Contents
 
    [UCCS]     Birkholz, H., O'Donoghue, J., Cam-Winget, N., and C.
               Bormann, "A CBOR Tag for Unprotected CWT Claims Sets",
-              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-10,
-              4 July 2024, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-rats-uccs-10>.
+              Work in Progress, Internet-Draft, draft-ietf-rats-uccs-12,
+              3 November 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-uccs-12>.
 
    [W3C.GeoLoc]
               Popescu, A., Ed., "Geolocation API Specification", W3C
@@ -3860,36 +3860,37 @@ A.2.2.  CBOR-encoded Detached EAT Bundle
        /     266: { /
        /         "TEE": [ /
        /             -16, /
-       /              h'8DEF652F47000710D9F466A4C666E209  /
-       /                DD74F927A1CEA352B03143E188838ABE' /
+       /              h'ab86f765643aabfd09c84eebe150b7f6  /
+       /                1bc24804cee75e90c5f99cb850fe808f' /
        /         ] /
        /     } /
        /   }  /
-       h'D83DD28443A10126A05866A80A48948F8860D13A463E1901
-         00500198F50A4FF6C05861C8860D13A638EA19010219FAF2
-         19010504190106F5190107031901048263332E310119010A
-         A163544545822F58208DEF652F47000710D9F466A4C666E2
-         09DD74F927A1CEA352B03143E188838ABE5840F690CB0388
-         677FA624A3775FD7CBC4E8409EC9816BE32FA474733B0F98
-         C27FBAEDBBC9963B9CB5ECC03C3E35B3AFC0B7B35B495DEA
-         C0997122EA867F07B8D5EB',
+       h'D83DD28443A10126A05866A70A4C351574496125
+         4B41A6CF9C02190100500198F50A4FF6C05861C8
+         860D13A638EA19010219FAF2190106F519010703
+         1901048263332E310119010AA163544545822F58
+         20AB86F765643AABFD09C84EEBE150B7F61BC248
+         04CEE75E90C5F99CB850FE808F58408469C5F3AC
+         750981BABE6525ED750F38B4A9EE6656A7E70815
+         B34D0B1014E7143CEDAF81F8198EF978BCC35581
+         C675A1D4116FDFBC1D1D1258612B255F4692A4',
        {
-          / A CBOR-encoded byte-string wrapped EAT claims-set. It /
-          / contains claims suitable for a TEE.                   /
-          "TEE" : h'a40a48948f8860d13a463e190106f519010702
-                    190111818218795858a60064336132340c0101
-                    6b41636d6520544545204f530d65332e312e34
-                    0282a2181f6b41636d6520544545204f531821
-                    01a2181f6b41636d6520544545204f53182102
-                    06a111a118186e61636d655f7465655f332e65
-                    7865'
+          / A CBOR-encoded, byte-string wrapped EAT claims-set. /
+          / It contains claims for simple TEE attestation.      /
+          "TEE" : h'a40a5048df7b172d70b5a18935d0460a73dd7119
+                    0106f51901070219011081821901025858a60064
+                    336132340c01016b41636d6520544545204f530d
+                    65332e312e340282a2181f6b41636d6520544545
+                    204f53182101a2181f6b41636d6520544545204f
+                    5318210206a111a118186e61636d655f7465655f
+                    332e657865'
        }
     ])
 
-   / This example contains submodule that is a detached digest,   /
-   / which is the hash of a Claims-Set convey outside this token. /
-   / Other than that is is the other example of a token from an   /
-   / attestation HW block.                                        /
+   / This example contains submodule that is a detached digest,    /
+   / which is the hash of a Claims-Set conveyed outside this token./
+   / Other than that is is the other example of a token from an    /
+   / attestation HW block.                                         /
 
    {
        / eat_nonce /       10: h'3515744961254b41a6cf9c02',
@@ -3901,10 +3902,10 @@ A.2.2.  CBOR-encoded Detached EAT Bundle
        / submods/         266: {
                                    "TEE": [ / detached digest submod /
                                               -16, / SHA-256 /
-                                              h'e5cf95fd24fab7144674
-                                                2dd58d43dae178e55fe2
-                                                b94291a9291082ffc263
-                                                5a0b'
+                                              h'ab86f765643aabfd09c8
+                                                4eebe150b7f61bc24804
+                                                cee75e90c5f99cb850fe
+                                                808f'
                                           ]
                                }
    }
