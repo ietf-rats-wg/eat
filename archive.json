@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-23T15:58:41.530799+00:00",
+  "timestamp": "2025-02-04T20:07:51.421205+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -24682,7 +24682,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-01-18T21:58:25Z",
-      "updatedAt": "2025-01-23T00:54:25Z",
+      "updatedAt": "2025-01-24T17:38:40Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "4372bf1567ae77932b6ffda4dfb7fcbadc41baef",
@@ -24694,6 +24694,70 @@
       "mergedBy": "laurencelundblade",
       "mergeCommit": {
         "oid": "9c8fe9d9d7a502be1baeb1bc716ff45c55a2043c"
+      },
+      "comments": [
+        {
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Original hex for the TEE submod (266 index) had upper case hex.  Why was it changed to lower case?",
+          "createdAt": "2025-01-24T17:38:39Z",
+          "updatedAt": "2025-01-24T17:38:39Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 471,
+      "id": "PR_kwDOCEWCXc6IyIRM",
+      "title": "remove JC-NEST-SAFE",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/471",
+      "state": "MERGED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Enough time has past to not worry about old versions of the cddl tool",
+      "createdAt": "2025-01-23T15:59:24Z",
+      "updatedAt": "2025-01-23T16:00:01Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "9c8fe9d9d7a502be1baeb1bc716ff45c55a2043c",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "j-c",
+      "headRefOid": "f3f7842b3394a893a5a812a34f0181ca517f6399",
+      "closedAt": "2025-01-23T15:59:56Z",
+      "mergedAt": "2025-01-23T15:59:56Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "18e263df3924e203ff80b1aeb71b54e872158791"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 472,
+      "id": "PR_kwDOCEWCXc6IyMoQ",
+      "title": "Fix comment about reference to UCCS",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/472",
+      "state": "MERGED",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-23T16:07:13Z",
+      "updatedAt": "2025-01-23T16:08:09Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "18e263df3924e203ff80b1aeb71b54e872158791",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "j-c-comment",
+      "headRefOid": "1ad07c5cd5e6e23b9d479a60874dd8ae85dd6172",
+      "closedAt": "2025-01-23T16:08:02Z",
+      "mergedAt": "2025-01-23T16:08:02Z",
+      "mergedBy": "laurencelundblade",
+      "mergeCommit": {
+        "oid": "62c726b57e1f7dcea40d4fc05d216abb89d84691"
       },
       "comments": [],
       "reviews": []
