@@ -1,6 +1,7 @@
 $$Claims-Set-Claims //= (
-    oemid-label => oemid-pen / oemid-ieee / oemid-random
+    oemid-label => oemid-type
 )
+oemid-type = oemid-pen / oemid-ieee / oemid-random
 
 oemid-pen = int
 
