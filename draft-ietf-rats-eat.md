@@ -130,7 +130,7 @@ informative:
 
   IEEE.802.1AR: DOI.10.1109/IEEESTD.2018.8423794
 
-  W3C.GeoLoc: W3C.REC-geolocation-API-20131024
+  W3C.GeoLoc: W3C.REC-geolocation-20240916
 
   OUI.Guide:
     title: Guidelines for Use of Extended Unique Identifier (EUI), Organizationally Unique Identifier (OUI), and Company ID (CID)
@@ -834,7 +834,7 @@ This level indicates that all debug facilities for the entity are permanently di
 The "location" claim gives the geographic position of the entity from which the attestation originates.
 Latitude, longitude, altitude, accuracy, altitude-accuracy, heading and speed MUST be as defined in the W3C Geolocation API {{W3C.GeoLoc}}
 (which, in turn, is based on {{WGS84}}).
-If the entity is stationary, the heading is NaN (floating-point not-a-number).
+If the entity is stationary, the heading is `null`.
 Latitude and longitude MUST be provided.
 If any other of these values are unknown, they are omitted.
 
