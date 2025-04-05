@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-04T20:07:51.421205+00:00",
+  "timestamp": "2025-04-05T20:03:44.616857+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -24564,7 +24564,7 @@
       "labels": [],
       "body": "None of the words are proper nouns in the referenced document. Also update document year from 2001 to 2014.\r\n\r\nSigned-off-by: Steven Bellock <sbellock@nvidia.com>",
       "createdAt": "2024-09-27T14:35:18Z",
-      "updatedAt": "2024-09-27T14:35:18Z",
+      "updatedAt": "2025-02-07T23:03:19Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "4372bf1567ae77932b6ffda4dfb7fcbadc41baef",
@@ -24575,7 +24575,29 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "steven-bellock",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@laurencelundblade @gmandyam if you're accepting editorial pull requests can you please merge this one? In particular the current\r\n```\r\nIEEE.802-2001: DOI.10.1109/IEEESTD.2014.6847097\r\n```\r\nis a bug.",
+          "createdAt": "2025-02-07T22:07:57Z",
+          "updatedAt": "2025-02-07T22:07:57Z"
+        },
+        {
+          "author": "gmandyam",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> @laurencelundblade @gmandyam if you're accepting editorial pull requests can you please merge this one? In particular the current\r\n> \r\n> ```\r\n> IEEE.802-2001: DOI.10.1109/IEEESTD.2014.6847097\r\n> ```\r\n> \r\n> is a bug.\r\n\r\nYes, and it has been addressed in the final draft (to be published as RFC 9711).  We will be updating the markdown in the repo after we finish addressing feedback from the RFC Editor.  I have kept the PR open to remind me to bring this change back to the markdown.",
+          "createdAt": "2025-02-07T22:43:15Z",
+          "updatedAt": "2025-02-07T22:43:15Z"
+        },
+        {
+          "author": "steven-bellock",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": ">to be published as RFC 9711\r\n\r\nThanks for the official number! I've been using RFC XXXX as a placeholder in the SPDM specification. Good to see it almost ratified.",
+          "createdAt": "2025-02-07T23:03:18Z",
+          "updatedAt": "2025-02-07T23:03:18Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -24656,19 +24678,40 @@
       "labels": [],
       "body": "This changes the heading value from NaN to NULL to represent the heading when stationary.\r\n\r\nThis aligns with a change in the W3C specification.\r\n\r\nAlso, JSON can't represent a NaN and the convention in JSON is to use NULL.\r\n\r\n(NaN is IEEE 754 representation of \"not a number\" typically used to represent divide by 0 in local calculations).\r\n\r\nThis is somewhat of a protocol change, but\r\n- The protocol was unimplementable in JSON\r\n- Backwards compatibility in CBOR is easy to provide by checking for both NaN and NULL",
       "createdAt": "2025-01-17T19:52:09Z",
-      "updatedAt": "2025-01-17T19:52:09Z",
+      "updatedAt": "2025-04-05T20:02:52Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "4372bf1567ae77932b6ffda4dfb7fcbadc41baef",
       "headRepository": "ietf-rats-wg/eat",
       "headRefName": "loc-null",
-      "headRefOid": "614f3a4c4987108bc4dfad33ed8b360f5e3c570e",
+      "headRefOid": "f297595952991306f2c44109a6a32b7042394804",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc6jPwta",
+          "commit": {
+            "abbreviatedOid": "614f3a4"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-03T07:39:46Z",
+          "updatedAt": "2025-04-03T07:39:47Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "There seems to be no reason for the capitalisation.\r\n(We could use the backticks to show it\u2019s from the CDDL prelude.)\r\n\r\n```suggestion\r\nIf the entity is stationary, the heading is `null`.\r\n```",
+              "createdAt": "2025-04-03T07:39:46Z",
+              "updatedAt": "2025-04-03T07:39:47Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 470,
@@ -24761,6 +24804,46 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 473,
+      "id": "PR_kwDOCEWCXc6KDA9Z",
+      "title": "Make cddl form for oemid consistent",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/473",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "All claims have a separate rule for the type of value of the claim except oemid. This separate rule allows CDDL external to EAT to re use the type of a claim. The TEEP document would like to re use oemid this way, but can't because oemid is missing this separate rule.\r\n\r\nThis change adds the separate rule for the OEMID type so the TEEP can re use the type and so all claims consistently have this separate rule.\r\n\r\nThis doesn't change the EAT protocol in any way. \r\n\r\nThis was brought to us at the last minute by people working on TEEP and RATS.\r\n\r\n",
+      "createdAt": "2025-02-04T20:08:19Z",
+      "updatedAt": "2025-02-06T19:00:23Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "62c726b57e1f7dcea40d4fc05d216abb89d84691",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "oemid-type",
+      "headRefOid": "d86eed9960736f82ab2aa2f355136a7d334a64de",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc6anhVd",
+          "commit": {
+            "abbreviatedOid": "d86eed9"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "thanks!",
+          "createdAt": "2025-02-04T20:57:00Z",
+          "updatedAt": "2025-02-04T20:57:00Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
