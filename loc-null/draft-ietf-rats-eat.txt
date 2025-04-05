@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 21 July 2025                                       Mediatek USA
+Expires: 7 October 2025                                     Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                         17 January 2025
+                                                            5 April 2025
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 July 2025.
+   This Internet-Draft will expire on 7 October 2025.
 
 Copyright Notice
 
@@ -1127,7 +1127,7 @@ Table of Contents
    which the attestation originates.  Latitude, longitude, altitude,
    accuracy, altitude-accuracy, heading and speed MUST be as defined in
    the W3C Geolocation API [W3C.GeoLoc] (which, in turn, is based on
-   [WGS84]).  If the entity is stationary, the heading is NULL.
+   [WGS84]).  If the entity is stationary, the heading is null.
    Latitude and longitude MUST be provided.  If any other of these
    values are unknown, they are omitted.
 
@@ -3310,9 +3310,9 @@ Table of Contents
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-12, 8 January 2025,
+              ietf-cose-cbor-encoded-cert-13, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-12>.
+              cbor-encoded-cert-13>.
 
    [CC-Example]
               "Secure Sub-System in System-on-Chip (3S in SoC)
