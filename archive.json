@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-05T20:03:44.616857+00:00",
+  "timestamp": "2025-04-09T22:14:27.582638+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -24844,6 +24844,58 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 474,
+      "id": "PR_kwDOCEWCXc6SAuxC",
+      "title": "Better description of unsecured JWT",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/474",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Use of the term NULL or null is not really right.\r\n",
+      "createdAt": "2025-04-09T22:05:13Z",
+      "updatedAt": "2025-04-09T22:05:13Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "62c726b57e1f7dcea40d4fc05d216abb89d84691",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "unsecured-jwt",
+      "headRefOid": "8a8f101d1d7ddfa335686205b485aa63174840b1",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 475,
+      "id": "PR_kwDOCEWCXc6SAxK0",
+      "title": "Consistent labeling of CWT Claim Key in section 10.2",
+      "url": "https://github.com/ietf-rats-wg/eat/pull/475",
+      "state": "OPEN",
+      "author": "laurencelundblade",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Use \"CWT Claim Key\" consistently. Don't use \"Claim Key\".\r\n",
+      "createdAt": "2025-04-09T22:14:03Z",
+      "updatedAt": "2025-04-09T22:14:03Z",
+      "baseRepository": "ietf-rats-wg/eat",
+      "baseRefName": "master",
+      "baseRefOid": "62c726b57e1f7dcea40d4fc05d216abb89d84691",
+      "headRepository": "ietf-rats-wg/eat",
+      "headRefName": "10_2",
+      "headRefOid": "1fc079edbd454c97adc930dc65fdf36753b5e0d4",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
