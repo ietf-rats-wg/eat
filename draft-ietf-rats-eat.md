@@ -1252,14 +1252,14 @@ EAT makes normative use of CBOR, JSON, COSE, JOSE, CWT and JWT.
 Most of these have implementation options to accommodate a range of use cases.
 
 For example, COSE does not require a particular set of cryptographic algorithms so as to accommodate different usage scenarios and evolution of algorithms over time.
-Section 10 of {{RFC9052}} describes the profiling considerations for COSE.
+{{Section 10 of RFC9052}} describes the profiling considerations for COSE.
 
 The use of encryption is optional for both CWT and JWT.
-Section 8 of {{RFC7519}} describes implementation requirement and recommendations for JWT.
+{{Section 8 of RFC7519}} describes implementation requirement and recommendations for JWT.
 
 Similarly, CBOR provides indefinite length encoding, which is not commonly used, but valuable for very constrained devices.
 For EAT itself, in a particular use case some claims will be used and others will not.
-Section 4 of {{RFC8949}} describes serialization considerations for CBOR.
+{{Section 4 of RFC8949}} describes serialization considerations for CBOR.
 
 For example a mobile phone use case may require the device make and model, and prohibit UEID and location for privacy reasons.
 The general EAT standard retains all this flexibility because it too is aimed to accommodate a broad range of use cases.
@@ -1526,8 +1526,8 @@ JSON should be encoded per {{RFC8610}}, Appendix E. In addition, the
 following CDDL types are encoded in JSON as follows:
 
 * bstr -- MUST be base64url-encoded
-* time -- MUST be encoded as NumericDate as described in Section 2 of {{RFC7519}}.
-* string-or-uri -- MUST be encoded as StringOrURI as described in Section 2 of {{RFC7519}}.
+* time -- MUST be encoded as NumericDate as described in {{Section 2 of RFC7519}}.
+* string-or-uri -- MUST be encoded as StringOrURI as described in {{Section 2 of RFC7519}}.
 * uri -- MUST be a URI {{RFC3986}}.
 * oid -- MUST be encoded as a string using the well established dotted-decimal notation (e.g., the text "1.2.250.1") {{RFC4517}}.
 
@@ -1643,10 +1643,9 @@ To avoid the conveyance of privacy-related information in the nonce claim, it sh
 
 # Security Considerations {#securitycons}
 
-The security considerations provided in Section 8 of {{RFC8392}} and Section 11
-of {{RFC7519}} apply to EAT in its CWT and JWT form, respectively.  Moreover, Chapter 12
-of {{RFC9334}} is also applicable to implementations of EAT.  In addition,
-implementors should consider the following.
+The security considerations provided in {{Section 8 of RFC8392}} and {{Section 11 of RFC7519}} apply to EAT in its CWT and JWT form, respectively.
+Moreover, {{Section 12 of RFC9334}} is also applicable to implementations of EAT.
+In addition, implementors should consider the following.
 
 ## Claim Trustworthiness
 
