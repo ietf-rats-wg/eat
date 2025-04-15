@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-09T22:14:27.582638+00:00",
+  "timestamp": "2025-04-15T00:33:23.189644+00:00",
   "repo": "ietf-rats-wg/eat",
   "labels": [
     {
@@ -24857,7 +24857,7 @@
       "labels": [],
       "body": "Use of the term NULL or null is not really right.\r\n",
       "createdAt": "2025-04-09T22:05:13Z",
-      "updatedAt": "2025-04-09T22:05:13Z",
+      "updatedAt": "2025-04-09T23:45:44Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "62c726b57e1f7dcea40d4fc05d216abb89d84691",
@@ -24869,7 +24869,28 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc6kNjol",
+          "commit": {
+            "abbreviatedOid": "8a8f101"
+          },
+          "author": "cabo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-09T23:45:28Z",
+          "updatedAt": "2025-04-09T23:45:44Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "+1.\r\n\r\nSuggestion:\r\n\r\n```suggestion\r\nIt may be an Unsecured JWT as described in {{Section 6 of RFC7519}}.\r\n```\r\n",
+              "createdAt": "2025-04-09T23:45:28Z",
+              "updatedAt": "2025-04-09T23:45:44Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 475,
@@ -24883,7 +24904,7 @@
       "labels": [],
       "body": "Use \"CWT Claim Key\" consistently. Don't use \"Claim Key\".\r\n",
       "createdAt": "2025-04-09T22:14:03Z",
-      "updatedAt": "2025-04-09T22:14:03Z",
+      "updatedAt": "2025-04-09T22:50:38Z",
       "baseRepository": "ietf-rats-wg/eat",
       "baseRefName": "master",
       "baseRefOid": "62c726b57e1f7dcea40d4fc05d216abb89d84691",
@@ -24895,7 +24916,34 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOCEWCXc6kNOB8",
+          "commit": {
+            "abbreviatedOid": "1fc079e"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-04-09T22:26:26Z",
+          "updatedAt": "2025-04-09T22:26:27Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOCEWCXc6kNUtu",
+          "commit": {
+            "abbreviatedOid": "1fc079e"
+          },
+          "author": "mcr",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-09T22:50:38Z",
+          "updatedAt": "2025-04-09T22:50:38Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
