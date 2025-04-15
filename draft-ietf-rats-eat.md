@@ -1793,7 +1793,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Nonce
 * Claim Description: Nonce
 * JWT Claim Name: "eat_nonce"
-* Claim Key: 10
+* CWT Claim Key: 10
 * Claim Value Type(s): bstr or array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1823,7 +1823,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Hardware OEM ID
 * Claim Description: Hardware OEM ID
 * JWT Claim Name: "oemid"
-* Claim Key: 258
+* CWT Claim Key: 258
 * Claim Value Type(s): bstr or int
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1833,7 +1833,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Hardware Model
 * Claim Description: Model identifier for hardware
 * JWT Claim Name: "hwmodel"
-* Claim Key: 259
+* CWT Claim Key: 259
 * Claim Value Type(s): bstr
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1843,7 +1843,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Hardware Version
 * Claim Description: Hardware Version Identifier
 * JWT Claim Name: "hwversion"
-* Claim Key: 260
+* CWT Claim Key: 260
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1863,7 +1863,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Debug Status
 * Claim Description: Indicates status of debug facilities
 * JWT Claim Name: "dbgstat"
-* Claim Key: 263
+* CWT Claim Key: 263
 * Claim Value Type(s): uint
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1883,7 +1883,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: EAT Profile
 * Claim Description: Indicates the EAT profile followed
 * JWT Claim Name: "eat_profile"
-* Claim Key: 265
+* CWT Claim Key: 265
 * Claim Value Type(s): uri or oid
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1893,7 +1893,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Submodules Section
 * Claim Description: The section containing submodules
 * JWT Claim Name: "submods"
-* Claim Key: 266
+* CWT Claim Key: 266
 * Claim Value Type(s): map
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1913,7 +1913,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Boot Count
 * Claim Description: The number times the entity or submodule has been booted
 * JWT Claim Name: "bootcount"
-* Claim Key: 267
+* CWT Claim Key: 267
 * Claim Value Type(s): uint
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1933,7 +1933,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: DLOAs
 * Claim Description: Certifications received as Digital Letters of Approval
 * JWT Claim Name: "dloas"
-* Claim Key: 269
+* CWT Claim Key: 269
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1943,7 +1943,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Software Name
 * Claim Description: The name of the software running in the entity
 * JWT Claim Name: "swname"
-* Claim Key: 270
+* CWT Claim Key: 270
 * Claim Value Type(s): tstr
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1953,7 +1953,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Software Version
 * Claim Description: The version of software running in the entity
 * JWT Claim Name: "swversion"
-* Claim Key: 271
+* CWT Claim Key: 271
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1963,7 +1963,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Software Manifests
 * Claim Description: Manifests describing the software installed on the entity
 * JWT Claim Name: "manifests"
-* Claim Key: 272
+* CWT Claim Key: 272
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1973,7 +1973,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Measurements
 * Claim Description: Measurements of the software, memory configuration and such on the entity
 * JWT Claim Name: "measurements"
-* Claim Key: 273
+* CWT Claim Key: 273
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1983,7 +1983,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Software Measurement Results
 * Claim Description: The results of comparing software measurements to reference values
 * JWT Claim Name: "measres"
-* Claim Key: 274
+* CWT Claim Key: 274
 * Claim Value Type(s): array
 * Change Controller: IETF
 * Specification Document(s): __this document__
@@ -1993,7 +1993,7 @@ Claim 262 should be renamed from "secboot" to "oemboot" in the JWT registry and 
 * Claim Name: Intended Use
 * Claim Description: Indicates intended use of the EAT
 * JWT Claim Name: "intuse"
-* Claim Key: 275
+* CWT Claim Key: 275
 * Claim Value Type(s): uint
 * Change Controller: IETF
 * Specification Document(s): __this document__
