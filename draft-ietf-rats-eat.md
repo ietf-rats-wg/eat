@@ -1353,7 +1353,8 @@ Often a tag is unnecessary because the surrounding or carrying protocol identifi
 ### COSE/JOSE Protection {#message-type}
 
 COSE and JOSE have several options for signed, MACed and encrypted messages.
-JWT may use the JOSE NULL protection option.
+It may be an Unsecured JWT as described in Section 6 of {{RFC7519}}.
+
 It is possible to implement no protection, sign only, MAC only, sign then encrypt and so on.
 All combinations allowed by COSE, JOSE, JWT, and CWT are allowed by EAT.
 
