@@ -5,12 +5,12 @@
 RATS                                                        L. Lundblade
 Internet-Draft                                       Security Theory LLC
 Intended status: Standards Track                              G. Mandyam
-Expires: 27 July 2025                                       Mediatek USA
+Expires: 17 October 2025                                    Mediatek USA
                                                            J. O'Donoghue
                                               Qualcomm Technologies Inc.
                                                               C. Wallace
                                                 Red Hound Software, Inc.
-                                                         23 January 2025
+                                                           15 April 2025
 
 
                    The Entity Attestation Token (EAT)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 July 2025.
+   This Internet-Draft will expire on 17 October 2025.
 
 Copyright Notice
 
@@ -2589,7 +2589,7 @@ Table of Contents
 
    The security considerations provided in Section 8 of [RFC8392] and
    Section 11 of [RFC7519] apply to EAT in its CWT and JWT form,
-   respectively.  Moreover, Chapter 12 of [RFC9334] is also applicable
+   respectively.  Moreover, Section 12 of [RFC9334] is also applicable
    to implementations of EAT.  In addition, implementors should consider
    the following.
 
@@ -3310,9 +3310,9 @@ Table of Contents
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-12, 8 January 2025,
+              ietf-cose-cbor-encoded-cert-13, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-12>.
+              cbor-encoded-cert-13>.
 
    [CC-Example]
               "Secure Sub-System in System-on-Chip (3S in SoC)

@@ -443,7 +443,7 @@ dl {
     margin-bottom: 0;
   }
 }
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
@@ -1052,11 +1052,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">EAT</td>
-<td class="right">January 2025</td>
+<td class="right">April 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lundblade, et al.</td>
-<td class="center">Expires 27 July 2025</td>
+<td class="center">Expires 17 October 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-rats-eat-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-01-23" class="published">23 January 2025</time>
+<time datetime="2025-04-15" class="published">15 April 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-07-27">27 July 2025</time></dd>
+<dd class="expires"><time datetime="2025-10-17">17 October 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ claims.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 July 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 October 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -3068,12 +3068,12 @@ cbor-wrapped-claims-set = bstr .cbor Claims-Set
 <p id="section-6-1">EAT makes normative use of CBOR, JSON, COSE, JOSE, CWT and JWT.
 Most of these have implementation options to accommodate a range of use cases.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">For example, COSE does not require a particular set of cryptographic algorithms so as to accommodate different usage scenarios and evolution of algorithms over time.
-Section 10 of <span>[<a href="#RFC9052" class="cite xref">RFC9052</a>]</span> describes the profiling considerations for COSE.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc9052#section-10" class="relref">Section 10</a> of [<a href="#RFC9052" class="cite xref">RFC9052</a>]</span> describes the profiling considerations for COSE.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <p id="section-6-3">The use of encryption is optional for both CWT and JWT.
-Section 8 of <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> describes implementation requirement and recommendations for JWT.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc7519#section-8" class="relref">Section 8</a> of [<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> describes implementation requirement and recommendations for JWT.<a href="#section-6-3" class="pilcrow">¶</a></p>
 <p id="section-6-4">Similarly, CBOR provides indefinite length encoding, which is not commonly used, but valuable for very constrained devices.
 For EAT itself, in a particular use case some claims will be used and others will not.
-Section 4 of <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span> describes serialization considerations for CBOR.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc8949#section-4" class="relref">Section 4</a> of [<a href="#RFC8949" class="cite xref">RFC8949</a>]</span> describes serialization considerations for CBOR.<a href="#section-6-4" class="pilcrow">¶</a></p>
 <p id="section-6-5">For example a mobile phone use case may require the device make and model, and prohibit UEID and location for privacy reasons.
 The general EAT standard retains all this flexibility because it too is aimed to accommodate a broad range of use cases.<a href="#section-6-5" class="pilcrow">¶</a></p>
 <p id="section-6-6">It is necessary to explicitly narrow these implementation options to guarantee interoperability.
@@ -3424,10 +3424,10 @@ following CDDL types are encoded in JSON as follows:<a href="#section-7.2.2-1" c
               <p id="section-7.2.2-2.1.1">bstr -- <span class="bcp14">MUST</span> be base64url-encoded<a href="#section-7.2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.2.2-2.2">
-              <p id="section-7.2.2-2.2.1">time -- <span class="bcp14">MUST</span> be encoded as NumericDate as described in Section 2 of <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>.<a href="#section-7.2.2-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-7.2.2-2.2.1">time -- <span class="bcp14">MUST</span> be encoded as NumericDate as described in <span><a href="https://rfc-editor.org/rfc/rfc7519#section-2" class="relref">Section 2</a> of [<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>.<a href="#section-7.2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.2.2-2.3">
-              <p id="section-7.2.2-2.3.1">string-or-uri -- <span class="bcp14">MUST</span> be encoded as StringOrURI as described in Section 2 of <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>.<a href="#section-7.2.2-2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-7.2.2-2.3.1">string-or-uri -- <span class="bcp14">MUST</span> be encoded as StringOrURI as described in <span><a href="https://rfc-editor.org/rfc/rfc7519#section-2" class="relref">Section 2</a> of [<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>.<a href="#section-7.2.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.2.2-2.4">
               <p id="section-7.2.2-2.4.1">uri -- <span class="bcp14">MUST</span> be a URI <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>.<a href="#section-7.2.2-2.4.1" class="pilcrow">¶</a></p>
@@ -3889,10 +3889,9 @@ To avoid the conveyance of privacy-related information in the nonce claim, it sh
       <h2 id="name-security-considerations">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-9-1">The security considerations provided in Section 8 of <span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span> and Section 11
-of <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> apply to EAT in its CWT and JWT form, respectively.  Moreover, Chapter 12
-of <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> is also applicable to implementations of EAT.  In addition,
-implementors should consider the following.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">The security considerations provided in <span><a href="https://rfc-editor.org/rfc/rfc8392#section-8" class="relref">Section 8</a> of [<a href="#RFC8392" class="cite xref">RFC8392</a>]</span> and <span><a href="https://rfc-editor.org/rfc/rfc7519#section-11" class="relref">Section 11</a> of [<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> apply to EAT in its CWT and JWT form, respectively.
+Moreover, <span><a href="https://rfc-editor.org/rfc/rfc9334#section-12" class="relref">Section 12</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> is also applicable to implementations of EAT.
+In addition, implementors should consider the following.<a href="#section-9-1" class="pilcrow">¶</a></p>
 <div id="claim-trustworthiness">
 <section id="section-9.1">
         <h3 id="name-claim-trustworthiness">
@@ -4847,7 +4846,7 @@ security state of the entity storing the private key used in a PoP application.<
 <dd class="break"></dd>
 <dt id="CBOR.Cert.Draft">[CBOR.Cert.Draft]</dt>
         <dd>
-<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, and <span class="refAuthor">M. Furuhed</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-12</span>, <time datetime="2025-01-08" class="refDate">8 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-12">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-12</a>&gt;</span>. </dd>
+<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, and <span class="refAuthor">M. Furuhed</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-13</span>, <time datetime="2025-03-03" class="refDate">3 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-13">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="CC-Example">[CC-Example]</dt>
         <dd>
