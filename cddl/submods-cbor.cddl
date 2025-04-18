@@ -21,7 +21,7 @@ CBOR-Nested-Token =
 
 ; The CBOR tag mechanism is used to select between the various types
 ; of CBOR encoded tokens.
-CBOR-Token-Inside-CBOR-Token = bstr .cbor $EAT-CBOR-Tagged-Token
+CBOR-Token-Inside-CBOR-Token = bstr .cbor $CBOR-Tagged-Token
 
 ; The contents of this text string MUST be a JSON-encoded
 ; JSON-Selector.  See the definition of JSON-Selector. The
