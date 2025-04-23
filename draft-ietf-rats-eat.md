@@ -147,7 +147,7 @@ informative:
     target: https://standards.ieee.org/products-services/regauth/index.html
     date: false
 
-  IEEE.802-2001: DOI.10.1109/IEEESTD.2014.6847097
+  IEEE.802-2014: DOI.10.1109/IEEESTD.2014.6847097
 
   COSE.X509.Draft: I-D.ietf-cose-x509
 
@@ -550,7 +550,7 @@ They MAY also change from one type to another for a given product or use one typ
 
 | Type Byte | Type Name | Specification |
 | 0x01 | RAND | This is a 128, 192 or 256-bit random number generated once and stored in the entity. This may be constructed by concatenating enough identifiers to make up an equivalent number of random bits and then feeding the concatenation through a cryptographic hash function. It may also be a cryptographic quality random number generated once at the beginning of the life of the entity and stored. It MUST NOT be smaller than 128 bits. See the length analysis in {{UEID-Design}}. |
-| 0x02 | IEEE EUI | This makes use of the device identification scheme operated by the IEEE. An EUI is either an EUI-48, EUI-60 or EUI-64 and made up of an OUI, OUI-36 or a CID, different registered company identifiers, and some unique per-entity identifier. EUIs are often the same as or similar to MAC addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while entities with multiple network interfaces may have multiple MAC addresses, there is only one UEID for an entity; changeable MAC addresses that do not meet the permanence requirements in this document MUST NOT be used for the UEID or SUEID) {{IEEE.802-2001}}, {{OUI.Guide}}. |
+| 0x02 | IEEE EUI | This makes use of the device identification scheme operated by the IEEE. An EUI is either an EUI-48, EUI-60 or EUI-64 and made up of an OUI, OUI-36 or a CID, different registered company identifiers, and some unique per-entity identifier. EUIs are often the same as or similar to MAC addresses. This type includes MAC-48, an obsolete name for EUI-48. (Note that while entities with multiple network interfaces may have multiple MAC addresses, there is only one UEID for an entity; changeable MAC addresses that do not meet the permanence requirements in this document MUST NOT be used for the UEID or SUEID) {{IEEE.802-2014}}, {{OUI.Guide}}. |
 | 0x03 | IMEI | This makes use of the International Mobile Equipment Identity (IMEI) scheme operated by the GSMA. This is a 14-digit identifier consisting of an 8-digit Type Allocation Code (TAC) and a 6-digit serial number allocated by the manufacturer, which SHALL be encoded as byte string of length 14 with each byte as the digit's value (not the ASCII encoding of the digit; the digit 3 encodes as 0x03, not 0x33). The IMEI value encoded SHALL NOT include Luhn checksum or SVN information. See {{ThreeGPP.IMEI}}. |
 {: #ueid-types-table title="UEID Composition Types"}
 
@@ -647,10 +647,10 @@ service {{OUI.Lookup}}.
 Companies that have more than one of these IDs or MAC address blocks
 SHOULD select one and prefer that for all their entities.
 
-Commonly, these are expressed in Hexadecimal Representation as described in
-{{IEEE.802-2001}}. It is also called the Canonical format. When this claim is
+Commonly, these are expressed in hexadecimal representation as described in
+{{IEEE.802-2014}}. It is also called the canonical format. When this claim is
 encoded the order of bytes in the bstr are the same as the order in the
-Hexadecimal Representation. For example, an MA-L like "AC-DE-48" would
+hexadecimal representation. For example, an MA-L like "AC-DE-48" would
 be encoded in 3 bytes with values 0xAC, 0xDE, 0x48.
 
 This format is always 3 bytes in size in CBOR.
